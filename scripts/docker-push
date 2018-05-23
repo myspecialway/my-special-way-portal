@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker push myspecialway/msw-server:$(./scripts/echo-version package.json)

@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+- node
+sudo: required
+services:
+- docker
+cache:
+  directories:
+  - node_modules
+before_script:
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- ./scripts/prepare-repo
+
+script:
+- yarn lint
+- yarn test
+- yarn build
+- yarn bump
+#- yarn docker
+#- yarn docker:push
+#- yarn git:push
+
+notifications:
+  slack:
+    secure: FQycBnQsWuZ7KGinruTpQIe1FDlRfCBy8pXNSG15vBneukxo5OHaJongAvVVWwJVKcGD71TvgArSzUmKgJVVfOpWJ/ZnFzJgX8YaTmboybLR5JcncBo2qgbPpnNA4nIJXwLYcP2KwLeodKitYZp2fuAZgUGG1Hf3ToBhJJaADoLa1+wx05bs1ex1AOr64CeSIap0ElXYpq7ULvW3FXIaJJpAr6LsB4ocMaEO5GC3rdii5Ry82ZyC5nZid/M4p+znQUWqZMi7hY3PPAM18bfrz57okbhLeE5XTB2WKtjpW+M8Ir3FhJ+P0E6AkGj84MuN8PreYaVOUaD/lPRa0XJQ3Z9ct6GLkQWDT9yS5maPG9LgHjc1YbBDg+vLWKYn4j3J9rlI5xBpZulxHuIL/SiZo3BvR7MBSlbIHyJiaaV2w+UKlINvI6FUNuKDWlrot1FDLwpfmzb2RDaS7lTWG0lRqga9bfQljupDJES0p5eWZiHdP+kPIVjX8cVvgRBSzFM6kpNpkzZ0vi900SpBcw5kaLAbF3TwnjNBCEEm883g6VDZoWJ/VtlqpSy0WhEtKuKjsOmZnIn8NUXeo1EXQVGPw7L0xFloUwfX/A0mUMl2WwTzpq4iRGZ7bY00IyQ7m3o4v0L97IbgzprUercWqYkeEwSlbLo3srRvV0fbMCxgAx4=

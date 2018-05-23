@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
+  else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+
+git remote set-url origin https://dimkinv:$GITHUB_PUSH@github.com/myspecialway/my-special-way-server.git
+git checkout $BRANCH
+yarn config set version-git-message "v%s [skip ci]"
