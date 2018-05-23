@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "test": "ng test --watch=false",
-    "tslint":"./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
+    "tslint": "./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
     "start": "ng serve"
   },
   "private": true,
