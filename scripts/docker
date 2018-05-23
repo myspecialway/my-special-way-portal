@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker pull node:carbon
-docker build . -t myspecialway/msw-server:$(./scripts/echo-version package.json)
+docker pull ngnix:latest
+docker -f ./Dockerfile build ./dist -t myspecialway/msw-portal:$(./scripts/echo-version package.json)
