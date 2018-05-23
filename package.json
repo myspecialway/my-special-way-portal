@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test --watch=false",
-    "ci-test": "ng test --watch=false --config karma.ci.conf.js --code-coverage && npx codecov",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
+    "bump": "yarn version --new-version patch",
     "ci-e2e": "ng e2e --config protractor.ci.conf.js ",
-    "tslint":"./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'"
+    "ci-test": "ng test --watch=false --config karma.ci.conf.js --code-coverage && npx codecov",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "test": "ng test --watch=false",
+    "tslint":"./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
+    "start": "ng serve"
   },
   "private": true,
   "dependencies": {
