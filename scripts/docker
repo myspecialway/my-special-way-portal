@@ -1,4 +1,4 @@
 #!/bin/bash
 
 docker pull nginx:stable
-docker build . -t myspecialway/msw-portal:$(./scripts/echo-version package.json)
+docker build . -t myspecialway/msw-portal:$(./scripts/echo-version package.json) -t myspecialway/msw-portal:latest

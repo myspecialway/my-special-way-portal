@@ -1,3 +1,4 @@
 #!/bin/bash
 
 docker push myspecialway/msw-portal:$(./scripts/echo-version package.json)
+docker push myspecialway/msw-portal:latest
