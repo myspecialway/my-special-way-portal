@@ -1,19 +1,19 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import Grade from '../../../models/Grade';
+import Student from '../../../models/Student';
 
 @Injectable()
-export class GradeService {
-  private readonly API_URL = './mocks/grades.json';
+export class StudentService {
+  private readonly API_URL = './mocks/students.json';
 
-  dataChange: BehaviorSubject<Grade[]> = new BehaviorSubject<Grade[]>([]);
+  dataChange: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
 
   constructor (private httpClient: HttpClient) {}
 
-  get data(): Grade[] {
+  get data(): Student[] {
     return this.dataChange.value;
   }
 
@@ -23,7 +23,7 @@ export class GradeService {
 
   /** CRUD METHODS */
   getAllGrades(): void {
-    this.httpClient.get<Grade[]>(this.API_URL).subscribe(data => {
+    this.httpClient.get<Student[]>(this.API_URL).subscribe(data => {
         this.dataChange.next(data);
       },
       (error: HttpErrorResponse) => {
@@ -32,11 +32,11 @@ export class GradeService {
   }
 
   // DEMO ONLY, you can find working methods below
-  addIssue (issue: Grade): void {
+  addIssue (issue: Student): void {
     this.dialogData = issue;
   }
 
-  updateIssue (issue: Grade): void {
+  updateIssue (issue: Student): void {
     this.dialogData = issue;
   }
 

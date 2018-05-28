@@ -1,0 +1,94 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="example-header">
+        <mat-form-field floatPlaceholder="never" color="accent">
+          <input matInput #filter placeholder="Filter issues">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-table #table [dataSource]="dataSource" class="example-table"
+                   matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+           <!-- Number Column -->
+          <ng-container matColumnDef="studentName">
+            <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.firstName }} {{ row.lastName }}</mat-cell>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="gradeId">
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <td><mat-cell *matCellDef="let row">{{ row.gradeId }}</mat-cell></td>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.userName }}</mat-cell>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="personalArea">
+            <mat-header-cell *matHeaderCellDef>אזור אישי</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">כניסה</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="editDetails">
+            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">ערוך</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="deleteUser">-->
+            <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">מחק</button>
+            </mat-cell>
+          </ng-container>
+
+          <!-- actions -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="addNew()">
+                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+              </button>
+            </mat-header-cell>
+
+            <mat-cell *matCellDef="let row; let i=index;">
+              <button mat-icon-button color="accent" (click)="startEdit(i, row.userName, row.password, row.firstName, row.lastName)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="accent" (click)="deleteItem(i, row.userName, row.password, row.firstName, row.lastName)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [length]="dataSource.filteredData.length"
+                       [pageIndex]="0"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

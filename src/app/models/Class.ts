@@ -1,4 +1,4 @@
-export default class Grade {
+export default class Class {
   _id: string;
   index: number;
   grade: string;

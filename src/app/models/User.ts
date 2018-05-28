@@ -1,11 +1,11 @@
 export default class User {
-  id: string;
+  _id: string;
   userName: string;
   password: string;
   firstName: string;
   lastName: string;
   userType: UserType;
-  // grade: Grade;
+  grade_id: string;
 }
 
 export enum UserType {
