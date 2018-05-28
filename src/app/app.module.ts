@@ -32,11 +32,9 @@ import {AuthenticationService} from './services/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './services/helpers/jwt.interceptor';
 import {UserService} from './services/user.service';
-import {ClassComponent} from './pages/class/class.component';
-import {fakeBackendProvider} from './services/helpers/fake-backend';
-import {ClassService} from './pages/class/services/class.service';
-import {StudentComponent} from './pages/student/student.component';
-import {StudentService} from './pages/student/services/student.service';
+import {FakeBackendInterceptor, fakeBackendProvider} from './services/helpers/fake-backend';
+import {GradeComponent} from './pages/grade/grade.component';
+import {GradeService} from './pages/grade/services/grade.service';
 // import {GradeComponent} from "./pages/grade/grade.component";
 // import {HttpClientModule} from "@angular/common/http";
 // import {DeleteDialogComponent} from "./pages/grade/dialogs/delete/delete.dialog.component";
@@ -74,8 +72,7 @@ import {StudentService} from './pages/student/services/student.service';
     DashboardComponent,
     AlertComponent,
     LoginComponent,
-    ClassComponent,
-    StudentComponent
+    GradeComponent
     // DeleteDialogComponent,
     // LoginComponent
     // UserProfileComponent,
@@ -102,8 +99,7 @@ import {StudentService} from './pages/student/services/student.service';
       useClass: JwtInterceptor,
       multi: true
     },
-    ClassService,
-    StudentService,
+    GradeService,
     // provider used to create fake backend
     fakeBackendProvider
   ],

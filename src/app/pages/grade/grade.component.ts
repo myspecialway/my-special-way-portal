@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {GradeService} from './services/grade.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import Grade from '../../models/Grade';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {DataSource} from '@angular/cdk/collections';
@@ -12,24 +14,22 @@ import 'rxjs/add/operator/distinctUntilChanged';
 // import {AddDialogComponent} from './dialogs/add/add.dialog.component';
 // import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
 import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
-import {ClassService} from './services/class.service';
-import Class from '../../models/Class';
 
 @Component({
-  selector: 'app-class',
-  templateUrl: './class.component.html',
-  styleUrls: ['./class.component.scss']
+  selector: 'app-grade',
+  templateUrl: './grade.component.html',
+  styleUrls: ['./grade.component.scss']
 })
-export class ClassComponent implements OnInit {
+export class GradeComponent implements OnInit {
   displayedColumns = ['grade', 'number', 'description', 'num_of_students', 'actions'];
-  exampleDatabase: ClassService  | null;
+  exampleDatabase: GradeService  | null;
   dataSource: ExampleDataSource | null;
   index: number;
   _id: string;
 
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
-              public dataService: ClassService) {}
+              public dataService: GradeService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -39,7 +39,7 @@ export class ClassComponent implements OnInit {
     this.loadData();
   }
 
-  addNew(grade: Class) {
+  addNew(grade: Grade) {
     // const dialogRef = this.dialog.open(AddDialogComponent, {
     //   data: {issue: issue }
     // });
@@ -110,7 +110,7 @@ export class ClassComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ClassService(this.httpClient);
+    this.exampleDatabase = new GradeService(this.httpClient);
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
@@ -124,7 +124,7 @@ export class ClassComponent implements OnInit {
   }
 }
 
-export class ExampleDataSource extends DataSource<Class> {
+export class ExampleDataSource extends DataSource<Grade> {
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -135,17 +135,17 @@ export class ExampleDataSource extends DataSource<Class> {
     this._filterChange.next(filter);
   }
 
-  filteredData: Class[] = [];
-  renderedData: Class[] = [];
+  filteredData: Grade[] = [];
+  renderedData: Grade[] = [];
 
-  constructor(public _exampleDatabase: ClassService, public _paginator: MatPaginator, public _sort: MatSort) {
+  constructor(public _exampleDatabase: GradeService, public _paginator: MatPaginator, public _sort: MatSort) {
     super();
     // Reset to the first page when the user changes the filter.
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Class[]> {
+  connect(): Observable<Grade[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
@@ -158,7 +158,7 @@ export class ExampleDataSource extends DataSource<Class> {
 
     return Observable.merge(...displayDataChanges).map(() => {
       // Filter data
-      this.filteredData = this._exampleDatabase.data.slice().filter((issue: Class) => {
+      this.filteredData = this._exampleDatabase.data.slice().filter((issue: Grade) => {
         const searchStr = (issue.index + issue.grade + issue.number + issue.description).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
@@ -178,7 +178,7 @@ export class ExampleDataSource extends DataSource<Class> {
 
 
   /** Returns a sorted copy of the database data. */
-  sortData(data: Class[]): Class[] {
+  sortData(data: Grade[]): Grade[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
     }

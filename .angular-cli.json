@@ -10,7 +10,7 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "mocks/*.json"
+        "mocks/grades.json"
       ],
       "index": "index.html",
       "main": "main.ts",
