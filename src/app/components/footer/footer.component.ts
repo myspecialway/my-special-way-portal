@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { Message, Query } from '../../app.types';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-footer',
@@ -7,11 +12,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
   test: Date = new Date();
-sdfd
-  asddasda
-  constructor() { }
+  messages: Observable<Message[]>;
+  constructor(private apollo: Apollo) { }
+
 
   ngOnInit() {
+    this.messages = this.apollo.watchQuery<Query>({
+      query: gql`
+        query {
+          message
+        }
+      `
+    })
+      .valueChanges
+      .pipe(
+        map(result => result.data.allMessages)
+      );
   }
 
 }

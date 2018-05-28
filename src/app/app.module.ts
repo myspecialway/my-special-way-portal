@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {CdkTableModule} from '@angular/cdk/table';
-import { ApolloModule } from 'apollo-angular';
-import { HttpLinkModule } from 'apollo-angular-link-http';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -114,4 +115,14 @@ import {StudentService} from './pages/student/services/studnet.service';
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ) {
+    apollo.create({
+      link: httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' }),
+      cache: new InMemoryCache()
+    });
+  }
+}
