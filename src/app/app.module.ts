@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {CdkTableModule} from '@angular/cdk/table';
+import { ApolloModule } from 'apollo-angular';
+import { HttpLinkModule } from 'apollo-angular-link-http';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -67,7 +69,9 @@ import {StudentService} from './pages/student/services/studnet.service';
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    ApolloModule,
+    HttpLinkModule
   ],
   declarations: [
     AppComponent,
