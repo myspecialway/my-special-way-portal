@@ -5,7 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {AuthGuard} from './services/auth.guard';
 import {LoginComponent} from './pages/login/login.component';
-import {GradeComponent} from './pages/grade/grade.component';
+import {StudentComponent} from './pages/student/student.component';
+import {ClassComponent} from './pages/class/class.component';
 // import { GradeComponent } from './pages/grade/grade.component';
 // import { LoginComponent } from "./pages/login/login.component";
 
@@ -17,9 +18,10 @@ import {GradeComponent} from './pages/grade/grade.component';
 // import { NotificationsComponent } from './notifications/notifications.component';
 // import { UpgradeComponent } from './upgrade/upgrade.component';
 
-const routes: Routes =[
+const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'grade', component: GradeComponent, canActivate: [AuthGuard] },
+  { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
+  { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   // { path: 'grade', component: GradeComponent },
   // { path: 'login', component: LoginComponent },
