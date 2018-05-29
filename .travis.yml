@@ -8,7 +8,7 @@ cache:
   - node_modules
 before_script:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- "./scripts/prepare-repo"
+- . ./scripts/prepare-repo
 script:
 - yarn lint
 - yarn ci-test
