@@ -4,6 +4,15 @@ import gql from 'graphql-tag';
 import { Message, Query } from '../../app.types';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { resultKeyNameFromField } from 'apollo-utilities';
+
+
+
+const MessageQuery = gql`
+{
+  message
+}
+`;
 
 @Component({
   selector: 'app-footer',
@@ -12,22 +21,16 @@ import { map } from 'rxjs/operators';
 })
 export class FooterComponent implements OnInit {
   test: Date = new Date();
-  messages: Observable<Message[]>;
+  messages: String = '';
   constructor(private apollo: Apollo) { }
 
+      ngOnInit() {
+         this.apollo.query<any>({
+            query: MessageQuery
+        }).subscribe(x => this.messages = x.data.message);
 
-  ngOnInit() {
-    this.messages = this.apollo.watchQuery<Query>({
-      query: gql`
-        query {
-          message
-        }
-      `
-    })
-      .valueChanges
-      .pipe(
-        map(result => result.data.allMessages)
-      );
+      }
+
   }
 
-}
+

@@ -443,6 +443,10 @@ apollo-cache@^1.1.8:
   dependencies:
     apollo-utilities "^1.0.12"
 
+apollo-client-rxjs@^0.6.0-rc.2:
+  version "0.6.0-rc.2"
+  resolved "https://registry.yarnpkg.com/apollo-client-rxjs/-/apollo-client-rxjs-0.6.0-rc.2.tgz#f391ee69381ae5ec8f74f476fbb6b0490b6f5923"
+
 apollo-client@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.3.1.tgz#64b204779b7e8b21f901529527a9a9c973eb7fd4"
