@@ -9,7 +9,7 @@ then
    echo info::docker:: build is on \"master\" branch incrementing version and building
    docker pull nginx:stable
    yarn version --new-version patch
-   build . -t myspecialway/msw-portal:$(./scripts/echo-version package.json) -t myspecialway/msw-portal:latest
+   docker build . -t myspecialway/msw-portal:$(./scripts/echo-version package.json) -t myspecialway/msw-portal:latest
 else
     echo info::docker:: branch $BRANCH is not master, building without version increment
     docker pull nginx:stable
