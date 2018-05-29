@@ -13,7 +13,6 @@ script:
 - yarn lint
 - yarn ci-test
 - yarn build
-- yarn bump
 - yarn docker
 - yarn docker:push
 - yarn git:push
