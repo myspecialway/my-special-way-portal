@@ -40,12 +40,12 @@ import {ClassComponent} from './pages/class/class.component';
 import {ClassService} from './pages/class/services/class.service';
 import {StudentComponent} from './pages/student/student.component';
 import {StudentService} from './pages/student/services/studnet.service';
-// import {GradeComponent} from "./pages/grade/grade.component";
-// import {HttpClientModule} from "@angular/common/http";
-import {DeleteDialogComponent} from "./pages/class/dialogs/delete/delete.dialog.component";
-// import {DataService} from "./pages/grade/services/data.service";
-// import {LoginComponent} from "./pages/login/login.component";
-// import {AuthenticationService} from "./services/authentication.service";
+// import {GradeComponent} from './pages/grade/grade.component';
+// import {HttpClientModule} from '@angular/common/http';
+import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.component';
+// import {DataService} from './pages/grade/services/data.service';
+// import {LoginComponent} from './pages/login/login.component';
+// import {AuthenticationService} from './services/authentication.service';
 
 @NgModule({
   imports: [
