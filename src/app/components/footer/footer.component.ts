@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Message, Query } from '../../app.types';
@@ -19,6 +19,7 @@ const MessageQuery = gql`
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
+
 export class FooterComponent implements OnInit {
   test: Date = new Date();
   messages: String = '';
