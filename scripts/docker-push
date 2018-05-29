@@ -1,4 +1,14 @@
 #!/bin/bash
 
-docker push myspecialway/msw-portal:$(./scripts/echo-version package.json)
-docker push myspecialway/msw-portal:latest
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]
+then
+    echo info::docker-push:: branch is a pull request skipping push to hub
+elif [ "$BRANCH" == 'master' ]
+then
+    echo info::docker-push:: branch is \"master\" pushing new version and latest docker tags
+    docker push myspecialway/msw-portal:$(./scripts/echo-version package.json)
+    docker push myspecialway/msw-portal:latest
+else
+    echo info::docker-push:: branch is not \"master\" pushing custom branch docker tag
+    docker push myspecialway/msw-portal:$(echo $BRANCH | sed 's/\///g')
+fi
