@@ -20,9 +20,6 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true,
       dir: 'coverage'
     },
-    angularCli: {
-      environment: 'dev'
-    },
     reporters: ['coverage-istanbul'],
     port: 9876,
     colors: true,
