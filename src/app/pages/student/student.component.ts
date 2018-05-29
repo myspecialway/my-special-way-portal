@@ -103,7 +103,7 @@ export class StudentComponent implements OnInit {
   displayedColumns = ['studentName', 'gradeId', 'userName', 'personalArea', 'editDetails', 'deleteUser'];
 
   exampleDatabase: StudentService  | null;
-  dataSource: null;
+  dataSource: ExampleDataSource | null;
   index: number;
   _id: string;
 

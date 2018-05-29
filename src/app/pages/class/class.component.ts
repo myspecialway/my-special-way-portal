@@ -100,7 +100,7 @@ export class ExampleDataSource extends DataSource<Grade> {
 export class ClassComponent implements OnInit {
   displayedColumns = ['grade', 'number', 'description', 'num_of_students', 'actions'];
   exampleDatabase: ClassService  | null;
-  dataSource: null;
+  dataSource: ExampleDataSource | null;
   index: number;
   _id: string;
 
