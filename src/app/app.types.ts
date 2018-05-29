@@ -1,7 +1,7 @@
 
-export type Message = {
+export interface Message {
     message: string;
-  };
-  export type Query = {
-      allMessages: Message[];
-  };
+}
+export interface Query {
+    allMessages: Message[];
+}
