@@ -98,12 +98,7 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  it('should render "made with love" in footer', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.footer').textContent).toContain('Welcome to My-Special-W@@y!');
-  }));
+
   it('should render "made with love" in footer', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
