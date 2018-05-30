@@ -20,6 +20,9 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true,
       dir: 'coverage'
     },
+    angularCli: {
+      environment: 'dev'
+    },
     reporters: config.angularCli && config.angularCli.codeCoverage
           ? ['progress', 'coverage-istanbul']
           : ['progress', 'kjhtml'],
