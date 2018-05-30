@@ -11,7 +11,8 @@ before_install:
 - . ./scripts/prepare-repo
 install:
 - yarn lint
-# - yarn ci-test Until fixed, do not open it
+- yarn ci-test
+- yarn ci-e2e
 - yarn build
 
 script:

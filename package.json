@@ -13,7 +13,7 @@
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
-    "test": "ng test --watch=false",
+    "test": "ng test --watch=false --code-coverage",
     "tslint": "./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
     "start": "ng serve"
   },
@@ -55,7 +55,7 @@
     "popper.js": "1.14.3",
     "rxjs": "5.5.10",
     "web-animations-js": "2.3.1",
-    "zone.js": "0.8.4"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@angular/cli": "1.7.4",
@@ -69,7 +69,7 @@
     "@types/node": "6.0.73",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
-    "jasmine-core": "3.1.0",
+    "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "2.0.0",
     "karma-chrome-launcher": "2.2.0",
