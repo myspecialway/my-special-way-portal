@@ -1,14 +1,22 @@
-import { AppPage } from './app.po';
+import { LoginPage } from './pageobjects/login.po';
+import { DashboardPage } from './pageobjects/dashboard.po';
+import { element , by } from 'protractor';
 
 describe('msw-client App', () => {
-  let page: AppPage;
+  let loginPage: LoginPage;
+  let dashboardPage: DashboardPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    loginPage = new LoginPage();
+    dashboardPage = new DashboardPage();
   });
 
   it('should display Login message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Login');
+    loginPage.navigateTo();
+    expect(loginPage.getParagraphText()).toEqual('Login');
+  });
+  it('should login', () => {
+    loginPage.navigateTo();
+    expect(dashboardPage.getParagraphText()).toContain('Dashboard');
   });
 });
