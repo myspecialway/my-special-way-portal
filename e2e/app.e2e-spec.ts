@@ -15,8 +15,14 @@ describe('msw-client App', () => {
     loginPage.navigateTo();
     expect(loginPage.getParagraphText()).toEqual('Login');
   });
-  it('should login', () => {
+  it('should fail login with bad creds', () => {
     loginPage.navigateTo();
+    loginPage.login('msw1', '123');
+    expect(dashboardPage.getParagraphText()).toBeUndefined();
+  });
+  it('should login with good creds', () => {
+    loginPage.navigateTo();
+    loginPage.login('msw', 'Aa123456');
     expect(dashboardPage.getParagraphText()).toContain('Dashboard');
   });
 });
