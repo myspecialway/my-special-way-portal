@@ -6,6 +6,8 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
+import { HttpHeaders } from '@angular/common/http';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -33,9 +35,7 @@ import {LoginComponent} from './pages/login/login.component';
 import {AuthGuard} from './services/auth.guard';
 import {AuthenticationService} from './services/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {JwtInterceptor} from './services/helpers/jwt.interceptor';
 import {UserService} from './services/user.service';
-import {fakeBackendProvider} from './services/helpers/fake-backend';
 import {ClassComponent} from './pages/class/class.component';
 import {ClassService} from './pages/class/services/class.service';
 import {StudentComponent} from './pages/student/student.component';
@@ -102,15 +102,8 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
     AuthGuard,
     AuthenticationService,
     UserService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
     ClassService,
     StudentService,
-    // provider used to create fake backend
-    fakeBackendProvider
   ],
 
   bootstrap: [AppComponent]
@@ -120,9 +113,22 @@ export class AppModule {
     apollo: Apollo,
     httpLink: HttpLink
   ) {
-    apollo.create({
-      link: httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' }),
-      cache: new InMemoryCache()
+    const http = httpLink.create({uri: 'https://msw-server.azurewebsites.net/graphql'});
+    const token = localStorage.getItem('token');
+    const auth = setContext((_, { headers }) => {
+      if (!token) {
+        return {};
+      } else {
+        return {
+          headers: new HttpHeaders().append('Authorization', `Bearer ${token}`)
+        };
+      }
     });
+    if (token) {
+      apollo.create({
+        link: auth.concat(http),
+        cache: new InMemoryCache()
+    });
+   }
   }
 }
