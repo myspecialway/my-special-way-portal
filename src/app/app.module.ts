@@ -115,4 +115,14 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ) {
+    apollo.create({
+      link: httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' }),
+      cache: new InMemoryCache()
+    });
+  }
+}

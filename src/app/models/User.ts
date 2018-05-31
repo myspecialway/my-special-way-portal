@@ -9,6 +9,6 @@ export default class User {
 }
 
 export enum UserType {
-  MANAGERE = 'Manager',
+  MANAGER = 'Manager',
   TEACHER = 'Teacher'
 }
