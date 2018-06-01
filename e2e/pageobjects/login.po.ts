@@ -1,17 +1,19 @@
 import { browser, by, element } from 'protractor';
 
 export class LoginPage {
-  navigateTo() {
-    return browser.get('/login');
+
+  navigateTo(link: string) {
+    return browser.get('/login'.concat(link));
   }
 
-  getParagraphText() {
-    return element(by.className('card-header')).getText();
+  getPageUrl() {
+    return browser.getCurrentUrl();
   }
 
   login(user: string, pass: string) {
     element(by.name('username')).sendKeys(user);
     element(by.name('password')).sendKeys(pass);
     element(by.className('mat-button')).click();
+    browser.waitForAngular();
   }
 }
