@@ -1,0 +1,65 @@
+<div class="container">
+  <h3 mat-dialog-title>הוספת תלמיד חדש</h3>
+ <mat-dialog-content>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstName" name="firstName" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastName" name="lastName" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="מין" [(ngModel)]="data.gender" name="gender" required>
+          <mat-option>בחר</mat-option>
+          <mat-option value="Male">זכר</mat-option>
+          <mat-option value="Female">נקבה</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="כיתה" [(ngModel)]="data.gradeId" name="class" required>
+          <mat-option>בחר</mat-option>
+          <!--<mat-option value="option1">Option 1</mat-option>-->
+          <!--<mat-option value="option2">Option 2</mat-option>-->
+          <!--<mat-option value="option3">Option 3</mat-option>-->
+          <mat-option *ngFor="let _class of this.classService.data" [value]="_class._id">
+            {{_class.description}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="שם משתמש" [(ngModel)]="data.userName" name="userName" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="סיסמא" [(ngModel)]="data.password" name="password" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+ </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button"  (click)="close()">סגור</button>
+    <button class="mat-raised-button mat-primary" [mat-dialog-close]="1" (click)="confirmAdd()">הוסף תלמיד</button>
+  </mat-dialog-actions>
+</div>

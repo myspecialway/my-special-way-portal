@@ -11,6 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {StudentService} from './services/studnet.service';
 import Student from '../../models/Student';
+import {AddStudentDialogComponent} from './dialogs/add/add-student.dialog';
 // import {AddDialogComponent} from './dialogs/add/add.dialog.component';
 // import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
 // import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
@@ -46,7 +47,7 @@ export class ExampleDataSource extends DataSource<Student> {
       this._paginator.page
     ];
 
-    this._exampleDatabase.getAllGrades();
+    this._exampleDatabase.getAllStudents();
 
     return Observable.merge(...displayDataChanges).map(() => {
       // Filter data
@@ -120,18 +121,17 @@ export class StudentComponent implements OnInit {
   }
 
   addNew(student: Student) {
-    // const dialogRef = this.dialog.open(AddDialogComponent, {
-    //   data: {issue: issue }
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 1) {
-    //     // After dialog is closed we're doing frontend updates
-    //     // For add we're just pushing a new row inside DataService
-    //     this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
-    //     this.refreshTable();
-    //   }
-    // });
+     const dialogRef = this.dialog.open(AddStudentDialogComponent, {
+       data: {student: Student }
+     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside DataService
+        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.refreshTable();
+      }
+    });
   }
 
   startEdit(i: number, id: number, title: string, state: string, url: string, created_at: string, updated_at: string) {
@@ -203,4 +203,3 @@ export class StudentComponent implements OnInit {
       });
   }
 }
-

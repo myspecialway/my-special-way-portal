@@ -5,4 +5,10 @@ export default class Student {
   firstName: string;
   lastName: string;
   gradeId: string;
+  gender: Gender;
+}
+
+export enum Gender {
+  MALE = 'Male',
+  FEMALE = 'Female'
 }

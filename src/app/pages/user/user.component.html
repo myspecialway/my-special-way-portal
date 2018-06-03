@@ -1,0 +1,66 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="header-menu-container">
+      <div class="example-header">
+        <button mat-raised-button color="primary" (click)="addNewUser()">הוספת משתמש חדש</button>
+      </div>
+      <div class="example-header">
+        <mat-form-field class="search-user">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="פילטר">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-table #table [dataSource]="dataSource" class="example-table"
+                   matSort matSortActive="firstName" matSortDisableClear matSortDirection="asc">
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.firstName}} {{ row.lastName }}</mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.userName}}</mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="class">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row._class}}</mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>סוג היוזר</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.userType}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="editDetails">
+            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">ערוך</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="deleteUser">-->
+            <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">מחק</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,9 +2,15 @@ $mat-header-row-height: 56px;
 $mat-row-height: 48px;
 $mat-row-horizontal-padding: 24px;
 
-/**
- * Flex-based table structure
- */
+.header-menu-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.search-user {
+  text-align: right;
+}
 mat-table {
   display: block;
   direction: rtl;

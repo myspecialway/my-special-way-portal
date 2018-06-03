@@ -6,6 +6,9 @@
           <input matInput #filter placeholder="Filter issues">
         </mat-form-field>
       </div>
+      <div class="example-header">
+        <button mat-raised-button color="primary" (click)="addNewClass()">הוספת כיתה חדש</button>
+      </div>
     </div>
     <div class="row">
 
@@ -16,52 +19,58 @@
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
 
-          <!-- Number Column -->
-          <ng-container matColumnDef="grade">
-            <mat-header-cell *matHeaderCellDef>grade</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.grade }}</mat-cell>
+          <!-- Number Column -->ƒf
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>שם הכיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
           </ng-container>
 
           <!-- Title Column -->
-          <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef>Number</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.number }}</mat-cell>
+          <ng-container matColumnDef="level">
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
           </ng-container>
 
           <!-- State Column -->
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.description }}</mat-cell>
+          <ng-container matColumnDef="teacherName">
+            <mat-header-cell *matHeaderCellDef>שם המורה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
           </ng-container>
 
-          <!-- Created Column -->
-          <ng-container matColumnDef="num_of_students">
-            <mat-header-cell *matHeaderCellDef
-                             mat-sort-header
-                             disableClear="true">
-              Number of students
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.num_of_students }}</mat-cell>
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="editDetails">
+            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="editClass()">ערוך</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="deleteClass">-->
+            <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="deleteClass()">מחק</button>
+            </mat-cell>
           </ng-container>
 
           <!-- actions -->
-          <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-              <button mat-icon-button color="primary" (click)="addNew()">
-                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-              </button>
-            </mat-header-cell>
+          <!--<ng-container matColumnDef="actions">-->
+            <!--<mat-header-cell *matHeaderCellDef>-->
+              <!--<button mat-icon-button color="primary" (click)="addNew()">-->
+                <!--<mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>-->
+              <!--</button>-->
+            <!--</mat-header-cell>-->
 
-            <mat-cell *matCellDef="let row; let i=index;">
-              <button mat-icon-button color="accent" (click)="startEdit(i, row.index, row.grade, row.number, row.description)">
-                <mat-icon aria-label="Edit">edit</mat-icon>
-              </button>
+            <!--<mat-cell *matCellDef="let row; let i=index;">-->
+              <!--<button mat-icon-button color="accent" (click)="startEdit(i, row.index, row.grade, row.number, row.description)">-->
+                <!--<mat-icon aria-label="Edit">edit</mat-icon>-->
+              <!--</button>-->
 
-              <button mat-icon-button color="accent" (click)="deleteItem(i, row.index, row.grade, row.number, row.description)">
-                <mat-icon aria-label="Delete">delete</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
+              <!--<button mat-icon-button color="accent" (click)="deleteItem(i, row.index, row.grade, row.number, row.description)">-->
+                <!--<mat-icon aria-label="Delete">delete</mat-icon>-->
+              <!--</button>-->
+            <!--</mat-cell>-->
+          <!--</ng-container>-->
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -7,6 +7,7 @@ import {AuthGuard} from './services/auth.guard';
 import {LoginComponent} from './pages/login/login.component';
 import {StudentComponent} from './pages/student/student.component';
 import {ClassComponent} from './pages/class/class.component';
+import {UserComponent} from './pages/user/user.component';
 // import { GradeComponent } from './pages/grade/grade.component';
 // import { LoginComponent } from "./pages/login/login.component";
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
   { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   // { path: 'grade', component: GradeComponent },
   // { path: 'login', component: LoginComponent },
@@ -32,7 +34,7 @@ const routes: Routes = [
   // { path: 'maps',           component: MapsComponent },
   // { path: 'notifications',  component: NotificationsComponent },
   // { path: 'upgrade',        component: UpgradeComponent },
-  { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: 'student', pathMatch: 'full' }
 ];
 
 @NgModule({

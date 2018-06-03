@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {CdkTableModule} from '@angular/cdk/table';
 import { ApolloModule, Apollo } from 'apollo-angular';
@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatRippleModule, MatSortModule,
+  MatRippleModule, MatSelectModule, MatSortModule,
   MatTableModule,
   MatTooltipModule
 } from '@angular/material';
@@ -35,7 +35,9 @@ import {LoginComponent} from './pages/login/login.component';
 import {AuthGuard} from './services/auth.guard';
 import {AuthenticationService} from './services/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {UserService} from './services/user.service';
+
+import {JwtInterceptor} from './services/helpers/jwt.interceptor';
+import {fakeBackendProvider} from './services/helpers/fake-backend';
 import {ClassComponent} from './pages/class/class.component';
 import {ClassService} from './pages/class/services/class.service';
 import {StudentComponent} from './pages/student/student.component';
@@ -46,6 +48,16 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
 // import {DataService} from './pages/grade/services/data.service';
 // import {LoginComponent} from './pages/login/login.component';
 // import {AuthenticationService} from './services/authentication.service';
+import {AddStudentDialogComponent} from './pages/student/dialogs/add/add-student.dialog';
+import {UserComponent} from './pages/user/user.component';
+import {AddUserDialogComponent} from './pages/user/dialogs/add/add-user.dialog';
+import {UserService} from './pages/user/services/user.service';
+// import {GradeComponent} from "./pages/grade/grade.component";
+// import {HttpClientModule} from "@angular/common/http";
+// import {DeleteDialogComponent} from "./pages/grade/dialogs/delete/delete.dialog.component";
+// import {DataService} from "./pages/grade/services/data.service";
+// import {LoginComponent} from "./pages/login/login.component";
+// import {AuthenticationService} from "./services/authentication.service";
 
 @NgModule({
   imports: [
@@ -65,14 +77,13 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
     MatCardModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatSelectModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
@@ -82,20 +93,16 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
     ClassComponent,
     StudentComponent,
     DeleteDialogComponent,
-    // LoginComponent
-    // UserProfileComponent,
-    // TableListComponent,
-    // TypographyComponent,
-    // IconsComponent,
-    // MapsComponent,
-    // NotificationsComponent,
-    // UpgradeComponent,
-
+    UserComponent,
+    AddStudentDialogComponent,
+    AddUserDialogComponent
   ],
   entryComponents: [
     // AddDialogComponent,
     // EditDialogComponent,
     // DeleteDialogComponent
+    AddStudentDialogComponent,
+    AddUserDialogComponent
   ],
   providers: [
     AlertService,
@@ -105,7 +112,6 @@ import {DeleteDialogComponent} from './pages/class/dialogs/delete/delete.dialog.
     ClassService,
     StudentService,
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule {

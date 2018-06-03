@@ -22,7 +22,7 @@ export class StudentService {
   }
 
   /** CRUD METHODS */
-  getAllGrades(): void {
+  getAllStudents(): void {
     this.httpClient.get<Student[]>(this.API_URL).subscribe(data => {
         this.dataChange.next(data);
       },
@@ -31,16 +31,15 @@ export class StudentService {
       });
   }
 
-  // DEMO ONLY, you can find working methods below
-  addIssue (issue: Student): void {
-    this.dialogData = issue;
+  addStudent (student: Student): void {
+    this.dialogData = student;
   }
 
-  updateIssue (issue: Student): void {
-    this.dialogData = issue;
+  updateStudent (student: Student): void {
+    this.dialogData = student;
   }
 
-  deleteIssue (id: number): void {
+  deleteStudent (id: number): void {
     console.log(id);
   }
 }

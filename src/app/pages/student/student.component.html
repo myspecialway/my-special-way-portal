@@ -6,6 +6,9 @@
           <input matInput #filter placeholder="Filter issues">
         </mat-form-field>
       </div>
+      <div class="example-header">
+        <button mat-raised-button color="primary" (click)="addNew()">הוספת תלמיד חדש</button>
+      </div>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
@@ -54,25 +57,6 @@
             </mat-cell>
           </ng-container>
 
-          <!-- actions -->
-          <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-              <button mat-icon-button color="primary" (click)="addNew()">
-                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-              </button>
-            </mat-header-cell>
-
-            <mat-cell *matCellDef="let row; let i=index;">
-              <button mat-icon-button color="accent" (click)="startEdit(i, row.userName, row.password, row.firstName, row.lastName)">
-                <mat-icon aria-label="Edit">edit</mat-icon>
-              </button>
-
-              <button mat-icon-button color="accent" (click)="deleteItem(i, row.userName, row.password, row.firstName, row.lastName)">
-                <mat-icon aria-label="Delete">delete</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
-
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
@@ -87,8 +71,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
