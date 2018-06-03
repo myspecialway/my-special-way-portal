@@ -15,12 +15,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
 import {ClassService} from './services/class.service';
 
-@Component({
-  selector: 'app-grade',
-  templateUrl: './class.component.html',
-  styleUrls: ['./class.component.scss']
-})
-
 export class ExampleDataSourceComponent extends DataSource<Class> {
   _filterChange = new BehaviorSubject('');
 
@@ -98,6 +92,12 @@ export class ExampleDataSourceComponent extends DataSource<Class> {
   }
 }
 
+
+@Component({
+  selector: 'app-grade',
+  templateUrl: './class.component.html',
+  styleUrls: ['./class.component.scss']
+})
 export class ClassComponent implements OnInit {
   displayedColumns = ['name', 'level', 'teacherName', 'editDetails', 'deleteClass'];
   exampleDatabase: ClassService  | null;
