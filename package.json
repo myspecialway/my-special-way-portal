@@ -6,7 +6,7 @@
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
     "ci-e2e": "ng e2e --config protractor.ci.conf.js ",
-    "ci-test": "ng test --watch=false --config karma.ci.conf.js --code-coverage && npx codecov",
+    "ci-test": "jest --coverage && npx codecov",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",
     "e2e": "ng e2e",
@@ -65,13 +65,16 @@
     "@types/bootstrap": "3.3.32",
     "@types/chartist": "0.9.34",
     "@types/googlemaps": "^3.30.8",
-    "@types/jasmine": "2.5.38",
+    "@types/jest": "^23.0.0",
     "@types/jquery": "1.10.31",
     "@types/node": "6.0.73",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
+    "jest": "^23.1.0",
+    "jest-preset-angular": "^5.2.2",
+    "jest-zone-patch": "^0.0.8",
     "karma": "2.0.0",
     "karma-chrome-launcher": "2.2.0",
     "karma-cli": "1.0.1",
@@ -81,5 +84,15 @@
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
     "typescript": "2.4.2"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts",
+    "roots":["src/app"],
+    "collectCoverageFrom": [
+      "**/*.ts",
+      "!**/*.d.ts",
+      "!src/setupJest.ts"
+    ]
   }
 }
