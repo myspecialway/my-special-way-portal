@@ -12,14 +12,14 @@ describe('msw-client App', () => {
   });
 
   it('should fail login with bad creds', () => {
-    loginPage.navigateTo(''); // ?returnUrl=%2Fclass
+    loginPage.navigateTo(''); 
     loginPage.login('msw1', '123');
     expect(dashboardPage.getPageUrl()).not.toContain('dashboard');
   });
   it('should login with good creds', () => {
     loginPage.navigateTo('');
     loginPage.login('msw', 'Aa123456');
-    expect(dashboardPage.getPageUrl()).toContain('dashboard');
+    expect(dashboardPage.getPageUrl()).toContain('student');
   });
   it('should login with good creds and navigate to return Url', () => {
     loginPage.navigateTo('?returnUrl=%2Fclass');
