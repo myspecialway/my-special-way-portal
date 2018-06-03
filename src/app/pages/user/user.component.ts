@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {UserService} from './services/user.service';
 import {merge} from 'rxjs/observable/merge';
@@ -19,7 +19,7 @@ import {AddUserDialogComponent} from './dialogs/add/add-user.dialog';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['name', 'userName', 'class', 'type', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource();
@@ -40,11 +40,13 @@ export class UserComponent implements OnInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.userService!.getAllUsers();
+          if (this.userService !== undefined) {
+            return this.userService.getAllUsers();
+          }
         }),
         map(data => {
           this.resultsLength = data.length;
-          for (let user of data) {
+          for (const user of data) {
             user.userType = UserType[user.userType];
           }
           return data;
@@ -94,7 +96,7 @@ export class UserComponent implements OnInit {
       // in all other cases including active filter we do it like this
     } else {
       this.dataSource.filter = '';
-      //this.dataSource.filter = this.filter.nativeElement.value;
+      // this.dataSource.filter = this.filter.nativeElement.value;
     }
   }
 }
