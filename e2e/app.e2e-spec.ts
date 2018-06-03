@@ -12,7 +12,7 @@ describe('msw-client App', () => {
   });
 
   it('should fail login with bad creds', () => {
-    loginPage.navigateTo(''); 
+    loginPage.navigateTo('');
     loginPage.login('msw1', '123');
     expect(dashboardPage.getPageUrl()).not.toContain('dashboard');
   });
