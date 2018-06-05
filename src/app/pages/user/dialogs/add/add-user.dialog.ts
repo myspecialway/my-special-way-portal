@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClassService} from '../../../class/services/class.service';
-import User, {UserType} from '../../../../models/User';
-import {UserService} from '../../services/user.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClassService } from '../../../class/services/class.service';
+import User, { UserType } from '../../../../models/User';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -13,9 +13,8 @@ import {UserService} from '../../services/user.service';
 })
 
 export class AddUserDialogComponent implements OnInit {
-
   form: FormGroup;
-  UserTypes = UserType;
+  UserType = UserType;
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -23,10 +22,10 @@ export class AddUserDialogComponent implements OnInit {
   selectUserType = new FormControl(null, Validators.required);
   selectGrade = new FormControl('', [Validators.required]);
   constructor(private formBuilder: FormBuilder,
-              public dialogRef: MatDialogRef<AddUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: User,
-              public userService: UserService,
-              public classService: ClassService) { }
+    public dialogRef: MatDialogRef<AddUserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: User,
+    public userService: UserService,
+    public classService: ClassService) { }
 
   ngOnInit(): void {
     this.classService.getAllClasses();

@@ -117,7 +117,7 @@ export class ClassComponent implements OnInit {
     this.loadData();
   }
 
-  addNew(_class: Class) {
+  addNewClassClicked() {
     // const dialogRef = this.dialog.open(AddDialogComponent, {
     //   data: {issue: issue }
     // });

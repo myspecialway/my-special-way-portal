@@ -1,7 +1,7 @@
 <div class="container">
   <h3 mat-dialog-title>הוספת משתמש חדש</h3>
   <mat-dialog-content [formGroup]="form">
-    <form class="mat-dialog-content" [formGroup]="form" (ngSubmit)="submit" #formControl="ngForm">
+    <form class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
 
       <div class="form">
         <mat-form-field color="accent">
@@ -35,7 +35,7 @@
         <mat-form-field color="accent">
           <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.userType" name="userType" (change)="onUserTypeChange($event)" required>
             <mat-option>בחר</mat-option>
-            <mat-option *ngFor="let usertype of UserTypes.values();" [value]="usertype">
+            <mat-option *ngFor="let usertype of UserType.values();" [value]="usertype">
               {{UserTypes[usertype]}}
             </mat-option>
           </mat-select>
@@ -46,7 +46,7 @@
       <!--TODO: fix required-->
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="כיתה" formControlName="_class" [(ngModel)]="data._class" [(value)]="data._class" name="class" [disabled]="data.userType != 'TEACHER'">
+          <mat-select placeholder="כיתה" formControlName="_class" [(ngModel)]="data._class" [(value)]="data._class" name="class" [disabled]="data.userType != UserType.TEACHER">
             <mat-option [value]="">בחר</mat-option>
             <mat-option *ngFor="let _class of this.classService.data" [value]="_class.name">
               {{_class.name}}

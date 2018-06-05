@@ -120,7 +120,7 @@ export class StudentComponent implements OnInit {
     this.loadData();
   }
 
-  addNew(student: Student) {
+  addNewStudentClicked() {
      const dialogRef = this.dialog.open(AddStudentDialogComponent, {
        data: {student: Student }
      });
