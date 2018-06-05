@@ -13,7 +13,7 @@
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
-    "test": "ng test --watch=false --code-coverage",
+    "test": "jest --coverage",
     "tslint": "./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
     "start": "ng serve"
   },

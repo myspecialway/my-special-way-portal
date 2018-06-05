@@ -95,25 +95,15 @@ import { UserService } from './pages/user/services/user.service';
 })
 export class AppModule {
   constructor(
-    apollo: Apollo,
-    httpLink: HttpLink
-  ) {
-    const http = httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' });
-    const token = localStorage.getItem('token');
-    const auth = setContext((_, { headers }) => {
-      if (!token) {
-        return {};
-      } else {
-        return {
-          headers: new HttpHeaders().append('Authorization', `Bearer ${token}`)
-        };
-      }
+    private httpLink: HttpLink,
+    private apollo: Apollo) {
+  }
+
+  private initApollo() {
+    const http = this.httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' });
+    this.apollo.create({
+      link: http,
+      cache: new InMemoryCache()
     });
-    if (token) {
-      apollo.create({
-        link: auth.concat(http),
-        cache: new InMemoryCache()
-      });
-    }
   }
 }
