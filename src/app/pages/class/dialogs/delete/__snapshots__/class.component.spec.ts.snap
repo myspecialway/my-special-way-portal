@@ -18,13 +18,16 @@ exports[`dashboard component should render component as described in snapshot 1`
       mat-dialog-content=""
     >
       
-      Grade: 
+      Grade:
+      
       <p />
       
-      Number: 
+      Number:
+      
       <p />
       
-      Description: 
+      Description:
+      
       <p />
       
     
