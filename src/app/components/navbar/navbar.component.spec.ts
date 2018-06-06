@@ -6,10 +6,10 @@ describe('dashboard component', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
-        NavbarComponent
+        NavbarComponent,
       ],
       imports: [],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -18,4 +18,3 @@ describe('dashboard component', () => {
     expect(fixture).toMatchSnapshot();
   });
 });
-

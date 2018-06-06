@@ -4,26 +4,25 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import User, { UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.service';
 
-
 @Component({
   selector: 'app-add-user.dialog',
   templateUrl: './add-user.dialog.html',
-  styleUrls: ['./add-user.dialog.scss']
+  styleUrls: ['./add-user.dialog.scss'],
 })
 
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
   UserType = UserType;
   formControl = new FormControl('', [
-    Validators.required
+    Validators.required,
   ]);
 
   selectUserType = new FormControl(null, Validators.required);
   selectGrade = new FormControl('', [Validators.required]);
   constructor(private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
-    public userService: UserService,
+              public dialogRef: MatDialogRef<AddUserDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: User,
+              public userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +32,7 @@ export class AddUserDialogComponent implements OnInit {
       userName: '',
       email: '',
       userType: '',
-      _class: undefined
+      _class: undefined,
     });
   }
 

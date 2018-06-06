@@ -7,8 +7,8 @@ import { error } from 'util';
 export class AuthenticationService {
   constructor(private http: HttpClient) { }
   login(username: string, password: string) {
-    return this.http.post<any>('https://msw-server.azurewebsites.net/login', { username: username, password: password})
-      .map(token => {
+    return this.http.post<any>('https://msw-server.azurewebsites.net/login', { username, password})
+      .map((token) => {
           if (token && token.accessToken) {
             localStorage.setItem('token', token.accessToken);
           // console.log(JSON.stringify(token.accessToken));

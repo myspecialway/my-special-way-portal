@@ -11,7 +11,7 @@ export class StudentService {
   // Temporarily stores data from dialogs
   dialogData: any;
 
-  constructor (private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   get data(): Student[] {
     return this.dataChange.value;
@@ -23,7 +23,7 @@ export class StudentService {
 
   /** CRUD METHODS */
   getAllStudents(): void {
-    this.httpClient.get<Student[]>(this.API_URL).subscribe(data => {
+    this.httpClient.get<Student[]>(this.API_URL).subscribe((data) => {
         this.dataChange.next(data);
       },
       (error: HttpErrorResponse) => {
@@ -31,15 +31,15 @@ export class StudentService {
       });
   }
 
-  addStudent (student: Student): void {
+  addStudent(student: Student): void {
     this.dialogData = student;
   }
 
-  updateStudent (student: Student): void {
+  updateStudent(student: Student): void {
     this.dialogData = student;
   }
 
-  deleteStudent (id: number): void {
+  deleteStudent(id: number): void {
     console.log(id);
   }
 }

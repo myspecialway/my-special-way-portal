@@ -9,16 +9,16 @@ export default class User {
     _class: string;
   }
 
-  export enum UserType {
+export enum UserType {
     MANAGER = 'מנהל',
-    TEACHER = 'מורה'
+    TEACHER = 'מורה',
 }
 
-export namespace UserType {
+// export namespace UserType {
 
-  export function values() {
-    return Object.keys(UserType).filter(
-      (type) => isNaN(<any>type) && type !== 'values'
-    );
-  }
-}
+//   export function values() {
+//     return Object.keys(UserType).filter(
+//       (type) => isNaN(type as any) && type !== 'values',
+//     );
+//   }
+// }

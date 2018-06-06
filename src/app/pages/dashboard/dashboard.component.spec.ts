@@ -10,10 +10,10 @@ describe('dashboard component', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
-        DashboardComponent
+        DashboardComponent,
       ],
       imports: [ApolloModule],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -22,4 +22,3 @@ describe('dashboard component', () => {
     expect(fixture).toMatchSnapshot();
   });
 });
-

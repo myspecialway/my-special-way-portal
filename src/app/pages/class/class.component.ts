@@ -15,10 +15,9 @@ import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
 @Component({
   selector: 'app-grade',
   templateUrl: './class.component.html',
-  styleUrls: ['./class.component.scss']
+  styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent {
 
   constructor() {}
 }
-

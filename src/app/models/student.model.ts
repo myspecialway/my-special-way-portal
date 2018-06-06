@@ -10,5 +10,5 @@ export default class Student {
 
 export enum Gender {
   MALE = 'Male',
-  FEMALE = 'Female'
+  FEMALE = 'Female',
 }

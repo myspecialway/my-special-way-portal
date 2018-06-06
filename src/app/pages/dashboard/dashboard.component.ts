@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { resultKeyNameFromField } from 'apollo-utilities';
 
-
 const MessageQuery = gql`
 {
   message
@@ -16,18 +15,17 @@ const MessageQuery = gql`
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 
-
 export class DashboardComponent implements OnInit {
-  messages: String = '';
+  messages = '';
   constructor(private apollo: Apollo) { }
 
       ngOnInit() {
          this.apollo.query<any>({
-            query: MessageQuery
-        }).subscribe(x => this.messages = x.data.message);
+            query: MessageQuery,
+        }).subscribe((x) => this.messages = x.data.message);
 
       }
 

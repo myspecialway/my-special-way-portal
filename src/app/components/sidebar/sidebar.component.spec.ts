@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { Shallow } from 'shallow-render';
 import { ComponentsModule } from '../components.module';
 
-
 describe('dashboard component', () => {
   const ROUTES: RouteInfo[] = [
     { path: 'student', title: 'link1', icon: 'school', class: 'test-class' },
@@ -16,7 +15,6 @@ describe('dashboard component', () => {
     shallow = new Shallow(SidebarComponent, ComponentsModule);
 
   });
-
 
   it('should render link1 and link2 as paths in the sidebar', async () => {
     const component = await shallow.render('<app-sidebar></app-sidebar>');

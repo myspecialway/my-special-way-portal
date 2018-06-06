@@ -14,7 +14,7 @@ import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
   MatTableModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -62,7 +62,7 @@ import { UserService } from './pages/user/services/user.service';
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
@@ -73,11 +73,11 @@ import { UserService } from './pages/user/services/user.service';
     DeleteDialogComponent,
     UserComponent,
     AddStudentDialogComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
   ],
   entryComponents: [
     AddStudentDialogComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -85,7 +85,7 @@ import { UserService } from './pages/user/services/user.service';
     UserService,
     StudentService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(
@@ -97,7 +97,7 @@ export class AppModule {
     const http = this.httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' });
     this.apollo.create({
       link: http,
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
     });
   }
 }

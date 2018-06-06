@@ -17,7 +17,7 @@ import {AddUserDialogComponent} from './dialogs/add/add-user.dialog';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
@@ -44,7 +44,7 @@ export class UserComponent implements OnInit, AfterViewInit {
             return this.userService.getAllUsers();
           }
         }),
-        map(data => {
+        map((data) => {
           this.resultsLength = data.length;
           for (const user of data) {
             user.userType = UserType[user.userType];
@@ -53,8 +53,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         }),
         catchError(() => {
           return observableOf([]);
-        })
-      ).subscribe(data => this.dataSource.data = data);
+        }),
+      ).subscribe((data) => this.dataSource.data = data);
 
   }
 
@@ -71,9 +71,9 @@ export class UserComponent implements OnInit, AfterViewInit {
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
       data: {user: User }, height: '600px',
-      width: '350px'
+      width: '350px',
     });
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService

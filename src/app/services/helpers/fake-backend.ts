@@ -18,7 +18,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       // Authenticate
       if (request.url.endsWith('/api/authenticate') && request.method === 'POST') {
         // find if any user matches login credentials
-        const filteredUsers = users.filter(user => {
+        const filteredUsers = users.filter((user) => {
           return user.username === request.body.username && user.password === request.body.password;
         });
 
@@ -29,9 +29,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             username: user.username,
             firstname: user.firstname,
             lastname: user.lastname,
-            token: 'fake.jwt-token'
+            token: 'fake.jwt-token',
           };
-          return Observable.of(new HttpResponse({status: 200, body: body}));
+          return Observable.of(new HttpResponse({status: 200, body}));
         } else {
           return Observable.throw('Username of Password  is incorrect');
         }
@@ -122,5 +122,5 @@ export let fakeBackendProvider = {
   // use fake backend in place of Http service for backend-less development
   provide: HTTP_INTERCEPTORS,
   useClass: FakeBackendInterceptor,
-  multi: true
+  multi: true,
 };
