@@ -32,12 +32,6 @@
       <mat-form-field color="accent">
         <mat-select placeholder="כיתה" [(ngModel)]="data.gradeId" name="class" required>
           <mat-option>בחר</mat-option>
-          <!--<mat-option value="option1">Option 1</mat-option>-->
-          <!--<mat-option value="option2">Option 2</mat-option>-->
-          <!--<mat-option value="option3">Option 3</mat-option>-->
-          <mat-option *ngFor="let _class of this.classService.data" [value]="_class._id">
-            {{_class.description}}
-          </mat-option>
         </mat-select>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>

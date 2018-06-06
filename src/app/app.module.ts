@@ -30,7 +30,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './services/helpers/jwt.interceptor';
 import { fakeBackendProvider } from './services/helpers/fake-backend';
 import { ClassComponent } from './pages/class/class.component';
-import { ClassService } from './pages/class/services/class.service';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/studnet.service';
 import { DeleteDialogComponent } from './pages/class/dialogs/delete/delete.dialog.component';
@@ -84,7 +83,6 @@ import { UserService } from './pages/user/services/user.service';
     AuthGuard,
     AuthenticationService,
     UserService,
-    ClassService,
     StudentService,
   ],
   bootstrap: [AppComponent]

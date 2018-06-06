@@ -48,9 +48,6 @@
         <mat-form-field color="accent">
           <mat-select placeholder="כיתה" formControlName="_class" [(ngModel)]="data._class" [(value)]="data._class" name="class" [disabled]="data.userType != UserType.TEACHER">
             <mat-option [value]="">בחר</mat-option>
-            <mat-option *ngFor="let _class of this.classService.data" [value]="_class.name">
-              {{_class.name}}
-            </mat-option>
           </mat-select>
           <mat-error *ngIf="selectGrade.hasError('required')">{{getErrorMessage()}}</mat-error>
         </mat-form-field>

@@ -9,8 +9,8 @@ import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {element} from 'protractor';
 import {forEach} from '@angular/router/src/utils/collection';
-import {default as User, UserType} from '../../models/User';
-import Student from '../../models/Student';
+import {default as User, UserType} from '../../models/user.model';
+import Student from '../../models/student.model';
 import {AddStudentDialogComponent} from '../student/dialogs/add/add-student.dialog';
 import {AddUserDialogComponent} from './dialogs/add/add-user.dialog';
 

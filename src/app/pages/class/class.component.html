@@ -7,19 +7,18 @@
         </mat-form-field>
       </div>
       <div class="example-header">
-        <button mat-raised-button color="primary" (click)="addNewClassClicked()">הוספת כיתה חדש</button>
+        <button mat-raised-button color="primary">הוספת כיתה חדש</button>
       </div>
     </div>
     <div class="row">
 
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="example-table"
-                   matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+        <mat-table class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
 
-          <!-- Number Column -->ƒf
+          <!-- Number Column -->
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>שם הכיתה</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
@@ -53,34 +52,11 @@
             </mat-cell>
           </ng-container>
 
-          <!-- actions -->
-          <!--<ng-container matColumnDef="actions">-->
-            <!--<mat-header-cell *matHeaderCellDef>-->
-              <!--<button mat-icon-button color="primary" (click)="addNew()">-->
-                <!--<mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>-->
-              <!--</button>-->
-            <!--</mat-header-cell>-->
-
-            <!--<mat-cell *matCellDef="let row; let i=index;">-->
-              <!--<button mat-icon-button color="accent" (click)="startEdit(i, row.index, row.grade, row.number, row.description)">-->
-                <!--<mat-icon aria-label="Edit">edit</mat-icon>-->
-              <!--</button>-->
-
-              <!--<button mat-icon-button color="accent" (click)="deleteItem(i, row.index, row.grade, row.number, row.description)">-->
-                <!--<mat-icon aria-label="Delete">delete</mat-icon>-->
-              <!--</button>-->
-            <!--</mat-cell>-->
-          <!--</ng-container>-->
-
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-header-row></mat-header-row>
+          <mat-row></mat-row>
         </mat-table>
 
-        <mat-paginator #paginator
-                       [length]="dataSource.filteredData.length"
-                       [pageIndex]="0"
-                       [pageSize]="10"
-                       [pageSizeOptions]="[5, 10, 25, 100]">
+        <mat-paginator #paginator [length]="1" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
       </div>
     </div>
