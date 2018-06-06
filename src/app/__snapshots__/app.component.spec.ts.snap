@@ -35,9 +35,6 @@ exports[`dashboard component should render component as described in snapshot 1`
       <app-navbar />
       
       
-      <app-alert />
-      
-      
       <router-outlet />
       
       

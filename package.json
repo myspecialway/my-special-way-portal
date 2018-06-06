@@ -97,7 +97,8 @@
       "!**/*.module.ts",
       "!**/app.routing.ts",
       "!**/*.d.ts",
-      "!src/setupJest.ts"
+      "!src/setupJest.ts",
+      "!src/app/models/*"
     ]
   }
 }

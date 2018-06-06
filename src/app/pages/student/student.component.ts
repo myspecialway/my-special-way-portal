@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {StudentService} from './services/studnet.service';
-import Student from '../../models/Student';
+import Student from '../../models/student.model';
 import {AddStudentDialogComponent} from './dialogs/add/add-student.dialog';
 // import {AddDialogComponent} from './dialogs/add/add.dialog.component';
 // import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
