@@ -1,5 +1,4 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-delete.dialog',

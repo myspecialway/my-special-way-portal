@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Message, Query } from '../../app.types';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
-import { resultKeyNameFromField } from 'apollo-utilities';
 
 const MessageQuery = gql`
 {

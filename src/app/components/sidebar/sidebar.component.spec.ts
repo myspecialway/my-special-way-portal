@@ -1,15 +1,9 @@
-import { SidebarComponent, RouteInfo } from './sidebar.component';
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
 import { Shallow } from 'shallow-render';
 import { ComponentsModule } from '../components.module';
 
 describe('dashboard component', () => {
-  const ROUTES: RouteInfo[] = [
-    { path: 'student', title: 'link1', icon: 'school', class: 'test-class' },
-    { path: 'user', title: 'link2', icon: 'class', class: '' },
-  ];
   let shallow: Shallow<SidebarComponent>;
   beforeEach(async () => {
     shallow = new Shallow(SidebarComponent, ComponentsModule);
