@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser } from 'protractor';
 
 export class DashboardPage {
   navigateTo() {
@@ -8,6 +8,4 @@ export class DashboardPage {
   getPageUrl() {
     return browser.getCurrentUrl();
   }
-
-
 }

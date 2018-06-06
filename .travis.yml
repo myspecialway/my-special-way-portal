@@ -11,7 +11,7 @@ before_install:
 
 install:
 - yarn
-- yarn lint
+- yarn tslint
 - yarn ci-test
 - yarn ci-e2e
 - yarn build

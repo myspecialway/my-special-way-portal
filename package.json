@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "test": "jest --coverage",
-    "tslint": "tslint -p tsconfig.json -c tslint.json 'src/app/**/*.ts'",
+    "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "start": "ng serve"
   },
   "private": true,

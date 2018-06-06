@@ -1,6 +1,5 @@
 import { LoginPage } from './pageobjects/login.po';
 import { DashboardPage } from './pageobjects/dashboard.po';
-import { element , by } from 'protractor';
 
 describe('msw-client App', () => {
   let loginPage: LoginPage;
