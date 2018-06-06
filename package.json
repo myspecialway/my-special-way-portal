@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "test": "jest --coverage",
-    "tslint": "./node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
+    "tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "start": "ng serve"
   },
   "private": true,
@@ -81,6 +81,7 @@
     "karma-coverage-istanbul-reporter": "1.4.2",
     "karma-jasmine": "1.1.1",
     "protractor": "5.3.1",
+    "shallow-render": "^6.0.3",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
     "typescript": "2.4.2"
@@ -88,9 +89,13 @@
   "jest": {
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts",
-    "roots":["src/app"],
+    "roots": [
+      "src/app"
+    ],
     "collectCoverageFrom": [
       "**/*.ts",
+      "!**/*.module.ts",
+      "!**/app.routing.ts",
       "!**/*.d.ts",
       "!src/setupJest.ts"
     ]

@@ -22,8 +22,6 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AgmCoreModule } from '@agm/core';
-import { AlertComponent } from './components/alert/alert.component';
-import { AlertService } from './components/alert/services/alert.service';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
@@ -70,7 +68,6 @@ import { UserService } from './pages/user/services/user.service';
   declarations: [
     AppComponent,
     DashboardComponent,
-    AlertComponent,
     LoginComponent,
     ClassComponent,
     StudentComponent,
@@ -84,7 +81,6 @@ import { UserService } from './pages/user/services/user.service';
     AddUserDialogComponent
   ],
   providers: [
-    AlertService,
     AuthGuard,
     AuthenticationService,
     UserService,

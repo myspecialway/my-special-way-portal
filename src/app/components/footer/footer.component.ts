@@ -13,6 +13,5 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.test = new Date();
    }
 }

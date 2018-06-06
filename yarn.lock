@@ -5382,6 +5382,10 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
+ng-mocks@^6.0.1:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-6.1.0.tgz#b75b643e948cdd9c35fb500b5359df00690e8319"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
@@ -6986,6 +6990,12 @@ shallow-clone@^1.0.0:
     is-extendable "^0.1.1"
     kind-of "^5.0.0"
     mixin-object "^2.0.1"
+
+shallow-render@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/shallow-render/-/shallow-render-6.0.3.tgz#e548b1e5977c7da831f7b1113ae94b1cd6945847"
+  dependencies:
+    ng-mocks "^6.0.1"
 
 shasum@^1.0.0:
   version "1.0.2"
