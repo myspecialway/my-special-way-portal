@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dashboard component should render component as described in snapshot 1`] = `
+<app-student>
+  <div
+    class="main-content"
+  >
+    
+    
+    <div
+      class="container-fluid"
+    >
+      
+      
+      <div
+        class="row"
+      >
+        
+        
+        <div
+          class="example-header"
+        >
+          
+          
+          <mat-form-field
+            color="accent"
+            floatplaceholder="never"
+          >
+            
+            
+            <input
+              matinput=""
+              placeholder="Filter issues"
+            />
+            
+          
+          </mat-form-field>
+          
+        
+        </div>
+        
+        
+        <div
+          class="example-header"
+        >
+          
+          
+          <button
+            color="primary"
+            mat-raised-button=""
+          >
+            הוספת תלמיד חדש
+          </button>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+      
+      <div
+        class="row"
+      >
+        
+        
+        <div
+          class="col-lg-12 col-md-12 col-sm-12"
+        >
+          
+          
+          <mat-table
+            class="example-table"
+            matsort=""
+            matsortactive="created"
+            matsortdirection="asc"
+            matsortdisableclear=""
+          >
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            <td>
+              
+                
+              
+              
+              
+            </td>
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            --&gt;
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            <mat-header-row />
+            
+            
+            <mat-row />
+            
+          
+          </mat-table>
+          
+  
+          
+          <mat-paginator>
+            
+          
+          </mat-paginator>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+</app-student>
+`;
