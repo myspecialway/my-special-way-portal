@@ -8,7 +8,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatHeaderRowDef, MatIconModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
   MatTableModule,
@@ -60,7 +60,6 @@ import {BrowserModule} from '@angular/platform-browser';
     ApolloModule,
     HttpLinkModule,
     ReactiveFormsModule,
-s
   ],
   declarations: [
     AppComponent,
