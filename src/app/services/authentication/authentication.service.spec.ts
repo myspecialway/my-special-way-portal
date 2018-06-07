@@ -9,7 +9,6 @@ describe('AuthenticationService', () => {
   let httpClient: HttpClient;
   let toPromiseFn: jest.Mock;
 
-
   beforeEach(() => {
     httpClient = new HttpClient(null);
     toPromiseFn = jest.fn();
