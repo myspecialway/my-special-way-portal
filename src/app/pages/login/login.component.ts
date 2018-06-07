@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
-@Component ({
+@Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -12,24 +12,32 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private authenticationService: AuthenticationService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+  ) { }
 
   ngOnInit(): void {
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login() {
+  async login() {
     this.loading = true;
-    this.authenticationService.login(this.model.username, this.model.password)
-      .subscribe((data) => {
-          this.router.navigate([this.returnUrl]);
-        },
-        (error) => {
-          this.loading = false;
-        });
-  }
+    try {
+      const loginResponse = await this.authenticationService.login(this.model.username, this.model.password);
+      if (!loginResponse) {
+        console.warn('login.component::login:: login error, TODO: add message for login fail');
+        return;
+      }
 
+      this.router.navigate([this.returnUrl]);
+    } catch (err) {
+      console.error(`login.component::login:: error in authentication ${err}`);
+      // TODO: handle error in authetication
+    } finally {
+      this.loading = false;
+    }
+  }
 }
