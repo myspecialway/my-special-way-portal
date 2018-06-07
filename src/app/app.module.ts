@@ -8,7 +8,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatHeaderRowDef, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
   MatTableModule,
@@ -32,10 +32,12 @@ import { AddStudentDialogComponent } from './pages/student/dialogs/add/add-stude
 import { UserComponent } from './pages/user/user.component';
 import { AddUserDialogComponent } from './pages/user/dialogs/add/add-user.dialog';
 import { UserService } from './pages/user/services/user.service';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    BrowserModule,
     FormsModule,
     ComponentsModule,
     RouterModule,
@@ -58,6 +60,7 @@ import { UserService } from './pages/user/services/user.service';
     ApolloModule,
     HttpLinkModule,
     ReactiveFormsModule,
+s
   ],
   declarations: [
     AppComponent,
