@@ -42,10 +42,6 @@ export class UserComponent implements OnInit, AfterViewInit {
           }
         }),
         map((data) => {
-          // this.resultsLength = data.data.allUsers.length;
-          // for (const user of data.data.allUsers) {
-          //  user.userTypeName = UserType[user.userType];
-          // }
           return data.data.allUsers;
         }),
         catchError(() => {
@@ -68,19 +64,19 @@ export class UserComponent implements OnInit, AfterViewInit {
   toHebrew(type: UserType) {
     return UserType[type];
   }
-  addNewUser() {
-    const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      data: { user: User }, height: '600px',
-      width: '350px',
-    });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        this.dataSource.data.push(data);
-        this.dataSource.paginator = this.paginator;
+  // addNewUser() {
+  //   const dialogRef = this.dialog.open(AddUserDialogComponent, {
+  //     data: { user: User }, height: '600px',
+  //     width: '350px',
+  //   });
+  //   dialogRef.afterClosed().subscribe((data) => {
+  //     if (data) {
+  //       // After dialog is closed we're doing frontend updates
+  //       // For add we're just pushing a new row inside DataService
+  //       this.dataSource.data.push(data);
+  //       this.dataSource.paginator = this.paginator;
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 }
