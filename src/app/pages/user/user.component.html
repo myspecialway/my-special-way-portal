@@ -36,7 +36,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef mat-sort-header>סוג היוזר</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{UserType[row.userType]}}</mat-cell>
+            <mat-cell *matCellDef="let row">{{toHebrew(row.userType)}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="editDetails">
