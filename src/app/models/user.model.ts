@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
     id: string;
     userName: string;
     password: string;
@@ -15,7 +15,7 @@ export enum UserType {
     TEACHER = 'מורה',
 }
 
-export type Query = {
+export interface Query  {
     allUsers: User[];
 };
 

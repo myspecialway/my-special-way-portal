@@ -26,37 +26,23 @@ export class UserService {
           userType
         }
       }
-      ` }).toPromise(); // subscribe((x) => this.messages = x.data.message);
-    // return this.users;
-    // return this.http.get<User[]>('/api/users');
+      ` }).toPromise();
   }
 
-  // getAllUsers(): Observable<User[]> {
-  //   return this.http.get<User[]>(this.API_URL);
-  // }
-
-  /*getById(id: number) {
-    return this.http.get('/api/users/' + id);
+  getById(id: number) {
+    return true;
   }
 
   create(user: User) {
-    return this.http.post('/api/users', user);
+    return true;
   }
 
   update(user: User) {
-    return this.http.put('/api/users/' + user.id, user);
+    return true;
   }
 
   delete(id: number) {
-    return this.http.delete('/api/users/' + id);
+    return true;
   }
-      id: string;
-    userName: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    userType: UserType;
-    _class: string;
-  */
+
 }

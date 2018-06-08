@@ -64,19 +64,28 @@ export class UserComponent implements OnInit, AfterViewInit {
   toHebrew(type: UserType) {
     return UserType[type];
   }
-  // addNewUser() {
-  //   const dialogRef = this.dialog.open(AddUserDialogComponent, {
-  //     data: { user: User }, height: '600px',
-  //     width: '350px',
-  //   });
-  //   dialogRef.afterClosed().subscribe((data) => {
-  //     if (data) {
-  //       // After dialog is closed we're doing frontend updates
-  //       // For add we're just pushing a new row inside DataService
-  //       this.dataSource.data.push(data);
-  //       this.dataSource.paginator = this.paginator;
+  addNewUser() {
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
+      height: '600px',
+      width: '350px',
+    });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside DataService
+        this.dataSource.data.push(data);
+        this.dataSource.paginator = this.paginator;
+        this.userService.create(data);
+      }
+    });
+  }
 
-  //     }
-  //   });
-  // }
+  deleteUser(id: number) {
+    this.userService.delete(id);
+  }
+
+  editUser(user: User) {
+    this.userService.update(user);
+  }
+
 }
