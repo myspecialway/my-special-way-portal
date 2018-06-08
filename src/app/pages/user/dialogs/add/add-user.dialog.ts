@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import User, { UserType } from '../../../../models/user.model';
+import { User, UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -50,11 +50,11 @@ export class AddUserDialogComponent implements OnInit {
     this.dialogRef.close(dialogData);
   }
 
-  onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data._class);
-    if (event.value === 'MANAGER') {
-      this.data._class = undefined;
-    }
+  // onUserTypeChange(event): void {
+  //   console.log('class value is: ' + this.data._class);
+  //   if (event.value === 'MANAGER') {
+  //     this.data._class = undefined;
+  //   }
 
-  }
+  // }
 }

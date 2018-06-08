@@ -93,7 +93,7 @@ export class AppModule {
   }
 
   private initApollo() {
-    const http = this.httpLink.create({ uri: 'https://msw-server.azurewebsites.net/graphql' });
+    const http = this.httpLink.create({ uri: 'http://localhost:3000' });
     this.apollo.create({
       link: http,
       cache: new InMemoryCache(),

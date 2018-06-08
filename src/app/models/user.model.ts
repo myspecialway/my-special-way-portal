@@ -1,4 +1,4 @@
-export default class User {
+export type User = {
     id: string;
     userName: string;
     password: string;
@@ -6,13 +6,18 @@ export default class User {
     lastName: string;
     email: string;
     userType: UserType;
-    _class: string;
-  }
+    userTypeName: string;
+    // class: Class.id;
+  };
 
 export enum UserType {
     MANAGER = 'מנהל',
     TEACHER = 'מורה',
 }
+
+export type Query = {
+    allUsers: User[];
+};
 
 // export namespace UserType {
 

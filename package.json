@@ -15,7 +15,8 @@
     "ng": "ng",
     "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
-    "start": "ng serve"
+    "start": "ng serve",
+    "mock-graphql": "npx json-graphql-server ./src/mocks/db.js"
   },
   "private": true,
   "dependencies": {
@@ -75,6 +76,7 @@
     "jest": "^23.1.0",
     "jest-preset-angular": "^5.2.2",
     "jest-zone-patch": "^0.0.8",
+    "json-graphql-server": "^2.1.1",
     "karma": "2.0.0",
     "karma-chrome-launcher": "2.2.0",
     "karma-cli": "1.0.1",

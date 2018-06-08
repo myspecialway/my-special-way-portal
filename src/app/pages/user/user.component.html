@@ -36,13 +36,13 @@
           <!-- Name Column -->
           <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef mat-sort-header>סוג היוזר</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.userType}}</mat-cell>
+            <mat-cell *matCellDef="let row">{{UserType[row.userType]}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="addNew()">ערוך</button>
+              <button mat-icon-button color="primary" (click)="addNewUser()">ערוך</button>
             </mat-cell>
           </ng-container>
 
@@ -50,7 +50,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="addNew()">מחק</button>
+              <button mat-icon-button color="primary" (click)="addNewUser()">מחק</button>
             </mat-cell>
           </ng-container>
 

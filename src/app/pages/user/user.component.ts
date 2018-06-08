@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators/catchError';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
-import { default as User, UserType } from '../../models/user.model';
+import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 
 @Component({
@@ -42,11 +42,11 @@ export class UserComponent implements OnInit, AfterViewInit {
           }
         }),
         map((data) => {
-          this.resultsLength = data.length;
-          for (const user of data) {
-            user.userType = UserType[user.userType];
+          this.resultsLength = data.data.allUsers.length;
+          for (const user of data.data.allUsers) {
+           user.userTypeName = UserType[user.userType];
           }
-          return data;
+          return data.data.allUsers;
         }),
         catchError(() => {
           return observableOf([]);
@@ -65,19 +65,19 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
-  addNewUser() {
-    const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      data: { user: User }, height: '600px',
-      width: '350px',
-    });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        this.dataSource.data.push(data);
-        this.dataSource.paginator = this.paginator;
+  // addNewUser() {
+  //   const dialogRef = this.dialog.open(AddUserDialogComponent, {
+  //     data: { user: User }, height: '600px',
+  //     width: '350px',
+  //   });
+  //   dialogRef.afterClosed().subscribe((data) => {
+  //     if (data) {
+  //       // After dialog is closed we're doing frontend updates
+  //       // For add we're just pushing a new row inside DataService
+  //       this.dataSource.data.push(data);
+  //       this.dataSource.paginator = this.paginator;
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 }
