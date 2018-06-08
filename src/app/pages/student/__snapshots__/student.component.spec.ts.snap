@@ -1,16 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dashboard component should render component as described in snapshot 1`] = `
-<app-user
-  dataSource={[Function MatTableDataSource]}
-  dialog={[Function UserDialogMock]}
-  displayedColumns={[Function Array]}
-  paginator="undefined"
-  resultsLength="0"
-  sort="undefined"
-  table={[Function ElementRef]}
-  userService={[Function UserService]}
->
+<app-student>
   <div
     class="main-content"
   >
@@ -22,8 +13,31 @@ exports[`dashboard component should render component as described in snapshot 1`
       
       
       <div
-        class="header-menu-container"
+        class="row"
       >
+        
+        
+        <div
+          class="example-header"
+        >
+          
+          
+          <mat-form-field
+            color="accent"
+            floatplaceholder="never"
+          >
+            
+            
+            <input
+              matinput=""
+              placeholder="Filter issues"
+            />
+            
+          
+          </mat-form-field>
+          
+        
+        </div>
         
         
         <div
@@ -35,30 +49,8 @@ exports[`dashboard component should render component as described in snapshot 1`
             color="primary"
             mat-raised-button=""
           >
-            הוספת משתמש חדש
+            הוספת תלמיד חדש
           </button>
-          
-        
-        </div>
-        
-        
-        <div
-          class="example-header"
-        >
-          
-          
-          <mat-form-field
-            class="search-user"
-          >
-            
-            
-            <input
-              matinput=""
-              placeholder="פילטר"
-            />
-            
-          
-          </mat-form-field>
           
         
         </div>
@@ -80,7 +72,7 @@ exports[`dashboard component should render component as described in snapshot 1`
           <mat-table
             class="example-table"
             matsort=""
-            matsortactive="firstName"
+            matsortactive="created"
             matsortdirection="asc"
             matsortdisableclear=""
           >
@@ -109,7 +101,13 @@ exports[`dashboard component should render component as described in snapshot 1`
             
             
               
-            
+            <td>
+              
+                
+              
+              
+              
+            </td>
             
             
             
@@ -142,6 +140,8 @@ exports[`dashboard component should render component as described in snapshot 1`
             
             
   
+            
+            
             
             
             
@@ -169,17 +169,20 @@ exports[`dashboard component should render component as described in snapshot 1`
             
   
             
+            <mat-header-row />
             
             
-            
-            
+            <mat-row />
             
           
           </mat-table>
           
   
           
-          <mat-paginator />
+          <mat-paginator>
+            
+          
+          </mat-paginator>
           
         
         </div>
@@ -193,5 +196,5 @@ exports[`dashboard component should render component as described in snapshot 1`
   
   </div>
   
-</app-user>
+</app-student>
 `;
