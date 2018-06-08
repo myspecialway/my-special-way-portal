@@ -101,7 +101,12 @@
       "!**/app.routing.ts",
       "!**/*.d.ts",
       "!src/setupJest.ts",
-      "!src/app/models/*"
+      "!src/app/models/*",
+      "!**/*.tmp.ts",
+      "!**/*.dialog.ts",
+      "!**/login.component.ts",
+      "!**/jwt.interceptor.ts",
+      "!**/dashboard.component.ts"
     ]
   }
 }
