@@ -3,7 +3,7 @@ import Student from '../../../../models/student.model';
 import { StudentService } from '../../services/studnet.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
-import Class from '../../../../models/class.model';
+import { Class } from '../../../../models/class.model';
 
 @Component({
   selector: 'app-add-student.dialog',

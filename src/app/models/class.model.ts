@@ -1,4 +1,4 @@
-export default class Class {
+export interface Class {
   id: string;
   level: string;
   number: number;
