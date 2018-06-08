@@ -8,7 +8,7 @@ export interface User {
     userType: UserType;
     userTypeName: string;
     // class: Class.id;
-  };
+  }
 
 export enum UserType {
     MANAGER = 'מנהל',
@@ -17,7 +17,7 @@ export enum UserType {
 
 export interface Query  {
     allUsers: User[];
-};
+}
 
 // export namespace UserType {
 

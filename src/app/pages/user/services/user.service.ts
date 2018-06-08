@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {User, Query } from '../../../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
-import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 
 @Injectable()
