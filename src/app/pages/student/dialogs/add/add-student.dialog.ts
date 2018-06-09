@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import Student from '../../../../models/student.model';
-import { StudentService } from '../../services/studnet.service';
+import { StudentService } from '../../services/student.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { Class } from '../../../../models/class.model';

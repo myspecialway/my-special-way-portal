@@ -27,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
-import { StudentService } from './pages/student/services/studnet.service';
+import { StudentService } from './pages/student/services/student.service';
 import { DeleteDialogComponent } from './pages/class/dialogs/delete/delete.dialog.component';
 import { AddStudentDialogComponent } from './pages/student/dialogs/add/add-student.dialog';
 import { UserComponent } from './pages/user/user.component';
