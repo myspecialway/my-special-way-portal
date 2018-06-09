@@ -6,6 +6,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { environment } from '../environments/environment';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -93,7 +94,7 @@ export class AppModule {
   }
 
   private initApollo() {
-    const http = this.httpLink.create({ uri: 'http://localhost:3000' });
+    const http = this.httpLink.create({ uri: environment.beUrl });
     this.apollo.create({
       link: http,
       cache: new InMemoryCache(),
