@@ -1,0 +1,150 @@
+@import 'ui-kit-colors';
+
+html,
+body {
+    font-family: 'Rubik', sans-serif;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: $gray-bg;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.msw-ui-kit-container {
+    border: 1px solid $purple;
+    height: 100%;
+
+
+    &-display-zone {
+        padding: 20px;
+    }
+}
+
+.msw-header {
+    height: 60px;
+    background-color: $white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  }
+
+.msw-title {
+        width: 164px;
+        height: 38px;
+        font-size: 32px;
+        letter-spacing: 0.6px;
+        color: $gray-dark;
+}
+
+%msw-button {
+        border: 0 none;
+        border-radius: 3px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 14px;
+        color: $white;
+        letter-spacing: 0.3px;
+        .material-icons {
+            vertical-align: middle;
+        }
+}
+
+.msw-button--large-purple {
+    @extend  %msw-button;
+    background-color: $purple;
+    width: 168px;
+    height: 32px;
+}
+
+.msw-button--large-blue {
+    @extend  %msw-button;
+    background-color: $blue-light;
+    width: 168px;
+    height: 32px;
+}
+
+%msw-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: right;
+    .msw-table-head-cell,
+.msw-table-body-cell {
+    padding: 10px;
+}
+
+.msw-table-head-cell {
+    background-color: #f2f2f2;
+    height: 48px;
+}
+
+.msw-table-body-cell {
+    background-color: $white;
+}
+
+.msw-table-row {
+    border-bottom: 1px solid #e0e0e0;
+    height: 50px;
+
+    &:hover {
+        .msw-table-body-cell {
+            background-color: #ddc7f1;
+        }
+    }
+}
+}
+
+.msw-table--purple {
+    @extend  %msw-table;
+    .msw-table-row {
+        &:hover {
+            .msw-table-body-cell {
+                background-color: #ddc7f1;
+            }
+        }
+    }
+}
+.msw-table--blue {
+    @extend  %msw-table;
+    .msw-table-row {
+        &:hover {
+            .msw-table-body-cell {
+                background-color: #dff5ff;
+            }
+        }
+    }
+}
+
+.msw-checkbox {
+    input {
+        visibility: hidden;
+        height: 0;
+        width: 0;
+        position: fixed;
+
+        &:checked {
+            & + .msw-checkbox-box {
+                background-color: $blue-light;
+                border: 0 none;
+                &:before {
+                    content: '✓';
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    
+}
+.msw-checkbox-box {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+.msw-checkbox-label {
+    vertical-align: middle;
+}
