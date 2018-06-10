@@ -58,7 +58,7 @@ export class UserService {
             lastName: ${user.lastName}
             email: ${user.email}
             userType: ${user.userType}
-            class: ${user.class}
+            class_id: ${user.class.id}
             ) {
           id
         }
@@ -77,7 +77,7 @@ export class UserService {
             lastName: ${user.lastName}
             email: ${user.email}
             userType: ${user.userType}
-            class: ${user.class}
+            class_id: ${user.class.id}
             ) {
           id
         }
