@@ -72,6 +72,7 @@
     "@types/node": "6.0.73",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
+    "graphql-cli": "^2.16.2",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
     "jest": "^23.1.0",
