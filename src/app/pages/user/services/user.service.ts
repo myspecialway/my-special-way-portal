@@ -25,6 +25,7 @@ export class UserService {
           userType
           Class {
             name
+            id
           }
         }
       }
@@ -53,12 +54,12 @@ export class UserService {
       mutation {
         createUser(
             id: ${user.id}
-            userName: ${user.userName}
-            firstName:${user.firstName}
-            lastName: ${user.lastName}
-            email: ${user.email}
-            userType: ${user.userType}
-            class_id: ${user.class.id}
+            userName:"${user.userName}"
+            firstName:"${user.firstName}"
+            lastName: "${user.lastName}"
+            email: "${user.email}"
+            userType: "${user.userType}"
+            class_id: "${user.Class.id}"
             ) {
           id
         }
@@ -67,17 +68,18 @@ export class UserService {
   }
 
   update(user: User) {
+    console.log(user.Class.id);
     return this.apollo.mutate({
       mutation: gql`
       mutation {
         updateUser(
-            id: ${user.id}
-            userName: ${user.userName}
-            firstName:${user.firstName}
-            lastName: ${user.lastName}
-            email: ${user.email}
-            userType: ${user.userType}
-            class_id: ${user.class.id}
+            id: "${user.id}"
+            userName: "${user.userName}"
+            firstName:"${user.firstName}"
+            lastName: "${user.lastName}"
+            email: "${user.email}"
+            userType: "${user.userType}"
+            class_id: "${user.Class.id}"
             ) {
           id
         }

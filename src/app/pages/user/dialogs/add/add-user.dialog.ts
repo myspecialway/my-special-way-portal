@@ -51,9 +51,9 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data.class);
+    console.log('class value is: ' + this.data.Class);
     if (event.value === 'MANAGER') {
-      this.data.class = undefined;
+      this.data.Class = undefined;
     }
 
   }
