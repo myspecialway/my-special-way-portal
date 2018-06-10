@@ -16,7 +16,7 @@ export class UserService {
     return this.apollo.query<Query>({
       query: gql`
         {
-        allUsers {
+         allUsers {
           id
           userName
           firstName
@@ -29,19 +29,66 @@ export class UserService {
   }
 
   getById(id: number) {
-    return true;
+    return this.apollo.query<Query>({
+      query: gql`
+        {
+          User(id:${id}) {
+          id
+          userName
+          firstName
+          lastName
+          email
+          userType
+        }
+      }
+      ` }).toPromise();
   }
 
   create(user: User) {
-    return true;
+    return this.apollo.mutate({
+      mutation: gql`
+      mutation {
+        createUser(
+            id: ${user.id}
+            userName: ${user.userName}
+            firstName:${user.firstName}
+            lastName: ${user.lastName}
+            email: ${user.email}
+            userType: ${user.userType}
+            classId: ${user._class}
+            ) {
+          id
+        }
+        }
+    `}).toPromise();
   }
 
   update(user: User) {
-    return true;
+    return this.apollo.mutate({
+      mutation: gql`
+      mutation {
+        updateUser(
+            id: ${user.id}
+            userName: ${user.userName}
+            firstName:${user.firstName}
+            lastName: ${user.lastName}
+            email: ${user.email}
+            userType: ${user.userType}
+            classId: ${user._class}
+            ) {
+          id
+        }
+        }
+    `}).toPromise();
   }
 
   delete(id: number) {
-    return true;
-  }
+    return this.apollo.mutate({
+      mutation: gql`
+      mutation {
+        removeUser(id:${id})
+    }
+    `}).toPromise();
 
+  }
 }

@@ -1,7 +1,7 @@
 import { Class } from './class.model';
 
 export interface User {
-    id: string;
+    id: number;
     userName: string;
     password: string;
     firstName: string;
