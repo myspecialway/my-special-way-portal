@@ -1,6 +1,6 @@
 import { Class } from './class.model';
 
-export interface User {
+export class User {
     id: number;
     userName: string;
     password: string;
@@ -9,7 +9,7 @@ export interface User {
     email: string;
     userType: UserType;
     userTypeName: string;
-    _class: Class;
+    class: Class;
   }
 
 export enum UserType {

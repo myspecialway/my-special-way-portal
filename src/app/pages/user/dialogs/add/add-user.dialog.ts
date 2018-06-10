@@ -32,7 +32,7 @@ export class AddUserDialogComponent implements OnInit {
       userName: '',
       email: '',
       userType: '',
-      _class: undefined,
+      class: undefined,
     });
   }
 
@@ -51,9 +51,9 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data._class);
+    console.log('class value is: ' + this.data.class);
     if (event.value === 'MANAGER') {
-      this.data._class = undefined;
+      this.data.class = undefined;
     }
 
   }

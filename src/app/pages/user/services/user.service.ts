@@ -23,6 +23,9 @@ export class UserService {
           lastName
           email
           userType
+          Class {
+            name
+          }
         }
       }
       ` }).toPromise();
@@ -55,7 +58,7 @@ export class UserService {
             lastName: ${user.lastName}
             email: ${user.email}
             userType: ${user.userType}
-            classId: ${user._class}
+            class: ${user.class}
             ) {
           id
         }
@@ -74,7 +77,7 @@ export class UserService {
             lastName: ${user.lastName}
             email: ${user.email}
             userType: ${user.userType}
-            classId: ${user._class}
+            class: ${user.class}
             ) {
           id
         }
