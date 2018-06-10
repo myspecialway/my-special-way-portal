@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import Student from '../../../models/student.model';
+import { Student } from '../../../models/student.model';
 
 @Injectable()
 export class StudentService {

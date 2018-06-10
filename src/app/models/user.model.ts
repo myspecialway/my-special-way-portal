@@ -1,6 +1,6 @@
 import { Class } from './class.model';
 
-export interface User {
+export class User {
     id: number;
     userName: string;
     password: string;
@@ -17,7 +17,7 @@ export enum UserType {
     TEACHER = 'מורה',
 }
 
-export interface Query  {
+export interface UserQuery  {
     allUsers: User[];
 }
 

@@ -8,19 +8,8 @@ module.exports = {
     classes: [
         { id: 111, level: 1, number: 1, name: "אגוז" },
         { id: 222, level: 2, number: 2, name: "אשוח" }
+    ],
+    students: [
+        { id: "5b0affc6d9c920b8ba7e64bf", userName: "ullamco", password: "id", firstName: "Pearl", lastName: "Moss", gradeId: "5b0116f814169898640db32f" }
     ]
 }
-
-
-/*
-export default class User {
-    id: string;
-    userName: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    userType: UserType;
-    _class: string;
-  }
-*/

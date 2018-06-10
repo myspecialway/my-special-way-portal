@@ -42,7 +42,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editUser(row)">ערוך</button>
+              <button mat-icon-button color="primary" (click)="updateUser(row.id, row.firstName, row.lastName, row.email, row.userName)">ערוך</button>
             </mat-cell>
           </ng-container>
 
@@ -50,7 +50,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteUser(row.id)">מחק</button>
+              <button mat-icon-button color="primary" (click)="deleteUser(row.id, row.firstName, row.lastName, row.userType)">מחק</button>
             </mat-cell>
           </ng-container>
 
