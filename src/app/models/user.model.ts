@@ -9,7 +9,7 @@ export class User {
     email: string;
     userType: UserType;
     userTypeName: string;
-    _class: Class;
+    class: Class;
   }
 
 export enum UserType {

@@ -1,16 +1,21 @@
-export type Student = {
-  id: string;
+import { Class } from './class.model';
+
+  id: number;
   userName: string;
   password: string;
   firstName: string;
   lastName: string;
-  gradeId: string;
   gender: Gender;
+  class: Class;
 }
 
 export enum Gender {
-  MALE = 'Male',
-  FEMALE = 'Female',
+  MALE = 'ילד',
+  FEMALE = 'ילדה',
+}
+
+export interface Query  {
+  allStudents: Student[];
 }
 
 export type StudentQuery = {

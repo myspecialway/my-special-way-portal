@@ -37,6 +37,6 @@ export class AddStudentDialogComponent implements OnInit {
   }
 
   confirmAdd(): void {
-    //this.studentService.addStudent(this.data);
+    this.studentService.create(this.data);
   }
 }
