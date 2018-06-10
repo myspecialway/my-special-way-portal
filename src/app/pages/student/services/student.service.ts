@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Student, { Query } from '../../../models/student.model';
+import Student, { StudentQuery } from '../../../models/student.model';
 import {Observable} from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -13,7 +13,7 @@ export class StudentService {
 
   getAllStudents() {
 
-    return this.apollo.query<Query>({
+    return this.apollo.query<StudentQuery>({
       query: gql`
         {
          allStudents {
@@ -31,7 +31,7 @@ export class StudentService {
   }
 
   getById(id: number) {
-    return this.apollo.query<Query>({
+    return this.apollo.query<StudentQuery>({
       query: gql`
         {
           Student(id:${id}) {

@@ -16,21 +16,15 @@ import * as _ from 'lodash';
   styleUrls: ['./student.component.scss'],
 })
 export class StudentComponent implements OnInit, AfterViewInit {
-  
+
   displayedColumns = ['studentName', 'gradeId', 'userName', 'personalArea', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource();
   resultsLength = 0;
 
-<<<<<<< HEAD
-  addNew() {
-
-  }
-
-=======
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('table') table: ElementRef;
-  
+
   constructor(
     private studentService: StudentService,
     public dialog: MatDialog,
@@ -74,5 +68,4 @@ export class StudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
->>>>>>> a5059d7f16a99a4cde78856a8339e7daa14a1ffc
 }

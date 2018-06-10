@@ -71,10 +71,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   editUser(user: User) {
     this.userService.update(user);
   }
-  
+
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      data: { user: User }, 
+      data: { user: User },
       height: '600px',
       width: '350px',
     });
@@ -105,7 +105,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {  
+      if (result) {
         const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id });
         this.dataSource.data[index] = _.assign({}, this.dataSource.data[index], result);
         this.dataSource.paginator = this.paginator;
