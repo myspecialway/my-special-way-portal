@@ -9,6 +9,9 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
+import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
+import * as _ from 'lodash';
+import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 
 @Component({
   selector: 'app-user',
@@ -47,7 +50,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         catchError(() => {
           return observableOf([]);
         }),
-    ).subscribe((data) => this.dataSource.data = data);
+    ).subscribe((data) => this.dataSource.data = [...data]);
 
   }
 
@@ -64,28 +67,49 @@ export class UserComponent implements OnInit, AfterViewInit {
   toHebrew(type: UserType) {
     return UserType[type];
   }
+
+  editUser(user: User) {
+    this.userService.update(user);
+  }
+  
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
+      data: { user: User }, 
       height: '600px',
       width: '350px',
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
         this.dataSource.data.push(data);
         this.dataSource.paginator = this.paginator;
-        this.userService.create(data);
+
       }
     });
   }
+  deleteUser(id: number, firstName: string, lastName: string, userType: UserType) {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: {id: id, firstName: firstName, lastName: lastName, userType: userType}
+    });
 
-  deleteUser(id: number) {
-    this.userService.delete(id);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id })
+        this.dataSource.data.splice(index,1);
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
+  updateUser(id: number, firstName: string, lastName: string, email: string, userName: string) {
+    const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
+      data: {firstName: firstName, lastName: lastName, email: email, userName: userName}
+    });
 
-  editUser(user: User) {
-    this.userService.update(user);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {  
+        const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id });
+        this.dataSource.data[index] = _.assign({}, this.dataSource.data[index], result);
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
-
 }

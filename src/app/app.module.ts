@@ -34,6 +34,9 @@ import { UserComponent } from './pages/user/user.component';
 import { AddUserDialogComponent } from './pages/user/dialogs/add/add-user.dialog';
 import { UserService } from './pages/user/services/user.service';
 import {BrowserModule} from '@angular/platform-browser';
+import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-user.dialog';
+import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
+import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 
 @NgModule({
   imports: [
@@ -72,10 +75,16 @@ import {BrowserModule} from '@angular/platform-browser';
     UserComponent,
     AddStudentDialogComponent,
     AddUserDialogComponent,
+    UpdateUserDialogComponent,
+    DeleteUserDialogComponent,
+    DeleteStudentDialogComponent
   ],
   entryComponents: [
     AddStudentDialogComponent,
     AddUserDialogComponent,
+    UpdateUserDialogComponent,
+    DeleteUserDialogComponent,
+    DeleteStudentDialogComponent
   ],
   providers: [
     AuthGuard,

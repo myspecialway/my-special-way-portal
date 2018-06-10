@@ -17,7 +17,7 @@ export enum UserType {
     TEACHER = 'מורה',
 }
 
-export interface Query  {
+export interface UserQuery  {
     allUsers: User[];
 }
 
