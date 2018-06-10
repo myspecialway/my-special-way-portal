@@ -8,19 +8,15 @@ module.exports = {
     classes: [
         { id: 111, level: 1, number: 1, name: "אגוז" },
         { id: 222, level: 2, number: 2, name: "אשוח" }
-    ]
+    ],
+    students: [
+        { id: 444, userName: "John123",firstName: "John1", lastName: "Worg1", gender:"MALE", class_id: "111"  },
+        { id: 322, userName: "John321",firstName: "John2", lastName: "Worg2", gender:"MALE", class_id: "111" },
+        { id: 467, userName: "John222",firstName: "John3", lastName: "Worg3", gender:"FEMALE", class_id: "222"  },
+        { id: 654, userName: "John333",firstName: "John4", lastName: "Worg4", gender: "FEMALE", class_id: "222" }
+    ],
+
+
 }
 
 
-/*
-export default class User {
-    id: string;
-    userName: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    userType: UserType;
-    _class: string;
-  }
-*/
