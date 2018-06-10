@@ -93,9 +93,14 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id })
-        this.dataSource.data.splice(index,1);
-        this.dataSource.paginator = this.paginator;
+        
+        this.userService.delete(id)
+          .then(data => {
+            const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id })
+            this.dataSource.data.splice(index,1);
+            this.dataSource.paginator = this.paginator;
+          })
+        
       }
     });
   }
@@ -106,9 +111,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id });
-        this.dataSource.data[index] = _.assign({}, this.dataSource.data[index], result);
-        this.dataSource.paginator = this.paginator;
+        let relevantUser = _.find(this.dataSource.data, {id});
+        const tempUser = _.assign({}, relevantUser, result);
+
+        this.userService.update(tempUser)
+          .then(data => {
+            const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id });
+            relevantUser = _.assign({}, relevantUser, result);
+            this.dataSource.paginator = this.paginator;
+          })
       }
     });
   }
