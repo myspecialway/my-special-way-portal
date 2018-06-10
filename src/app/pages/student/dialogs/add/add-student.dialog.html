@@ -30,7 +30,7 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <mat-select placeholder="כיתה" [(ngModel)]="data.gradeId" name="class" required>
+        <mat-select placeholder="כיתה" [(ngModel)]="data.class.level" name="class" required>
           <mat-option>בחר</mat-option>
         </mat-select>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
