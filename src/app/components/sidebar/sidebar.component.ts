@@ -3,14 +3,13 @@ import { Component, OnInit } from '@angular/core';
 export interface RouteInfo {
   path: string;
   title: string;
-  icon: string;
   class: string;
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: 'student', title: 'ניהול תלמידים', icon: 'school', class: '' },
-  { path: 'class', title: 'ניהול כיתות', icon: 'class', class: '' },
-  { path: 'user', title: 'ניהול משתמשים', icon: 'class', class: '' },
+  { path: 'student', title: 'ניהול תלמידים',  class: '' },
+  { path: 'class', title: 'ניהול כיתות',  class: '' },
+  { path: 'user', title: 'ניהול משתמשים',  class: '' },
 ];
 
 @Component({

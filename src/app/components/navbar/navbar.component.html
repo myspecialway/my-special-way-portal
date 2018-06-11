@@ -16,11 +16,12 @@
           <!--<span class="notification">5</span>-->
         </a>
         <div class="dropdown-menu dropdown-menu-link" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">תלמידים</a>
-          <a class="dropdown-item" href="#">ניהול כיתות</a>
-          <a class="dropdown-item" href="#">ניהול שיעורים</a>
-          <a class="dropdown-item" href="#">אזורים לניווט</a>
-          <a class="dropdown-item" href="#">ניהול משתמשים</a>
+            <div routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item"  data-test-id="header-nav-links">
+              <a class="dropdown-item" [routerLink]="[menuItem.path]">
+                {{menuItem.title}}
+              </a>
+            </div>
+
         </div>
       </div>
     </div>

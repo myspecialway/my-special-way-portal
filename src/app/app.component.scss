@@ -3,9 +3,13 @@
 
   .main-panel {
     float: left;
+
+    width: 100%;
   }
   .sidebar {
     left: auto;
     right: 0;
+
+    display: none;
   }
 }
