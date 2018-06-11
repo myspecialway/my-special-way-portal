@@ -11,6 +11,7 @@
                 <!--<button mat-icon-button><i class="fa fa-twitter"></i></button>-->
                 <!--<button mat-icon-button><i class="fa fa-google-plus"></i></button>-->
               <!--</div>-->
+              <div *ngIf="loginFailed">Invalid username or password</div>
             </div>
             <!--<p class="tip">Or Be Classical</p>-->
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
@@ -34,12 +35,12 @@
                 </mat-input-container>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
               </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />Remember Me
+                </label>
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />Remember Me
-              </label
-              ></div>
             <div class="card-footer">
               <button mat-button>Login</button>
               <!--<button mat-button (click)="loginBtn()">Register</button>-->

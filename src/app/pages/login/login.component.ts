@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
   rememberMe: boolean;
+  loginFailed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,12 +32,14 @@ export class LoginComponent implements OnInit {
       const loginResponse = await this.authenticationService.login(this.model.username, this.model.password);
       if (!loginResponse) {
         console.warn('login.component::login:: login error, TODO: add message for login fail');
+        this.loginFailed = true;
         return;
       }
-
+      this.loginFailed = false;
       this.router.navigate([this.returnUrl]);
     } catch (err) {
       console.error(`login.component::login:: error in authentication ${err}`);
+      this.loginFailed = true;
       // TODO: handle error in authetication
     } finally {
       this.loading = false;
