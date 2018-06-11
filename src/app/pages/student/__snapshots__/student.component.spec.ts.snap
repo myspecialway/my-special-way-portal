@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dashboard component should render component as described in snapshot 1`] = `
-<app-student>
+<app-student
+  dataSource={[Function MatTableDataSource]}
+  dialog={[Function StudentDialogMock]}
+  displayedColumns={[Function Array]}
+  paginator="undefined"
+  resultsLength="0"
+  sort="undefined"
+  studentService={[Function StudentService]}
+  table={[Function ElementRef]}
+>
   <div
     class="main-content"
   >
@@ -72,12 +81,11 @@ exports[`dashboard component should render component as described in snapshot 1`
           <mat-table
             class="example-table"
             matsort=""
-            matsortactive="created"
+            matsortactive="firstName"
             matsortdirection="asc"
             matsortdisableclear=""
           >
             
-  
             
             
             
@@ -169,10 +177,10 @@ exports[`dashboard component should render component as described in snapshot 1`
             
   
             
-            <mat-header-row />
             
             
-            <mat-row />
+            
+            
             
           
           </mat-table>

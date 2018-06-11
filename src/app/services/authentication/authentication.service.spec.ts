@@ -8,7 +8,8 @@ describe('AuthenticationService', () => {
   let authService: AuthenticationService;
   let httpClient: HttpClient;
   let toPromiseFn: jest.Mock;
-
+  const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI
+                    6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
   beforeEach(() => {
     httpClient = new HttpClient(null);
     toPromiseFn = jest.fn();
@@ -21,13 +22,13 @@ describe('AuthenticationService', () => {
 
   it('should create localstorage token key on authentication sucess', async () => {
     const mockedResponse: LoginResponse = {
-      accessToken: 'some token',
+      accessToken: mockToken,
     };
 
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
     const loginResponse = await authService.login('someusername', 'somepassword');
 
-    expect(loginResponse.accessToken).toBe('some token');
+    expect(loginResponse.accessToken).toBe(mockToken);
   });
 
   it('should return null if authentication endpoint returned status code 401', async () => {
@@ -56,9 +57,15 @@ describe('AuthenticationService', () => {
     return expect(authService.login('someusername', 'somepassword')).rejects.toEqual({ status: 500 });
   });
 
-  it('should remove token from localstorage logout', () => {
+  it('should remove token from localstorage logout  if rememberMe', () => {
+    authService.setRememberMe(true);
     authService.logout();
-
     expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+  });
+
+  it('should remove token from sessionstorage logout if !rememberMe', () => {
+    authService.setRememberMe(false);
+    authService.logout();
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('token');
   });
 });
