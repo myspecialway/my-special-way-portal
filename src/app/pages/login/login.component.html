@@ -35,6 +35,11 @@
                 <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
               </div>
             </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />Remember Me
+              </label
+              ></div>
             <div class="card-footer">
               <button mat-button>Login</button>
               <!--<button mat-button (click)="loginBtn()">Register</button>-->

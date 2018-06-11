@@ -6,6 +6,18 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
+  rememberMe: boolean;
+
+  setRememberMe(rememberMe: boolean) {
+    this.rememberMe = rememberMe;
+  }
+  getCurrentUser(): string {
+    if (this.rememberMe) {
+      return localStorage.getItem('token');
+    } else {
+      return sessionStorage.getItem('token');
+    }
+  }
   constructor(private http: HttpClient) { }
   async login(username: string, password: string): Promise<LoginResponse> {
     try {
@@ -13,7 +25,11 @@ export class AuthenticationService {
         environment.loginUrl,
         { username, password },
       ).toPromise<LoginResponse>();
-      localStorage.setItem('token', tokenResponse.accessToken); // TODO: Add logic for rememberMe - localstorage vs session storage
+      if (this.rememberMe) {
+        localStorage.setItem('token', tokenResponse.accessToken);
+      } else {
+        sessionStorage.setItem('token', tokenResponse.accessToken);
+      }
       return tokenResponse;
     } catch (error) {
       const typedError = error as HttpErrorResponse;
@@ -26,6 +42,10 @@ export class AuthenticationService {
     }
   }
   logout() {
-    localStorage.removeItem('token');
+    if (this.rememberMe) {
+      localStorage.removeItem('token');
+    } else {
+      sessionStorage.removeItem('token');
+    }
   }
 }
