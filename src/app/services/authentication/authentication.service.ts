@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,7 +19,8 @@ export class AuthenticationService {
       return sessionStorage.getItem('token');
     }
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {  }
+
   async login(username: string, password: string): Promise<LoginResponse> {
     try {
       const tokenResponse = await this.http.post<LoginResponse>(
@@ -30,6 +32,12 @@ export class AuthenticationService {
       } else {
         sessionStorage.setItem('token', tokenResponse.accessToken);
       }
+      const jwtHelper: JwtHelperService = new JwtHelperService();
+      const decodedToken = jwtHelper.decodeToken(tokenResponse.accessToken);
+      const expirationDate = jwtHelper.getTokenExpirationDate(tokenResponse.accessToken);
+      const isExpired = jwtHelper.isTokenExpired(tokenResponse.accessToken);
+      console.log(`token ${decodedToken.username} | ${expirationDate} | ${isExpired}`);
+
       return tokenResponse;
     } catch (error) {
       const typedError = error as HttpErrorResponse;

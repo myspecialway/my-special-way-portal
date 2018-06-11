@@ -78,6 +78,7 @@ import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/del
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
     DeleteStudentDialogComponent,
+
   ],
   entryComponents: [
     AddStudentDialogComponent,
