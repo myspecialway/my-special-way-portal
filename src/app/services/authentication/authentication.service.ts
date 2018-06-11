@@ -4,15 +4,16 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class AuthenticationService {
-  rememberMe: boolean;
+  private rememberMe: boolean;
 
   setRememberMe(rememberMe: boolean) {
     this.rememberMe = rememberMe;
   }
-  getCurrentUser(): string {
+  getCurrentUser()  {
     if (this.rememberMe) {
       return localStorage.getItem('token');
     } else {
@@ -21,7 +22,7 @@ export class AuthenticationService {
   }
   constructor(private http: HttpClient) {  }
 
-  async login(username: string, password: string): Promise<LoginResponse> {
+  async login(username: string, password: string): Promise<LoginResponse | null> {
     try {
       const tokenResponse = await this.http.post<LoginResponse>(
         environment.loginUrl,
@@ -49,6 +50,7 @@ export class AuthenticationService {
       return null;
     }
   }
+
   logout() {
     if (this.rememberMe) {
       localStorage.removeItem('token');
