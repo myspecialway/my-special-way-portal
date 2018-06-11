@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   beUrl: 'http://localhost:3000',
+  loginUrl: 'http://localhost:3000/login',
 };

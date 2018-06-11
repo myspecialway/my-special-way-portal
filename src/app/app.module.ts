@@ -77,14 +77,14 @@ import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/del
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
-    DeleteStudentDialogComponent
+    DeleteStudentDialogComponent,
   ],
   entryComponents: [
     AddStudentDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
-    DeleteStudentDialogComponent
+    DeleteStudentDialogComponent,
   ],
   providers: [
     AuthGuard,
