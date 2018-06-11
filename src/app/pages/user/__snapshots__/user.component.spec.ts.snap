@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dashboard component should render component as described in snapshot 1`] = `
+<app-user
+  dataSource={[Function MatTableDataSource]}
+  dialog={[Function UserDialogMock]}
+  displayedColumns={[Function Array]}
+  paginator="undefined"
+  resultsLength="0"
+  sort="undefined"
+  table={[Function ElementRef]}
+  userService={[Function UserService]}
+>
+  <div
+    class="main-content"
+  >
+    
+    
+    <div
+      class="container-fluid"
+    >
+      
+      
+      <div
+        class="header-menu-container"
+      >
+        
+        
+        <div
+          class="example-header"
+        >
+          
+          
+          <button
+            color="primary"
+            mat-raised-button=""
+          >
+            הוספת משתמש חדש
+          </button>
+          
+        
+        </div>
+        
+        
+        <div
+          class="example-header"
+        >
+          
+          
+          <mat-form-field
+            class="search-user"
+          >
+            
+            
+            <input
+              matinput=""
+              placeholder="פילטר"
+            />
+            
+          
+          </mat-form-field>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+      
+      <div
+        class="row"
+      >
+        
+        
+        <div
+          class="col-lg-12 col-md-12 col-sm-12"
+        >
+          
+          
+          <mat-table
+            class="example-table"
+            matsort=""
+            matsortactive="firstName"
+            matsortdirection="asc"
+            matsortdisableclear=""
+          >
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            --&gt;
+              
+            
+            
+              
+            
+            
+            
+            
+  
+            
+            
+            
+            
+            
+            
+          
+          </mat-table>
+          
+  
+          
+          <mat-paginator />
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </div>
+    
+  
+  </div>
+  
+</app-user>
+`;

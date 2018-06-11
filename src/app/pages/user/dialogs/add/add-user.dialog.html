@@ -1,0 +1,65 @@
+<div class="container">
+  <h3 mat-dialog-title>הוספת משתמש חדש</h3>
+  <mat-dialog-content>
+    <form  class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input formControlName="firstName" class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstName"
+            name="firstName" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input formControlName="lastName" class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastName"
+            name="lastName" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input formControlName="userName" class="form-control" placeholder="שם משתמש" [(ngModel)]="data.userName"
+            name="userName" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input formControlName="email" class="form-control" placeholder="אימייל" [(ngModel)]="data.email" name="email"
+            required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.userType" name="userType" (change)="onUserTypeChange($event)"
+            required>
+            <mat-option>בחר</mat-option>
+            <mat-option></mat-option>
+          </mat-select>
+          <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!--TODO: fix required-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-select placeholder="כיתה" formControlName="_class" [(ngModel)]="data._class" [(value)]="data._class" name="class" [disabled]="data.userType != UserType.TEACHER">
+            <mat-option [value]="">בחר</mat-option>
+          </mat-select>
+          <mat-error *ngIf="selectGrade.hasError('required')">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" tabindex="-1" (click)="close()">סגור</button>
+    <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)" [disabled]="!formControl.valid">הוסף משתמש</button>
+  </mat-dialog-actions>
+</div>

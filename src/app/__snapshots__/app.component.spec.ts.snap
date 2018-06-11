@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dashboard component should render component as described in snapshot 1`] = `
+<app-root>
+  <div
+    class="wrapper"
+  >
+    
+    
+    <div
+      class="sidebar"
+      data-background-color="white"
+      data-color="danger"
+      data-image="../assets/img/sidebar-1.jpg"
+    >
+      
+      
+      <app-sidebar />
+      
+      
+      <div
+        class="sidebar-background"
+        style="background-image: url(../assets/img/sidebar-4.jpg)"
+      />
+      
+    
+    </div>
+    
+    
+    <div
+      class="main-panel"
+    >
+      
+      
+      <app-navbar />
+      
+      
+      <router-outlet />
+      
+      
+      <app-footer />
+      
+    
+    </div>
+    
+  
+  </div>
+  
+</app-root>
+`;

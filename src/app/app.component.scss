@@ -1,0 +1,11 @@
+.msw-wrapper {
+  direction: rtl;
+
+  .main-panel {
+    float: left;
+  }
+  .sidebar {
+    left: auto;
+    right: 0;
+  }
+}

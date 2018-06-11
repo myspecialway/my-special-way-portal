@@ -1,0 +1,69 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="example-header">
+        <mat-form-field floatPlaceholder="never" color="accent">
+          <input matInput #filter placeholder="Filter issues">
+        </mat-form-field>
+      </div>
+      <div class="example-header">
+        <button mat-raised-button color="primary">הוספת כיתה חדש</button>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-table class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Number Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>שם הכיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="level">
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="teacherName">
+            <mat-header-cell *matHeaderCellDef>שם המורה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="editDetails">
+            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="editClass()">ערוך</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="deleteClass">-->
+            <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="deleteClass()">מחק</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row></mat-header-row>
+          <mat-row></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator [length]="1" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
