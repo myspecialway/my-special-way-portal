@@ -1,3 +1,6 @@
+<button type="button" 
+        *ngFor="let floor of availableFloors" 
+        (click)="setFloor(floor)">floor {{floor}}</button>
 <div class ="map"
     leaflet 
     [leafletOptions]="options"
