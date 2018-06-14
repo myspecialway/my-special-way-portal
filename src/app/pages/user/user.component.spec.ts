@@ -2,7 +2,7 @@ jest.mock('./services/user.service');
 
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ElementRef } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort, MatTable } from '@angular/material';
+import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import { UserType } from '../../models/user.model';
@@ -22,12 +22,11 @@ describe('dashboard component', () => {
       });
     }
 
-    // tslint:disable-next-line:max-classes-per-file
-    class UserServiceMock {
-      getAllUsers = jest.fn().mockImplementation(() => {
-        return '';
-      });
-    }
+    // class UserServiceMock {
+    //   getAllUsers = jest.fn().mockImplementation(() => {
+    //     return '';
+    //   });
+    // }
 
     TestBed.configureTestingModule({
       imports: [

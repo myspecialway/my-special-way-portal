@@ -1,8 +1,7 @@
 import { AuthGuard } from '../auth.guard';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import {  ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import { TreeNode } from '@angular/router/src/utils/tree';
+import {  ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 
 describe('auth guard', () => {
   let routerMock: Partial<Router>;
