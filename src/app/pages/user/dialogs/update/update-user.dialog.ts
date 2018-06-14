@@ -1,8 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { User, UserType } from '../../../../models/user.model';
-import { UserService } from '../../services/user.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-user.dialog',
@@ -13,8 +11,7 @@ import { UserService } from '../../services/user.service';
 export class UpdateUserDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<UpdateUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   formControl = new FormControl('', [
     Validators.required,

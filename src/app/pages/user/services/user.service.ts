@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User, UserQuery } from '../../../models/user.model';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
@@ -58,7 +58,7 @@ export class UserService {
             lastName: "${user.lastName}"
             email: "${user.email}"
             userType: "${user.userType}"
-            class_id: "${user.Class.id}"
+            class_id: "${user.Class && user.Class.id}"
             ) {
           id
         }
@@ -67,7 +67,6 @@ export class UserService {
   }
 
   update(user: User) {
-    console.log(user.Class.id);
     return this.apollo.mutate({
       mutation: gql`
       mutation {
@@ -78,7 +77,7 @@ export class UserService {
             lastName: "${user.lastName}"
             email: "${user.email}"
             userType: "${user.userType}"
-            class_id: "${user.Class.id}"
+            class_id: "${user.Class && user.Class.id}"
             ) {
           id
         }

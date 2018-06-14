@@ -42,7 +42,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         switchMap(() => {
             return this.userService.getAllUsers();
         }),
-        map((data) => {
+        map((data: any) => {
           return data.data.allUsers;
         }),
         catchError(() => {
@@ -78,47 +78,60 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        this.dataSource.data.push(data);
-        this.dataSource.paginator = this.paginator;
-
+        const newUser: User = this._createNewUser(data);
+        this.userService.create(newUser)
+          .then(() => {
+            this.dataSource.data.push(newUser);
+            this.dataSource.paginator = this.paginator;
+          });
       }
     });
   }
   deleteUser(id: number, firstName: string, lastName: string, userType: UserType) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: {id: id, firstName: firstName, lastName: lastName, userType: userType}
+      data: {id, firstName, lastName, userType},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        
         this.userService.delete(id)
-          .then(data => {
-            const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id })
-            this.dataSource.data.splice(index,1);
+          .then(() => {
+            const index = _.findIndex(this.dataSource.data, (user) => user.id === id);
+            this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
-          })
-        
+          });
       }
     });
   }
   updateUser(id: number, firstName: string, lastName: string, email: string, userName: string) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: {firstName: firstName, lastName: lastName, email: email, userName: userName}
+      data: {firstName, lastName, email, userName },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        let relevantUser = _.find(this.dataSource.data, {id});
+        const relevantUser = _.find(this.dataSource.data, {id});
         const tempUser = _.assign({}, relevantUser, result);
 
         this.userService.update(tempUser)
-          .then(data => {
-            const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id });
-            relevantUser = _.assign({}, relevantUser, result);
+          .then((data) => {
+            const index = _.findIndex(this.dataSource.data, (user) => user.id === id);
+            this.dataSource.data[index] = _.assign({}, relevantUser, result);
             this.dataSource.paginator = this.paginator;
-          })
+          });
       }
     });
+  }
+
+  _createNewUser(userData: any): User {
+    const user: User = new User();
+    user.id = 0;
+    user.firstName = userData.firstName;
+    user.lastName = userData.lastName;
+    user.userName = userData.userName;
+    user.email = userData.email;
+    user.userType = userData.userType;
+    user.Class = userData.Class;
+    return user;
   }
 }

@@ -28,9 +28,9 @@ export class AuthenticationService {
   }
   getCurrentUser()  {
     if (this.rememberMe) {
-      return localStorage.getItem('token');
+      return JSON.parse(localStorage.getItem('token') || '{}');
     } else {
-      return sessionStorage.getItem('token');
+      return JSON.parse(sessionStorage.getItem('token') || '{}');
     }
   }
   constructor(private http: HttpClient) {  }
@@ -61,9 +61,8 @@ export class AuthenticationService {
       if (typedError.status !== 401) {
         throw error;
       }
-
-      return null;
     }
+    return null;
   }
 
   logout() {
