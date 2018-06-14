@@ -4,3 +4,7 @@ export class Class {
   number: number;
   name: string;
 }
+
+export interface ClassQuery  {
+  allStudents: Class[];
+}

@@ -20,6 +20,9 @@ export class AuthGuard implements CanActivate {
 
   isAuthorized(route: UrlSegment[], userRole: UserType) {
     console.log(`route ${route} | User type ${userRole}`);
+    if (route[0].path === 'user' && userRole === UserType.TEACHER) {
+      return false;
+    }
     return true; // TODO: authorization logic
   }
 }
