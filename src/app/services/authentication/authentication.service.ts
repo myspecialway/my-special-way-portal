@@ -27,11 +27,7 @@ export class AuthenticationService {
     this.rememberMe = rememberMe;
   }
   getCurrentUser()  {
-    if (this.rememberMe) {
-      return localStorage.getItem('token');
-    } else {
-      return sessionStorage.getItem('token');
-    }
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
   constructor(private http: HttpClient) {  }
 
