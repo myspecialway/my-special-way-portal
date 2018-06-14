@@ -34,7 +34,9 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <button class="mat-raised-button" tabindex="-1" (click)="close()">סגור</button>
-      <button [type]="submit" class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button>
+      <!-- <button [type]="submit" class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button> -->
+      <button  class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button>
+
     </mat-dialog-actions>
   </div>
   
