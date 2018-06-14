@@ -14,15 +14,17 @@ export class AuthenticationService {
   private username = new BehaviorSubject('');
   private userRole: UserType;
   private tokenExpired = true;
-  private token: string;
+  private token;
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token') || '';
+      this.token = localStorage.getItem('token');
     } else {
-      this.token = sessionStorage.getItem('token') || '';
+      this.token = sessionStorage.getItem('token');
     }
-    this.parseToken(this.token);
+    if (this.isLoggedIn()) {
+      this.parseToken(this.token || undefined);
+    }
   }
 
   isNotExpired() {
@@ -54,7 +56,7 @@ export class AuthenticationService {
         sessionStorage.setItem('token', tokenResponse.accessToken);
       }
       this.token = tokenResponse.accessToken;
-      this.parseToken(tokenResponse.accessToken);
+      this.parseToken(this.token);
 
       return tokenResponse;
     } catch (error) {
