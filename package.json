@@ -111,7 +111,8 @@
       "!**/*.dialog.ts",
       "!**/login.component.ts",
       "!**/jwt.interceptor.ts",
-      "!**/dashboard.component.ts"
+      "!**/dashboard.component.ts",
+      "!**/*.graphql.service.ts"
     ]
   }
 }

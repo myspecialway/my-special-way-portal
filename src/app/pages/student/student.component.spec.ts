@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatDialog, MatDialogModule, MatRowDef} from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
-import { StudentService } from './services/student.service';
+import { StudentService } from './services/student.graphql.service';
 import { Apollo } from 'apollo-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
