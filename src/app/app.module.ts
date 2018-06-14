@@ -39,8 +39,6 @@ import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-us
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
 import { JwtInterceptor } from './services/helpers/jwt.interceptor';
-import { ApolloLink, concat } from 'apollo-link';
-import { LIVE_ANNOUNCER_PROVIDER } from '@angular/cdk/a11y';
 
 @NgModule({
   imports: [
