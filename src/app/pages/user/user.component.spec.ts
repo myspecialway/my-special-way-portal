@@ -1,7 +1,7 @@
 jest.mock('./services/user.service');
 
 import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, ElementRef } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
