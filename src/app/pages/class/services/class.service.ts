@@ -3,7 +3,7 @@ import { User, UserQuery } from '../../../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Class, ClassQuery } from '../../../models/class.model';
+import { Class, ClssQuery } from '../../../models/class.model';
 
 @Injectable()
 export class ClassService {
@@ -13,7 +13,7 @@ export class ClassService {
   constructor(private apollo: Apollo) { }
 
   getAllClasses() {
-    return this.apollo.query<ClassQuery>({
+    return this.apollo.query<ClssQuery>({
       query: gql`{
         allClasses {
           id

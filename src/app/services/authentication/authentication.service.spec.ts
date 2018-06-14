@@ -26,7 +26,7 @@ describe('AuthenticationService', () => {
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
     await authService.login('someusername', 'somepassword');
-    expect(authService.getCurrentUser).toBe(mockToken);
+    expect(authService.isLoggedIn).toBe(mockToken);
   });
 
   it('should return null if authentication endpoint returned status code 401', async () => {

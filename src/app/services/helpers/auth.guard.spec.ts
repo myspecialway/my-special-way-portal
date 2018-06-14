@@ -15,7 +15,7 @@ describe('auth guard', () => {
   it('should return true if token has been found', () => {
     const guard = new AuthGuard(routerMock as Router, authService);
     // (localStorage.getItem as jest.Mock).mockReturnValueOnce('some token');
-    authService.getCurrentUser = jest.fn().mockReturnValueOnce('some token');
+    authService.isLoggedIn = jest.fn().mockReturnValueOnce('some token');
     const response = guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
     expect(response).toBe(true);
   });

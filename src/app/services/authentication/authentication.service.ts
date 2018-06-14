@@ -14,8 +14,16 @@ export class AuthenticationService {
   private username = new BehaviorSubject('');
   private userRole: UserType;
   private tokenExpired = true;
+  private token: string;
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token') || '';
+    } else {
+      this.token = sessionStorage.getItem('token') || '';
+    }
+    this.parseToken(this.token);
+  }
 
   isNotExpired() {
     return this.tokenExpired;
@@ -30,7 +38,7 @@ export class AuthenticationService {
   setRememberMe(rememberMe: boolean) {
     this.rememberMe = rememberMe;
   }
-  getCurrentUser()  {
+  isLoggedIn()  {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
@@ -45,13 +53,8 @@ export class AuthenticationService {
       } else {
         sessionStorage.setItem('token', tokenResponse.accessToken);
       }
-      const jwtHelper: JwtHelperService = new JwtHelperService();
-      const decodedToken = jwtHelper.decodeToken(tokenResponse.accessToken);
-      this.tokenExpired = !jwtHelper.isTokenExpired(tokenResponse.accessToken);
-      this.username.next(decodedToken.username);
-      this.userRole = decodedToken.role;
-
-      // console.log(`token ${decodedToken.username} | ${decodedToken.role} | ${expirationDate} | ${isExpired}`);
+      this.token = tokenResponse.accessToken;
+      this.parseToken(tokenResponse.accessToken);
 
       return tokenResponse;
     } catch (error) {
@@ -64,8 +67,21 @@ export class AuthenticationService {
     return null;
   }
 
+  private parseToken(token: string) {
+    const jwtHelper: JwtHelperService = new JwtHelperService();
+    const decodedToken = jwtHelper.decodeToken(token);
+    this.tokenExpired = !jwtHelper.isTokenExpired(token);
+    this.username.next(decodedToken.username);
+    this.userRole = decodedToken.role;
+  }
+  getToken() {
+    return this.token;
+
+  }
+
   logout() {
       localStorage.removeItem('token');
       sessionStorage.removeItem('token');
   }
+
 }
