@@ -12,7 +12,6 @@ export class UserService {
   constructor(private apollo: Apollo) { }
 
   getAllUsers() {
-
     return this.apollo.query<UserQuery>({
       query: gql`
         {

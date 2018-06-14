@@ -40,9 +40,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          if (this.userService !== undefined) {
             return this.userService.getAllUsers();
-          }
         }),
         map((data) => {
           return data.data.allUsers;

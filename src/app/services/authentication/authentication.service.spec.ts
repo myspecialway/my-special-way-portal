@@ -1,7 +1,7 @@
 jest.mock('@angular/common/http');
 
 import { AuthenticationService } from './authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 
 describe('AuthenticationService', () => {
@@ -11,7 +11,7 @@ describe('AuthenticationService', () => {
   const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI
                     6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
   beforeEach(() => {
-    httpClient = new HttpClient(null);
+    httpClient = new HttpClient({} as HttpHandler);
     toPromiseFn = jest.fn();
     (httpClient.post as jest.Mock).mockReturnValue({
       toPromise: toPromiseFn,
@@ -24,11 +24,9 @@ describe('AuthenticationService', () => {
     const mockedResponse: LoginResponse = {
       accessToken: mockToken,
     };
-
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    const loginResponse = await authService.login('someusername', 'somepassword');
-
-    expect(loginResponse.accessToken).toBe(mockToken);
+    await authService.login('someusername', 'somepassword');
+    expect(authService.getCurrentUser).toBe(mockToken);
   });
 
   it('should return null if authentication endpoint returned status code 401', async () => {

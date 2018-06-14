@@ -49,7 +49,7 @@
       <!--TODO: fix required-->
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" [(value)]="data.class" name="class" [disabled]="data.userType != UserType.TEACHER">
+          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="data.userType != UserType.TEACHER">
             <mat-option [value]="">בחר</mat-option>
           </mat-select>
           <mat-error *ngIf="selectGrade.hasError('required')">{{getErrorMessage()}}</mat-error>

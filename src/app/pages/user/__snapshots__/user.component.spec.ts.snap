@@ -9,7 +9,7 @@ exports[`dashboard component should render component as described in snapshot 1`
   resultsLength="0"
   sort="undefined"
   table={[Function ElementRef]}
-  userService={[Function UserService]}
+  userService={[Function UserServiceMock]}
 >
   <div
     class="main-content"

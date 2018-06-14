@@ -1,14 +1,27 @@
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { UserType } from '../../models/user.model';
 
 @Injectable()
 export class AuthenticationService {
   private rememberMe: boolean;
+  private username = '';
+  private userRole: UserType;
+  private tokenExpired = true;
+
+  isNotExpired() {
+    return this.tokenExpired;
+  }
+  getUsername() {
+    return this.username;
+  }
+  getRole(): UserType {
+    return this.userRole;
+  }
 
   setRememberMe(rememberMe: boolean) {
     this.rememberMe = rememberMe;
@@ -35,9 +48,11 @@ export class AuthenticationService {
       }
       const jwtHelper: JwtHelperService = new JwtHelperService();
       const decodedToken = jwtHelper.decodeToken(tokenResponse.accessToken);
-      const expirationDate = jwtHelper.getTokenExpirationDate(tokenResponse.accessToken);
-      const isExpired = jwtHelper.isTokenExpired(tokenResponse.accessToken);
-      console.log(`token ${decodedToken.username} | ${expirationDate} | ${isExpired}`);
+      this.tokenExpired = !jwtHelper.isTokenExpired(tokenResponse.accessToken);
+      this.username = decodedToken.username;
+      this.userRole = decodedToken.role;
+
+      // console.log(`token ${decodedToken.username} | ${decodedToken.role} | ${expirationDate} | ${isExpired}`);
 
       return tokenResponse;
     } catch (error) {
