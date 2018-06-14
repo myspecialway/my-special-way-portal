@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LatLng, latLng, polyline, Polyline } from 'leaflet';
+import { LatLng, latLng } from 'leaflet';
 import { DEFAULT_MAP_OPTIONS } from './map.config';
 import { PATHS } from './paths.mock';
-import { LineString, MultiLineString } from 'geojson';
+import { IndoorAtlasPaths, LeafletPaths } from './map.model';
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
@@ -12,12 +12,12 @@ export class MapComponent implements OnInit {
     options = DEFAULT_MAP_OPTIONS;
     center: LatLng | undefined;
     currentFloor = 1;
-    layers: Polyline<LineString | MultiLineString, any>[];
+    layers: LeafletPaths;
     availableFloors: number[];
+    indoorAtlasPaths: IndoorAtlasPaths = PATHS;
 
     ngOnInit() {
         this.availableFloors = this.getAvailableFloors();
-        this.calcLayers();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.center = latLng(position.coords.latitude, position.coords.longitude);
@@ -25,30 +25,16 @@ export class MapComponent implements OnInit {
         }
     }
 
-    getAvailableFloors() {
+    setFloor(floorNum: number) {
+        this.currentFloor = floorNum;
+    }
+
+    private getAvailableFloors() {
         return PATHS.nodes.reduce((floors, node) => {
             if (floors.indexOf(node.floor) === -1) {
                 floors.push(node.floor);
             }
             return floors;
         }, [] as number[]).sort();
-    }
-
-    setFloor(floorNum: number) {
-        this.currentFloor = floorNum;
-        this.calcLayers();
-    }
-
-    calcLayers() {
-        this.layers = PATHS.edges
-            .filter((edge) => this.isEdgeInFloor(PATHS, edge, this.currentFloor))
-            .map((edge) => polyline([
-                latLng(PATHS.nodes[edge.begin].latitude, PATHS.nodes[edge.begin].longitude),
-                latLng(PATHS.nodes[edge.end].latitude, PATHS.nodes[edge.end].longitude),
-            ]));
-    }
-
-    private isEdgeInFloor(paths: typeof PATHS, edge: { begin: number; end: number; }, floor: number): boolean {
-        return paths.nodes[edge.begin].floor === floor || paths.nodes[edge.end].floor === floor;
     }
 }

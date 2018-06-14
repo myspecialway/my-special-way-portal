@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AppComponent } from './app.component';
-import { MapComponent } from './components';
+import {
+  MapComponent,
+  PathsMapperPipe,
+} from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
+    PathsMapperPipe,
   ],
   imports: [
     BrowserModule,
