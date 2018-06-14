@@ -1,12 +1,5 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { StudentService } from './services/student.service';
-import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { map } from 'rxjs/operators/map';
-import { catchError } from 'rxjs/operators/catchError';
-import { of as observableOf } from 'rxjs/observable/of';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
 import * as _ from 'lodash';
 
@@ -26,7 +19,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   @ViewChild('table') table: ElementRef;
 
   constructor(
-    private studentService: StudentService,
+    // private studentService: StudentService,
     public dialog: MatDialog,
   ) {}
 
@@ -43,7 +36,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
     //     map((data) => {
     //       return data.data.allStudents;
     //     }),
-    //     catchError(() => {
+    //     catchError(() => {ß
     //       return observableOf([]);
     //     }),
     // ).subscribe((data) => this.dataSource.data = [...data]);
@@ -57,13 +50,13 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      data: {id: id, firstName: firstName, lastName: lastName, gradeId: gradeId}
+      data: {id, firstName, lastName, gradeId},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        const index = _.findIndex(this.dataSource.data, function(user) { return user.id == id })
-        this.dataSource.data.splice(index,1);
+        const index = _.findIndex(this.dataSource.data, (user) => user.id === id );
+        this.dataSource.data.splice(index, 1);
         this.dataSource.paginator = this.paginator;
       }
     });

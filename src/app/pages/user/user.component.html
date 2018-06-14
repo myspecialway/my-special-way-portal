@@ -30,7 +30,7 @@
           <!-- Progress Column -->
           <ng-container matColumnDef="class">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.Class.name}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{(row.Class && row.Class.name) || '' }}</mat-cell>
           </ng-container>
 
           <!-- Name Column -->

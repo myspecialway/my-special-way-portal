@@ -57,9 +57,8 @@ export class AuthenticationService {
       if (typedError.status !== 401) {
         throw error;
       }
-
-      return null;
     }
+    return null;
   }
 
   logout() {

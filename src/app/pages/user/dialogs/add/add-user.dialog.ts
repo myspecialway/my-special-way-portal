@@ -12,18 +12,16 @@ import { UserService } from '../../services/user.service';
 
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
-  UserType = UserType;
-  formControl = new FormControl('', [
-    Validators.required,
-  ]);
-
+  keys: any[];
+  userTypes = UserType;
+  formControl = new FormControl('', [Validators.required]);
   selectUserType = new FormControl(null, Validators.required);
   selectGrade = new FormControl('', [Validators.required]);
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AddUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User,
               public userService: UserService,
-  ) { }
+  ) { this.keys = Object.keys(this.userTypes); }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
