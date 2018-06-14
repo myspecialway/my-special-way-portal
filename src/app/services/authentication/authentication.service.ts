@@ -5,18 +5,22 @@ import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserType } from '../../models/user.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
   private rememberMe: boolean;
-  private username = '';
+  private username = new BehaviorSubject('');
   private userRole: UserType;
   private tokenExpired = true;
+
+  constructor(private http: HttpClient) {  }
 
   isNotExpired() {
     return this.tokenExpired;
   }
-  getUsername() {
+  getUsername(): Observable<string> {
     return this.username;
   }
   getRole(): UserType {
@@ -29,7 +33,6 @@ export class AuthenticationService {
   getCurrentUser()  {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
-  constructor(private http: HttpClient) {  }
 
   async login(username: string, password: string): Promise<LoginResponse | null> {
     try {
@@ -45,7 +48,7 @@ export class AuthenticationService {
       const jwtHelper: JwtHelperService = new JwtHelperService();
       const decodedToken = jwtHelper.decodeToken(tokenResponse.accessToken);
       this.tokenExpired = !jwtHelper.isTokenExpired(tokenResponse.accessToken);
-      this.username = decodedToken.username;
+      this.username.next(decodedToken.username);
       this.userRole = decodedToken.role;
 
       // console.log(`token ${decodedToken.username} | ${decodedToken.role} | ${expirationDate} | ${isExpired}`);
@@ -62,10 +65,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    if (this.rememberMe) {
       localStorage.removeItem('token');
-    } else {
       sessionStorage.removeItem('token');
-    }
   }
 }

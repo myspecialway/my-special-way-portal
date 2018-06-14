@@ -55,8 +55,7 @@
 
         <li class="nav-item">
           <a class="nav-link" href="#pablo">
-            Hi
-            <!--{{currentUser.firstname}}-->
+            <div *ngIf="currentUser">Hi, {{currentUser}}</div>
             <p><a [routerLink]="['/login']">Logout</a></p>
           </a>
         </li>
