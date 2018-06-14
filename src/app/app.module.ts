@@ -23,7 +23,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -38,6 +38,9 @@ import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-us
 import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
+import { JwtInterceptor } from './services/helpers/jwt.interceptor';
+import { ApolloLink, concat } from 'apollo-link';
+import { LIVE_ANNOUNCER_PROVIDER } from '@angular/cdk/a11y';
 
 @NgModule({
   imports: [
@@ -94,18 +97,25 @@ import { ClassService } from './pages/class/services/class.graphql.service';
     UserService,
     StudentService,
     ClassService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(
     private httpLink: HttpLink,
-    private apollo: Apollo) {
+    private apollo: Apollo,
+  ) {
 
       this.initApollo();
   }
 
   private initApollo() {
+
     const http = this.httpLink.create({ uri: environment.beUrl });
     this.apollo.create({
       link: http,

@@ -8,11 +8,11 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const currentToken = JSON.parse(this.authenticationService.getToken() || '{}');
-    if (currentToken && currentToken.token) {
+    const currentToken = this.authenticationService.getToken();
+    if (currentToken) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentToken.token}`,
+          Authorization: `Bearer ${currentToken}`,
         },
       });
     }
