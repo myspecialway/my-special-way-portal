@@ -8,7 +8,6 @@ exports[`dashboard component should render component as described in snapshot 1`
   paginator="undefined"
   resultsLength="0"
   sort="undefined"
-  studentService={[Function StudentService]}
   table={[Function ElementRef]}
 >
   <div

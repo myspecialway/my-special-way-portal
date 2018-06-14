@@ -24,6 +24,6 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    this.menuItems = ROUTES.filter((menuItem) => menuItem); // TODO: filter by role
   }
 }

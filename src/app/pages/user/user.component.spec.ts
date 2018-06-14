@@ -38,13 +38,12 @@ describe('dashboard component', () => {
         MatHeaderRow,
         MatRowDef,
         MatHeaderRowDef,
-        MatSort,
-        ElementRef,
+
       ],
       providers: [
         UserService,
         { provide: MatDialog, useClass: UserDialogMock },
-        { provide: UserService, useClass: UserServiceMock },
+        // { provide: UserService, useClass: UserServiceMock },
 
       ],
       schemas: [NO_ERRORS_SCHEMA],

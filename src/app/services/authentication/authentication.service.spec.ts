@@ -20,13 +20,24 @@ describe('AuthenticationService', () => {
     authService = new AuthenticationService(httpClient);
   });
 
-  it('should create localstorage token key on authentication sucess', async () => {
+  it('should create localstorage token key on authentication sucess with rememberme enabled', async () => {
     const mockedResponse: LoginResponse = {
       accessToken: mockToken,
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    authService.setRememberMe(true);
     await authService.login('someusername', 'somepassword');
-    expect(authService.isLoggedIn).toBe(mockToken);
+    expect(localStorage.getItem('token')).toBe(mockToken);
+  });
+
+  it('should not create localstorage token key on authentication sucess with rememberme disabled', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: mockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    authService.setRememberMe(false);
+    await authService.login('someusername', 'somepassword');
+    expect(localStorage.getItem('token')).toBe(mockToken);
   });
 
   it('should return null if authentication endpoint returned status code 401', async () => {
