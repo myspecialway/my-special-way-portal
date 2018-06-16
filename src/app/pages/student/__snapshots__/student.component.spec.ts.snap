@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dashboard component should render component as described in snapshot 1`] = `
+exports[`student component should render component as described in snapshot 1`] = `
 <app-student
   dataSource={[Function MatTableDataSource]}
-  dialog={[Function StudentDialogMock]}
+  dialog={[Function UserDialogMock]}
   displayedColumns={[Function Array]}
   paginator="undefined"
   resultsLength="0"
   sort="undefined"
+  studentService={[Function StudentService]}
   table={[Function ElementRef]}
 >
   <div
@@ -108,13 +109,7 @@ exports[`dashboard component should render component as described in snapshot 1`
             
             
               
-            <td>
-              
-                
-              
-              
-              
-            </td>
+            
             
             
             

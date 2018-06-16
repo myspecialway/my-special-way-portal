@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import Student from '../../../../models/student.model';
 import { StudentService } from '../../services/student.graphql.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Class } from '../../../../models/class.model';
 
 @Component({
@@ -12,18 +12,25 @@ import { Class } from '../../../../models/class.model';
 })
 
 export class AddStudentDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<AddStudentDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Student,
-              public studentService: StudentService,
-  ) { }
-
+  form: FormGroup;
   formControl = new FormControl('', [
     Validators.required,
   ]);
-
   gradeList: Class[];
+  constructor(private formBuilder: FormBuilder,
+              public dialogRef: MatDialogRef<AddStudentDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Student,
+              public studentService: StudentService) {}
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      firstName: '',
+      lastName: '',
+      gender: '',
+      userName: '',
+      password: '',
+      class: undefined,
+    });
   }
 
   getErrorMessage() {
@@ -36,7 +43,7 @@ export class AddStudentDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  confirmAdd(): void {
-    this.studentService.create(this.data);
+  confirmAdd(dialogData): void {
+    this.dialogRef.close(dialogData);
   }
 }

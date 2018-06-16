@@ -7,7 +7,7 @@
         </mat-form-field>
       </div>
       <div class="example-header">
-        <button mat-raised-button color="primary">הוספת תלמיד חדש</button>
+        <button mat-raised-button color="primary" (click)="addNewStudent()">הוספת תלמיד חדש</button>
       </div>
     </div>
     <div class="row">
@@ -22,9 +22,7 @@
           <!-- Title Column -->
           <ng-container matColumnDef="gradeId">
             <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
-            <td>
-              <mat-cell *matCellDef="let row">{{ row.Class.level }}</mat-cell>
-            </td>
+            <mat-cell *matCellDef="let row">{{(row.Class && row.Class.name) || '' }}</mat-cell>
           </ng-container>
 
           <!-- State Column -->
@@ -45,7 +43,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="addNew()">ערוך</button>
+              <button mat-icon-button color="primary" (click)="updateStudent(row.id, row.firstName, row.lastName, row.gender, row.Class, row.userName, row.password)">ערוך</button>
             </mat-cell>
           </ng-container>
 

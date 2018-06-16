@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dashboard component should render component as described in snapshot 1`] = `
+exports[`user component should render component as described in snapshot 1`] = `
 <app-user
   dataSource={[Function MatTableDataSource]}
   dialog={[Function UserDialogMock]}
@@ -130,6 +130,18 @@ exports[`dashboard component should render component as described in snapshot 1`
   
             
             
+            
+            
+            
+              
+            
+            
+              
+            
+            
+            
+            
+  
             
             
             

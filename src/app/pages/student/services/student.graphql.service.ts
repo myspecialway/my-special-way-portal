@@ -12,7 +12,6 @@ export class StudentService {
   constructor(private apollo: Apollo) { }
 
   getAllStudents() {
-
     return this.apollo.query<StudentQuery>({
       query: gql`
         {
@@ -24,7 +23,10 @@ export class StudentService {
           gender
           Class {
             name
+            id
           }
+          userName
+          password
         }
       }
       ` }).toPromise();
@@ -51,11 +53,12 @@ export class StudentService {
       mutation {
         createStudent(
             id: ${student.id}
-            userName: ${student.userName}
-            firstName:${student.firstName}
-            lastName: ${student.lastName}
-            gender: ${student.gender}
-            class: ${student.class}
+            userName: "${student.userName}"
+            password: "${student.password}"
+            firstName: "${student.firstName}"
+            lastName: "${student.lastName}"
+            gender: "${student.gender}"
+            class_id: "${student.class && student.class.id}"
             ) {
           id
         }
@@ -69,11 +72,10 @@ export class StudentService {
       mutation {
         updateStudent(
             id: ${student.id}
-            userName: ${student.userName}
-            firstName:${student.firstName}
-            lastName: ${student.lastName}
-            gender: ${student.gender}
-            class: ${student.class}
+            userName: "${student.userName}"
+            firstName: "${student.firstName}"
+            lastName: "${student.lastName}"
+            gender: "${student.gender}"
             ) {
           id
         }

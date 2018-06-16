@@ -44,7 +44,7 @@ export class ClassService {
       mutation {
         createClass(
             id: ${clss.id}
-            level:"${clss.level}"
+            level: "${clss.level}"
             number: "${clss.number}"
             name: "${clss.name}"
             ) {
@@ -60,7 +60,7 @@ export class ClassService {
       mutation {
         updateUser(
           id: ${clss.id}
-            level:"${clss.level}"
+            level: "${clss.level}"
             number: "${clss.number}"
             name: "${clss.name}"
             ) {

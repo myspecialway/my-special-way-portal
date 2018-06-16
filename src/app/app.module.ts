@@ -39,6 +39,7 @@ import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-us
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
 import { JwtInterceptor } from './services/helpers/jwt.interceptor';
+import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 
 @NgModule({
   imports: [
@@ -75,18 +76,19 @@ import { JwtInterceptor } from './services/helpers/jwt.interceptor';
     StudentComponent,
     DeleteDialogComponent,
     UserComponent,
-    AddStudentDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    AddStudentDialogComponent,
+    UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-
   ],
   entryComponents: [
-    AddStudentDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    AddStudentDialogComponent,
+    UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
   ],
   providers: [

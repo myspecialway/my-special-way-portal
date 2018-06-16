@@ -1,52 +1,52 @@
 <div class="container">
   <h3 mat-dialog-title>הוספת תלמיד חדש</h3>
  <mat-dialog-content>
-  <form class="mat-dialog-content" #formControl="ngForm">
+  <form class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstName" name="firstName" required >
+        <input matInput #input formControlName="firstName" class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstName" name="firstName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastName" name="lastName" required >
+        <input matInput #input formControlName="lastName" class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastName" name="lastName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <mat-select placeholder="מין" [(ngModel)]="data.gender" name="gender" required>
+        <mat-select placeholder="מין" formControlName="gender" [(ngModel)]="data.gender" name="gender" required>
           <mat-option>בחר</mat-option>
-          <mat-option value="Male">זכר</mat-option>
-          <mat-option value="Female">נקבה</mat-option>
+          <mat-option value="MALE">זכר</mat-option>
+          <mat-option value="FEMALE">נקבה</mat-option>
         </mat-select>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <!-- <div class="form">
       <mat-form-field color="accent">
         <mat-select placeholder="כיתה" [(ngModel)]="data.class.level" name="class" required>
           <mat-option>בחר</mat-option>
         </mat-select>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="שם משתמש" [(ngModel)]="data.userName" name="userName" required >
+        <input matInput #input formControlName="userName" class="form-control" placeholder="שם משתמש" [(ngModel)]="data.userName" name="userName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="סיסמא" [(ngModel)]="data.password" name="password" required >
+        <input matInput #input formControlName="password" class="form-control" placeholder="סיסמא" [(ngModel)]="data.password" name="password" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -54,6 +54,6 @@
  </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-raised-button"  (click)="close()">סגור</button>
-    <button class="mat-raised-button mat-primary" [mat-dialog-close]="1" (click)="confirmAdd()">הוסף תלמיד</button>
+    <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)">הוסף תלמיד</button>
   </mat-dialog-actions>
 </div>

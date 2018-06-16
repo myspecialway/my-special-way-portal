@@ -11,8 +11,8 @@ export default class Student {
 }
 
 export enum Gender {
-  MALE = 'ילד',
-  FEMALE = 'ילדה',
+  MALE = 'זכר',
+  FEMALE = 'נקבה',
 }
 
 export interface StudentQuery  {

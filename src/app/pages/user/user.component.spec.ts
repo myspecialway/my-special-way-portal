@@ -7,7 +7,7 @@ import { UserComponent } from './user.component';
 import { UserService } from './services/user.graphql.service';
 import { UserType } from '../../models/user.model';
 
-describe('dashboard component', () => {
+describe('user component', () => {
   beforeEach(async () => {
 
     class UserDialogMock {

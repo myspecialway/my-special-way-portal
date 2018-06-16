@@ -39,6 +39,13 @@
             <mat-cell *matCellDef="let row">{{toHebrew(row.userType)}}</mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="enterPersonalArea">
+            <mat-header-cell *matHeaderCellDef>אזור אישי</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNewUser()">כניסה</button>
+            </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
