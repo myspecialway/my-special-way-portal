@@ -8,5 +8,5 @@
     [leafletOptions]="options"
     [leafletLayers]="indoorAtlasPaths | pathsMapper:currentFloor"
     [leafletCenter]="center"
-    (leafletDrawReady)="onDrawReady($event)">
+    (leafletDrawReady)="onDrawReady()">
 </div>
