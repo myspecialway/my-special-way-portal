@@ -3,7 +3,10 @@
         (click)="setFloor(floor)">floor {{floor}}</button>
 <div class ="map"
     leaflet 
+    leafletDraw
+    [leafletDrawOptions]="drawOptions"
     [leafletOptions]="options"
     [leafletLayers]="indoorAtlasPaths | pathsMapper:currentFloor"
-    [leafletCenter]="center">
+    [leafletCenter]="center"
+    (leafletDrawReady)="onDrawReady($event)">
 </div>

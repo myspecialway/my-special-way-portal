@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { LatLng, latLng } from 'leaflet';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LatLng, latLng, icon, DivIcon, Point, Control, Draw, Polygon } from 'leaflet';
 import { DEFAULT_MAP_OPTIONS } from './map.config';
 import { PATHS } from './paths.mock';
 import { IndoorAtlasPaths, LeafletPaths } from './map.model';
+import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+    @ViewChild(LeafletDirective) leafletDirective;
+
     options = DEFAULT_MAP_OPTIONS;
     center: LatLng | undefined;
     currentFloor = 1;
     layers: LeafletPaths;
     availableFloors: number[];
     indoorAtlasPaths: IndoorAtlasPaths = PATHS;
+
+    drawOptions: Control.DrawConstructorOptions = {
+        position: 'topright',
+        draw: {
+            polyline: false,
+            circle: false,
+            polygon: {
+                icon: new DivIcon({
+                    iconSize: new Point(16, 16),
+                    className: 'leaflet-div-icon leaflet-editing-icon my-beautiful-icon',
+                }),
+            },
+        }
+    };
 
     ngOnInit() {
         this.availableFloors = this.getAvailableFloors();
@@ -23,6 +40,18 @@ export class MapComponent implements OnInit {
                 this.center = latLng(position.coords.latitude, position.coords.longitude);
             });
         }
+    }
+
+    onDrawReady() {
+        this.leafletDirective.getMap().on(Draw.Event.CREATED, (event) => {
+            if (event.layer instanceof Polygon) {
+                const latLangPoints: LatLng[] = event.layer.getLatLngs()[0];
+                const pointsInside = this.indoorAtlasPaths.nodes
+                                .filter(node => node.floor === this.currentFloor)
+                                .filter(node => this.isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
+                console.log('Points to cancel: ', pointsInside);
+            }
+        });
     }
 
     setFloor(floorNum: number) {
@@ -36,5 +65,24 @@ export class MapComponent implements OnInit {
             }
             return floors;
         }, [] as number[]).sort();
+    }
+
+    /*
+        Based on Ray Casting algorithm
+        Source: https://stackoverflow.com/questions/31790344/determine-if-a-point-reside-inside-a-leaflet-polygon
+    */
+    private isMarkerInsidePolygon(marker: LatLng, polyPoints: LatLng[]) {
+        const x = marker.lat, y = marker.lng;
+        let inside = false;
+        for (let i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
+            const xi = polyPoints[i].lat, yi = polyPoints[i].lng;
+            const xj = polyPoints[j].lat, yj = polyPoints[j].lng;
+            const intersect = ((yi > y) !== (yj > y))
+                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) {
+                inside = !inside;
+            }
+        }
+        return inside;
     }
 }

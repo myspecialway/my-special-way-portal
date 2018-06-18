@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { AppComponent } from './app.component';
 import {
@@ -20,6 +21,7 @@ import {
     BrowserModule,
     AppRoutingModule,
     LeafletModule.forRoot(), // later move this into map module
+    LeafletDrawModule.forRoot(), // later move this into map module
   ],
   providers: [],
   bootstrap: [AppComponent]
