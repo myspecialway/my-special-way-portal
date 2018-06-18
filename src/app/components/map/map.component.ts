@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LatLng, latLng, icon, DivIcon, Point, Control, Draw, Polygon } from 'leaflet';
-import { DEFAULT_MAP_OPTIONS } from './map.config';
+import { LatLng, latLng, icon, DivIcon, Point, Control, Draw, Polygon, Marker, imageOverlay } from 'leaflet';
+import { DEFAULT_MAP_OPTIONS, MAP_IMAGE_PLACEMENT } from './map.config';
 import { PATHS } from './paths.mock';
 import { IndoorAtlasPaths, LeafletPaths } from './map.model';
 import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
@@ -14,10 +14,11 @@ export class MapComponent implements OnInit {
 
     options = DEFAULT_MAP_OPTIONS;
     center: LatLng | undefined;
-    currentFloor = 1;
+    currentFloor = 2;
     layers: LeafletPaths;
     availableFloors: number[];
     indoorAtlasPaths: IndoorAtlasPaths = PATHS;
+    indoorMap = [];
 
     drawOptions: Control.DrawConstructorOptions = {
         position: 'topright',
@@ -44,8 +45,11 @@ export class MapComponent implements OnInit {
 
     onDrawReady() {
         this.leafletDirective.getMap().on(Draw.Event.CREATED, (event) => {
+            if (event.layer instanceof Marker) {
+                console.log((event.layer as Marker).getLatLng());
+            }
             if (event.layer instanceof Polygon) {
-                const latLangPoints: LatLng[] = event.layer.getLatLngs()[0];
+                const latLangPoints = (event.layer as Polygon).getLatLngs()[0] as LatLng[];
                 const pointsInside = this.indoorAtlasPaths.nodes
                                 .filter(node => node.floor === this.currentFloor)
                                 .filter(node => this.isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
