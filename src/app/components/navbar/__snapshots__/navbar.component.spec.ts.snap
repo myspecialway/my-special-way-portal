@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navbar component should render component as described in snapshot 1`] = `
+<app-navbar
+  authService={[Function AuthenticationService]}
+>
+  <nav
+    class="navbar navbar-expand-lg navbar-white  navbar-absolute fixed-top"
+  >
+    
+    
+    <div
+      class="container-fluid"
+    >
+      
+      
+      <div
+        class="navbar-wrapper"
+      >
+        
+        
+        <a
+          class="navbar-brand"
+          href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/Vision.aspx"
+        >
+          
+          
+          <img
+            class="logo-img"
+            src="/assets/img/msw-logo.png"
+          />
+          
+          
+          <img
+            class="logo-img-tlv"
+            src="/assets/img/tlv-logo-small-white.jpg"
+          />
+          
+  
+        
+        </a>
+        
+        
+        <div
+          class="msw-page-title-dropdown dropdown"
+        >
+          
+          
+          <a
+            aria-expanded="false"
+            aria-haspopup="true"
+            class=""
+            data-toggle="dropdown"
+            href="http://example.com"
+            id="navbarDropdownMenuLink0"
+          >
+            
+              
+            <span
+              class="msw-page-title"
+            >
+              
+                מערכת ניהול
+                
+              <i
+                class="material-icons"
+              >
+                arrow_drop_down
+              </i>
+              
+              
+            </span>
+            
+            
+            
+          
+          </a>
+          
+          
+          <div
+            aria-labelledby="navbarDropdownMenuLink"
+            class="dropdown-menu dropdown-menu-link"
+          >
+            
+              
+            
+            
+  
+          
+          </div>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        id="navigation"
+      >
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+      </div>
+      
+    
+    </div>
+    
+  
+  </nav>
+  
+  
+  
+</app-navbar>
+`;

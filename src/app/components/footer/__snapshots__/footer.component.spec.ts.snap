@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dashboard component should render component as described in snapshot 1`] = `
+exports[`footer component should render component as described in snapshot 1`] = `
 <app-footer>
   <footer
     class="footer"

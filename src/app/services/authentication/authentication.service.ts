@@ -84,6 +84,11 @@ export class AuthenticationService {
   logout() {
       localStorage.removeItem('token');
       sessionStorage.removeItem('token');
+      this.rememberMe = false;
+      this.username.next('');
+      // this.userRole = undefined;
+      this.tokenExpired = true;
+      this.token = undefined;
   }
 
 }

@@ -2,7 +2,7 @@ jest.mock('./services/user.graphql.service');
 
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.graphql.service';
 import { UserType } from '../../models/user.model';
@@ -76,13 +76,5 @@ describe('user component', () => {
     const userDialogMock = TestBed.get(MatDialog);
     expect(userDialogMock.open).toHaveBeenCalled();
   });
-  // it('should call getAllUsers on init', () => {
-  //   const fixture = TestBed.createComponent(UserComponent);
-  //   fixture.componentInstance.sort = new MatSort();
-  //   fixture.componentInstance.table = new ElementRef(MatTable);
-  //   fixture.componentInstance.ngOnInit();
-  //   const UserServiceMock = TestBed.get(UserService);
-  //   expect(UserServiceMock.getAllUsers).toHaveBeenCalled();
-  // });
 
 });
