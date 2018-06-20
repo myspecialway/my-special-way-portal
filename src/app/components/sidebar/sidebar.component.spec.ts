@@ -1,7 +1,7 @@
 import { SidebarComponent } from './sidebar.component';
-import { By } from '@angular/platform-browser';
 import { Shallow } from 'shallow-render';
 import { ComponentsModule } from '../components.module';
+// import { By } from '@angular/platform-browser';
 
 describe('dashboard component', () => {
   let shallow: Shallow<SidebarComponent>;
