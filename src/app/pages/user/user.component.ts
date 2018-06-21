@@ -34,7 +34,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
@@ -45,10 +44,13 @@ export class UserComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.allUsers;
         }),
-        catchError(() => {
+        catchError((err) => {
+          console.log(err);
           return observableOf([]);
         }),
-    ).subscribe((data) => this.dataSource.data = [...data]);
+    ).subscribe((data) => {
+      this.dataSource.data = [...data];
+    });
 
   }
 
