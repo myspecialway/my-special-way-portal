@@ -122,6 +122,7 @@ describe('user component', () => {
 
 });
 
+/* tslint:disable */
 const testData = `{
     "allUsers": [
       {

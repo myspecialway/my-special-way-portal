@@ -117,9 +117,11 @@ describe('student component', () => {
     await fixture.whenRenderingDone();
     // console.log(fixture.nativeElement.innerHTML);
     const rows = fixture.debugElement.queryAll(By.css('.mat-table'));
-    expect(rows.length).toEqual(0);
+    expect(rows.length).toEqual(0); // TODO: fix this!
 });
 });
+
+/* tslint:disable */
 const testData = `{
   "allStudents": [
     {
