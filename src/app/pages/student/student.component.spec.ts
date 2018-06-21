@@ -31,6 +31,7 @@ describe('student component', () => {
     // tslint:disable-next-line:max-classes-per-file
     class StudentServiceMock {
       getAllStudents = jest.fn().mockImplementation(() => {
+        // tslint:disable-next-line
         const testResponse = {data: JSON.parse(testData) as StudentQuery,
           loading: false,
           networkStatus: 7 as NetworkStatus,

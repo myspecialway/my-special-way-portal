@@ -34,6 +34,7 @@ describe('user component', () => {
     // tslint:disable-next-line:max-classes-per-file
     class UserServiceMock {
       getAllUsers = jest.fn().mockImplementation(() => {
+        // tslint:disable-next-line
         const testResponse = {data: JSON.parse(testData) as UserQuery,
           loading: false,
           networkStatus: 7 as NetworkStatus,
@@ -122,7 +123,6 @@ describe('user component', () => {
 
 });
 
-/* tslint:disable */
 const testData = `{
     "allUsers": [
       {
