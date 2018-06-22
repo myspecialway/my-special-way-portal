@@ -87,7 +87,7 @@ describe('user component', () => {
 
   it('should open dialog when calling deleteUser function', () => {
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.MANAGER);
+    fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.PRINCIPLE);
     const userDialogMock = TestBed.get(MatDialog);
     expect(userDialogMock.open).toHaveBeenCalled();
   });
