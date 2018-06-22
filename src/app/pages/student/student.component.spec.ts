@@ -12,6 +12,8 @@ import { Overlay, ScrollStrategyOptions,
          OverlayKeyboardDispatcher,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+import { studentTestData } from '../../../mocks/assets/students.mock';
+jest.mock('./services/student.graphql.service');
 
 describe('student component', () => {
   beforeEach(async () => {
@@ -31,14 +33,15 @@ describe('student component', () => {
     // tslint:disable-next-line:max-classes-per-file
     class StudentServiceMock {
       getAllStudents = jest.fn().mockImplementation(() => {
-        // tslint:disable-next-line
-        const testResponse = {data: JSON.parse(testData) as StudentQuery,
+        const testResponse = {data: JSON.parse(studentTestData) as StudentQuery,
           loading: false,
           networkStatus: 7 as NetworkStatus,
           stale: false} as ApolloQueryResult<StudentQuery>;
         return Promise.resolve(testResponse);
       });
-      create() { console.log('create called'); }
+      addNewStudent = jest.fn().mockImplementation(() => {
+      });
+
     }
 
     TestBed.configureTestingModule({
@@ -71,7 +74,6 @@ describe('student component', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    // shallow = new Shallow(UserComponent, AppModule);
   });
 
   it('should render component as described in snapshot', () => {
@@ -120,54 +122,15 @@ describe('student component', () => {
     const rows = fixture.debugElement.queryAll(By.css('.mat-table'));
     expect(rows.length).toEqual(0); // TODO: fix this!
 });
+  xit('should invoke addnewstudent when the new student button is clicked', async () => {
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    // console.log(fixture.nativeElement.innerHTML);
+    const button = fixture.debugElement.query(By.css('.mat-raised-button'));
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    const StudentServiceMock = TestBed.get(StudentService);
+    expect(StudentServiceMock.addNewStudent).toHaveBeenCalled();
 });
-
-/* tslint:disable */
-const testData = `{
-  "allStudents": [
-    {
-      "id": "123",
-      "userName": "Rotem",
-      "firstName": "John1",
-      "lastName": "Worg1",
-      "gender": "MALE",
-      "Class": {
-        "name": "אגוז",
-        "id": "111"
-      }
-    },
-    {
-      "id": "321",
-      "userName": "John321",
-      "firstName": "John2",
-      "lastName": "Worg2",
-      "gender": "MALE",
-      "Class": {
-        "name": "אגוז",
-        "id": "111"
-      }
-    },
-    {
-      "id": "222",
-      "userName": "John222",
-      "firstName": "John3",
-      "lastName": "Worg3",
-      "gender": "MALE",
-      "Class": {
-        "name": "אשוח",
-        "id": "222"
-      }
-    },
-    {
-      "id": "333",
-      "userName": "John333",
-      "firstName": "John4",
-      "lastName": "Worg4",
-      "gender": "MALE",
-      "Class": {
-        "name": "אשוח",
-        "id": "222"
-      }
-    }
-  ]
-}`;
+});

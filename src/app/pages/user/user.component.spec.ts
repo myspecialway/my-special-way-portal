@@ -14,6 +14,7 @@ import { Platform } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
 import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
+import { userTestData } from '../../../mocks/assets/users.mock';
 
 describe('user component', () => {
 
@@ -34,8 +35,7 @@ describe('user component', () => {
     // tslint:disable-next-line:max-classes-per-file
     class UserServiceMock {
       getAllUsers = jest.fn().mockImplementation(() => {
-        // tslint:disable-next-line
-        const testResponse = {data: JSON.parse(testData) as UserQuery,
+        const testResponse = {data: JSON.parse(userTestData) as UserQuery,
           loading: false,
           networkStatus: 7 as NetworkStatus,
           stale: false} as ApolloQueryResult<UserQuery>;
@@ -122,56 +122,3 @@ describe('user component', () => {
 });
 
 });
-
-const testData = `{
-    "allUsers": [
-      {
-        "id": "123",
-        "userName": "Rotem",
-        "firstName": "John1",
-        "lastName": "Worg1",
-        "email": "www@www.com",
-        "userType": "TEACHER",
-        "Class": {
-          "name": "אגוז",
-          "id": "111"
-        }
-      },
-      {
-        "id": "321",
-        "userName": "John321",
-        "firstName": "John2",
-        "lastName": "Worg2",
-        "email": "www@www.com",
-        "userType": "TEACHER",
-        "Class": {
-          "name": "אגוז",
-          "id": "111"
-        }
-      },
-      {
-        "id": "222",
-        "userName": "John222",
-        "firstName": "John3",
-        "lastName": "Worg3",
-        "email": "www@www.com",
-        "userType": "MANAGER",
-        "Class": {
-          "name": "אשוח",
-          "id": "222"
-        }
-      },
-      {
-        "id": "333",
-        "userName": "John333",
-        "firstName": "John4",
-        "lastName": "Worg4",
-        "email": "www@www.com",
-        "userType": "MANAGER",
-        "Class": {
-          "name": "אשוח",
-          "id": "222"
-        }
-      }
-    ]
-}`;
