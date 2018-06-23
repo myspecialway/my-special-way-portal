@@ -58,7 +58,7 @@ export class StudentService {
             firstName: "${student.firstName}"
             lastName: "${student.lastName}"
             gender: "${student.gender}"
-            class_id: "${student.class && student.class.id}"
+            class_id: "${student.class && student.class._id}"
             ) {
           id
         }

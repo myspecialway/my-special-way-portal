@@ -28,7 +28,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.graphql.service';
-import { DeleteDialogComponent } from './pages/class/dialogs/delete/delete.dialog.component';
+import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
 import { AddStudentDialogComponent } from './pages/student/dialogs/add/add-student.dialog';
 import { UserComponent } from './pages/user/user.component';
 import { AddUserDialogComponent } from './pages/user/dialogs/add/add-user.dialog';
@@ -40,6 +40,8 @@ import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/del
 import { ClassService } from './pages/class/services/class.graphql.service';
 import { JwtInterceptor } from './services/helpers/jwt.interceptor';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
+import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
+import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 
 @NgModule({
   imports: [
@@ -74,7 +76,6 @@ import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/upd
     LoginComponent,
     ClassComponent,
     StudentComponent,
-    DeleteDialogComponent,
     UserComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
@@ -82,6 +83,9 @@ import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/upd
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    AddClassDialogComponent,
+    DeleteClassDialogComponent,
+    UpdateClassDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -90,6 +94,9 @@ import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/upd
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    AddClassDialogComponent,
+    DeleteClassDialogComponent,
+    UpdateClassDialogComponent,
   ],
   providers: [
     AuthGuard,

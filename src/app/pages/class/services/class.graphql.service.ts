@@ -15,57 +15,55 @@ export class ClassService {
   getAllClasses() {
     return this.apollo.query<ClssQuery>({
       query: gql`{
-        allClasses {
-          id
+        classes {
+          _id
           level
-          number
           name
         }
       }` }).toPromise();
   }
 
-  getById(id: number) {
-    return this.apollo.query<UserQuery>({
-      query: gql`
-        {
-          Class(id:${id}) {
-          id
-          level
-          number
-          name
-        }
-      }
-      ` }).toPromise();
-  }
+  // getById(id: number) {
+  //   return this.apollo.query<UserQuery>({
+  //     query: gql`
+  //       {
+  //         Class(id:${id}) {
+  //         id
+  //         level
+  //         number
+  //         name
+  //       }
+  //     }
+  //     ` }).toPromise();
+  // }
 
   create(clss: Class) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        createClass(
-            id: ${clss.id}
+        createClass(class: {
             level: "${clss.level}"
-            number: "${clss.number}"
+            number:  ${clss.number}
             name: "${clss.name}"
-            ) {
-          id
-        }
-        }
+        }) { _id }
+      }
     `}).toPromise();
   }
 
-  update(clss: Class) {
+  update(_class: Class) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        updateUser(
-          id: ${clss.id}
-            level: "${clss.level}"
-            number: "${clss.number}"
-            name: "${clss.name}"
-            ) {
-          id
-        }
+        updateClass(
+          id: "${_class._id}",
+          class: {
+            name: "${_class.name}"
+            level: "${_class.level}"
+            number: 1
+          })
+          {
+            _id
+          }
         }
     `}).toPromise();
   }
@@ -74,9 +72,10 @@ export class ClassService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        removeClass(id:${id})
+        deleteClass(
+          id: "${id}"
+        )
     }
     `}).toPromise();
-
   }
 }

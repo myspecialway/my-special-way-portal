@@ -1,10 +1,10 @@
 export class Class {
-  id: number;
+  _id: number;
   level: number;
   number: number;
   name: string;
 }
 
 export interface ClssQuery  {
-  allStudents: Class[];
+  allClasses: Class[];
 }
