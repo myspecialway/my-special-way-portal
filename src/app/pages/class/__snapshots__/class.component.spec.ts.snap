@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dashboard component should render component as described in snapshot 1`] = `
-<app-grade>
+exports[`class component should render component as described in snapshot 1`] = `
+<app-grade
+  classService={[Function ClassServiceMock]}
+  dataSource={[Function MatTableDataSource]}
+  dialog={[Function ClassDialogMock]}
+  displayedColumns={[Function Array]}
+  paginator={[Function MatPaginator]}
+  resultsLength="0"
+  sort={[Function MatSort]}
+  table={[Function ElementRef]}
+>
   <div
     class="main-content"
   >
@@ -73,12 +82,13 @@ exports[`dashboard component should render component as described in snapshot 1`
           <mat-table
             class="example-table"
             matsort=""
-            matsortactive="created"
+            matsortactive="name"
             matsortdirection="asc"
             matsortdisableclear=""
           >
             
   
+  
             
             
   
@@ -110,19 +120,6 @@ exports[`dashboard component should render component as described in snapshot 1`
             
             
   
-            
-            
-            
-            
-            
-              
-            
-            
-              
-            
-            
-            
-            
   
             
             
@@ -153,19 +150,65 @@ exports[`dashboard component should render component as described in snapshot 1`
             
   
             
-            <mat-header-row />
             
             
-            <mat-row />
+            
+            
             
           
           </mat-table>
           
   
           
-          <mat-paginator>
-            
-          
+          <mat-paginator
+            class="mat-paginator"
+          >
+            <div
+              class="mat-paginator-container"
+            >
+              
+              <div
+                class="mat-paginator-range-actions"
+              >
+                <div
+                  class="mat-paginator-range-label"
+                >
+                  
+                </div>
+                
+                <button
+                  class="mat-paginator-navigation-previous"
+                  mat-icon-button=""
+                  type="button"
+                >
+                  <svg
+                    class="mat-paginator-icon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="mat-paginator-navigation-next"
+                  mat-icon-button=""
+                  type="button"
+                >
+                  <svg
+                    class="mat-paginator-icon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                    />
+                  </svg>
+                </button>
+                
+              </div>
+            </div>
           </mat-paginator>
           
         
