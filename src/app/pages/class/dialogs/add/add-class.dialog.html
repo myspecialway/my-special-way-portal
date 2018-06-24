@@ -1,0 +1,29 @@
+<div class="container">
+    <h3 mat-dialog-title>הוספת כיתה חדשה</h3>
+    <mat-dialog-content>
+      <form  class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
+  
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input formControlName="name" class="form-control" placeholder="שם כיתה" [(ngModel)]="data.name"
+              name="name" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input formControlName="level" class="form-control" placeholder="שכבה" [(ngModel)]="data.level"
+              name="level" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+  
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button" tabindex="-1" (click)="close()">סגור</button>
+      <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)" [disabled]="!formControl.valid">הוספת כיתה</button>
+    </mat-dialog-actions>
+  </div>
+  

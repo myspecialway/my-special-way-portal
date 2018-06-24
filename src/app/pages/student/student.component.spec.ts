@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort, MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.graphql.service';
@@ -13,6 +13,7 @@ import { Overlay, ScrollStrategyOptions,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { studentTestData } from '../../../mocks/assets/students.mock';
+import { UserService } from '../user/services/user.graphql.service';
 jest.mock('./services/student.graphql.service');
 
 describe('student component', () => {
@@ -127,10 +128,25 @@ describe('student component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     // console.log(fixture.nativeElement.innerHTML);
-    const button = fixture.debugElement.query(By.css('.mat-raised-button'));
-    button.triggerEventHandler('click', null);
+    const de = fixture.debugElement;
+    // de.nativeElement.querySelector('.mat-raised-button').click();
+    // const button = fixture.debugElement.query(By.css('.mat-raised-button')).nativeElement;
+    // button.triggerEventHandler('click', null);
     fixture.detectChanges();
-    const StudentServiceMock = TestBed.get(StudentService);
-    expect(StudentServiceMock.addNewStudent).toHaveBeenCalled();
+    // const StudentServiceMock = TestBed.get(StudentService);
+    expect(de.nativeElement.querySelector('.mat-raised-button')).not.toBeNull();
+    // expect(StudentServiceMock.addNewStudent).toHaveBeenCalled();
+
+});
+
+  it('should load correct number of students ', async () => {
+    this.StudentServiceMock.addNewUser = jest.fn().mockImplementation(() => {
+      return Promise.reject();
+    });
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
+
 });
 });

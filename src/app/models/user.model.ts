@@ -1,31 +1,21 @@
 import { Class } from './class.model';
 
 export class User {
-    id: number;
-    userName: string;
+    _id: number;
+    username: string;
     password: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     email: string;
-    userType: UserType;
-    userTypeName: string;
+    role: UserType;
     Class?: Class;
   }
 
 export enum UserType {
-    MANAGER = 'מנהל',
+    PRINCIPLE = 'מנהל',
     TEACHER = 'מורה',
 }
 
 export interface UserQuery  {
     allUsers: User[];
 }
-
-// export namespace UserType {
-
-//   export function values() {
-//     return Object.keys(UserType).filter(
-//       (type) => isNaN(type as any) && type !== 'values',
-//     );
-//   }
-// }
