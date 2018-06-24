@@ -119,5 +119,13 @@ describe('class component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(23);
   });
-
+  it('should load zero classes in case of promise reject', async () => {
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(Promise.reject());
+    });
+    const fixture = TestBed.createComponent(ClassComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+  });
 });
