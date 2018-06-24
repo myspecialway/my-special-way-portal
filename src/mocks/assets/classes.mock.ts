@@ -1,5 +1,5 @@
 export const classTestData = `{
-  "allUsers":
+  "classes":
   [
     {
       "_id": "5b10fb1ff8022f6011f30f48",

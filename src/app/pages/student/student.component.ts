@@ -44,7 +44,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
         map((data) => {
           return data.data.allStudents;
         }),
-        catchError(() => {
+        catchError((err) => {
+          console.log(err);
           return observableOf([]);
         }),
     ).subscribe((data) => this.dataSource.data = [...data]);

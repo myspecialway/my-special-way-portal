@@ -3,10 +3,11 @@ export const studentTestData = `{
     {
       "id": "123",
       "userName": "Rotem",
+      "password": "",
       "firstName": "John1",
       "lastName": "Worg1",
       "gender": "MALE",
-      "Class": {
+      "class": {
         "name": "אגוז",
         "id": "111"
       }
@@ -14,10 +15,11 @@ export const studentTestData = `{
     {
       "id": "321",
       "userName": "John321",
+      "password": "",
       "firstName": "John2",
       "lastName": "Worg2",
       "gender": "MALE",
-      "Class": {
+      "class": {
         "name": "אגוז",
         "id": "111"
       }
@@ -25,10 +27,11 @@ export const studentTestData = `{
     {
       "id": "222",
       "userName": "John222",
+      "password": "",
       "firstName": "John3",
       "lastName": "Worg3",
       "gender": "MALE",
-      "Class": {
+      "class": {
         "name": "אשוח",
         "id": "222"
       }
@@ -36,10 +39,11 @@ export const studentTestData = `{
     {
       "id": "333",
       "userName": "John333",
+      "password": "",
       "firstName": "John4",
       "lastName": "Worg4",
       "gender": "MALE",
-      "Class": {
+      "class": {
         "name": "אשוח",
         "id": "222"
       }

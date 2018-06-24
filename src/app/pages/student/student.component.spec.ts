@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort, MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog,
+        MatSort, MatPaginator, MatPaginatorIntl, MatDialogRef } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.graphql.service';
 import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
-import { By } from '@angular/platform-browser';
 import { StudentQuery } from '../../models/student.model';
 import { Overlay, ScrollStrategyOptions,
          ScrollDispatcher, ViewportRuler,
@@ -13,10 +13,11 @@ import { Overlay, ScrollStrategyOptions,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { studentTestData } from '../../../mocks/assets/students.mock';
-jest.mock('./services/student.graphql.service');
+import { Observable } from 'rxjs/Observable';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
+  let studentDialogMock: Partial<MatDialog>;
   const testResponse = {
                         data: JSON.parse(studentTestData) as StudentQuery,
                         loading: false,
@@ -25,21 +26,18 @@ describe('student component', () => {
                        } as ApolloQueryResult<StudentQuery>;
 
   beforeEach(async () => {
-    class UserDialogMock {
-      open = jest.fn().mockImplementation(() => {
-        return {
-          afterClosed: () => {
-            return {
-              subscribe: jest.fn(),
-            };
-          },
-        };
-      });
-    }
 
     studentServiceMock = {
       getAllStudents: jest.fn(),
+      delete: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    };
 
+    studentDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+      }),
     };
 
     TestBed.configureTestingModule({
@@ -57,7 +55,7 @@ describe('student component', () => {
       ],
       providers: [
         StudentService,
-        { provide: MatDialog, useClass: UserDialogMock },
+       { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
         Overlay,
         ScrollStrategyOptions,
@@ -80,33 +78,33 @@ describe('student component', () => {
   });
 
   it('should open dialog when calling addNewStudent function', () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+    (studentServiceMock.create as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.addNewStudent();
-    const studentDialogMock = TestBed.get(MatDialog);
-    expect(studentDialogMock.open).toHaveBeenCalled();
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
   });
 
   it('should open dialog when calling deleteStudent function', () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+    (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח');
-    const studentDialogMock = TestBed.get(MatDialog);
-    expect(studentDialogMock.open).toHaveBeenCalled();
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
   });
 
   it('should open dialog when calling updateeStudent function', () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+    (studentServiceMock.update as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.updateStudent(123, 'sad', 'asd', 'asd', 'asd', 'asd', 'asd');
-    const studentDialogMock = TestBed.get(MatDialog);
-    expect(studentDialogMock.open).toHaveBeenCalled();
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
   });
   it('should load students from service on page load ', () => {
     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
@@ -114,8 +112,8 @@ describe('student component', () => {
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
-    const StudentServiceMock = TestBed.get(StudentService);
-    expect(StudentServiceMock.getAllStudents).toHaveBeenCalled();
+    const DialogMock = TestBed.get(StudentService);
+    expect(DialogMock.getAllStudents).toHaveBeenCalled();
   });
 
   it('should load correct number of students ', async () => {
@@ -126,37 +124,6 @@ describe('student component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
-});
-  it.only('should load correct number of students and render them in table', async () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
-    });
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    // console.log(fixture.nativeElement.innerHTML);
-    const rows = fixture.debugElement.queryAll(By.css('.example-table'));
-    console.log(fixture.debugElement.nativeElement.innerHTML);
-    expect(rows.length).toEqual(4); // TODO: fix this!
-});
-
-  it('should invoke addnewstudent when the new student button is clicked', async () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
-    });
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    // console.log(fixture.nativeElement.innerHTML);
-    const de = fixture.debugElement;
-    // de.nativeElement.querySelector('.mat-raised-button').click();
-    // const button = fixture.debugElement.query(By.css('.mat-raised-button')).nativeElement;
-    // button.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    // const StudentServiceMock = TestBed.get(StudentService);
-    expect(de.nativeElement.querySelector('.mat-raised-button')).not.toBeNull();
-    // expect(StudentServiceMock.addNewStudent).toHaveBeenCalled();
-
 });
 
   it('should load zero students in case of promise reject', async () => {
@@ -169,4 +136,16 @@ describe('student component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
 
 });
+  it('component delete should call service delete', async () => {
+    (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(1);
+    });
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd');
+    const serviceMock = TestBed.get(StudentService);
+    expect(serviceMock.delete).toHaveBeenCalled();
+  });
+
 });

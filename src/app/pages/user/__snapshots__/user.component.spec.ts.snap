@@ -3,13 +3,13 @@
 exports[`user component should render component as described in snapshot 1`] = `
 <app-user
   dataSource={[Function MatTableDataSource]}
-  dialog={[Function UserDialogMock]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   paginator={[Function MatPaginator]}
   resultsLength="0"
   sort={[Function MatSort]}
   table={[Function ElementRef]}
-  userService={[Function UserServiceMock]}
+  userService={[Function Object]}
 >
   <div
     class="main-content"

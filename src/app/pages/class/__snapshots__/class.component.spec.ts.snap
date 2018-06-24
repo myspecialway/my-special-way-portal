@@ -2,9 +2,9 @@
 
 exports[`class component should render component as described in snapshot 1`] = `
 <app-grade
-  classService={[Function ClassServiceMock]}
+  classService={[Function Object]}
   dataSource={[Function MatTableDataSource]}
-  dialog={[Function ClassDialogMock]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   paginator={[Function MatPaginator]}
   resultsLength="0"

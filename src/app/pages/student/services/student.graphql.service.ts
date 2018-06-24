@@ -21,7 +21,7 @@ export class StudentService {
           firstName
           lastName
           gender
-          Class {
+          class {
             name
             id
           }

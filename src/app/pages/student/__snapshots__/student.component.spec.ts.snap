@@ -3,7 +3,7 @@
 exports[`student component should render component as described in snapshot 1`] = `
 <app-student
   dataSource={[Function MatTableDataSource]}
-  dialog={[Function UserDialogMock]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   paginator={[Function MatPaginator]}
   resultsLength="0"
