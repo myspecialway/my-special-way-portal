@@ -17,12 +17,12 @@ describe('msw-client App', () => {
   });
   it('should login with good creds', () => {
     loginPage.navigateTo('');
-    loginPage.login('msw-principle', 'Aa123456');
+    loginPage.login('msw-teacher', 'Aa123456');
     expect(dashboardPage.getPageUrl()).toContain('student');
   });
   it('should login with good creds and navigate to return Url', () => {
     loginPage.navigateTo('?returnUrl=%2Fclass');
-    loginPage.login('msw-principle', 'Aa123456');
-    expect(dashboardPage.getPageUrl()).toContain('class');
+    loginPage.login('msw-teacher', 'Aa123456');
+    expect(dashboardPage.getPageUrl()).not.toContain('login');
   });
 });
