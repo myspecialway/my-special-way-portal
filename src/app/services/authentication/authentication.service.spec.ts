@@ -77,4 +77,25 @@ describe('AuthenticationService', () => {
     authService.logout();
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('token');
   });
+
+  it('should return username after successful login', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: mockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    authService.setRememberMe(false);
+    await authService.login('someusername', 'somepassword');
+    authService.getUsername().toPromise().then((result) => {
+      expect(result).toEqual('someuser');
+    });
+  });
+  it('should return token after successful login', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: mockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    authService.setRememberMe(false);
+    await authService.login('someusername', 'somepassword');
+    expect(authService.getToken()).toEqual(mockToken);
+  });
 });

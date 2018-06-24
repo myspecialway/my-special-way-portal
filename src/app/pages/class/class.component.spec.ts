@@ -128,4 +128,11 @@ describe('class component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
+  it('should clean the filter before aplying to table', async () => {
+    const fixture = TestBed.createComponent(ClassComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    fixture.componentInstance.applyFilter('  AA!!BB  ');
+    expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
+  });
 });
