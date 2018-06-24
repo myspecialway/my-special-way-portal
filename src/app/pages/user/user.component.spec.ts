@@ -15,6 +15,7 @@ import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs/Observable';
+import { filter } from 'rxjs/operator/filter';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -134,4 +135,25 @@ describe('user component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
+
+  it('should use the type methode to translate TEACHER to hebrew', async () => {
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.toHebrew('TEACHER' as UserType)).toEqual('מורה');
+  });
+  it('should use the type methode to translate ORINCIPAL to hebrew', async () => {
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.toHebrew('PRINCIPLE' as UserType)).toEqual('מנהל');
+  });
+  it('should clean the filter before aplying to table', async () => {
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    fixture.componentInstance.applyFilter('  AA!!BB  ');
+    expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
+  });
+
 });

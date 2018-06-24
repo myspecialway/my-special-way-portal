@@ -68,9 +68,9 @@ export class UserComponent implements OnInit, AfterViewInit {
     return UserType[type];
   }
 
-  editUser(user: User) {
-    this.userService.update(user);
-  }
+  // editUser(user: User) {
+  //   this.userService.update(user);
+  // }
 
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
