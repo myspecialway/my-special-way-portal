@@ -20,7 +20,7 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['name', 'userName', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
+  displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource();
   resultsLength = 0;
 
@@ -42,7 +42,7 @@ export class UserComponent implements OnInit, AfterViewInit {
             return this.userService.getAllUsers();
         }),
         map((data: any) => {
-          return data.data.allUsers;
+          return data.data.users;
         }),
         catchError((err) => {
           console.log(err);
@@ -89,35 +89,35 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteUser(id: number, firstName: string, lastName: string, userType: UserType) {
+  deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: {id, firstName, lastName, userType},
+      data: {_id, firstName, lastName, userType},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.userService.delete(id)
+        this.userService.delete(_id)
           .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user.id === id);
+            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
           });
       }
     });
   }
-  updateUser(id: number, firstName: string, lastName: string, email: string, userName: string) {
+  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: {firstName, lastName, email, userName },
+      data: {_id, firstname, lastname, email, username },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const relevantUser = _.find(this.dataSource.data, {id});
+        const relevantUser = _.find(this.dataSource.data, {_id});
         const tempUser = _.assign({}, relevantUser, result);
 
         this.userService.update(tempUser)
           .then((data) => {
-            const index = _.findIndex(this.dataSource.data, (user) => user.id === id);
+            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantUser, result);
             this.dataSource.paginator = this.paginator;
           });
@@ -127,13 +127,12 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   _createNewUser(userData: any): User {
     const user: User = new User();
-    user.id = 0;
-    user.firstName = userData.firstName;
-    user.lastName = userData.lastName;
-    user.userName = userData.userName;
+    user.firstname = userData.firstName;
+    user.lastname = userData.lastName;
+    user.username = userData.userName;
     user.email = userData.email;
-    user.userType = userData.userType;
-    user.Class = userData.Class;
+    user.role = userData.userType;
+    // user.Class = userData.Class;
     return user;
   }
 }

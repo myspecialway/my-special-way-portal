@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, UserQuery } from '../../../models/user.model';
+import { User, UserQuery, UserType } from '../../../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -15,17 +15,13 @@ export class UserService {
     return this.apollo.query<UserQuery>({
       query: gql`
         {
-         allUsers {
-          id
-          userName
-          firstName
-          lastName
+         users {
+          _id
+          username
+          firstname
+          lastname
           email
-          userType
-          Class {
-            name
-            id
-          }
+          role
         }
       }
       ` }).toPromise();
@@ -51,18 +47,14 @@ export class UserService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        createUser(
-            id: ${user.id}
-            userName:"${user.userName}"
-            firstName:"${user.firstName}"
-            lastName: "${user.lastName}"
-            email: "${user.email}"
-            userType: "${user.userType}"
-            class_id: "${user.Class && user.Class.id}"
-            ) {
-          id
-        }
-        }
+        addUser(user: {
+          username: "${user.username}",
+          email: "${user.email}"
+          firstname: "${user.firstname}"
+          lastname: "${user.lastname}"
+          role: ${user.role}
+        }) { _id }
+      }
     `}).toPromise();
   }
 
@@ -71,15 +63,15 @@ export class UserService {
       mutation: gql`
       mutation {
         updateUser(
-            id: "${user.id}"
-            userName: "${user.userName}"
-            firstName:"${user.firstName}"
-            lastName: "${user.lastName}"
-            email: "${user.email}"
-            userType: "${user.userType}"
-            class_id: "${user.Class && user.Class.id}"
+            id: "${user._id}",
+            user: {
+              username: "${user.username}"
+              email: "${user.email}"
+              firstname:"${user.firstname}"
+              lastname: "${user.lastname}"
+               }
             ) {
-          id
+          _id
         }
         }
     `}).toPromise();
@@ -89,9 +81,10 @@ export class UserService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        removeUser(id:${id})
+        deleteUser(
+          id: "${id}"
+        )
     }
     `}).toPromise();
-
   }
 }
