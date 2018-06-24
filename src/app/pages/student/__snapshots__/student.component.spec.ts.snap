@@ -8,7 +8,7 @@ exports[`student component should render component as described in snapshot 1`] 
   paginator={[Function MatPaginator]}
   resultsLength="0"
   sort={[Function MatSort]}
-  studentService={[Function StudentServiceMock]}
+  studentService={[Function Object]}
   table={[Function ElementRef]}
 >
   <div

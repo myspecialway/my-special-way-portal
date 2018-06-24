@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort, MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.graphql.service';
@@ -13,12 +13,18 @@ import { Overlay, ScrollStrategyOptions,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { studentTestData } from '../../../mocks/assets/students.mock';
-import { UserService } from '../user/services/user.graphql.service';
 jest.mock('./services/student.graphql.service');
 
 describe('student component', () => {
-  beforeEach(async () => {
+  let studentServiceMock: Partial<StudentService>;
+  const testResponse = {
+                        data: JSON.parse(studentTestData) as StudentQuery,
+                        loading: false,
+                        networkStatus: 7 as NetworkStatus,
+                        stale: false,
+                       } as ApolloQueryResult<StudentQuery>;
 
+  beforeEach(async () => {
     class UserDialogMock {
       open = jest.fn().mockImplementation(() => {
         return {
@@ -31,19 +37,10 @@ describe('student component', () => {
       });
     }
 
-    // tslint:disable-next-line:max-classes-per-file
-    class StudentServiceMock {
-      getAllStudents = jest.fn().mockImplementation(() => {
-        const testResponse = {data: JSON.parse(studentTestData) as StudentQuery,
-          loading: false,
-          networkStatus: 7 as NetworkStatus,
-          stale: false} as ApolloQueryResult<StudentQuery>;
-        return Promise.resolve(testResponse);
-      });
-      addNewStudent = jest.fn().mockImplementation(() => {
-      });
+    studentServiceMock = {
+      getAllStudents: jest.fn(),
 
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -61,7 +58,7 @@ describe('student component', () => {
       providers: [
         StudentService,
         { provide: MatDialog, useClass: UserDialogMock },
-        { provide: StudentService, useClass: StudentServiceMock },
+        { provide: StudentService, useValue: studentServiceMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -83,6 +80,9 @@ describe('student component', () => {
   });
 
   it('should open dialog when calling addNewStudent function', () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.addNewStudent();
     const studentDialogMock = TestBed.get(MatDialog);
@@ -90,6 +90,9 @@ describe('student component', () => {
   });
 
   it('should open dialog when calling deleteStudent function', () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח');
     const studentDialogMock = TestBed.get(MatDialog);
@@ -97,12 +100,18 @@ describe('student component', () => {
   });
 
   it('should open dialog when calling updateeStudent function', () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.updateStudent(123, 'sad', 'asd', 'asd', 'asd', 'asd', 'asd');
     const studentDialogMock = TestBed.get(MatDialog);
     expect(studentDialogMock.open).toHaveBeenCalled();
   });
   it('should load students from service on page load ', () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     const StudentServiceMock = TestBed.get(StudentService);
@@ -110,20 +119,31 @@ describe('student component', () => {
   });
 
   it('should load correct number of students ', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
 });
-  it('should load correct number of students and render them in table', async () => {
+  it.only('should load correct number of students and render them in table', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     // console.log(fixture.nativeElement.innerHTML);
-    const rows = fixture.debugElement.queryAll(By.css('.mat-table'));
-    expect(rows.length).toEqual(0); // TODO: fix this!
+    const rows = fixture.debugElement.queryAll(By.css('.example-table'));
+    console.log(fixture.debugElement.nativeElement.innerHTML);
+    expect(rows.length).toEqual(4); // TODO: fix this!
 });
-  xit('should invoke addnewstudent when the new student button is clicked', async () => {
+
+  it('should invoke addnewstudent when the new student button is clicked', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -139,14 +159,14 @@ describe('student component', () => {
 
 });
 
-  it('should load correct number of students ', async () => {
-    this.StudentServiceMock.addNewUser = jest.fn().mockImplementation(() => {
-      return Promise.reject();
+  it('should load zero students in case of promise reject', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.reject();
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
 
 });
 });
