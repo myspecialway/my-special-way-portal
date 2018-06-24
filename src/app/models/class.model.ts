@@ -5,6 +5,6 @@ export class Class {
   name: string;
 }
 
-export interface ClssQuery  {
+export interface ClassQuery  {
   allClasses: Class[];
 }

@@ -8,20 +8,6 @@ exports[`dashboard component should render component as described in snapshot 1`
     
     
     <div
-      class="sidebar"
-      data-background-color="white"
-      data-color="purple"
-      data-image="../assets/img/sidebar-1.jpg"
-    >
-      
-      
-      <app-sidebar />
-      
-    
-    </div>
-    
-    
-    <div
       class="main-panel"
     >
       
