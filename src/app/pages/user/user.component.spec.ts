@@ -15,7 +15,6 @@ import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs/Observable';
-import { filter } from 'rxjs/operator/filter';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
