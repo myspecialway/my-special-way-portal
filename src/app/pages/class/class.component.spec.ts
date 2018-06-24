@@ -9,7 +9,6 @@ import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
 import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispatcher,
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { By } from '@angular/platform-browser';
 
 describe('class component', () => {
   beforeEach(async () => {
