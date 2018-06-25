@@ -1,0 +1,72 @@
+# source: http://localhost:3000
+# timestamp: Sun Jun 10 2018 21:43:57 GMT+0300 (Jerusalem Daylight Time)
+
+type Class {
+  id: ID!
+  level: Int!
+  number: Int!
+  name: String!
+  Users: [User]
+}
+
+input ClassFilter {
+  q: String
+  ids: [ID]
+  id: ID
+  level: Int
+  number: Int
+  name: String
+  level_lt: Int
+  level_lte: Int
+  level_gt: Int
+  level_gte: Int
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
+}
+
+type ListMetadata {
+  count: Int
+}
+
+type Mutation {
+  createUser(id: ID!, userName: String!, firstName: String!, lastName: String!, email: String!, userType: String!, class_id: ID!): User
+  updateUser(id: ID!, userName: String, firstName: String, lastName: String, email: String, userType: String, class_id: ID): User
+  removeUser(id: ID!): Boolean
+  createClass(id: ID!, level: Int!, number: Int!, name: String!): Class
+  updateClass(id: ID!, level: Int, number: Int, name: String): Class
+  removeClass(id: ID!): Boolean
+}
+
+type Query {
+  User(id: ID!): User
+  allUsers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: UserFilter): [User]
+  _allUsersMeta(page: Int, perPage: Int, filter: UserFilter): ListMetadata
+  Class(id: ID!): Class
+  allClasses(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ClassFilter): [Class]
+  _allClassesMeta(page: Int, perPage: Int, filter: ClassFilter): ListMetadata
+}
+
+type User {
+  id: ID!
+  userName: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  userType: String!
+  class_id: ID!
+  Class: Class
+}
+
+input UserFilter {
+  q: String
+  ids: [ID]
+  id: ID
+  userName: String
+  firstName: String
+  lastName: String
+  email: String
+  userType: String
+  class_id: ID
+}

@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "asd": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "local": "http://localhost:3000"
+        }
+      }
+    }
+  }
+}

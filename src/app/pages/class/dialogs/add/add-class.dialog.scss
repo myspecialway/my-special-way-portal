@@ -1,0 +1,14 @@
+* {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  mat-dialog-actions button {
+    text-align: center;
+  }
+  
