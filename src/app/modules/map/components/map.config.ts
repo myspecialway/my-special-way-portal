@@ -1,5 +1,5 @@
 
-import { latLng, tileLayer, imageOverlay } from 'leaflet';
+import { latLng, tileLayer } from 'leaflet';
 
 export const DEFAULT_POSITION = {
     latitude: 31.986422990470114,

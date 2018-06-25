@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { MapComponent, PathsMapperPipe } from './index';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('map component', () => {
     beforeEach(async () => {
