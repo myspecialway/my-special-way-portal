@@ -23,9 +23,7 @@
         "../node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
         "./assets/scss/material-dashboard.scss",
         "./assets/css/demo.css",
-        "styles.scss",
-        "../node_modules/leaflet/dist/leaflet.css",
-        "../node_modules/leaflet-draw/dist/leaflet.draw.css"
+        "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

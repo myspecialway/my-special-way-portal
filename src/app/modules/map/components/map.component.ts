@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LatLng, latLng, icon, DivIcon, Point, Control, Draw, Polygon, Marker, imageOverlay } from 'leaflet';
-import { DEFAULT_MAP_OPTIONS, MAP_IMAGE_PLACEMENT } from './map.config';
-import { PATHS } from './paths.mock';
-import { IndoorAtlasPaths, LeafletPaths } from './map.model';
+import { LatLng, latLng, DivIcon, Point, Control, Draw, Polygon, Marker } from 'leaflet';
+import { DEFAULT_MAP_OPTIONS } from '../components/map.config';
+import { PATHS } from '../server/paths.mock';
+import { IndoorAtlasPaths, LeafletPaths } from '../components/map.model';
 import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
+import { isMarkerInsidePolygon } from '../server/logic';
+
 @Component({
     selector: 'app-map',
     templateUrl: './map.component.html',
@@ -31,7 +33,7 @@ export class MapComponent implements OnInit {
                     className: 'leaflet-div-icon leaflet-editing-icon my-beautiful-icon',
                 }),
             },
-        }
+        },
     };
 
     ngOnInit() {
@@ -51,8 +53,8 @@ export class MapComponent implements OnInit {
             if (event.layer instanceof Polygon) {
                 const latLangPoints = (event.layer as Polygon).getLatLngs()[0] as LatLng[];
                 const pointsInside = this.indoorAtlasPaths.nodes
-                                .filter(node => node.floor === this.currentFloor)
-                                .filter(node => this.isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
+                                .filter((node) => node.floor === this.currentFloor)
+                                .filter((node) => isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
                 console.log('Points to cancel: ', pointsInside);
             }
         });
@@ -69,24 +71,5 @@ export class MapComponent implements OnInit {
             }
             return floors;
         }, [] as number[]).sort();
-    }
-
-    /*
-        Based on Ray Casting algorithm
-        Source: https://stackoverflow.com/questions/31790344/determine-if-a-point-reside-inside-a-leaflet-polygon
-    */
-    private isMarkerInsidePolygon(marker: LatLng, polyPoints: LatLng[]) {
-        const x = marker.lat, y = marker.lng;
-        let inside = false;
-        for (let i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
-            const xi = polyPoints[i].lat, yi = polyPoints[i].lng;
-            const xj = polyPoints[j].lat, yj = polyPoints[j].lng;
-            const intersect = ((yi > y) !== (yj > y))
-                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-            if (intersect) {
-                inside = !inside;
-            }
-        }
-        return inside;
     }
 }

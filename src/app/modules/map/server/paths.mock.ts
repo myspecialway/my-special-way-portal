@@ -47,7 +47,7 @@ export const PATHS = {
         { latitude: 31.986365831605077, longitude: 34.910718239843845, floor: 3 },
         { latitude: 31.986363840997196, longitude: 34.91072226315737, floor: 3 },
         { latitude: 31.986359291036173, longitude: 34.91071220487357, floor: 3 },
-        { latitude: 31.986356731682978, longitude: 34.910718239843845, floor: 3 }
+        { latitude: 31.986356731682978, longitude: 34.910718239843845, floor: 3 },
     ],
     edges: [
         { begin: 0, end: 1 },
@@ -97,6 +97,6 @@ export const PATHS = {
         { begin: 38, end: 39 },
         { begin: 38, end: 40 },
         { begin: 43, end: 44 },
-        { begin: 45, end: 46 }
-    ]
+        { begin: 45, end: 46 },
+    ],
 };

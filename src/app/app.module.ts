@@ -7,8 +7,6 @@ import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../environments/environment';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -71,8 +69,6 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     ApolloModule,
     HttpLinkModule,
     ReactiveFormsModule,
-    LeafletModule.forRoot(), // later move this into map module
-    LeafletDrawModule.forRoot(), // later move this into map module
   ],
   declarations: [
     AppComponent,

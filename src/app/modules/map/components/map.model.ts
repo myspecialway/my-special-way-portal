@@ -17,4 +17,4 @@ export interface IndoorAtlasEdge {
     end: number;
 }
 
-export type LeafletPaths = Polyline<LineString | MultiLineString>[];
+export type LeafletPaths = Array<Polyline<LineString | MultiLineString>>;
