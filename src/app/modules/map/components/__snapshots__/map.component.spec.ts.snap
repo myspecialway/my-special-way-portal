@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`map component should render the map  1`] = `
+<app-map
+  availableFloors={[Function Array]}
+  currentFloor={[Function Number]}
+  drawOptions={[Function Object]}
+  indoorAtlasPaths={[Function Object]}
+  indoorMap={[Function Array]}
+  leafletDirective="undefined"
+  options={[Function Object]}
+>
+  
+  <div
+    class="map"
+    leaflet=""
+    leafletdraw=""
+  >
+    
+  
+  </div>
+</app-map>
+`;
+
+exports[`map component should render the map component correctly 1`] = `
+<app-map
+  availableFloors={[Function Array]}
+  currentFloor={[Function Number]}
+  drawOptions={[Function Object]}
+  indoorAtlasPaths={[Function Object]}
+  indoorMap={[Function Array]}
+  leafletDirective="undefined"
+  options={[Function Object]}
+>
+  
+  <div
+    class="map"
+    leaflet=""
+    leafletdraw=""
+  >
+    
+  
+  </div>
+</app-map>
+`;

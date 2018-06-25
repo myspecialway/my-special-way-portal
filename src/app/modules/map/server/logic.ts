@@ -1,3 +1,4 @@
+// LOGIC THAT SHOULS SIT IN THE BE!!!
 import { LatLng } from 'leaflet';
 
 /*

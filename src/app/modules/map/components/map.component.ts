@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LatLng, latLng, DivIcon, Point, Control, Draw, Polygon, Marker } from 'leaflet';
-import { DEFAULT_MAP_OPTIONS } from '../components/map.config';
-import { PATHS } from '../server/paths.mock';
 import { IndoorAtlasPaths, LeafletPaths } from '../components/map.model';
 import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
 import { isMarkerInsidePolygon } from '../server/logic';
+
+import { DEFAULT_MAP_OPTIONS } from '../components/map.config';
+import { AVAILABLE_FLOORS } from '../server/floors.mock';
+import { PATHS } from '../server/paths.mock';
 
 @Component({
     selector: 'app-map',
@@ -18,7 +20,7 @@ export class MapComponent implements OnInit {
     center: LatLng | undefined;
     currentFloor = 2;
     layers: LeafletPaths;
-    availableFloors: number[];
+    availableFloors: number[] = AVAILABLE_FLOORS;
     indoorAtlasPaths: IndoorAtlasPaths = PATHS;
     indoorMap = [];
 
@@ -37,7 +39,6 @@ export class MapComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.availableFloors = this.getAvailableFloors();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.center = latLng(position.coords.latitude, position.coords.longitude);
@@ -62,14 +63,5 @@ export class MapComponent implements OnInit {
 
     setFloor(floorNum: number) {
         this.currentFloor = floorNum;
-    }
-
-    private getAvailableFloors() {
-        return PATHS.nodes.reduce((floors, node) => {
-            if (floors.indexOf(node.floor) === -1) {
-                floors.push(node.floor);
-            }
-            return floors;
-        }, [] as number[]).sort();
     }
 }
