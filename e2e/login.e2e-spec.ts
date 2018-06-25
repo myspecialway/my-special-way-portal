@@ -1,10 +1,13 @@
 import { LoginPage } from './pageobjects/login.po';
 import { DashboardPage } from './pageobjects/dashboard.po';
+import { browser } from 'protractor';
 
 describe('msw-client App', () => {
   let loginPage: LoginPage;
   let dashboardPage: DashboardPage;
-
+  beforeAll (() => {
+    browser.driver.manage().window().maximize();
+  });
   beforeEach(() => {
     loginPage = new LoginPage();
     dashboardPage = new DashboardPage();
