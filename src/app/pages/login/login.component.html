@@ -1,53 +1,35 @@
-<div class="container">
-  <div class="container-fluid">
+<div class="login-container">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-md-offset-8 col-sm-offset-3">
-          <div class="card">
-            <div class="card-header">
-              <h4>Login</h4>
-              <!--<div class="social-btns">-->
-                <!--<button mat-icon-button><i class="fa fa-facebook-square"></i></button>-->
-                <!--<button mat-icon-button><i class="fa fa-twitter"></i></button>-->
-                <!--<button mat-icon-button><i class="fa fa-google-plus"></i></button>-->
-              <!--</div>-->
-              <div *ngIf="loginFailed">Invalid username or password</div>
-            </div>
+          <div class="login-card">
             <!--<p class="tip">Or Be Classical</p>-->
+            <div class="msw-login-logo-ph"></div>
+            <div class="msw-login-title">בדרכי שלי</div>
+            <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <div class="form-row">
-                <i class="material-icons">face</i>
                 <mat-input-container color="accent">
-                  <input type="text" matInput placeholder="User Name" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
+                  <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
                 </mat-input-container>
                 <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
               </div>
-              <!--<div class="form-row">-->
-                <!--<i class="material-icons">email</i>-->
-                <!--<mat-input-container color="accent">-->
-                  <!--<input type="text" matInput placeholder="Email address"/>-->
-                <!--</mat-input-container>-->
-              <!--</div>-->
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <i class="material-icons">lock_outline</i>
                 <mat-input-container color="accent">
-                  <input type="password" matInput placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+                  <input type="password" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                 </mat-input-container>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
               </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />Remember Me
-                </label>
-              </div>
+
             </div>
             <div class="card-footer">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />זכור אותי
+                </label>
+              </div>
               <button mat-button>Login</button>
               <!--<button mat-button (click)="loginBtn()">Register</button>-->
             </div>
           </div>
-        </div>
-      </div>
     </form>
-  </div>
 </div>
+<div *ngIf="loginFailed">Invalid username or password</div>
