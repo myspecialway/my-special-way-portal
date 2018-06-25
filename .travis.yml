@@ -3,24 +3,23 @@ node_js: '8'
 sudo: required
 services:
 - docker
-cache:
-  directories:
-  - node_modules
+addons:
+  chrome: stable
 before_install:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - . ./scripts/prepare-repo
-- yarn
+
 install:
-- yarn lint
+- yarn
+- yarn tslint
 - yarn ci-test
+- yarn ci-e2e
 - yarn build
+
+script:
 - yarn docker
 - yarn docker:push
 - yarn git:push
-
-script:
-- echo "script task placeholder"
-
 notifications:
   slack:
     secure: PLOOGvncNtcFT2cnaxPXKoyTFXwbZiFqhj9HL2BszN2rwi9i3cEFsSuS8Q/8Twj2VDcAx/qnTIhO40izsJj679N7JX7/Y60irFzZrG5KOzFdgGRQooV5v8ZnltRFb+o4M9wqOCpGCKSgmpUb2IwrFpjcqcJcTDsz/66XXSVDnJgGbXJ9rj66Fp/q7WGeszVadp7rNcjv/uau0z1CS5nqXN51MJ21Gt4VQTz3U5Ys9Yn6fNScj4DLbDXXLUsmIsqzX4s10lfwozV7VSqRlmtuXKW5Uq1zny8vIvPZlKNKmxR/mYoBj+WGFy32V72FI/XnXHSNDkuoEOjml8abgwFj22lPublCQdNALl2/Aw35KMOquMpi8CYs5AAytBTJ+zMAIS904jQjYwafi24kPaWJ24e32rSMPZYtv/LVGsbpXRkQOj2jT08Sj7J+a82u3r8MnDeeO0LHmolVK2Mnov3u/uY6s7V+M9GdEu9zjUqs/ZGvNtsN4e2bXrN8VKU6YXbrYejxtlx5OjdgbzTnfHCKHSvSBjBlOg7zNSszwBUE81HnmLOUI2WKU/77vddoxGZBj0OsvGgZbs9QwAFPSWFAT9UQuAEivUd9+KwbO0F7bkPN7VmGiWX6mY8upRFzqQu4j5WYbizyVqAs4iHGCCni4CPkbskFIS9erf100mFEMh4=

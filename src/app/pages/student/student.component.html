@@ -1,0 +1,67 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="example-header">
+        <mat-form-field floatPlaceholder="never" color="accent">
+          <input matInput #filter placeholder="Filter issues">
+        </mat-form-field>
+      </div>
+      <div class="example-header">
+        <button mat-raised-button color="primary" (click)="addNewStudent()">הוספת תלמיד חדש</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="firstName" matSortDisableClear matSortDirection="asc">
+          <!-- Number Column -->
+          <ng-container matColumnDef="studentName">
+            <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.firstName }} {{ row.lastName }}</mat-cell>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="gradeId">
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{(row.Class && row.Class.name) || '' }}</mat-cell>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.userName }}</mat-cell>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="personalArea">
+            <mat-header-cell *matHeaderCellDef>אזור אישי</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="addNew()">כניסה</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="editDetails">
+            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="updateStudent(row.id, row.firstName, row.lastName, row.gender, row.Class, row.userName, row.password)">ערוך</button>
+            </mat-cell>
+          </ng-container>
+
+          <!--&lt;!&ndash; State Column &ndash;&gt;-->
+          <ng-container matColumnDef="deleteUser">-->
+            <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="deleteStudent(row.id, row.firstName, row.lastName, row.gradeId)">מחק</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator [length]="1" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

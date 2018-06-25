@@ -1,0 +1,42 @@
+<div class="container">
+    <h3 mat-dialog-title>הוספת משתמש חדש</h3>
+    <mat-dialog-content>
+      <form  class="mat-dialog-content" #formControl="ngForm">
+        <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #input class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstname" name="id" required >
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="שם משתמש" [(ngModel)]="data.username"
+              name="userName" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button" tabindex="-1" (click)="close()">סגור</button>
+      <!-- <button [type]="submit" class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button> -->
+      <button  class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button>
+
+    </mat-dialog-actions>
+  </div>
+  

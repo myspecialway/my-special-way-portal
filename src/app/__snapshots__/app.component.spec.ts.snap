@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dashboard component should render component as described in snapshot 1`] = `
+<app-root>
+  <div
+    class="msw-wrapper wrapper"
+  >
+    
+    
+    <div
+      class="main-panel"
+    >
+      
+      
+      <app-navbar />
+      
+      
+      <router-outlet />
+      
+      
+      <app-footer />
+      
+    
+    </div>
+    
+  
+  </div>
+  
+</app-root>
+`;
