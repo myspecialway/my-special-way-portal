@@ -22,29 +22,25 @@ describe('msw-client App navbar component ', async () => {
     studentPage.waitToLoad();
   });
 
-  it('should update navbar with username after login',  () => {
+  xit('should update navbar with username after login',  () => {
     expect(navbar.getUserName().getText()).toContain('MSW-TEACHER');
   });
-  it('should remove username from navbar after logout',  () => {
+  xit('should remove username from navbar after logout',  () => {
     navbar.logout();
     expect(navbar.getUserName().isPresent()).toBeFalsy();
   });
 
-  it('should navigate to users when choosing users in navigation dropdown',  () => {
+  xit('should navigate to users when choosing users in navigation dropdown',  () => {
     navbar.navigateToUsers();
-    browser.sleep(1000);
     expect(userPage.getPageUrl()).toContain('user');
   });
-  it('should navigate to students when choosing students in navigation dropdown',  () => {
+  xit('should navigate to students when choosing students in navigation dropdown',  () => {
     navbar.navigateToUsers();
-    browser.sleep(1000);
     navbar.navigateToStudents();
-    browser.sleep(1000);
     expect(studentPage.getPageUrl()).toContain('student');
   });
-  it('should navigate to classes when choosing classes in navigation dropdown',  () => {
+  xit('should navigate to classes when choosing classes in navigation dropdown',  () => {
     navbar.navigateToClasses();
-    browser.sleep(1000);
     expect(userPage.getPageUrl()).toContain('class');
   });
   xit('should navigate to map when choosing map in navigation dropdown',  () => {
