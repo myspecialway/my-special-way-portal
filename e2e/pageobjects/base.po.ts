@@ -1,4 +1,4 @@
-import { browser, Locator } from 'protractor';
+import { browser } from 'protractor';
 import { By } from '@angular/platform-browser';
 
 export class BasePage {
