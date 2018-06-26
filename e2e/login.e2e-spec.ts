@@ -2,7 +2,7 @@ import { LoginPage } from './pageobjects/login.po';
 import { DashboardPage } from './pageobjects/dashboard.po';
 import { browser } from 'protractor';
 
-describe('msw-client App', () => {
+describe('msw-client App login page', () => {
   let loginPage: LoginPage;
   let dashboardPage: DashboardPage;
   beforeAll (() => {
