@@ -1,28 +1,28 @@
 import { LoginPage } from './pageobjects/login.po';
-import { DashboardPage } from './pageobjects/dashboard.po';
+import { browser } from 'protractor';
 
-describe('msw-client App', () => {
+describe('msw-client App login page', () => {
   let loginPage: LoginPage;
-  let dashboardPage: DashboardPage;
-
+  beforeAll (() => {
+    browser.driver.manage().window().maximize();
+  });
   beforeEach(() => {
     loginPage = new LoginPage();
-    dashboardPage = new DashboardPage();
   });
 
   it('should fail login with bad creds', () => {
     loginPage.navigateTo('');
     loginPage.login('msw1', '123');
-    expect(dashboardPage.getPageUrl()).toContain('login');
+    expect(loginPage.getPageUrl()).toContain('login');
   });
   it('should login with good creds', () => {
     loginPage.navigateTo('');
     loginPage.login('msw-teacher', 'Aa123456');
-    expect(dashboardPage.getPageUrl()).toContain('student');
+    expect(loginPage.getPageUrl()).toContain('student');
   });
   it('should login with good creds and navigate to return Url', () => {
     loginPage.navigateTo('?returnUrl=%2Fclass');
     loginPage.login('msw-teacher', 'Aa123456');
-    expect(dashboardPage.getPageUrl()).not.toContain('login');
+    expect(loginPage.getPageUrl()).not.toContain('login');
   });
 });
