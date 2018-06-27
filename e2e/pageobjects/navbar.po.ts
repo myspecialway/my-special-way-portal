@@ -1,12 +1,13 @@
 import { browser, by, element } from 'protractor';
+import { BasePage } from './base.po';
 
-export class NavbarPage {
+export class NavbarPage extends BasePage {
 
   getUserName() {
     return element(by.className('msw-header-user-name'));
   }
   async logout()  {
-    await element(by.id('navbarDropdownMenuLink')).isEnabled();
+    this.waitForElement(by.id('navbarDropdownMenuLink'));
     element(by.id('navbarDropdownMenuLink')).click();
     await element(by.xpath('//*[@class="dropdown-item"][@href="/login"]')).isEnabled();
     element(by.xpath('//*[@class="dropdown-item"][@href="/login"]')).click();

@@ -9,4 +9,12 @@ export class BasePage {
     }, 5000);
  }
 
+  waitForUrl(expectedUrlFragment: string) {
+    browser.driver.wait(() => {
+      return browser.driver.getCurrentUrl().then( (url) => {
+        return new RegExp(expectedUrlFragment).test(url);
+      });
+    }, 5000);
+  }
+
 }
