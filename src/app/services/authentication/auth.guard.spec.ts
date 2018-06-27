@@ -1,4 +1,4 @@
-import { AuthGuard } from '../auth.guard';
+import { AuthGuard } from '../authentication/auth.guard';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import {  ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
