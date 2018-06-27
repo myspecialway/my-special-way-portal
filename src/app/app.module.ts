@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CdkTableModule } from '@angular/cdk/table';
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -64,7 +63,6 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
-    HttpLinkModule,
     ReactiveFormsModule,
     MSWApolloModule,
   ],
