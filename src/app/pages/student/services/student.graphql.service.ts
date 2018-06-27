@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import Student, { StudentQuery } from '../../../models/student.model';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
@@ -17,6 +17,7 @@ export class StudentService {
         {
          students {
           _id
+          username
           firstname
           lastname
           gender
@@ -24,8 +25,6 @@ export class StudentService {
             name
             _id
           }
-          username
-          password
         }
       }
       ` }).toPromise();
