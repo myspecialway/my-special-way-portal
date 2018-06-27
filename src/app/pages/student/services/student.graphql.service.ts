@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import Student, { StudentQuery } from '../../../models/student.model';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
@@ -15,18 +15,16 @@ export class StudentService {
     return this.apollo.query<StudentQuery>({
       query: gql`
         {
-         allStudents {
-          id
-          userName
-          firstName
-          lastName
+         students {
+          _id
+          username
+          firstname
+          lastname
           gender
           class {
             name
-            id
+            _id
           }
-          userName
-          password
         }
       }
       ` }).toPromise();
@@ -52,11 +50,10 @@ export class StudentService {
       mutation: gql`
       mutation {
         createStudent(
-            id: ${student.id}
-            userName: "${student.userName}"
+            username: "${student.userName}"
             password: "${student.password}"
-            firstName: "${student.firstName}"
-            lastName: "${student.lastName}"
+            firstname: "${student.firstName}"
+            lastname: "${student.lastName}"
             gender: "${student.gender}"
             class_id: "${student.class && student.class._id}"
             ) {

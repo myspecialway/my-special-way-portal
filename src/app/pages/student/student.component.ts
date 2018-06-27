@@ -42,7 +42,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
           return this.studentService.getAllStudents();
         }),
         map((data) => {
-          return data.data.allStudents;
+          return data.data.students;
         }),
         catchError((err) => {
           console.log(err);

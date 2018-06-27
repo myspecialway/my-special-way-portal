@@ -3,10 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CdkTableModule } from '@angular/cdk/table';
-import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { environment } from '../environments/environment';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -42,6 +39,7 @@ import { JwtInterceptor } from './services/helpers/jwt.interceptor';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
+import { MSWApolloModule } from './apollo/msw-apollo.module';
 
 @NgModule({
   imports: [
@@ -66,9 +64,9 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
-    ApolloModule,
     HttpLinkModule,
     ReactiveFormsModule,
+    MSWApolloModule,
   ],
   declarations: [
     AppComponent,
@@ -113,20 +111,4 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private httpLink: HttpLink,
-    private apollo: Apollo,
-  ) {
-
-      this.initApollo();
-  }
-
-  private initApollo() {
-
-    const http = this.httpLink.create({ uri: environment.beUrl });
-    this.apollo.create({
-      link: http,
-      cache: new InMemoryCache(),
-    });
-  }
 }

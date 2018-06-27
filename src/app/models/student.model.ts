@@ -16,5 +16,5 @@ export enum Gender {
 }
 
 export interface StudentQuery  {
-  allStudents: Student[];
+  students: Student[];
 }
