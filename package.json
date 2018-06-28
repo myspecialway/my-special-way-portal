@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
-    "ci-e2e": "testcafe chrome tests/ --app \"yarn start\"",
+    "ci-e2e": "testcafe chrome tests/",
     "ci-test": "jest --coverage && npx codecov",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",

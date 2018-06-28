@@ -21,7 +21,7 @@ import { UpdateStudentDialogComponent } from './dialogs/update/update-student.di
 export class StudentComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['studentName', 'gradeId', 'userName', 'personalArea', 'editDetails', 'deleteUser'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Student>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

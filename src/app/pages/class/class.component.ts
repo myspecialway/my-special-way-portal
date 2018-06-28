@@ -26,7 +26,7 @@ import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog
 export class ClassComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -97,7 +97,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.classService.delete(_id)
           .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
+            const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
             this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
           });

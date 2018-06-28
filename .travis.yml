@@ -25,6 +25,7 @@ install:
 - yarn
 - yarn tslint
 - yarn ci-test
+- yarn start
 - yarn ci-e2e
 - yarn build
 

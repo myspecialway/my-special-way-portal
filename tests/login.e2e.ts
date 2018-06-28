@@ -3,12 +3,11 @@ import LoginPage from './pageobjects/login.po';
 
 const loginPage = new LoginPage();
 
-fixture(`Login tests`).page(`http://localhost:4200`)
-.before( async (t) => {
-    t.maximizeWindow();
-});
+fixture(`Login tests`).page(`http://localhost:4200`);
+
 test('Successful login test', async (t) => {
     await t
+        .maximizeWindow()
         .typeText(loginPage.useranmeField, 'msw-teacher')
         .typeText(loginPage.passwordField, 'Aa123456')
         .click(loginPage.loginButton);
@@ -24,7 +23,7 @@ test('Failed login test', async (t) => {
     const location = await t.eval(() => window.location);
 
     await t.expect(location.pathname).notContains('student');
-}); // ?returnUrl=%2Fclass
+});
 test('Successful login and deeplink', async (t) => {
     await t
         .navigateTo('http://localhost:4200/login?returnUrl=%2Fclass')

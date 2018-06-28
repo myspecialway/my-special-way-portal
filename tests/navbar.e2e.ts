@@ -6,9 +6,7 @@ const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 
 fixture(`Navbar tests`).page(`http://localhost:4200`)
-.before( async (t) => {
-    t.maximizeWindow();
-})
+
 .beforeEach( async (t) => {
     await t
     // .useRole(r.teacher)
@@ -20,6 +18,7 @@ fixture(`Navbar tests`).page(`http://localhost:4200`)
 test('Successful logout test', async (t) => {
     await t
     // .useRole(r.teacher) did not work for me :(
+    .maximizeWindow()
     .click(navbar.toolsDropDown)
     .click(navbar.logoutMenuItem);
     const location = await t.eval(() => window.location);

@@ -9,7 +9,7 @@ export default class NavbarPage {
     menuDropDownLessons: Selector;
     menuDropDownMap: Selector;
     menuDropDownUsers: Selector;
-    username:Selector;
+    username: Selector;
     url: string | null;
     constructor() {
         this.toolsDropDown = Selector('[id$="navbarDropdownMenuLink"]');
