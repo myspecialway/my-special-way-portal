@@ -17,7 +17,6 @@ import { Class } from '../../models/class.model';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import * as _ from 'lodash';
 import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-grade',
