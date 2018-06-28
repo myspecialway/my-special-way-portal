@@ -12,6 +12,7 @@ import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
+import Student from '../../models/student.model';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,7 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 export class UserComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

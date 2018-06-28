@@ -17,6 +17,7 @@ import { Class } from '../../models/class.model';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import * as _ from 'lodash';
 import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-grade',
@@ -26,7 +27,7 @@ import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog
 export class ClassComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

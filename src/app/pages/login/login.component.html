@@ -10,26 +10,29 @@
                 <mat-input-container color="accent">
                   <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
                 </mat-input-container>
-                <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                <div *ngIf="f.submitted && !username.valid" class="help-block">נא הכנס שם משתמש</div>
               </div>
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <mat-input-container color="accent">
                   <input type="password" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                 </mat-input-container>
-                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                <div *ngIf="f.submitted && !password.valid" class="help-block">נא הכנס סיסמה</div>
+                <div *ngIf="loginFailed" class="help-block">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
               </div>
 
             </div>
             <div class="card-footer">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" />זכור אותי
+                  <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" >זכור אותי</mat-checkbox>
                 </label>
               </div>
-              <button mat-button>Login</button>
-              <!--<button mat-button (click)="loginBtn()">Register</button>-->
+              <button mat-button>כניסה</button>
+              <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
+            
           </div>
+          
     </form>
 </div>
-<div *ngIf="loginFailed">Invalid username or password</div>
+
