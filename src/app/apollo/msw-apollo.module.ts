@@ -1,12 +1,13 @@
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { NgModule } from '@angular/core';
-import { HttpLink } from 'apollo-angular-link-http';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { environment } from '../../environments/environment';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 @NgModule({
   imports: [
     ApolloModule,
+    HttpLinkModule,
   ],
 })
 export class MSWApolloModule {
