@@ -78,6 +78,7 @@
     "casual": "^1.5.19",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
+    "eyes.images": "^0.0.52",
     "global": "^4.3.2",
     "graphql-cli": "^2.16.2",
     "jasmine-core": "~2.8.0",

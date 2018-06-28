@@ -1,6 +1,6 @@
-import { Selector } from 'testcafe';
+// import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
-import * as r from './pageobjects/roles';
+// import * as r from './pageobjects/roles';
 import NavbarPage from './pageobjects/navbar.po';
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();

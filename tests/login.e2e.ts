@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+// import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
 
 const loginPage = new LoginPage();
