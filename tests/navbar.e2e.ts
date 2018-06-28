@@ -6,6 +6,9 @@ const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 
 fixture(`Navbar tests`).page(`http://localhost:4200`)
+.before( async (t) => {
+    t.maximizeWindow();
+})
 .beforeEach( async (t) => {
     await t
     // .useRole(r.teacher)

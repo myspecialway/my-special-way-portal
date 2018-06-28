@@ -3,8 +3,10 @@ import LoginPage from './pageobjects/login.po';
 
 const loginPage = new LoginPage();
 
-fixture(`Login tests`).page(`http://localhost:4200`);
-
+fixture(`Login tests`).page(`http://localhost:4200`)
+.before( async (t) => {
+    t.maximizeWindow();
+});
 test('Successful login test', async (t) => {
     await t
         .typeText(loginPage.useranmeField, 'msw-teacher')

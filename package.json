@@ -5,11 +5,11 @@
   "scripts": {
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
-    "ci-e2e": "ng e2e --config protractor.ci.conf.js ",
+    "ci-e2e": "testcafe chrome tests/ --app \"yarn start\"",
     "ci-test": "jest --coverage && npx codecov",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",
-    "e2e": "ng e2e",
+    "e2e": "testcafe chrome tests/",
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
@@ -18,7 +18,8 @@
     "start": "ng serve",
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
     "stryker": "npx stryker run",
-    "testcafe-live": "testcafe-live chrome tests/"
+    "testcafe-live": "testcafe-live chrome tests/",
+    "testcafe": "testcafe chrome tests/"
   },
   "private": true,
   "dependencies": {
