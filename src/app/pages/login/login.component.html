@@ -14,7 +14,7 @@
               </div>
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                 <mat-input-container color="accent">
-                  <input type="password" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+                  <input type="password" matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                 </mat-input-container>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">נא הכנס סיסמה</div>
                 <div *ngIf="loginFailed" class="help-block">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
