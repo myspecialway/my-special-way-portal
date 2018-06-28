@@ -1,27 +1,94 @@
-# MswClient
+[![Build Status](https://travis-ci.org/myspecialway/my-special-way-portal.svg?branch=master)](https://travis-ci.org/myspecialway/my-special-way-portal)
+[![codecov](https://codecov.io/gh/myspecialway/my-special-way-portal/branch/master/graph/badge.svg)](https://codecov.io/gh/myspecialway/my-special-way-portal)
+[![BCH compliance](https://bettercodehub.com/edge/badge/myspecialway/my-special-way-portal?branch=master)](https://bettercodehub.com/results/myspecialway/my-special-way-portal)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+# my-special-way-portal
 
-## Development server
+Server part of the My special way project enabling indoor navigation for schools
+Demo master version running at https://msw-portal.azurewebsites.net/
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Getting Started
 
-## Code scaffolding
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+Do we have those?
+ 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```
+Nodejs
+npm
+git
+typescript
+yarn
+Angular
+```
 
-## Running unit tests
+### Starting
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Getting the code
+```
+git clone https://github.com/myspecialway/my-special-way-portal.git my-special-way-portal
+cd my-special-way-portal
+yarn
+```
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Starting the server
 
-## Further help
+```
+yarn start
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Running the tests
+
+The below will run both the Unit and the E2E tests
+
+```
+yarn test
+
+```
+The test will run also on CI once you do your first commit also generating 
+
+### Coding style tests
+
+Based on [TSLint](https://palantir.github.io/tslint/) - please refer to [tslint.json](tslint.json) for definition of the rules.
+Violations will fail your builds.
+Adding TSLint plugin to your IDE will spare you the trouble of fixing after the commit
+
+## Deployment
+
+Commit to master through a PR will bump the version, update docker hub with your image and deploy to Azure.
+Commit to your branch will update to docker hub with custom tag, you will need to run the docker manually for now.
+
+## Built With
+
+* Nodejs
+* Angualar
+* Graphql
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+Also this [git flow](https://guides.github.com/introduction/flow/)
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. 
+
+## Authors
+
+
+See also the list of [contributors](https://github.com/myspecialway/my-special-way-portal/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc

@@ -42,7 +42,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
           return this.studentService.getAllStudents();
         }),
         map((data) => {
-          return data.data.allStudents;
+          return data.data.students;
         }),
         catchError((err) => {
           console.log(err);
@@ -84,7 +84,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.studentService.delete(id)
         .then(() => {
-          const index = _.findIndex(this.dataSource.data, (user) => user.id === id );
+          const index = _.findIndex(this.dataSource.data, (user) => user._id === id );
           this.dataSource.data.splice(index, 1);
           this.dataSource.paginator = this.paginator;
         });
@@ -92,19 +92,19 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateStudent(id: number, firstName: string, lastName: string, gender: string, grade: string, userName: string, password: string) {
+  updateStudent(_id: number, firstname: string, lastname: string, gender: string, username: string, password: string, grade: string) {
     const dialogRef = this.dialog.open(UpdateStudentDialogComponent, {
-      data: {firstName, lastName, gender, grade, userName, password },
+      data: {_id, firstname, lastname, gender, username, password, grade},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const relevantStudent = _.find(this.dataSource.data, {id});
+        const relevantStudent = _.find(this.dataSource.data, {_id});
         const tempStudent = _.assign({}, relevantStudent, result);
 
         this.studentService.update(tempStudent)
           .then((data) => {
-            const index = _.findIndex(this.dataSource.data, (student) => student.id === id);
+            const index = _.findIndex(this.dataSource.data, (student) => student._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantStudent, result);
             this.dataSource.paginator = this.paginator;
           });
@@ -114,11 +114,12 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   _createNewStudent(userData: any): Student {
     const student: Student = new Student();
-    student.id = 0;
-    student.firstName = userData.firstName;
-    student.lastName = userData.lastName;
-    student.userName = userData.userName;
+    student.firstname = userData.firstName;
+    student.lastname = userData.lastName;
+    student.username = userData.userName;
+    student.password = userData.password;
     student.class = userData.Class;
+    student.gender = userData.gender;
     return student;
   }
 }

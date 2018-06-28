@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.21",
+  "version": "0.0.26",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -16,7 +16,8 @@
     "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "start": "ng serve",
-    "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js"
+    "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
+    "stryker": "npx stryker run"
   },
   "private": true,
   "dependencies": {
@@ -90,6 +91,12 @@
     "karma-jasmine": "1.1.1",
     "protractor": "5.3.1",
     "shallow-render": "^6.0.3",
+    "stryker": "^0.24.1",
+    "stryker-api": "^0.17.2",
+    "stryker-html-reporter": "^0.14.2",
+    "stryker-jest-runner": "^0.7.0",
+    "stryker-typescript": "^0.11.2",
+    "stryker-webpack": "^0.0.4",
     "ts-node": "5.0.1",
     "tslint": "5.10.0",
     "typescript": "2.4.2"

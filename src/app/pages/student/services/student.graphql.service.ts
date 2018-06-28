@@ -15,17 +15,16 @@ export class StudentService {
     return this.apollo.query<StudentQuery>({
       query: gql`
         {
-         allStudents {
-          id
-          userName
-          firstName
-          lastName
+         students {
+          _id
+          firstname
+          lastname
           gender
           class {
             name
-            id
+            _id
           }
-          userName
+          username
           password
         }
       }
@@ -52,16 +51,13 @@ export class StudentService {
       mutation: gql`
       mutation {
         createStudent(
-            id: ${student.id}
-            userName: "${student.userName}"
+            student: {
+            username: "${student.username}"
             password: "${student.password}"
-            firstName: "${student.firstName}"
-            lastName: "${student.lastName}"
-            gender: "${student.gender}"
-            class_id: "${student.class && student.class._id}"
-            ) {
-          id
-        }
+            firstname: "${student.firstname}"
+            lastname: "${student.lastname}"
+            gender: ${student.gender}
+            }) { _id }
         }
     `}).toPromise();
   }
@@ -71,14 +67,14 @@ export class StudentService {
       mutation: gql`
       mutation {
         updateStudent(
-            id: ${student.id}
-            userName: "${student.userName}"
-            firstName: "${student.firstName}"
-            lastName: "${student.lastName}"
-            gender: "${student.gender}"
-            ) {
-          id
-        }
+            id: "${student._id}",
+            student: {
+            username: "${student.username}"
+            password: "${student.password}"
+            firstname: "${student.firstname}"
+            lastname: "${student.lastname}"
+            gender: ${student.gender}
+            }) { _id }
         }
     `}).toPromise();
   }
@@ -87,7 +83,9 @@ export class StudentService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        removeStudent(id:${id})
+        deleteStudent(
+          id: "${id}"
+        )
     }
     `}).toPromise();
 

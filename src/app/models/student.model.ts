@@ -1,11 +1,11 @@
 import { Class } from './class.model';
 
 export default class Student {
-  id: number;
-  userName: string;
+  _id: number;
+  username: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   gender: Gender;
   class: Class;
 }
@@ -16,5 +16,5 @@ export enum Gender {
 }
 
 export interface StudentQuery  {
-  allStudents: Student[];
+  students: Student[];
 }
