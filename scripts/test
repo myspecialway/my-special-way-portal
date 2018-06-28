@@ -1,0 +1,15 @@
+# !/bin/bash
+
+npx jest --coverage && npx codecov || exit 1
+
+docker-compose up -d
+
+if  npx cross-env NODE_ENV=e2e-tests testcafe chrome tests/ ; then
+  docker rm -f $(docker ps -q)
+  exit 0
+else
+  docker rm -f $(docker ps -q)
+  exit 1
+fi
+
+
