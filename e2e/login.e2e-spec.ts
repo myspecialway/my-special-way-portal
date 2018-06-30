@@ -15,12 +15,12 @@ describe('msw-client App login page', () => {
     loginPage.login('msw1', '123');
     expect(loginPage.getPageUrl()).toContain('login');
   });
-  it('should login with good creds', () => {
+  xit('should login with good creds', () => {
     loginPage.navigateTo('');
     loginPage.login('msw-teacher', 'Aa123456');
     expect(loginPage.getPageUrl()).toContain('student');
   });
-  it('should login with good creds and navigate to return Url', () => {
+  xit('should login with good creds and navigate to return Url', () => {
     loginPage.navigateTo('?returnUrl=%2Fclass');
     loginPage.login('msw-teacher', 'Aa123456');
     expect(loginPage.getPageUrl()).not.toContain('login');
