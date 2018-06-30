@@ -1,4 +1,6 @@
+const map = require('./map.mock');
 module.exports = {
+    ...map,
     users: [
         { id: 123, userName: "Rotem",firstName: "John1", lastName: "Worg1", email:"www@www.com", userType:"TEACHER", class_id: "111"  },
         { id: 321, userName: "John321",firstName: "John2", lastName: "Worg2", email:"www@www.com", userType:"TEACHER", class_id: "111" },

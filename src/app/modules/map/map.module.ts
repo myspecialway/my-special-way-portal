@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import {
     MapComponent,
     PathsMapperPipe,
+    MapService,
 } from './components';
 
 @NgModule({
@@ -19,6 +20,7 @@ import {
         PathsMapperPipe,
     ],
     providers: [
+        MapService,
     ],
 })
 export class MapModule {

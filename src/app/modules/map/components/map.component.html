@@ -6,7 +6,7 @@
     leafletDraw
     [leafletDrawOptions]="drawOptions"
     [leafletOptions]="options"
-    [leafletLayers]="indoorAtlasPaths | pathsMapper:currentFloor"
+    [leafletLayers]="indoorAtlasPaths | async | pathsMapper:currentFloor"
     [leafletCenter]="center"
     (leafletDrawReady)="onDrawReady()">
 </div>

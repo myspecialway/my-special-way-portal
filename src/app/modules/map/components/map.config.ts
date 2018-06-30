@@ -1,5 +1,5 @@
 
-import { latLng, tileLayer } from 'leaflet';
+import { latLng, tileLayer, Control, DivIcon, Point } from 'leaflet';
 
 export const DEFAULT_POSITION = {
     latitude: 31.986422990470114,
@@ -27,4 +27,18 @@ export const DEFAULT_MAP_OPTIONS = {
     ],
     zoom: 19,
     center: latLng(DEFAULT_POSITION.latitude, DEFAULT_POSITION.longtitude),
+};
+
+export const DRAW_OPTIONS: Control.DrawConstructorOptions = {
+    position: 'topright',
+    draw: {
+        polyline: false,
+        circle: false,
+        polygon: {
+            icon: new DivIcon({
+                iconSize: new Point(16, 16),
+                className: 'leaflet-div-icon leaflet-editing-icon my-beautiful-icon',
+            }),
+        },
+    },
 };

@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { MapComponent, PathsMapperPipe } from './index';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MapService } from './map.service';
+
+const MapMock = {
+    getAllPaths: jest.fn(),
+};
 
 describe('map component', () => {
     beforeEach(async () => {
@@ -8,6 +13,9 @@ describe('map component', () => {
             declarations: [
                 MapComponent,
                 PathsMapperPipe,
+            ],
+            providers: [
+                {provide: MapService, useValue: MapMock},
             ],
             schemas: [NO_ERRORS_SCHEMA],
           });
