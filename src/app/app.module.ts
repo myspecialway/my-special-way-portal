@@ -12,8 +12,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule,
-  MatTooltipModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -69,6 +68,7 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     ApolloModule,
     HttpLinkModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
   ],
   declarations: [
     AppComponent,

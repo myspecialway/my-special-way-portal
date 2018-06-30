@@ -26,7 +26,7 @@ import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog
 export class ClassComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
