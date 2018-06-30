@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/myspecialway/my-special-way-portal.svg?branch=master)](https://travis-ci.org/myspecialway/my-special-way-portal)
 [![codecov](https://codecov.io/gh/myspecialway/my-special-way-portal/branch/master/graph/badge.svg)](https://codecov.io/gh/myspecialway/my-special-way-portal)
+[![BCH compliance](https://bettercodehub.com/edge/badge/myspecialway/my-special-way-portal?branch=master)](https://bettercodehub.com/results/myspecialway/my-special-way-portal)
 
 # my-special-way-portal
 

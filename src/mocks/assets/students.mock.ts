@@ -1,5 +1,5 @@
 export const studentTestData = `{
-  "allStudents": [
+  "students": [
     {
       "id": "123",
       "userName": "Rotem",

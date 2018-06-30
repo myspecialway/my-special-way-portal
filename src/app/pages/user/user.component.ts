@@ -21,7 +21,7 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 export class UserComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
