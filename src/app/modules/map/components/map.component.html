@@ -2,11 +2,8 @@
         *ngFor="let floor of availableFloors" 
         (click)="setFloor(floor)">floor {{floor}}</button>
 <div class ="map"
-    leaflet 
-    leafletDraw
-    [leafletDrawOptions]="drawOptions"
+    leaflet
     [leafletOptions]="options"
     [leafletLayers]="indoorAtlasPaths | pathsMapper:currentFloor"
-    [leafletCenter]="center"
-    (leafletDrawReady)="onDrawReady()">
+    [leafletCenter]="center">
 </div>

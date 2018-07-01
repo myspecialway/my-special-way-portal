@@ -1,44 +1,40 @@
-
-import { latLng, tileLayer, Control, DivIcon, Point } from 'leaflet';
+import { latLng, tileLayer, geoJSON, circleMarker } from 'leaflet';
+import { WaypointsProps } from './map.service';
+import { Point, FeatureCollection } from 'geojson';
 
 export const DEFAULT_POSITION = {
-    latitude: 31.986422990470114,
-    longtitude: 34.912109971046455,
+    latitude: 31.986326703711, longtitude: 34.91069670359139,
 };
 
-export const MAP_IMAGE_PLACEMENT = {
-    lat: 31.9864847970075,
-    lng: 34.91057791630738,
-    angle: 33.22293949804897,
-    scale: 2.7545901595931728,
-    opacity: 0.7,
+const geojsonMarkerOptions = {
+    radius: 5,
+    fillColor: '#ff7800',
+    color: '#000',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8,
 };
+
+export const WAYPOINTS_LAYER = geoJSON({
+    type: 'FeatureCollection',
+    features: [],
+} as FeatureCollection<Point, WaypointsProps>, {
+    pointToLayer: (feature, latlng) => {
+        return circleMarker(latlng, geojsonMarkerOptions);
+    },
+    onEachFeature: (feature, layer) => {
+        const {name, disabled, floor} = feature.properties as WaypointsProps;
+        layer.bindPopup(`${name} - ${disabled} - ${floor}`);
+    },
+});
 
 export const DEFAULT_MAP_OPTIONS = {
     layers: [
         tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
         }),
-        // imageOverlay('assets/F2.png',
-        //     [[31.986700141088527, 34.91045752124887],
-        //     [MAP_IMAGE_PLACEMENT.lat, MAP_IMAGE_PLACEMENT.lng]],
-        //     { opacity: 0.9 },
-        // ),
+        WAYPOINTS_LAYER,
     ],
     zoom: 19,
     center: latLng(DEFAULT_POSITION.latitude, DEFAULT_POSITION.longtitude),
-};
-
-export const DRAW_OPTIONS: Control.DrawConstructorOptions = {
-    position: 'topright',
-    draw: {
-        polyline: false,
-        circle: false,
-        polygon: {
-            icon: new DivIcon({
-                iconSize: new Point(16, 16),
-                className: 'leaflet-div-icon leaflet-editing-icon my-beautiful-icon',
-            }),
-        },
-    },
 };

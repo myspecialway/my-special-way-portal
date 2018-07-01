@@ -4,16 +4,13 @@ exports[`map component should render the map component correctly 1`] = `
 <app-map
   availableFloors={[Function Array]}
   currentFloor={[Function Number]}
-  drawOptions={[Function Object]}
   indoorAtlasPaths={[Function Object]}
-  leafletDirective="undefined"
   options={[Function Object]}
 >
   
   <div
     class="map"
     leaflet=""
-    leafletdraw=""
   >
     
   

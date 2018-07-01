@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 const mapMock = {
     getAllPaths: () => Observable.of({nodes: [], edges: []}),
     getAllAvailableFloors: () => Observable.of([2, 3 ]),
+    getAllMapWayPoints: () => Observable.of([]),
 };
 
 describe('map component', () => {
