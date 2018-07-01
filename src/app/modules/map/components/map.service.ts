@@ -9,9 +9,14 @@ interface AllPathsResponse {
     allMapPathsEdges: IndoorAtlasEdge[];
 }
 
+interface MapFloorsResponse {
+    allMapFloors: Array<{floor: number}>;
+}
+
 @Injectable()
 export class MapService {
     constructor(private apollo: Apollo) { }
+
     getAllPaths(): Observable<IndoorAtlasPaths> {
         return this.apollo.query<AllPathsResponse>({
             query: gql`{
@@ -29,5 +34,15 @@ export class MapService {
                 nodes: res.data.allMapPathsNodes,
                 edges: res.data.allMapPathsEdges,
             }));
+    }
+
+    getAllAvailableFloors(): Observable<number[]> {
+        return this.apollo.query<MapFloorsResponse>({
+            query: gql`{
+                    allMapFloors{
+                        floor
+                    }
+                }
+        `}).map((res) => (res.data.allMapFloors.map((item) => item.floor)));
     }
 }

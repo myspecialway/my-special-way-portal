@@ -119,5 +119,16 @@ module.exports = {
       disabled: false,
       position: { latitude: 31.98637522, longtitude: 34.9106703, floor: 3 },
     },
+  ],
+  mapFloors: [
+    {
+      floor: 2
+    },
+    {
+      floor: 3
+    },
+    {
+      floor: 48
+    }
   ]
 };

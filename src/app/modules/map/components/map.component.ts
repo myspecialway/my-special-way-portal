@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { LatLng, latLng, Control } from 'leaflet';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LatLng, latLng, Control, Draw, Marker, Polygon } from 'leaflet';
 import { IndoorAtlasPaths, LeafletPaths } from '../components/map.model';
-// import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
-// import { isMarkerInsidePolygon } from '../server/logic';
-
 import { DEFAULT_MAP_OPTIONS, DRAW_OPTIONS } from '../components/map.config';
-import { AVAILABLE_FLOORS } from '../server/floors.mock';
 import { MapService } from './map.service';
-import { Observable } from 'rxjs/Observable';
+import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
+import { isMarkerInsidePolygon } from '../server/logic';
 
 @Component({
     selector: 'app-map',
@@ -15,19 +12,26 @@ import { Observable } from 'rxjs/Observable';
     styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-    // @ViewChild(LeafletDirective) leafletDirective;
+    @ViewChild(LeafletDirective) leafletDirective;
 
     options = DEFAULT_MAP_OPTIONS;
-    center: LatLng | undefined;
-    currentFloor = 2;
-    layers: LeafletPaths;
-    availableFloors: number[] = AVAILABLE_FLOORS;
-    indoorAtlasPaths: Observable<IndoorAtlasPaths>; // = PATHS;
-    indoorMap = [];
     drawOptions: Control.DrawConstructorOptions = DRAW_OPTIONS;
+    center: LatLng | undefined;
+    layers: LeafletPaths;
+    currentFloor: number;
+    availableFloors: number[];
+    indoorAtlasPaths: IndoorAtlasPaths;
 
     constructor(mapService: MapService) {
-        this.indoorAtlasPaths = mapService.getAllPaths();
+        mapService.getAllPaths().subscribe((paths) => {
+            this.indoorAtlasPaths = paths;
+        });
+        mapService.getAllAvailableFloors().subscribe((floors) => {
+            this.availableFloors = floors;
+            if (!this.currentFloor) {
+                this.currentFloor = floors[0];
+            }
+        });
     }
 
     ngOnInit() {
@@ -39,18 +43,18 @@ export class MapComponent implements OnInit {
     }
 
     onDrawReady() {
-        // this.leafletDirective.getMap().on(Draw.Event.CREATED, (event) => {
-        //     if (event.layer instanceof Marker) {
-        //         console.log((event.layer as Marker).getLatLng());
-        //     }
-        //     if (event.layer instanceof Polygon) {
-        //         const latLangPoints = (event.layer as Polygon).getLatLngs()[0] as LatLng[];
-        //         const pointsInside = this.indoorAtlasPaths.nodes
-        //                         .filter((node) => node.floor === this.currentFloor)
-        //                         .filter((node) => isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
-        //         console.log('Points to cancel: ', pointsInside);
-        //     }
-        // });
+        this.leafletDirective.getMap().on(Draw.Event.CREATED, (event) => {
+            if (event.layer instanceof Marker) {
+                console.log((event.layer as Marker).getLatLng());
+            }
+            if (event.layer instanceof Polygon) {
+                const latLangPoints = (event.layer as Polygon).getLatLngs()[0] as LatLng[];
+                const pointsInside = this.indoorAtlasPaths.nodes
+                                .filter((node) => node.floor === this.currentFloor)
+                                .filter((node) => isMarkerInsidePolygon(new LatLng(node.latitude, node.longitude), latLangPoints));
+                console.log('Points to cancel: ', pointsInside);
+            }
+        });
     }
 
     setFloor(floorNum: number) {

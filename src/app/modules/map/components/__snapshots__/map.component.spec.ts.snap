@@ -5,8 +5,8 @@ exports[`map component should render the map component correctly 1`] = `
   availableFloors={[Function Array]}
   currentFloor={[Function Number]}
   drawOptions={[Function Object]}
-  indoorAtlasPaths="undefined"
-  indoorMap={[Function Array]}
+  indoorAtlasPaths={[Function Object]}
+  leafletDirective="undefined"
   options={[Function Object]}
 >
   

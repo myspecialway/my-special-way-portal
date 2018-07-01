@@ -2,9 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { MapComponent, PathsMapperPipe } from './index';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MapService } from './map.service';
+import { Observable } from 'rxjs/Observable';
 
-const MapMock = {
-    getAllPaths: jest.fn(),
+const mapMock = {
+    getAllPaths: () => Observable.of({nodes: [], edges: []}),
+    getAllAvailableFloors: () => Observable.of([2, 3 ]),
 };
 
 describe('map component', () => {
@@ -15,7 +17,7 @@ describe('map component', () => {
                 PathsMapperPipe,
             ],
             providers: [
-                {provide: MapService, useValue: MapMock},
+                {provide: MapService, useValue: mapMock},
             ],
             schemas: [NO_ERRORS_SCHEMA],
           });
