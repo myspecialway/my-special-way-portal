@@ -111,3 +111,23 @@
   height: 36px;
   width: 183px;
 }
+
+
+.mat-checkbox-checked {
+  
+  /deep/ .mat-checkbox-background {
+    background-color:#6a00cf;
+  }  
+}
+
+.checkbox{
+
+//  background-color: aqua;
+}
+
+
+
+
+
+
+
