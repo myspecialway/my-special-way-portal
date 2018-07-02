@@ -7,6 +7,11 @@ describe('pathsMapper pipe ', () => {
     beforeEach(() => {
         instance = new PathsMapperPipe();
     });
+    it('should return undefined when no paths are provided', () => {
+        const transformed = instance.transform(undefined, 3);
+        expect(transformed).toEqual(undefined);
+    });
+
     it('should transform all indoor atlas paths to leaflet paths when given floor is 3', () => {
         const indoorAtlasPaths = {
             nodes: [

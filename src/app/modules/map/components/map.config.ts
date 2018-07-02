@@ -3,7 +3,7 @@ import { WaypointsProps } from './map.service';
 import { Point, FeatureCollection } from 'geojson';
 
 export const DEFAULT_POSITION = {
-    latitude: 31.986326703711, longtitude: 34.91069670359139,
+    latitude: 31.986326703711, longitude: 34.91069670359139,
 };
 
 const geojsonMarkerOptions = {
@@ -36,5 +36,5 @@ export const DEFAULT_MAP_OPTIONS = {
         WAYPOINTS_LAYER,
     ],
     zoom: 19,
-    center: latLng(DEFAULT_POSITION.latitude, DEFAULT_POSITION.longtitude),
+    center: latLng(DEFAULT_POSITION.latitude, DEFAULT_POSITION.longitude),
 };

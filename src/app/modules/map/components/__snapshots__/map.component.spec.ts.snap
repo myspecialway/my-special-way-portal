@@ -5,6 +5,7 @@ exports[`map component should render the map component correctly 1`] = `
   availableFloors={[Function Array]}
   currentFloor={[Function Number]}
   indoorAtlasPaths={[Function Object]}
+  mapService={[Function Object]}
   options={[Function Object]}
 >
   

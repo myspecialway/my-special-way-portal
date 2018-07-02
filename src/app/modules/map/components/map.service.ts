@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { IndoorAtlasPaths, IndoorAtlasEdge, IndoorAtlasNode } from './map.model';
 import { Observable } from 'rxjs/Observable';
 import { FeatureCollection, Point, Feature } from 'geojson';
+import { latLng, LatLng } from 'leaflet';
 
 interface AllPathsResponse {
     allMapPathsNodes: IndoorAtlasNode[];
@@ -17,7 +18,7 @@ interface MapFloorsResponse {
 interface MapWayPoint {
     name: string;
         disabled: boolean;
-        position: { latitude: number, longtitude: number, floor: number };
+        position: { latitude: number, longitude: number, floor: number };
 }
 interface MapWayPointsResponse {
     allMapWayPoints: MapWayPoint[];
@@ -31,6 +32,18 @@ export interface WaypointsProps {
 @Injectable()
 export class MapService {
     constructor(private apollo: Apollo) { }
+
+    getCurrentPosition(): Promise<LatLng | undefined> {
+        return new Promise((resolve) => {
+            if (!window.navigator.geolocation) {
+                resolve();
+                return;
+            }
+            window.navigator.geolocation.getCurrentPosition((position) => {
+                resolve(latLng(position.coords.latitude, position.coords.longitude));
+            });
+        });
+    }
 
     getAllPaths(): Observable<IndoorAtlasPaths> {
         return this.apollo.query<AllPathsResponse>({
@@ -81,7 +94,7 @@ export class MapService {
                     },
                     geometry: {
                         type: 'Point',
-                        coordinates: [point.position.longtitude, point.position.latitude],
+                        coordinates: [point.position.longitude, point.position.latitude],
                     } as Point,
                 } as Feature<Point, WaypointsProps>)),
             } as FeatureCollection<Point, WaypointsProps>));

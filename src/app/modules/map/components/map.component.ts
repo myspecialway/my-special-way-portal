@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LatLng, latLng } from 'leaflet';
-import { IndoorAtlasPaths, LeafletPaths } from '../components/map.model';
+import { LatLng } from 'leaflet';
+import { IndoorAtlasPaths } from '../components/map.model';
 import { DEFAULT_MAP_OPTIONS, WAYPOINTS_LAYER } from '../components/map.config';
 import { MapService } from './map.service';
 
@@ -12,12 +12,11 @@ import { MapService } from './map.service';
 export class MapComponent implements OnInit {
     options = DEFAULT_MAP_OPTIONS;
     center: LatLng | undefined;
-    layers: LeafletPaths;
     currentFloor: number;
     availableFloors: number[];
     indoorAtlasPaths: IndoorAtlasPaths;
 
-    constructor(mapService: MapService) {
+    constructor(private mapService: MapService) {
         mapService.getAllPaths().subscribe((paths) => {
             this.indoorAtlasPaths = paths;
         });
@@ -32,12 +31,8 @@ export class MapComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.center = latLng(position.coords.latitude, position.coords.longitude);
-            });
-        }
+    async ngOnInit() {
+        this.center = await this.mapService.getCurrentPosition();
     }
 
     setFloor(floorNum: number) {
