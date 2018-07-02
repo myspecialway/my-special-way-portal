@@ -1,5 +1,6 @@
 // import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
+import axeCheck from 'axe-testcafe';
 
 const loginPage = new LoginPage();
 
@@ -33,4 +34,7 @@ test('Successful login and deeplink', async (t) => {
     const location = await t.eval(() => window.location);
 
     await t.expect(location.pathname).notContains('login');
+});
+test('Automated accessibility testing', async (t) => {
+    await axeCheck(t);
 });

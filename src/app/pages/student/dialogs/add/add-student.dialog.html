@@ -5,14 +5,14 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input formControlName="firstName" class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstName" name="firstName" required >
+        <input matInput #input formControlName="firstName" class="form-control" placeholder="שם פרטי" [(ngModel)]="data.firstname" name="firstName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input formControlName="lastName" class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastName" name="lastName" required >
+        <input matInput #input formControlName="lastName" class="form-control" placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -39,7 +39,7 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input formControlName="userName" class="form-control" placeholder="שם משתמש" [(ngModel)]="data.userName" name="userName" required >
+        <input matInput #input formControlName="userName" class="form-control" placeholder="שם משתמש" [(ngModel)]="data.username" name="userName" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>

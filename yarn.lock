@@ -947,6 +947,16 @@ aws4@^1.2.1, aws4@^1.6.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.7.0.tgz#d4d0e9b9dbfca77bf08eeb0a8a471550fe39e289"
 
+axe-core@^2.2.3:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-2.6.1.tgz#28772c4f76966d373acda35b9a409299dc00d1b5"
+
+axe-testcafe@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/axe-testcafe/-/axe-testcafe-1.1.0.tgz#b4e0e7329694fb090a599ebac01bba57625e8ebf"
+  dependencies:
+    axe-core "^2.2.3"
+
 axios@^0.15.3:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"

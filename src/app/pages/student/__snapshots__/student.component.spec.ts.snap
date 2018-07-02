@@ -81,7 +81,7 @@ exports[`student component should render component as described in snapshot 1`] 
           <mat-table
             class="example-table"
             matsort=""
-            matsortactive="firstName"
+            matsortactive="firstname"
             matsortdirection="asc"
             matsortdisableclear=""
           >

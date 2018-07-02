@@ -12,11 +12,11 @@
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="firstName" matSortDisableClear matSortDirection="asc">
+        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="firstname" matSortDisableClear matSortDirection="asc">
           <!-- Number Column -->
           <ng-container matColumnDef="studentName">
             <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.firstName }} {{ row.lastName }}</mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.firstname }} {{ row.lastname }}</mat-cell>
           </ng-container>
 
           <!-- Title Column -->
@@ -28,7 +28,7 @@
           <!-- State Column -->
           <ng-container matColumnDef="userName">
             <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.userName }}</mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.username }}</mat-cell>
           </ng-container>
 
           <!-- State Column -->
@@ -43,7 +43,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="updateStudent(row.id, row.firstName, row.lastName, row.gender, row.Class, row.userName, row.password)">ערוך</button>
+              <button mat-icon-button color="primary" (click)="updateStudent(row._id, row.firstname, row.lastname, row.gender, row.username, row.password, row.Class)">ערוך</button>
             </mat-cell>
           </ng-container>
 
@@ -51,7 +51,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteStudent(row.id, row.firstName, row.lastName, row.gradeId)">מחק</button>
+              <button mat-icon-button color="primary" (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)">מחק</button>
             </mat-cell>
           </ng-container>
 
