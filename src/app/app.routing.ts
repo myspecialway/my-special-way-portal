@@ -8,10 +8,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
+import { ClassDetailsComponent } from './pages/class-details/class-details.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
+  { path: 'class/:id', component: ClassDetailsComponent, canActivate: [AuthGuard]},
   { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

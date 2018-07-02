@@ -41,6 +41,7 @@ import { JwtInterceptor } from './services/helpers/jwt.interceptor';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
+import { ClassDetailsComponent } from './pages/class-details/class-details.component';
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
+    ClassDetailsComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
