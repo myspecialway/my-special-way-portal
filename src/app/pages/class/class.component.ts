@@ -97,7 +97,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.classService.delete(_id)
           .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
+            const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
             this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
           });

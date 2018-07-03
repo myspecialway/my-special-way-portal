@@ -5,26 +5,13 @@ exports[`dashboard component should render component as described in snapshot 1`
   <div
     class="msw-wrapper wrapper"
   >
-    
-    
     <div
       class="main-panel"
     >
-      
-      
       <app-navbar />
-      
-      
       <router-outlet />
-      
-      
       <app-footer />
-      
-    
     </div>
-    
-  
   </div>
-  
 </app-root>
 `;

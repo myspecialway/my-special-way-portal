@@ -14,7 +14,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs-compat';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
