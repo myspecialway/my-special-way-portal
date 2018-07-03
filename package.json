@@ -43,6 +43,7 @@
     "apollo-client": "^2.3.5",
     "apollo-client-rxjs": "^0.6.0-rc.2",
     "apollo-link-context": "^1.0.8",
+    "apollo-link-state": "^0.4.1",
     "arrive": "2.4.1",
     "bootstrap": "4.1.0",
     "bootstrap-material-design": "4.1.1",
