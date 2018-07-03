@@ -3,11 +3,11 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { RouteInfo } from './models/route-info.model';
 
 export const ROUTES: RouteInfo[] = [
-  { path: 'student', title: 'ניהול תלמידים', class: '' },
-  { path: 'class', title: 'ניהול כיתות', class: '' },
-  { path: 'lesson', title: 'ניהול שיעורים', class: '' },
-  { path: 'map', title: 'ניהול מפה', class: '' },
-  { path: 'user', title: 'ניהול משתמשים', class: '' },
+  { path: 'student', title: 'ניהול תלמידים', class: 'nb-student' },
+  { path: 'class', title: 'ניהול כיתות', class: 'nb-class' },
+  { path: 'lesson', title: 'ניהול שיעורים', class: 'nb-lesson' },
+  { path: 'map', title: 'ניהול מפה', class: 'nb-map' },
+  { path: 'user', title: 'ניהול משתמשים', class: 'nb-user' },
 
 ];
 

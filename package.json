@@ -5,11 +5,10 @@
   "scripts": {
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
-    "ci-e2e": "ng e2e --config protractor.ci.conf.js ",
-    "ci-test": "jest --coverage && npx codecov",
+    "ci-test": "bash ./scripts/test",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",
-    "e2e": "ng e2e",
+    "e2e": "testcafe chrome tests/",
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
@@ -17,7 +16,9 @@
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "start": "ng serve",
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
-    "stryker": "npx stryker run"
+    "stryker": "npx stryker run",
+    "testcafe-live": "testcafe-live chrome tests/",
+    "testcafe": "testcafe chrome tests/"
   },
   "private": true,
   "dependencies": {
@@ -76,6 +77,8 @@
     "casual": "^1.5.19",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
+    "eyes.images": "^0.0.52",
+    "global": "^4.3.2",
     "graphql-cli": "^2.16.2",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
@@ -97,6 +100,9 @@
     "stryker-jest-runner": "^0.7.0",
     "stryker-typescript": "^0.11.2",
     "stryker-webpack": "^0.0.4",
+    "testcafe": "^0.20.4",
+    "testcafe-angular-selectors": "^0.3.0",
+    "testcafe-live": "^0.1.3",
     "ts-node": "5.0.1",
     "tslint": "5.10.0",
     "typescript": "2.4.2"
