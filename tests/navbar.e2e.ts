@@ -1,8 +1,5 @@
-// import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
-// import * as r from './pageobjects/roles';
 import NavbarPage from './pageobjects/navbar.po';
-import axeCheck from 'axe-testcafe';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
@@ -59,7 +56,4 @@ test('does not display username after logout', async (t) => {
     click(navbar.toolsDropDown).
     click(navbar.logoutMenuItem).
     expect(navbar.username.exists).notOk;
-});
-test('Automated accessibility testing', async (t) => {
-    await axeCheck(t);
 });
