@@ -13,7 +13,7 @@ import { ClassDetailsComponent } from './pages/class-details/class-details.compo
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
-  { path: 'class/:id', component: ClassDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'class/:name', component: ClassDetailsComponent, canActivate: [AuthGuard]},
   { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

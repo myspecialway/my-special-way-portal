@@ -21,6 +21,26 @@ export class ClassService {
         }
       }` }).toPromise();
   }
+  classByName(name: string) {
+    return this.apollo.query<ClassQuery>({
+      query: gql`{
+        classByName(name: "${name}") {
+          _id
+          name
+          level
+          number
+          schedule {
+            index
+            lesson {
+              _id
+              title
+              icon
+            }
+          }
+        }
+      }`,
+    });
+  }
 
   // getById(id: number) {
   //   return this.apollo.query<UserQuery>({
