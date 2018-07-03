@@ -951,6 +951,10 @@ axe-core@^2.2.3:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-2.6.1.tgz#28772c4f76966d373acda35b9a409299dc00d1b5"
 
+axe-core@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.0.3.tgz#ce016fd01476e23f4f3199d48a3f07125450b5db"
+
 axe-testcafe@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/axe-testcafe/-/axe-testcafe-1.1.0.tgz#b4e0e7329694fb090a599ebac01bba57625e8ebf"

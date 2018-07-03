@@ -74,7 +74,6 @@
     "@types/jest": "^23.0.0",
     "@types/jquery": "1.10.31",
     "@types/node": "6.0.73",
-    "axe-testcafe": "^1.1.0",
     "casual": "^1.5.19",
     "codecov": "^3.0.2",
     "codelyzer": "4.2.1",
