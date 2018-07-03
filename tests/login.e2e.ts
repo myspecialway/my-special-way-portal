@@ -1,10 +1,10 @@
 // import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
 import axeCheck from 'axe-testcafe';
-
+import { testEnvironment } from './config/config';
 const loginPage = new LoginPage();
 
-fixture(`Login tests`).page(`http://localhost:4200`);
+fixture(`Login tests`).page(testEnvironment.feUrl);
 
 test('Successful login test', async (t) => {
     await t
@@ -27,7 +27,7 @@ test('Failed login test', async (t) => {
 });
 test('Successful login and deeplink', async (t) => {
     await t
-        .navigateTo('http://localhost:4200/login?returnUrl=%2Fclass')
+        .navigateTo(testEnvironment.feUrl + '/login?returnUrl=%2Fclass')
         .typeText(loginPage.useranmeField, 'msw-teacher')
         .typeText(loginPage.passwordField, 'Aa123456')
         .click(loginPage.loginButton);

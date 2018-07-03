@@ -1,10 +1,11 @@
 import LoginPage from './pageobjects/login.po';
 import NavbarPage from './pageobjects/navbar.po';
+import {testEnvironment} from './config/config';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 
-fixture(`Navbar tests`).page(`http://localhost:4200`)
+fixture(`Navbar tests`).page(testEnvironment.feUrl)
 
 .beforeEach( async (t) => {
     await t
