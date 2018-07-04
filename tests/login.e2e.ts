@@ -1,11 +1,12 @@
 // import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
 import { testEnvironment } from './config/config';
+import { MyEyes } from './eyes/eyes';
 const loginPage = new LoginPage();
-
+const eye = new MyEyes();
 fixture(`Login tests`).page(testEnvironment.feUrl);
 
-test('Successful login test', async (t) => {
+test.only('Successful login test', async (t) => {
     await t
         .maximizeWindow()
         .typeText(loginPage.useranmeField, 'msw-teacher')
@@ -14,6 +15,8 @@ test('Successful login test', async (t) => {
 
     const location = await t.eval(() => window.location);
     await t.expect(location.pathname).contains('student');
+    await t.takeScreenshot('login');
+    eye.checkImage('C:\\Users\\dk080e\\eclipse-workspace\\my-special-way-portal\\screenshots\\login.png', 'login');
 });
 test('Failed login test', async (t) => {
     await t
