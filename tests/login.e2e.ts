@@ -16,7 +16,7 @@ test.only('Successful login test', async (t) => {
     const location = await t.eval(() => window.location);
     await t.expect(location.pathname).contains('student');
     await t.takeScreenshot('login');
-    eye.checkImage('C:\\Users\\dk080e\\eclipse-workspace\\my-special-way-portal\\screenshots\\login.png', 'login');
+    await eye.checkImage('C:\\Users\\dk080e\\eclipse-workspace\\my-special-way-portal\\screenshots\\login.png', 'login');
 });
 test('Failed login test', async (t) => {
     await t
