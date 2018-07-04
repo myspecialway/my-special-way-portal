@@ -1,5 +1,6 @@
 import { Eyes } from 'eyes.images'; // ConsoleLogHandler
 import * as readFilePromise from 'fs-readfile-promise';
+import { testEnvironment } from '../config/config';
 
 export class EyesDriver  {
 
@@ -11,12 +12,14 @@ export class EyesDriver  {
         }
 
     async look(t, page: string) {
+        if (process.env.CI) {
         await t.takeScreenshot(page.replace(/ /g, ''));
         const image = await readFilePromise(__dirname + '/screenshots/' + page.replace(/ /g, '') + '.png');
         await this.eyes.checkImage(image, page);
+        }
     }
     async openEyes(str) {
-        await this.eyes.open('Image test', str, {width: 800, height: 600});
+        await this.eyes.open('Image test', str, {width: 1000, height: 800});
     }
     async closeEyes() {
         await this.eyes.close();
