@@ -1,6 +1,5 @@
 import { Eyes } from 'eyes.images'; // ConsoleLogHandler
 import * as readFilePromise from 'fs-readfile-promise';
-import { testEnvironment } from '../config/config';
 
 export class EyesDriver  {
 
