@@ -50,11 +50,10 @@ export class StudentService {
       mutation: gql`
       mutation {
         createStudent(
-            student: {
-            username: "${student.username}"
+            username: "${student.userName}"
             password: "${student.password}"
-            firstname: "${student.firstname}"
-            lastname: "${student.lastname}"
+            firstname: "${student.firstName}"
+            lastname: "${student.lastName}"
             gender: ${student.gender}
             }) { _id }
         }
