@@ -25,7 +25,7 @@ fixture(`Navbar tests`).page(testEnvironment.feUrl)
 test('Successful logout test', async (t) => {
     await t
     // .useRole(r.teacher) did not work for me :(
-    .maximizeWindow()
+    .resizeWindow(800, 600)
     .click(navbar.toolsDropDown)
     .click(navbar.logoutMenuItem);
     const location = await t.eval(() => window.location);
