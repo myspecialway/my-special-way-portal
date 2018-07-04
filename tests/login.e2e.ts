@@ -15,7 +15,7 @@ fixture(`Login tests`).page(testEnvironment.feUrl)
 
 test('Successful login test', async (t) => {
     await t
-        .resizeWindow(800, 600)
+        .resizeWindow(1000, 600)
         .typeText(loginPage.useranmeField, 'msw-teacher')
         .typeText(loginPage.passwordField, 'Aa123456')
         .click(loginPage.loginButton);
