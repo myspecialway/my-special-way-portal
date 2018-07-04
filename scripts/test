@@ -2,7 +2,7 @@
 
 npx jest --coverage && npx codecov || exit 1
 
-yarn start & (sleep 20 && yarn testcafe chrome /tests) ; EXIT_CODE=$?; kill $!; exit $EXIT_CODE
+yarn start & (sleep 20 && yarn testcafe ) ; EXIT_CODE=$?; kill $!; exit $EXIT_CODE
 
 # TODO: This will handle e2e tests via docker compose
 #docker-compose up -d

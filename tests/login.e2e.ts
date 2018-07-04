@@ -1,12 +1,19 @@
-// import { Selector } from 'testcafe';
 import LoginPage from './pageobjects/login.po';
 import { testEnvironment } from './config/config';
-import { MyEyes } from './eyes/eyes';
-const loginPage = new LoginPage();
-const eye = new MyEyes();
-fixture(`Login tests`).page(testEnvironment.feUrl);
+import { EyesDriver } from './eyes/eyes';
 
-test.only('Successful login test', async (t) => {
+const loginPage = new LoginPage();
+const eye = new EyesDriver();
+
+fixture(`Login tests`).page(testEnvironment.feUrl)
+    .before(async (t) => {
+        await eye.openEyes('login tests');
+    })
+    .after(async (t) => {
+        await eye.closeEyes();
+    });
+
+test('Successful login test', async (t) => {
     await t
         .maximizeWindow()
         .typeText(loginPage.useranmeField, 'msw-teacher')
@@ -15,8 +22,7 @@ test.only('Successful login test', async (t) => {
 
     const location = await t.eval(() => window.location);
     await t.expect(location.pathname).contains('student');
-    await t.takeScreenshot('login');
-    await eye.checkImage('C:\\Users\\dk080e\\eclipse-workspace\\my-special-way-portal\\screenshots\\login.png', 'login');
+    await eye.look(t, 'Succesful login test');
 });
 test('Failed login test', async (t) => {
     await t
@@ -24,8 +30,9 @@ test('Failed login test', async (t) => {
         .typeText(loginPage.passwordField, '11')
         .click(loginPage.loginButton);
     const location = await t.eval(() => window.location);
-
     await t.expect(location.pathname).notContains('student');
+    // await t.takeScreenshot('login');
+    await eye.look(t, 'Failed login test');
 });
 test('Successful login and deeplink', async (t) => {
     await t
@@ -34,6 +41,6 @@ test('Successful login and deeplink', async (t) => {
         .typeText(loginPage.passwordField, 'Aa123456')
         .click(loginPage.loginButton);
     const location = await t.eval(() => window.location);
-
     await t.expect(location.pathname).notContains('login');
+    await eye.look(t, 'Successful login and deeplink');
 });
