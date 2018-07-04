@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
+import { UserProfileStateModel } from '../../apollo/state-resolvers';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student' },
@@ -29,13 +30,11 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    // const res = await this.apollo.query<any>({
-    //   query: GET_USER_PROFILE,
-    // }).subscribe((result) => {
-    //   this.currentUser = result.data.username;
-    // });
-
-    // this.authService.getUsername().subscribe((user) => this.currentUser = user);
+    await this.apollo.watchQuery<{ userProfile: UserProfileStateModel }>({
+      query: GET_USER_PROFILE,
+    }).valueChanges.subscribe((userProf) => {
+      this.currentUser = userProf.data.userProfile.username;
+    });
     this.menuItems = ROUTES.filter((menuItem) => menuItem); // TODO: filter by role
   }
 }

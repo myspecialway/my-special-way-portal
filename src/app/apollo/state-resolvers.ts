@@ -1,16 +1,32 @@
 import { JWTTokenPayloadResponse } from '../models/jwt-token-resonse.model';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { UserType } from '../models/user.model';
 
-export const updateUserProfile = (_, { userProfile }: { userProfile: UserProfileStateModel }, { cache }: { cache: InMemoryCache }) => {
-  console.log('');
+export const updateUserProfile = (_, { userProfile }, { cache }) => {
   cache.writeData({
-    data: { userProfile },
+    data: {
+      userProfile: {
+        ...userProfile,
+        __typename: 'UserProfile',
+      },
+    },
   });
-  return userProfile;
+};
+
+export const defaultUserProfile = {
+  username: 'defaultusername',
+  __typename: 'UserProfile',
 };
 
 export class UserProfileStateModel {
   username: string;
   firstname: string;
   lastname: string;
+  role: UserType;
+  token: string;
+
+  constructor(jwtParsedToken: JWTTokenPayloadResponse) {
+    Object.assign(this, {
+      ...jwtParsedToken,
+    });
+  }
 }

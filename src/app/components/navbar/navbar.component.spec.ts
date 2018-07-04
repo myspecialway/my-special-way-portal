@@ -6,6 +6,7 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Shallow } from 'shallow-render/dist';
 import { ComponentsModule } from '../components.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Apollo } from 'apollo-angular';
 
 describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
@@ -21,6 +22,7 @@ describe('navbar component', () => {
         NavbarComponent,
       ],
       providers: [
+        Apollo,
         HttpClient,
         HttpHandler,
         { provide: AuthenticationService, useClass: AuthenticationServiceMock },

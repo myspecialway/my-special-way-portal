@@ -100,11 +100,6 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     UserService,
     StudentService,
     ClassService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })

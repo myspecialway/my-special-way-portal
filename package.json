@@ -14,7 +14,7 @@
     "ng": "ng",
     "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
-    "start": "ng serve --env=local",
+    "start": "ng serve",
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",

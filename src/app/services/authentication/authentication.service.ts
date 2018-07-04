@@ -15,105 +15,91 @@ import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.qu
 
 @Injectable()
 export class AuthenticationService {
-  private rememberMe: boolean;
-  private username = new BehaviorSubject('');
-  private userRole: UserType;
-  private tokenExpired = true;
-  private token;
+  private jwtHelper = new JwtHelperService();
 
   constructor(
     private http: HttpClient,
     private apollo: Apollo,
   ) {
-    if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token');
-    } else {
-      this.token = sessionStorage.getItem('token');
+    this.initialize();
+  }
+
+  private getTokenFromLocalStore(){
+    return  localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
+  }
+
+  async initialize() {
+    const token = this.getTokenFromLocalStore();
+
+    if (!token) {
+      return;
     }
-    if (this.isLoggedIn()) {
-      this.parseToken(this.token || undefined);
-    }
+
+    const userProfile = this.getProfileFromToken(token);
+    await this.pushUserProfileToState(userProfile);
   }
 
-  isNotExpired() {
-    return this.tokenExpired;
-  }
-  getUsername(): Observable<string> {
-    return this.username;
-  }
-  getRole(): UserType {
-    return this.userRole;
-  }
-
-  setRememberMe(rememberMe: boolean) {
-    this.rememberMe = rememberMe;
-  }
-  isLoggedIn() {
-    return localStorage.getItem('token') || sessionStorage.getItem('token');
-  }
-
-  async login(username: string, password: string): Promise<LoginResponse | null> {
+  async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http.post<LoginResponse>(
         environment.loginUrl,
         { username, password },
-      ).toPromise<LoginResponse>();
-      if (this.rememberMe) {
+      ).toPromise();
+
+      if (!tokenResponse) {
+        return false;
+      }
+
+      if (isRememberMeActive) {
         localStorage.setItem('token', tokenResponse.accessToken);
       } else {
         sessionStorage.setItem('token', tokenResponse.accessToken);
       }
-      this.token = tokenResponse.accessToken;
-      const jwrParsedToken = this.parseToken(this.token);
 
-      const userProfile = new UserProfileStateModel();
-      userProfile.username = jwrParsedToken.username;
+      const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      await this.pushUserProfileToState(userProfile);
 
-      await this.apollo.watchQuery<any>({
-        query: GET_USER_PROFILE,
-      }).valueChanges.subscribe((userProf) => {
-        console.log(userProf);
-      });
-
-      const mutateResponse = await this.apollo.mutate({
-        mutation: UPDATE_USER_PROFILE,
-        variables: {
-          userProfile,
-        },
-      }).toPromise();
-
-      return tokenResponse;
+      return true;
     } catch (error) {
       const typedError = error as HttpErrorResponse;
 
       if (typedError.status !== 401) {
         throw error;
       }
+
+      return false;
     }
-    return null;
+  }
+
+  private getProfileFromToken(token: string): UserProfileStateModel {
+    const jwrParsedToken = this.parseToken(token);
+    const userProfile = new UserProfileStateModel(jwrParsedToken);
+    userProfile.token = token;
+
+    return userProfile;
   }
 
   private parseToken(token: string): JWTTokenPayloadResponse {
-    const jwtHelper: JwtHelperService = new JwtHelperService();
-    const decodedToken = jwtHelper.decodeToken(token) as JWTTokenPayloadResponse;
-    this.tokenExpired = !jwtHelper.isTokenExpired(token);
-    this.username.next(decodedToken.username);
-    this.userRole = decodedToken.role;
-
+    const decodedToken = this.jwtHelper.decodeToken(token) as JWTTokenPayloadResponse;
     return decodedToken;
   }
-  getToken() {
-    return this.token;
+
+  private async pushUserProfileToState(userProfile: UserProfileStateModel) {
+    await this.apollo.mutate({
+      mutation: UPDATE_USER_PROFILE,
+      variables: {
+        userProfile,
+      },
+    }).toPromise();
+  }
+
+  isTokenExpired(token: string): boolean {
+    return this.jwtHelper.isTokenExpired(token);
   }
 
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
-    this.rememberMe = false;
-    this.username.next('');
-    // this.userRole = undefined;
-    this.tokenExpired = true;
-    this.token = undefined;
   }
 
 }

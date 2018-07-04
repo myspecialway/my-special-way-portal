@@ -2,6 +2,7 @@
 
 exports[`navbar component should render component as described in snapshot 1`] = `
 <app-navbar
+  apollo={[Function Apollo]}
   authService={[Function AuthenticationServiceMock]}
 >
   <nav

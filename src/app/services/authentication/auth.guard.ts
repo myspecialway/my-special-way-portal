@@ -1,20 +1,37 @@
-import {Injectable} from '@angular/core';
-import {  ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserType } from '../../models/user.model';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { UserProfileStateModel } from '../../apollo/state-resolvers';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService,
+    private apollo: Apollo,
+  ) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn() && this.authService.isNotExpired()
-        && this.isAuthorized(route.url, this.authService.getRole())) {
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    const partialUserProfile = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
+      query: gql`
+      query {
+        userProfile @client{
+          role
+          token
+        }
+      }
+    `}).toPromise();
+
+    if (!this.authService.isTokenExpired(partialUserProfile.data.userProfile.token)
+      && this.isAuthorized(route.url, partialUserProfile.data.userProfile.role)) {
       return true;
     }
 
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 

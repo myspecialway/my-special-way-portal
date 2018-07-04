@@ -3,6 +3,9 @@ jest.mock('@angular/common/http');
 import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
+import { Apollo } from 'apollo-angular';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { withClientState } from 'apollo-link-state';
 
 describe('AuthenticationService', () => {
   let authService: AuthenticationService;
@@ -17,7 +20,26 @@ describe('AuthenticationService', () => {
       toPromise: toPromiseFn,
     });
 
-    authService = new AuthenticationService(httpClient);
+    authService = new AuthenticationService(httpClient, new Apollo({
+      cache: new InMemoryCache(),
+      link: withClientState({
+        cache: new InMemoryCache(),
+        resolvers: {
+          Mutation: {
+            updateUserProfile: (_, { userProfile }, { cache }) => {
+              cache.writeData({
+                data: {
+                  userProfile: {
+                    ...userProfile,
+                    __typename: 'UserProfile',
+                  },
+                },
+              });
+            },
+          },
+        },
+      }),
+    }));
   });
 
   it('should create localstorage token key on authentication sucess with rememberme enabled', async () => {
@@ -25,8 +47,7 @@ describe('AuthenticationService', () => {
       accessToken: mockToken,
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    authService.setRememberMe(true);
-    await authService.login('someusername', 'somepassword');
+    await authService.login('someusername', 'somepassword', true);
     expect(localStorage.getItem('token')).toBe(mockToken);
   });
 
@@ -35,12 +56,11 @@ describe('AuthenticationService', () => {
       accessToken: mockToken,
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    authService.setRememberMe(false);
-    await authService.login('someusername', 'somepassword');
+    await authService.login('someusername', 'somepassword', false);
     expect(localStorage.getItem('token')).toBe(mockToken);
   });
 
-  it('should return null if authentication endpoint returned status code 401', async () => {
+  it('should return false if authentication endpoint returned status code 401', async () => {
     const mockedResponse = {
       status: 401,
     };
@@ -49,9 +69,9 @@ describe('AuthenticationService', () => {
       throw mockedResponse;
     });
 
-    const loginResponse = await authService.login('someusername', 'somepassword');
+    const loginResponse = await authService.login('someusername', 'somepassword', false);
 
-    expect(loginResponse).toBe(null);
+    expect(loginResponse).toBe(false);
   });
 
   it('should throw an exception if authentication endpoint returned status code 500', () => {
@@ -63,39 +83,17 @@ describe('AuthenticationService', () => {
       throw mockedResponse;
     });
 
-    return expect(authService.login('someusername', 'somepassword')).rejects.toEqual({ status: 500 });
+    return expect(authService.login('someusername', 'somepassword', false)).rejects.toEqual({ status: 500 });
   });
 
   it('should remove token from localstorage logout  if rememberMe', () => {
-    authService.setRememberMe(true);
     authService.logout();
     expect(localStorage.removeItem).toHaveBeenCalledWith('token');
   });
 
   it('should remove token from sessionstorage logout if !rememberMe', () => {
-    authService.setRememberMe(false);
     authService.logout();
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('token');
   });
 
-  it('should return username after successful login', async () => {
-    const mockedResponse: LoginResponse = {
-      accessToken: mockToken,
-    };
-    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    authService.setRememberMe(false);
-    await authService.login('someusername', 'somepassword');
-    authService.getUsername().toPromise().then((result) => {
-      expect(result).toEqual('someuser');
-    });
-  });
-  it('should return token after successful login', async () => {
-    const mockedResponse: LoginResponse = {
-      accessToken: mockToken,
-    };
-    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    authService.setRememberMe(false);
-    await authService.login('someusername', 'somepassword');
-    expect(authService.getToken()).toEqual(mockToken);
-  });
 });
