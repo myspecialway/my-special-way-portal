@@ -1,6 +1,9 @@
-<button type="button" 
-        *ngFor="let floor of availableFloors" 
-        (click)="setFloor(floor)">floor {{floor}}</button>
+<mat-radio-group [value]="currentFloor">
+    <mat-radio-button 
+            *ngFor="let floor of availableFloors" 
+            [value]="floor"
+            (click)="setFloor(floor)">Floor {{floor}}</mat-radio-button>
+</mat-radio-group>
 <div class ="map"
     leaflet
     [leafletOptions]="options"

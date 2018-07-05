@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LatLng } from 'leaflet';
 import { IndoorAtlasPaths } from '../components/map.model';
 import { DEFAULT_MAP_OPTIONS, WAYPOINTS_LAYER } from '../components/map.config';
-import { MapService } from './map.service';
+import { MapService, WaypointsProps } from './map.service';
+import { FeatureCollection, Point } from 'geojson';
 
 @Component({
     selector: 'app-map',
@@ -15,6 +16,7 @@ export class MapComponent implements OnInit {
     currentFloor: number;
     availableFloors: number[];
     indoorAtlasPaths: IndoorAtlasPaths;
+    waypoints: FeatureCollection<Point, WaypointsProps>;
 
     constructor(private mapService: MapService) {
         mapService.getAllPaths().subscribe((paths) => {
@@ -24,18 +26,29 @@ export class MapComponent implements OnInit {
             this.availableFloors = floors;
             if (!this.currentFloor) {
                 this.currentFloor = floors[0];
+                this.updateWayPoints();
             }
         });
         mapService.getAllMapWayPoints().subscribe((waypoints) => {
-            WAYPOINTS_LAYER.addData(waypoints);
+            this.waypoints = waypoints;
+            this.updateWayPoints();
         });
     }
 
     async ngOnInit() {
-        this.center = await this.mapService.getCurrentPosition();
+        // this.center = await this.mapService.getCurrentPosition();
     }
 
     setFloor(floorNum: number) {
         this.currentFloor = floorNum;
+        this.updateWayPoints();
+    }
+
+    private updateWayPoints() {
+        if (!this.waypoints) {
+            return;
+        }
+        WAYPOINTS_LAYER.clearLayers();
+        WAYPOINTS_LAYER.addData(this.mapService.getMapWayPointsInFloor(this.waypoints, this.currentFloor));
     }
 }

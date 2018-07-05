@@ -9,6 +9,7 @@ const mapMock = {
     getAllAvailableFloors: () => Observable.of([2, 3 ]),
     getAllMapWayPoints: () => Observable.of([]),
     getCurrentPosition: () => Promise.resolve(),
+    getMapWayPointsInFloor: () => ({type: '', features: []}),
 };
 
 describe('map component', () => {

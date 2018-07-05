@@ -99,4 +99,12 @@ export class MapService {
                 } as Feature<Point, WaypointsProps>)),
             } as FeatureCollection<Point, WaypointsProps>));
     }
+
+    getMapWayPointsInFloor(waypoints: FeatureCollection<Point, WaypointsProps>, floor: number) {
+        const features = waypoints.features.filter((point) => point.properties.floor === floor);
+        return {
+            type: 'FeatureCollection',
+            features,
+        } as FeatureCollection<Point, WaypointsProps>;
+    }
 }

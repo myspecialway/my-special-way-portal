@@ -7,8 +7,15 @@ exports[`map component should render the map component correctly 1`] = `
   indoorAtlasPaths={[Function Object]}
   mapService={[Function Object]}
   options={[Function Object]}
+  waypoints={[Function Array]}
 >
+  <mat-radio-group>
+    
+      
+    
+    
   
+  </mat-radio-group>
   <div
     class="map"
     leaflet=""
