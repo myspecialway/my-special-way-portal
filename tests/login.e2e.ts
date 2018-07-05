@@ -7,7 +7,7 @@ const eye = new EyesDriver();
 
 fixture(`Login tests`).page(testEnvironment.feUrl)
     .before(async (t) => {
-        await eye.openEyes('login tests');
+        await eye.openEyes('login tests'); // t is not here?
     })
     .after(async (t) => {
         await eye.closeEyes();
