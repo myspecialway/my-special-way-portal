@@ -7,39 +7,59 @@ import { Shallow } from 'shallow-render/dist';
 import { ComponentsModule } from '../components.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Apollo } from 'apollo-angular';
+import { MSWApolloModule } from '../../apollo/msw-apollo.module';
+import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
+import { Subject } from 'rxjs';
 
 describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
+  let watchQueryObservable: Subject<any>;
   beforeEach(async () => {
-    class AuthenticationServiceMock {
-        getUsername = jest.fn().mockImplementation(() => {
-        return new BehaviorSubject('תמר');
-      });
-    }
+
+    watchQueryObservable = new Subject();
+    const apolloMock = {
+      watchQuery: () => ({
+        valueChanges: watchQueryObservable,
+      }),
+    };
     shallow = new Shallow(NavbarComponent, ComponentsModule);
     TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
       ],
       providers: [
-        Apollo,
+        { provide: Apollo, useValue: apolloMock },
         HttpClient,
         HttpHandler,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock },
+        AuthenticationService,
       ],
-      imports: [],
+      imports: [
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     });
+    // const apollo = TestBed.get(HttpClient);
   });
-
   it('should render component as described in snapshot', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     expect(fixture).toMatchSnapshot();
   });
 
   it('should render username per authentication service on init', async () => {
+    // given
     const component = await shallow.render('<app-navbar></app-navbar>');
-    const liElements = component.find('.msw-header-user-name');
-    expect(liElements.nativeElement.innerHTML).toBe('תמר');
+
+    // when
+    watchQueryObservable.next({
+      data: {
+        userProfile: {
+          username: 'test',
+        },
+      },
+    });
+
+    // then
+    component.fixture.detectChanges();
+    const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
+    expect(liElement.innerHTML).toBe('test');
   });
 });

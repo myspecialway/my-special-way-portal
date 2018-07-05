@@ -4,8 +4,8 @@ import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { Apollo } from 'apollo-angular';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { withClientState } from 'apollo-link-state';
+import { ApolloConfigFactory } from '../../apollo/state/apollo-config.factory';
+import { HttpLink } from 'apollo-angular-link-http';
 
 describe('AuthenticationService', () => {
   let authService: AuthenticationService;
@@ -20,26 +20,10 @@ describe('AuthenticationService', () => {
       toPromise: toPromiseFn,
     });
 
-    authService = new AuthenticationService(httpClient, new Apollo({
-      cache: new InMemoryCache(),
-      link: withClientState({
-        cache: new InMemoryCache(),
-        resolvers: {
-          Mutation: {
-            updateUserProfile: (_, { userProfile }, { cache }) => {
-              cache.writeData({
-                data: {
-                  userProfile: {
-                    ...userProfile,
-                    __typename: 'UserProfile',
-                  },
-                },
-              });
-            },
-          },
-        },
-      }),
-    }));
+    const apollo = new Apollo();
+    const apolloConfig = new ApolloConfigFactory(new HttpLink(httpClient), apollo);
+    apollo.create(apolloConfig.createConfig());
+    authService = new AuthenticationService(httpClient, apollo);
   });
 
   it('should create localstorage token key on authentication sucess with rememberme enabled', async () => {

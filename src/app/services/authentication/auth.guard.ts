@@ -5,7 +5,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { UserProfileStateModel } from '../../apollo/state-resolvers';
+import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    const partialUserProfile = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
+    const response = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
       query: gql`
       query {
         userProfile @client{
@@ -26,8 +26,8 @@ export class AuthGuard implements CanActivate {
       }
     `}).toPromise();
 
-    if (!this.authService.isTokenExpired(partialUserProfile.data.userProfile.token)
-      && this.isAuthorized(route.url, partialUserProfile.data.userProfile.role)) {
+    if (response.data.userProfile.token && !this.authService.isTokenExpired(response.data.userProfile.token)
+      && this.isAuthorized(route.url, response.data.userProfile.role)) {
       return true;
     }
 

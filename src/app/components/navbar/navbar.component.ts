@@ -3,7 +3,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
-import { UserProfileStateModel } from '../../apollo/state-resolvers';
+import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student' },
@@ -13,7 +13,6 @@ export const ROUTES: RouteInfo[] = [
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user' },
 
 ];
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

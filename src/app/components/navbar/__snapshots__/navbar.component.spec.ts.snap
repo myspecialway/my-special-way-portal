@@ -2,8 +2,8 @@
 
 exports[`navbar component should render component as described in snapshot 1`] = `
 <app-navbar
-  apollo={[Function Apollo]}
-  authService={[Function AuthenticationServiceMock]}
+  apollo={[Function Object]}
+  authService={[Function AuthenticationService]}
 >
   <nav
     class="navbar navbar-expand-lg navbar-white  navbar-absolute fixed-top"

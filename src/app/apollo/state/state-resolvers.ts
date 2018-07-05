@@ -1,5 +1,5 @@
-import { JWTTokenPayloadResponse } from '../models/jwt-token-resonse.model';
-import { UserType } from '../models/user.model';
+import { JWTTokenPayloadResponse } from '../../models/jwt-token-resonse.model';
+import { UserType } from '../../models/user.model';
 
 export const updateUserProfile = (_, { userProfile }, { cache }) => {
   cache.writeData({
@@ -13,7 +13,9 @@ export const updateUserProfile = (_, { userProfile }, { cache }) => {
 };
 
 export const defaultUserProfile = {
-  username: 'defaultusername',
+  username: null,
+  role: null,
+  token: null,
   __typename: 'UserProfile',
 };
 
