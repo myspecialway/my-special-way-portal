@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
@@ -24,7 +23,6 @@ export class NavbarComponent implements OnInit {
   currentUser: string;
 
   constructor(
-    private authService: AuthenticationService,
     private apollo: Apollo,
   ) { }
 

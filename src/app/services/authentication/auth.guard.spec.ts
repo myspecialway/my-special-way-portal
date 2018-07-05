@@ -5,14 +5,11 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { Apollo } from 'apollo-angular';
 import { ApolloConfigFactory } from '../../apollo/state/apollo-config.factory';
 import { HttpLink } from 'apollo-angular-link-http';
-import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
 
 describe('auth guard', () => {
   let routerMock: Partial<Router>;
   let authService: AuthenticationService;
   let apollo: Apollo;
-  const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI
-                    6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
   beforeEach(() => {
     const httpClient = new HttpClient({} as HttpHandler);
     routerMock = {

@@ -4,14 +4,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserType } from '../../models/user.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { JWTTokenPayloadResponse } from '../../models/jwt-token-resonse.model';
 import { Apollo } from 'apollo-angular';
 import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
 import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
-import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 
 @Injectable()
 export class AuthenticationService {
@@ -24,8 +20,8 @@ export class AuthenticationService {
     this.initialize();
   }
 
-  private getTokenFromLocalStore(){
-    return  localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
+  private getTokenFromLocalStore() {
+    return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
   }
 
   async initialize() {

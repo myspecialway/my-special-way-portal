@@ -5,10 +5,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Shallow } from 'shallow-render/dist';
 import { ComponentsModule } from '../components.module';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Apollo } from 'apollo-angular';
-import { MSWApolloModule } from '../../apollo/msw-apollo.module';
-import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
 import { Subject } from 'rxjs';
 
 describe('navbar component', () => {

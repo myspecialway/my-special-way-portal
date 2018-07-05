@@ -1,10 +1,9 @@
+import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
 
 @Injectable()
