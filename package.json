@@ -128,7 +128,8 @@
       "!**/login.component.ts",
       "!**/jwt.interceptor.ts",
       "!**/dashboard.component.ts",
-      "!**/*.graphql.service.ts"
+      "!**/*.graphql.service.ts",
+      "!src/app/apollo/state/apollo-config.factory.ts"
     ]
   }
 }
