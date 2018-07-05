@@ -113,11 +113,13 @@
 }
 
 
-.mat-checkbox-checked {
+.msw-login-checkbox{
+  .mat-checkbox-checked {
   
-  /deep/ .mat-checkbox-background {
-    background-color:#6a00cf;
-  }  
+    /deep/ .mat-checkbox-background {
+      background-color:#6a00cf;
+    }  
+  }
 }
 
 .checkbox{

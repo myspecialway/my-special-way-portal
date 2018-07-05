@@ -1,16 +1,14 @@
 <div class="container">
-    <h3 mat-dialog-title>Are you sure?</h3>
+    <h3 mat-dialog-title color="accent">מחיקת משתמש</h3>
+    <mat-divider></mat-divider>
     <div mat-dialog-content>
-      firstName: {{data.firstName}}
-      <p></p>
-      lastName: {{data.lastName}}
-      <p></p>
-      userType: {{data.userType}}
-      <p></p>
+      המשתמש firstName: {{data.firstName}} lastName: {{data.lastName}} בעל הרשאת userType: {{data.userType}}.ימחק מהמערכת
+      <br>
+      האם אתה בטוח שברצונך למחוק אותו?
     </div>
   
     <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]=true (click)="confirmDelete()">Delete</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+      <button mat-button class="msw-button-delete" [mat-dialog-close]=true (click)="confirmDelete()">מחק</button>
     </div>
   </div>

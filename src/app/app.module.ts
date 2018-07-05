@@ -12,7 +12,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule,MatDividerModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -69,6 +69,7 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     HttpLinkModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatDividerModule,
   ],
   declarations: [
     AppComponent,

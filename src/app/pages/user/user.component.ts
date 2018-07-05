@@ -75,8 +75,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
       data: { user: User },
-      height: '600px',
-      width: '350px',
+      height: '580px',
+      width: '320px',
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
@@ -92,6 +92,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
       data: {_id, firstName, lastName, userType},
+      height: '275px',
+      width: '360px',      
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -108,6 +110,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   updateUser(_id: number, firstname: string, lastname: string, email: string, username: string) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
       data: {_id, firstname, lastname, email, username },
+      height: '580px',
+      width: '320px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
