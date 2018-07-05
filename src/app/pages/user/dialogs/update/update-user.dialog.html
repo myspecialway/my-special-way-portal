@@ -6,13 +6,19 @@
         <div class="msw-form-row">
             <mat-form-field color="primary">
               <input matInput #input placeholder="שם פרטי" [(ngModel)]="data.firstname" name="id" required >
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <button mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
+                <mat-icon>close</mat-icon>
+              </button>            
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
   
         <div class="msw-form-row">
           <mat-form-field color="primary">
             <input matInput #input  placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
+            <button mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
+              <mat-icon>close</mat-icon>
+            </button>            
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         </div>
@@ -21,13 +27,19 @@
           <mat-form-field color="primary">
             <input matInput #input placeholder="שם משתמש" [(ngModel)]="data.username"
               name="userName" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <button mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+                <mat-icon>close</mat-icon>
+              </button>            
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         </div>
   
         <div class="msw-form-row">
           <mat-form-field color="primary">
             <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
+            <button mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
+              <mat-icon>close</mat-icon>
+            </button>            
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         </div>
