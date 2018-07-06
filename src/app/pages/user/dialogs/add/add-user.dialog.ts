@@ -10,8 +10,6 @@ import { UserService } from '../../services/user.graphql.service';
   styleUrls: ['./add-user.dialog.scss'],
 })
 
-
-
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
   keys: any[];
@@ -57,8 +55,4 @@ export class AddUserDialogComponent implements OnInit {
     }
 
   }
-}
-
-export class InputClearableExample {
-  value = 'Clear me';
 }

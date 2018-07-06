@@ -12,7 +12,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule,MatDividerModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
