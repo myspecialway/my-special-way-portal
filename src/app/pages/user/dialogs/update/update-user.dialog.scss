@@ -12,7 +12,12 @@
     text-align: center;
   }
   
-  
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+  }
 
 .mat-dialog-title{
   vertical-align: text-top;
@@ -88,3 +93,40 @@ input.mat-input-element{
   margin-bottom:12px;
 }
 
+.msw-button-update{
+  width: 109.7px;
+  height: 36px;
+  border-radius: 3px;
+  background-color: #6a00cf;     
+  margin:0px;
+  padding-left:0px;
+  padding-right:35px;
+
+  /deep/ .mat-button-wrapper{
+      width: 93.7px;
+      height: 16px;
+      font-family: Rubik;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: 1.3px;
+      text-align:center;
+      color: #ffffff;
+  }
+}
+
+.msw-button-cancel{
+  width: 93.7px;
+  height: 16px;
+  font-family: Rubik;
+  font-size: 14.1px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #4a4a4a;
+}
