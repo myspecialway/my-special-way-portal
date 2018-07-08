@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
 import { merge } from 'rxjs/observable/merge';
@@ -31,7 +31,7 @@ export class StudentComponent implements OnInit, AfterViewInit {
   constructor(
     private studentService: StudentService,
     public dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -77,34 +77,34 @@ export class StudentComponent implements OnInit, AfterViewInit {
 
   deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      data: {id, firstName, lastName, gradeId},
+      data: { id, firstName, lastName, gradeId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.studentService.delete(id)
-        .then(() => {
-          const index = _.findIndex(this.dataSource.data, (user) => user._id === id );
-          this.dataSource.data.splice(index, 1);
-          this.dataSource.paginator = this.paginator;
-        });
+          .then(() => {
+            const index = _.findIndex(this.dataSource.data, (user) => user._id === id);
+            this.dataSource.data.splice(index, 1);
+            this.dataSource.paginator = this.paginator;
+          });
       }
     });
   }
 
-  updateStudent(_id: number, firstname: string, lastname: string, gender: string, username: string, password: string, grade: string) {
+  updateStudent(student: Student) {
     const dialogRef = this.dialog.open(UpdateStudentDialogComponent, {
-      data: {_id, firstname, lastname, gender, username, password, grade},
+      data: { ...student },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const relevantStudent = _.find(this.dataSource.data, {_id});
+        const relevantStudent = _.find(this.dataSource.data, { _id: student._id });
         const tempStudent = _.assign({}, relevantStudent, result);
 
         this.studentService.update(tempStudent)
           .then((data) => {
-            const index = _.findIndex(this.dataSource.data, (student) => student._id === _id);
+            const index = _.findIndex(this.dataSource.data, (_student) => _student._id === student._id);
             this.dataSource.data[index] = _.assign({}, relevantStudent, result);
             this.dataSource.paginator = this.paginator;
           });

@@ -40,7 +40,7 @@ describe('auth guard', () => {
       },
     });
     (authService.isTokenExpired as jest.Mock).mockReturnValueOnce(false);
-    const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock);
+    const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock as Apollo);
 
     // when
     const response = await guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
