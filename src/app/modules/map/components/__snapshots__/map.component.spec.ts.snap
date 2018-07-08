@@ -11,17 +11,9 @@ exports[`map component should render the map component correctly 1`] = `
 >
   <mat-radio-group>
     
-      
-    
-    
-  
-  </mat-radio-group>
-  <div
+  </mat-radio-group><div
     class="map"
     leaflet=""
-  >
-    
-  
-  </div>
+  />
 </app-map>
 `;

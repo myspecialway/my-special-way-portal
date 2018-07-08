@@ -42,6 +42,8 @@ import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/upd
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 
+import './rxjs-imports';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

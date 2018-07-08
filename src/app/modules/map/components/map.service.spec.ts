@@ -1,7 +1,7 @@
 import { MapService } from './map.service';
 import { Apollo } from 'apollo-angular';
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 const apolloMock = {
     query: jest.fn(),
@@ -37,12 +37,14 @@ describe('map service tests', () => {
 
     describe('get all map paths', () => {
         it('should return all map paths mapped to nodes and edges', (done) => {
-            apolloMock.query.mockReturnValueOnce(Observable.of({
+            const mockRes$ = of({
                 data: {
                     allMapPathsNodes: [],
                     allMapPathsEdges: [],
                 },
-            }));
+            });
+            console.log('-------------------: ', mockRes$);
+            apolloMock.query.mockReturnValueOnce(mockRes$);
             expect.assertions(1);
             instance.getAllPaths().subscribe((res) => {
                 expect(res).toEqual({ nodes: [], edges: [] });
@@ -53,7 +55,7 @@ describe('map service tests', () => {
 
     describe('get all available floors', () => {
         it('should return all available floors mapped to numbers', (done) => {
-            apolloMock.query.mockReturnValueOnce(Observable.of({
+            apolloMock.query.mockReturnValueOnce(of({
                 data: {
                     allMapFloors: [{ floor: 1 }, { floor: 23 }],
                 },
@@ -67,7 +69,7 @@ describe('map service tests', () => {
     });
     describe('get all map waypoints', () => {
         it('should return all map waypoints mapped to leaflet features', (done) => {
-            apolloMock.query.mockReturnValueOnce(Observable.of({
+            apolloMock.query.mockReturnValueOnce(of({
                 data: {
                     allMapWayPoints: [{
                         name: 'room1',

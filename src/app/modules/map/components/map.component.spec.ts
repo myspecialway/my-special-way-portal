@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { MapComponent, PathsMapperPipe } from './index';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MapService } from './map.service';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 const mapMock = {
-    getAllPaths: () => Observable.of({nodes: [], edges: []}),
-    getAllAvailableFloors: () => Observable.of([2, 3 ]),
-    getAllMapWayPoints: () => Observable.of([]),
+    getAllPaths: () => of({nodes: [], edges: []}),
+    getAllAvailableFloors: () => of([2, 3 ]),
+    getAllMapWayPoints: () => of([]),
     getCurrentPosition: () => Promise.resolve(),
     getMapWayPointsInFloor: () => ({type: '', features: []}),
 };
