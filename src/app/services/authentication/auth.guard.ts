@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSe
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
-import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
+import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       }
     `}).toPromise();
 
-    if (response.data.userProfile.token && !this.authService.isTokenExpired(response.data.userProfile.token)
+    if (response.data.userProfile && response.data.userProfile.token && !this.authService.isTokenExpired(response.data.userProfile.token)
       && this.isAuthorized(route.url, response.data.userProfile.role)) {
       return true;
     }

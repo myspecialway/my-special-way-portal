@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
-import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
+import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student' },

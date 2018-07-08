@@ -108,7 +108,7 @@
     "testcafe-live": "^0.1.3",
     "ts-node": "5.0.1",
     "tslint": "5.10.0",
-    "typescript": "2.7.2"
+    "typescript": "^2.9.1"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -129,7 +129,8 @@
       "!**/jwt.interceptor.ts",
       "!**/dashboard.component.ts",
       "!**/*.graphql.service.ts",
-      "!src/app/apollo/state/apollo-config.factory.ts"
+      "!src/app/apollo/state/apollo-config.factory.ts",
+      "!src/app/apollo/state/resolvers/*"
     ]
   }
 }

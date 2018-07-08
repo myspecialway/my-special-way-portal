@@ -1,45 +1,62 @@
 import { AuthGuard } from '../authentication/auth.guard';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { ApolloConfigFactory } from '../../apollo/state/apollo-config.factory';
-import { HttpLink } from 'apollo-angular-link-http';
 
 describe('auth guard', () => {
   let routerMock: Partial<Router>;
-  let authService: AuthenticationService;
-  let apollo: Apollo;
+  let authService: Partial<AuthenticationService>;
+  let apolloQueryFnMock: jest.Mock;
+  let apolloMutateFnMock: jest.Mock;
+  let apolloMock: Partial<Apollo>;
   beforeEach(() => {
-    const httpClient = new HttpClient({} as HttpHandler);
     routerMock = {
       navigate: jest.fn(),
     };
 
-    apollo = new Apollo();
-    const apolloConfig = new ApolloConfigFactory(new HttpLink(httpClient), apollo);
-    apollo.create(apolloConfig.createConfig());
-    authService = new AuthenticationService(httpClient, apollo);
+    apolloQueryFnMock = jest.fn();
+    apolloMutateFnMock = jest.fn();
+    apolloMock = {
+      query: jest.fn().mockReturnValue({
+        toPromise: apolloQueryFnMock,
+      }),
+      mutate: jest.fn().mockReturnValue({
+        toPromise: apolloMutateFnMock,
+      }),
+    } as Partial<Apollo>;
+
+    authService = {
+      isTokenExpired: jest.fn(),
+    } as Partial<AuthenticationService>;
   });
 
-  // TODO: find way to simulate not expired token
-  // it('should return true if token has been found', async () => {
-  //   await apollo.mutate({
-  //     mutation: UPDATE_USER_PROFILE,
-  //     variables: {
-  //       userProfile: {
-  //         token: mockToken,
-  //       },
-  //     },
-  //   }).toPromise();
+  it('should return true if token has been found', async () => {
+    // given
+    apolloQueryFnMock.mockReturnValueOnce({
+      data: {
+        userProfile: {
+          token: 'some-valid-token',
+        },
+      },
+    });
+    (authService.isTokenExpired as jest.Mock).mockReturnValueOnce(false);
+    const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock);
 
-  //   const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apollo as Apollo);
-  //   const response = await guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
-  //   expect(response).toBe(true);
-  // });
+    // when
+    const response = await guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
+
+    // then
+    expect(response).toBe(true);
+  });
 
   it('should navigate to login page if token not found and return false', async () => {
-    const guard = new AuthGuard(routerMock as Router, authService, apollo);
+    // given
+    const guard = new AuthGuard(routerMock as Router, authService, apolloMock);
+    apolloQueryFnMock.mockReturnValueOnce({
+      data: {
+        userProfile: null,
+      },
+    });
 
     const response = await guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
 

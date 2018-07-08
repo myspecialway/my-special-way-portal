@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { updateUserProfile, UserProfileStateModel, defaultUserProfile } from './state-resolvers';
+import { updateUserProfile, UserProfileStateModel, defaultUserProfile } from './resolvers/state.resolver';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { environment } from '../../../environments/environment';

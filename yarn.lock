@@ -743,12 +743,6 @@ apollo-cache@^1.1.12:
   dependencies:
     apollo-utilities "^1.0.16"
 
-  dependencies:
-    apollo-utilities "^1.0.16"
-
-  dependencies:
-    apollo-utilities "^1.0.16"
-
 apollo-client-rxjs@^0.6.0-rc.2:
   version "0.6.0-rc.2"
   resolved "https://registry.yarnpkg.com/apollo-client-rxjs/-/apollo-client-rxjs-0.6.0-rc.2.tgz#f391ee69381ae5ec8f74f476fbb6b0490b6f5923"
@@ -843,7 +837,7 @@ apollo-test-utils@~0.3.2:
     graphql-tag "^2.0.0"
     graphql-tools "^1.0.0"
 
-apollo-utilities@^1.0.0, apollo-utilities@^1.0.16:
+apollo-utilities@^1.0.0, apollo-utilities@^1.0.16, apollo-utilities@^1.0.8:
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.16.tgz#787310df4c3900a68c0beb3d351c59725a588cdb"
   dependencies:
@@ -852,18 +846,6 @@ apollo-utilities@^1.0.0, apollo-utilities@^1.0.16:
 apollo-utilities@^1.0.1:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.13.tgz#793c858bb42243f7254d3c2961c64a7158e51022"
-
-apollo-utilities@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.16.tgz#787310df4c3900a68c0beb3d351c59725a588cdb"
-  dependencies:
-    fast-json-stable-stringify "^2.0.0"
-
-apollo-utilities@^1.0.16, apollo-utilities@^1.0.8:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.16.tgz#787310df4c3900a68c0beb3d351c59725a588cdb"
-  dependencies:
-    fast-json-stable-stringify "^2.0.0"
 
 app-root-path@^2.0.1:
   version "2.0.1"
@@ -4647,13 +4629,7 @@ graphql-anywhere@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-3.1.0.tgz#3ea0d8e8646b5cee68035016a9a7557c15c21e96"
 
-graphql-anywhere@^4.1.0-alpha.0:
-  version "4.1.14"
-  resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-4.1.14.tgz#89664cb885faaec1cbc66905351fadae8cc85a04"
-  dependencies:
-    apollo-utilities "^1.0.16"
-
-graphql-anywhere@^4.1.14:
+graphql-anywhere@^4.1.0-alpha.0, graphql-anywhere@^4.1.14:
   version "4.1.14"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-4.1.14.tgz#89664cb885faaec1cbc66905351fadae8cc85a04"
   dependencies:
@@ -10708,11 +10684,11 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@2.7.2, "typescript@>=2.6.2 <2.8":
+"typescript@>=2.6.2 <2.8":
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
-typescript@^2.2.2, typescript@~2.9.1:
+typescript@^2.2.2, typescript@^2.9.1, typescript@~2.9.1:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 

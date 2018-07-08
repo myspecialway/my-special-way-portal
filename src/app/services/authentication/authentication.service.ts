@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWTTokenPayloadResponse } from '../../models/jwt-token-resonse.model';
 import { Apollo } from 'apollo-angular';
 import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
-import { UserProfileStateModel } from '../../apollo/state/state-resolvers';
+import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
 @Injectable()
 export class AuthenticationService {
