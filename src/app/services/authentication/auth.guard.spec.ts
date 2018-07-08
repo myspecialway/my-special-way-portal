@@ -51,7 +51,7 @@ describe('auth guard', () => {
 
   it('should navigate to login page if token not found and return false', async () => {
     // given
-    const guard = new AuthGuard(routerMock as Router, authService, apolloMock);
+    const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock as Apollo);
     apolloQueryFnMock.mockReturnValueOnce({
       data: {
         userProfile: null,
