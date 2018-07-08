@@ -47,3 +47,4 @@ Thumbs.db
 lcov.*
 coverage
 reports
+/tests/eyes/screenshots
