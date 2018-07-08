@@ -1,3 +1,5 @@
+@import '../../../../app.component.scss';
+
 * {
     direction: rtl;
     text-align: right;
@@ -12,6 +14,7 @@
     text-align: center;
   }
   
+
   .mat-dialog-actions {
     display: flex;
     justify-content: flex-end;
@@ -25,18 +28,20 @@
   margin-bottom:12px;
 }
 .mat-dialog-content{
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
   padding:0%;
   margin:0%;
   align-self: flex-start;
-  max-width:272px;
 }
 
 .container{
   padding: 0%;
 //  background-color:orange;
   margin:0%;
-  align-items: flex-start;
-  width:272px;
+  align-items: flex-start; 
 }
 
 .msw-form-row{

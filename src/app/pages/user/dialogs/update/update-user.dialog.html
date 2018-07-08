@@ -3,7 +3,8 @@
     <mat-divider></mat-divider>
     <mat-dialog-content>
       <form  class="mat-dialog-content" #formControl="ngForm">
-        <div class="msw-form-row">
+        <div class="msw-div-column-right">
+          <div class="msw-form-row">
             <mat-form-field color="primary">
               <input matInput #input placeholder="שם פרטי" [(ngModel)]="data.firstname" name="id" required >
               <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
@@ -11,48 +12,45 @@
               </button>            
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
-          </div>
-  
-        <div class="msw-form-row">
-          <mat-form-field color="primary">
-            <input matInput #input  placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
-            <button tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
-              <mat-icon>close</mat-icon>
-            </button>            
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
         </div>
-  
         <div class="msw-form-row">
-          <mat-form-field color="primary">
-            <input matInput #input placeholder="שם משתמש" [(ngModel)]="data.username"
-              name="userName" required>
-              <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+            <mat-form-field color="primary">
+              <input matInput #input placeholder="שם משתמש" [(ngModel)]="data.username"
+                name="userName" required>
+                <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+                  <mat-icon>close</mat-icon>
+                </button>            
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <!--TODO:add actual code, this is a dummy code for SCSS updates-->
+          <div class="msw-form-row">
+              <mat-form-field color="primary">
+                <mat-select placeholder="סוג משתמש">
+                  <mat-option>מנהל</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="msw-div-column-left">
+          <div class="msw-form-row">
+            <mat-form-field color="primary">
+              <input matInput #input  placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
+              <button tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
                 <mat-icon>close</mat-icon>
               </button>            
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-        </div>
-  
-        <div class="msw-form-row">
-          <mat-form-field color="primary">
-            <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
-            <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
-              <mat-icon>close</mat-icon>
-            </button>            
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-        </div>
-
-        <!--TODO:add actual code, this is a dummy code for SCSS updates-->
-        <div class="msw-form-row">
-            <mat-form-field color="primary">
-              <mat-select placeholder="סוג משתמש">
-                <mat-option>מנהל</mat-option>
-              </mat-select>
             </mat-form-field>
           </div>
-    
+          <div class="msw-form-row">
+            <mat-form-field color="primary">
+              <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
+              <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
+                <mat-icon>close</mat-icon>
+              </button>            
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
           <!--TODO: fix required-->
           <!--TODO:add actual code, this is a dummy code for SCSS updates-->
           <div class="msw-form-row">
@@ -62,7 +60,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-
+        </div>
       </form>
     </mat-dialog-content>
     <div mat-dialog-actions>
