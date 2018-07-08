@@ -1,0 +1,16 @@
+.schedule-table {
+    width: 100%;
+    direction: rtl;
+    td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+        text-align: right;
+    }
+    td.mat-cell:first-child, td.mat-footer-cell:first-child, th.mat-header-cell:first-child {
+        text-align: right;
+        &:first-child {
+            padding: 0 24px 0 0;
+        }
+    }
+    td:nth-child(2) {
+        direction: initial;
+    }
+}

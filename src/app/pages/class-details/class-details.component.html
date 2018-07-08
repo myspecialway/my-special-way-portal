@@ -1,13 +1,23 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" >
-        
-        
-        <!-- <mat-table #table [dataSource]="dataSource" class="class-schedule-table">
-          <tr mat-header-row *matHeaderRowDef="days"></tr>
-          <tr mat-row *matRowDef="let row; columns: days;"></tr>
-        </mat-table> -->
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <table class="mat-elevation-z8 mat-table schedule-table" role="grid">
+          <thead>
+            <tr class="mat-header-row" role="row">
+              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" colspan="2">שעה</th>
+              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let header of schedule.headers" >{{header}}</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr class="mat-row" role="row" *ngFor="let row of schedule.body; index as rowIndex">
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{rowIndex+1}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hours[rowIndex]}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" *ngFor="let cell of row" role="gridcell">{{cell.index}}</td>
+              </tr>
+            </tbody>
+          
+        </table>
       </div>
     </div>
   </div>

@@ -1,9 +1,16 @@
+import { Lesson } from './lesson.model';
 export class Class {
   _id: number;
   level: number;
   number: number;
   name: string;
-  schedule?: any;
+  schedule?: TimeSlot[];
+}
+
+export interface TimeSlot {
+  day: string;
+  hour: number;
+  lesson: Lesson;
 }
 
 export interface ClassQuery  {
