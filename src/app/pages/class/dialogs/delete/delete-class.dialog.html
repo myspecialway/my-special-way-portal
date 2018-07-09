@@ -1,14 +1,14 @@
 <div class="container">
-  <h3 mat-dialog-title>Are you sure?</h3>
+  <h3 mat-dialog-title color="accent">מחיקת כיתה</h3>
+  <mat-divider></mat-divider>
   <div mat-dialog-content>
-    Name: {{data.name}}
-    <p></p>
-    Level: {{data.level}}
-    <p></p>
+      כיתת {{data.name}} משכבה {{data.level}}.
+      <br><br>
+      האם את/ה בטוח/ה שברצונך למחוק את הכיתה?
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]=true (click)="confirmDelete()">מחק כיתה</button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button mat-button class="msw-button-delete" [mat-dialog-close]=true (click)="confirmDelete()">מחק כיתה</button>
   </div>
 </div>
