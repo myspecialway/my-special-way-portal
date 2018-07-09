@@ -4,91 +4,98 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserType } from '../../models/user.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { JWTTokenPayloadResponse } from '../../models/jwt-token-resonse.model';
+import { Apollo } from 'apollo-angular';
+import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
+import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
 @Injectable()
 export class AuthenticationService {
-  private rememberMe: boolean;
-  private username = new BehaviorSubject('');
-  private userRole: UserType;
-  private tokenExpired = true;
-  private token;
+  private jwtHelper = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
-    if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token');
-    } else {
-      this.token = sessionStorage.getItem('token');
+  constructor(
+    private http: HttpClient,
+    private apollo: Apollo,
+  ) {
+    this.initialize();
+  }
+
+  private getTokenFromLocalStore() {
+    return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
+  }
+
+  async initialize() {
+    const token = this.getTokenFromLocalStore();
+
+    if (!token) {
+      return;
     }
-    if (this.isLoggedIn()) {
-      this.parseToken(this.token || undefined);
-    }
+
+    const userProfile = this.getProfileFromToken(token);
+    await this.pushUserProfileToState(userProfile);
   }
 
-  isNotExpired() {
-    return this.tokenExpired;
-  }
-  getUsername(): Observable<string> {
-    return this.username;
-  }
-  getRole(): UserType {
-    return this.userRole;
-  }
-
-  setRememberMe(rememberMe: boolean) {
-    this.rememberMe = rememberMe;
-  }
-  isLoggedIn()  {
-    return localStorage.getItem('token') || sessionStorage.getItem('token');
-  }
-
-  async login(username: string, password: string): Promise<LoginResponse | null> {
+  async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http.post<LoginResponse>(
         environment.loginUrl,
         { username, password },
-      ).toPromise<LoginResponse>();
-      if (this.rememberMe) {
+      ).toPromise();
+
+      if (!tokenResponse) {
+        return false;
+      }
+
+      if (isRememberMeActive) {
         localStorage.setItem('token', tokenResponse.accessToken);
       } else {
         sessionStorage.setItem('token', tokenResponse.accessToken);
       }
-      this.token = tokenResponse.accessToken;
-      this.parseToken(this.token);
 
-      return tokenResponse;
+      const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      await this.pushUserProfileToState(userProfile);
+
+      return true;
     } catch (error) {
       const typedError = error as HttpErrorResponse;
 
       if (typedError.status !== 401) {
         throw error;
       }
+
+      return false;
     }
-    return null;
   }
 
-  private parseToken(token: string) {
-    const jwtHelper: JwtHelperService = new JwtHelperService();
-    const decodedToken = jwtHelper.decodeToken(token);
-    this.tokenExpired = !jwtHelper.isTokenExpired(token);
-    this.username.next(decodedToken.username);
-    this.userRole = decodedToken.role;
-  }
-  getToken() {
-    return this.token;
+  private getProfileFromToken(token: string): UserProfileStateModel {
+    const jwrParsedToken = this.parseToken(token);
+    const userProfile = new UserProfileStateModel(jwrParsedToken);
+    userProfile.token = token;
 
+    return userProfile;
+  }
+
+  private parseToken(token: string): JWTTokenPayloadResponse {
+    const decodedToken = this.jwtHelper.decodeToken(token) as JWTTokenPayloadResponse;
+    return decodedToken;
+  }
+
+  private async pushUserProfileToState(userProfile: UserProfileStateModel) {
+    await this.apollo.mutate({
+      mutation: UPDATE_USER_PROFILE,
+      variables: {
+        userProfile,
+      },
+    }).toPromise();
+  }
+
+  isTokenExpired(token: string): boolean {
+    return this.jwtHelper.isTokenExpired(token);
   }
 
   logout() {
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('token');
-      this.rememberMe = false;
-      this.username.next('');
-      // this.userRole = undefined;
-      this.tokenExpired = true;
-      this.token = undefined;
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
 }

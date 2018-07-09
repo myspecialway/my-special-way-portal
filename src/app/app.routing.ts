@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './services/authentication/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
