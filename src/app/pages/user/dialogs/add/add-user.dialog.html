@@ -67,29 +67,6 @@
                   </mat-form-field>
                 </div>
       </div>
-      <div class="form">
-        <mat-form-field color="accent">
-          <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (selectionChange)="onUserTypeChange($event)"
-            required>
-            <mat-option>בחר</mat-option>
-            <mat-option *ngFor="let key of keys" [value]="key">
-              {{userTypes[key]}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
-        </mat-form-field>
-      </div>
-
-      <!--TODO: fix required-->
-      <div class="form">
-        <mat-form-field color="accent">
-          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="data.role != userTypes.TEACHER">
-            <mat-option [value]="">בחר</mat-option>
-            
-          </mat-select>
-          <mat-error *ngIf="selectGrade.hasError('required')">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
     </form>
   </mat-dialog-content>
 
