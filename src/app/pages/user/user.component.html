@@ -1,18 +1,20 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="header-menu-container">
-      <div class="example-header">
-        <button mat-raised-button color="primary" (click)="addNewUser()">הוספת משתמש חדש</button>
-      </div>
+    <div class="header-menu-container msw-table-tools-header">
+
       <div class="example-header">
         <mat-form-field class="search-user">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="פילטר">
         </mat-form-field>
       </div>
+      <div class="example-header">
+        <button mat-raised-button color="primary" (click)="addNewUser()">הוספת משתמש חדש</button>
+      </div>
+
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="example-table"
+        <mat-table #table [dataSource]="dataSource" class="msw-table"
                    matSort matSortActive="firstName" matSortDisableClear matSortDirection="asc">
 
           <!-- ID Column -->
@@ -57,7 +59,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteUser(row._id, row.firstName, row.lastName, row.userType)">מחק</button>
+              <button mat-icon-button color="primary" (click)="deleteUser(row._id, row.firstName, row.lastName, row.userType)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
