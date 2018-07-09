@@ -739,7 +739,7 @@ apollo-angular-link-http@^1.1.0:
   dependencies:
     apollo-angular-link-http-common "~1.1.0"
 
-apollo-angular@^1.1.0:
+apollo-angular@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/apollo-angular/-/apollo-angular-1.1.2.tgz#7aaad1c996d26b538eea043b825c0ab59fdfe8e5"
 
@@ -761,7 +761,7 @@ apollo-client-rxjs@^0.6.0-rc.2:
   version "0.6.0-rc.2"
   resolved "https://registry.yarnpkg.com/apollo-client-rxjs/-/apollo-client-rxjs-0.6.0-rc.2.tgz#f391ee69381ae5ec8f74f476fbb6b0490b6f5923"
 
-apollo-client@^2.3.1:
+apollo-client@^2.3.5:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.3.5.tgz#74b62bd7e7bd7030d01c35e2e221ed65a807af23"
   dependencies:
@@ -820,6 +820,13 @@ apollo-link-dedup@^1.0.0:
   dependencies:
     apollo-link "^1.2.2"
 
+apollo-link-state@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/apollo-link-state/-/apollo-link-state-0.4.1.tgz#65e9e0e12c67936b8c4b12b8438434f393104579"
+  dependencies:
+    apollo-utilities "^1.0.8"
+    graphql-anywhere "^4.1.0-alpha.0"
+
 apollo-link@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.1.tgz#c120b16059f9bd93401b9f72b94d2f80f3f305d2"
@@ -844,7 +851,7 @@ apollo-test-utils@~0.3.2:
     graphql-tag "^2.0.0"
     graphql-tools "^1.0.0"
 
-apollo-utilities@^1.0.0, apollo-utilities@^1.0.16:
+apollo-utilities@^1.0.0, apollo-utilities@^1.0.16, apollo-utilities@^1.0.8:
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.16.tgz#787310df4c3900a68c0beb3d351c59725a588cdb"
   dependencies:
@@ -4787,7 +4794,7 @@ graphql-anywhere@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-3.1.0.tgz#3ea0d8e8646b5cee68035016a9a7557c15c21e96"
 
-graphql-anywhere@^4.1.14:
+graphql-anywhere@^4.1.0-alpha.0, graphql-anywhere@^4.1.14:
   version "4.1.14"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-4.1.14.tgz#89664cb885faaec1cbc66905351fadae8cc85a04"
   dependencies:
@@ -7543,9 +7550,9 @@ moment-duration-format@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.2.2.tgz#b957612de26016c9ad9eb6087c054573e5127779"
 
-moment@2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+moment@2.19.3:
+  version "2.19.3"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
 
 moment@^2.10.3, moment@^2.14.1, moment@^2.15.2:
   version "2.22.2"
