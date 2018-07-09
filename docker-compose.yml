@@ -1,0 +1,25 @@
+version: '3'
+services:
+  server: 
+    image: msw-server:latest
+    restart: always
+    links: 
+      - mongodb
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=e2e-tests
+  mongodb: 
+    image: mongo
+    restart: always
+    ports:
+      - 27018:27017
+  cient:
+    build: .
+    image: msw-portal:e2e
+    ports: 
+      - "4200:4200"
+    links:
+      - server
+    environment:
+      - NODE_ENV=e2e-tests

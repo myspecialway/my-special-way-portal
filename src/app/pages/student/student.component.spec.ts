@@ -13,7 +13,7 @@ import { Overlay, ScrollStrategyOptions,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { studentTestData } from '../../../mocks/assets/students.mock';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs-compat';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
