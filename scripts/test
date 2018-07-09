@@ -1,0 +1,18 @@
+# !/bin/bash
+
+npx jest --coverage && npx codecov || exit 1
+
+yarn start & (sleep 20 && yarn testcafe ) ; EXIT_CODE=$?; kill $!; exit $EXIT_CODE
+
+# TODO: This will handle e2e tests via docker compose
+#docker-compose up -d
+
+#if  npx cross-env NODE_ENV=e2e-tests testcafe chrome tests/ ; then
+#  docker rm -f $(docker ps -q)
+#  exit 0
+#else
+#  docker rm -f $(docker ps -q)
+#  exit 1
+#fi
+
+

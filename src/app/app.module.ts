@@ -3,10 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CdkTableModule } from '@angular/cdk/table';
-import { ApolloModule, Apollo } from 'apollo-angular';
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { environment } from '../environments/environment';
 
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
@@ -20,9 +16,9 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -37,10 +33,10 @@ import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-us
 import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
-import { JwtInterceptor } from './services/helpers/jwt.interceptor';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
+import { MSWApolloModule } from './apollo/msw-apollo.module';
 
 @NgModule({
   imports: [
@@ -65,11 +61,10 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
-    ApolloModule,
-    HttpLinkModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MSWApolloModule,
   ],
   declarations: [
     AppComponent,
@@ -105,29 +100,8 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
     UserService,
     StudentService,
     ClassService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private httpLink: HttpLink,
-    private apollo: Apollo,
-  ) {
-
-      this.initApollo();
-  }
-
-  private initApollo() {
-
-    const http = this.httpLink.create({ uri: environment.beUrl });
-    this.apollo.create({
-      link: http,
-      cache: new InMemoryCache(),
-    });
-  }
 }

@@ -5,77 +5,45 @@ exports[`footer component should render component as described in snapshot 1`] =
   <footer
     class="footer"
   >
-    
-    
     <div
       class="container-fluid"
     >
-      
-      
       <nav
         class="pull-left"
       >
-        
-        
         <ul>
-          
-          
           <li>
-            
-            
             <a
               href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/default.aspx"
               target="_blank"
             >
               בית ספר יחדיו
             </a>
-            
-          
           </li>
-          
-          
           <li>
-            
-            
             <a
               href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/Vision.aspx"
               target="_blank"
             >
               
-  עלינו          
+  עלינו 
             </a>
-            
-          
           </li>
-          
-        
         </ul>
-        
-      
       </nav>
-      
-      
       <div
         class="copyright pull-right"
       >
-        
-        ©
-        
+         © 
         <a
           href="https://www.corp.att.com/worldwide/att-you-israel.html"
           target="_blank"
         >
           AT&T in Israel
         </a>
-         .
-      
+         . 
       </div>
-      
-    
     </div>
-    
-  
   </footer>
-  
 </app-footer>
 `;

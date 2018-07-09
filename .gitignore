@@ -19,7 +19,7 @@
 *.sublime-workspace
 *.orig
 # IDE - VSCode
-.vscode/*
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -47,3 +47,4 @@ Thumbs.db
 lcov.*
 coverage
 reports
+/tests/eyes/screenshots
