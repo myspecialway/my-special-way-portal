@@ -18,7 +18,7 @@ exports[`class component should render component as described in snapshot 1`] = 
       class="container-fluid"
     >
       <div
-        class="row"
+        class="header-menu-container msw-table-tools-header"
       >
         <div
           class="example-header"
@@ -51,7 +51,7 @@ exports[`class component should render component as described in snapshot 1`] = 
           class="col-lg-12 col-md-12 col-sm-12"
         >
           <mat-table
-            class="example-table"
+            class="msw-table"
             matsort=""
             matsortactive="name"
             matsortdirection="asc"
