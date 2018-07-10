@@ -59,4 +59,17 @@ describe('navbar component', () => {
     const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
     expect(liElement.innerHTML).toBe('test');
   });
+
+  it('should update the selected menu item on selection', async () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
+    expect(fixture.componentInstance.selectedMenuItem).toEqual('class');
+  });
+
+  it('should return the correct menu item', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
+    const title = fixture.componentInstance.getSelectedMenuItem();
+    expect(title).toEqual('ניהול כיתות');
+  });
 });
