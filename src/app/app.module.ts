@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -64,6 +64,7 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     HttpClientModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatDividerModule,
     MSWApolloModule,
   ],
   declarations: [

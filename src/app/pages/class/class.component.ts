@@ -74,8 +74,8 @@ export class ClassComponent implements OnInit, AfterViewInit {
   addNewClass() {
     const dialogRef = this.dialog.open(AddClassDialogComponent, {
       data: { class: Class },
-      height: '400px',
-      width: '350px',
+      height: '310px',
+      width: '320px',
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
@@ -107,6 +107,8 @@ export class ClassComponent implements OnInit, AfterViewInit {
   editClass(_id: number, name: string, level: string) {
     const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
       data: {_id, name, level},
+      height: '310px',
+      width: '320px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
