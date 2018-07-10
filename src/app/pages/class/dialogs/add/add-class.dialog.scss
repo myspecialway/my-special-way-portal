@@ -1,14 +1,155 @@
+@import '../../../../app.component.scss';
+
 * {
-    direction: rtl;
-    text-align: right;
+  direction: rtl;
+  text-align: right;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-dialog-actions button {
+  text-align: center;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+}
+
+.mat-dialog-actions button {
+  text-align: center;
+}
+
+.mat-form-field{
+//  background-color: aqua;
+//  position: relative;
+  display: flex;
+  align-items: center;
+//  margin-top: 13px;  
+}
+
+.matInput{
+//  background-color: yellow;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+//  margin-top: 13px;
+}
+
+
+
+.mat-dialog-title{
+  vertical-align: text-top;
+  height:24px;
+  margin-bottom:12px;
+}
+.mat-dialog-content{
+
+  display: flex;
+  flex-direction: row;
+//  width: 650px;
+  margin: 0 auto;
+  padding:0%;
+  margin:0%;
+  align-self: flex-start;
+  height:160px;
+
+}
+
+
+
+.container{
+  padding: 0%;
+//  background-color:orange;
+  margin:0%;
+  align-items: flex-start;
+//  width:272px;
+}
+
+.mat-divider{
+  border-bottom-color: #6a00cf;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  margin-bottom:12px;
+}
+
+.msw-form-row{
+  //  background-color:yellow;
+  height:74px;
+  width:272px;
+  margin:0px;
+  align-items: baseline;
+
+
+    /deep/ .mat-form-field > * {
+//      background-color: aqua;
+      height:74px;
+      width:272px;
+    }
+
+    /deep/ .mat-input >*{
+//      background-color:crimson;
+      height:74px;
+      width:272px;
+    }
+            
+    /deep/ .mat-input-underline {
+      border-bottom: 1px solid rgb(12, 12, 12)!important;
+    }
+
+    /deep/ .mat-form-field-underline{
+      border-bottom: 1px solid rgb(12, 12, 12)!important;
+    }
+
+    /deep/ .mat-form-field-ripple{
+      background-color:rgb(12, 12, 12)!important;
+      border-bottom: 1px solid rgb(12, 12, 12)!important;
+    }
+
+    /deep/ .mat-input-element{
+      border-bottom-color: none;
+    }
+
   }
-  
-  mat-dialog-actions {
-    display: flex;
-    justify-content: space-between;
+
+
+.msw-button-add{
+  width: 109.7px;
+  height: 36px;
+  border-radius: 3px;
+  background-color: #6a00cf;       
+  padding:0px;
+
+  /deep/ .mat-button-wrapper{
+      width: 93.7px;
+      height: 16px;
+      font-family: Rubik;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: 1.3px;
+      text-align: center;
+      color: #ffffff;
   }
-  
-  mat-dialog-actions button {
-    text-align: center;
-  }
-  
+}
+
+.msw-button-cancel{
+  width: 93.7px;
+  height: 16px;
+  font-family: Rubik;
+  font-size: 14.1px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #4a4a4a;
+}
