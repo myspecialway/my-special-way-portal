@@ -98,7 +98,7 @@ module.exports = {
     { begin: 43, end: 44 },
     { begin: 45, end: 46 },
   ],
-  mapWayPoints: [
+  mapPOIs: [
     {
       name: 'Room1',
       disabled: false,

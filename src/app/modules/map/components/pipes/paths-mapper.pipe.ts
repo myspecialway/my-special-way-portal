@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { polyline, latLng } from 'leaflet';
-import { IndoorAtlasPaths, LeafletPaths, IndoorAtlasEdge } from '../components/map.model';
+import { IndoorAtlasPaths, LeafletPaths, IndoorAtlasEdge } from '../models/map.model';
 
 @Pipe({ name: 'pathsMapper' })
 export class PathsMapperPipe implements PipeTransform {

@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { MapComponent, PathsMapperPipe } from './index';
+import { MapComponent, PathsMapperPipe } from '.';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MapService } from './map.service';
+import { MapService } from './services/map.service';
 import { of } from 'rxjs/observable/of';
 
 const mapMock = {
     getAllPaths: () => of({nodes: [], edges: []}),
     getAllAvailableFloors: () => of([2, 3 ]),
-    getAllMapWayPoints: () => of([]),
+    getAllMapPOIs: () => of([]),
     getCurrentPosition: () => Promise.resolve(),
-    getMapWayPointsInFloor: () => ({type: '', features: []}),
+    getMapPOIsInFloor: () => ({type: '', features: []}),
 };
 
 describe('map component', () => {

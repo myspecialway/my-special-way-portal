@@ -67,11 +67,11 @@ describe('map service tests', () => {
             });
         });
     });
-    describe('get all map waypoints', () => {
-        it('should return all map waypoints mapped to leaflet features', (done) => {
+    describe('get all map points', () => {
+        it('should return all map points mapped to leaflet features', (done) => {
             apolloMock.query.mockReturnValueOnce(of({
                 data: {
-                    allMapWayPoints: [{
+                    allMapPOIs: [{
                         name: 'room1',
                         disabled: false,
                         position: { latitude: 1, longitude: 22, floor: 1 },
@@ -79,7 +79,7 @@ describe('map service tests', () => {
                 },
             }));
             expect.assertions(1);
-            instance.getAllMapWayPoints().subscribe((res) => {
+            instance.getAllMapPOIs().subscribe((res) => {
                 expect(res).toEqual({
                     type: 'FeatureCollection',
                     features: [{

@@ -1,5 +1,5 @@
 import { PathsMapperPipe } from './paths-mapper.pipe';
-import { IndoorAtlasPaths } from './map.model';
+import { IndoorAtlasPaths } from '../models/map.model';
 import { polyline, latLng } from 'leaflet';
 
 describe('pathsMapper pipe ', () => {

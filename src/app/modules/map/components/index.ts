@@ -1,3 +1,3 @@
 export * from './map.component';
-export * from './paths-mapper.pipe';
-export * from './map.service';
+export * from './pipes/paths-mapper.pipe';
+export * from './services/map.service';

@@ -1,40 +1,42 @@
 import { latLng, tileLayer, geoJSON, circleMarker } from 'leaflet';
-import { WaypointsProps } from './map.service';
+import { POIsProps } from './services';
 import { Point, FeatureCollection } from 'geojson';
 
-export const DEFAULT_POSITION = {
+const defaultPosition = {
     latitude: 31.986326703711, longitude: 34.91069670359139,
 };
 
 const geojsonMarkerOptions = {
-    radius: 5,
+    radius: 3,
     fillColor: '#ff7800',
-    color: '#000',
+    color: '#333',
     weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8,
+    opacity: 0.9,
+    fillOpacity: 0.6,
 };
 
-export const WAYPOINTS_LAYER = geoJSON({
+const pointsOfInterestLayer = geoJSON({
     type: 'FeatureCollection',
     features: [],
-} as FeatureCollection<Point, WaypointsProps>, {
+} as FeatureCollection<Point, POIsProps>, {
     pointToLayer: (feature, latlng) => {
         return circleMarker(latlng, geojsonMarkerOptions);
     },
     onEachFeature: (feature, layer) => {
-        const {name, disabled, floor} = feature.properties as WaypointsProps;
+        const {name, disabled, floor} = feature.properties as POIsProps;
         layer.bindPopup(`${name} - ${disabled} - ${floor}`);
     },
 });
 
-export const DEFAULT_MAP_OPTIONS = {
+const defaultMapOptions = {
     layers: [
         tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
+            maxZoom: 18,
         }),
-        WAYPOINTS_LAYER,
+        pointsOfInterestLayer,
     ],
-    zoom: 19,
-    center: latLng(DEFAULT_POSITION.latitude, DEFAULT_POSITION.longitude),
+    zoom: 18,
+    center: latLng(defaultPosition.latitude, defaultPosition.longitude),
 };
+
+export {defaultMapOptions, pointsOfInterestLayer, defaultPosition};
