@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassService } from '../class/services/class.graphql.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { ApolloQueryResult } from 'apollo-client';
-import { ClassQuery, Class } from '../../models/class.model';
+import { ActivatedRoute } from '@angular/router';
+import { ClassQuery, Class, TimeSlot } from '../../models/class.model';
+import { scheduleTestData } from '../../../mocks/assets/schedule.mock';
 @Component({
   selector: 'app-class-details',
   templateUrl: './class-details.component.html',
   styleUrls: ['./class-details.component.scss'],
 })
 export class ClassDetailsComponent implements OnInit {
-  class$: Observable<ApolloQueryResult<ClassQuery>>;
-  headers = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
+  // TODO: extract to config or service
+  days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
   hours = [
     '07:30 - 08:00',
     '08:00 - 08:50',
@@ -31,42 +29,40 @@ export class ClassDetailsComponent implements OnInit {
     '16:30 - 16:45',
   ];
   className: string;
+  _class;
   schedule;
-  scheduleMap: Map<string, string> = new Map();
+
   constructor(
     private classService: ClassService,
     private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.className = this.route.snapshot.params.name;
-    this.classService.classByName(this.className).subscribe(
-      ((res) => {
-        console.log(res.data);
-      }),
-    );
-
-    // create schedule grid - refactor to service or another component
-    this.createSchedule();
+    // this.className = this.route.snapshot.params.name;
+    // this.classService.classByName(this.className).map((res) => res.data.classByName).subscribe(
+    //   ((classData: any) => { // TODO: need to change to TimeSlot[]
+    //     this._class = classData;
+    //     this.createSchedule(classData.schedule);
+    //   }),
+    // );
+    this.createSchedule(scheduleTestData);
   }
 
-  createSchedule() {
-    this.schedule = {
-      headers: this.headers,
-      body: [],
-    };
-    // TODO: refactor this
-    for (let row = 0; row < this.hours.length; row++) {
-      this.schedule.body[row] = new Array(this.headers.length);
-      for (let col = 0; col < this.headers.length; col++) {
-        const gridItem = {
-          index: `${row}${col}`,
-          title: '',
-        };
-        this.schedule.body[row][col] = gridItem;
+  createSchedule(scheduleArr: TimeSlot[]) {
+    const numHours = this.hours.length;
+    const numDays = this.days.length;
+    this.schedule = Array(numHours);
+    for (let hour = 0; hour < numHours; hour++) {
+      this.schedule[hour] = Array(numDays);
+      for (let day = 0; day < numDays; day++) {
+        this.schedule[hour][day] = null;
       }
     }
-    console.log(this.schedule);
+    scheduleArr.forEach((ts: TimeSlot) => {
+      const row = ts.index.substr(0, ts.index.length - 1);
+      const col = ts.index.substr(-1);
+      this.schedule[row][col] = ts.lesson;
+    });
   }
 
 }

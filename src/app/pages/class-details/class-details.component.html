@@ -2,18 +2,27 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <table class="mat-elevation-z8 mat-table schedule-table" role="grid">
+        <table class="mat-table schedule-table" role="grid">
           <thead>
             <tr class="mat-header-row" role="row">
               <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" colspan="2">שעה</th>
-              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let header of schedule.headers" >{{header}}</th>
+              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let day of days" >{{day}}</th>
             </tr>
           </thead>
             <tbody>
-              <tr class="mat-row" role="row" *ngFor="let row of schedule.body; index as rowIndex">
-                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{rowIndex+1}}</td>
-                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hours[rowIndex]}}</td>
-                <td class="mat-cell cdk-column-position mat-column-position" *ngFor="let cell of row" role="gridcell">{{cell.index}}</td>
+              <tr class="mat-row" role="row" *ngFor="let row of schedule; index as hourIndex">
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hourIndex+1}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hours[hourIndex]}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" *ngFor="let cell of row; index as dayIndex" role="gridcell">
+                  <div *ngIf="cell">
+                    {{cell.title}}
+                  </div>
+                  <div *ngIf="!cell">
+                    <i class="material-icons">
+                      add
+                      </i>
+                  </div>
+                </td>
               </tr>
             </tbody>
           

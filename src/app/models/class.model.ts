@@ -8,8 +8,7 @@ export class Class {
 }
 
 export interface TimeSlot {
-  day: string;
-  hour: number;
+  index: string;
   lesson: Lesson;
 }
 
