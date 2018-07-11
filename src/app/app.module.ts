@@ -36,8 +36,8 @@ import { ClassService } from './pages/class/services/class.graphql.service';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
-import { ClassDetailsComponent } from './pages/class-details/class-details.component';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   imports: [
@@ -66,6 +66,7 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     MatCheckboxModule,
     MatDividerModule,
     MSWApolloModule,
+    PagesModule,
   ],
   declarations: [
     AppComponent,
@@ -83,7 +84,6 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
-    ClassDetailsComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,

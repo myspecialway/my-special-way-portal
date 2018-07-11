@@ -6,13 +6,13 @@
           <thead>
             <tr class="mat-header-row" role="row">
               <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" colspan="2">שעה</th>
-              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let day of days" >{{day}}</th>
+              <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let day of daysLabels" >{{day}}</th>
             </tr>
           </thead>
             <tbody>
               <tr class="mat-row" role="row" *ngFor="let row of schedule; index as hourIndex">
-                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hourIndex+1}}</td>
-                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hours[hourIndex]}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hourIndex + 1}}</td>
+                <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hoursLabels[hourIndex]}}</td>
                 <td class="mat-cell cdk-column-position mat-column-position" *ngFor="let cell of row; index as dayIndex" role="gridcell">
                   <div *ngIf="cell">
                     {{cell.title}}
@@ -25,7 +25,7 @@
                 </td>
               </tr>
             </tbody>
-          
+
         </table>
       </div>
     </div>

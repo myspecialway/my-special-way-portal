@@ -17,6 +17,7 @@ $hover: rgba(106, 0, 207, 0.2);
         padding: 20px 14px;
     }
     td.mat-cell, td.mat-footer-cell {
+        cursor: pointer;
         border: 1px solid #e0e0e0;
         font-size: 18px;
         &:hover {
