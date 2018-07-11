@@ -40,7 +40,9 @@ exports[`navbar component should render component as described in snapshot 1`] =
             <span
               class="msw-page-title"
             >
-               מערכת ניהול 
+              <span>
+                
+              </span>
               <i
                 class="material-icons"
               >

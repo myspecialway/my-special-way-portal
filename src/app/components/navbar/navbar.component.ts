@@ -21,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
 export class NavbarComponent implements OnInit {
   menuItems: any[];
   currentUser: string;
+  selectedMenuItem: string;
 
   constructor(
     private apollo: Apollo,
@@ -33,5 +34,17 @@ export class NavbarComponent implements OnInit {
       this.currentUser = userProf.data.userProfile.username;
     });
     this.menuItems = ROUTES.filter((menuItem) => menuItem); // TODO: filter by role
+    this.selectedMenuItem = 'student';
+  }
+
+  selectMenuItem(menuItem) {
+    this.selectedMenuItem = menuItem.path;
+  }
+
+  getSelectedMenuItem() {
+    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItem );
+    if (route) {
+      return route.title;
+    }
   }
 }
