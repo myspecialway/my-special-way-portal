@@ -64,11 +64,11 @@
                 </button>            
               </mat-form-field>
               </div>
-              <div class="msw-form-row">
-                  <mat-form-field color="primary">
-                    <mat-select placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" (change)="onUserTypeChange($event)">
+              <div class="msw-form-row" >
+                  <mat-form-field color="primary" >
+                    <mat-select  placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" (change)="onUserTypeChange($event)">
                     <mat-option>בחר</mat-option>
-                    <mat-option *ngFor="let clss of allClasses" [value]="clss">
+                    <mat-option  *ngFor="let clss of allClasses" [value]="clss">
                       {{clss.name}}
                     </mat-option>
                   </mat-select>
@@ -81,6 +81,6 @@
 
   <div mat-dialog-actions>
     <button mat-button class="msw-button-cancel" tabindex="-1" (click)="close()" >ביטול</button>
-    <button mat-button class="msw-button-add"  (click)="confirmAdd(this.form.value)" [disabled]="!formControl.valid" >הוסף משתמש</button>
+    <button mat-button class="msw-button-add"  (click)="confirmAdd(this.form.value)" [disabled]="!form.hasError" >הוסף משתמש</button>
   </div>
 </div>

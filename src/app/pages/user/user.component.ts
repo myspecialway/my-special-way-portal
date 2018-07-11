@@ -95,9 +95,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
+  deleteUser(_id: number, userName: string) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: {_id, firstName, lastName, userType},
+      data: {_id, userName},
       height: '275px',
       width: '360px',
     });
