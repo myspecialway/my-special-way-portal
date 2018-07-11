@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../models/user.model';
-import { UserService } from '../../services/user.graphql.service';
+import { MswErrorStateMatcher } from '../../../../controls/errormatcher';
+import { ClassService } from '../../../class/services/class.graphql.service';
+import { Class } from '../../../../models/class.model';
 
 @Component({
   selector: 'app-add-user.dialog',
@@ -12,18 +14,25 @@ import { UserService } from '../../services/user.graphql.service';
 
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
-  keys: any[];
+  userTypeKeys: any[];
   userTypes = UserType;
   formControl = new FormControl('', [Validators.required]);
   selectUserType = new FormControl(null, Validators.required);
-  selectGrade = new FormControl('', [Validators.required]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  selectGradeConrol = new FormControl('', [Validators.required]);
+  matcher = new MswErrorStateMatcher();
+  allClasses: Class[];
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AddUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User,
-              public userService: UserService,
-  ) { this.keys = Object.keys(this.userTypes); }
+              @Inject(MAT_DIALOG_DATA) public classes: Class[],
+              private classService: ClassService,
+  ) {
+    this.userTypeKeys = Object.keys(this.userTypes);
+    console.log('------' + classes.toString());
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.form = this.formBuilder.group({
       firstName: '',
       lastName: '',
@@ -31,6 +40,9 @@ export class AddUserDialogComponent implements OnInit {
       email: '',
       userType: '',
       class: undefined,
+    });
+    this.classService.getAllClasses().then((data) => {
+      this.allClasses = data.data.classes;
     });
   }
 

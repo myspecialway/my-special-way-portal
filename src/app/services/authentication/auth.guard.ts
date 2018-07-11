@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthenticationService } from './authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';

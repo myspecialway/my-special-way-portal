@@ -29,8 +29,8 @@
                     <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (change)="onUserTypeChange($event)"
                       required>
                       <mat-option>בחר</mat-option>
-                      <mat-option *ngFor="let key of keys" [value]="key">
-                        {{userTypes[key]}}
+                      <mat-option *ngFor="let userTypeKey of userTypeKeys" [value]="userTypeKey">
+                        {{userTypes[userTypeKey]}}
                       </mat-option>
                     </mat-select>
                     <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
@@ -50,20 +50,29 @@
             </div>
             <div class="msw-form-row">
                 <mat-form-field color="primary">
-                  <input matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email" required >
-                  <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
-                    <mat-icon>close</mat-icon>
-                  </button>            
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                </mat-form-field>
+                <input matInput placeholder="אימייל" [formControl]="emailFormControl" [(ngModel)]="data.email" name="email"
+                       [errorStateMatcher]="matcher">
+                <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  כתובת אמייל לא חוקית. אנא נסה שנית
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  אימייל הינו שדה חובה
+                </mat-error>
+                <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
+                  <mat-icon>close</mat-icon>
+                </button>            
+              </mat-form-field>
               </div>
-              <!--TODO: fix required-->
               <div class="msw-form-row">
                   <mat-form-field color="primary">
-                    <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="data.role != userTypes.TEACHER">
-                      <mat-option [value]="">בחר</mat-option>            
-                    </mat-select>
-                    <mat-error *ngIf="selectGrade.hasError('required')">{{getErrorMessage()}}</mat-error>
+                    <mat-select placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" (change)="onUserTypeChange($event)">
+                    <mat-option>בחר</mat-option>
+                    <mat-option *ngFor="let clss of allClasses" [value]="clss">
+                      {{clss.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="selectGradeConrol.hasError('required')">אנא בחר כיתה</mat-error>
                   </mat-form-field>
                 </div>
       </div>

@@ -12,6 +12,8 @@ import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
+import { ClassService } from '../class/services/class.graphql.service';
+import { Class } from '../../models/class.model';
 
 @Component({
   selector: 'app-user',
@@ -23,6 +25,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
+  allClasses: string[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,6 +33,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   constructor(
     private userService: UserService,
+    private classService: ClassService,
     public dialog: MatDialog,
   ) { }
 
@@ -74,7 +78,9 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      data: { user: User },
+      data: {
+        user: User,
+      },
       height: '368px',
       width: '630px',
     });

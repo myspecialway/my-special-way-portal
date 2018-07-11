@@ -6,5 +6,5 @@ export class Class {
 }
 
 export interface ClassQuery  {
-  allClasses: Class[];
+  classes: Class[];
 }
