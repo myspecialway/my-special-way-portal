@@ -1,18 +1,18 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="header-menu-container msw-table-tools-header">
       <div class="example-header">
         <mat-form-field floatLabel="never" color="accent">
           <input matInput #filter placeholder="Filter issues">
         </mat-form-field>
       </div>
-      <div class="example-header">
+      <div class="example-header msw-table-tools-header">
         <button mat-raised-button color="primary" (click)="addNewStudent()">הוספת תלמיד חדש</button>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="firstname" matSortDisableClear matSortDirection="asc">
+        <mat-table #table [dataSource]="dataSource" class="msw-table" matSort matSortActive="firstname" matSortDisableClear matSortDirection="asc">
           <!-- Number Column -->
           <ng-container matColumnDef="studentName">
             <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
@@ -51,7 +51,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)">מחק</button>
+              <button mat-icon-button color="primary" (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
