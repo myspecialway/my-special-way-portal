@@ -1,5 +1,5 @@
 export interface Lesson {
-    _id?: string;
+    _id: string;
     title: string;
     icon: string;
 }
