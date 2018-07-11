@@ -12,8 +12,6 @@ import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
-import { ClassService } from '../class/services/class.graphql.service';
-import { Class } from '../../models/class.model';
 
 @Component({
   selector: 'app-user',
@@ -33,7 +31,6 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   constructor(
     private userService: UserService,
-    private classService: ClassService,
     public dialog: MatDialog,
   ) { }
 
