@@ -14,8 +14,8 @@ import { scheduleTestData } from '../../../../mocks/assets/schedule.mock';
 export class ClassDetailsContainerComponent implements OnInit {
   schedule: Lesson[][];
 
-  private readonly daysLabels = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
-  private readonly hoursLabels = [
+  readonly daysLabels = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
+  readonly hoursLabels = [
     '07:30 - 08:00',
     '08:00 - 08:50',
     '08:50 - 09:35',
