@@ -41,9 +41,7 @@ export class AddUserDialogComponent implements OnInit {
       userType: '',
       class: undefined,
     });
-    this.classService.getAllClasses().then((data) => {
-      this.allClasses = data.data.classes;
-    });
+
   }
 
   getErrorMessage() {
@@ -61,9 +59,14 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data.Class);
-    if (event.value === 'MANAGER') {
-      // this.data.Class = undefined;
+    console.log('class value is: ' + event);
+    if (event.value === UserType.PRINCIPLE.toString()) {
+      this.data.Class = undefined;
+    }
+    if (event.value === UserType.TEACHER.toString()) {
+      this.classService.getAllClasses().then((data) => {
+        this.allClasses = data.data.classes;
+      });
     }
 
   }

@@ -26,7 +26,7 @@
               </div>
               <div class="msw-form-row">
                   <mat-form-field color="primary">
-                    <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (change)="onUserTypeChange($event)"
+                    <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType"  (change)="onUserTypeChange(data.role)"
                       required>
                       <mat-option>בחר</mat-option>
                       <mat-option *ngFor="let userTypeKey of userTypeKeys" [value]="userTypeKey">
@@ -66,7 +66,7 @@
               </div>
               <div class="msw-form-row" >
                   <mat-form-field color="primary" >
-                    <mat-select  placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" (change)="onUserTypeChange($event)">
+                    <mat-select  placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" >
                     <mat-option>בחר</mat-option>
                     <mat-option  *ngFor="let clss of allClasses" [value]="clss">
                       {{clss.name}}
