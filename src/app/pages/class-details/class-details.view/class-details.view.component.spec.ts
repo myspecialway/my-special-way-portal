@@ -4,7 +4,6 @@ import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
 describe('ClassDetailsComponent', () => {
-  let component: ClassDetailsViewComponent;
   let fixture: ComponentFixture<ClassDetailsViewComponent>;
 
   beforeEach(async(() => {

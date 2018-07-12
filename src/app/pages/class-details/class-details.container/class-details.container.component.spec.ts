@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClassDetailsContainerComponent } from './class-details.container.component';
-import { ClassDetailsViewComponent } from '../class-details.view/class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ClassDetailsContainerComponent', () => {
