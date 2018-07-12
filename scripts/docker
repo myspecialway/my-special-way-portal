@@ -13,5 +13,5 @@ then
 else
     echo info::docker:: branch $BRANCH is not master, building without version increment
     docker pull nginx:stable
-    docker build . -t myspecialway/msw-portal:$(echo $BRANCH | sed 's/\///g')
+    docker build . -t myspecialway/msw-portal:$(echo $BRANCH | ./scripts/helpers/version-fixer)
 fi
