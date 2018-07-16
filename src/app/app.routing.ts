@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
+import {StudentDetailsComponent} from './pages/student/details/student-details.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
+  { path: 'student/new', component: StudentDetailsComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,72 @@
+<div class="msw-student">
+  <div class="msw-student-header">
+    <div class="msw-student-header-back">
+      <i class="material-icons">
+        keyboard_arrow_right
+      </i>
+      <span class="msw-student-header-back-label">
+          כל התלמידים
+      </span>
+
+    </div>
+    <div class="msw-student-header-nav">
+      <div class="msw-student-header-nav-name">
+        מיכלי ארליך
+      </div>
+      <div class="msw-student-header-nav-tabs">
+        <!--<mat-tab-group>-->
+          <!--<mat-tab label="תזכורות"> תזכורות </mat-tab>-->
+          <!--<mat-tab label="מערכת שעות"> מערכת שעות </mat-tab>-->
+          <!--<mat-tab label="פרטים אישיים"> פרטים אישיים </mat-tab>-->
+        <!--</mat-tab-group>-->
+      </div>
+    </div>
+  </div>
+  <div class="msw-student-body-ph">
+    <div class="msw-student-body">
+      <div class="msw-student-user-pic-ph">
+        <img src="http://via.placeholder.com/140x100">
+      </div>
+      <div class="msw-student-user-form">
+        <form class="msw-student-details-form" (submit)="addStudent()" #formControl="ngForm">
+          <div class="msw-student-main-details">
+            <mat-form-field class="firstname">
+              <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstname="ngModel" required>
+            </mat-form-field>
+            <mat-form-field class="lastname">
+              <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastname="ngModel" required>
+            </mat-form-field>
+            <div class="msw-student-details-gender-switch">
+              <div class="msw-student-details-gender">מין</div>
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender" required>
+                <mat-button-toggle value="FEMALE">
+                  <i class="material-icons"> face </i>
+                </mat-button-toggle>
+                <mat-button-toggle value="MALE">
+                  <i class="material-icons"> face </i>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </div>
+
+          <mat-form-field class="classname">
+            <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" name="classname" #classname="ngModel" required>
+              <mat-option *ngFor="let classname of classes" [value]="classname._id">
+                {{classname.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="username">
+            <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel" required>
+          </mat-form-field>
+          <mat-form-field class="password">
+            <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" #password="ngModel" required>
+          </mat-form-field>
+
+          <button mat-button>שמור</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

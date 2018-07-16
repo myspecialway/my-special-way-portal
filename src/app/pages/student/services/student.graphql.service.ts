@@ -49,12 +49,13 @@ export class StudentService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        createStudent(
+        createStudent(student: {
             username: "${student.username}"
             password: "${student.password}"
             firstname: "${student.firstname}"
             lastname: "${student.lastname}"
             gender: ${student.gender}
+            class_id: "${student.class_id}"
             }) { _id }
         }
     `}).toPromise();

@@ -7,12 +7,12 @@ export default class Student {
   firstname: string;
   lastname: string;
   gender: Gender;
-  class: Class;
+  class_id: number;
 }
 
 export enum Gender {
-  MALE = 'זכר',
-  FEMALE = 'נקבה',
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
 }
 
 export interface StudentQuery  {

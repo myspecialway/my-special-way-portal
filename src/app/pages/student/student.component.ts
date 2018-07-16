@@ -57,23 +57,23 @@ export class StudentComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  addNewStudent() {
-    const dialogRef = this.dialog.open(AddStudentDialogComponent, {
-      data: { student: Student },
-      height: '600px',
-      width: '350px',
-    });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        const newStudent: Student = this._createNewStudent(data);
-        this.studentService.create(newStudent)
-          .then(() => {
-            this.dataSource.data.push(newStudent);
-            this.dataSource.paginator = this.paginator;
-          });
-      }
-    });
-  }
+  // addNewStudent() {
+  //   const dialogRef = this.dialog.open(AddStudentDialogComponent, {
+  //     data: { student: Student },
+  //     height: '600px',
+  //     width: '350px',
+  //   });
+  //   dialogRef.afterClosed().subscribe((data) => {
+  //     if (data) {
+  //       const newStudent: Student = this._createNewStudent(data);
+  //       this.studentService.create(newStudent)
+  //         .then(() => {
+  //           this.dataSource.data.push(newStudent);
+  //           this.dataSource.paginator = this.paginator;
+  //         });
+  //     }
+  //   });
+  // }
 
   deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
@@ -112,14 +112,14 @@ export class StudentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  _createNewStudent(userData: any): Student {
-    const student: Student = new Student();
-    student.firstname = userData.firstName;
-    student.lastname = userData.lastName;
-    student.username = userData.userName;
-    student.password = userData.password;
-    student.class = userData.Class;
-    student.gender = userData.gender;
-    return student;
-  }
+  // _createNewStudent(userData: any): Student {
+  //   const student: Student = new Student();
+  //   student.firstname = userData.firstName;
+  //   student.lastname = userData.lastName;
+  //   student.username = userData.userName;
+  //   student.password = userData.password;
+  //   student.class_id = userData.Class;
+  //   student.gender = userData.gender;
+  //   return student;
+  // }
 }

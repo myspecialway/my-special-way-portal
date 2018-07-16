@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatButtonToggleModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -37,6 +37,7 @@ import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/upd
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
+import { StudentDetailsComponent } from './pages/student/details/student-details.component';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    MatButtonToggleModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -72,6 +74,7 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
     LoginComponent,
     ClassComponent,
     StudentComponent,
+    StudentDetailsComponent,
     UserComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
