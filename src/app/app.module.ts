@@ -33,11 +33,13 @@ import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-us
 import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
+import { LessonService } from './services/lesson/lesson.service';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { PagesModule } from './pages/pages.module';
+import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
 
 @NgModule({
   imports: [
@@ -84,6 +86,7 @@ import { PagesModule } from './pages/pages.module';
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
+    ScheduleDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -95,6 +98,7 @@ import { PagesModule } from './pages/pages.module';
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
+    ScheduleDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -102,6 +106,7 @@ import { PagesModule } from './pages/pages.module';
     UserService,
     StudentService,
     ClassService,
+    LessonService,
   ],
   bootstrap: [AppComponent],
 })

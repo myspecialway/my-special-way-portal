@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeSlot } from '../../../models/class.model';
+import { ActivatedRoute } from '@angular/router';
+import { Class } from '../../../models/class.model';
+import { TimeSlot } from '../../../models/timeslot.model';
 import { Lesson } from '../../../models/lesson.model';
 import { scheduleTestData } from '../../../../mocks/assets/schedule.mock';
+import { ClassService } from '../../class/services/class.graphql.service';
 
 @Component({
   selector: 'app-class-details-container',
@@ -32,10 +35,16 @@ export class ClassDetailsContainerComponent implements OnInit {
     '16:00 - 16:30',
     '16:30 - 16:45',
   ];
-  constructor() { }
+  constructor(private classService: ClassService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.schedule = this.buildScheduleFromTimeslots(this.hoursLabels.length, this.daysLabels.length, scheduleTestData);
+  async ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) {
+      return;
+    }
+    const classData: any = await this.classService.classById(id).then((res) => res.data.classById);
+    const schedule = classData.schedule || [];
+    this.schedule = this.buildScheduleFromTimeslots(this.hoursLabels.length, this.daysLabels.length, schedule);
   }
 
   buildScheduleFromTimeslots(
@@ -50,7 +59,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       for (let dayIndex = 0; dayIndex < daysCount; dayIndex++) {
         const timeslot = timeslots.find((t) => t.index === `${hourIndex}${dayIndex}`);
 
-        if (timeslot) {
+        if (timeslot && timeslot.lesson) {
           schedule[hourIndex][dayIndex] = timeslot.lesson;
         }
       }

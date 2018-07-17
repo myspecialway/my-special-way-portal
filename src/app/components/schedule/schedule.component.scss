@@ -1,0 +1,46 @@
+$hover: rgba(106, 0, 207, 0.2);
+
+.schedule-table {
+    width: 100%;
+    direction: rtl;
+    font-family: "Rubik", "Helvetica", "Arial", sans-serif;
+    color: #222;
+    th.mat-header-cell {
+        background-color: #fafafa;
+        font-size: 16px;
+        font-weight: bold;
+        color: #222;
+        border: 0;
+    }
+    td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+        text-align: right;
+        padding: 20px 14px;
+    }
+    td.mat-cell, td.mat-footer-cell {
+        cursor: pointer;
+        border: 1px solid #e0e0e0;
+        font-size: 18px;
+        &:hover {
+            background-color: $hover;
+        }
+    }
+
+    td.mat-cell:first-child, td:nth-child(2) {
+        text-align: center;
+        direction: initial;
+        font-weight: 400;
+    }
+    
+    .timeslot-full {
+        font: normal 18px Rubik;
+        color: #222;
+    }
+    .empty-timeslot {
+        text-align: center;
+        color: #6a00cf;
+        opacity: .5;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+<table class="mat-table schedule-table" role="grid">
+  <thead>
+    <tr class="mat-header-row" role="row">
+      <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" colspan="2">שעה</th>
+      <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let day of daysLabels">{{day}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="mat-row" role="row" *ngFor="let row of schedule; index as hourIndex">
+      <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hourIndex + 1}}</td>
+      <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hoursLabels[hourIndex]}}</td>
+      <td 
+        class="mat-cell cdk-column-position mat-column-position"
+        *ngFor="let cell of row; index as dayIndex" 
+        role="gridcell" 
+        (click)="handleClick(hourIndex, dayIndex)"
+      >
+        <div *ngIf="cell" class="timeslot-full">
+          {{cell.title}}
+        </div>
+        <div *ngIf="!cell" class="empty-timeslot">
+          <i class="material-icons" >
+            add
+          </i>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
@@ -21,7 +20,7 @@ describe('ClassDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  it.only('should match current snapshot', () => {
+  it('should match current snapshot', () => {
     expect(fixture).toMatchSnapshot();
   });
 });

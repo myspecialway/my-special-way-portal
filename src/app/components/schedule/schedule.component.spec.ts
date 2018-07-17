@@ -1,0 +1,45 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ScheduleComponent } from './schedule.component';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+describe('ScheduleComponent', () => {
+  let fixture: ComponentFixture<ScheduleComponent>;
+  let component: ScheduleComponent;
+  const mockDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
+  const mockHours = [
+    '07:30 - 08:00',
+    '08:00 - 08:50',
+    '08:50 - 09:35',
+  ];
+  const mockSchedule = [[{_id: 'some-lesson-id', title: 'some lesson title', icon: 'some lesson icon'}]];
+//   let td: DebugElement;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ScheduleComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ScheduleComponent);
+    component = fixture.componentInstance;
+    component.daysLabels = mockDays;
+    component.hoursLabels = mockHours;
+    component.schedule = mockSchedule;
+    fixture.detectChanges();
+  });
+
+  it('should match current snapshot', () => {
+    expect(fixture).toMatchSnapshot();
+  });
+
+  it('should should call handleClick and pass hour and day index', () => {
+    const scheduleDe: DebugElement = fixture.debugElement;
+    const tdDe = scheduleDe.query(By.css('.mat-cell:first-child'));
+    const td: HTMLElement = tdDe.nativeElement;
+    tdDe.triggerEventHandler('click', null);
+    expect(component.handleClick).toBeCalled();
+  });
+});

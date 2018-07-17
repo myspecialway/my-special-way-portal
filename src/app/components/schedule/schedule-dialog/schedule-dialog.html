@@ -1,0 +1,25 @@
+<div class="container msw-dialog schedule-dialog">
+  <h2 mat-dialog-title>עדכון מערכת שעות</h2>
+  <div class="timeslot-subtitle">
+    <span class="timeslot-info">יום {{data.day}}</span>
+    <span class="timeslot-info">{{data.hour}}</span>
+  </div>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-select placeholder="שיעור" [(ngModel)]="selectedId" (selectionChange)="onChange($event)">
+        <mat-option>בחר</mat-option>
+        <mat-option *ngFor="let lesson of lessons" [value]="lesson._id" selected="lesson._id === selectedId">
+          {{lesson.title}}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error> -->
+      
+    </mat-form-field>
+    {{selected | json}}
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button class="mat-raised-button" (click)="close()">סגור</button>
+    <button mat-button class="mat-raised-button mat-primary" (click)="confirm()">עדכן</button>
+  </mat-dialog-actions>
+
+</div>
