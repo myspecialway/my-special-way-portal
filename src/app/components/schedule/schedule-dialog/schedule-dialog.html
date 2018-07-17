@@ -5,21 +5,32 @@
     <span class="timeslot-info">{{data.hour}}</span>
   </div>
   <mat-dialog-content>
-    <mat-form-field>
-      <mat-select placeholder="שיעור" [(ngModel)]="selectedId" (selectionChange)="onChange($event)">
-        <mat-option>בחר</mat-option>
-        <mat-option *ngFor="let lesson of lessons" [value]="lesson._id" selected="lesson._id === selectedId">
-          {{lesson.title}}
-        </mat-option>
-      </mat-select>
-      <!-- <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error> -->
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-select placeholder="שיעור" [(value)]="lessonGroup.value" formControlName="lesson" required (selectionChange)="onChange($event, lessonGroup)">
+          <mat-option *ngFor="let les of lessons" [value]="les._id" selected="data.lesson && data.lesson._id === les._id">
+            {{les.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="lessonGroup.invalid">חובה לבחור שיעור</mat-error>
+      </mat-form-field>
       
-    </mat-form-field>
-    {{selected | json}}
+      <mat-form-field>
+        <mat-select placeholder="מיקום (זמנית לא פעיל)" disabled></mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-select placeholder="מיקום" [(value)]="locationGroup.value" formControlName="location" required>
+          <mat-option *ngFor="let loc of locations" [value]="loc._id" selected="data.location && data.location._id === loc._id">
+            {{les.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="locationGroup.invalid">חובה לבחור מיקום</mat-error>
+      </mat-form-field> -->
+    </form>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button class="mat-raised-button" (click)="close()">סגור</button>
-    <button mat-button class="mat-raised-button mat-primary" (click)="confirm()">עדכן</button>
+    <button mat-button class="mat-raised-button mat-primary" (click)="confirm()" [disabled]="form.invalid">עדכן</button>
   </mat-dialog-actions>
 
 </div>

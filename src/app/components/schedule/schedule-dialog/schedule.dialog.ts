@@ -6,9 +6,11 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
-import { TimeSlot } from '../../../models/timeslot.model';
 import { LessonService } from '../../../services/lesson/lesson.service';
 import { Lesson } from '../../../models/lesson.model';
+import { Location } from '../../../models/location.model';
+import { ScheduleDialogData } from './schedule-dialog-data.model';
+// import { LocationService } from '../../../services/location/location.service';
 
 @Component({
   selector: 'app-schedule-dialog',
@@ -16,46 +18,56 @@ import { Lesson } from '../../../models/lesson.model';
   styleUrls: ['./schedule-dialog.scss'],
 })
 export class ScheduleDialogComponent implements OnInit {
-  // form: FormGroup;
-  // formControl = new FormControl('', [Validators.required]);
+  form: FormGroup;
   lessons: Lesson[];
-  selected: Lesson;
-  selectedId: string;
+  locations: Location[];
+
+  get lessonGroup() { return this.form.get('lesson'); }
+  get locationGroup() { return this.form.get('location'); }
 
   constructor(
-    // private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<ScheduleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) public data: ScheduleDialogData,
     private lessonService: LessonService,
-  ) {
-    this.selected = this.data.lesson;
-    this.selectedId = this.data.lesson ? this.data.lesson._id : '';
+    // private locationService: LocationService,
+  ) {}
+
+  ngOnInit() {
+    this.createForm();
+    this.getLessons();
   }
 
-  async ngOnInit() {
-    // this.form = this.formBuilder.group({
-    //   lesson: '',
-    // });
+  createForm(): void {
+    const selectedLessonId = this.data.lesson ? this.data.lesson._id : null;
+    const selectedLocationId = this.data.location ? this.data.location._id : null;
+    this.form = this.fb.group({
+      lesson: new FormControl(selectedLessonId, [Validators.required]),
+      // location: new FormGroup(selectedLocationId, [Validators.required]),
+    });
+  }
+
+  async getLessons(): Promise<void> {
     this.lessons = await this.lessonService.getLessons().then((res) => res.data.lessons);
   }
 
-  // getErrorMessage(): string {
-  //   return this.formControl.hasError('required') ? 'Required field' : '';
-  // }
+  async getLocations(): Promise<void> {
+    // this.locations = await this.locationService.getLocations().then((res) => res.data.locations);
+  }
 
   close(): void {
     this.dialogRef.close();
   }
 
-  confirm(dialogData): void {
-    this.dialogRef.close(dialogData);
+  confirm(): void {
+    this.dialogRef.close(this.data);
   }
 
-  onChange(event: MatSelectChange) {
+  onChange(event: MatSelectChange): void {
     const newId: string = event.value;
     const newLesson = this.lessons.find((lesson: Lesson) => lesson._id === newId);
     if (newLesson) {
-      this.selected = newLesson;
+      this.data.lesson = newLesson;
     }
   }
 }

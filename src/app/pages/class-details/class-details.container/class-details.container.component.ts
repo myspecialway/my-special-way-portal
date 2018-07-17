@@ -42,15 +42,13 @@ export class ClassDetailsContainerComponent implements OnInit {
     if (!id) {
       return;
     }
+    // TODO: fix any typing
     const classData: any = await this.classService.classById(id).then((res) => res.data.classById);
     const schedule = classData.schedule || [];
     this.schedule = this.buildScheduleFromTimeslots(this.hoursLabels.length, this.daysLabels.length, schedule);
   }
 
-  buildScheduleFromTimeslots(
-    hoursCount: number,
-    daysCount: number,
-    timeslots: TimeSlot[]): Lesson[][] {
+  buildScheduleFromTimeslots(hoursCount: number, daysCount: number, timeslots: TimeSlot[]): Lesson[][] {
     const schedule: Lesson[][] = [];
 
     for (let hourIndex = 0; hourIndex < hoursCount; hourIndex++) {

@@ -1,7 +1,7 @@
 import { Point } from './point.model';
-export interface Room {
+export interface Location {
     _id: string;
     name: string;
-    disabled: boolean;
+    enabled: boolean;
     position: Point;
 }

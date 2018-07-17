@@ -3,7 +3,7 @@ import { Lesson } from '../../../models/lesson.model';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../components/schedule/schedule-dialog/schedule.dialog';
-import { TimeSlot } from '../../../models/timeslot.model';
+import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 @Component({
   selector: 'app-class-details-view',
@@ -20,26 +20,20 @@ export class ClassDetailsViewComponent {
   onTimeSlotClick(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
     const dialogData = {
-      index: `${hourIndex}${dayIndex}`,
       lesson: this.schedule[hourIndex][dayIndex],
       hour: this.hoursLabels[hourIndex],
       day: this.daysLabels[dayIndex],
-    };
+    } as ScheduleDialogData;
 
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
       data: dialogData,
       height: '375px',
       width: '320px',
     });
-    // dialogRef.afterClosed().subscribe((data) => {
-    //   if (data) {
-    //     const newStudent: Student = this._createNewStudent(data);
-    //     this.studentService.create(newStudent)
-    //       .then(() => {
-    //         this.dataSource.data.push(newStudent);
-    //         this.dataSource.paginator = this.paginator;
-    //       });
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
+      if (data && data.lesson) {
+        this.schedule[hourIndex][dayIndex] = data.lesson;
+      }
+    });
   }
 }
