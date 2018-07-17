@@ -7,7 +7,7 @@ export default class Student {
   firstname: string;
   lastname: string;
   gender: Gender;
-  class_id: number;
+  class_id: string;
 }
 
 export enum Gender {

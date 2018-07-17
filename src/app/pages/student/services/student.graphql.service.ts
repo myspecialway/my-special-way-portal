@@ -31,15 +31,19 @@ export class StudentService {
   }
 
   getById(id: number) {
-    return this.apollo.query<StudentQuery>({
+    return this.apollo.query<Student>({
       query: gql`
         {
-          Student(id:${id}) {
-          id
-          userName
-          firstName
-          lastName
+          student(id:"${id}") {
+          _id
+          username
+          firstname
+          lastname
           gender
+          class {
+            name
+            _id
+          }
         }
       }
       ` }).toPromise();
@@ -73,6 +77,7 @@ export class StudentService {
             firstname: "${student.firstname}"
             lastname: "${student.lastname}"
             gender: ${student.gender}
+            class_id: "${student.class_id}"
             }) { _id }
         }
     `}).toPromise();

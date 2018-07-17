@@ -7,12 +7,18 @@
         </mat-form-field>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button mat-raised-button color="primary" routerLink="/student/new">הוספת תלמיד חדש</button>
+        <button mat-raised-button color="primary" routerLink="/student/new">
+          <i class="material-icons">
+            add
+          </i>
+          הוספת תלמיד חדש
+        </button>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="msw-table" matSort matSortActive="firstname" matSortDisableClear matSortDirection="asc">
+        <!--matSortActive="userName" matSortDisableClear matSortDirection="asc"-->
+        <mat-table [dataSource]="dataSource" class="msw-table" matSort matSortDisableClear>
           <!-- Number Column -->
           <ng-container matColumnDef="studentName">
             <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
@@ -21,13 +27,13 @@
 
           <!-- Title Column -->
           <ng-container matColumnDef="gradeId">
-            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row">{{(row.Class && row.Class.name) || '' }}</mat-cell>
           </ng-container>
 
-          <!-- State Column -->
-          <ng-container matColumnDef="userName">
-            <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
+          <!-- username Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.username }}</mat-cell>
           </ng-container>
 
@@ -35,7 +41,7 @@
           <ng-container matColumnDef="personalArea">
             <mat-header-cell *matHeaderCellDef>אזור אישי</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="addNew()">כניסה</button>
+              <button mat-icon-button color="primary" [routerLink]="['/student', row._id]">כניסה</button>
             </mat-cell>
           </ng-container>
 
@@ -43,7 +49,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="updateStudent(row._id, row.firstname, row.lastname, row.gender, row.username, row.password, row.Class)">ערוך</button>
+              <button mat-icon-button color="primary" [routerLink]="['/student', row._id]">ערוך</button>
             </mat-cell>
           </ng-container>
 

@@ -1,6 +1,6 @@
 <div class="msw-student">
   <div class="msw-student-header">
-    <div class="msw-student-header-back">
+    <div class="msw-student-header-back" routerLink="/student">
       <i class="material-icons">
         keyboard_arrow_right
       </i>
@@ -10,8 +10,8 @@
 
     </div>
     <div class="msw-student-header-nav">
-      <div class="msw-student-header-nav-name">
-        מיכלי ארליך
+      <div class="msw-student-header-nav-name" *ngIf="!isNewStudent">
+        {{ student.firstname }} {{ student.lastname }}
       </div>
       <div class="msw-student-header-nav-tabs">
         <!--<mat-tab-group>-->
@@ -28,13 +28,14 @@
         <img src="http://via.placeholder.com/140x100">
       </div>
       <div class="msw-student-user-form">
-        <form class="msw-student-details-form" (submit)="addStudent()" #formControl="ngForm">
+        <form class="msw-student-details-form" #studentDetailsForm="ngForm">
+
           <div class="msw-student-main-details">
             <mat-form-field class="firstname">
-              <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstname="ngModel" required>
+              <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" required>
             </mat-form-field>
             <mat-form-field class="lastname">
-              <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastname="ngModel" required>
+              <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" required>
             </mat-form-field>
             <div class="msw-student-details-gender-switch">
               <div class="msw-student-details-gender">מין</div>
@@ -49,8 +50,9 @@
             </div>
           </div>
 
+
           <mat-form-field class="classname">
-            <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" name="classname" #classname="ngModel" required>
+            <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" name="class_id" required>
               <mat-option *ngFor="let classname of classes" [value]="classname._id">
                 {{classname.name}}
               </mat-option>
@@ -58,13 +60,13 @@
           </mat-form-field>
 
           <mat-form-field class="username">
-            <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel" required>
+            <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" required>
           </mat-form-field>
           <mat-form-field class="password">
-            <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" #password="ngModel" required>
+            <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" required>
           </mat-form-field>
 
-          <button mat-button>שמור</button>
+          <button mat-button (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)">שמור</button>
         </form>
       </div>
     </div>

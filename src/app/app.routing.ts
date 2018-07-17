@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'student/new', component: StudentDetailsComponent},
+  { path: 'student/:id', component: StudentDetailsComponent},
 ];
 
 @NgModule({
