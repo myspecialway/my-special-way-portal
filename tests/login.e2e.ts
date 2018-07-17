@@ -34,7 +34,7 @@ test('Failed login test', async (t) => {
     // await t.takeScreenshot('login');
     await eye.look(t, 'Failed login test');
 });
-//TODO: config ngnix to support deep linking
+// TODO: config ngnix to support deep linking
 // test('Successful login and deeplink', async (t) => {
 //     await t
 //         .navigateTo(testEnvironment.feUrl + '/login?returnUrl=%2Fclass')
