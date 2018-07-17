@@ -3,3 +3,7 @@ export interface Lesson {
     title: string;
     icon: string;
 }
+
+export interface LessonQuery {
+    lessons: Lesson[];
+}
