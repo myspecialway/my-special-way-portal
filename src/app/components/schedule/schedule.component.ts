@@ -23,8 +23,4 @@ export class ScheduleComponent {
 
   @Output()
   timeSlotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
-
-  handleClick(hourIndex: number, dayIndex: number) {
-    this.timeSlotClicked.emit({hourIndex, dayIndex});
-  }
 }

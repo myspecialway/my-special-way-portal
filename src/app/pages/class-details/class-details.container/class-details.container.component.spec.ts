@@ -3,7 +3,6 @@ import { ClassService } from '../../class/services/class.graphql.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClassDetailsContainerComponent } from './class-details.container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs-compat';
 
 describe('ClassDetailsContainerComponent', () => {
   let component: ClassDetailsContainerComponent;

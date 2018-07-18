@@ -34,11 +34,4 @@ describe('ScheduleComponent', () => {
   it('should match current snapshot', () => {
     expect(fixture).toMatchSnapshot();
   });
-
-  it('should should call handleClick and pass hour and day index', () => {
-    const scheduleDe: DebugElement = fixture.debugElement;
-    const tdDe = scheduleDe.query(By.css('.mat-cell:first-child'));
-    tdDe.triggerEventHandler('click', null);
-    expect(component.handleClick).toBeCalled();
-  });
 });

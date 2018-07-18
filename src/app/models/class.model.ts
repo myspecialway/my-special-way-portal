@@ -9,6 +9,6 @@ export class Class {
 
 export interface ClassQuery  {
   allClasses: Class[];
-  classByName: ($name: string) => Class;
-  classById: ($id: string) => Class;
+  classByName: Class;
+  classById: Class;
 }

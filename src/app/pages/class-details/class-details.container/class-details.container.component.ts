@@ -40,17 +40,15 @@ export class ClassDetailsContainerComponent implements OnInit {
   constructor(private classService: ClassService, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   async ngOnInit() {
+    // TODO: look for _new_ in the :id param
     const id = this.route.snapshot.params.id;
-    if (!id) {
-      return;
-    }
-    // TODO: fix any typing
-    const classData: any = await this.classService.classById(id).then((res) => res.data.classById);
+
+    const classData = await this.classService.classById(id).then((res) => res.data.classById);
     const schedule = classData.schedule || [];
     this.schedule = this.buildScheduleFromTimeslots(this.hoursLabels.length, this.daysLabels.length, schedule);
   }
 
-  buildScheduleFromTimeslots(hoursCount: number, daysCount: number, timeslots: TimeSlot[]): Lesson[][] {
+  private buildScheduleFromTimeslots(hoursCount: number, daysCount: number, timeslots: TimeSlot[]): Lesson[][] {
     const schedule: Lesson[][] = [];
 
     for (let hourIndex = 0; hourIndex < hoursCount; hourIndex++) {
@@ -84,6 +82,8 @@ export class ClassDetailsContainerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
       if (data && data.lesson) {
         this.schedule[hourIndex][dayIndex] = data.lesson;
+        // update the class
+        // this.classService.update
       } else {
         return;
       }

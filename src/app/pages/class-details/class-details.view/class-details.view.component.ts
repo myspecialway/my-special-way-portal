@@ -13,8 +13,4 @@ export class ClassDetailsViewComponent {
   @Input() hoursLabels: string[];
   @Output()
   timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
-
-  onTimeSlotClick(indexes: TimeSlotIndexes) {
-    this.timeslotClicked.emit(indexes);
-  }
 }

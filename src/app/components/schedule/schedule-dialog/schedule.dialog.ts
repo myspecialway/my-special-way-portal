@@ -10,6 +10,7 @@ import { LessonService } from '../../../services/lesson/lesson.service';
 import { Lesson } from '../../../models/lesson.model';
 import { Location } from '../../../models/location.model';
 import { ScheduleDialogData } from './schedule-dialog-data.model';
+// TBD
 // import { LocationService } from '../../../services/location/location.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class ScheduleDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ScheduleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ScheduleDialogData,
     private lessonService: LessonService,
+    // TBD
     // private locationService: LocationService,
   ) {}
 
@@ -40,9 +42,11 @@ export class ScheduleDialogComponent implements OnInit {
 
   createForm(): void {
     const selectedLessonId = this.data.lesson ? this.data.lesson._id : null;
+    // TBD
     // const selectedLocationId = this.data.location ? this.data.location._id : null;
     this.form = this.fb.group({
       lesson: new FormControl(selectedLessonId, [Validators.required]),
+      // TBD
       // location: new FormGroup(selectedLocationId, [Validators.required]),
     });
   }
@@ -50,10 +54,10 @@ export class ScheduleDialogComponent implements OnInit {
   async getLessons(): Promise<void> {
     this.lessons = await this.lessonService.getLessons().then((res) => res.data.lessons);
   }
-
-  async getLocations(): Promise<void> {
-    // this.locations = await this.locationService.getLocations().then((res) => res.data.locations);
-  }
+  // TBD
+  // async getLocations(): Promise<void> {
+  //   this.locations = await this.locationService.getLocations().then((res) => res.data.locations);
+  // }
 
   close(): void {
     this.dialogRef.close();
@@ -68,6 +72,8 @@ export class ScheduleDialogComponent implements OnInit {
     const newLesson = this.lessons.find((lesson: Lesson) => lesson._id === newId);
     if (newLesson) {
       this.data.lesson = newLesson;
+    } else {
+      return;
     }
   }
 }
