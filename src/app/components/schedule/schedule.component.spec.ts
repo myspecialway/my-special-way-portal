@@ -38,7 +38,6 @@ describe('ScheduleComponent', () => {
   it('should should call handleClick and pass hour and day index', () => {
     const scheduleDe: DebugElement = fixture.debugElement;
     const tdDe = scheduleDe.query(By.css('.mat-cell:first-child'));
-    const td: HTMLElement = tdDe.nativeElement;
     tdDe.triggerEventHandler('click', null);
     expect(component.handleClick).toBeCalled();
   });
