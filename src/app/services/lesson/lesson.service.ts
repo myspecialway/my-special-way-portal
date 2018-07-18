@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Lesson, LessonQuery } from '../../models/lesson.model';
+import { LessonQuery } from '../../models/lesson.model';
 
 @Injectable()
 export class LessonService {

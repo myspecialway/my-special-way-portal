@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Class } from '../../../models/class.model';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { Lesson } from '../../../models/lesson.model';
-import { scheduleTestData } from '../../../../mocks/assets/schedule.mock';
 import { ClassService } from '../../class/services/class.graphql.service';
 
 @Component({
@@ -38,7 +36,7 @@ export class ClassDetailsContainerComponent implements OnInit {
   constructor(private classService: ClassService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.params.id;
     if (!id) {
       return;
     }

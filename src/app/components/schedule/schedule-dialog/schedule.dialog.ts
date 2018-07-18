@@ -40,7 +40,7 @@ export class ScheduleDialogComponent implements OnInit {
 
   createForm(): void {
     const selectedLessonId = this.data.lesson ? this.data.lesson._id : null;
-    const selectedLocationId = this.data.location ? this.data.location._id : null;
+    // const selectedLocationId = this.data.location ? this.data.location._id : null;
     this.form = this.fb.group({
       lesson: new FormControl(selectedLessonId, [Validators.required]),
       // location: new FormGroup(selectedLocationId, [Validators.required]),

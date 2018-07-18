@@ -1,4 +1,3 @@
-import { Lesson } from './lesson.model';
 import { TimeSlot } from './timeslot.model';
 export class Class {
   _id: number;
