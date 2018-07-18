@@ -3,13 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { Lesson } from '../../../models/lesson.model';
 import { ClassService } from '../../class/services/class.graphql.service';
+import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
+import { MatDialog } from '@angular/material';
+import { ScheduleDialogComponent } from '../../../components/schedule/schedule-dialog/schedule.dialog';
+import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 @Component({
   selector: 'app-class-details-container',
   template: `<app-class-details-view
               [schedule]="schedule"
               [daysLabels]="daysLabels"
-              [hoursLabels]="hoursLabels"></app-class-details-view>
+              [hoursLabels]="hoursLabels" (timeslotClicked)="onTimeSlotClick($event)"></app-class-details-view>
   `,
 })
 export class ClassDetailsContainerComponent implements OnInit {
@@ -33,7 +37,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     '16:00 - 16:30',
     '16:30 - 16:45',
   ];
-  constructor(private classService: ClassService, private route: ActivatedRoute) { }
+  constructor(private classService: ClassService, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   async ngOnInit() {
     const id = this.route.snapshot.params.id;
@@ -62,5 +66,27 @@ export class ClassDetailsContainerComponent implements OnInit {
     }
 
     return schedule;
+  }
+
+  onTimeSlotClick(indexes: TimeSlotIndexes) {
+    const { hourIndex, dayIndex } = indexes;
+    const dialogData = {
+      lesson: this.schedule[hourIndex][dayIndex],
+      hour: this.hoursLabels[hourIndex],
+      day: this.daysLabels[dayIndex],
+    } as ScheduleDialogData;
+
+    const dialogRef = this.dialog.open(ScheduleDialogComponent, {
+      data: dialogData,
+      height: '375px',
+      width: '320px',
+    });
+    dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
+      if (data && data.lesson) {
+        this.schedule[hourIndex][dayIndex] = data.lesson;
+      } else {
+        return;
+      }
+    });
   }
 }
