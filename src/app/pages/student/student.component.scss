@@ -24,6 +24,12 @@
   padding-bottom: 29px;
 }
 
+.msw-student-container .mat-cell:last-child,
+.msw-student-container .mat-header-cell:last-child {
+  flex-grow: 0;
+  flex-basis: 100px;
+}
+
 
 
 

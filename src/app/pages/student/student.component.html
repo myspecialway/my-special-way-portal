@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content msw-student-container">
   <div class="container-fluid">
     <div class="header-menu-container msw-table-tools-header">
       <div class="header-table-count">
@@ -27,7 +27,7 @@
 
           <ng-container matColumnDef="gradeId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.Class && row.Class.name) || '' }}</mat-cell>
+            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="username">
@@ -36,7 +36,7 @@
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">-->
-            <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary" (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)"><i class="material-icons"> delete </i></button>
             </mat-cell>
