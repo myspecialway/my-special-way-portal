@@ -1,15 +1,15 @@
 version: '3'
 services:
-  server: 
-    image: msw-server:latest
+  server:
+    image: myspecialway/msw-server:latest
     restart: always
-    links: 
+    links:
       - mongodb
     ports:
       - 3000:3000
     environment:
       - NODE_ENV=e2e-tests
-  mongodb: 
+  mongodb:
     image: mongo
     restart: always
     ports:
@@ -17,8 +17,8 @@ services:
   cient:
     build: .
     image: msw-portal:e2e
-    ports: 
-      - "4200:4200"
+    ports:
+      - "4200:80"
     links:
       - server
     environment:
