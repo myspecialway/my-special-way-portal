@@ -112,5 +112,11 @@ th.mat-header-cell:last-child, td.mat-cell:last-child, td.mat-footer-cell:last-c
 
 mat-row:hover {
   background-color: #e1ccf5;
+  cursor: pointer;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: #6a00cf;
+  border-radius: 3px;
 }
 

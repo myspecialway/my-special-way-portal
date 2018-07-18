@@ -6,10 +6,9 @@ exports[`student component should render component as described in snapshot 1`] 
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
   paginator={[Function MatPaginator]}
-  resultsLength="0"
   sort={[Function MatSort]}
   studentService={[Function Object]}
-  table={[Function ElementRef]}
+  table="undefined"
 >
   <div
     class="main-content"
@@ -39,8 +38,14 @@ exports[`student component should render component as described in snapshot 1`] 
           <button
             color="primary"
             mat-raised-button=""
+            routerlink="/student/new"
           >
-            הוספת תלמיד חדש
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוספת תלמיד חדש 
           </button>
         </div>
       </div>
@@ -53,8 +58,6 @@ exports[`student component should render component as described in snapshot 1`] 
           <mat-table
             class="msw-table"
             matsort=""
-            matsortactive="firstname"
-            matsortdirection="asc"
             matsortdisableclear=""
           >
             

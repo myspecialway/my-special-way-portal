@@ -77,16 +77,6 @@ describe('student component', () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should open dialog when calling addNewStudent function', () => {
-    (studentServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.addNewStudent();
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
-  });
-
   it('should open dialog when calling deleteStudent function', () => {
     (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
@@ -97,15 +87,6 @@ describe('student component', () => {
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  it('should open dialog when calling updateeStudent function', () => {
-    (studentServiceMock.update as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.updateStudent(123, 'sad', 'asd', 'asd', 'asd', 'asd', 'asd');
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
-  });
   it('should load students from service on page load ', () => {
     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(testResponse);
@@ -126,16 +107,16 @@ describe('student component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
 });
 
-  it('should load zero students in case of promise reject', async () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.reject();
-    });
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+//   it('should load zero students in case of promise reject', async () => {
+//     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+//       () => {return Promise.reject();
+//     });
+//     const fixture = TestBed.createComponent(StudentComponent);
+//     fixture.detectChanges();
+//     await fixture.whenRenderingDone();
+//     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+// });
 
-});
   it('component delete should call service delete', async () => {
     (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
