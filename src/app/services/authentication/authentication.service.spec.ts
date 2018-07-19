@@ -35,6 +35,11 @@ describe('AuthenticationService', () => {
     authService = new AuthenticationService(httpClient, apolloMock);
   });
 
+  afterEach(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+  });
+
   it('should create localstorage token key on authentication sucess with rememberme enabled', async () => {
     const mockedResponse: LoginResponse = {
       accessToken: expiredMockToken,
@@ -50,7 +55,7 @@ describe('AuthenticationService', () => {
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
     await authService.login('someusername', 'somepassword', false);
-    expect(localStorage.getItem('token')).toBe(expiredMockToken);
+    expect(localStorage.getItem('token')).toBeNull();
   });
 
   it('should return false if authentication endpoint returned status code 401', async () => {
@@ -100,12 +105,28 @@ describe('AuthenticationService', () => {
     expect(apolloMock.mutate).toHaveBeenCalled();
   });
 
+  it('should push user profile to store only once', async () => {
+    localStorage.setItem('token', expiredMockToken);
+
+    await authService.checkRestoreAuthData();
+    expect(apolloMock.mutate).toHaveBeenCalled();
+    (apolloMock.mutate as jest.Mock).mockClear();
+
+    await authService.checkRestoreAuthData();
+    expect(apolloMock.mutate).not.toHaveBeenCalled();
+  });
+
   it('should return false on login if token wasnt found in store', async () => {
     expect(await authService.login('someusername', 'some password', false)).toBe(false);
   });
 
   it('should return true on isTokenExpired when token is expired', () => {
     expect(authService.isTokenExpired(expiredMockToken)).toBe(true);
+  });
+
+  it('should not push user profile if token not token found in storage', async () => {
+    await authService.checkRestoreAuthData();
+    expect(apolloMock.mutate).not.toHaveBeenCalled();
   });
 
 });
