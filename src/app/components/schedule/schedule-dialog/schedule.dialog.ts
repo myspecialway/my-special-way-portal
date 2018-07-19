@@ -52,7 +52,11 @@ export class ScheduleDialogComponent implements OnInit {
   }
 
   async getLessons(): Promise<void> {
-    this.lessons = await this.lessonService.getLessons().then((res) => res.data.lessons);
+    // TODO: need to delete __typename in configuration of apollo / util function
+    this.lessons = await this.lessonService.getLessons().then((res) => res.data.lessons.map((lesson) => {
+      const {_id, title, icon} = lesson;
+      return {_id, title, icon};
+    }));
   }
   // TBD
   // async getLocations(): Promise<void> {

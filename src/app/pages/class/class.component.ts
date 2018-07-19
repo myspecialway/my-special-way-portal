@@ -88,7 +88,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteClass(_id: number, name: string, level: string) {
+  deleteClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
       data: {_id, name, level},
     });
@@ -104,7 +104,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  editClass(_id: number, name: string, level: string) {
+  editClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
       data: {_id, name, level},
       height: '310px',
