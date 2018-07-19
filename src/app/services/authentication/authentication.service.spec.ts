@@ -94,7 +94,7 @@ describe('AuthenticationService', () => {
     localStorage.setItem('token', expiredMockToken);
 
     // when
-    authService.initialize();
+    authService.checkRestoreAuthData();
 
     // then
     expect(apolloMock.mutate).toHaveBeenCalled();

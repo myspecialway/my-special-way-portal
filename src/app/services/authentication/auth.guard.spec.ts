@@ -27,6 +27,7 @@ describe('auth guard', () => {
 
     authService = {
       isTokenExpired: jest.fn(),
+      checkRestoreAuthData: jest.fn(),
     } as Partial<AuthenticationService>;
   });
 
