@@ -11,13 +11,19 @@ import { UserComponent } from './pages/user/user.component';
 import { ClassDetailsContainerComponent } from './pages/class-details/class-details.container/class-details.container.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
-  { path: 'class/:id', component: ClassDetailsContainerComponent, canActivate: [AuthGuard]},
-  { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'class', component: ClassComponent },
+      { path: 'class/:id', component: ClassDetailsContainerComponent},
+      { path: 'student', component: StudentComponent },
+      { path: 'user', component: UserComponent },
+    ],
+  },
 ];
 
 @NgModule({
