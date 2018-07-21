@@ -20,7 +20,6 @@ export class AddClassDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AddClassDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Class,
-              private classService: ClassService,
   ) { }
 
   ngOnInit(): void {
