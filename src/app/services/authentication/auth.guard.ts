@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    await this.authService.checkRestoreAuthData();
     const response = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
       query: gql`
       query {
@@ -25,8 +26,12 @@ export class AuthGuard implements CanActivate {
       }
     `}).toPromise();
 
-    if (response.data.userProfile && response.data.userProfile.token && !this.authService.isTokenExpired(response.data.userProfile.token)
-      && this.isAuthorized(route.url, response.data.userProfile.role)) {
+    if (
+      response.data.userProfile &&
+      response.data.userProfile.token &&
+      !this.authService.isTokenExpired(response.data.userProfile.token)
+      && this.isAuthorized(route.url, response.data.userProfile.role)
+    ) {
       return true;
     }
 

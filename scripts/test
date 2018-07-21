@@ -2,18 +2,7 @@
 
 npx jest --coverage && npx codecov || exit 1
 
-# NEED BETTER SOLUTION !!!!
-yarn start & (sleep 30 && yarn testcafe ) ; EXIT_CODE=$?; kill $!; exit $EXIT_CODE
-
-# TODO: This will handle e2e tests via docker compose
-#docker-compose up -d
-
-#if  npx cross-env NODE_ENV=e2e-tests testcafe chrome tests/ ; then
-#  docker rm -f $(docker ps -q)
-#  exit 0
-#else
-#  docker rm -f $(docker ps -q)
-#  exit 1
-#fi
-
-
+yarn build --configuration=local
+docker-compose up -d
+mongo mongodb://localhost:27018/msw-test tests/seed/seed.js
+yarn testcafe

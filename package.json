@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.37",
+  "version": "0.0.39",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -15,6 +15,7 @@
     "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "start": "ng serve",
+    "start:local": "ng serve --configuration=local",
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",

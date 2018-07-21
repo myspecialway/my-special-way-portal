@@ -71,6 +71,14 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           }
         },
@@ -82,6 +90,9 @@
           "configurations": {
             "production": {
               "browserTarget": "my-special-way-portal:build:production"
+            },
+            "local": {
+              "browserTarget": "my-special-way-portal:build:local"
             }
           }
         },
