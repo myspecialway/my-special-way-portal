@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Class } from '../../../../models/class.model';
-import { ClassService } from '../../services/class.graphql.service';
 import { MswErrorStateMatcher } from '../../../../controls/errormatcher';
 
 @Component({
