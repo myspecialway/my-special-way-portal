@@ -23,7 +23,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
-  allClasses: string[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -139,7 +138,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     user.username = userData.userName;
     user.email = userData.email;
     user.role = userData.userType;
-    // user.Class = userData.Class;
+    user.Class = userData.Class;
     return user;
   }
 }

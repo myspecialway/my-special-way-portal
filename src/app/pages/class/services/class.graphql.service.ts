@@ -67,7 +67,7 @@ export class ClassService {
     `}).toPromise();
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {

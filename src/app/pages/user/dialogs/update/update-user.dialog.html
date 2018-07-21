@@ -2,11 +2,11 @@
     <h3 mat-dialog-title>עדכון פרטים אישיים</h3>
     <mat-divider></mat-divider>
     <mat-dialog-content>
-      <form  class="mat-dialog-content" #formControl="ngForm">
+      <form  class="mat-dialog-content" #formControl="ngForm" novalidate>
         <div class="msw-div-column-right">
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input placeholder="שם פרטי" [(ngModel)]="data.firstname" name="id" required >
+              <input matInput #input placeholder="שם פרטי" [(ngModel)]="data.firstname" name="firstName" required >
               <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
                 <mat-icon>close</mat-icon>
               </button>            
@@ -25,13 +25,18 @@
           </div>
           <!--TODO:add actual code, this is a dummy code for SCSS updates-->
           <div class="msw-form-row">
-              <mat-form-field color="primary">
-                <mat-select placeholder="סוג משתמש">
-                  <mat-option>מנהל</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+            <mat-form-field color="primary">
+              <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (selectionChange)="onUserTypeChange(data.role)" autocomplete='role'
+                required>
+                <mat-option>בחר</mat-option>
+                <mat-option *ngFor="let userTypeKey of userTypeKeys" [value]="userTypeKey">
+                  {{userTypes[userTypeKey]}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
+            </mat-form-field>
           </div>
+        </div>      
           <div class="msw-div-column-left">
           <div class="msw-form-row">
             <mat-form-field color="primary">
@@ -44,12 +49,19 @@
           </div>
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
-              <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
-                <mat-icon>close</mat-icon>
-              </button>            
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
+                <input matInput #input placeholder="אימייל"  formControlName="email" [(ngModel)]="data.email" name="email" autocomplete='email'
+                       [errorStateMatcher]="matcher">
+                <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  כתובת אמייל לא חוקית. אנא נסה שנית
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  אימייל הינו שדה חובה
+                </mat-error>
+                <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
+                  <mat-icon>close</mat-icon>
+                </button>            
+              </mat-form-field>
           </div>
           <!--TODO: fix required-->
           <!--TODO:add actual code, this is a dummy code for SCSS updates-->

@@ -1,5 +1,5 @@
 export class Class {
-  _id: number;
+  _id: string;
   level: number;
   number: number;
   name: string;

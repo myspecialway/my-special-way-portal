@@ -49,3 +49,6 @@ coverage
 reports
 /tests/eyes/screenshots
 .sonarlint
+
+#local configuration files
+docker_config.sh

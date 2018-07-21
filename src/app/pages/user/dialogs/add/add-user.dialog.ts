@@ -25,12 +25,10 @@ export class AddUserDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AddUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User,
-              @Inject(MAT_DIALOG_DATA) public classes: Class[],
               private classService: ClassService,
-  ) {
-    this.userTypeKeys = Object.keys(this.userTypes);
-    console.log('------' + classes.toString());
-  }
+              ) {
+                this.userTypeKeys = Object.keys(this.userTypes);
+              }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -41,7 +39,9 @@ export class AddUserDialogComponent implements OnInit {
       userType: '',
       class: undefined,
     });
-
+    this.classService.getAllClasses().then((data) => {
+      this.allClasses = data.data.classes;
+    });
   }
 
   getErrorMessage() {
@@ -62,6 +62,9 @@ export class AddUserDialogComponent implements OnInit {
     console.log('class value is: ' + event);
     if (event.value === UserType.PRINCIPLE.toString()) {
       this.data.Class = undefined;
+      this.allClasses = [];
+      this.selectGradeConrol.setValue(''); // [(ngModel)]="data.Class"
+      this.selectGradeConrol.disable();
     }
     if (event.value === UserType.TEACHER.toString()) {
       this.classService.getAllClasses().then((data) => {

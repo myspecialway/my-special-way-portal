@@ -1,7 +1,7 @@
 version: '3'
 services:
   server: 
-    image: msw-server:latest
+    image: myspecialway/msw-server:latest
     restart: always
     links: 
       - mongodb
@@ -16,7 +16,7 @@ services:
       - 27018:27017
   cient:
     build: .
-    image: msw-portal:e2e
+    image: myspecialway/msw-portal:latest
     ports: 
       - "4200:4200"
     links:

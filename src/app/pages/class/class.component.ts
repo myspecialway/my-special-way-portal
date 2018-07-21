@@ -81,14 +81,15 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (data) {
         const newClass: Class = this._createNewClass(data);
         this.classService.create(newClass)
-          .then(() => {
+          .then((id: any) => {
+            newClass._id = id.data.createClass._id;
             this.dataSource.data.push(newClass);
             this.dataSource.paginator = this.paginator;
           });
       }
     });
   }
-  deleteClass(_id: number, name: string, level: string) {
+  deleteClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
       data: {_id, name, level},
     });
@@ -97,14 +98,14 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.classService.delete(_id)
           .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
+            const index = _.findIndex(this.dataSource.data, (data) =>  data._id === _id);
             this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
           });
       }
     });
   }
-  editClass(_id: number, name: string, level: string) {
+  editClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
       data: {_id, name, level},
       height: '310px',

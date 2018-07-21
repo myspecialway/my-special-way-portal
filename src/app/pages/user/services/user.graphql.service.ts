@@ -44,6 +44,8 @@ export class UserService {
   }
 
   create(user: User) {
+    console.log(user.Class);
+    if (user.Class) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
@@ -52,10 +54,28 @@ export class UserService {
           email: "${user.email}"
           firstname: "${user.firstname}"
           lastname: "${user.lastname}"
-          role: ${user.role}
+          role: ${user.role},
+          class: {
+            ${user.Class._id}
+          }
         }) { _id }
       }
     `}).toPromise();
+    } else {
+      return this.apollo.mutate({
+        mutation: gql`
+        mutation {
+          createUser(user: {
+            username: "${user.username}",
+            email: "${user.email}"
+            firstname: "${user.firstname}"
+            lastname: "${user.lastname}"
+            role: ${user.role}
+          }) { _id }
+        }
+      `}).toPromise();
+    }
+
   }
 
   update(user: User) {

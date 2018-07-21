@@ -6,7 +6,7 @@
       <div class="msw-div-column-right">
           <div class="msw-form-row">
               <mat-form-field color="primary">
-                <input matInput #input formControlName="firstName" placeholder="שם פרטי" [(ngModel)]="data.firstname"
+                <input matInput #input formControlName="firstName" placeholder="שם פרטי" [(ngModel)]="data.firstname" autocomplete='given-name'
                   name="firstName" required>
                   <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
                     <mat-icon>close</mat-icon>
@@ -16,9 +16,9 @@
             </div>
             <div class="msw-form-row">
                 <mat-form-field color="primary">
-                  <input matInput #input formControlName="userName" placeholder="שם משתמש" [(ngModel)]="data.username"
+                  <input matInput #input formControlName="userName" placeholder="שם משתמש" [(ngModel)]="data.username" autocomplete='username'
                     name="userName" required >
-                    <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+                    <button tabindex= -1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
                       <mat-icon>close</mat-icon>
                     </button>            
                   <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -26,7 +26,7 @@
               </div>
               <div class="msw-form-row">
                   <mat-form-field color="primary">
-                    <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType"  (change)="onUserTypeChange(data.role)"
+                    <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (selectionChange)="onUserTypeChange(data.role)" autocomplete='role'
                       required>
                       <mat-option>בחר</mat-option>
                       <mat-option *ngFor="let userTypeKey of userTypeKeys" [value]="userTypeKey">
@@ -40,7 +40,7 @@
       <div class="msw-div-column-left">
           <div class="msw-form-row">
               <mat-form-field color="primary">
-                <input matInput #input formControlName="lastName" placeholder="שם משפחה" [(ngModel)]="data.lastname"
+                <input matInput #input formControlName="lastName" placeholder="שם משפחה" [(ngModel)]="data.lastname" autocomplete='family-name'
                   name="lastName" required>
                   <button tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
                     <mat-icon>close</mat-icon>
@@ -50,7 +50,7 @@
             </div>
             <div class="msw-form-row">
                 <mat-form-field color="primary">
-                <input matInput placeholder="אימייל" [formControl]="emailFormControl" [(ngModel)]="data.email" name="email"
+                <input matInput #input placeholder="אימייל"  formControlName="email" [(ngModel)]="data.email" name="email" autocomplete='email'
                        [errorStateMatcher]="matcher">
                 <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -66,7 +66,7 @@
               </div>
               <div class="msw-form-row" >
                   <mat-form-field color="primary" >
-                    <mat-select  placeholder="כיתה" [formControl]="selectGradeConrol" [(ngModel)]="data.Class" name="selectGradeConrol" [(value)]="data.Class" >
+                    <mat-select  placeholder="כיתה" formControlName="class"  [(ngModel)]="data.Class" name="class">
                     <mat-option>בחר</mat-option>
                     <mat-option  *ngFor="let clss of allClasses" [value]="clss">
                       {{clss.name}}
@@ -81,6 +81,6 @@
 
   <div mat-dialog-actions>
     <button mat-button class="msw-button-cancel" tabindex="-1" (click)="close()" >ביטול</button>
-    <button mat-button class="msw-button-add"  (click)="confirmAdd(this.form.value)" [disabled]="!form.hasError" >הוסף משתמש</button>
+    <button mat-button class="msw-button-add"  (click)="confirmAdd(this.form.value)"[disabled]="!formControl.valid" >הוסף משתמש</button>
   </div>
 </div>

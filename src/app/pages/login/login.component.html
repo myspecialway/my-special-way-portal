@@ -17,7 +17,7 @@
                   <input type="password" matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">נא הכנס סיסמה</div>
-                <div *ngIf="loginFailed" class="help-block">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
+                <mat-error *ngIf="loginFailed" class="help-block">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</mat-error>
               </div>
 
             </div>
