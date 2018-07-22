@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../services/student.graphql.service';
-import Student, {Gender} from '../../../models/student.model';
-import {ClassService} from '../../class/services/class.graphql.service';
-import {Class} from '../../../models/class.model';
+import Student, { Gender } from '../../../models/student.model';
+import { ClassService } from '../../class/services/class.graphql.service';
+import { Class } from '../../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { get } from 'lodash';
 
@@ -64,11 +64,14 @@ export class StudentDetailsComponent implements OnInit {
     });
   }
 
-  addStudent() {
-    this.studentService.create(this.student)
-      .then((newStudent) => {
-        this.router.navigate(['/student']);
-      });
+  async addStudent() {
+    try {
+      await this.studentService.create(this.student);
+      this.router.navigate(['/student']);
+    } catch (error) {
+      // TODO: implement error handling on UI
+      throw new Error('error handling not implemented');
+    }
   }
 
   updateStudent(student) {

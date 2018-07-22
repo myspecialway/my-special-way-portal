@@ -3,6 +3,7 @@ import Student, { StudentsQuery, StudentQuery } from '../../../models/student.mo
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { CreateStudentResponse } from '../../../models/responses/create-student-response.model';
 
 @Injectable()
 export class StudentService {
@@ -49,8 +50,8 @@ export class StudentService {
       ` }).toPromise();
   }
 
-  create(student: Student) {
-    return this.apollo.mutate({
+  async create(student: Student): Promise<string> {
+    const createStudentResponse = await this.apollo.mutate({
       mutation: gql`
       mutation {
         createStudent(student: {
@@ -63,6 +64,8 @@ export class StudentService {
             }) { _id }
         }
     `}).toPromise();
+
+    return (createStudentResponse.data as CreateStudentResponse).createStudent._id;
   }
 
   update(student: StudentQuery) {
