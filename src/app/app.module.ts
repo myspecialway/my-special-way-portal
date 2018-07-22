@@ -40,6 +40,7 @@ import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { PagesModule } from './pages/pages.module';
 import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
+import { ScheduleService } from './services/schedule/schedule.service';
 
 @NgModule({
   imports: [
@@ -107,6 +108,7 @@ import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/s
     StudentService,
     ClassService,
     LessonService,
+    ScheduleService,
   ],
   bootstrap: [AppComponent],
 })
