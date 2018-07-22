@@ -3,7 +3,6 @@ import { User, UserQuery } from '../../../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { isError } from 'util';
 
 @Injectable()
 export class UserService {
