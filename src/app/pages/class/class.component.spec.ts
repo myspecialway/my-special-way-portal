@@ -4,8 +4,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator, MatDialog, MatPaginatorIntl } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { classTestData } from '../../../mocks/assets/classes.mock';
-import { ClassQuery } from '../../models/class.model';
-import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
 import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispatcher,
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -14,12 +12,6 @@ import { Observable } from 'rxjs-compat';
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
   let classDialogMock: Partial<MatDialog>;
-  const testResponse = {
-                        data: JSON.parse(classTestData) as ClassQuery,
-                        loading: false,
-                        networkStatus: 7 as NetworkStatus,
-                        stale: false,
-                      } as ApolloQueryResult<ClassQuery>;
 
   beforeEach(async () => {
 
@@ -102,7 +94,7 @@ describe('class component', () => {
 
   it('should load classes from service on page load ', () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(Promise.resolve(testResponse));
+      () => {return Promise.resolve(Promise.resolve(classTestData.classes));
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();
@@ -112,7 +104,7 @@ describe('class component', () => {
 
   it('should load correct number of classes', async () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(Promise.resolve(testResponse));
+      () => {return Promise.resolve(classTestData.classes);
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();

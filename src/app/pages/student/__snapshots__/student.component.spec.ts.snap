@@ -40,7 +40,7 @@ exports[`student component should render component as described in snapshot 1`] 
           <button
             color="primary"
             mat-raised-button=""
-            routerlink="/student/new"
+            routerlink="/student/_new_"
           >
             <i
               class="material-icons"

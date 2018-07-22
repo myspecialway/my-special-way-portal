@@ -29,16 +29,19 @@ export class StudentDetailsComponent implements OnInit {
     this.populateStudent();
   }
 
-  populateStudent() {
+  async populateStudent() {
     const currentPath = get(this.route, ['snapshot', 'routeConfig', 'path']);
-    if (currentPath === 'student/new') {
+    if (currentPath === 'student/_new_') {
       this.isNewStudent = true;
       this.student = this.createNewStudent();
     } else if (currentPath === 'student/:id') {
       this.isNewStudent = false;
-      this.studentService.getById(this.route.params['value'].id).then((student) => {
-        this.student = student.data['student'];
-      });
+      try {
+        this.student = await this.studentService.getById(this.route.params['value'].id);
+      } catch (error) {
+        // TODO: implement error handling on UI
+        throw new Error('Error handling not implemented');
+      }
     }
   }
 
@@ -58,10 +61,14 @@ export class StudentDetailsComponent implements OnInit {
     return student;
   }
 
-  populateClasses() {
-    this.classService.getAllClasses().then((classes) => {
-      this.classes = classes.data['classes'];
-    });
+  async populateClasses() {
+    try {
+      this.classes = await this.classService.getAllClasses();
+    } catch (error) {
+      // TODO: implement error handling on UI
+      console.error('Error handling not implemented');
+      throw error;
+    }
   }
 
   async addStudent() {
@@ -70,16 +77,20 @@ export class StudentDetailsComponent implements OnInit {
       this.router.navigate(['/student']);
     } catch (error) {
       // TODO: implement error handling on UI
-      throw new Error('error handling not implemented');
+      console.error('Error handling not implemented');
+      throw error;
     }
   }
 
-  updateStudent(student) {
+  async updateStudent(student) {
     student.form.value._id = this.student._id;
-    this.studentService.update(student.form.value)
-      .then((updatedStudent) => {
-        this.router.navigate(['/student']);
-      });
+    try {
+      await this.studentService.update(student.form.value);
+      this.router.navigate(['/student']);
+    } catch (error) {
+      // TODO: implement error handling on UI
+      console.error('Error handling not implemented');
+      throw error;
+    }
   }
-
 }

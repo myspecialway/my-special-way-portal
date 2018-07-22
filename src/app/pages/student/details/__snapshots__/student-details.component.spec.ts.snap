@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Student Details Component with new student path should render the component as described in snapshot 1`] = `
+exports[`Student Details Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details
   classService={[Function Object]}
   route={[Function Object]}

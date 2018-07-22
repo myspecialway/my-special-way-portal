@@ -3,8 +3,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from './student-details.component';
 import { StudentService } from '../services/student.graphql.service';
-import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
-import { StudentQuery} from '../../../models/student.model';
 import { Overlay, ScrollStrategyOptions,
   ScrollDispatcher, ViewportRuler,
   OverlayContainer, OverlayPositionBuilder,
@@ -16,7 +14,6 @@ import { Observable } from 'rxjs-compat';
 import {FormsModule} from '@angular/forms';
 import {ClassService} from '../../class/services/class.graphql.service';
 import {ActivatedRoute, Router, RouterModule, Routes} from '@angular/router';
-import {ClassQuery} from '../../../models/class.model';
 import {oneStudentTestData} from '../../../../mocks/assets/student.mock';
 
 describe('Student Details Component', () => {
@@ -25,20 +22,6 @@ describe('Student Details Component', () => {
   let activatedRouteMock;
   let studentDialogMock: Partial<MatDialog>;
   let routerModuleMock: Partial<RouterModule>;
-
-  const studentResponse = {
-    data: JSON.parse(oneStudentTestData) as StudentQuery,
-    loading: false,
-    networkStatus: 7 as NetworkStatus,
-    stale: false,
-  } as ApolloQueryResult<StudentQuery>;
-
-  const classesResponse = {
-    data: JSON.parse(classTestData) as ClassQuery,
-    loading: false,
-    networkStatus: 7 as NetworkStatus,
-    stale: false,
-  } as ApolloQueryResult<ClassQuery>;
 
   beforeEach(async () => {
 
@@ -68,7 +51,7 @@ describe('Student Details Component', () => {
 
     const routes: Routes = [
       { path: '', redirectTo: 'student', pathMatch: 'full' },
-      { path: 'student/new', component: StudentDetailsComponent},
+      { path: 'student/_new_', component: StudentDetailsComponent},
       { path: 'student/:id', component: StudentDetailsComponent},
     ];
 
@@ -105,12 +88,12 @@ describe('Student Details Component', () => {
 
   });
 
-  describe('with new student path', () => {
+  describe('with _new_ student path', () => {
     beforeEach(async () => {
       activatedRouteMock = {
         snapshot: {
           routeConfig: {
-            path: 'student/new',
+            path: 'student/_new_',
           },
         },
       };
@@ -129,7 +112,7 @@ describe('Student Details Component', () => {
 
     it('should load classes from service on page load ', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       const fixture = TestBed.createComponent(StudentDetailsComponent);
@@ -138,9 +121,9 @@ describe('Student Details Component', () => {
       expect(fixture.componentInstance.classes.length).toEqual(23);
     });
 
-    it('should populate the isNewStudent to true when coming from path student/new', () => {
+    it('should populate the isNewStudent to true when coming from path student/_new_', () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       const fixture = TestBed.createComponent(StudentDetailsComponent);
@@ -150,7 +133,7 @@ describe('Student Details Component', () => {
 
     it('should call the create function on create student', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       (studentServiceMock.create as jest.Mock).mockImplementationOnce(
@@ -189,12 +172,12 @@ describe('Student Details Component', () => {
 
     it('should load the student details from service on page load ', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       (studentServiceMock.getById as jest.Mock).mockImplementationOnce(
         () => {
-          return Promise.resolve(studentResponse);
+          return Promise.resolve(oneStudentTestData.student);
         });
 
       const fixture = TestBed.createComponent(StudentDetailsComponent);
@@ -205,11 +188,11 @@ describe('Student Details Component', () => {
 
     it('should populate the isNewStudent to false when coming from path student/:id', () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       (studentServiceMock.getById as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(studentResponse);
+        () => {return Promise.resolve(oneStudentTestData.student);
         });
 
       const fixture = TestBed.createComponent(StudentDetailsComponent);
@@ -219,11 +202,11 @@ describe('Student Details Component', () => {
 
     it('should call the update function on update student', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(classesResponse);
+        () => {return Promise.resolve(classTestData.classes);
         });
 
       (studentServiceMock.getById as jest.Mock).mockImplementationOnce(
-        () => {return Promise.resolve(studentResponse);
+        () => {return Promise.resolve(oneStudentTestData.student);
         });
 
       (studentServiceMock.update as jest.Mock).mockImplementationOnce(

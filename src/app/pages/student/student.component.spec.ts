@@ -12,18 +12,12 @@ import { Overlay, ScrollStrategyOptions,
          OverlayKeyboardDispatcher,
        } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { studentTestData } from '../../../mocks/assets/students.mock';
+import { studentsTestData } from '../../../mocks/assets/students.mock';
 import { Observable } from 'rxjs-compat';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let studentDialogMock: Partial<MatDialog>;
-  const testResponse = {
-                        data: JSON.parse(studentTestData) as StudentQuery,
-                        loading: false,
-                        networkStatus: 7 as NetworkStatus,
-                        stale: false,
-                       } as ApolloQueryResult<StudentQuery>;
 
   beforeEach(async () => {
 
@@ -89,7 +83,7 @@ describe('student component', () => {
 
   it('should load students from service on page load ', () => {
     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+      () => {return Promise.resolve(studentsTestData.students);
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
@@ -99,7 +93,7 @@ describe('student component', () => {
 
   it('should load correct number of students ', async () => {
     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+      () => {return Promise.resolve(studentsTestData.students);
     });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
@@ -119,7 +113,7 @@ describe('student component', () => {
 
   it('component delete should call service delete', async () => {
     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+      () => {return Promise.resolve(studentsTestData.students);
       });
 
     (studentServiceMock.delete as jest.Mock).mockImplementationOnce(

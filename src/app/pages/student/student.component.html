@@ -26,7 +26,7 @@
           </ng-container>
 
           <ng-container matColumnDef="gradeId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
           </ng-container>
 

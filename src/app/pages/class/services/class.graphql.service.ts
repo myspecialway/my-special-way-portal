@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Class, ClassQuery } from '../../../models/class.model';
+import {GetClassesResponse} from "../../../models/responses/get-classes-reponse.model";
 
 @Injectable()
 export class ClassService {
@@ -11,8 +12,8 @@ export class ClassService {
 
   constructor(private apollo: Apollo) { }
 
-  getAllClasses() {
-    return this.apollo.query<ClassQuery>({
+  async getAllClasses(): Promise<Class[]> {
+    const getClassesResponse = await this.apollo.query({
       query: gql`{
         classes {
           _id
@@ -20,6 +21,8 @@ export class ClassService {
           name
         }
       }` }).toPromise();
+
+    return (getClassesResponse.data as GetClassesResponse).classes;
   }
 
   // getById(id: number) {

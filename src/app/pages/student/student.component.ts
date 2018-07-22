@@ -28,24 +28,31 @@ export class StudentComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  populateDatasource() {
-    this.studentService.getAllStudents().then((students) => {
-      this.dataSource.data = students.data.students;
-    });
+  async populateDatasource() {
+    try {
+      this.dataSource.data = await this.studentService.getAllStudents();
+    } catch (error) {
+      // TODO: implement error handling on UI
+      console.error('Error handling not implemented');
+      throw error;
+    }
   }
 
-  deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
+  async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      data: { id, firstName, lastName, gradeId },
+      data: {id, firstName, lastName, gradeId},
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result === true) {
-        this.studentService.delete(id)
-          .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === id);
-            this.dataSource.data.splice(index, 1);
-          });
+        try {
+          await this.studentService.delete(id);
+          this.dataSource.data = this.dataSource.data.filter((student) => student._id !== id);
+        } catch (error) {
+          // TODO: implement error handling on UI
+         console.error('Error handling not implemented');
+         throw error;
+        }
       }
     });
   }
