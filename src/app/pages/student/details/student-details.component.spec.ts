@@ -4,7 +4,7 @@ import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@a
 import { StudentDetailsComponent } from './student-details.component';
 import { StudentService } from '../services/student.graphql.service';
 import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
-import {default as Student, StudentQuery} from '../../../models/student.model';
+import { StudentQuery} from '../../../models/student.model';
 import { Overlay, ScrollStrategyOptions,
   ScrollDispatcher, ViewportRuler,
   OverlayContainer, OverlayPositionBuilder,
@@ -26,13 +26,6 @@ describe('Student Details Component', () => {
   let activatedRouteMock;
   let studentDialogMock: Partial<MatDialog>;
   let routerModuleMock: Partial<RouterModule>;
-
-  const studentsResponse = {
-    data: JSON.parse(studentTestData) as StudentQuery,
-    loading: false,
-    networkStatus: 7 as NetworkStatus,
-    stale: false,
-  } as ApolloQueryResult<StudentQuery>;
 
   const studentResponse = {
     data: JSON.parse(oneStudentTestData) as StudentQuery,
