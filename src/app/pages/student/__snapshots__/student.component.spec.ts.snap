@@ -5,13 +5,12 @@ exports[`student component should render component as described in snapshot 1`] 
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
-  paginator={[Function MatPaginator]}
   sort={[Function MatSort]}
   studentService={[Function Object]}
   table="undefined"
 >
   <div
-    class="main-content"
+    class="main-content msw-student-container"
   >
     <div
       class="container-fluid"
@@ -20,17 +19,20 @@ exports[`student component should render component as described in snapshot 1`] 
         class="header-menu-container msw-table-tools-header"
       >
         <div
-          class="example-header"
+          class="header-table-count"
         >
-          <mat-form-field
-            color="accent"
-            floatlabel="never"
-          >
-            <input
-              matinput=""
-              placeholder="Filter issues"
-            />
-          </mat-form-field>
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              תלמידים
+            </span>
+            <span
+              class="header-table-count-number"
+            >
+              (
+            </span>
+          </div>
         </div>
         <div
           class="example-header msw-table-tools-header"
@@ -70,68 +72,12 @@ exports[`student component should render component as described in snapshot 1`] 
             
             
             
-            
-            
-            
-            
-            
-            
             --&gt; 
             
             
             
             
           </mat-table>
-          <mat-paginator
-            class="mat-paginator"
-          >
-            <div
-              class="mat-paginator-container"
-            >
-              
-              <div
-                class="mat-paginator-range-actions"
-              >
-                <div
-                  class="mat-paginator-range-label"
-                >
-                  
-                </div>
-                
-                <button
-                  class="mat-paginator-navigation-previous"
-                  mat-icon-button=""
-                  type="button"
-                >
-                  <svg
-                    class="mat-paginator-icon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                    />
-                  </svg>
-                </button>
-                <button
-                  class="mat-paginator-navigation-next"
-                  mat-icon-button=""
-                  type="button"
-                >
-                  <svg
-                    class="mat-paginator-icon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-                    />
-                  </svg>
-                </button>
-                
-              </div>
-            </div>
-          </mat-paginator>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 export class Class {
-  _id: number;
-  level: number;
+  _id: string;
+  level: string;
   number: number;
   name: string;
 }

@@ -24,8 +24,6 @@ export class StudentDetailsComponent implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-  get diagnostic() { return JSON.stringify(this.student); }
-
   ngOnInit(): void {
     this.populateClasses();
     this.populateStudent();
@@ -38,12 +36,8 @@ export class StudentDetailsComponent implements OnInit {
       this.student = this.createNewStudent();
     } else if (currentPath === 'student/:id') {
       this.isNewStudent = false;
-      console.log('Update student: ', this.route.params['value'].id);
       this.studentService.getById(this.route.params['value'].id).then((student) => {
         this.student = student.data['student'];
-        console.log(this.student);
-      }, (err) => {
-        console.log('Failed to get the student by id !!!', err);
       });
     }
   }
@@ -55,39 +49,33 @@ export class StudentDetailsComponent implements OnInit {
     student.username = '';
     student.password = '';
     student.gender = Gender.FEMALE;
-    student.class_id = '0';
+    student.class = {
+      _id: '0',
+      name: '',
+      level: '',
+      number: 0,
+    };
     return student;
   }
 
   populateClasses() {
     this.classService.getAllClasses().then((classes) => {
       this.classes = classes.data['classes'];
-      console.log(this.classes);
-    }, (err) => {
-      console.log('Failed to get all the classes !!!', err);
     });
   }
 
   addStudent() {
-    console.log('addStudent: ', this.student);
     this.studentService.create(this.student)
       .then((newStudent) => {
-        console.log('Student created: ', newStudent);
         this.router.navigate(['/student']);
-      },  (err) => {
-        console.log('Failed to add the student !!!', err);
       });
   }
 
   updateStudent(student) {
-    console.log('updateStudent: ', student.form.value);
     student.form.value._id = this.student._id;
     this.studentService.update(student.form.value)
       .then((updatedStudent) => {
-        console.log('Student updated: ', updatedStudent);
         this.router.navigate(['/student']);
-      }, (err) => {
-        console.log('Failed to update the student !!!', err);
       });
   }
 

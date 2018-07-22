@@ -107,17 +107,21 @@ describe('student component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(4);
 });
 
-//   it('should load zero students in case of promise reject', async () => {
-//     (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
-//       () => {return Promise.reject();
-//     });
-//     const fixture = TestBed.createComponent(StudentComponent);
-//     fixture.detectChanges();
-//     await fixture.whenRenderingDone();
-//     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
-// });
+  it('should load zero students in case of promise reject', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.reject(0);
+    });
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+});
 
   it('component delete should call service delete', async () => {
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(testResponse);
+      });
+
     (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
     });

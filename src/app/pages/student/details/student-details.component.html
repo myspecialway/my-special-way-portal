@@ -10,7 +10,7 @@
 
     </div>
     <div class="msw-student-header-nav">
-      <div class="msw-student-header-nav-name" *ngIf="!isNewStudent">
+      <div class="msw-student-header-nav-name" *ngIf="!isNewStudent && student">
         {{ student.firstname }} {{ student.lastname }}
       </div>
       <div class="msw-student-header-nav-tabs">
@@ -28,7 +28,7 @@
         <img src="http://via.placeholder.com/140x100">
       </div>
       <div class="msw-student-user-form">
-        <form class="msw-student-details-form" #studentDetailsForm="ngForm">
+        <form class="msw-student-details-form" #studentDetailsForm="ngForm" *ngIf="student">
 
           <div class="msw-student-main-details">
             <mat-form-field class="firstname">
@@ -50,9 +50,8 @@
             </div>
           </div>
 
-
           <mat-form-field class="classname">
-            <mat-select placeholder="כיתה" [(ngModel)]="student.class._id" name="class_id" required>
+            <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" name="class_id" required>
               <mat-option *ngFor="let classname of classes" [value]="classname._id">
                 {{classname.name}}
               </mat-option>

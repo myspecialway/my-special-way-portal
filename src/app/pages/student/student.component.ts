@@ -31,8 +31,6 @@ export class StudentComponent implements OnInit {
   populateDatasource() {
     this.studentService.getAllStudents().then((students) => {
       this.dataSource.data = students.data.students;
-    }, (err) => {
-      console.log('Failed to get list of students !!!', err);
     });
   }
 
