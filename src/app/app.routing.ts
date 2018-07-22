@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'class', component: ClassComponent },
       { path: 'student', component: StudentComponent},
-      { path: 'student/new', component: StudentDetailsComponent},
+      { path: 'student/_new_', component: StudentDetailsComponent},
       { path: 'student/:id', component: StudentDetailsComponent},
       { path: 'user', component: UserComponent },
     ],
