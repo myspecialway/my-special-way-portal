@@ -121,7 +121,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const relevantUser = _.find(this.dataSource.data, {_id});
-        const tempUser = _.assign({}, relevantUser, result);
+        // const tempUser = _.assign({}, relevantUser, result);
 
         this.userService.update(this._createNewUser(result))
           .then((data) => {
