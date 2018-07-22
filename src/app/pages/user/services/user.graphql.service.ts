@@ -44,7 +44,6 @@ export class UserService {
   }
 
   create(user: User) {
-    console.log(user.Class);
     if (user.Class) {
     return this.apollo.mutate({
       mutation: gql`
@@ -55,9 +54,7 @@ export class UserService {
           firstname: "${user.firstname}"
           lastname: "${user.lastname}"
           role: ${user.role},
-          class: {
-            ${user.Class._id}
-          }
+          class_id: "${user.Class._id}"
         }) { _id }
       }
     `}).toPromise();

@@ -19,7 +19,7 @@ export class UpdateUserDialogComponent  implements OnInit {
   formControl = new FormControl('', [Validators.required]);
   selectUserType = new FormControl(null, Validators.required);
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  selectGradeConrol = new FormControl('', [Validators.required]);
+  selectGradeConrol = new FormControl(this.data.clss, [Validators.required]);
   matcher = new MswErrorStateMatcher();
   allClasses: Class[];
   constructor(public dialogRef: MatDialogRef<UpdateUserDialogComponent>,
@@ -32,12 +32,12 @@ export class UpdateUserDialogComponent  implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      userName: '',
-      email: '',
-      userType: '',
-      class: undefined,
+      firstName:  new FormControl(this.data.firstName, [Validators.required]),
+      lastName: new FormControl(this.data.lastName, [Validators.required]),
+      userName: new FormControl(this.data.userName, [Validators.required]),
+      email:  this.emailFormControl,
+      userType: this.selectUserType,
+      class: this.selectGradeConrol,
     });
     this.classService.getAllClasses().then((data) => {
       this.allClasses = data.data.classes;

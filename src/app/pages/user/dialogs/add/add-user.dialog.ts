@@ -19,7 +19,7 @@ export class AddUserDialogComponent implements OnInit {
   formControl = new FormControl('', [Validators.required]);
   selectUserType = new FormControl(null, Validators.required);
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  selectGradeConrol = new FormControl('', [Validators.required]);
+  selectGradeConrol = new FormControl(undefined, [Validators.required]);
   matcher = new MswErrorStateMatcher();
   allClasses: Class[];
   constructor(private formBuilder: FormBuilder,
@@ -35,9 +35,9 @@ export class AddUserDialogComponent implements OnInit {
       firstName: '',
       lastName: '',
       userName: '',
-      email: '',
+      email: new FormControl('', [Validators.required, Validators.email]),
       userType: '',
-      class: undefined,
+      clss: this.selectGradeConrol,
     });
     this.classService.getAllClasses().then((data) => {
       this.allClasses = data.data.classes;
@@ -59,18 +59,18 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-    console.log('class value is: ' + event);
-    if (event.value === UserType.PRINCIPLE.toString()) {
-      this.data.Class = undefined;
-      this.allClasses = [];
-      this.selectGradeConrol.setValue(''); // [(ngModel)]="data.Class"
-      this.selectGradeConrol.disable();
-    }
-    if (event.value === UserType.TEACHER.toString()) {
-      this.classService.getAllClasses().then((data) => {
-        this.allClasses = data.data.classes;
-      });
-    }
+  //   console.log('class value is: ' + event);
+  //   if (event.value === UserType.PRINCIPLE.toString()) {
+  //     this.data.Class = undefined;
+  //     this.allClasses = [];
+  //     this.selectGradeConrol.setValue(''); // [(ngModel)]="data.Class"
+  //     this.selectGradeConrol.disable();
+  //   }
+  //   if (event.value === UserType.TEACHER.toString()) {
+  //     this.classService.getAllClasses().then((data) => {
+  //       this.allClasses = data.data.classes;
+  //     });
+  //   }
 
   }
 }
