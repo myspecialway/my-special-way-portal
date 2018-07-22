@@ -51,7 +51,7 @@
           </div>
 
           <mat-form-field class="classname">
-            <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" name="class_id" required>
+            <mat-select placeholder="כיתה" [(ngModel)]="student.class._id" name="class_id" required>
               <mat-option *ngFor="let classname of classes" [value]="classname._id">
                 {{classname.name}}
               </mat-option>

@@ -15,6 +15,16 @@ export enum Gender {
   FEMALE = 'FEMALE',
 }
 
-export interface StudentQuery  {
+export interface StudentQuery {
+  _id: number;
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  gender: Gender;
+  class_id: string;
+}
+
+export interface StudentsQuery  {
   students: Student[];
 }

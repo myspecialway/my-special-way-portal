@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Student, { StudentQuery } from '../../../models/student.model';
+import Student, { StudentsQuery, StudentQuery } from '../../../models/student.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -12,7 +12,7 @@ export class StudentService {
   constructor(private apollo: Apollo) { }
 
   getAllStudents() {
-    return this.apollo.query<StudentQuery>({
+    return this.apollo.query<StudentsQuery>({
       query: gql`
         {
          students {
@@ -65,7 +65,7 @@ export class StudentService {
     `}).toPromise();
   }
 
-  update(student: Student) {
+  update(student: StudentQuery) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
@@ -77,7 +77,7 @@ export class StudentService {
             firstname: "${student.firstname}"
             lastname: "${student.lastname}"
             gender: ${student.gender}
-            class_id: "${student.class._id}"
+            class_id: "${student.class_id}"
             }) { _id }
         }
     `}).toPromise();
