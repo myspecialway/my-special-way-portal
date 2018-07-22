@@ -6,8 +6,8 @@
         <div class="msw-div-column-right">
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input placeholder="שם פרטי" formControlName="firstName" [(ngModel)]="data.firstname" name="firstName" required >
-              <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
+              <input matInput #input placeholder="שם פרטי" formControlName="firstName" [(ngModel)]="data.firstName" name="firstName" autocomplete='given-name' required >
+              <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstName=''">
                 <mat-icon>close</mat-icon>
               </button>            
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -15,18 +15,17 @@
         </div>
         <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input placeholder="שם משתמש" formControlName="userName" [(ngModel)]="data.username"
+              <input matInput #input placeholder="שם משתמש" formControlName="userName" [(ngModel)]="data.userName" autocomplete='username'
                 name="userName" required>
-                <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+                <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.userName=''">
                   <mat-icon>close</mat-icon>
                 </button>            
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
-          <!--TODO:add actual code, this is a dummy code for SCSS updates-->
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType" (selectionChange)="onUserTypeChange(data.role)" autocomplete='role'
+              <mat-select placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role" (selectionChange)="onUserTypeChange(data.role)" autocomplete='role'
                 required>
                 <mat-option>בחר</mat-option>
                 <mat-option *ngFor="let userTypeKey of userTypeKeys" [value]="userTypeKey">
@@ -40,7 +39,7 @@
           <div class="msw-div-column-left">
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input  placeholder="שם משפחה" formControlName="lastName" [(ngModel)]="data.lastname" name="lastName" required>
+              <input matInput #input  placeholder="שם משפחה" formControlName="lastName" [(ngModel)]="data.lastName" name="lastName" autocomplete='family-name' required>
               <button tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
                 <mat-icon>close</mat-icon>
               </button>            
@@ -49,7 +48,7 @@
           </div>
           <div class="msw-form-row">
             <mat-form-field color="primary">
-                <input matInput #input placeholder="אימייל"  formControlName="email" [(ngModel)]="data.email" name="email" autocomplete='email'
+                <input matInput #input placeholder="אימייל"  formControlName="email" [(ngModel)]="data.email" name="email" autocomplete='email' autocomplete='email'
                        [errorStateMatcher]="matcher">
                 <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">

@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  beUrl: 'http://40.76.86.73:3000/graphql',
-  loginUrl: 'http://40.76.86.73:3000/login',
+  beUrl: 'http://192.168.99.100:32769/graphql',
+  loginUrl: 'http://192.168.99.100:32769/login',
 };

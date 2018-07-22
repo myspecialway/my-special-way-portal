@@ -17,8 +17,8 @@ export class UpdateUserDialogComponent  implements OnInit {
   userTypeKeys: any[];
   userTypes = UserType;
   formControl = new FormControl('', [Validators.required]);
-  selectUserType = new FormControl(null, Validators.required);
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  selectUserType = new FormControl(this.data.role, Validators.required);
+  emailFormControl = new FormControl(this.data.email, [Validators.required, Validators.email]);
   selectGradeConrol = new FormControl(this.data.clss, [Validators.required]);
   matcher = new MswErrorStateMatcher();
   allClasses: Class[];
@@ -36,7 +36,7 @@ export class UpdateUserDialogComponent  implements OnInit {
       lastName: new FormControl(this.data.lastName, [Validators.required]),
       userName: new FormControl(this.data.userName, [Validators.required]),
       email:  this.emailFormControl,
-      userType: this.selectUserType,
+      role: this.selectUserType,
       class: this.selectGradeConrol,
     });
     this.classService.getAllClasses().then((data) => {

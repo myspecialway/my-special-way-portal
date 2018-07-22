@@ -3,6 +3,7 @@ import { User, UserQuery } from '../../../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { isError } from 'util';
 
 @Injectable()
 export class UserService {
@@ -11,7 +12,7 @@ export class UserService {
 
   constructor(private apollo: Apollo) { }
 
-  getAllUsers() {
+  getAllUsers() { //  class not supported yet in BE
     return this.apollo.query<UserQuery>({
       query: gql`
         {
@@ -76,6 +77,7 @@ export class UserService {
   }
 
   update(user: User) {
+    if (user.Class) {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
@@ -86,12 +88,33 @@ export class UserService {
               email: "${user.email}"
               firstname:"${user.firstname}"
               lastname: "${user.lastname}"
+              role: ${user.role}
+              class_id: "${user.Class._id}"
                }
             ) {
           _id
         }
         }
     `}).toPromise();
+    } else {
+      return this.apollo.mutate({
+        mutation: gql`
+        mutation {
+          updateUser(
+              id: "${user._id}",
+              user: {
+                username: "${user.username}"
+                email: "${user.email}"
+                firstname:"${user.firstname}"
+                lastname: "${user.lastname}"
+                role: ${user.role}
+                 }
+              ) {
+            _id
+          }
+          }
+      `}).toPromise();
+      }
   }
 
   delete(id: number) {

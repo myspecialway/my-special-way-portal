@@ -92,6 +92,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   deleteUser(_id: number, userName: string) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
       data: {_id, userName},
@@ -110,9 +111,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string, clss: Class) {
+  updateUser(_id: number, firstName: string, lastName: string, email: string, userName: string, clss: Class, role: UserType) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: {_id, firstname, lastname, email, username, clss },
+      data: {_id, firstName, lastName, email, userName, clss, role },
       height: '368px',
       width: '630px',
     });
@@ -122,7 +123,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         const relevantUser = _.find(this.dataSource.data, {_id});
         const tempUser = _.assign({}, relevantUser, result);
 
-        this.userService.update(tempUser)
+        this.userService.update(this._createNewUser(result))
           .then((data) => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantUser, result);
@@ -134,11 +135,14 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   _createNewUser(userData: any): User {
     const user: User = new User();
+    if (userData._id ) {
+      user._id = userData._id;
+    }
     user.firstname = userData.firstName;
     user.lastname = userData.lastName;
     user.username = userData.userName;
     user.email = userData.email;
-    user.role = userData.userType;
+    user.role = userData.role;
     user.Class = userData.clss;
     return user;
   }
