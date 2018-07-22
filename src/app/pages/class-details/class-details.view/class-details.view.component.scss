@@ -1,0 +1,14 @@
+.class-details-container {
+    direction: rtl;
+    text-align: right;
+    h2 {
+        font-size: 32px;
+    }
+}
+.class-detail-field {
+    display: inline-block;
+    font-family: Rubik;
+    color: #222;
+    margin: 5px 20px;
+    max-width: 100px;
+}
