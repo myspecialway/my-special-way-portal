@@ -11,7 +11,6 @@ import { Overlay, ScrollStrategyOptions,
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { studentTestData } from '../../../../mocks/assets/students.mock';
 import { classTestData } from '../../../../mocks/assets/classes.mock';
 import { Observable } from 'rxjs-compat';
 import {FormsModule} from '@angular/forms';
