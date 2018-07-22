@@ -15,6 +15,7 @@ import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { Class } from '../../models/class.model';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -37,7 +38,7 @@ describe('user component', () => {
 
     userDialogMock = {
       open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+        afterClosed: jest.fn().mockReturnValue(Observable.of(userTestData[0])),
       }),
     };
 
@@ -90,7 +91,7 @@ describe('user component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.PRINCIPLE);
+    fixture.componentInstance.deleteUser(123, 'sad');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -100,7 +101,7 @@ describe('user component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd');
+    fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd', new Class(), UserType.PRINCIPLE);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });

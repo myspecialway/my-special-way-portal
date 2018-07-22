@@ -49,8 +49,8 @@ export class ClassComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.classes;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('class.component::ngInInit:: empty sream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => {

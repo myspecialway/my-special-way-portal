@@ -45,8 +45,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.users;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('user.component::ngInInit:: empty sream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => {
@@ -124,7 +124,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         // const tempUser = _.assign({}, relevantUser, result);
 
         this.userService.update(this._createNewUser(result))
-          .then((data) => {
+          .then(() => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantUser, result);
             this.dataSource.paginator = this.paginator;
