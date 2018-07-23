@@ -1,14 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ScheduleDialogComponent } from './schedule.dialog';
 import { LessonService } from '../../../services/lesson/lesson.graphql.service';
 import { ScheduleDialogData } from './schedule-dialog-data.model';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatSelectChange,
-} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 describe('ScheduleDialogComponent', () => {
   let component: ScheduleDialogComponent;
   let lessonServiceMock: Partial<LessonService>;

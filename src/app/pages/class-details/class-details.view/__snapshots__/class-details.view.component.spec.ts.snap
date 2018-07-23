@@ -4,7 +4,6 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
 <app-class-details-view
   _level={[Function String]}
   _name={[Function String]}
-  canedit={[Function Boolean]}
   detailChanged={[Function EventEmitter]}
   timeslotClicked={[Function EventEmitter]}
 >
@@ -30,7 +29,6 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
             </i>
             כל הכיתות
           </a>
-          
           <div
             class="class-details"
           >
@@ -67,6 +65,9 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
             </div>
           </div>
           
+          <h2>
+            מערכת שעות כיתת פטל
+          </h2>
           <app-schedule />
         </div>
       </div>

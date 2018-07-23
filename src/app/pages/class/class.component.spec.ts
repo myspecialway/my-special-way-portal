@@ -34,7 +34,7 @@ describe('class component', () => {
     classDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(Observable.of({
-          lesson: {_id: '5b4506c42c14052bc4abae84', title: 'english', icon: 'english'}
+          lesson: {_id: '5b4506c42c14052bc4abae84', title: 'english', icon: 'english'},
         } as ScheduleDialogData)),
       }),
     };
