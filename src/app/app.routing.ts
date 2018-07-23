@@ -9,6 +9,9 @@ import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
 import {StudentDetailsComponent} from './pages/student/details/student-details.component';
 import {StudentComponent} from './pages/student/student.component';
+import {StudentDetailsPersonalInfoComponent} from "./pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component";
+import {StudentDetailsHoursComponent} from "./pages/student/details/tabs/student-details-hours/student-details-hours.component";
+import {StudentDetailsNotificationsComponent} from "./pages/student/details/tabs/student-details-notifications/student-details-notifications.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
@@ -20,8 +23,14 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'class', component: ClassComponent },
       { path: 'student', component: StudentComponent},
-      { path: 'student/_new_', component: StudentDetailsComponent},
-      { path: 'student/:id', component: StudentDetailsComponent},
+      { path: 'student/:idOrNew', component: StudentDetailsComponent,
+        children: [
+          { path: 'personalInfo', component: StudentDetailsPersonalInfoComponent},
+          { path: 'hours', component: StudentDetailsHoursComponent},
+          { path: 'notifications', component: StudentDetailsNotificationsComponent},
+          { path: '',  component: StudentDetailsPersonalInfoComponent},
+        ],
+      },
       { path: 'user', component: UserComponent },
     ],
   },

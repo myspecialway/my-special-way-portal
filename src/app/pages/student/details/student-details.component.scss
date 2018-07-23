@@ -1,35 +1,5 @@
-:host {
-  height: 100%;
-}
-
-button {
-  background-color: #6a00cf;
-  border-radius: 3px;
-  color: #fff;
-  height: 32px;
-  width: 120px;
-}
-
-.msw-student-main-details {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-
-  .firstname,
-  .lastname {
-    margin-left: 24px;
-  }
-}
-
-.msw-student {
-  height: 100%;
-  background-color: #fafafa;
-  padding-top: 100px;
-}
-
 .msw-student-header {
-  padding: 10px 30px;
+  padding: 100px 30px;
 }
 
 .msw-student-header-back {
@@ -43,8 +13,8 @@ button {
 }
 
 .msw-student-header-nav {
-
 }
+
 
 .msw-student-header-nav-name {
   font-size: 32px;
@@ -56,37 +26,3 @@ button {
 .msw-student-header-nav-tabs {
 
 }
-
-.msw-student-body-ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.msw-student-body {
-  height: 475px;
-  border-radius: 3px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 48px;
-}
-
-.msw-student-details-gender {
-  font-size: 12px;
-  line-height: 1.42857;
-  color: #AAAAAA;
-  font-weight: 400;
-  text-align: right;
-}
-
-.msw-student-user-pic-ph {
-
-}
-
-.msw-student-user-form {
-
-}
-

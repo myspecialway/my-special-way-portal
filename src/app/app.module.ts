@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatButtonToggleModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatButtonToggleModule, MatTabsModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -38,6 +38,10 @@ import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dia
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
+import { StudentDetailsPersonalInfoComponent }
+from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
+import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
+import {StudentDetailsNotificationsComponent} from "./pages/student/details/tabs/student-details-notifications/student-details-notifications.component";
 
 @NgModule({
   imports: [
@@ -56,6 +60,7 @@ import { StudentDetailsComponent } from './pages/student/details/student-details
     MatPaginatorModule,
     MatIconModule,
     MatCardModule,
+    MatTabsModule,
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
@@ -75,6 +80,9 @@ import { StudentDetailsComponent } from './pages/student/details/student-details
     ClassComponent,
     StudentComponent,
     StudentDetailsComponent,
+    StudentDetailsPersonalInfoComponent,
+    StudentDetailsHoursComponent,
+    StudentDetailsNotificationsComponent,
     UserComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
