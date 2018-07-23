@@ -20,7 +20,6 @@ export class ScheduleComponent {
   daysLabels: string[];
   @Input()
   hoursLabels: string[];
-
   @Output()
   timeSlotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
 }

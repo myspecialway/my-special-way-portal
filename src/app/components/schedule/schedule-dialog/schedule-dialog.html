@@ -1,14 +1,14 @@
 <div class="container msw-dialog schedule-dialog">
   <h2 mat-dialog-title>עדכון מערכת שעות</h2>
   <div class="timeslot-subtitle">
-    <span class="timeslot-info">יום {{data.day}}</span>
-    <span class="timeslot-info">{{data.hour}}</span>
+    <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
+    <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
   </div>
   <mat-dialog-content>
     <form [formGroup]="form">
       <mat-form-field>
         <mat-select placeholder="שיעור" [(value)]="lessonGroup.value" formControlName="lesson" required (selectionChange)="onChange($event, lessonGroup)">
-          <mat-option *ngFor="let les of lessons" [value]="les._id" selected="data.lesson && data.lesson._id === les._id">
+          <mat-option *ngFor="let les of lessons" [value]="les._id" selected="scheduleDialogData.lesson && scheduleDialogData.lesson._id === les._id">
             {{les.title}}
           </mat-option>
         </mat-select>
@@ -29,8 +29,8 @@
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button class="mat-raised-button" (click)="close()">סגור</button>
-    <button mat-button class="mat-raised-button mat-primary" (click)="confirm()" [disabled]="form.invalid">עדכן</button>
+    <button mat-button class="mat-raised-button" (click)="dialogRef.close()">סגור</button>
+    <button mat-button class="mat-raised-button mat-primary" (click)="dialogRef.close(scheduleDialogData)" [disabled]="form.invalid">עדכן</button>
   </mat-dialog-actions>
 
 </div>

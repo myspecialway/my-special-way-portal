@@ -10,6 +10,7 @@ import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispat
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
+import { ScheduleDialogData } from '../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
@@ -32,7 +33,9 @@ describe('class component', () => {
 
     classDialogMock = {
       open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+        afterClosed: jest.fn().mockReturnValue(Observable.of({
+          lesson: {_id: '5b4506c42c14052bc4abae84', title: 'english', icon: 'english'}
+        } as ScheduleDialogData)),
       }),
     };
 
@@ -85,7 +88,7 @@ describe('class component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass(123, 'ddd', 'ddd');
+    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -95,7 +98,7 @@ describe('class component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.editClass(123, 'sad', 'asd');
+    fixture.componentInstance.editClass('123', 'sad', 'asd');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });

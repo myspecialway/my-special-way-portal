@@ -99,12 +99,12 @@ export class ClassDetailsContainerComponent implements OnInit {
           index: `${hourIndex}${dayIndex}`,
           lesson: data.lesson,
         });
-        const { _id, name, level, number } = this._class;
+
         const tempClass: Class = {
-          _id,
-          name,
-          level,
-          number,
+          _id: this._class._id,
+          name: this._class.name,
+          level: this._class.level,
+          number: this._class.number,
           schedule: tempSchedule,
         };
 
@@ -122,13 +122,12 @@ export class ClassDetailsContainerComponent implements OnInit {
   }
 
   onDetailChange(params: ClassDetailsEventParams) {
-    const { _id, name, level, number, schedule } = this._class;
     const tempClass: Class = {
-      _id,
+      _id: this._class._id,
       name: params.name,
       level: params.level,
-      number,
-      schedule,
+      number: this._class.number,
+      schedule: this._class.schedule,
     };
     this.classService.update(tempClass).then((res) => {
       if (res.data) {

@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassDetailsContainerComponent should create 1`] = `
+ClassDetailsContainerComponent {
+  "_class": Object {
+    "_id": "5b217b030825622c97d3757f",
+    "level": "א",
+    "name": "טיטאן",
+    "number": 1,
+    "schedule": Array [
+      Object {
+        "index": "10",
+        "lesson": Object {
+          "_id": "someid",
+          "icon": "someicon",
+          "title": "soetitle",
+        },
+      },
+    ],
+  },
+  "classService": Object {
+    "classById": [MockFunction] {
+      "calls": Array [
+        Array [
+          "5b217b030825622c97d3757f",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": ZoneAwarePromise {
+            "__zone_symbol__state": true,
+            "__zone_symbol__value": Object {
+              "data": Object {
+                "classById": Object {
+                  "_id": "5b217b030825622c97d3757f",
+                  "level": "א",
+                  "name": "טיטאן",
+                  "number": 1,
+                  "schedule": Array [
+                    Object {
+                      "index": "10",
+                      "lesson": Object {
+                        "_id": "someid",
+                        "icon": "someicon",
+                        "title": "soetitle",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+    "update": [MockFunction],
+  },
+  "dialog": Object {
+    "open": [MockFunction],
+  },
+  "route": Object {
+    "snapshot": Object {
+      "params": Object {
+        "id": "5b217b030825622c97d3757f",
+      },
+    },
+  },
+  "schedule": Array [
+    Array [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    Array [
+      Object {
+        "_id": "someid",
+        "icon": "someicon",
+        "title": "soetitle",
+      },
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    Array [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+  ],
+  "scheduleService": Object {
+    "daysLabels": Array [
+      "ראשון",
+      "שני",
+      "שלישי",
+      "רביעי",
+      "חמישי",
+      "שישי",
+    ],
+    "hoursLabels": Array [
+      "07:30 - 08:00",
+      "08:00 - 08:50",
+      "08:50 - 09:35",
+    ],
+    "levels": Array [
+      "א",
+      "ב",
+      "ג",
+    ],
+  },
+}
+`;

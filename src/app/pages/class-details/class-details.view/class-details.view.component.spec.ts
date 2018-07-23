@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
 describe('ClassDetailsComponent', () => {
   let fixture: ComponentFixture<ClassDetailsViewComponent>;
-
+  let component: ClassDetailsViewComponent;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -17,6 +17,9 @@ describe('ClassDetailsComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClassDetailsViewComponent);
+    component = fixture.componentInstance;
+    component.name = 'פטל';
+    component.level = 'א';
     fixture.detectChanges();
   });
 

@@ -1,3 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClassDetailsComponent should match current snapshot 1`] = `undefined`;
+exports[`ClassDetailsComponent should match current snapshot 1`] = `
+<app-class-details-view
+  _level={[Function String]}
+  _name={[Function String]}
+  canedit={[Function Boolean]}
+  detailChanged={[Function EventEmitter]}
+  timeslotClicked={[Function EventEmitter]}
+>
+  <div
+    class="main-content"
+  >
+    <div
+      class="container-fluid "
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 class-details-container"
+        >
+          <a
+            class="back"
+          >
+            <i
+              class="material-icons"
+            >
+              chevron_right
+            </i>
+            כל הכיתות
+          </a>
+          
+          <div
+            class="class-details"
+          >
+            <div
+              class="class-detail-field"
+            >
+              <mat-form-field>
+                <input
+                  matinput=""
+                  placeholder="שם הכיתה"
+                  required=""
+                  type="text"
+                />
+                <i
+                  class="material-icons"
+                  matsuffix=""
+                >
+                  mode_edit
+                </i>
+              </mat-form-field>
+            </div>
+            <div
+              class="class-detail-field"
+            >
+              <mat-form-field
+                class="class-detail-field"
+              >
+                <mat-select
+                  placeholder="שכבה"
+                >
+                  
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <app-schedule />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-class-details-view>
+`;

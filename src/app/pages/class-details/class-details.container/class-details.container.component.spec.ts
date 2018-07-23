@@ -1,12 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassService } from '../../class/services/class.graphql.service';
+import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClassDetailsContainerComponent } from './class-details.container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs-compat';
+import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 describe('ClassDetailsContainerComponent', () => {
   let component: ClassDetailsContainerComponent;
   let classServiceMock: Partial<ClassService>;
+  let scheduleServiceMock: Partial<ScheduleService>;
+  let scheduleDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
   const mockedClass = {
     data: {
@@ -15,12 +21,39 @@ describe('ClassDetailsContainerComponent', () => {
         level: 'א',
         number: 1,
         name: 'טיטאן',
+        schedule: [
+          {
+            index: '10',
+            lesson: {
+              _id: 'someid',
+              title: 'soetitle',
+              icon: 'someicon',
+            },
+          },
+        ],
       },
     },
   };
-  beforeEach(async(() => {
+  beforeEach(async () => {
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
+      update: jest.fn().mockReturnValue(Promise.resolve({data: {updateClass: {_id: 'updateclassid'}}})),
+    };
+    scheduleServiceMock = {
+      levels: ['א', 'ב', 'ג'],
+      daysLabels: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'],
+      hoursLabels: [
+        '07:30 - 08:00',
+        '08:00 - 08:50',
+        '08:50 - 09:35',
+      ],
+    },
+    scheduleDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(
+          Observable.of({lesson: {_id: 'someid', title: 'sometitle', icon: 'someicon'}} as ScheduleDialogData),
+        ),
+      }),
     };
     TestBed.configureTestingModule({
       declarations: [ClassDetailsContainerComponent],
@@ -32,10 +65,12 @@ describe('ClassDetailsContainerComponent', () => {
             snapshot: { params: { id: '5b217b030825622c97d3757f' } },
           },
         },
+        { provide: MatDialog, useValue: scheduleDialogMock },
+        { provide: ScheduleService, useValue: scheduleServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClassDetailsContainerComponent);
@@ -44,34 +79,18 @@ describe('ClassDetailsContainerComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toMatchSnapshot();
   });
 
-  it('should create empty matrix of lessons given days and hours counts and empty timeslots array', () => {
-    const schedule = component.buildScheduleFromTimeslots(2, 2, []);
-
-    expect(schedule.length).toBe(2);
-    expect(schedule[0].length).toBe(2);
+  it('should open a dialog when onTimeSlotClick is triggered', () => {
+    fixture.componentInstance.onTimeSlotClick({hourIndex: 0, dayIndex: 0});
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  it('should create matrix with lesson in 0,0 place given days and hours and timeslot array[1]', () => {
-    const schedule = component.buildScheduleFromTimeslots(2, 2, [
-      {
-        index: '10',
-        lesson: {
-          _id: 'someId',
-          icon: 'some icon',
-          title: 'some title',
-        },
-      },
-    ]);
-
-    expect(schedule[1][0]).toEqual({
-      _id: 'someId',
-      icon: 'some icon',
-      title: 'some title',
-    });
-    expect(schedule.length).toBe(2);
-    expect(schedule[0].length).toBe(2);
+  it('should call onDetailChange', () => {
+    fixture.componentInstance.onDetailChange({name: 'newName', level: 'newlevel'});
+    // TODO: you can do better than that
+    // expect(fixture.componentInstance._class.level).toBe('newlevel');
   });
 });

@@ -6,12 +6,12 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
-import { LessonService } from '../../../services/lesson/lesson.service';
+import { LessonService } from '../../../services/lesson/lesson.graphql.service';
 import { Lesson } from '../../../models/lesson.model';
 import { Location } from '../../../models/location.model';
 import { ScheduleDialogData } from './schedule-dialog-data.model';
 // TBD
-// import { LocationService } from '../../../services/location/location.service';
+// import { LocationService } from '../../../services/location/location.graphql.service';
 
 @Component({
   selector: 'app-schedule-dialog',
@@ -29,7 +29,7 @@ export class ScheduleDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ScheduleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ScheduleDialogData,
+    @Inject(MAT_DIALOG_DATA) public scheduleDialogData: ScheduleDialogData,
     private lessonService: LessonService,
     // TBD
     // private locationService: LocationService,
@@ -40,10 +40,10 @@ export class ScheduleDialogComponent implements OnInit {
     this.getLessons();
   }
 
-  createForm(): void {
-    const selectedLessonId = this.data.lesson ? this.data.lesson._id : null;
+  private createForm(): void {
+    const selectedLessonId = this.scheduleDialogData.lesson ? this.scheduleDialogData.lesson._id : null;
     // TBD
-    // const selectedLocationId = this.data.location ? this.data.location._id : null;
+    // const selectedLocationId = this.scheduleDialogData.location ? this.scheduleDialogData.location._id : null;
     this.form = this.fb.group({
       lesson: new FormControl(selectedLessonId, [Validators.required]),
       // TBD
@@ -51,31 +51,19 @@ export class ScheduleDialogComponent implements OnInit {
     });
   }
 
-  async getLessons(): Promise<void> {
-    // TODO: need to delete __typename in configuration of apollo / util function
-    this.lessons = await this.lessonService.getLessons().then((res) => res.data.lessons.map((lesson) => {
-      const {_id, title, icon} = lesson;
-      return {_id, title, icon};
-    }));
+  private async getLessons(): Promise<void> {
+    this.lessons = await this.lessonService.getLessons();
   }
   // TBD
   // async getLocations(): Promise<void> {
   //   this.locations = await this.locationService.getLocations().then((res) => res.data.locations);
   // }
 
-  close(): void {
-    this.dialogRef.close();
-  }
-
-  confirm(): void {
-    this.dialogRef.close(this.data);
-  }
-
   onChange(event: MatSelectChange): void {
     const newId: string = event.value;
     const newLesson = this.lessons.find((lesson: Lesson) => lesson._id === newId);
     if (newLesson) {
-      this.data.lesson = newLesson;
+      this.scheduleDialogData.lesson = newLesson;
     } else {
       return;
     }

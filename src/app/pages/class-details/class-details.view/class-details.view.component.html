@@ -5,23 +5,26 @@
         <a class="back" [routerLink]="['/class']">
           <i class="material-icons">chevron_right</i>כל הכיתות</a>
         <div class="class-details" *ngIf="canedit">
-          <div class="class-detail-field">
-            <mat-form-field *ngIf="name">
-              <input type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, level: level})">
-              <i class="material-icons" matSuffix>mode_edit</i>
-            </mat-form-field>
-          </div>
-          <div class="class-detail-field">
-            <mat-form-field class="class-detail-field" *ngIf="level">
-              <mat-select [(value)]="level" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, level: level})">
-                <mat-option *ngFor="let lev of levels" [value]="lev" selected="lev === level">
-                  {{lev}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+          
+            <div class="class-detail-field">
+              <mat-form-field>
+                <input type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, level: level})" required>
+                <i class="material-icons" matSuffix>mode_edit</i>
+              </mat-form-field>
+            </div>
 
-        </div>        
+            <div class="class-detail-field">
+              <mat-form-field class="class-detail-field">
+                <mat-select [(value)]="level" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, level: level})">
+                  <mat-option *ngFor="let lev of levels" [value]="lev" selected="lev === level">
+                    {{lev}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          
+
+        </div>
         <h2 *ngIf="!canedit">מערכת שעות כיתת {{name}}</h2>
         <app-schedule [daysLabels]="daysLabels" [hoursLabels]="hoursLabels" [schedule]="schedule" (timeSlotClicked)="timeslotClicked.emit($event)"></app-schedule>
       </div>

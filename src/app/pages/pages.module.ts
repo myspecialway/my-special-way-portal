@@ -5,7 +5,7 @@ import { ClassDetailsContainerComponent } from './class-details/class-details.co
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
 import { MatInputModule, MatSelectModule } from '@angular/material';
-import { FormsModule } from '../../../node_modules/@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [

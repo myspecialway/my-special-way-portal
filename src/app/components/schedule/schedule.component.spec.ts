@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ScheduleComponent } from './schedule.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('ScheduleComponent', () => {
   let fixture: ComponentFixture<ScheduleComponent>;
@@ -14,7 +12,7 @@ describe('ScheduleComponent', () => {
     '08:50 - 09:35',
   ];
   const mockSchedule = [[{_id: 'some-lesson-id', title: 'some lesson title', icon: 'some lesson icon'}]];
-//   let td: DebugElement;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ScheduleComponent],
