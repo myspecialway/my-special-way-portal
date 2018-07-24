@@ -38,6 +38,7 @@ import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dia
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { LessonComponent } from './pages/lesson/lesson.component';
+import { LessonService } from './services/lesson/lesson.graphql.service';
 
 @NgModule({
   imports: [
@@ -102,6 +103,7 @@ import { LessonComponent } from './pages/lesson/lesson.component';
     UserService,
     StudentService,
     ClassService,
+    LessonService,
   ],
   bootstrap: [AppComponent],
 })
