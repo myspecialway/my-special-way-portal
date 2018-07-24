@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
-import * as _ from 'lodash';
 import { StudentService } from './services/student.graphql.service';
 import Student from '../../models/student.model';
 
