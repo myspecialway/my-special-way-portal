@@ -4,46 +4,10 @@
 
 
       <div class="example-header">
-        <button mat-raised-button color="primary" (click)="addNewUser()">הוסף שיעור חדש</button>
+        <button mat-raised-button color="primary" (click)="addNewLesson()">הוסף שיעור חדש</button>
       </div>
 
     </div>
     <div class="row">     
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <mat-table #table [dataSource]="dataSource" class="msw-table"
-                       matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
-    
-    
-              <!--- Note that these columns can be defined in any order.
-                    The actual rendered columns are set as a property on the row definition" -->
-    
-              <!-- Lesson Column -->
-              <ng-container matColumnDef="lessonname">
-                <mat-header-cell *matHeaderCellDef>שם שיעור</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-              </ng-container>
-    
-              <!-- Image Column -->
-              <ng-container matColumnDef="image">
-                <mat-header-cell *matHeaderCellDef>סימול</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.image }}</mat-cell>
-              </ng-container>
-    
-        
-              <!--&lt;!&ndash; State Column &ndash;&gt;-->
-              <ng-container matColumnDef="deleteClass">-->
-                <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                  <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level)"><i class="material-icons"> delete </i></button>
-                </mat-cell>
-              </ng-container>
-    
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
-    
-            <mat-paginator #paginator [length]="1" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-          </div>
-      </div>
+     </div>
 </div>

@@ -14,4 +14,6 @@ export class LessonComponent implements OnInit, AfterViewInit {
     // throw new Error("Method not implemented.");
   }
 
+  addNewLesson() {
+  }
 }
