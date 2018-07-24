@@ -11,13 +11,19 @@ import { UserComponent } from './pages/user/user.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'class', component: ClassComponent, canActivate: [AuthGuard] },
-  { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'class', component: ClassComponent },
+      { path: 'student', component: StudentComponent },
+      { path: 'user', component: UserComponent },
+    ],
+  },
 ];
 
 @NgModule({

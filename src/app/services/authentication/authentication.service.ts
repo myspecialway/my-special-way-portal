@@ -12,19 +12,23 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
 @Injectable()
 export class AuthenticationService {
   private jwtHelper = new JwtHelperService();
+  private isStateRestored = false;
 
   constructor(
     private http: HttpClient,
     private apollo: Apollo,
-  ) {
-    this.initialize();
-  }
+  ) { }
 
   private getTokenFromLocalStore() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
   }
 
-  async initialize() {
+  async checkRestoreAuthData() {
+    if (this.isStateRestored) {
+      return;
+    }
+
+    this.isStateRestored = true;
     const token = this.getTokenFromLocalStore();
 
     if (!token) {
@@ -81,7 +85,7 @@ export class AuthenticationService {
   }
 
   private async pushUserProfileToState(userProfile: UserProfileStateModel) {
-    await this.apollo.mutate({
+    return this.apollo.mutate({
       mutation: UPDATE_USER_PROFILE,
       variables: {
         userProfile,
