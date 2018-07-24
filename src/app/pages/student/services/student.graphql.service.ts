@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Student, { StudentsQuery, StudentQuery } from '../../../models/student.model';
+import Student, { StudentQuery } from '../../../models/student.model';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';

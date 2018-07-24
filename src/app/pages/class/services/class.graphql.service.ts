@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Class, ClassQuery } from '../../../models/class.model';
-import {GetClassesResponse} from "../../../models/responses/get-classes-reponse.model";
+import { Class } from '../../../models/class.model';
+import {GetClassesResponse} from '../../../models/responses/get-classes-reponse.model';
 
 @Injectable()
 export class ClassService {

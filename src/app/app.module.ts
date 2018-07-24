@@ -38,10 +38,15 @@ import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dia
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
-import { StudentDetailsPersonalInfoComponent }
-from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
-import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
-import {StudentDetailsNotificationsComponent} from "./pages/student/details/tabs/student-details-notifications/student-details-notifications.component";
+import {
+  StudentDetailsPersonalInfoComponent,
+} from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
+import {
+  StudentDetailsHoursComponent,
+} from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
+import {
+  StudentDetailsNotificationsComponent,
+} from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
 
 @NgModule({
   imports: [

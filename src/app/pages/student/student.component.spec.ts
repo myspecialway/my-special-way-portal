@@ -4,8 +4,6 @@ import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog,
         MatSort, MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.graphql.service';
-import { NetworkStatus, ApolloQueryResult } from 'apollo-client';
-import { StudentQuery } from '../../models/student.model';
 import { Overlay, ScrollStrategyOptions,
          ScrollDispatcher, ViewportRuler,
          OverlayContainer, OverlayPositionBuilder,
