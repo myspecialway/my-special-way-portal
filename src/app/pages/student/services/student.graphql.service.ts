@@ -45,6 +45,7 @@ export class StudentService {
           _id
           username
           firstname
+          password
           lastname
           gender
           class {
