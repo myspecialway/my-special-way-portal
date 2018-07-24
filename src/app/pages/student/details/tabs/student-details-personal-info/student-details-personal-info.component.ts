@@ -4,7 +4,6 @@ import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { get } from 'lodash';
 
 @Component({
   selector: 'app-student-details-personal-info',
@@ -16,7 +15,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   student: Student;
   classes: Class[];
   isNewStudent: boolean;
-  sub: any;
   idOrNew: string;
 
   constructor(
@@ -28,7 +26,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
-      this.sub = this.route.parent.params.subscribe((params) => {
+      this.route.parent.params.subscribe((params) => {
         this.idOrNew = params.idOrNew;
       });
     }
@@ -47,7 +45,8 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
         this.student = await this.studentService.getById(this.idOrNew);
       } catch (error) {
         // TODO: implement error handling on UI
-        throw new Error('Error handling not implemented');
+        console.error('Error handling not implemented');
+        throw error;
       }
     }
   }

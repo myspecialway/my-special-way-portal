@@ -37,7 +37,7 @@ export class StudentService {
     return (getStudentsResponse.data as GetStudentsResponse).students;
   }
 
-  async getById(id: number): Promise <Student> {
+  async getById(id: string): Promise <Student> {
     const getStudentResponse = await this.apollo.query({
       query: gql`
         {

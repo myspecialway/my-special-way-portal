@@ -12,10 +12,6 @@
   cursor: pointer;
 }
 
-.msw-student-header-nav {
-}
-
-
 .msw-student-header-nav-name {
   font-size: 32px;
   letter-spacing: 0.6px;
@@ -24,5 +20,22 @@
 }
 
 .msw-student-header-nav-tabs {
+  .mat-tab-link{
+    background-color: #f2f2f2;
+  }
 
+  .mat-tab-nav-bar, .mat-tab-header {
+   border-bottom-color: transparent;
+
+  }
+
+  .msw-student-tab-active {
+    background-color: #fff;
+  }
+  .mat-tab-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
+

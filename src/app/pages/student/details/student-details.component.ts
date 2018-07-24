@@ -1,7 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-student-details',
@@ -9,9 +7,8 @@ import {Subscription} from 'rxjs/Rx';
   styleUrls: ['./student-details.component.scss'],
 })
 
-export class StudentDetailsComponent implements OnInit, OnDestroy {
+export class StudentDetailsComponent implements OnInit {
   idOrNew: string;
-  sub: Subscription;
   links: any;
   activeLink: string;
 
@@ -27,12 +24,9 @@ export class StudentDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params) => {
       this.idOrNew = params.idOrNew;
     });
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
 }

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 1`] = `
+<app-student-details-hours
+  route={[Function Object]}
+>
+  <div
+    class="msw-student-details-hours"
+  >
+    
+  Not implemented yet
+  
+  </div>
+</app-student-details-hours>
+`;
