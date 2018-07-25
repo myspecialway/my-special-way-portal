@@ -14,6 +14,24 @@ describe('ClassDetailsContainerComponent', () => {
   let scheduleServiceMock: Partial<ScheduleService>;
   let scheduleDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
+  const mockedScheduleDialogData = {
+    index: '00',
+    lesson: {
+      _id: '5b2abc74572e7619a628c11c',
+      title: 'test lesson',
+      icon: 'test-icon',
+    },
+    location: {
+      _id: '5b5596a7739a882933edd4fc',
+      disabled: false,
+      name: 'test location',
+      position: {
+        latitude: 0,
+        longitude: 0,
+        floor: 1,
+      },
+    },
+  } as ScheduleDialogData;
   const mockedClass = {
     data: {
       classById: {
@@ -51,7 +69,7 @@ describe('ClassDetailsContainerComponent', () => {
     scheduleDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(
-          Observable.of({lesson: {_id: 'someid', title: 'sometitle', icon: 'someicon'}} as ScheduleDialogData),
+          Observable.of(mockedScheduleDialogData),
         ),
       }),
     };

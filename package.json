@@ -14,6 +14,7 @@
     "ng": "ng",
     "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
+    "test:watch": "jest --watch --coverage",
     "start": "ng serve",
     "start:local": "ng serve --configuration=local",
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",

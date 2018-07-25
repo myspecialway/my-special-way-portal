@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Lesson } from '../../../models/lesson.model';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
-import { Class } from '../../../models/class.model';
+import { TimeSlot } from '../../../models/timeslot.model';
 
 export interface ClassDetailsEventParams {
   name: string;
@@ -16,7 +15,7 @@ export interface ClassDetailsEventParams {
 export class ClassDetailsViewComponent {
   private _name: string;
   private _level: string;
-  @Input() schedule: Lesson[][];
+  @Input() schedule: TimeSlot[][];
   @Input() daysLabels: string[];
   @Input() hoursLabels: string[];
   @Input()
@@ -34,7 +33,6 @@ export class ClassDetailsViewComponent {
     return this._level;
   }
   @Input() levels: string[];
-  @Input() classModel: Class;
   @Output() timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
   @Output() detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
 }

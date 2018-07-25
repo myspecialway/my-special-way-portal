@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Lesson } from '../../models/lesson.model';
+import { TimeSlot } from '../../models/timeslot.model';
 
 export interface TimeSlotIndexes {
   hourIndex: number;
@@ -15,7 +15,7 @@ export interface TimeSlotIndexes {
 export class ScheduleComponent {
 
   @Input()
-  schedule: Lesson[][];
+  schedule: TimeSlot[][];
   @Input()
   daysLabels: string[];
   @Input()

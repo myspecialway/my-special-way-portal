@@ -64,7 +64,6 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
               </mat-form-field>
             </div>
           </div>
-          
           <h2>
             מערכת שעות כיתת פטל
           </h2>

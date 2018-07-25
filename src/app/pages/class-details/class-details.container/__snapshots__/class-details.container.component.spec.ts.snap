@@ -68,32 +68,69 @@ ClassDetailsContainerComponent {
   },
   "schedule": Array [
     Array [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      Object {
+        "index": "00",
+      },
+      Object {
+        "index": "01",
+      },
+      Object {
+        "index": "02",
+      },
+      Object {
+        "index": "03",
+      },
+      Object {
+        "index": "04",
+      },
+      Object {
+        "index": "05",
+      },
     ],
     Array [
       Object {
-        "_id": "someid",
-        "icon": "someicon",
-        "title": "soetitle",
+        "index": "10",
+        "lesson": Object {
+          "_id": "someid",
+          "icon": "someicon",
+          "title": "soetitle",
+        },
       },
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      Object {
+        "index": "11",
+      },
+      Object {
+        "index": "12",
+      },
+      Object {
+        "index": "13",
+      },
+      Object {
+        "index": "14",
+      },
+      Object {
+        "index": "15",
+      },
     ],
     Array [
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      Object {
+        "index": "20",
+      },
+      Object {
+        "index": "21",
+      },
+      Object {
+        "index": "22",
+      },
+      Object {
+        "index": "23",
+      },
+      Object {
+        "index": "24",
+      },
+      Object {
+        "index": "25",
+      },
     ],
   ],
   "scheduleService": Object {

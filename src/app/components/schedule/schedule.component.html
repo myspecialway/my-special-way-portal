@@ -11,14 +11,15 @@
       <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hoursLabels[hourIndex]}}</td>
       <td 
         class="mat-cell cdk-column-position mat-column-position"
-        *ngFor="let cell of row; index as dayIndex" 
+        *ngFor="let timeslot of row; index as dayIndex" 
         role="gridcell" 
         (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex})"
       >
-        <div *ngIf="cell" class="timeslot-full">
-          {{cell.title}}
+        <div *ngIf="timeslot.lesson" class="ts-full">
+          <span class="ts-lesson">{{timeslot.lesson.title}}</span>
+          <span class="ts-location" *ngIf="timeslot.location">{{timeslot.location.name}}</span>
         </div>
-        <div *ngIf="!cell" class="empty-timeslot">
+        <div *ngIf="!timeslot.lesson" class="ts-empty">
           <i class="material-icons" >
             add
           </i>

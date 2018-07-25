@@ -86,12 +86,16 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           role="gridcell"
         >
           
-          <div
-            class="timeslot-full"
-          >
-             some lesson title 
-          </div>
           
+          <div
+            class="ts-empty"
+          >
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+          </div>
         </td>
       </tr>
     </tbody>

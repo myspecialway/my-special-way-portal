@@ -6,10 +6,9 @@ import { Class, ClassQuery, InputClass } from '../../../models/class.model';
 
 @Injectable()
 export class ClassService {
-
   classes: Observable<Class[]>;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   updateClass = gql`
     mutation updateClass($id: ID!, $class: InputClass!) {
@@ -25,24 +24,40 @@ export class ClassService {
             title
             icon
           }
+          location {
+              _id
+              name
+              disabled
+              position {
+                latitude
+                longitude
+                floor
+              }
+            }
         }
       }
     }
   `;
 
   getAllClasses() {
-    return this.apollo.query<ClassQuery>({
-      query: gql`{
-        classes {
-          _id
-          level
-          name
-        }
-      }` }).toPromise();
+    return this.apollo
+      .query<ClassQuery>({
+        query: gql`
+          {
+            classes {
+              _id
+              level
+              name
+            }
+          }
+        `,
+      })
+      .toPromise();
   }
   classById(id: string) {
-    return this.apollo.query<ClassQuery>({
-      query: gql`{
+    return this.apollo
+      .query<ClassQuery>({
+        query: gql`{
         classById(id: "${id}") {
           _id
           name
@@ -55,10 +70,21 @@ export class ClassService {
               title
               icon
             }
+            location {
+              _id
+              name
+              disabled
+              position {
+                latitude
+                longitude
+                floor
+              }
+            }
           }
         }
       }`,
-    }).toPromise();
+      })
+      .toPromise();
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
@@ -75,6 +101,16 @@ export class ClassService {
               title
               icon
             }
+            location {
+              _id
+              name
+              disabled
+              position {
+                latitude
+                longitude
+                floor
+              }
+            }
           }
         }
       }`,
@@ -82,8 +118,9 @@ export class ClassService {
   }
 
   create(clss: Class) {
-    return this.apollo.mutate({
-      mutation: gql`
+    return this.apollo
+      .mutate({
+        mutation: gql`
       mutation {
         createClass(class: {
             level: "${clss.level}"
@@ -91,32 +128,39 @@ export class ClassService {
             name: "${clss.name}"
         }) { _id }
       }
-    `}).toPromise();
+    `,
+      })
+      .toPromise();
   }
 
   update(_class: Class) {
-    const {name, level, number} = _class;
-    const inputClass: InputClass = {name, level, number};
+    const { name, level, number } = _class;
+    const inputClass: InputClass = { name, level, number };
     if (_class.schedule) {
       inputClass.schedule = _class.schedule;
     }
-    return this.apollo.mutate({
-      mutation: this.updateClass,
-      variables: {
-        id: _class._id,
-        class: inputClass,
-      },
-    }).toPromise();
+    return this.apollo
+      .mutate({
+        mutation: this.updateClass,
+        variables: {
+          id: _class._id,
+          class: inputClass,
+        },
+      })
+      .toPromise();
   }
 
   delete(id: string) {
-    return this.apollo.mutate({
-      mutation: gql`
+    return this.apollo
+      .mutate({
+        mutation: gql`
       mutation {
         deleteClass(
           id: "${id}"
         )
     }
-    `}).toPromise();
+    `,
+      })
+      .toPromise();
   }
 }

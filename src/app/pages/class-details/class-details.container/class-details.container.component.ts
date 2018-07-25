@@ -27,7 +27,7 @@ import { ScheduleService } from '../../../services/schedule/schedule.service';
   `,
 })
 export class ClassDetailsContainerComponent implements OnInit {
-  schedule: Lesson[][];
+  schedule: TimeSlot[][];
   _class: Class;
 
   constructor(
@@ -59,20 +59,26 @@ export class ClassDetailsContainerComponent implements OnInit {
     hoursCount: number,
     daysCount: number,
     timeslots: TimeSlot[],
-  ): Lesson[][] {
-    const schedule: Lesson[][] = [];
+  ): TimeSlot[][] {
+    const schedule: TimeSlot[][] = [];
 
     for (let hourIndex = 0; hourIndex < hoursCount; hourIndex++) {
       schedule[hourIndex] = new Array(daysCount);
 
       for (let dayIndex = 0; dayIndex < daysCount; dayIndex++) {
-        const timeslot = timeslots.find((t) => t.index === `${hourIndex}${dayIndex}`,
-        );
-
-        if (timeslot && timeslot.lesson) {
-          const { _id, title, icon } = timeslot.lesson;
-          schedule[hourIndex][dayIndex] = { _id, title, icon };
+        const timeslot = timeslots.find((t) => t.index === `${hourIndex}${dayIndex}`);
+        const newTimeSlot: TimeSlot = {
+          index: `${hourIndex}${dayIndex}`,
+        };
+        if (timeslot) {
+          if (timeslot.location) {
+            newTimeSlot.location = timeslot.location;
+          }
+          if (timeslot.lesson) {
+            newTimeSlot.lesson = timeslot.lesson;
+          }
         }
+        schedule[hourIndex][dayIndex] = newTimeSlot;
       }
     }
 
@@ -82,7 +88,9 @@ export class ClassDetailsContainerComponent implements OnInit {
   onTimeSlotClick(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
     const dialogData = {
-      lesson: this.schedule[hourIndex][dayIndex],
+      index: `${hourIndex}${dayIndex}`,
+      lesson: this.schedule[hourIndex][dayIndex].lesson,
+      location: this.schedule[hourIndex][dayIndex].location,
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;
@@ -93,12 +101,22 @@ export class ClassDetailsContainerComponent implements OnInit {
       width: '320px',
     });
     dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
-      if (data && data.lesson) {
-        const tempSchedule = this._class.schedule.slice(); // creates a copy
-        tempSchedule.push({
-          index: `${hourIndex}${dayIndex}`,
-          lesson: data.lesson,
-        });
+      if (data && data.lesson && data.location) {
+        const tempSchedule = this._class.schedule.slice(); // creates a copy. this_class is immutable
+        const index = tempSchedule.findIndex((ts) => ts.index === data.index);
+        if (index !== -1) {
+          tempSchedule[index] = {
+            index: data.index,
+            lesson: data.lesson,
+            location: data.location,
+          };
+        } else {
+          tempSchedule.push({
+            index: `${hourIndex}${dayIndex}`,
+            lesson: data.lesson,
+            location: data.location,
+          });
+        }
 
         const tempClass: Class = {
           _id: this._class._id,

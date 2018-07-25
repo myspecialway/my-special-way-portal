@@ -41,6 +41,7 @@ import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { PagesModule } from './pages/pages.module';
 import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
 import { ScheduleService } from './services/schedule/schedule.service';
+import { LocationService } from './services/location/location.graphql.service';
 
 @NgModule({
   imports: [
@@ -109,6 +110,7 @@ import { ScheduleService } from './services/schedule/schedule.service';
     ClassService,
     LessonService,
     ScheduleService,
+    LocationService,
   ],
   bootstrap: [AppComponent],
 })

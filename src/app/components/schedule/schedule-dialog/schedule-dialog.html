@@ -5,32 +5,30 @@
     <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
   </div>
   <mat-dialog-content>
-    <form [formGroup]="form">
+    
       <mat-form-field>
-        <mat-select placeholder="שיעור" [(value)]="lessonGroup.value" formControlName="lesson" required (selectionChange)="onChange($event, lessonGroup)">
-          <mat-option *ngFor="let les of lessons" [value]="les._id" selected="scheduleDialogData.lesson && scheduleDialogData.lesson._id === les._id">
+        <mat-select placeholder="שיעור" [(ngModel)]="selectedLesson" name="lesson" #lesson="ngModel" (selectionChange)="scheduleDialogData.lesson = selectedLesson" required>
+          <mat-option *ngFor="let les of lessons" [value]="les" selected="selectedLesson && selectedLesson._id === les._id">
             {{les.title}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="lessonGroup.invalid">חובה לבחור שיעור</mat-error>
+        <mat-error *ngIf="lesson.invalid">חובה לבחור שיעור</mat-error>
       </mat-form-field>
-      
+
       <mat-form-field>
-        <mat-select placeholder="מיקום (זמנית לא פעיל)" disabled></mat-select>
-      </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-select placeholder="מיקום" [(value)]="locationGroup.value" formControlName="location" required>
-          <mat-option *ngFor="let loc of locations" [value]="loc._id" selected="data.location && data.location._id === loc._id">
-            {{les.name}}
+        <mat-select placeholder="מיקום" [(ngModel)]="selectedLocation" name="location" #location="ngModel"  (selectionChange)="scheduleDialogData.location = selectedLocation" required>
+          <mat-option *ngFor="let loc of locations" [value]="loc" selected="selectedLocation && selectedLocation._id === loc._id">
+            {{loc.name}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="locationGroup.invalid">חובה לבחור מיקום</mat-error>
-      </mat-form-field> -->
-    </form>
+        <mat-error *ngIf="location.invalid">חובה לבחור מיקום</mat-error>
+      </mat-form-field>
+    
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button class="mat-raised-button" (click)="dialogRef.close()">סגור</button>
-    <button mat-button class="mat-raised-button mat-primary" (click)="dialogRef.close(scheduleDialogData)" [disabled]="form.invalid">עדכן</button>
+    <button mat-button class="mat-raised-button mat-primary" (click)="dialogRef.close(scheduleDialogData)"
+    [disabled]="lesson.invalid || location.invalid" >עדכן</button>
   </mat-dialog-actions>
 
 </div>
