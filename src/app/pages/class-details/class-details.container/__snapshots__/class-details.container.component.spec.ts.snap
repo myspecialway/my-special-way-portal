@@ -11,9 +11,19 @@ ClassDetailsContainerComponent {
       Object {
         "index": "10",
         "lesson": Object {
-          "_id": "someid",
-          "icon": "someicon",
-          "title": "soetitle",
+          "_id": "5b2abc74572e7619a628c11c",
+          "icon": "test-icon",
+          "title": "test lesson",
+        },
+        "location": Object {
+          "_id": "5b5596a7739a882933edd4fc",
+          "disabled": false,
+          "name": "test location",
+          "position": Object {
+            "floor": 1,
+            "latitude": 0,
+            "longitude": 0,
+          },
         },
       },
     ],
@@ -41,9 +51,19 @@ ClassDetailsContainerComponent {
                     Object {
                       "index": "10",
                       "lesson": Object {
-                        "_id": "someid",
-                        "icon": "someicon",
-                        "title": "soetitle",
+                        "_id": "5b2abc74572e7619a628c11c",
+                        "icon": "test-icon",
+                        "title": "test lesson",
+                      },
+                      "location": Object {
+                        "_id": "5b5596a7739a882933edd4fc",
+                        "disabled": false,
+                        "name": "test location",
+                        "position": Object {
+                          "floor": 1,
+                          "latitude": 0,
+                          "longitude": 0,
+                        },
                       },
                     },
                   ],
@@ -91,9 +111,19 @@ ClassDetailsContainerComponent {
       Object {
         "index": "10",
         "lesson": Object {
-          "_id": "someid",
-          "icon": "someicon",
-          "title": "soetitle",
+          "_id": "5b2abc74572e7619a628c11c",
+          "icon": "test-icon",
+          "title": "test lesson",
+        },
+        "location": Object {
+          "_id": "5b5596a7739a882933edd4fc",
+          "disabled": false,
+          "name": "test location",
+          "position": Object {
+            "floor": 1,
+            "latitude": 0,
+            "longitude": 0,
+          },
         },
       },
       Object {

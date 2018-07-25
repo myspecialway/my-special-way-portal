@@ -43,9 +43,19 @@ describe('ClassDetailsContainerComponent', () => {
           {
             index: '10',
             lesson: {
-              _id: 'someid',
-              title: 'soetitle',
-              icon: 'someicon',
+              _id: '5b2abc74572e7619a628c11c',
+              title: 'test lesson',
+              icon: 'test-icon',
+            },
+            location: {
+              _id: '5b5596a7739a882933edd4fc',
+              disabled: false,
+              name: 'test location',
+              position: {
+                latitude: 0,
+                longitude: 0,
+                floor: 1,
+              },
             },
           },
         ],

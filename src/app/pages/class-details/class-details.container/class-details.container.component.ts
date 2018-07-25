@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
-import { Lesson } from '../../../models/lesson.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { MatDialog } from '@angular/material';
