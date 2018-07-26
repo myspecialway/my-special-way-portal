@@ -17,7 +17,7 @@ fixture(`Navbar tests`).page(testEnvironment.feUrl)
 .beforeEach( async (t) => {
     await t
     // .useRole(r.teacher)
-    .typeText(loginPage.useranmeField, 'msw-teacher')
+    .typeText(loginPage.useranmeField, 'teacher')
     .typeText(loginPage.passwordField, 'Aa123456')
     .click(loginPage.loginButton);
 });
@@ -60,7 +60,7 @@ test('Navigate to Classes', async (t) => {
 test('displays username after login', async (t) => {
     await t.
     expect(navbar.username.exists).ok;
-    await t.expect(navbar.username.innerText).contains('MSW-TEACHER');
+    await t.expect(navbar.username.innerText).contains('TEACHER');
 });
 test('does not display username after logout', async (t) => {
     await t.
