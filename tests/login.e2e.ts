@@ -16,7 +16,7 @@ fixture(`Login tests`).page(testEnvironment.feUrl)
 test('Successful login test', async (t) => {
     await t
         .maximizeWindow()
-        .typeText(loginPage.useranmeField, 'teacher')
+        .typeText(loginPage.useranmeField, 'msw-teacher')
         .typeText(loginPage.passwordField, 'Aa123456')
         .click(loginPage.loginButton);
 
@@ -26,7 +26,7 @@ test('Successful login test', async (t) => {
 });
 test('Failed login test', async (t) => {
     await t
-        .typeText(loginPage.useranmeField, 'teacher')
+        .typeText(loginPage.useranmeField, 'msw-teacher')
         .typeText(loginPage.passwordField, '11')
         .click(loginPage.loginButton);
     const location = await t.eval(() => window.location);

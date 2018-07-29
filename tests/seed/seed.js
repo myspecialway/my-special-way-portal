@@ -1,5 +1,5 @@
 db.users.insertOne({
-  "username": "teacher",
+  "username": "msw-teacher",
   "password": "Aa123456",
   "email": "msw-teacher@gmail.com",
   "firstname": "Msw",
