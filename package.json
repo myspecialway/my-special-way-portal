@@ -8,6 +8,7 @@
     "ci-test": "bash ./scripts/test",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",
+    "docker:deploy": "bash ./scripts/k8s/deploy",
     "e2e": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
