@@ -8,7 +8,7 @@ import { LessonService } from '../../services/lesson/lesson.graphql.service';
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.scss'],
 })
-export class LessonComponent implements OnInit, AfterViewInit {
+export class LessonComponent implements OnInit {
 
   displayedColumns = ['title', 'icon', 'deleteLesson'];
   dataSource = new MatTableDataSource<Lesson>();
@@ -19,10 +19,6 @@ export class LessonComponent implements OnInit, AfterViewInit {
     private lessonService: LessonService,
 
   ) { }
-
-  ngAfterViewInit(): void {
-  //  throw new Error("Method not implemented.");
-  }
 
   async ngOnInit() {
      const lessons = await this.lessonService.getLessons();
