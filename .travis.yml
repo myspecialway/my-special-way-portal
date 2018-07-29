@@ -16,7 +16,7 @@ before_install:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - . ./scripts/prepare-repo
 - stty cols 80
-- "export DISPLAY=:99.0" 
+- "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3
 - fluxbox >/dev/null 2>&1 &
@@ -30,6 +30,7 @@ install:
 script:
 - yarn docker
 - yarn docker:push
+- yarn docker:deploy
 - yarn git:push
 notifications:
   slack:
