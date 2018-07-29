@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: msw-portal-deployment
+  labels:
+    app: portal
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: msw
+    spec:
+      containers:
+      - name: msw-portal
+        image: "myspecialway/msw-portal:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
