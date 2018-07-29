@@ -1,10 +1,11 @@
 #!/bin/sh
 
-if [ "$BRANCH" = 'master' ]
-then
-    echo info::deploy:: branch is master, deploying new version to k8s
+# if [ "$BRANCH" = 'master' ]
+# then
+    # echo info::deploy:: branch is master, deploying new version to k8s
     # update image
+    kubectl get nodes
     kubectl set image deployment/msw-portal-deployment msw-portal=myspecialway/msw-portal:$(./scripts/echo-version package.json)
-else
-     echo info::deploy:: branch is not master, skipping deployment
-fi
+# else
+    #  echo info::deploy:: branch is not master, skipping deployment
+# fi
