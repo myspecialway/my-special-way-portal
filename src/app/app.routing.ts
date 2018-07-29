@@ -9,17 +9,13 @@ import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
 import {StudentDetailsComponent} from './pages/student/details/student-details.component';
 import {StudentComponent} from './pages/student/student.component';
-import {
-  StudentDetailsPersonalInfoComponent,
-} from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
-import {
-  StudentDetailsHoursComponent,
-} from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
-import {
-  StudentDetailsNotificationsComponent,
-} from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
+import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
+import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
+import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 const routes: Routes = [
+  { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
