@@ -7,10 +7,10 @@ import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator } from 
 
 describe('lesson component', () => {
   let lessonServiceMock: Partial<LessonService>;
-  const lessonTestData: Lesson[] = [];
+  let lessonTestData: Lesson[] = [];
 
   beforeAll(async () => {
-       this.lessonTestData = [
+    lessonTestData = [
          {
           _id: '1',
           title: 'Sport',
@@ -58,7 +58,7 @@ describe('lesson component', () => {
 
   it('should load correct number of lesson ', async () => {
     (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(this.lessonTestData);
+      () => {return Promise.resolve(lessonTestData);
     });
     const fixture = TestBed.createComponent(LessonComponent);
     fixture.detectChanges();
