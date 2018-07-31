@@ -6,7 +6,7 @@ import { LessonService } from '../../../services/lesson/lesson.graphql.service';
 import { ScheduleDialogData } from './schedule-dialog-data.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectModule } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
-import { BrowserAnimationsModule } from '../../../../../node_modules/@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('ScheduleDialogComponent', () => {
   let component: ScheduleDialogComponent;
   let lessonServiceMock: Partial<LessonService>;
