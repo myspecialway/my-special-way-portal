@@ -14,6 +14,7 @@ describe('ClassDetailsContainerComponent', () => {
   let scheduleServiceMock: Partial<ScheduleService>;
   let scheduleDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
+  let afterClosedMockFn: jest.Mock;
   const mockedScheduleDialogData = {
     index: '00',
     lesson: {
@@ -32,6 +33,7 @@ describe('ClassDetailsContainerComponent', () => {
       },
     },
   } as ScheduleDialogData;
+
   const mockedClass = {
     data: {
       classById: {
@@ -63,6 +65,9 @@ describe('ClassDetailsContainerComponent', () => {
     },
   };
   beforeEach(async () => {
+    afterClosedMockFn = jest.fn().mockReturnValue(
+      Observable.of(mockedScheduleDialogData),
+    );
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
       update: jest.fn().mockReturnValue(Promise.resolve({data: {updateClass: {_id: 'updateclassid'}}})),
@@ -78,9 +83,7 @@ describe('ClassDetailsContainerComponent', () => {
     },
     scheduleDialogMock = {
       open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockReturnValue(
-          Observable.of(mockedScheduleDialogData),
-        ),
+        afterClosed: afterClosedMockFn,
       }),
     };
     TestBed.configureTestingModule({
@@ -110,15 +113,30 @@ describe('ClassDetailsContainerComponent', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should open a dialog when onTimeSlotClick is triggered', () => {
+  it('should open a dialog when clicking on an empty timeslot', () => {
     fixture.componentInstance.onTimeSlotClick({hourIndex: 0, dayIndex: 0});
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
+  it('should open a dialog when clicking on an existing timeslot', () => {
+    afterClosedMockFn.mockReset();
+    afterClosedMockFn.mockReturnValueOnce(Observable.of({...mockedScheduleDialogData, index: '10'}));
+    fixture.componentInstance.onTimeSlotClick({hourIndex: 1, dayIndex: 0});
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should not update the class when dismissing the dialog', () => {
+    afterClosedMockFn.mockReset();
+    afterClosedMockFn.mockReturnValueOnce(Observable.of(undefined));
+    fixture.componentInstance.onTimeSlotClick({hourIndex: 1, dayIndex: 0});
+    expect(classServiceMock.update).not.toHaveBeenCalled();
+  });
+
   it('should call onDetailChange', () => {
     fixture.componentInstance.onDetailChange({name: 'newName', level: 'newlevel'});
-    // TODO: you can do better than that
-    // expect(fixture.componentInstance._class.level).toBe('newlevel');
+    const updatedClass = {...mockedClass.data.classById, name: 'newName', level: 'newlevel' };
+    expect(classServiceMock.update).toHaveBeenCalledWith(updatedClass);
   });
 });
