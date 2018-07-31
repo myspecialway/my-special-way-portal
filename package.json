@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.39",
+  "version": "0.0.42",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -8,6 +8,7 @@
     "ci-test": "bash ./scripts/test",
     "docker": "bash ./scripts/docker",
     "docker:push": "bash ./scripts/docker-push",
+    "docker:deploy": "bash ./scripts/k8s/deploy",
     "e2e": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",

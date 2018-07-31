@@ -8,8 +8,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 const routes: Routes = [
+  { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
