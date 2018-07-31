@@ -1,5 +1,5 @@
-import { AuthGuard } from '../authentication/auth.guard';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthGuard } from './auth.guard';
+import { AuthenticationService } from './authentication.service';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 

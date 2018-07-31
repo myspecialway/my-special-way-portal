@@ -2,11 +2,11 @@
     <h3 mat-dialog-title>עדכון כיתה</h3>
     <mat-divider></mat-divider>
     <mat-dialog-content>
-      <form  class="mat-dialog-content" #formControl="ngForm">
+      <form  class="mat-dialog-content" #formControl="ngForm" [formGroup]="form">
         <div class="msw-div-column-right">
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input class="form-control" placeholder="שם כיתה" [(ngModel)]="data.name"
+              <input matInput #input class="form-control" formControlName="name" placeholder="שם כיתה" [(ngModel)]="data.name"
                 name="name" required>
                 <button tabindex=-1 mat-button *ngIf="data.name" matSuffix mat-icon-button aria-label="Clear" (click)="data.name=''">
                     <mat-icon>close</mat-icon>
@@ -16,14 +16,15 @@
           </div>
     
           <div class="msw-form-row">
-            <mat-form-field color="primary">
-              <input matInput #input class="form-control" placeholder="שכבה" [(ngModel)]="data.level"
-                name="level" required>
-                <button tabindex=-1 mat-button *ngIf="data.level" matSuffix mat-icon-button aria-label="Clear" (click)="data.level=''">
-                    <mat-icon>close</mat-icon>
-                  </button>            
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
+            <mat-form-field color="primary" >
+              <mat-select  placeholder="שכבה" formControlName="level"  [(ngModel)]="data.level" name="level" required>
+              <mat-option>בחר</mat-option>
+              <mat-option  *ngFor="let level of levels" [value]="level">
+                {{level}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="selectGradeConrol.hasError('required')">אנא בחר כיתה</mat-error> -->
+          </mat-form-field>
           </div>
         </div>
       </form>
