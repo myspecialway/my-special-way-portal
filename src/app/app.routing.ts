@@ -9,6 +9,7 @@ import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
 import { ClassDetailsContainerComponent } from './pages/class-details/class-details.container/class-details.container.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'class/:id', component: ClassDetailsContainerComponent},
       { path: 'student', component: StudentComponent },
       { path: 'user', component: UserComponent },
+      { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
     ],
   },
 ];
