@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog,
-  MatSort, MatPaginator, MatPaginatorIntl
+  MatSort, MatPaginator, MatPaginatorIntl,
 } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.graphql.service';
