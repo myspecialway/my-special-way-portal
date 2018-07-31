@@ -20,7 +20,7 @@
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",
-    "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\""
+    "testcafe": "testcafe chrome tests/
   },
   "private": true,
   "dependencies": {
