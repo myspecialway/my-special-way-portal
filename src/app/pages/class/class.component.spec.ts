@@ -10,7 +10,6 @@ import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispat
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
-import { ScheduleDialogData } from '../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
