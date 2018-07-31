@@ -19,15 +19,15 @@ export class StudentComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-    this.populateDatasource();
+  async ngOnInit() {
+    await this.populateDatasource();
     this.dataSource.sort = this.sort;
   }
 
-  async populateDatasource() {
+  private async populateDatasource() {
     try {
       this.dataSource.data = await this.studentService.getAllStudents();
     } catch (error) {
@@ -39,19 +39,21 @@ export class StudentComponent implements OnInit {
 
   async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      data: {id, firstName, lastName, gradeId},
+      data: { id, firstName, lastName, gradeId },
     });
 
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result === true) {
-        try {
-          await this.studentService.delete(id);
-          this.dataSource.data = this.dataSource.data.filter((student) => student._id !== id);
-        } catch (error) {
-          // TODO: implement error handling on UI
-         console.error('Error handling not implemented');
-         throw error;
-        }
+    dialogRef.afterClosed().subscribe(async (deletionConfirmed) => {
+      if (!deletionConfirmed) {
+        return;
+      }
+
+      try {
+        await this.studentService.delete(id);
+        this.dataSource.data = this.dataSource.data.filter((student) => student._id !== id);
+      } catch (error) {
+        // TODO: implement error handling on UI
+        console.error('Error handling not implemented');
+        throw error;
       }
     });
   }
