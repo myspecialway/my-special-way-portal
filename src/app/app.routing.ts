@@ -8,10 +8,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
+import { ClassDetailsContainerComponent } from './pages/class-details/class-details.container/class-details.container.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 
 const routes: Routes = [
-  { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
@@ -20,8 +20,10 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'class', component: ClassComponent },
+      { path: 'class/:id', component: ClassDetailsContainerComponent},
       { path: 'student', component: StudentComponent },
       { path: 'user', component: UserComponent },
+      { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
     ],
   },
 ];

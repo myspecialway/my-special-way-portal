@@ -85,7 +85,7 @@ describe('class component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass(123, 'ddd', 'ddd');
+    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -95,7 +95,7 @@ describe('class component', () => {
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.editClass(123, 'sad', 'asd');
+    fixture.componentInstance.editClass('123', 'sad', 'asd');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });

@@ -1,0 +1,30 @@
+<table class="mat-table schedule-table" role="grid">
+  <thead>
+    <tr class="mat-header-row" role="row">
+      <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" colspan="2">שעה</th>
+      <th class="mat-header-cell cdk-column-position mat-column-position" role="columnheader" *ngFor="let day of daysLabels">{{day}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="mat-row" role="row" *ngFor="let row of schedule; index as hourIndex">
+      <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hourIndex + 1}}</td>
+      <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hoursLabels[hourIndex]}}</td>
+      <td 
+        class="mat-cell cdk-column-position mat-column-position"
+        *ngFor="let timeslot of row; index as dayIndex" 
+        role="gridcell" 
+        (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex})"
+      >
+        <div *ngIf="timeslot.lesson" class="ts-full">
+          <span class="ts-lesson">{{timeslot.lesson.title}}</span>
+          <span class="ts-location" *ngIf="timeslot.location">{{timeslot.location.name}}</span>
+        </div>
+        <div *ngIf="!timeslot.lesson" class="ts-empty">
+          <i class="material-icons" >
+            add
+          </i>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

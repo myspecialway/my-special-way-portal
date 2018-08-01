@@ -1,4 +1,4 @@
-import {MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Lesson } from '../../models/lesson.model';
 import { LessonService } from '../../services/lesson/lesson.graphql.service';

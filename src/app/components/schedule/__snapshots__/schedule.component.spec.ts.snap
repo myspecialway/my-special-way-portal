@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleComponent should match current snapshot 1`] = `
+<app-schedule
+  daysLabels={[Function Array]}
+  hoursLabels={[Function Array]}
+  schedule={[Function Array]}
+  timeSlotClicked={[Function EventEmitter]}
+>
+  <table
+    class="mat-table schedule-table"
+    role="grid"
+  >
+    <thead>
+      <tr
+        class="mat-header-row"
+        role="row"
+      >
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          colspan="2"
+          role="columnheader"
+        >
+          שעה
+        </th>
+        
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          ראשון
+        </th>
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          שני
+        </th>
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          שלישי
+        </th>
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          רביעי
+        </th>
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          חמישי
+        </th>
+        <th
+          class="mat-header-cell cdk-column-position mat-column-position"
+          role="columnheader"
+        >
+          שישי
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr
+        class="mat-row"
+        role="row"
+      >
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          1
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          07:30 - 08:00
+        </td>
+        
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          
+          <div
+            class="ts-empty"
+          >
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-schedule>
+`;
