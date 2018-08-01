@@ -44,8 +44,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.users;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('user.component::ngInInit:: empty sream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => {
