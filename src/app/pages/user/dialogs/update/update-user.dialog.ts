@@ -40,7 +40,7 @@ export class UpdateUserDialogComponent  implements OnInit {
       class: this.selectGradeConrol,
     });
     this.classService.getAllClasses().then((data) => {
-      this.allClasses = data.data.classes;
+      this.allClasses = data.data.allClasses;
     });
   }
 
