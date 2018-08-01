@@ -72,7 +72,7 @@ describe('class component', () => {
 
   it('should open dialog when calling addNewClass function', () => {
     (classServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+      () => {return Promise.resolve({data: {createClass: {_id: '123'}}});
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.componentInstance.addNewClass();

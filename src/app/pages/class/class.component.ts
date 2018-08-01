@@ -49,8 +49,8 @@ export class ClassComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.classes;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('class.component::ngInInit:: empty sream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => {
@@ -81,7 +81,8 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (data) {
         const newClass: Class = this._createNewClass(data);
         this.classService.create(newClass)
-          .then(() => {
+          .then((id: any) => {
+            newClass._id = id.data.createClass._id;
             this.dataSource.data.push(newClass);
             this.dataSource.paginator = this.paginator;
           });
@@ -97,7 +98,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.classService.delete(_id)
           .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
+            const index = _.findIndex(this.dataSource.data, (data) =>  data._id === _id);
             this.dataSource.data.splice(index, 1);
             this.dataSource.paginator = this.paginator;
           });

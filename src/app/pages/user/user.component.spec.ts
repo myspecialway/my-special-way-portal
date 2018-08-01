@@ -15,6 +15,7 @@ import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
 import { UserQuery, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { Class } from '../../models/class.model';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -77,8 +78,14 @@ describe('user component', () => {
 
   it('should open dialog when calling addNewUser function', () => {
     (userServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+      () => {return Promise.resolve({userName: 'asd', firstName: 'asd', lastName: 'asd', _id: 123});
     });
+    userDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(Observable.of({userName: 'asd', firstName: 'asd', lastName: 'asd', _id: 123})),
+      }),
+    };
+    TestBed.overrideProvider(MatDialog, { useValue: userDialogMock });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.componentInstance.addNewUser();
     const DialogMock = TestBed.get(MatDialog);
@@ -89,8 +96,14 @@ describe('user component', () => {
     (userServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
     });
+    userDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+      }),
+    };
+    TestBed.overrideProvider(MatDialog, { useValue: userDialogMock });
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.PRINCIPLE);
+    fixture.componentInstance.deleteUser(123, 'sad');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -99,8 +112,13 @@ describe('user component', () => {
     (userServiceMock.update as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
     });
+    userDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(Observable.of(userTestData[0])),
+      }),
+    };
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd');
+    fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd', new Class(), UserType.PRINCIPLE);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });

@@ -12,6 +12,7 @@ import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
+import { Class } from '../../models/class.model';
 
 @Component({
   selector: 'app-user',
@@ -44,8 +45,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         map((data: any) => {
           return data.data.users;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('user.component::ngInInit:: empty sream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => {
@@ -74,7 +75,9 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      data: { user: User },
+      data: {
+        user: User,
+      },
       height: '368px',
       width: '630px',
     });
@@ -89,9 +92,10 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
+
+  deleteUser(_id: number, userName: string) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: {_id, firstName, lastName, userType},
+      data: {_id, userName},
       height: '275px',
       width: '360px',
     });
@@ -107,9 +111,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string) {
+  updateUser(_id: number, firstName: string, lastName: string, email: string, userName: string, clss: Class, role: UserType) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: {_id, firstname, lastname, email, username },
+      data: {_id, firstName, lastName, email, userName, clss, role },
       height: '368px',
       width: '630px',
     });
@@ -117,10 +121,10 @@ export class UserComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const relevantUser = _.find(this.dataSource.data, {_id});
-        const tempUser = _.assign({}, relevantUser, result);
+        // const tempUser = _.assign({}, relevantUser, result);
 
-        this.userService.update(tempUser)
-          .then((data) => {
+        this.userService.update(this._createNewUser(result))
+          .then(() => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantUser, result);
             this.dataSource.paginator = this.paginator;
@@ -131,12 +135,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   _createNewUser(userData: any): User {
     const user: User = new User();
+    if (userData._id ) {
+      user._id = userData._id;
+    }
     user.firstname = userData.firstName;
     user.lastname = userData.lastName;
     user.username = userData.userName;
     user.email = userData.email;
-    user.role = userData.userType;
-    // user.Class = userData.Class;
+    user.role = userData.role;
+    user.Class = userData.clss;
     return user;
   }
 }

@@ -89,7 +89,7 @@
     "graphql-cli": "^2.16.2",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
-    "jest": "^23.1.0",
+    "jest": "23.3",
     "jest-localstorage-mock": "^2.2.0",
     "jest-preset-angular": "^5.2.2",
     "jest-zone-patch": "^0.0.8",
