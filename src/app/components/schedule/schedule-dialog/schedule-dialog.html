@@ -1,0 +1,34 @@
+<div class="container msw-dialog schedule-dialog">
+  <h2 mat-dialog-title>עדכון מערכת שעות</h2>
+  <div class="timeslot-subtitle">
+    <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
+    <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
+  </div>
+  <mat-dialog-content>
+    
+      <mat-form-field>
+        <mat-select placeholder="שיעור" [(ngModel)]="selectedLesson" name="lesson" #lesson="ngModel" (selectionChange)="scheduleDialogData.lesson = selectedLesson" required>
+          <mat-option *ngFor="let les of lessons" [value]="les" selected="selectedLesson && selectedLesson._id === les._id">
+            {{les.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="lesson.invalid">חובה לבחור שיעור</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="מיקום" [(ngModel)]="selectedLocation" name="location" #location="ngModel"  (selectionChange)="scheduleDialogData.location = selectedLocation" required>
+          <mat-option *ngFor="let loc of locations" [value]="loc" selected="selectedLocation && selectedLocation._id === loc._id">
+            {{loc.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="location.invalid">חובה לבחור מיקום</mat-error>
+      </mat-form-field>
+    
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button class="mat-raised-button" (click)="dialogRef.close()">סגור</button>
+    <button mat-button class="mat-raised-button mat-primary" (click)="dialogRef.close(scheduleDialogData)"
+    [disabled]="lesson.invalid || location.invalid" >עדכן</button>
+  </mat-dialog-actions>
+
+</div>

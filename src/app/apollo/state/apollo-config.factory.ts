@@ -24,7 +24,9 @@ export class ApolloConfigFactory {
       };
     });
     const httpLink = this.link.create({ uri: environment.beUrl });
-    const cache = new InMemoryCache();
+    const cache = new InMemoryCache({
+      addTypename: false,
+    });
     const stateLink = withClientState({
       cache,
       resolvers: {

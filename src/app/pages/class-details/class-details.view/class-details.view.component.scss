@@ -1,0 +1,13 @@
+.class-details-container {
+    direction: rtl;
+    text-align: right;
+    h2 {
+        font-size: 32px;
+    }
+}
+.class-detail-field {
+    display: inline-block;
+    color: #222;
+    margin: 5px 20px;
+    max-width: 100px;
+}
