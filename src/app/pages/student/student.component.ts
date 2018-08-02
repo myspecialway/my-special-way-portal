@@ -44,8 +44,8 @@ export class StudentComponent implements OnInit, AfterViewInit {
         map((data) => {
           return data.data.students;
         }),
-        catchError((err) => {
-          console.log(err);
+        catchError((err: TypeError) => {
+          console.warn('student.component::ngInInit:: empty stream recieved');
           return observableOf([]);
         }),
     ).subscribe((data) => this.dataSource.data = [...data]);
