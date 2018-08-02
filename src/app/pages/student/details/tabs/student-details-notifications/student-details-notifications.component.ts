@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'apollo-client/util/Observable';
 
 @Component({
   selector: 'app-student-details-notifications',
@@ -8,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class StudentDetailsNotificationsComponent implements OnInit {
 
-  sub: any;
   idOrNew: string;
 
   constructor(
@@ -17,7 +17,7 @@ export class StudentDetailsNotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
-      this.sub = this.route.parent.params.subscribe((params) => {
+      this.route.parent.params.subscribe((params: { idOrNew: string }) => {
         this.idOrNew = params.idOrNew;
       });
     }

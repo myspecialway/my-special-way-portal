@@ -2,46 +2,35 @@ import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
-import {ActivatedRoute, Router, RouterModule, Routes} from '@angular/router';
-import {StudentDetailsNotificationsComponent} from './student-details-notifications.component';
-import {StudentDetailsComponent} from '../../student-details.component';
+import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
+import { StudentDetailsNotificationsComponent } from './student-details-notifications.component';
+import { StudentDetailsComponent } from '../../student-details.component';
 
 describe('Student Details Notifications Component', () => {
-  let routerModuleMock: Partial<RouterModule>;
-
   beforeEach(async () => {
-
-    routerModuleMock = {
-      forRoot: jest.fn(),
-      forChild: jest.fn(),
-      navigate: jest.fn(),
-    };
-
-    const routes: Routes = [
-      { path: '', redirectTo: 'student', pathMatch: 'full' },
-      {
-        path: '',
-        children: [
-          { path: 'student/:idOrNew', component: StudentDetailsComponent,
-            children: [
-              { path: 'notifications', component: StudentDetailsNotificationsComponent},
-            ],
-          },
-        ],
-      },
-    ];
 
     TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot([]),
       ],
       declarations: [
         StudentDetailsComponent,
         StudentDetailsNotificationsComponent,
       ],
       providers: [
-        { provide: Router, useValue: routerModuleMock },
+        {
+          provide: Router, useValue: {
+            forRoot: jest.fn(),
+          },
+        },
         Platform,
+        {
+          provide: ActivatedRoute, useValue: {
+            parent: {
+              params: Observable.of({ idOrNew: '_new_' }),
+            },
+          },
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
@@ -49,23 +38,31 @@ describe('Student Details Notifications Component', () => {
 
   describe('with _new_ student path', () => {
     beforeEach(async () => {
-
-      TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ActivatedRoute, useValue: {
-            parent: {
-              params: Observable.of({idOrNew: '_new_'}),
-            },
-          },
-          },
-        ],
-      });
     });
 
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsNotificationsComponent);
       expect(fixture).toMatchSnapshot();
+    });
+
+    it('should subscribe to params onInit', () => {
+      const activatedRouteMock = {
+        parent: {
+          params: {
+            subscribe: jest.fn().mockImplementationOnce((callback) => callback()),
+          },
+        },
+      } as never;
+      // given
+      const studentDetailsNotification = new StudentDetailsNotificationsComponent(activatedRouteMock);
+
+      // when
+      studentDetailsNotification.ngOnInit();
+
+      // then
+      // tslint:disable-next-line:no-non-null-assertion test case only
+      const subscribeMock = (activatedRouteMock as ActivatedRoute).parent!.params.subscribe as jest.Mock;
+      expect(subscribeMock).toHaveBeenCalled();
     });
   });
 });

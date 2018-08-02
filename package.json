@@ -113,7 +113,7 @@
     "testcafe-live": "^0.1.3",
     "ts-node": "5.0.1",
     "tslint": "5.10.0",
-    "typescript": "2.7.2",
+    "typescript": "^2.7.2",
     "uuid": "^3.3.2"
   },
   "jest": {
