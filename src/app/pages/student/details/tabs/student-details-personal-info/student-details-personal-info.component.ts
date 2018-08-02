@@ -63,6 +63,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
       name: '',
       level: '',
       number: 0,
+      schedule: [],
     };
     return student;
   }

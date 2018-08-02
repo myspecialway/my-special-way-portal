@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatButtonToggleModule, MatTabsModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -33,18 +33,15 @@ import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-us
 import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
 import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/delete-student.dialog';
 import { ClassService } from './pages/class/services/class.graphql.service';
+import { LessonService } from './services/lesson/lesson.graphql.service';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
 import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
 import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
-import { StudentDetailsComponent } from './pages/student/details/student-details.component';
-import { StudentDetailsPersonalInfoComponent,
-} from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
-import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
-import { StudentDetailsNotificationsComponent,
-} from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
-import { LessonComponent } from './pages/lesson/lesson.component';
-import { LessonService } from './services/lesson/lesson.graphql.service';
+import { PagesModule } from './pages/pages.module';
+import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
+import { ScheduleService } from './services/schedule/schedule.service';
+import { LocationService } from './services/location/location.graphql.service';
 
 @NgModule({
   imports: [
@@ -63,11 +60,9 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     MatPaginatorModule,
     MatIconModule,
     MatCardModule,
-    MatTabsModule,
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
-    MatButtonToggleModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -75,6 +70,7 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     MatCheckboxModule,
     MatDividerModule,
     MSWApolloModule,
+    PagesModule,
   ],
   declarations: [
     AppComponent,
@@ -82,12 +78,7 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     LoginComponent,
     ClassComponent,
     StudentComponent,
-    StudentDetailsComponent,
-    StudentDetailsPersonalInfoComponent,
-    StudentDetailsHoursComponent,
-    StudentDetailsNotificationsComponent,
     UserComponent,
-    LessonComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
@@ -97,6 +88,7 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
+    ScheduleDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -108,6 +100,7 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     AddClassDialogComponent,
     DeleteClassDialogComponent,
     UpdateClassDialogComponent,
+    ScheduleDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -116,6 +109,8 @@ import { LessonService } from './services/lesson/lesson.graphql.service';
     StudentService,
     ClassService,
     LessonService,
+    ScheduleService,
+    LocationService,
   ],
   bootstrap: [AppComponent],
 })

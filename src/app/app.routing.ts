@@ -5,19 +5,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
-import {StudentDetailsComponent} from './pages/student/details/student-details.component';
-import {StudentComponent} from './pages/student/student.component';
-import { StudentDetailsPersonalInfoComponent,
-} from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
-import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
-import { StudentDetailsNotificationsComponent,
-} from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
+import { ClassDetailsContainerComponent } from './pages/class-details/class-details.container/class-details.container.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
+import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
+import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
+import { StudentDetailsComponent } from './pages/student/details/student-details.component';
+import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
 
 const routes: Routes = [
-  { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
@@ -26,16 +24,19 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'class', component: ClassComponent },
+      { path: 'class/:id', component: ClassDetailsContainerComponent },
       { path: 'student', component: StudentComponent},
-      { path: 'student/:idOrNew', component: StudentDetailsComponent,
+      {
+        path: 'student/:idOrNew', component: StudentDetailsComponent,
         children: [
-          { path: 'personalInfo', component: StudentDetailsPersonalInfoComponent},
-          { path: 'hours', component: StudentDetailsHoursComponent},
-          { path: 'notifications', component: StudentDetailsNotificationsComponent},
-          { path: '',  component: StudentDetailsPersonalInfoComponent},
+          { path: 'personalInfo', component: StudentDetailsPersonalInfoComponent },
+          { path: 'hours', component: StudentDetailsHoursComponent },
+          { path: 'notifications', component: StudentDetailsNotificationsComponent },
+          { path: '', component: StudentDetailsPersonalInfoComponent },
         ],
       },
       { path: 'user', component: UserComponent },
+      { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
     ],
   },
 ];
