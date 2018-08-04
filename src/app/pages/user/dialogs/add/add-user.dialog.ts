@@ -17,7 +17,7 @@ export class AddUserDialogComponent implements OnInit {
   roles: string[];
   userRoleEnum = UserType;
   classes: Class[];
-  currentRole: UserType;
+  currentRole: string;
   formControl = new FormControl('', [Validators.required]);
   EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
   selectUserType = new FormControl(null, Validators.required);
@@ -63,5 +63,9 @@ export class AddUserDialogComponent implements OnInit {
   async getClasses() {
     const classes = await this.classService.getAllClasses();
     this.classes = classes.data.classes;
+  }
+
+  isManager() {
+    return this.currentRole !== 'TEACHER';
   }
 }

@@ -59,9 +59,9 @@
               <mat-error *ngIf="EmailFormControl.hasError('email')">אימייל לא חוקי</mat-error>
                 </mat-form-field>
               </div>
-              <div class="msw-form-row">
+              <div clSass="msw-form-row">
                   <mat-form-field color="primary">
-                    <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="currentRole !== userRoleEnum.TEACHER">
+                    <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="isManager()">
                       <mat-option>בחר</mat-option>
                       <mat-option *ngFor="let clas of classes" [value]="clas">
                         {{clas.name}}
