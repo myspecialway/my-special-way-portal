@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.graphql.service';
-import {Level} from '../../../../models/levels.model';
 import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
 
