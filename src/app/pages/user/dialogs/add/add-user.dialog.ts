@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.graphql.service';
+import {Level} from '../../../../models/levels.model';
+import { ClassService } from '../../../class/services/class.graphql.service';
+import { Class } from '../../../../models/class.model';
 
 @Component({
   selector: 'app-add-user.dialog',
@@ -12,32 +15,35 @@ import { UserService } from '../../services/user.graphql.service';
 
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
-  keys: any[];
-  userTypes = UserType;
+  roles: string[];
+  userRoleEnum = UserType;
+  classes: Class[];
+  currentRole: UserType;
   formControl = new FormControl('', [Validators.required]);
+  EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
   selectUserType = new FormControl(null, Validators.required);
   selectGrade = new FormControl('', [Validators.required]);
+  userNameFormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[A-Za-z]+$')]);
   constructor(private formBuilder: FormBuilder,
+              private classService: ClassService,
               public dialogRef: MatDialogRef<AddUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User,
               public userService: UserService,
-  ) { this.keys = Object.keys(this.userTypes); }
+  ) {
+    this.roles = Object.keys(this.userRoleEnum);
+    this.getClasses();
+   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       firstName: '',
       lastName: '',
-      userName: '',
-      email: '',
-      userType: '',
+      userName: this.userNameFormControl,
+      email: this.EmailFormControl,
+      userType: this.selectUserType,
       class: undefined,
     });
-  }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
   }
 
   close(): void {
@@ -49,10 +55,14 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data.Class);
-    if (event.value === 'MANAGER') {
-      // this.data.Class = undefined;
-    }
+      this.currentRole = event;
+      if (event === 'MANAGER') {
+         this.data.Class = undefined;
+      }
 
+  }
+  async getClasses() {
+    const classes = await this.classService.getAllClasses();
+    this.classes = classes.data.classes;
   }
 }
