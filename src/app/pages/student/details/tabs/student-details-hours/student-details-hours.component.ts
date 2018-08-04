@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './student-details-hours.component.html',
   styleUrls: ['./student-details-hours.component.scss'],
 })
-export class StudentDetailsHoursComponent implements OnInit {
+export class StudentDetailsHoursComponent {
 
   sub: any;
   idOrNew: string;
@@ -14,12 +14,4 @@ export class StudentDetailsHoursComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
   ) { }
-
-  ngOnInit(): void {
-    if (this.route && this.route.parent) {
-      this.sub = this.route.parent.params.subscribe((params) => {
-        this.idOrNew = params.idOrNew;
-      });
-    }
-  }
 }
