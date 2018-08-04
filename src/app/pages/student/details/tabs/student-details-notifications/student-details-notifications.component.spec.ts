@@ -49,7 +49,7 @@ describe('Student Details Notifications Component', () => {
       const activatedRouteMock = {
         parent: {
           params: {
-            subscribe: jest.fn().mockImplementationOnce((callback) => callback()),
+            subscribe: jest.fn().mockImplementationOnce((callback) => callback({})),
           },
         },
       } as never;
