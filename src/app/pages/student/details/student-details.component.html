@@ -1,0 +1,27 @@
+<div class="msw-student">
+  <div class="msw-student-header">
+    <div class="msw-student-header-back" routerLink="/student">
+      <i class="material-icons">
+        keyboard_arrow_right
+      </i>
+      <span class="msw-student-header-back-label">
+          כל התלמידים
+      </span>
+    </div>
+
+    <div class="msw-student-header-nav">
+      <div class="msw-student-header-nav-tabs" class="msw-student-header-nav-tabs">
+
+        <nav mat-tab-nav-bar>
+          <a mat-tab-link *ngFor="let link of links"
+             [routerLink]="[link.path]"
+             (click)="activeLink = link.label"
+             [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-student-tab-active' : ''}}">{{link.label}}</a>
+        </nav>
+
+        <router-outlet></router-outlet>
+
+      </div>
+    </div>
+  </div>
+</div>

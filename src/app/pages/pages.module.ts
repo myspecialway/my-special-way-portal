@@ -5,8 +5,12 @@ import { ClassDetailsContainerComponent } from './class-details/class-details.co
 import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
-import { MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+import { MatInputModule, MatSelectModule, MatTableModule, MatTabsModule, MatButtonToggleModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { StudentDetailsComponent } from './student/details/student-details.component';
+import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
+import { StudentDetailsHoursComponent } from './student/details/tabs/student-details-hours/student-details-hours.component';
+import { StudentDetailsNotificationsComponent } from './student/details/tabs/student-details-notifications/student-details-notifications.component';
 
 @NgModule({
   imports: [
@@ -14,11 +18,17 @@ import { FormsModule } from '@angular/forms';
     ComponentsModule,
     FormsModule,
     RouterModule,
+    MatButtonToggleModule,
     MatInputModule,
     MatSelectModule,
     MatTableModule,
+    MatTabsModule,
   ],
   declarations: [
+    StudentDetailsComponent,
+    StudentDetailsPersonalInfoComponent,
+    StudentDetailsHoursComponent,
+    StudentDetailsNotificationsComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
     LessonComponent,

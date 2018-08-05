@@ -47,7 +47,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
             return this.classService.getAllClasses();
         }),
         map((data: any) => {
-          return data.data.classes;
+          return data;
         }),
         catchError((err: TypeError) => {
           console.warn('class.component::ngInInit:: empty stream recieved');
