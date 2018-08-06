@@ -39,9 +39,7 @@ export class ClassDetailsContainerComponent implements OnInit {
   async ngOnInit() {
     // TODO: look for _new_ in the :id param
     const id = this.route.snapshot.params.id;
-    this._class = await this.classService
-      .classById(id)
-      .then((res) => res.data.classById);
+    this._class = await this.classService.classById(id).then((res) => res.data.classById);
     this.initSchedule();
   }
 
@@ -100,41 +98,30 @@ export class ClassDetailsContainerComponent implements OnInit {
       width: '320px',
     });
     dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
-      if (data && data.lesson && data.location) {
-        const tempSchedule = this._class.schedule.slice(); // creates a copy. this_class is immutable
-        const index = tempSchedule.findIndex((ts) => ts.index === data.index);
-        if (index !== -1) {
-          tempSchedule[index] = {
-            index: data.index,
-            lesson: data.lesson,
-            location: data.location,
-          };
-        } else {
-          tempSchedule.push({
-            index: `${hourIndex}${dayIndex}`,
-            lesson: data.lesson,
-            location: data.location,
-          });
-        }
+      if (!data) {
+        return;
+      }
 
-        const tempClass: Class = {
-          _id: this._class._id,
-          name: this._class.name,
-          level: this._class.level,
-          number: this._class.number,
-          schedule: tempSchedule,
-        };
+      const tempClass: Class = {
+        _id: this._class._id,
+        name: this._class.name,
+        level: this._class.level,
+        number: this._class.number,
+        schedule: [
+          { index: data.index, lesson: data.lesson, location: data.location },
+        ],
+      };
 
-        // update the class
-        this.classService.update(tempClass).then((res) => {
+      // update the class
+      this.classService.update(tempClass).then((res) => {
           if (res.data) {
             this._class = res.data.updateClass;
             this.initSchedule();
           }
+        }).catch((err) => {
+          console.log(err);
+          throw new Error(err);
         });
-      } else {
-        return;
-      }
     });
   }
 
@@ -150,6 +137,9 @@ export class ClassDetailsContainerComponent implements OnInit {
       if (res.data) {
         this._class = res.data.updateClass;
       }
+    }).catch((err) => {
+      console.log(err);
+      throw new Error(err);
     });
   }
 }
