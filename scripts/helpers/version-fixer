@@ -2,4 +2,4 @@
 
 read BRANCH_NAME
 
-echo $BRANCH_NAME | sed 's/[\/#-]/_/g'
+echo $BRANCH_NAME | sed 's/[\(\)\/#-]/_/g'

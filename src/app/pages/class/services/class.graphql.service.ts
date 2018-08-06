@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Class, ClassQuery, InputClass } from '../../../models/class.model';
+import { GetClassesResponse } from '../../../models/responses/get-classes-reponse.model';
 
 // TODO: refactor to using gql fragments, but know that it'll raise error related to __typename field that we configured to be emitted
 // need to rethink it
@@ -40,20 +41,17 @@ export class ClassService {
     }
   `;
 
-  getAllClasses() {
-    return this.apollo
-      .query<ClassQuery>({
-        query: gql`
-          {
-            classes {
-              _id
-              level
-              name
-            }
-          }
-        `,
-      })
-      .toPromise();
+  async getAllClasses() {
+    const getClassesResponse = await this.apollo.query({
+      query: gql`{
+        classes {
+          _id
+          level
+          name
+        }
+      }` }).toPromise();
+
+    return (getClassesResponse.data as GetClassesResponse).classes;
   }
   classById(id: string) {
     return this.apollo
