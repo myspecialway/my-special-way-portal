@@ -65,7 +65,4 @@ export class AddUserDialogComponent implements OnInit {
     this.classes = classes.data.classes;
   }
 
-  isManager() {
-    return this.currentRole !== 'TEACHER';
-  }
 }
