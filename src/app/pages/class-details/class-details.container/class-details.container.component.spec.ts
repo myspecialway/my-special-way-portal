@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClassDetailsContainerComponent } from './class-details.container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, Subject } from 'rxjs-compat';
+import { Subject } from 'rxjs-compat';
 import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 describe('ClassDetailsContainerComponent', () => {
