@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Details Personal Info Component with _new_ student path should render the component as described in snapshot 1`] = `
+<app-student-details-personal-info
+  classService={[Function Object]}
+  route={[Function Object]}
+  router={[Function Object]}
+  studentService={[Function Object]}
+>
+  <div
+    class="msw-student-body-ph"
+  >
+    
+    <div
+      class="msw-student-body"
+    >
+      <div
+        class="msw-student-user-pic-ph"
+      >
+        <img
+          src="http://via.placeholder.com/140x100"
+        />
+      </div>
+      <div
+        class="msw-student-user-form"
+      >
+        
+      </div>
+    </div>
+  </div>
+</app-student-details-personal-info>
+`;

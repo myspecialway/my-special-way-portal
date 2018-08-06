@@ -61,8 +61,7 @@ export class AddUserDialogComponent implements OnInit {
 
   }
   async getClasses() {
-    const classes = await this.classService.getAllClasses();
-    this.classes = classes.data.classes;
+    this.classes = await this.classService.getAllClasses();
   }
 
 }
