@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClassDetailsContainerComponent } from './class-details.container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable } from 'rxjs-compat';
+import { Subject } from 'rxjs-compat';
 import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 
 describe('ClassDetailsContainerComponent', () => {
@@ -64,13 +64,15 @@ describe('ClassDetailsContainerComponent', () => {
       },
     },
   };
+  let observableAfterClosed: Subject<ScheduleDialogData>;
   beforeEach(async () => {
+    observableAfterClosed = new Subject();
     afterClosedMockFn = jest.fn().mockReturnValue(
-      Observable.of(mockedScheduleDialogData),
+      observableAfterClosed,
     );
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
-      update: jest.fn().mockReturnValue(Promise.resolve({data: {updateClass: {_id: 'updateclassid'}}})),
+      update: jest.fn(), // .mockReturnValue(Promise.resolve({data: {updateClass: {_id: 'updateclassid'}}})),
     };
     scheduleServiceMock = {
       levels: ['א', 'ב', 'ג'],
@@ -113,30 +115,36 @@ describe('ClassDetailsContainerComponent', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should open a dialog when clicking on an empty timeslot', () => {
+  it('should regenerate the class when classService.update succeeds', () => {
+    (classServiceMock.update as jest.Mock).mockResolvedValueOnce({data: {updateClass: {_id: 'updateclassid'}}});
     fixture.componentInstance.onTimeSlotClick({hourIndex: 0, dayIndex: 0});
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
+    observableAfterClosed.next(mockedScheduleDialogData);
+    expect(classServiceMock.update).toHaveBeenCalled();
   });
 
-  it('should open a dialog when clicking on an existing timeslot', () => {
-    afterClosedMockFn.mockReset();
-    afterClosedMockFn.mockReturnValueOnce(Observable.of({...mockedScheduleDialogData, index: '10'}));
-    fixture.componentInstance.onTimeSlotClick({hourIndex: 1, dayIndex: 0});
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
+  it('should throw an error when classService.update failes', () => {
+    (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
+    fixture.componentInstance.onTimeSlotClick({hourIndex: 0, dayIndex: 0});
+    observableAfterClosed.next(mockedScheduleDialogData);
+    expect(fixture.componentInstance.onTimeSlotClick).toThrowError();
   });
 
-  it('should not update the class when dismissing the dialog', () => {
-    afterClosedMockFn.mockReset();
-    afterClosedMockFn.mockReturnValueOnce(Observable.of(undefined));
+  it('should not call classService.update when dismissing the dialog', () => {
     fixture.componentInstance.onTimeSlotClick({hourIndex: 1, dayIndex: 0});
+    observableAfterClosed.next(undefined);
     expect(classServiceMock.update).not.toHaveBeenCalled();
   });
 
   it('should call onDetailChange', () => {
+    (classServiceMock.update as jest.Mock).mockResolvedValueOnce({data: {updateClass: {_id: 'updateclassid'}}});
     fixture.componentInstance.onDetailChange({name: 'newName', level: 'newlevel'});
     const updatedClass = {...mockedClass.data.classById, name: 'newName', level: 'newlevel' };
     expect(classServiceMock.update).toHaveBeenCalledWith(updatedClass);
+  });
+
+  it('should throw an error when class service fails to update', () => {
+    (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
+    fixture.componentInstance.onDetailChange({name: 'newName', level: 'newlevel'});
+    expect(fixture.componentInstance.onDetailChange).toThrowError();
   });
 });
