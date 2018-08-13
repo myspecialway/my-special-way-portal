@@ -15,7 +15,7 @@ export interface InputClass {
 }
 
 export interface ClassQuery  {
-  allClasses: Class[];
+  classes: Class[];
   classByName: Class;
   classById: Class;
 }

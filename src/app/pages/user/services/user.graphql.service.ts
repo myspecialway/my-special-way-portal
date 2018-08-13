@@ -47,7 +47,7 @@ export class UserService {
     return this.apollo.mutate({
       mutation: gql`
       mutation {
-        addUser(user: {
+        createUser(user: {
           username: "${user.username}",
           email: "${user.email}"
           firstname: "${user.firstname}"

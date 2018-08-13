@@ -1,8 +1,9 @@
 .msw-wrapper {
     direction: rtl;
-  
+
     .main-panel {
       float: left;
+      height: 100%;
       width: 100%;
     }
     .sidebar {
@@ -10,11 +11,11 @@
       right: 0;
     }
   }
-  
+
   .msw-div-column-left{
     margin-right:18px;
   }
-  
+
   .msw-div-column-right{
     margin-left:18px;
   }
@@ -23,7 +24,7 @@
     width: 109.7px;
     height: 36px;
     border-radius: 3px;
-    background-color: #ff213c;        
+    background-color: #ff213c;
 
     /deep/ .mat-button-wrapper{
         width: 93.7px;
