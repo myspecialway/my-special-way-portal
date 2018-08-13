@@ -7,13 +7,13 @@
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <div class="form-row">
-                <mat-form-field color="accent">
+                <mat-form-field>
                   <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel"/>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !username.valid" class="help-block">נא הכנס שם משתמש</div>
               </div>
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <mat-form-field color="accent">
+                <mat-form-field>
                   <input type="password" matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel"/>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">נא הכנס סיסמה</div>

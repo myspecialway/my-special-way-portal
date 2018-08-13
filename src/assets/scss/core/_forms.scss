@@ -408,21 +408,6 @@ fieldset[disabled] .form-group .form-control{
     color: #f44336;
   }
 }
-form .ng-valid{
-  &.mat-focused .mat-form-field-label,
-  .mat-focused .mat-form-field-label,
-  .mat-form-field-label{
-    color: #4caf50;
-  }
-    .mat-form-field-underline{
-      background-color: #4caf50;
-      height: 2px;
-      .mat-form-field-ripple{
-        background-color: #4caf50;
-      }
-    }
-
-}
 .mat-form-field-label {
     color: rgba(0, 0, 0, 0.38);
 }
