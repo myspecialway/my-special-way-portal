@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
@@ -38,7 +38,6 @@ export class AuthGuard implements CanActivate {
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
-
 
   isAuthorized(route: ActivatedRouteSnapshot, userRole: UserType) {
     console.log(`route ${route.url} | User type ${userRole}`);

@@ -3,7 +3,7 @@ import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
-import {UserRole, UserType} from '../../models/user.model';
+import { UserType} from '../../models/user.model';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
