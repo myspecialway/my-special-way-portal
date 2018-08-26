@@ -31,23 +31,21 @@ test('Successful logout test', async (t) => {
     const location = await t.eval(() => window.location);
     await t.expect(location.pathname).contains('login');
 });
-test('Navigate to Users', async (t) => {
+test('Successfull navigation to students from nav menu', async (t) => {
     await t
-    .click(navbar.menuDropDown)
-    .click(navbar.menuDropDownUsers);
-    const location = await t.eval(() => window.location);
-    await t.expect(location.pathname).contains('user');
-    await eye.look(t, 'Navigate to Users');
-});
-test('Navigate to Students', async (t) => {
-    await t
-    .click(navbar.menuDropDown)
-    .click(navbar.menuDropDownUsers)
     .click(navbar.menuDropDown)
     .click(navbar.menuDropDownStudents);
     const location = await t.eval(() => window.location);
     await t.expect(location.pathname).contains('student');
-    await eye.look(t, 'Navigate to Students');
+    await eye.look(t, 'Navigate to Users');
+});
+test('Successfull navigation from students to classes', async (t) => {
+    await t
+    .click(navbar.menuDropDown)
+    .click(navbar.menuDropDownClasses);
+    const location = await t.eval(() => window.location);
+    await t.expect(location.pathname).contains('class');
+    await eye.look(t, 'Navigate to Classes');
 });
 test('Navigate to Classes', async (t) => {
     await t
