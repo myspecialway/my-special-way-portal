@@ -5,6 +5,7 @@ import { AuthenticationService } from './authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
+import {Get} from '../../utils/get';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -40,13 +41,13 @@ export class AuthGuard implements CanActivate {
   }
 
   isAuthorized(route: ActivatedRouteSnapshot, userRole: UserType) {
-    console.log(`route ${route.url} | User type ${userRole}`);
+    // console.log(`route ${route.url} | User type ${userRole}`);
     // TODO: authorization logic
     // this will be passed from the route config
     // on the data property
-    const expectedRoles: string[] = route.data.expectedRole;
+    const expectedRoles = Get.getObject(route, 'data.expectedRole');
     console.log('expectedRoles:' , expectedRoles, '  userRole:', userRole, '  UserType[userRole]:', UserType[userRole]);
-    if (expectedRoles.includes(UserType[userRole])) {
+    if (expectedRoles && (expectedRoles as string[]).includes(UserType[userRole])) {
       return true;
     }
     return false;
