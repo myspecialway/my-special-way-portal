@@ -29,6 +29,7 @@ describe('auth guard', () => {
       isTokenExpired: jest.fn(),
       checkRestoreAuthData: jest.fn(),
     } as Partial<AuthenticationService>;
+
   });
 
   it('should return true if token has been found', async () => {
@@ -37,11 +38,13 @@ describe('auth guard', () => {
       data: {
         userProfile: {
           token: 'some-valid-token',
+          role: 'PRINCIPLE',
         },
       },
     });
     (authService.isTokenExpired as jest.Mock).mockReturnValueOnce(false);
     const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock as Apollo);
+    guard.isAuthorized = jest.fn(() => true);
 
     // when
     const response = await guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
@@ -53,9 +56,11 @@ describe('auth guard', () => {
   it('should navigate to login page if token not found and return false', async () => {
     // given
     const guard = new AuthGuard(routerMock as Router, authService as AuthenticationService, apolloMock as Apollo);
+    guard.isAuthorized = jest.fn(() => true);
     apolloQueryFnMock.mockReturnValueOnce({
       data: {
         userProfile: null,
+        role: 'PRINCIPLE',
       },
     });
 
