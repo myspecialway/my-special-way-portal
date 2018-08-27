@@ -38,10 +38,10 @@
         </mat-form-field>
 
         <mat-form-field class="username">
-          <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" required>
+          <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" autocomplete="new-username" required>
         </mat-form-field>
         <mat-form-field class="password">
-          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" required>
+          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" autocomplete="new-password" required>
         </mat-form-field>
 
         <button mat-button (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)">שמור</button>
