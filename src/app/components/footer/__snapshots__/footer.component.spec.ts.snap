@@ -10,29 +10,6 @@ exports[`footer component should render component as described in snapshot 1`] =
     <div
       class="container-fluid"
     >
-      <nav
-        class="pull-left"
-      >
-        <ul>
-          <li>
-            <a
-              href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/default.aspx"
-              target="_blank"
-            >
-              בית ספר יחדיו
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/Vision.aspx"
-              target="_blank"
-            >
-              
-  עלינו 
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div
         class="copyright pull-right"
       >
