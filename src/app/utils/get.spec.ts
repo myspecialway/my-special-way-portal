@@ -3,8 +3,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 import * as get_1 from './get';
 
 describe('Get',  () => {
+  const MOCK_SYMBOL = Symbol(42);
   const data = {
     id: 1233,
+    symbol: MOCK_SYMBOL,
     name: 'Dan',
     married: true,
     hobbies: ['football', 'reading'],
@@ -76,6 +78,11 @@ describe('Get',  () => {
   it('should get undefined on mismatch type with boolean', () => {
     const value = get_1.Get.getBoolean(data, 'id');
     expect(value).toBe(undefined);
+  });
+  // Symbol
+  it('should get the symbol correctly', () => {
+    const value = get_1.Get.getSymbol(data, 'symbol');
+    expect(value).toBe(MOCK_SYMBOL);
   });
   // Object
   it('should get the address object correctly', () => {
