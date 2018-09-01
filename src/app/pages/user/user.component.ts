@@ -20,7 +20,7 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
+  displayedColumns = ['name', 'class', 'username', 'type', 'email', 'recoverpassword', 'deleteUser'];
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
