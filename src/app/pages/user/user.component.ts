@@ -24,7 +24,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('table') table: ElementRef;
 
@@ -34,8 +33,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -55,7 +53,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
@@ -80,7 +77,6 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.userService.create(newUser)
           .then(() => {
             this.dataSource.data.push(newUser);
-            this.dataSource.paginator = this.paginator;
           });
       }
     });
@@ -98,7 +94,6 @@ export class UserComponent implements OnInit, AfterViewInit {
           .then(() => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data.splice(index, 1);
-            this.dataSource.paginator = this.paginator;
           });
       }
     });
@@ -119,7 +114,6 @@ export class UserComponent implements OnInit, AfterViewInit {
           .then((data) => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantUser, result);
-            this.dataSource.paginator = this.paginator;
           });
       }
     });
