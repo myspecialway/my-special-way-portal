@@ -5,7 +5,6 @@ import { throwError } from 'rxjs';
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
 import Student, { Gender } from '../../../models/student.model';
-import { Class } from '../../../models/class.model';
 
 const apollo = new Apollo();
 
