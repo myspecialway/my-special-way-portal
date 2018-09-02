@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
+import {Get} from '../../utils/get';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -30,7 +31,7 @@ export class AuthGuard implements CanActivate {
       response.data.userProfile &&
       response.data.userProfile.token &&
       !this.authService.isTokenExpired(response.data.userProfile.token)
-      && this.isAuthorized(route.url, response.data.userProfile.role)
+      && this.isAuthorized(route, response.data.userProfile.role)
     ) {
       return true;
     }
@@ -39,11 +40,16 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 
-  isAuthorized(route: UrlSegment[], userRole: UserType) {
-    // console.log(`route ${route} | User type ${userRole}`);
-    // if (route[0].path.toString() === 'user' && userRole.toString() === 'TEACHER') {
-    //   return false;
-    // }
-    return true; // TODO: authorization logic
+  isAuthorized(route: ActivatedRouteSnapshot, userRole: UserType) {
+    // console.log(`route ${route.url} | User type ${userRole}`);
+    // TODO: authorization logic
+    // this will be passed from the route config
+    // on the data property
+    const expectedRoles = Get.getObject(route, 'data.expectedRole');
+    console.log('expectedRoles:' , expectedRoles, '  userRole:', userRole, '  UserType[userRole]:', UserType[userRole]);
+    if (expectedRoles && (expectedRoles as string[]).includes(UserType[userRole])) {
+      return true;
+    }
+    return false;
   }
 }
