@@ -50,7 +50,6 @@ describe('user component', () => {
         MatRowDef,
         MatHeaderRowDef,
         MatSort,
-        MatPaginator,
       ],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },
@@ -63,7 +62,6 @@ describe('user component', () => {
         OverlayContainer,
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
-        MatPaginatorIntl,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
