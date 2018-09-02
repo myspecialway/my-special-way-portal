@@ -3,30 +3,34 @@
 exports[`ClassDetailsContainerComponent should create 1`] = `
 ClassDetailsContainerComponent {
   "_class": Object {
-    "_id": "5b217b030825622c97d3757f",
-    "level": "א",
-    "name": "טיטאן",
-    "number": 1,
-    "schedule": Array [
-      Object {
-        "index": "10",
-        "lesson": Object {
-          "_id": "5b2abc74572e7619a628c11c",
-          "icon": "test-icon",
-          "title": "test lesson",
-        },
-        "location": Object {
-          "_id": "5b5596a7739a882933edd4fc",
-          "disabled": false,
-          "name": "test location",
-          "position": Object {
-            "floor": 1,
-            "latitude": 0,
-            "longitude": 0,
+    "data": Object {
+      "classById": Object {
+        "_id": "5b217b030825622c97d3757f",
+        "level": "א",
+        "name": "טיטאן",
+        "number": 1,
+        "schedule": Array [
+          Object {
+            "index": "10",
+            "lesson": Object {
+              "_id": "5b2abc74572e7619a628c11c",
+              "icon": "test-icon",
+              "title": "test lesson",
+            },
+            "location": Object {
+              "_id": "5b5596a7739a882933edd4fc",
+              "disabled": false,
+              "name": "test location",
+              "position": Object {
+                "floor": 1,
+                "latitude": 0,
+                "longitude": 0,
+              },
+            },
           },
-        },
+        ],
       },
-    ],
+    },
   },
   "classService": Object {
     "classById": [MockFunction] {
@@ -79,91 +83,35 @@ ClassDetailsContainerComponent {
   "dialog": Object {
     "open": [MockFunction],
   },
+  "idOrNew": "5b217b030825622c97d3757f",
+  "isNew": false,
+  "location": Object {
+    "replaceState": [MockFunction],
+  },
   "route": Object {
     "snapshot": Object {
       "params": Object {
-        "id": "5b217b030825622c97d3757f",
+        "idOrNew": "5b217b030825622c97d3757f",
       },
     },
   },
-  "schedule": Array [
-    Array [
-      Object {
-        "index": "00",
-      },
-      Object {
-        "index": "01",
-      },
-      Object {
-        "index": "02",
-      },
-      Object {
-        "index": "03",
-      },
-      Object {
-        "index": "04",
-      },
-      Object {
-        "index": "05",
-      },
-    ],
-    Array [
-      Object {
-        "index": "10",
-        "lesson": Object {
-          "_id": "5b2abc74572e7619a628c11c",
-          "icon": "test-icon",
-          "title": "test lesson",
-        },
-        "location": Object {
-          "_id": "5b5596a7739a882933edd4fc",
-          "disabled": false,
-          "name": "test location",
-          "position": Object {
-            "floor": 1,
-            "latitude": 0,
-            "longitude": 0,
-          },
-        },
-      },
-      Object {
-        "index": "11",
-      },
-      Object {
-        "index": "12",
-      },
-      Object {
-        "index": "13",
-      },
-      Object {
-        "index": "14",
-      },
-      Object {
-        "index": "15",
-      },
-    ],
-    Array [
-      Object {
-        "index": "20",
-      },
-      Object {
-        "index": "21",
-      },
-      Object {
-        "index": "22",
-      },
-      Object {
-        "index": "23",
-      },
-      Object {
-        "index": "24",
-      },
-      Object {
-        "index": "25",
-      },
-    ],
-  ],
+  "schedule": undefined,
   "scheduleService": Object {
+    "buildScheduleFromTimeslots": [MockFunction] {
+      "calls": Array [
+        Array [
+          3,
+          6,
+          Array [],
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    },
     "daysLabels": Array [
       "ראשון",
       "שני",

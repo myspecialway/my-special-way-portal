@@ -62,7 +62,7 @@ export class ClassService {
         }
       }`,
       })
-      .toPromise();
+      .toPromise().then((res) => res.data.classById);
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
@@ -81,13 +81,17 @@ export class ClassService {
       mutation {
         createClass(class: {
             level: "${clss.level}"
-            number:  "${clss.number}"
+            number:  ${clss.number}
             name: "${clss.name}"
         }) { _id }
       }
     `,
       })
-      .toPromise();
+      .toPromise().then((res) => {
+        if (res.data) {
+          return res.data.createClass;
+        }
+      });
   }
 
   update(_class: Class) {
@@ -104,7 +108,11 @@ export class ClassService {
           class: inputClass,
         },
       })
-      .toPromise();
+      .toPromise().then((res) => {
+        if (res.data) {
+          return res.data.updateClass;
+        }
+      });
   }
 
   delete(id: string) {

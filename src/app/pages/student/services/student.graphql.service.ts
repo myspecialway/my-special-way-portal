@@ -52,6 +52,24 @@ export class StudentService {
             name
             _id
           }
+          schedule {
+            index
+            lesson {
+              _id
+              title
+              icon
+            }
+            location {
+              _id
+              name
+              disabled
+              position {
+                latitude
+                longitude
+                floor
+              }
+            }
+          }
         }
       }
       ` }).toPromise();

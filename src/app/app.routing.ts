@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'class', component: ClassComponent },
       { path: 'class/:id', component: ClassDetailsContainerComponent },
+      { path: 'class/:idOrNew', component: ClassDetailsContainerComponent },
       { path: 'student', component: StudentComponent, canActivate: [AuthGuard], data: {expectedRole: [UserType.TEACHER, UserType.PRINCIPLE]}},
       {
         path: 'student/:idOrNew', component: StudentDetailsComponent,
