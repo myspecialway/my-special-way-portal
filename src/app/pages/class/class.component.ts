@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
