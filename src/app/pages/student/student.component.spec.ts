@@ -130,14 +130,15 @@ describe('student component', () => {
     expect(studentServiceMock.delete).not.toHaveBeenCalled();
   });
 
-  it('should throw exception if getAllUsers fails', () => {
-    const getAllStudentsMock = (studentServiceMock.getAllStudents as jest.Mock);
-    getAllStudentsMock.mockReset();
-    getAllStudentsMock.mockReturnValueOnce(Promise.reject(0));
+  it('should pipe promise rejection when deleteStudent fails', async () => {
+    const deleteStudentsMock = (studentServiceMock.delete as jest.Mock);
+    deleteStudentsMock.mockReset();
+    deleteStudentsMock.mockReturnValueOnce(Promise.reject('oh no!'));
 
-    // when
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd');
+    const fixture = TestBed.createComponent(StudentComponent).componentInstance;
 
+    expect(fixture.deleteStudent(1, 'a', 'a', 'a')).rejects.toEqual('oh no!');
   });
+
+  xit('should display an error to the user when deleteStudent fails', () => {});
 });
