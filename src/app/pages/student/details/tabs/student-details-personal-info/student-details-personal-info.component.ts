@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../../../services/student.graphql.service';
+import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
