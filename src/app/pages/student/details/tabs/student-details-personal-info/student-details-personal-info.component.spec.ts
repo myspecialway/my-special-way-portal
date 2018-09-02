@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
-import { StudentService } from '../../../services/student.graphql.service';
+import { StudentService } from '../../../services/student.service';
 import { Overlay, ScrollStrategyOptions,
   ScrollDispatcher, ViewportRuler,
   OverlayContainer, OverlayPositionBuilder,
