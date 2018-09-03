@@ -10,8 +10,7 @@ import { Overlay, ScrollStrategyOptions, ScrollDispatcher,
          ViewportRuler, OverlayContainer, OverlayPositionBuilder,
          OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApolloQueryResult, NetworkStatus } from 'apollo-client';
-import { UserQuery, UserType } from '../../models/user.model';
+import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 
