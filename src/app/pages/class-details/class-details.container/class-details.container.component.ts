@@ -9,7 +9,7 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Class } from '../../../models/class.model';
 import { ClassDetailsEventParams } from '../class-details.view/class-details.view.component';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
-import { Location } from '@angular/common';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-class-details-container',
@@ -35,9 +35,9 @@ export class ClassDetailsContainerComponent implements OnInit {
     private classService: ClassService,
     private router: Router,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
-    public scheduleService: ScheduleService,
-    private location: Location,
+    private dialog: MatDialog,
+    private scheduleService: ScheduleService,
+    private mswSnackbar: MSWSnackbar,
   ) { }
 
   async ngOnInit() {
@@ -117,12 +117,14 @@ export class ClassDetailsContainerComponent implements OnInit {
     });
   }
 
-  onDetailChange(params: ClassDetailsEventParams) {
+  onDetailChange(classDetails: ClassDetailsEventParams) {
     if (!this.isNew) {
-      return this.updateClass(params.name, params.grade);
+      return this.updateClass(classDetails.name, classDetails.grade);
     }
-    if (params.name && params.grade) {
-      this.createClass(params);
+
+    // TODO: This check should be in form of validation on fields and not here!
+    if (classDetails.name && classDetails.grade) {
+      this.createClass(classDetails);
     }
   }
 
@@ -141,24 +143,13 @@ export class ClassDetailsContainerComponent implements OnInit {
     }
   }
 
-  private async createClass(params: ClassDetailsEventParams) {
+  private async createClass(classDetails: ClassDetailsEventParams) {
     try {
-      const { name, grade } = params;
-      const created = await this.classService.create({
-        name,
-        grade,
-      } as Class);
-      this._class._id = created._id;
-      this._class.name = name;
-      this._class.grade = grade;
+      const created = await this.classService.create(classDetails);
       this.router.navigate([`/class/${created._id}`]);
-      this.idOrNew = created._id;
-      this.isNew = false;
-      this.initClass();
-      this.initSchedule();
+      this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
     } catch (err) {
-      console.log(err);
-      throw new Error(err);
+      this.mswSnackbar.displayTimedMessage('שגיאה היצירת כיתה');
     }
   }
 }

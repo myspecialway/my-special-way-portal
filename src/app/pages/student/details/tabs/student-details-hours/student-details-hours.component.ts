@@ -32,7 +32,6 @@ export class StudentDetailsHoursComponent implements OnInit {
       this.student = await this.studentService.getById(this.id);
       this.initSchedule();
     } catch (err) {
-      console.log(err);
       throw err;
     }
   }
@@ -44,6 +43,5 @@ export class StudentDetailsHoursComponent implements OnInit {
       this.scheduleService.daysLabels.length,
       schedule,
     );
-    console.log(this.schedule);
   }
 }
