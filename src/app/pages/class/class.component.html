@@ -29,7 +29,7 @@
           <!-- Title Column -->
           <ng-container matColumnDef="level">
             <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+            <mat-cell *matCellDef="let row">{{ scheduleService.grades[row.grade] }}</mat-cell>
           </ng-container>
 
 

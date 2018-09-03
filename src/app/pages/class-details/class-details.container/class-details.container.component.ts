@@ -43,10 +43,17 @@ export class ClassDetailsContainerComponent implements OnInit {
     try {
       this.idOrNew = this.route.snapshot.params.idOrNew;
       this.isNew = this.idOrNew === '_new_';
-      this._class = this.isNew
-        ? new Class()
-        : await this.classService.classById(this.idOrNew);
+      await this.initClass();
       this.initSchedule();
+    } catch (err) {
+      console.log(err);
+      throw new Error(err);
+    }
+  }
+
+  private async initClass() {
+    try {
+      this._class = this.isNew ? new Class() : await this.classService.classById(this.idOrNew);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -111,7 +118,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     if (!this.isNew) {
       return this.updateClass(params.name, params.grade);
     }
-    if (params.name.length && params.grade.length) {
+    if (params.name && params.grade) {
       this.createClass(params);
     }
   }
@@ -134,7 +141,6 @@ export class ClassDetailsContainerComponent implements OnInit {
   private async createClass(params: ClassDetailsEventParams) {
     try {
       const { name, grade } = params;
-      const number = 1; // TODO: remove this from server to
       const created = await this.classService.create({
         name,
         grade,
@@ -143,8 +149,10 @@ export class ClassDetailsContainerComponent implements OnInit {
       this._class.name = name;
       this._class.grade = grade;
       this.location.replaceState(`/class/${created._id}`);
-      this.idOrNew = created.id;
+      this.idOrNew = created._id;
       this.isNew = false;
+      this.initClass();
+      this.initSchedule();
     } catch (err) {
       console.log(err);
       throw new Error(err);

@@ -8,10 +8,12 @@ import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispat
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
+import { ScheduleService } from '../../services/schedule/schedule.service';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
   let classDialogMock: Partial<MatDialog>;
+  let scheduleServiceMock: Partial<ScheduleService>;
 
   beforeEach(async () => {
 
@@ -27,6 +29,16 @@ describe('class component', () => {
         afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
       }),
     };
+    scheduleServiceMock = {
+      grades: {
+        a: 'א',
+        b: 'ב',
+        c: 'ג',
+        d: 'ד',
+        e: 'ה',
+        f: 'ו',
+      },
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -41,6 +53,7 @@ describe('class component', () => {
       providers: [
         { provide: MatDialog, useValue: classDialogMock },
         { provide: ClassService, useValue: classServiceMock },
+        { provide: ScheduleService, useValue: scheduleServiceMock},
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,

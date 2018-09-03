@@ -11,6 +11,7 @@ import { Class } from '../../models/class.model';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import * as _ from 'lodash';
 import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog';
+import { ScheduleService } from '../../services/schedule/schedule.service';
 
 @Component({
   selector: 'app-grade',
@@ -29,6 +30,7 @@ export class ClassComponent implements OnInit {
   constructor(
     private classService: ClassService,
     public dialog: MatDialog,
+    public scheduleService: ScheduleService,
   ) { }
 
   async ngOnInit() {

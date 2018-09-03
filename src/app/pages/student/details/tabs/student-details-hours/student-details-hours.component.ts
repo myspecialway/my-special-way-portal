@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
-import { StudentService } from '../../../services/student.graphql.service';
+import { StudentService } from '../../../services/student.service';
 import { TimeSlot } from '../../../../../models/timeslot.model';
 import Student from '../../../../../models/student.model';
 
