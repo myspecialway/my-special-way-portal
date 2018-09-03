@@ -128,8 +128,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
   _createNewClass(classData: any): Class {
     const _class: Class = new Class();
     _class.name = classData.name;
-    _class.level = classData.level;
-    _class.number = 1;
+    _class.grade = classData.grade;
     return _class;
   }
 }

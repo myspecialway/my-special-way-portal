@@ -18,8 +18,7 @@ import { Location } from '@angular/common';
               [daysLabels]="scheduleService.daysLabels"
               [hoursLabels]="scheduleService.hoursLabels"
               [name]="_class && _class.name ? _class.name : null"
-              [level]="_class && _class.level ? _class.level : null"
-              [levels]="scheduleService.levels"
+              [grade]="_class && _class.grade ? _class.grade : null"
               (timeslotClicked)="onTimeSlotClick($event)"
               (detailChanged)="onDetailChange($event)"
             >
@@ -69,7 +68,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     }
     const { hourIndex, dayIndex } = indexes;
     const dialogData = {
-      index: `${hourIndex}${dayIndex}`,
+      index: `${hourIndex}_${dayIndex}`,
       lesson: this.schedule[hourIndex][dayIndex].lesson,
       location: this.schedule[hourIndex][dayIndex].location,
       hour: this.scheduleService.hoursLabels[hourIndex],
@@ -89,8 +88,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       const tempClass: Class = {
         _id: this._class._id,
         name: this._class.name,
-        level: this._class.level,
-        number: this._class.number,
+        grade: this._class.grade,
         schedule: [
           { index: data.index, lesson: data.lesson, location: data.location },
         ],
@@ -111,20 +109,19 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   onDetailChange(params: ClassDetailsEventParams) {
     if (!this.isNew) {
-      return this.updateClass(params.name, params.level);
+      return this.updateClass(params.name, params.grade);
     }
-    if (params.name.length && params.level.length) {
+    if (params.name.length && params.grade.length) {
       this.createClass(params);
     }
   }
 
-  private async updateClass(name: string, level: string) {
+  private async updateClass(name: string, grade: string) {
     try {
       const tempClass: Class = {
         _id: this._class._id,
         name,
-        level,
-        number: this._class.number,
+        grade,
         schedule: this._class.schedule,
       };
       this._class = await this.classService.update(tempClass);
@@ -136,17 +133,15 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   private async createClass(params: ClassDetailsEventParams) {
     try {
-      const { name, level } = params;
+      const { name, grade } = params;
       const number = 1; // TODO: remove this from server to
       const created = await this.classService.create({
         name,
-        level,
-        number,
+        grade,
       } as Class);
       this._class._id = created._id;
       this._class.name = name;
-      this._class.level = level;
-      this._class.number = number; // TODO: remove this
+      this._class.grade = grade;
       this.location.replaceState(`/class/${created._id}`);
       this.idOrNew = created.id;
       this.isNew = false;

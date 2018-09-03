@@ -9,17 +9,14 @@ import { GetClassesResponse } from '../../../models/responses/get-classes-repons
 const allClassFields = `
 _id
 name
-level
-number
+grade
 schedule {
   index
   lesson {
-    _id
     title
     icon
   }
   location {
-    _id
     name
     disabled
     position {
@@ -46,7 +43,7 @@ export class ClassService {
       query: gql`{
         classes {
           _id
-          level
+          grade
           name
         }
       }` }).toPromise();
@@ -80,8 +77,7 @@ export class ClassService {
         mutation: gql`
       mutation {
         createClass(class: {
-            level: "${clss.level}"
-            number:  ${clss.number}
+            grade: "${clss.grade}"
             name: "${clss.name}"
         }) { _id }
       }
@@ -95,8 +91,8 @@ export class ClassService {
   }
 
   update(_class: Class) {
-    const { name, level, number } = _class;
-    const inputClass: InputClass = { name, level, number };
+    const { name, grade } = _class;
+    const inputClass: InputClass = { name, grade };
     if (_class.schedule) {
       inputClass.schedule = _class.schedule;
     }

@@ -15,9 +15,9 @@
 
           <div class="class-detail-field">
             <mat-form-field class="class-detail-field">
-              <mat-select [(value)]="level" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, level: level})">
-                <mat-option *ngFor="let lev of levels" [value]="lev" selected="lev === level">
-                  {{lev}}
+              <mat-select [(value)]="grade" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, grade: grade})">
+                <mat-option *ngFor="let key of gradesKeys" [value]="key" selected="key === grade">
+                  {{scheduleService.grades[key]}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

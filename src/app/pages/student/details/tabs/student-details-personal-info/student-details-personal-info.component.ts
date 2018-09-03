@@ -61,8 +61,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.class = {
       _id: '0',
       name: '',
-      level: '',
-      number: 0,
+      grade: '',
       schedule: [],
     };
     return student;
