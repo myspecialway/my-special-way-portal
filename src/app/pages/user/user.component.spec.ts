@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef,
          MatHeaderRow, MatDialog,
-         MatSort, MatPaginator,
-         MatPaginatorIntl,
+         MatSort,
         } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.graphql.service';
@@ -50,7 +49,6 @@ describe('user component', () => {
         MatRowDef,
         MatHeaderRowDef,
         MatSort,
-        MatPaginator,
       ],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },
@@ -63,7 +61,6 @@ describe('user component', () => {
         OverlayContainer,
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
-        MatPaginatorIntl,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
