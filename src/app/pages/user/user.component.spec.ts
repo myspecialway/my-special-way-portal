@@ -5,7 +5,7 @@ import { MatHeaderRowDef, MatRowDef,
          MatSort,
         } from '@angular/material';
 import { UserComponent } from './user.component';
-import { UserService } from './services/user.graphql.service';
+import { UserService } from './services/user.service';
 import { Overlay, ScrollStrategyOptions, ScrollDispatcher,
          ViewportRuler, OverlayContainer, OverlayPositionBuilder,
          OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
