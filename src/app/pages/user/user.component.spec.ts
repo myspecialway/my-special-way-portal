@@ -18,17 +18,11 @@ import { Observable } from 'rxjs-compat';
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
-  const testResponse = {
-                        data: JSON.parse(userTestData) as UserQuery,
-                        loading: false,
-                        networkStatus: 7 as NetworkStatus,
-                        stale: false,
-                      } as ApolloQueryResult<UserQuery>;
 
   beforeEach(async () => {
 
     userServiceMock = {
-      getAllUsers: jest.fn(),
+      getAllUsers: jest.fn().mockReturnValueOnce(Observable.of(userTestData.users)),
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
@@ -104,7 +98,7 @@ describe('user component', () => {
 
   it('should load users from service on page load ', () => {
     (userServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+      () => {return Promise.resolve();
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
@@ -114,7 +108,7 @@ describe('user component', () => {
 
   it('should load correct number of users ', async () => {
     (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(testResponse);
+      () => {return Promise.resolve();
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
@@ -123,9 +117,8 @@ describe('user component', () => {
 });
 
   it('should load zero users when recieves promise reject', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(
-      () => {return Promise.reject;
-    });
+    (userServiceMock.getAllUsers as jest.Mock).mockReset();
+    (userServiceMock.getAllUsers as jest.Mock).mockReturnValueOnce(Observable.of([]));
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
