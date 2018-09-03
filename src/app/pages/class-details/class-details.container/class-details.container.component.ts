@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
@@ -33,22 +33,25 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   constructor(
     private classService: ClassService,
+    private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public scheduleService: ScheduleService,
     private location: Location,
-  ) {}
+  ) { }
 
   async ngOnInit() {
-    try {
-      this.idOrNew = this.route.snapshot.params.idOrNew;
-      this.isNew = this.idOrNew === '_new_';
-      await this.initClass();
-      this.initSchedule();
-    } catch (err) {
-      console.log(err);
-      throw new Error(err);
-    }
+    this.route.params.subscribe(async (params) => {
+      try {
+        this.idOrNew = this.route.snapshot.params.idOrNew;
+        this.isNew = this.idOrNew === '_new_';
+        await this.initClass();
+        this.initSchedule();
+      } catch (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+    });
   }
 
   private async initClass() {
@@ -148,7 +151,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       this._class._id = created._id;
       this._class.name = name;
       this._class.grade = grade;
-      this.location.replaceState(`/class/${created._id}`);
+      this.router.navigate([`/class/${created._id}`]);
       this.idOrNew = created._id;
       this.isNew = false;
       this.initClass();
