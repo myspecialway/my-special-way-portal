@@ -90,7 +90,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       height: '375px',
       width: '320px',
     });
-    dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
+    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
       if (!data) {
         return;
       }
@@ -104,16 +104,13 @@ export class ClassDetailsContainerComponent implements OnInit {
         ],
       };
 
-      this.classService
-        .update(tempClass)
-        .then((res) => {
-          this._class = res;
-          this.initSchedule();
-        })
-        .catch((err) => {
-          console.log(err);
-          throw new Error(err);
-        });
+      try {
+        const updateClass = await this.classService.update(tempClass);
+        this._class = updateClass;
+        this.initSchedule();
+      } catch (error) {
+
+      }
     });
   }
 
@@ -130,16 +127,16 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   private async updateClass(name: string, grade: string) {
     try {
-      const tempClass: Class = {
-        _id: this._class._id,
+      const classToUpdate: Class = {
+        ...this._class,
         name,
         grade,
-        schedule: this._class.schedule,
       };
-      this._class = await this.classService.update(tempClass);
+
+      this._class = await this.classService.update(classToUpdate);
+      this.mswSnackbar.displayTimedMessage('הכיתה עודכנה בהצלחה');
     } catch (err) {
-      console.log(err);
-      throw new Error(err);
+      this.mswSnackbar.displayTimedMessage('שגיאה בעדכון כיתה');
     }
   }
 
@@ -149,7 +146,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       this.router.navigate([`/class/${created._id}`]);
       this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
     } catch (err) {
-      this.mswSnackbar.displayTimedMessage('שגיאה היצירת כיתה');
+      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
     }
   }
 }
