@@ -45,6 +45,10 @@ export class ClassService {
           _id
           grade
           name
+          students {
+            _id
+            firstname
+          }
         }
       }` }).toPromise();
 

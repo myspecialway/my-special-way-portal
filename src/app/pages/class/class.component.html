@@ -45,7 +45,7 @@
           <ng-container matColumnDef="deleteClass">-->
             <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level)"><i class="material-icons"> delete </i></button>
+              <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

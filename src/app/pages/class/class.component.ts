@@ -88,21 +88,29 @@ export class ClassComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteClass(_id: string, name: string, level: string) {
-    const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
-      data: {_id, name, level},
-    });
+  // deleteClass(_id: string, name: string, level: string) {
+  deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
+    if (numberOfStudents > 0) {
+      console.log('students IN THE CLASS!!');
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.classService.delete(_id)
-          .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
-            this.dataSource.data.splice(index, 1);
-            this.dataSource.paginator = this.paginator;
-          });
-      }
-    });
+    } else {
+      const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
+        data: {_id, name, level},
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.classService.delete(_id)
+            .then((res) => {
+              if (res && res.data && res.data.deleteClass !== 0) {
+                const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
+                this.dataSource.data.splice(index, 1);
+                this.dataSource.paginator = this.paginator;
+              }
+            });
+        }
+      });
+   }
   }
   editClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
