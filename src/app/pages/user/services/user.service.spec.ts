@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
+import { UserRole, UserType } from '../../../models/user.model';
 
 const apollo = new Apollo();
 
@@ -26,5 +27,36 @@ describe('user service tests', () => {
     it('should return user without changes when calling getById', async () => {
         (apollo.query as jest.Mock).mockReturnValue(of({_id: '234123'}));
         expect(await service.getById(21)).toEqual({_id: '234123'});
+    });
+
+    it('should return delete user response without changes when calling delete', async () => {
+        (apollo.mutate as jest.Mock).mockReturnValue(of({}));
+        expect(await service.delete(21)).toEqual({});
+    });
+
+    it('should return created user response without changes when calling create', async () => {
+        (apollo.mutate as jest.Mock).mockReturnValue(of({_id: '1111'}));
+        expect(await service.create({
+            email: 'a',
+            firstname: 'a',
+            lastname: 'a',
+            password: 'a',
+            role: UserType.PRINCIPLE,
+            username: 'a',
+            _id: 0,
+        })).toEqual({_id: '1111'});
+    });
+
+    it('should return update user response without changes when calling update', async () => {
+        (apollo.mutate as jest.Mock).mockReturnValue(of({_id: '12'}));
+        expect(await service.update({
+            email: 'a',
+            firstname: 'a',
+            lastname: 'a',
+            password: 'a',
+            role: UserType.PRINCIPLE,
+            username: 'a',
+            _id: 0,
+        })).toEqual({_id: '12'});
     });
 });
