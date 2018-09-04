@@ -12,6 +12,7 @@ import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog
 import * as _ from 'lodash';
 import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog';
 import { ScheduleService } from '../../services/schedule/schedule.service';
+import {MSWSnackbar} from '../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-grade',
@@ -31,6 +32,7 @@ export class ClassComponent implements OnInit {
     private classService: ClassService,
     public dialog: MatDialog,
     public scheduleService: ScheduleService,
+    private mswSnackbar: MSWSnackbar,
   ) { }
 
   async ngOnInit() {
@@ -66,8 +68,7 @@ export class ClassComponent implements OnInit {
   }
   deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
-      console.log('students IN THE CLASS!!');
-
+      this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: {_id, name, level},

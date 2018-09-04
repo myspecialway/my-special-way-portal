@@ -7,6 +7,7 @@ exports[`class component should render component as described in snapshot 1`] = 
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
   resultsLength="0"
+  scheduleService={[Function Object]}
   sort={[Function MatSort]}
   table={[Function ElementRef]}
 >
