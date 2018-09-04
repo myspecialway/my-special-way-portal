@@ -43,7 +43,8 @@ export class ClassDetailsContainerComponent implements OnInit {
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
       try {
-        this.idOrNew = this.route.snapshot.params.idOrNew;
+
+        this.idOrNew = params.idOrNew;
         this.isNew = this.idOrNew === '_new_';
         await this.initClass();
         this.initSchedule();
@@ -76,6 +77,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     if (!this._class._id) {
       return;
     }
+
     const { hourIndex, dayIndex } = indexes;
     const dialogData = {
       index: `${hourIndex}_${dayIndex}`,

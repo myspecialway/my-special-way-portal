@@ -1,3 +1,5 @@
+jest.mock('../../../services/student.service');
+
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
@@ -5,6 +7,8 @@ import { Observable } from 'rxjs-compat';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentDetailsHoursComponent } from './student-details-hours.component';
 import { StudentDetailsComponent } from '../../student-details.component';
+import { StudentService } from '../../../services/student.service';
+import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 
 describe('Student Details Hours Component', () => {
   describe('with _new_ student path', () => {
@@ -25,6 +29,8 @@ describe('Student Details Hours Component', () => {
             },
           },
           Platform,
+          StudentService,
+          ScheduleService,
           {
             provide: ActivatedRoute, useValue: {
               parent: {
