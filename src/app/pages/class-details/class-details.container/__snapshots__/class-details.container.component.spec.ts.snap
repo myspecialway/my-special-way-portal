@@ -1,3 +1,508 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClassDetailsContainerComponent should create 1`] = `undefined`;
+exports[`ClassDetailsContainerComponent should create 1`] = `
+ClassDetailsContainerComponent {
+  "_class": Object {
+    "_id": "5b217b030825622c97d3757f",
+    "grade": "a",
+    "name": "טיטאן",
+    "schedule": Array [
+      Object {
+        "index": "1_0",
+        "lesson": Object {
+          "_id": "5b2abc74572e7619a628c11c",
+          "icon": "test-icon",
+          "title": "test lesson",
+        },
+        "location": Object {
+          "_id": "5b5596a7739a882933edd4fc",
+          "disabled": false,
+          "name": "test location",
+          "position": Object {
+            "floor": 1,
+            "latitude": 0,
+            "longitude": 0,
+          },
+        },
+      },
+    ],
+  },
+  "classService": Object {
+    "classById": [MockFunction] {
+      "calls": Array [
+        Array [
+          "5b217b030825622c97d3757f",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": ZoneAwarePromise {
+            "__zone_symbol__state": true,
+            "__zone_symbol__value": Object {
+              "_id": "5b217b030825622c97d3757f",
+              "grade": "a",
+              "name": "טיטאן",
+              "schedule": Array [
+                Object {
+                  "index": "1_0",
+                  "lesson": Object {
+                    "_id": "5b2abc74572e7619a628c11c",
+                    "icon": "test-icon",
+                    "title": "test lesson",
+                  },
+                  "location": Object {
+                    "_id": "5b5596a7739a882933edd4fc",
+                    "disabled": false,
+                    "name": "test location",
+                    "position": Object {
+                      "floor": 1,
+                      "latitude": 0,
+                      "longitude": 0,
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      ],
+    },
+    "update": [MockFunction],
+  },
+  "dialog": Object {
+    "open": [MockFunction],
+  },
+  "idOrNew": "5b217b030825622c97d3757f",
+  "isNew": false,
+  "mswSnackbar": Object {
+    "displayTimedMessage": [MockFunction],
+  },
+  "route": Object {
+    "params": Subject {
+      "_isScalar": false,
+      "closed": false,
+      "hasError": false,
+      "isStopped": false,
+      "observers": Array [
+        Subscriber {
+          "_parent": null,
+          "_parents": null,
+          "_subscriptions": Array [
+            SubjectSubscription {
+              "_parent": [Circular],
+              "_parents": null,
+              "_subscriptions": null,
+              "closed": false,
+              "subject": [Circular],
+              "subscriber": [Circular],
+            },
+          ],
+          "closed": false,
+          "destination": SafeSubscriber {
+            "_complete": undefined,
+            "_context": [Circular],
+            "_error": undefined,
+            "_next": [Function],
+            "_parent": null,
+            "_parentSubscriber": [Circular],
+            "_parents": null,
+            "_subscriptions": null,
+            "closed": false,
+            "destination": Object {
+              "closed": true,
+              "complete": [Function],
+              "error": [Function],
+              "next": [Function],
+            },
+            "isStopped": false,
+            "syncErrorThrowable": false,
+            "syncErrorThrown": false,
+            "syncErrorValue": null,
+          },
+          "isStopped": false,
+          "syncErrorThrowable": true,
+          "syncErrorThrown": false,
+          "syncErrorValue": null,
+        },
+      ],
+      "thrownError": null,
+    },
+  },
+  "router": Router {
+    "activateRoutes": [MockFunction],
+    "createUrlTree": [MockFunction],
+    "dispose": [MockFunction],
+    "executeScheduledNavigation": [MockFunction],
+    "initialNavigation": [MockFunction],
+    "isActive": [MockFunction],
+    "navigate": [MockFunction],
+    "navigateByUrl": [MockFunction],
+    "ngOnDestroy": [MockFunction],
+    "parseUrl": [MockFunction],
+    "processNavigations": [MockFunction],
+    "removeEmptyProps": [MockFunction],
+    "resetConfig": [MockFunction],
+    "resetRootComponentType": [MockFunction],
+    "resetStateAndUrl": [MockFunction],
+    "resetUrlToCurrentUrlTree": [MockFunction],
+    "runNavigate": [MockFunction],
+    "scheduleNavigation": [MockFunction],
+    "serializeUrl": [MockFunction],
+    "setUpLocationChangeListener": [MockFunction],
+    "triggerEvent": [MockFunction],
+  },
+  "schedule": Array [
+    Array [
+      Object {
+        "index": "0_0",
+      },
+      Object {
+        "index": "0_1",
+      },
+      Object {
+        "index": "0_2",
+      },
+      Object {
+        "index": "0_3",
+      },
+      Object {
+        "index": "0_4",
+      },
+      Object {
+        "index": "0_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "1_0",
+        "lesson": Object {
+          "_id": "5b2abc74572e7619a628c11c",
+          "icon": "test-icon",
+          "title": "test lesson",
+        },
+        "location": Object {
+          "_id": "5b5596a7739a882933edd4fc",
+          "disabled": false,
+          "name": "test location",
+          "position": Object {
+            "floor": 1,
+            "latitude": 0,
+            "longitude": 0,
+          },
+        },
+      },
+      Object {
+        "index": "1_1",
+      },
+      Object {
+        "index": "1_2",
+      },
+      Object {
+        "index": "1_3",
+      },
+      Object {
+        "index": "1_4",
+      },
+      Object {
+        "index": "1_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "2_0",
+      },
+      Object {
+        "index": "2_1",
+      },
+      Object {
+        "index": "2_2",
+      },
+      Object {
+        "index": "2_3",
+      },
+      Object {
+        "index": "2_4",
+      },
+      Object {
+        "index": "2_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "3_0",
+      },
+      Object {
+        "index": "3_1",
+      },
+      Object {
+        "index": "3_2",
+      },
+      Object {
+        "index": "3_3",
+      },
+      Object {
+        "index": "3_4",
+      },
+      Object {
+        "index": "3_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "4_0",
+      },
+      Object {
+        "index": "4_1",
+      },
+      Object {
+        "index": "4_2",
+      },
+      Object {
+        "index": "4_3",
+      },
+      Object {
+        "index": "4_4",
+      },
+      Object {
+        "index": "4_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "5_0",
+      },
+      Object {
+        "index": "5_1",
+      },
+      Object {
+        "index": "5_2",
+      },
+      Object {
+        "index": "5_3",
+      },
+      Object {
+        "index": "5_4",
+      },
+      Object {
+        "index": "5_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "6_0",
+      },
+      Object {
+        "index": "6_1",
+      },
+      Object {
+        "index": "6_2",
+      },
+      Object {
+        "index": "6_3",
+      },
+      Object {
+        "index": "6_4",
+      },
+      Object {
+        "index": "6_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "7_0",
+      },
+      Object {
+        "index": "7_1",
+      },
+      Object {
+        "index": "7_2",
+      },
+      Object {
+        "index": "7_3",
+      },
+      Object {
+        "index": "7_4",
+      },
+      Object {
+        "index": "7_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "8_0",
+      },
+      Object {
+        "index": "8_1",
+      },
+      Object {
+        "index": "8_2",
+      },
+      Object {
+        "index": "8_3",
+      },
+      Object {
+        "index": "8_4",
+      },
+      Object {
+        "index": "8_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "9_0",
+      },
+      Object {
+        "index": "9_1",
+      },
+      Object {
+        "index": "9_2",
+      },
+      Object {
+        "index": "9_3",
+      },
+      Object {
+        "index": "9_4",
+      },
+      Object {
+        "index": "9_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "10_0",
+      },
+      Object {
+        "index": "10_1",
+      },
+      Object {
+        "index": "10_2",
+      },
+      Object {
+        "index": "10_3",
+      },
+      Object {
+        "index": "10_4",
+      },
+      Object {
+        "index": "10_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "11_0",
+      },
+      Object {
+        "index": "11_1",
+      },
+      Object {
+        "index": "11_2",
+      },
+      Object {
+        "index": "11_3",
+      },
+      Object {
+        "index": "11_4",
+      },
+      Object {
+        "index": "11_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "12_0",
+      },
+      Object {
+        "index": "12_1",
+      },
+      Object {
+        "index": "12_2",
+      },
+      Object {
+        "index": "12_3",
+      },
+      Object {
+        "index": "12_4",
+      },
+      Object {
+        "index": "12_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "13_0",
+      },
+      Object {
+        "index": "13_1",
+      },
+      Object {
+        "index": "13_2",
+      },
+      Object {
+        "index": "13_3",
+      },
+      Object {
+        "index": "13_4",
+      },
+      Object {
+        "index": "13_5",
+      },
+    ],
+    Array [
+      Object {
+        "index": "14_0",
+      },
+      Object {
+        "index": "14_1",
+      },
+      Object {
+        "index": "14_2",
+      },
+      Object {
+        "index": "14_3",
+      },
+      Object {
+        "index": "14_4",
+      },
+      Object {
+        "index": "14_5",
+      },
+    ],
+  ],
+  "scheduleService": ScheduleService {
+    "daysLabels": Array [
+      "ראשון",
+      "שני",
+      "שלישי",
+      "רביעי",
+      "חמישי",
+      "שישי",
+    ],
+    "grades": Object {
+      "a": "א",
+      "b": "ב",
+      "c": "ג",
+      "d": "ד",
+      "e": "ה",
+      "f": "ו",
+    },
+    "hoursLabels": Array [
+      "07:30 - 08:00",
+      "08:00 - 08:50",
+      "08:50 - 09:35",
+      "09:35 - 10:00",
+      "10:00 - 10:30",
+      "10:30 - 11:15",
+      "11:15 - 12:00",
+      "12:00 - 12:45",
+      "12:45 - 13:15",
+      "13:15 - 13:45",
+      "13:45 - 14:30",
+      "14:30 - 15:15",
+      "15:15 - 16:00",
+      "16:00 - 16:30",
+      "16:30 - 16:45",
+    ],
+  },
+}
+`;
