@@ -15,7 +15,6 @@ import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service
 describe('ClassDetailsContainerComponent', () => {
   let component: ClassDetailsContainerComponent;
   let classServiceMock: Partial<ClassService>;
-  let scheduleServiceMock: Partial<ScheduleService>;
   let scheduleDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
   let afterClosedMockFn: jest.Mock;
@@ -74,7 +73,7 @@ describe('ClassDetailsContainerComponent', () => {
     );
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
-      update: jest.fn(), // .mockReturnValue(Promise.resolve({data: {updateClass: {_id: 'updateclassid'}}})),
+      update: jest.fn(),
     };
     scheduleServiceMock = {
       grades: {
@@ -160,27 +159,27 @@ describe('ClassDetailsContainerComponent', () => {
 
   it('should throw an error when classService.update failes', () => {
     (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
-    fixture.componentInstance.onTimeSlotClick({hourIndex: 0, dayIndex: 0});
+    fixture.componentInstance.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
     observableAfterClosed.next(mockedScheduleDialogData);
     expect(fixture.componentInstance.onTimeSlotClick).toThrowError();
   });
 
   it('should not call classService.update when dismissing the dialog', () => {
-    fixture.componentInstance.onTimeSlotClick({hourIndex: 1, dayIndex: 0});
+    fixture.componentInstance.onTimeSlotClick({ hourIndex: 1, dayIndex: 0 });
     observableAfterClosed.next(undefined);
     expect(classServiceMock.update).not.toHaveBeenCalled();
   });
 
   it('should call onDetailChange', () => {
-    (classServiceMock.update as jest.Mock).mockResolvedValueOnce({data: {updateClass: {_id: 'updateclassid'}}});
-    fixture.componentInstance.onDetailChange({name: 'newName', grade: 'a'});
-    const updatedClass = {...mockedClass, name: 'newName', grade: 'a' };
+    (classServiceMock.update as jest.Mock).mockResolvedValueOnce({ data: { updateClass: { _id: 'updateclassid' } } });
+    fixture.componentInstance.onDetailChange({ name: 'newName', grade: 'a' });
+    const updatedClass = { ...mockedClass, name: 'newName', grade: 'a' };
     expect(classServiceMock.update).toHaveBeenCalledWith(updatedClass);
   });
 
   it('should throw an error when class service fails to update', () => {
     (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
-    fixture.componentInstance.onDetailChange({name: 'newName', grade: 'a'});
+    fixture.componentInstance.onDetailChange({ name: 'newName', grade: 'a' });
     expect(fixture.componentInstance.onDetailChange).toThrowError();
   });
 });
