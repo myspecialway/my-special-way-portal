@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatSnackBarModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
-import { StudentService } from './pages/student/services/student.graphql.service';
+import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
 import { AddStudentDialogComponent } from './pages/student/dialogs/add/add-student.dialog';
 import { UserComponent } from './pages/user/user.component';
@@ -42,6 +42,7 @@ import { PagesModule } from './pages/pages.module';
 import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
+import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { LocationService } from './services/location/location.graphql.service';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    MatSnackBarModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -111,6 +113,7 @@ import { LocationService } from './services/location/location.graphql.service';
     LessonService,
     ScheduleService,
     LocationService,
+    MSWSnackbar,
   ],
   bootstrap: [AppComponent],
 })

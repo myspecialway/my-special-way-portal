@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
@@ -9,7 +9,7 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Class } from '../../../models/class.model';
 import { ClassDetailsEventParams } from '../class-details.view/class-details.view.component';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
-import { Location } from '@angular/common';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-class-details-container',
@@ -33,20 +33,30 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   constructor(
     private classService: ClassService,
+    private router: Router,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
-    public scheduleService: ScheduleService,
-    private location: Location,
-  ) {}
+    private dialog: MatDialog,
+    private scheduleService: ScheduleService,
+    private mswSnackbar: MSWSnackbar,
+  ) { }
 
   async ngOnInit() {
+    this.route.params.subscribe(async (params) => {
+      try {
+        this.idOrNew = this.route.snapshot.params.idOrNew;
+        this.isNew = this.idOrNew === '_new_';
+        await this.initClass();
+        this.initSchedule();
+      } catch (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+    });
+  }
+
+  private async initClass() {
     try {
-      this.idOrNew = this.route.snapshot.params.idOrNew;
-      this.isNew = this.idOrNew === '_new_';
-      this._class = this.isNew
-        ? new Class()
-        : await this.classService.classById(this.idOrNew);
-      this.initSchedule();
+      this._class = this.isNew ? new Class() : await this.classService.classById(this.idOrNew);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -80,7 +90,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       height: '375px',
       width: '320px',
     });
-    dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
+    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
       if (!data) {
         return;
       }
@@ -94,60 +104,49 @@ export class ClassDetailsContainerComponent implements OnInit {
         ],
       };
 
-      this.classService
-        .update(tempClass)
-        .then((res) => {
-          this._class = res;
-          this.initSchedule();
-        })
-        .catch((err) => {
-          console.log(err);
-          throw new Error(err);
-        });
+      try {
+        const updateClass = await this.classService.update(tempClass);
+        this._class = updateClass;
+        this.initSchedule();
+      } catch (error) {
+
+      }
     });
   }
 
-  onDetailChange(params: ClassDetailsEventParams) {
+  onDetailChange(classDetails: ClassDetailsEventParams) {
     if (!this.isNew) {
-      return this.updateClass(params.name, params.grade);
+      return this.updateClass(classDetails.name, classDetails.grade);
     }
-    if (params.name.length && params.grade.length) {
-      this.createClass(params);
+
+    // TODO: This check should be in form of validation on fields and not here!
+    if (classDetails.name && classDetails.grade) {
+      this.createClass(classDetails);
     }
   }
 
   private async updateClass(name: string, grade: string) {
     try {
-      const tempClass: Class = {
-        _id: this._class._id,
+      const classToUpdate: Class = {
+        ...this._class,
         name,
         grade,
-        schedule: this._class.schedule,
       };
-      this._class = await this.classService.update(tempClass);
+
+      this._class = await this.classService.update(classToUpdate);
+      this.mswSnackbar.displayTimedMessage('הכיתה עודכנה בהצלחה');
     } catch (err) {
-      console.log(err);
-      throw new Error(err);
+      this.mswSnackbar.displayTimedMessage('שגיאה בעדכון כיתה');
     }
   }
 
-  private async createClass(params: ClassDetailsEventParams) {
+  private async createClass(classDetails: ClassDetailsEventParams) {
     try {
-      const { name, grade } = params;
-      const number = 1; // TODO: remove this from server to
-      const created = await this.classService.create({
-        name,
-        grade,
-      } as Class);
-      this._class._id = created._id;
-      this._class.name = name;
-      this._class.grade = grade;
-      this.location.replaceState(`/class/${created._id}`);
-      this.idOrNew = created.id;
-      this.isNew = false;
+      const created = await this.classService.create(classDetails);
+      this.router.navigate([`/class/${created._id}`]);
+      this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
     } catch (err) {
-      console.log(err);
-      throw new Error(err);
+      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
     }
   }
 }

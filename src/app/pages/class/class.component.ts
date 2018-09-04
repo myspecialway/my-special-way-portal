@@ -1,74 +1,51 @@
-import {Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { merge } from 'rxjs/observable/merge';
-import { of as observableOf } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { AddClassDialogComponent } from './dialogs/add/add-class.dialog';
 import { Class } from '../../models/class.model';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import * as _ from 'lodash';
 import { UpdateClassDialogComponent } from './dialogs/update/update-class.dialog';
+import { ScheduleService } from '../../services/schedule/schedule.service';
 
 @Component({
   selector: 'app-grade',
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.scss'],
 })
-export class ClassComponent implements OnInit, AfterViewInit {
+export class ClassComponent implements OnInit {
 
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('table') table: ElementRef;
 
   constructor(
     private classService: ClassService,
     public dialog: MatDialog,
+    public scheduleService: ScheduleService,
   ) { }
 
-  ngOnInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-            return this.classService.getAllClasses();
-        }),
-        map((data: any) => {
-          return data;
-        }),
-        catchError((err: TypeError) => {
-          console.warn('class.component::ngInInit:: empty stream recieved');
-          return observableOf([]);
-        }),
-    ).subscribe((data) => {
-      if (data) {
-        this.dataSource.data = [...data];
-      }
-    });
-
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  async ngOnInit() {
+    await this.populateDatasource();
     this.dataSource.sort = this.sort;
   }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+
+  private async populateDatasource() {
+    try {
+      this.dataSource.data = await this.classService.getAllClasses();
+    } catch (error) {
+      // TODO: implement error handling on UI
+      console.error('Error handling not implemented');
+      throw error;
+    }
   }
 
   addNewClass() {
@@ -83,12 +60,10 @@ export class ClassComponent implements OnInit, AfterViewInit {
         this.classService.create(newClass)
           .then(() => {
             this.dataSource.data.push(newClass);
-            this.dataSource.paginator = this.paginator;
           });
       }
     });
   }
-  // deleteClass(_id: string, name: string, level: string) {
   deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
       console.log('students IN THE CLASS!!');
@@ -105,13 +80,13 @@ export class ClassComponent implements OnInit, AfterViewInit {
               if (res && res.data && res.data.deleteClass !== 0) {
                 const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
                 this.dataSource.data.splice(index, 1);
-                this.dataSource.paginator = this.paginator;
               }
             });
         }
       });
    }
   }
+
   editClass(_id: string, name: string, level: string) {
     const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
       data: {_id, name, level},
@@ -128,11 +103,11 @@ export class ClassComponent implements OnInit, AfterViewInit {
           .then((data) => {
             const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
             this.dataSource.data[index] = _.assign({}, relevantClass, result);
-            this.dataSource.paginator = this.paginator;
           });
       }
     });
   }
+
   _createNewClass(classData: any): Class {
     const _class: Class = new Class();
     _class.name = classData.name;

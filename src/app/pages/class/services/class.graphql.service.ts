@@ -75,7 +75,7 @@ export class ClassService {
     });
   }
 
-  create(clss: Class) {
+  create(clss: Class | Partial<Class>) {
     return this.apollo
       .mutate({
         mutation: gql`
