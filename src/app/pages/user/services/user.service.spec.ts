@@ -22,4 +22,9 @@ describe('user service tests', () => {
         (apollo.watchQuery as jest.Mock).mockReturnValue({valueChanges: throwError('')});
         expect(await service.getAllUsers().toPromise()).toEqual([]);
     });
+
+    it('should return user without changes when calling getById', async () => {
+        (apollo.query as jest.Mock).mockReturnValue(of({_id: '234123'}));
+        expect(await service.getById(21)).toEqual({_id: '234123'});
+    });
 });
