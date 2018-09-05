@@ -81,8 +81,9 @@ export class StudentDetailsHoursComponent implements OnInit {
         schedule: [{ index: data.index, lesson: data.lesson, location: data.location }]
       };
       try {
-        const updatedStudent = await this.studentService.update(tempStudent);
-        // TODO: need to refresh/reload the student component
+        await this.studentService.update(tempStudent);
+        this.student = await this.studentService.getById(this.id);
+        this.initSchedule();
       } catch (error) {
         console.log(error);
       }
