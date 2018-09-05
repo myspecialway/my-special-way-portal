@@ -48,12 +48,12 @@ export class ClassComponent implements OnInit {
     }
   }
 
-  deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
+  deleteClass(_id: string, name: string, grade: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
       this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
-        data: {_id, name, level},
+        data: {_id, name, grade},
       });
 
       dialogRef.afterClosed().subscribe((result) => {
@@ -61,8 +61,7 @@ export class ClassComponent implements OnInit {
           this.classService.delete(_id)
             .then((res) => {
               if (res && res.data && res.data.deleteClass !== 0) {
-                const index = _.findIndex(this.dataSource.data, (user) =>  user._id === _id);
-                this.dataSource.data.splice(index, 1);
+                this.dataSource.data = this.dataSource.data.filter((cls) => cls._id !== _id);
               }
             });
         }
