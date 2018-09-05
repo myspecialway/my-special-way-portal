@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  beUrl: 'http://104.211.5.234:3000/graphql',
-  loginUrl: 'http://104.211.5.234:3000/login',
+  beUrl: 'https://msw-server.azurewebsites.net/graphql',
+  loginUrl: 'https://msw-server.azurewebsites.net/login',
 };
