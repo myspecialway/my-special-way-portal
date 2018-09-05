@@ -1,12 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { UserService } from './services/user.graphql.service';
-import { merge } from 'rxjs/observable/merge';
-import { of as observableOf } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
@@ -24,7 +18,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('table') table: ElementRef;
 
@@ -34,28 +27,13 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-            return this.userService.getAllUsers();
-        }),
-        map((data: any) => {
-          return data.data.users;
-        }),
-        catchError((err: TypeError) => {
-          console.warn('user.component::ngInInit:: empty stream recieved');
-          return observableOf([]);
-        }),
-    ).subscribe((data) => {
-      this.dataSource.data = [...data];
-    });
-
+    this.userService.getAllUsers()
+      .subscribe((data) => {
+        this.dataSource.data = data;
+      });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
@@ -77,11 +55,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         const newUser: User = this._createNewUser(data);
-        this.userService.create(newUser)
-          .then(() => {
-            this.dataSource.data.push(newUser);
-            this.dataSource.paginator = this.paginator;
-          });
+        this.userService.create(newUser);
       }
     });
   }
@@ -94,12 +68,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.userService.delete(_id)
-          .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-            this.dataSource.data.splice(index, 1);
-            this.dataSource.paginator = this.paginator;
-          });
+        this.userService.delete(_id);
       }
     });
   }
@@ -115,12 +84,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         const relevantUser = _.find(this.dataSource.data, {_id});
         const tempUser = _.assign({}, relevantUser, result);
 
-        this.userService.update(tempUser)
-          .then((data) => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-            this.dataSource.data[index] = _.assign({}, relevantUser, result);
-            this.dataSource.paginator = this.paginator;
-          });
+        this.userService.update(tempUser);
       }
     });
   }
