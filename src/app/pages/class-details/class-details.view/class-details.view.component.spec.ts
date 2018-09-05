@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { ScheduleService } from '../../../services/schedule/schedule.service';
 
 describe('ClassDetailsComponent', () => {
   let fixture: ComponentFixture<ClassDetailsViewComponent>;
@@ -9,6 +10,9 @@ describe('ClassDetailsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ClassDetailsViewComponent,
+      ],
+      providers: [
+        ScheduleService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -19,7 +23,7 @@ describe('ClassDetailsComponent', () => {
     fixture = TestBed.createComponent(ClassDetailsViewComponent);
     component = fixture.componentInstance;
     component.name = 'פטל';
-    component.level = 'א';
+    component.grade = 'a';
     fixture.detectChanges();
   });
 

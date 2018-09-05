@@ -8,7 +8,7 @@
     
       <mat-form-field>
         <mat-select placeholder="שיעור" [(ngModel)]="selectedLesson" name="lesson" #lesson="ngModel" (selectionChange)="scheduleDialogData.lesson = selectedLesson" required>
-          <mat-option *ngFor="let les of lessons" [value]="les" selected="selectedLesson && selectedLesson._id === les._id">
+          <mat-option *ngFor="let les of lessons" [value]="les" selected="selectedLesson && selectedLesson.title === les.title">
             {{les.title}}
           </mat-option>
         </mat-select>
@@ -17,7 +17,7 @@
 
       <mat-form-field>
         <mat-select placeholder="מיקום" [(ngModel)]="selectedLocation" name="location" #location="ngModel"  (selectionChange)="scheduleDialogData.location = selectedLocation" required>
-          <mat-option *ngFor="let loc of locations" [value]="loc" selected="selectedLocation && selectedLocation._id === loc._id">
+          <mat-option *ngFor="let loc of locations" [value]="loc" selected="selectedLocation && selectedLocation.name === loc.name">
             {{loc.name}}
           </mat-option>
         </mat-select>
