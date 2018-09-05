@@ -7,7 +7,7 @@
         </mat-form-field>
       </div>
       <div class="example-header">
-        <button mat-raised-button color="primary" (click)="addNewClass()">הוספת כיתה חדש</button>
+        <button mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדש</button>
       </div>
     </div>
     <div class="row">
@@ -29,7 +29,7 @@
           <!-- Title Column -->
           <ng-container matColumnDef="level">
             <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+            <mat-cell *matCellDef="let row">{{ scheduleService.grades[row.grade] }}</mat-cell>
           </ng-container>
 
 
@@ -45,7 +45,7 @@
           <ng-container matColumnDef="deleteClass">-->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level)"><i class="material-icons"> delete </i></button>
+              <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

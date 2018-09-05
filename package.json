@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.56",
+  "version": "0.0.62",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -94,11 +94,6 @@
     "jest-preset-angular": "^5.2.2",
     "jest-zone-patch": "^0.0.8",
     "json-graphql-server": "^2.1.1",
-    "karma": "2.0.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-cli": "1.0.1",
-    "karma-coverage-istanbul-reporter": "1.4.2",
-    "karma-jasmine": "1.1.1",
     "npx": "^10.2.0",
     "protractor": "5.3.1",
     "shallow-render": "^6.0.3",

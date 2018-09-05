@@ -1,12 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
-import { UserService } from './services/user.graphql.service';
-import { merge } from 'rxjs/observable/merge';
-import { of as observableOf } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
@@ -33,23 +27,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    merge(this.sort.sortChange)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-            return this.userService.getAllUsers();
-        }),
-        map((data: any) => {
-          return data.data.users;
-        }),
-        catchError((err: TypeError) => {
-          console.warn('user.component::ngInInit:: empty stream recieved');
-          return observableOf([]);
-        }),
-    ).subscribe((data) => {
-      this.dataSource.data = [...data];
-    });
-
+    this.userService.getAllUsers()
+      .subscribe((data) => {
+        this.dataSource.data = data;
+      });
   }
 
   ngAfterViewInit() {
@@ -74,10 +55,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         const newUser: User = this._createNewUser(data);
-        this.userService.create(newUser)
-          .then(() => {
-            this.dataSource.data.push(newUser);
-          });
+        this.userService.create(newUser);
       }
     });
   }
@@ -90,11 +68,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.userService.delete(_id)
-          .then(() => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-            this.dataSource.data.splice(index, 1);
-          });
+        this.userService.delete(_id);
       }
     });
   }
@@ -110,11 +84,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         const relevantUser = _.find(this.dataSource.data, {_id});
         const tempUser = _.assign({}, relevantUser, result);
 
-        this.userService.update(tempUser)
-          .then((data) => {
-            const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-            this.dataSource.data[index] = _.assign({}, relevantUser, result);
-          });
+        this.userService.update(tempUser);
       }
     });
   }

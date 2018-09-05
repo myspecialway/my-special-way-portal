@@ -1,4 +1,5 @@
 import { Class } from './class.model';
+import { TimeSlot } from './timeslot.model';
 
 export default class Student {
   _id: number;
@@ -8,6 +9,7 @@ export default class Student {
   lastname: string;
   gender: Gender;
   class: Class;
+  schedule: TimeSlot[];
 }
 
 export enum Gender {
@@ -23,6 +25,7 @@ export interface StudentQuery {
   lastname: string;
   gender: Gender;
   class_id: string;
+  schedule?: TimeSlot[];
 }
 
 export interface StudentsQuery  {

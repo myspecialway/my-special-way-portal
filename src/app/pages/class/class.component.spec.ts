@@ -8,10 +8,14 @@ import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispat
   OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
+import { ScheduleService } from '../../services/schedule/schedule.service';
+import {MSWSnackbar} from '../../services/msw-snackbar/msw-snackbar.service';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
   let classDialogMock: Partial<MatDialog>;
+  let scheduleServiceMock: Partial<ScheduleService>;
+  let snackbarMock: Partial<MSWSnackbar>;
 
   beforeEach(async () => {
 
@@ -28,6 +32,21 @@ describe('class component', () => {
       }),
     };
 
+    snackbarMock = {
+      displayTimedMessage: jest.fn(),
+    };
+
+    scheduleServiceMock = {
+      grades: {
+        a: 'א',
+        b: 'ב',
+        c: 'ג',
+        d: 'ד',
+        e: 'ה',
+        f: 'ו',
+      },
+    };
+
     TestBed.configureTestingModule({
       imports: [
       ],
@@ -41,6 +60,8 @@ describe('class component', () => {
       providers: [
         { provide: MatDialog, useValue: classDialogMock },
         { provide: ClassService, useValue: classServiceMock },
+        { provide: ScheduleService, useValue: scheduleServiceMock},
+        { provide: MSWSnackbar, useValue: snackbarMock},
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -60,34 +81,34 @@ describe('class component', () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should open dialog when calling addNewClass function', () => {
-    (classServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.addNewClass();
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
-  });
-
-  it('should open dialog when calling deleteClass function', () => {
+  it('should open dialog when calling deleteClass function when no students assigned to the class', () => {
     (classServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd');
+    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 0);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  it('should open dialog when calling updateClass function', () => {
-    (classServiceMock.update as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
+  it('should not open a dialog when calling deleteClass function when students are assigned to the class', () => {
+    (classServiceMock.delete as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(0);
+      });
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.editClass('123', 'sad', 'asd');
+    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
     const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
+    expect(DialogMock.open).not.toHaveBeenCalled();
+  });
+
+  it('should open a snackbar error message when calling deleteClass function when students are assigned to the class', () => {
+    (classServiceMock.delete as jest.Mock).mockImplementationOnce(
+      () => {return Promise.resolve(0);
+      });
+    const fixture = TestBed.createComponent(ClassComponent);
+    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
+    const SnackbarMock = TestBed.get(MSWSnackbar);
+    expect(SnackbarMock.displayTimedMessage).toHaveBeenCalled();
   });
 
   it('should load classes from service on page load ', () => {
