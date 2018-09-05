@@ -35,8 +35,6 @@ import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/del
 import { ClassService } from './pages/class/services/class.graphql.service';
 import { LessonService } from './services/lesson/lesson.graphql.service';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
-import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
-import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { PagesModule } from './pages/pages.module';
 import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
@@ -87,9 +85,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-    AddClassDialogComponent,
     DeleteClassDialogComponent,
-    UpdateClassDialogComponent,
     ScheduleDialogComponent,
   ],
   entryComponents: [
@@ -99,9 +95,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-    AddClassDialogComponent,
     DeleteClassDialogComponent,
-    UpdateClassDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [

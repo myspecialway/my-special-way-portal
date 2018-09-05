@@ -81,16 +81,6 @@ describe('class component', () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should open dialog when calling addNewClass function', () => {
-    (classServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.addNewClass();
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
-  });
-
   it('should open dialog when calling deleteClass function when no students assigned to the class', () => {
     (classServiceMock.delete as jest.Mock).mockImplementationOnce(
       () => {return Promise.resolve(1);
@@ -119,16 +109,6 @@ describe('class component', () => {
     fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
     const SnackbarMock = TestBed.get(MSWSnackbar);
     expect(SnackbarMock.displayTimedMessage).toHaveBeenCalled();
-  });
-
-  it('should open dialog when calling updateClass function', () => {
-    (classServiceMock.update as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
-    });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.editClass('123', 'sad', 'asd');
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
   });
 
   it('should load classes from service on page load ', () => {

@@ -2,6 +2,7 @@
 
 exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-hours
+  dialog={[Function Object]}
   route={[Function Object]}
   scheduleService={[Function ScheduleService]}
   studentService={[Function StudentService]}

@@ -32,11 +32,11 @@ export class ClassDetailsContainerComponent implements OnInit {
   idOrNew: string;
 
   constructor(
+    public scheduleService: ScheduleService,
     private classService: ClassService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private scheduleService: ScheduleService,
     private mswSnackbar: MSWSnackbar,
   ) { }
 

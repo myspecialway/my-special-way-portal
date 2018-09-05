@@ -9,10 +9,17 @@ import { StudentDetailsHoursComponent } from './student-details-hours.component'
 import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
+import { MatDialog } from '@angular/material';
 
 describe('Student Details Hours Component', () => {
+  let scheduleDialogMock: Partial<MatDialog>;
   describe('with _new_ student path', () => {
     beforeEach(async () => {
+      scheduleDialogMock = {
+        open: jest.fn().mockReturnValue({
+          afterClosed: jest.fn(),
+        }),
+      };
 
       TestBed.configureTestingModule({
         imports: [
@@ -23,6 +30,7 @@ describe('Student Details Hours Component', () => {
           StudentDetailsHoursComponent,
         ],
         providers: [
+          { provide: MatDialog, useValue: scheduleDialogMock },
           {
             provide: Router, useValue: {
               forRoot: jest.fn(),
