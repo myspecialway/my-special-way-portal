@@ -25,6 +25,7 @@ export interface StudentQuery {
   lastname: string;
   gender: Gender;
   class_id: string;
+  schedule?: TimeSlot[];
 }
 
 export interface StudentsQuery  {

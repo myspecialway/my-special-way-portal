@@ -3,7 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 import { StudentService } from '../../../services/student.service';
 import { TimeSlot } from '../../../../../models/timeslot.model';
-import Student from '../../../../../models/student.model';
+import Student, { StudentQuery } from '../../../../../models/student.model';
+import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.component';
+import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
+import { MatDialog } from '@angular/material';
+import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -21,6 +25,7 @@ export class StudentDetailsHoursComponent implements OnInit {
     private route: ActivatedRoute,
     public scheduleService: ScheduleService,
     private studentService: StudentService,
+    private dialog: MatDialog,
   ) { }
 
   async ngOnInit() {
@@ -43,5 +48,44 @@ export class StudentDetailsHoursComponent implements OnInit {
       this.scheduleService.daysLabels.length,
       schedule,
     );
+  }
+
+  onTimeSlotClick(indexes: TimeSlotIndexes) {
+    const { hourIndex, dayIndex } = indexes;
+    const dialogData = {
+      index: `${hourIndex}_${dayIndex}`,
+      lesson: this.schedule[hourIndex][dayIndex].lesson,
+      location: this.schedule[hourIndex][dayIndex].location,
+      hour: this.scheduleService.hoursLabels[hourIndex],
+      day: this.scheduleService.daysLabels[dayIndex],
+    } as ScheduleDialogData;
+
+    const dialogRef = this.dialog.open(ScheduleDialogComponent, {
+      data: dialogData,
+      height: '375px',
+      width: '320px',
+    });
+
+    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
+      if (!data) {
+        return;
+      }
+      const tempStudent: StudentQuery = {
+        _id: this.student._id,
+        username: this.student.username,
+        firstname: this.student.firstname,
+        lastname: this.student.lastname,
+        gender: this.student.gender,
+        password: this.student.password,
+        class_id: this.student.class._id,
+        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }]
+      };
+      try {
+        const updatedStudent = await this.studentService.update(tempStudent);
+        // TODO: need to refresh/reload the student component
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 }
