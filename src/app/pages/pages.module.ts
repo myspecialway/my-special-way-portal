@@ -31,7 +31,6 @@ import { StudentDetailsNotificationsComponent } from './student/details/tabs/stu
     StudentDetailsNotificationsComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
-    LessonComponent,
   ],
 })
 export class PagesModule { }
