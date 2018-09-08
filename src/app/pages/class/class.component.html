@@ -16,29 +16,16 @@
         <mat-table #table [dataSource]="dataSource" class="msw-table"
                    matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
-
-          <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
           <!-- Number Column -->
           <ng-container matColumnDef="classname">
             <mat-header-cell *matHeaderCellDef>שם כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row"><a [routerLink]="['/class', row._id]">{{ row.name }}</a></mat-cell>
+            <mat-cell *matCellDef="let row" (click)="navigate(row._id)">{{ row.name }}</mat-cell>
           </ng-container>
 
           <!-- Title Column -->
           <ng-container matColumnDef="level">
             <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ scheduleService.grades[row.grade] }}</mat-cell>
-          </ng-container>
-
-
-          <!--&lt;!&ndash; State Column &ndash;&gt;-->
-          <ng-container matColumnDef="editDetails">
-            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editClass(row._id, row.name, row.level)">ערוך</button>
-            </mat-cell>
+            <mat-cell *matCellDef="let row" (click)="navigate(row._id)">{{ scheduleService.grades[row.grade] }}</mat-cell>
           </ng-container>
 
           <!--&lt;!&ndash; State Column &ndash;&gt;-->
@@ -50,7 +37,7 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
       </div>
     </div>
