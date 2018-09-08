@@ -24,12 +24,12 @@
   padding-bottom: 29px;
 }
 
-.msw-lesson-container .mat-cell:last-child,
-.msw-lesson-container .mat-header-cell:last-child {
+.msw-class-container .mat-cell:last-child,
+.msw-class-container .mat-header-cell:last-child {
   flex-grow: 0;
   flex-basis: 100px;
 }
-.msw-lesson-container .mat-header-cell {
+.msw-class-container .mat-header-cell {
   font-weight: bold;
 }
 
