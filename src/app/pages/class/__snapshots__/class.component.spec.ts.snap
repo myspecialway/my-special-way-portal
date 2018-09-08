@@ -8,12 +8,13 @@ exports[`class component should render component as described in snapshot 1`] = 
   displayedColumns={[Function Array]}
   mswSnackbar={[Function Object]}
   resultsLength="0"
+  router="undefined"
   scheduleService={[Function Object]}
   sort={[Function MatSort]}
   table={[Function ElementRef]}
 >
   <div
-    class="main-content"
+    class="main-content msw-class-container"
   >
     <div
       class="container-fluid"
@@ -22,26 +23,34 @@ exports[`class component should render component as described in snapshot 1`] = 
         class="header-menu-container msw-table-tools-header"
       >
         <div
-          class="example-header"
+          class="header-table-count"
         >
-          <mat-form-field
-            color="accent"
-            floatlabel="never"
-          >
-            <input
-              matinput=""
-              placeholder="Filter issues"
-            />
-          </mat-form-field>
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              כיתות
+            </span>
+            <span
+              class="header-table-count-number"
+            >
+              (
+            </span>
+          </div>
         </div>
         <div
-          class="example-header"
+          class="example-header msw-table-tools-header"
         >
           <button
             color="primary"
             mat-raised-button=""
           >
-            הוספת כיתה חדש
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף כיתה חדשה 
           </button>
         </div>
       </div>
@@ -58,9 +67,6 @@ exports[`class component should render component as described in snapshot 1`] = 
             matsortdirection="asc"
             matsortdisableclear=""
           >
-            
-            
-            
             
             
             

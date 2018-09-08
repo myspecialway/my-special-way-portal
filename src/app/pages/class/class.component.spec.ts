@@ -10,12 +10,14 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import {MSWSnackbar} from '../../services/msw-snackbar/msw-snackbar.service';
+import {Router} from '@angular/router';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
   let classDialogMock: Partial<MatDialog>;
   let scheduleServiceMock: Partial<ScheduleService>;
   let snackbarMock: Partial<MSWSnackbar>;
+  let routeMock: Partial<Router>;
 
   beforeEach(async () => {
 
@@ -61,7 +63,8 @@ describe('class component', () => {
         { provide: MatDialog, useValue: classDialogMock },
         { provide: ClassService, useValue: classServiceMock },
         { provide: ScheduleService, useValue: scheduleServiceMock},
-        { provide: MSWSnackbar, useValue: snackbarMock},
+        { provide: MSWSnackbar, useValue: snackbarMock}
+        { provide: Router, useValue: routeMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
