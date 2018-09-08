@@ -17,7 +17,7 @@ describe('class component', () => {
   let classDialogMock: Partial<MatDialog>;
   let scheduleServiceMock: Partial<ScheduleService>;
   let snackbarMock: Partial<MSWSnackbar>;
-  let routeMock: Partial<Router>;
+  const routeMock: Partial<Router>;
 
   beforeEach(async () => {
 
