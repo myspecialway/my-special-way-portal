@@ -1,13 +1,19 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="header-menu-container msw-table-tools-header">
-      <div class="example-header">
-        <mat-form-field floatLabel="never" color="accent">
-          <input matInput #filter placeholder="Filter issues">
-        </mat-form-field>
+      <div class="header-table-count">
+        <div>
+          <span class="header-table-count-label">כיתות</span>
+          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+        </div>
       </div>
-      <div class="example-header">
-        <button mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדש</button>
+      <div class="example-header msw-table-tools-header">
+        <button mat-raised-button color="primary" [routerLink]="['/class', '_new_']">
+          <i class="material-icons">
+            add
+          </i>
+          הוספת כיתה חדשה
+        </button>
       </div>
     </div>
     <div class="row">
