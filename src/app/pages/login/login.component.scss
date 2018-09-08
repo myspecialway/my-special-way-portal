@@ -38,6 +38,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%);
+  margin-top: 100px;
 }
 
 @-webkit-keyframes card {
@@ -115,10 +116,10 @@
 
 .msw-login-checkbox{
   .mat-checkbox-checked {
-  
+
     /deep/ .mat-checkbox-background {
       background-color:#6a00cf;
-    }  
+    }
   }
 }
 

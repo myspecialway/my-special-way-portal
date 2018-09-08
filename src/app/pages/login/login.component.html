@@ -1,7 +1,6 @@
 <div class="login-container">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
           <div class="login-card">
-            <!--<p class="tip">Or Be Classical</p>-->
             <div class="msw-login-logo-ph"></div>
             <div class="msw-login-title">בדרכי שלי</div>
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
@@ -27,12 +26,12 @@
                   <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent" >זכור אותי</mat-checkbox>
                 </span>
               </div>
-              <button mat-button>כניסה</button> 
+              <button mat-button>כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
-            
+
           </div>
-          
+
     </form>
 </div>
 
