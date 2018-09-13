@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+const fs = require('fs');
+
+const configPath = process.argv[2];
+if (!configPath) {
+  console.error('hot_config_generator:: error, hot config json path do not exist');
+  console.error('COMMAND USAGE: ./hot-config-generator <path for config json>');
+}
+const portalEnvVariables = Object.entries(process.env).reduce((obj, envPair) => {
+  if (envPair[0].startsWith('MSW_HOT')) {
+    obj[envPair[0]] = envPair[1];
+  }
+
+  return obj;
+}, {});
+
+const mswHotConfigContent = `
+const MSW_HOT_CONFIG = ${JSON.stringify(portalEnvVariables, null, 2)}
+`;
+
+fs.writeFileSync(configPath, mswHotConfigContent);
