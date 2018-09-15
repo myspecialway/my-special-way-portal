@@ -42,7 +42,7 @@ export class AuthenticationService {
   async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http.post<LoginResponse>(
-        environment.loginUrl,
+        environment.hotConfig.MSW_HOT_LOGIN_ENDPOINT,
         { username, password },
       ).toPromise();
 
