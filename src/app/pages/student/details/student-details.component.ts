@@ -21,7 +21,7 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.idOrNew = params.idOrNew;
     });
   }

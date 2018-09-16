@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe(data => {
+    this.userService.getAllUsers().subscribe((data) => {
       this.dataSource.data = data;
     });
   }
@@ -49,7 +49,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       height: '368px',
       width: '630px',
     });
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         const newUser: User = this._createNewUser(data);
         this.userService.create(newUser);
@@ -63,7 +63,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       width: '360px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.userService.delete(_id);
       }
@@ -76,7 +76,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       width: '630px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const relevantUser = _.find(this.dataSource.data, { _id });
         const tempUser = _.assign({}, relevantUser, result);

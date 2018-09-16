@@ -57,11 +57,11 @@ export class ClassComponent implements OnInit {
         data: { _id, name, level },
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result === true) {
-          this.classService.delete(_id).then(res => {
+          this.classService.delete(_id).then((res) => {
             if (res && res.data && res.data.deleteClass !== 0) {
-              const index = _.findIndex(this.dataSource.data, user => user._id === _id);
+              const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
               this.dataSource.data.splice(index, 1);
             }
           });

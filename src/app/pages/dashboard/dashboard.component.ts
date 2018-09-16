@@ -22,6 +22,6 @@ export class DashboardComponent implements OnInit {
       .query<any>({
         query: MessageQuery,
       })
-      .subscribe(x => (this.messages = x.data.message));
+      .subscribe((x) => (this.messages = x.data.message));
   }
 }

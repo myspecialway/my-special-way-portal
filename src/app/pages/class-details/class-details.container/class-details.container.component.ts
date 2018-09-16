@@ -41,7 +41,7 @@ export class ClassDetailsContainerComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.route.params.subscribe(async params => {
+    this.route.params.subscribe(async (params) => {
       try {
         this.idOrNew = params.idOrNew;
         this.isNew = this.idOrNew === '_new_';

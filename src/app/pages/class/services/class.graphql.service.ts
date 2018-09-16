@@ -69,7 +69,7 @@ export class ClassService {
       }`,
       })
       .toPromise()
-      .then(res => res.data.classById);
+      .then((res) => res.data.classById);
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
@@ -94,7 +94,7 @@ export class ClassService {
     `,
       })
       .toPromise()
-      .then(res => {
+      .then((res) => {
         if (res.data) {
           return res.data.createClass;
         }
@@ -116,7 +116,7 @@ export class ClassService {
         },
       })
       .toPromise()
-      .then(res => {
+      .then((res) => {
         if (res.data) {
           return res.data.updateClass;
         }

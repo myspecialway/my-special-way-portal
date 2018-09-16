@@ -21,6 +21,6 @@ export class LessonService {
         `,
       })
       .toPromise()
-      .then(res => res.data.lessons);
+      .then((res) => res.data.lessons);
   }
 }

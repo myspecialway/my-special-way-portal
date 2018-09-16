@@ -21,7 +21,7 @@ export class StudentComponent implements OnInit {
 
   async ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.studentService.getAllStudents().subscribe(data => {
+    this.studentService.getAllStudents().subscribe((data) => {
       this.dataSource.data = [...data];
     });
   }
@@ -31,7 +31,7 @@ export class StudentComponent implements OnInit {
       data: { id, firstName, lastName, gradeId },
     });
 
-    dialogRef.afterClosed().subscribe(async deletionConfirmed => {
+    dialogRef.afterClosed().subscribe(async (deletionConfirmed) => {
       if (!deletionConfirmed) {
         return;
       }

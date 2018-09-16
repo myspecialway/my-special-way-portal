@@ -25,7 +25,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
-      this.route.parent.params.subscribe(params => {
+      this.route.parent.params.subscribe((params) => {
         this.idOrNew = params.idOrNew;
       });
     }

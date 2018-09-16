@@ -37,7 +37,7 @@ export class ScheduleService {
       schedule[hourIndex] = new Array(daysCount);
 
       for (let dayIndex = 0; dayIndex < daysCount; dayIndex++) {
-        const timeslot = timeslots.find(t => t.index === `${hourIndex}_${dayIndex}`);
+        const timeslot = timeslots.find((t) => t.index === `${hourIndex}_${dayIndex}`);
         const newTimeSlot: TimeSlot = {
           index: `${hourIndex}_${dayIndex}`,
         };

@@ -29,10 +29,10 @@ export class NavbarComponent implements OnInit {
       .watchQuery<{ userProfile: UserProfileStateModel }>({
         query: GET_USER_PROFILE,
       })
-      .valueChanges.subscribe(userProf => {
+      .valueChanges.subscribe((userProf) => {
         this.currentUser = userProf.data.userProfile.username;
         const currentType = userProf.data.userProfile.role;
-        this.menuItems = ROUTES.filter(menuItem => menuItem.roles.includes(UserType[currentType]));
+        this.menuItems = ROUTES.filter((menuItem) => menuItem.roles.includes(UserType[currentType]));
         this.selectedMenuItem = this.menuItems.length > 0 ? this.menuItems[0].path : ' ';
       });
   }
@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find(menuItem => menuItem.path === this.selectedMenuItem);
+    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItem);
     if (route) {
       return route.title;
     }

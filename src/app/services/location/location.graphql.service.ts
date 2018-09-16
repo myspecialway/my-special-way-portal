@@ -26,6 +26,6 @@ export class LocationService {
         `,
       })
       .toPromise()
-      .then(res => res.data.locations);
+      .then((res) => res.data.locations);
   }
 }

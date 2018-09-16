@@ -24,7 +24,7 @@ export class StudentService {
         query: QUERY_GET_ALL_STUDENTS,
       })
       .valueChanges.pipe(
-        map(res => {
+        map((res) => {
           return res.data.students;
         }),
         catchError((err: TypeError) => {
@@ -40,7 +40,7 @@ export class StudentService {
         query: QUERY_GET_STUDENT_BY_ID,
         variables: { id },
       })
-      .pipe(map(res => res.data.student))
+      .pipe(map((res) => res.data.student))
       .toPromise();
   }
 
