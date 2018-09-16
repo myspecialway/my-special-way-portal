@@ -11,6 +11,10 @@ addons:
      - google-chrome
     packages:
      - google-chrome-stable fluxbox
+  sonarcloud:
+    organization: ""
+    token:
+      secure: "q4BRqVcOgiFXRAHVZwZCaeGvqdmPiPrM1MYxvoo7d5XBVNFpZ0faNwP6RQRWAtDVp7uT5Z5EvwmPdv2sHQXPQLfHBuGusO8keBwbnNPA/1abHS/bWUIImU7uFoGoavB04hySxxh8i+ZPS7f4Jc+Wsnss2zHc0k2Uo0hPhoQA0OaUoABZmNocCkmyMH7kZEaM4jmIW0uDVM3O58ScY/GUUWlX3ONrR0H/ioC2mTH7sDJ2U4THwYwK3mSQPAK4mQgOYaOkiG+s9DhF8wevXQl5Pdm1pHJce6IxJioIWhN/5+SZTIkgospYOqJB/6f/Fhw83yLXe/J/yQBi+PETX7knRRDixQce0OUDnOtV1pQknHnYFOKL9/m90KgjBG4ERD0gHzUpUIPDXZhbixTwWjOva0KvD4C3JJuYl56FH1+n30trp1jhacP01UNiCkCrQgWNbFFasanRE8MZWijrAWy1lHp5u5JjZxd3mtUrxeQLLLXFTXkwZ7WWywSBVpAo78pZZ3R/ceJgkd8h3A966EN5a/RRdnjiRluu67Z2QhV235yZ5Xa7jtAznkvYNRs46JVYYf5Sl5IdmSmlZ0o652yjaQSEicdv/KwJg0PLiNI5S5KA6z9fPQa1R1W4uxYnv+kJvbB0IYApaPUVPAujJORu5jgfeEJF277q/8ZJCA5G3Qc="
 
 before_install:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -25,6 +29,7 @@ before_install:
 install:
 - yarn
 - yarn tslint
+- sonar-scanner
 - yarn ci-test
 - yarn build
 
