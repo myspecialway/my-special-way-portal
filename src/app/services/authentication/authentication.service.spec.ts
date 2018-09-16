@@ -141,6 +141,4 @@ describe('AuthenticationService', () => {
     expect(localStorage.getItem('token')).toBeNull();
   });
 
-  
-
 });
