@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
@@ -9,6 +9,7 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Class } from '../../../models/class.model';
 import { ClassDetailsEventParams } from '../class-details.view/class-details.view.component';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-class-details-container',
@@ -16,9 +17,8 @@ import { ScheduleService } from '../../../services/schedule/schedule.service';
               [schedule]="schedule"
               [daysLabels]="scheduleService.daysLabels"
               [hoursLabels]="scheduleService.hoursLabels"
-              [name]="_class ? _class.name : null"
-              [level]="_class ? _class.level : null"
-              [levels]="scheduleService.levels"
+              [name]="_class && _class.name ? _class.name : null"
+              [grade]="_class && _class.grade ? _class.grade : null"
               (timeslotClicked)="onTimeSlotClick($event)"
               (detailChanged)="onDetailChange($event)"
             >
@@ -28,64 +28,59 @@ import { ScheduleService } from '../../../services/schedule/schedule.service';
 export class ClassDetailsContainerComponent implements OnInit {
   schedule: TimeSlot[][];
   _class: Class;
+  isNew: boolean;
+  idOrNew: string;
 
   constructor(
-    private classService: ClassService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog,
     public scheduleService: ScheduleService,
-  ) {}
+    private classService: ClassService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private mswSnackbar: MSWSnackbar,
+  ) { }
 
   async ngOnInit() {
-    // TODO: look for _new_ in the :id param
-    const id = this.route.snapshot.params.id;
-    this._class = await this.classService.classById(id).then((res) => res.data.classById);
-    this.initSchedule();
+    this.route.params.subscribe(async (params) => {
+      try {
+
+        this.idOrNew = params.idOrNew;
+        this.isNew = this.idOrNew === '_new_';
+        await this.initClass();
+        this.initSchedule();
+      } catch (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+    });
+  }
+
+  private async initClass() {
+    try {
+      this._class = this.isNew ? new Class() : await this.classService.classById(this.idOrNew);
+    } catch (err) {
+      console.log(err);
+      throw new Error(err);
+    }
   }
 
   private initSchedule() {
     const schedule = this._class.schedule || [];
-    this.schedule = this.buildScheduleFromTimeslots(
+    this.schedule = this.scheduleService.buildScheduleFromTimeslots(
       this.scheduleService.hoursLabels.length,
       this.scheduleService.daysLabels.length,
       schedule,
     );
   }
 
-  private buildScheduleFromTimeslots(
-    hoursCount: number,
-    daysCount: number,
-    timeslots: TimeSlot[],
-  ): TimeSlot[][] {
-    const schedule: TimeSlot[][] = [];
-
-    for (let hourIndex = 0; hourIndex < hoursCount; hourIndex++) {
-      schedule[hourIndex] = new Array(daysCount);
-
-      for (let dayIndex = 0; dayIndex < daysCount; dayIndex++) {
-        const timeslot = timeslots.find((t) => t.index === `${hourIndex}${dayIndex}`);
-        const newTimeSlot: TimeSlot = {
-          index: `${hourIndex}${dayIndex}`,
-        };
-        if (timeslot) {
-          if (timeslot.location) {
-            newTimeSlot.location = timeslot.location;
-          }
-          if (timeslot.lesson) {
-            newTimeSlot.lesson = timeslot.lesson;
-          }
-        }
-        schedule[hourIndex][dayIndex] = newTimeSlot;
-      }
+  onTimeSlotClick(indexes: TimeSlotIndexes) {
+    if (!this._class._id) {
+      return;
     }
 
-    return schedule;
-  }
-
-  onTimeSlotClick(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
     const dialogData = {
-      index: `${hourIndex}${dayIndex}`,
+      index: `${hourIndex}_${dayIndex}`,
       lesson: this.schedule[hourIndex][dayIndex].lesson,
       location: this.schedule[hourIndex][dayIndex].location,
       hour: this.scheduleService.hoursLabels[hourIndex],
@@ -97,7 +92,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       height: '375px',
       width: '320px',
     });
-    dialogRef.afterClosed().subscribe((data: ScheduleDialogData) => {
+    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
       if (!data) {
         return;
       }
@@ -105,41 +100,55 @@ export class ClassDetailsContainerComponent implements OnInit {
       const tempClass: Class = {
         _id: this._class._id,
         name: this._class.name,
-        level: this._class.level,
-        number: this._class.number,
+        grade: this._class.grade,
         schedule: [
           { index: data.index, lesson: data.lesson, location: data.location },
         ],
       };
 
-      // update the class
-      this.classService.update(tempClass).then((res) => {
-          if (res.data) {
-            this._class = res.data.updateClass;
-            this.initSchedule();
-          }
-        }).catch((err) => {
-          console.log(err);
-          throw new Error(err);
-        });
+      try {
+        const updateClass = await this.classService.update(tempClass);
+        this._class = updateClass;
+        this.initSchedule();
+      } catch (error) {
+
+      }
     });
   }
 
-  onDetailChange(params: ClassDetailsEventParams) {
-    const tempClass: Class = {
-      _id: this._class._id,
-      name: params.name,
-      level: params.level,
-      number: this._class.number,
-      schedule: this._class.schedule,
-    };
-    this.classService.update(tempClass).then((res) => {
-      if (res.data) {
-        this._class = res.data.updateClass;
-      }
-    }).catch((err) => {
-      console.log(err);
-      throw new Error(err);
-    });
+  onDetailChange(classDetails: ClassDetailsEventParams) {
+    if (!this.isNew) {
+      return this.updateClass(classDetails.name, classDetails.grade);
+    }
+
+    // TODO: This check should be in form of validation on fields and not here!
+    if (classDetails.name && classDetails.grade) {
+      this.createClass(classDetails);
+    }
+  }
+
+  private async updateClass(name: string, grade: string) {
+    try {
+      const classToUpdate: Class = {
+        ...this._class,
+        name,
+        grade,
+      };
+
+      this._class = await this.classService.update(classToUpdate);
+      this.mswSnackbar.displayTimedMessage('הכיתה עודכנה בהצלחה');
+    } catch (err) {
+      this.mswSnackbar.displayTimedMessage('שגיאה בעדכון כיתה');
+    }
+  }
+
+  private async createClass(classDetails: ClassDetailsEventParams) {
+    try {
+      const created = await this.classService.create(classDetails);
+      this.router.navigate([`/class/${created._id}`]);
+      this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
+    } catch (err) {
+      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
+    }
   }
 }

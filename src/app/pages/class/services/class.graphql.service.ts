@@ -9,17 +9,14 @@ import { GetClassesResponse } from '../../../models/responses/get-classes-repons
 const allClassFields = `
 _id
 name
-level
-number
+grade
 schedule {
   index
   lesson {
-    _id
     title
     icon
   }
   location {
-    _id
     name
     disabled
     position {
@@ -46,8 +43,12 @@ export class ClassService {
       query: gql`{
         classes {
           _id
-          level
+          grade
           name
+          students {
+            _id
+            firstname
+          }
         }
       }` }).toPromise();
 
@@ -62,7 +63,7 @@ export class ClassService {
         }
       }`,
       })
-      .toPromise();
+      .toPromise().then((res) => res.data.classById);
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
@@ -74,25 +75,28 @@ export class ClassService {
     });
   }
 
-  create(clss: Class) {
+  create(clss: Class | Partial<Class>) {
     return this.apollo
       .mutate({
         mutation: gql`
       mutation {
         createClass(class: {
-            level: "${clss.level}"
-            number:  "${clss.number}"
+            grade: "${clss.grade}"
             name: "${clss.name}"
         }) { _id }
       }
     `,
       })
-      .toPromise();
+      .toPromise().then((res) => {
+        if (res.data) {
+          return res.data.createClass;
+        }
+      });
   }
 
   update(_class: Class) {
-    const { name, level, number } = _class;
-    const inputClass: InputClass = { name, level, number };
+    const { name, grade } = _class;
+    const inputClass: InputClass = { name, grade };
     if (_class.schedule) {
       inputClass.schedule = _class.schedule;
     }
@@ -104,7 +108,11 @@ export class ClassService {
           class: inputClass,
         },
       })
-      .toPromise();
+      .toPromise().then((res) => {
+        if (res.data) {
+          return res.data.updateClass;
+        }
+      });
   }
 
   delete(id: string) {
