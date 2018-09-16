@@ -39,18 +39,23 @@ export class ClassService {
   `;
 
   async getAllClasses() {
-    const getClassesResponse = await this.apollo.query({
-      query: gql`{
-        classes {
-          _id
-          grade
-          name
-          students {
-            _id
-            firstname
+    const getClassesResponse = await this.apollo
+      .query({
+        query: gql`
+          {
+            classes {
+              _id
+              grade
+              name
+              students {
+                _id
+                firstname
+              }
+            }
           }
-        }
-      }` }).toPromise();
+        `,
+      })
+      .toPromise();
 
     return (getClassesResponse.data as GetClassesResponse).classes;
   }
@@ -63,7 +68,8 @@ export class ClassService {
         }
       }`,
       })
-      .toPromise().then((res) => res.data.classById);
+      .toPromise()
+      .then(res => res.data.classById);
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
@@ -87,7 +93,8 @@ export class ClassService {
       }
     `,
       })
-      .toPromise().then((res) => {
+      .toPromise()
+      .then(res => {
         if (res.data) {
           return res.data.createClass;
         }
@@ -108,7 +115,8 @@ export class ClassService {
           class: inputClass,
         },
       })
-      .toPromise().then((res) => {
+      .toPromise()
+      .then(res => {
         if (res.data) {
           return res.data.updateClass;
         }

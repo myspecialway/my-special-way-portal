@@ -20,6 +20,7 @@ export class LessonService {
           }
         `,
       })
-      .toPromise().then((res) => res.data.lessons);
+      .toPromise()
+      .then(res => res.data.lessons);
   }
 }

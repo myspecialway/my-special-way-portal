@@ -38,12 +38,11 @@ export class ClassDetailsContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private mswSnackbar: MSWSnackbar,
-  ) { }
+  ) {}
 
   async ngOnInit() {
-    this.route.params.subscribe(async (params) => {
+    this.route.params.subscribe(async params => {
       try {
-
         this.idOrNew = params.idOrNew;
         this.isNew = this.idOrNew === '_new_';
         await this.initClass();
@@ -101,18 +100,14 @@ export class ClassDetailsContainerComponent implements OnInit {
         _id: this._class._id,
         name: this._class.name,
         grade: this._class.grade,
-        schedule: [
-          { index: data.index, lesson: data.lesson, location: data.location },
-        ],
+        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
       };
 
       try {
         const updateClass = await this.classService.update(tempClass);
         this._class = updateClass;
         this.initSchedule();
-      } catch (error) {
-
-      }
+      } catch (error) {}
     });
   }
 

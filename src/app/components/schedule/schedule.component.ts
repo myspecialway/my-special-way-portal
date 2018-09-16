@@ -11,9 +11,7 @@ export interface TimeSlotIndexes {
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
 })
-
 export class ScheduleComponent {
-
   @Input()
   schedule: TimeSlot[][];
   @Input()

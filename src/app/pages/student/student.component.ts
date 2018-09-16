@@ -12,20 +12,18 @@ export class StudentComponent implements OnInit {
   displayedColumns = ['studentName', 'gradeId', 'username', 'deleteUser'];
   dataSource = new MatTableDataSource<Student>();
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('table') table: ElementRef;
+  @ViewChild(MatSort)
+  sort: MatSort;
+  @ViewChild('table')
+  table: ElementRef;
 
-  constructor(
-    private studentService: StudentService,
-    private dialog: MatDialog,
-  ) { }
+  constructor(private studentService: StudentService, private dialog: MatDialog) {}
 
   async ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.studentService.getAllStudents()
-        .subscribe((data) => {
-          this.dataSource.data = [...data];
-        });
+    this.studentService.getAllStudents().subscribe(data => {
+      this.dataSource.data = [...data];
+    });
   }
 
   async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
@@ -33,7 +31,7 @@ export class StudentComponent implements OnInit {
       data: { id, firstName, lastName, gradeId },
     });
 
-    dialogRef.afterClosed().subscribe(async (deletionConfirmed) => {
+    dialogRef.afterClosed().subscribe(async deletionConfirmed => {
       if (!deletionConfirmed) {
         return;
       }
@@ -47,5 +45,4 @@ export class StudentComponent implements OnInit {
       }
     });
   }
-
 }

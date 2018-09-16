@@ -29,17 +29,11 @@ export class ScheduleDialogComponent implements OnInit {
     this.locations = await this.locationService.getLocations();
 
     this.selectedLesson = this.lessons.find(
-      (lesson) =>
-        this.scheduleDialogData.lesson
-          ? this.scheduleDialogData.lesson.title === lesson.title
-          : false,
+      lesson => (this.scheduleDialogData.lesson ? this.scheduleDialogData.lesson.title === lesson.title : false),
     );
 
     this.selectedLocation = this.locations.find(
-      (location) =>
-        this.scheduleDialogData.location
-          ? this.scheduleDialogData.location.name === location.name
-          : false,
+      location => (this.scheduleDialogData.location ? this.scheduleDialogData.location.name === location.name : false),
     );
   }
 }

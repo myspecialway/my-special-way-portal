@@ -13,24 +13,21 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit, AfterViewInit {
-
   displayedColumns = ['name', 'username', 'class', 'type', 'enterPersonalArea', 'editDetails', 'deleteUser'];
   dataSource = new MatTableDataSource<User>();
   resultsLength = 0;
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('table') table: ElementRef;
+  @ViewChild(MatSort)
+  sort: MatSort;
+  @ViewChild('table')
+  table: ElementRef;
 
-  constructor(
-    private userService: UserService,
-    public dialog: MatDialog,
-  ) { }
+  constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
-      .subscribe((data) => {
-        this.dataSource.data = data;
-      });
+    this.userService.getAllUsers().subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
 
   ngAfterViewInit() {
@@ -52,7 +49,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       height: '368px',
       width: '630px',
     });
-    dialogRef.afterClosed().subscribe((data) => {
+    dialogRef.afterClosed().subscribe(data => {
       if (data) {
         const newUser: User = this._createNewUser(data);
         this.userService.create(newUser);
@@ -61,12 +58,12 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
   deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: {_id, firstName, lastName, userType},
+      data: { _id, firstName, lastName, userType },
       height: '275px',
       width: '360px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.userService.delete(_id);
       }
@@ -74,14 +71,14 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
   updateUser(_id: number, firstname: string, lastname: string, email: string, username: string) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: {_id, firstname, lastname, email, username },
+      data: { _id, firstname, lastname, email, username },
       height: '368px',
       width: '630px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const relevantUser = _.find(this.dataSource.data, {_id});
+        const relevantUser = _.find(this.dataSource.data, { _id });
         const tempUser = _.assign({}, relevantUser, result);
 
         this.userService.update(tempUser);

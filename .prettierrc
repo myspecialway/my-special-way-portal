@@ -5,6 +5,5 @@
   "tabWidth": 2,
   "semi": true,
   "bracketSpacing": true,
-  "trailingComma": "all",
-  "parser": "typescript"
+  "trailingComma": "all"
 }

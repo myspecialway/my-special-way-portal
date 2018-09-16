@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./student-details-personal-info.component.scss'],
 })
 export class StudentDetailsPersonalInfoComponent implements OnInit {
-
   student: Student;
   classes: Class[];
   isNewStudent: boolean;
@@ -22,11 +21,11 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     private classService: ClassService,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
-      this.route.parent.params.subscribe((params) => {
+      this.route.parent.params.subscribe(params => {
         this.idOrNew = params.idOrNew;
       });
     }
