@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
         userProfile @client{
           role
           token
+          class_id
         }
       }
     `}).toPromise();

@@ -5,6 +5,7 @@ export const GET_USER_PROFILE = gql`
     userProfile @client{
       username
       role
+      class_id
     }
   }
 `;
