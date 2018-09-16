@@ -23,7 +23,7 @@ export class ApolloConfigFactory {
         },
       };
     });
-    const httpLink = this.link.create({ uri: environment.beUrl });
+    const httpLink = this.link.create({ uri: environment.hotConfig.MSW_HOT_GRAPHQL_ENDPOINT });
     const cache = new InMemoryCache({
       addTypename: false,
     });

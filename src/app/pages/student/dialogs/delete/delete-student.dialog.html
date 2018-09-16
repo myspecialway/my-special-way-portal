@@ -2,11 +2,10 @@
     <h3 mat-dialog-title color="accent">מחיקת תלמיד/ה</h3>
     <mat-divider></mat-divider>
     <div mat-dialog-content>
-        התלמיד {{data.firstName}} {{data.lastName}} מכיתה {{data.grade}} ימחק מהמערכת.
         <br>
-        האם את/ה בטוח/ה שברצונך למחוק את התלמיד/ה?
+      האם אתה בטוח שברצונך למחוק את התלמיד {{data.firstName}} {{data.lastName}}?
     </div>
-  
+
     <div mat-dialog-actions>
       <button mat-button class="msw-button-cancel"  (click)="onNoClick()" tabindex="-1">ביטול</button>
       <button mat-button class="msw-button-delete"  [mat-dialog-close]=true (click)="confirmDelete()">מחיקה</button>    </div>

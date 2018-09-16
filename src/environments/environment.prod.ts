@@ -1,5 +1,9 @@
+import { Environment } from './environment.interface';
+
 export const environment = {
+  hotConfig: {
+    MSW_HOT_GRAPHQL_ENDPOINT: 'https://msw-server.azurewebsites.net/graphql',
+    MSW_HOT_LOGIN_ENDPOINT: 'https://msw-server.azurewebsites.net/login',
+  },
   production: true,
-  beUrl: 'http://msw-dev.eastus.cloudapp.azure.com:3000/graphql',
-  loginUrl: 'http://msw-dev.eastus.cloudapp.azure.com:3000/login',
-};
+} as Environment;

@@ -2,9 +2,11 @@
 
 exports[`ClassDetailsComponent should match current snapshot 1`] = `
 <app-class-details-view
-  _level={[Function String]}
+  _grade={[Function String]}
   _name={[Function String]}
   detailChanged={[Function EventEmitter]}
+  gradesKeys={[Function Array]}
+  scheduleService={[Function ScheduleService]}
   timeslotClicked={[Function EventEmitter]}
 >
   <div
@@ -60,6 +62,36 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
                   placeholder="שכבה"
                 >
                   
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     א 
+                  </mat-option>
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     ב 
+                  </mat-option>
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     ג 
+                  </mat-option>
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     ד 
+                  </mat-option>
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     ה 
+                  </mat-option>
+                  <mat-option
+                    selected="key === grade"
+                  >
+                     ו 
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

@@ -8,7 +8,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule,
+  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatSnackBarModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -22,12 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { StudentComponent } from './pages/student/student.component';
-import { StudentService } from './pages/student/services/student.graphql.service';
+import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
 import { AddStudentDialogComponent } from './pages/student/dialogs/add/add-student.dialog';
 import { UserComponent } from './pages/user/user.component';
 import { AddUserDialogComponent } from './pages/user/dialogs/add/add-user.dialog';
-import { UserService } from './pages/user/services/user.graphql.service';
+import { UserService } from './pages/user/services/user.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { DeleteUserDialogComponent } from './pages/user/dialogs/delete/delete-user.dialog';
 import { UpdateUserDialogComponent } from './pages/user/dialogs/update/update-user.dialog';
@@ -35,13 +35,12 @@ import { DeleteStudentDialogComponent } from './pages/student/dialogs/delete/del
 import { ClassService } from './pages/class/services/class.graphql.service';
 import { LessonService } from './services/lesson/lesson.graphql.service';
 import { UpdateStudentDialogComponent } from './pages/student/dialogs/update/update-student.dialog';
-import { AddClassDialogComponent } from './pages/class/dialogs/add/add-class.dialog';
-import { UpdateClassDialogComponent } from './pages/class/dialogs/update/update-class.dialog';
 import { MSWApolloModule } from './apollo/msw-apollo.module';
 import { PagesModule } from './pages/pages.module';
 import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/schedule.dialog';
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
+import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 
 @NgModule({
   imports: [
@@ -63,6 +62,7 @@ import { LocationService } from './services/location/location.graphql.service';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    MatSnackBarModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -85,9 +85,7 @@ import { LocationService } from './services/location/location.graphql.service';
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-    AddClassDialogComponent,
     DeleteClassDialogComponent,
-    UpdateClassDialogComponent,
     ScheduleDialogComponent,
   ],
   entryComponents: [
@@ -97,9 +95,7 @@ import { LocationService } from './services/location/location.graphql.service';
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-    AddClassDialogComponent,
     DeleteClassDialogComponent,
-    UpdateClassDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [
@@ -111,6 +107,7 @@ import { LocationService } from './services/location/location.graphql.service';
     LessonService,
     ScheduleService,
     LocationService,
+    MSWSnackbar,
   ],
   bootstrap: [AppComponent],
 })

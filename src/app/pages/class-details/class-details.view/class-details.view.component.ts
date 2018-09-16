@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { TimeSlot } from '../../../models/timeslot.model';
+import { ScheduleService } from '../../../services/schedule/schedule.service';
 
 export interface ClassDetailsEventParams {
   name: string;
-  level: string;
+  grade: string;
 }
 
 @Component({
@@ -14,7 +15,8 @@ export interface ClassDetailsEventParams {
 })
 export class ClassDetailsViewComponent {
   private _name: string;
-  private _level: string;
+  private _grade: string;
+  public gradesKeys: string[];
   @Input() schedule: TimeSlot[][];
   @Input() daysLabels: string[];
   @Input() hoursLabels: string[];
@@ -26,13 +28,16 @@ export class ClassDetailsViewComponent {
     return this._name;
   }
   @Input()
-  set level(level: string) {
-    this._level = level || '';
+  set grade(grade: string) {
+    this._grade = grade || '';
   }
-  get level(): string {
-    return this._level;
+  get grade(): string {
+    return this._grade;
   }
-  @Input() levels: string[];
   @Output() timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
   @Output() detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
+
+  constructor(private scheduleService: ScheduleService) {
+    this.gradesKeys = Object.keys(this.scheduleService.grades);
+  }
 }
