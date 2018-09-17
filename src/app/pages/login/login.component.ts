@@ -22,10 +22,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     protected fb: FormBuilder,
   ) {
-    this.options = fb.group({
-      hideRequired: true,
-      floatLabel: 'auto',
-    });
+    this.formFieldOptions = formBuilder.group({ hideRequired: true });
   }
 
   ngOnInit(): void {
