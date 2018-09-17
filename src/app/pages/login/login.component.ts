@@ -14,13 +14,13 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   rememberMe: boolean;
   loginFailed = false;
-  options: FormGroup;
+  formFieldOptions: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    protected fb: FormBuilder,
+    formBuilder: FormBuilder,
   ) {
     this.formFieldOptions = formBuilder.group({ hideRequired: true });
   }
