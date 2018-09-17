@@ -1,15 +1,15 @@
 <div class="container">
     <h3 mat-dialog-title>עדכון פרטים אישיים</h3>
     <mat-divider></mat-divider>
+    <form #formControl="ngForm" (submit)="updateDetails()">
     <mat-dialog-content>
-      <form  class="mat-dialog-content" #formControl="ngForm">
         <div class="msw-div-column-right">
           <div class="msw-form-row">
             <mat-form-field color="primary">
               <input matInput #input placeholder="שם פרטי" [(ngModel)]="data.firstname" name="id" required >
-              <button tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
+              <button type="button" tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear" (click)="data.firstname=''">
                 <mat-icon>close</mat-icon>
-              </button>            
+              </button>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
@@ -17,9 +17,9 @@
             <mat-form-field color="primary">
               <input matInput #input placeholder="שם משתמש" [(ngModel)]="data.username"
                 name="userName" required>
-                <button tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
+                <button type="button" tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear" (click)="data.username=''">
                   <mat-icon>close</mat-icon>
-                </button>            
+                </button>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -36,18 +36,18 @@
           <div class="msw-form-row">
             <mat-form-field color="primary">
               <input matInput #input  placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
-              <button tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
+               <button type="button" tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
                 <mat-icon>close</mat-icon>
-              </button>            
+              </button>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="msw-form-row">
             <mat-form-field color="primary">
               <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
-              <button tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
+               <button type="button" tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
                 <mat-icon>close</mat-icon>
-              </button>            
+              </button>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -56,17 +56,16 @@
           <div class="msw-form-row">
             <mat-form-field color="primary">
               <mat-select placeholder="כיתה" >
-                <mat-option [value]="">בחר</mat-option>            
+                <mat-option [value]="">בחר</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
-      </form>
-    </mat-dialog-content>
-    <div mat-dialog-actions>
-      <button  mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-      <!-- <button [type]="submit" class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button> -->
-      <button  mat-button class="msw-button-update" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן</button>
-    </div>
+      </mat-dialog-content>
+      <div mat-dialog-actions>
+        <button  mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
+         <!-- <button [type]="submit" class="mat-raised-button mat-primary" (click)="updateDetails()" [disabled]="!formControl.valid" >עדכן משתמש</button> -->
+        <button type="submit" mat-button class="msw-button-update" [disabled]="!formControl.valid" >עדכן</button>
+      </div>
+    </form>
   </div>
-  
