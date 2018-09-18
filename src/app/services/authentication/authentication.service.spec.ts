@@ -129,4 +129,15 @@ describe('AuthenticationService', () => {
     await authService.checkRestoreAuthData();
     expect(apolloMock.mutate).not.toHaveBeenCalled();
   });
+
+  it('should clear token after logout', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: expiredMockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    await authService.login('someusername', 'somepassword', true);
+    expect(localStorage.getItem('token')).toBe(expiredMockToken);
+    await authService.logout();
+    expect(localStorage.getItem('token')).toBeNull();
+  });
 });

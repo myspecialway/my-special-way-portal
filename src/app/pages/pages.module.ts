@@ -11,6 +11,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatButtonToggleModule,
+  MAT_LABEL_GLOBAL_OPTIONS,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
@@ -39,5 +40,6 @@ import { StudentDetailsNotificationsComponent } from './student/details/tabs/stu
     ClassDetailsContainerComponent,
     LessonComponent,
   ],
+  providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
 })
 export class PagesModule {}
