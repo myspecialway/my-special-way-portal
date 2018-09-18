@@ -59,7 +59,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.password = '';
     student.gender = Gender.FEMALE;
     student.class = {
-      _id: '0',
+      _id: '',
       name: '',
       grade: '',
       schedule: [],
