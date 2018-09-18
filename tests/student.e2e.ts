@@ -1,21 +1,13 @@
 import LoginPage from './pageobjects/login.po';
 import NavbarPage from './pageobjects/navbar.po';
 import {testEnvironment} from './config/config';
-import { EyesDriver } from './eyes/eyes';
 import StudentPage from './pageobjects/student.po';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const studentPage = new StudentPage();
-const eye = new EyesDriver();
 
 fixture(`Student tests`).page(testEnvironment.feUrl)
-  .before(async (t) => {
-    await eye.openEyes('Student tests');
-  })
-  .after(async (t) => {
-    await eye.closeEyes();
-  })
   .beforeEach( async (t) => {
     await t
       .typeText(loginPage.useranmeField, 'principle')
