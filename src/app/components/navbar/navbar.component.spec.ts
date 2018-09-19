@@ -7,6 +7,7 @@ import { Shallow } from 'shallow-render/dist';
 import { ComponentsModule } from '../components.module';
 import { Apollo } from 'apollo-angular';
 import { Subject } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
@@ -21,17 +22,14 @@ describe('navbar component', () => {
     };
     shallow = new Shallow(NavbarComponent, ComponentsModule);
     TestBed.configureTestingModule({
-      declarations: [
-        NavbarComponent,
-      ],
+      declarations: [NavbarComponent],
       providers: [
         { provide: Apollo, useValue: apolloMock },
         HttpClient,
         HttpHandler,
         AuthenticationService,
       ],
-      imports: [
-      ],
+      imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
     });
     // const apollo = TestBed.get(HttpClient);

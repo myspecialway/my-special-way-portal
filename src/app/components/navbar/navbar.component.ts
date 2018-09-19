@@ -4,6 +4,8 @@ import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserType} from '../../models/user.model';
+import { Router, NavigationEnd } from '@angular/router';
+import { distinctUntilChanged, pluck, filter, first, map, toPromise } from 'rxjs/operators';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -19,32 +21,32 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-
 export class NavbarComponent implements OnInit {
   menuItems: any[];
   currentUser: string;
   selectedMenuItemPath: string;
 
-  constructor(
-    private apollo: Apollo,
-  ) { }
+  constructor(private apollo: Apollo, private router: Router) {
+    this.initMenuTitleFromRouter();
+  }
 
   async ngOnInit() {
-    await this.apollo.watchQuery<{ userProfile: UserProfileStateModel }>({
-      query: GET_USER_PROFILE,
-    }).valueChanges.subscribe((userProf) => {
-      this.currentUser = userProf.data.userProfile.username;
-      const currentType = userProf.data.userProfile.role;
-      const currentClassId = userProf.data.userProfile.class_id;
-      this.menuItems = ROUTES.filter((menuItem) => menuItem.roles.includes(UserType[currentType]));
-      this.menuItems.map((item) => {
+    await this.apollo
+      .watchQuery<{ userProfile: UserProfileStateModel }>({
+        query: GET_USER_PROFILE,
+      })
+      .valueChanges.subscribe((userProf) => {
+        this.currentUser = userProf.data.userProfile.username;
+        const currentType = userProf.data.userProfile.role;
+        const currentClassId = userProf.data.userProfile.class_id;
+        this.menuItems = ROUTES.filter((menuItem) => menuItem.roles.includes(UserType[currentType]));
+        this.menuItems.map((item) => {
           if (item.path.indexOf('/:id') >= 0) {
-              item.path = item.path.replace('/:id', currentClassId ? '/' + currentClassId : '');
+            item.path = item.path.replace('/:id', currentClassId ? '/' + currentClassId : '');
           }
           return item;
+        });
       });
-      this.selectedMenuItem = (this.menuItems.length > 0) ? this.menuItems[0].path : ' ';
-    });
   }
 
   selectMenuItem(menuItem) {
@@ -56,5 +58,11 @@ export class NavbarComponent implements OnInit {
     if (route) {
       return route.title;
     }
+  }
+
+  private async initMenuTitleFromRouter() {
+    this.selectedMenuItemPath = await this.router.events.pipe( filter((ev) => ev instanceof NavigationEnd), pluck('url'), first(), map(
+        (url: string) => url.replace(/^\/+/g, ''),
+      ) ).toPromise();
   }
 }
