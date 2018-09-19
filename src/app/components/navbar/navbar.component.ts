@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
 export class NavbarComponent implements OnInit {
   menuItems: any[];
   currentUser: string;
-  selectedMenuItem: string;
+  selectedMenuItemPath: string;
 
   constructor(
     private apollo: Apollo,
@@ -48,11 +48,11 @@ export class NavbarComponent implements OnInit {
   }
 
   selectMenuItem(menuItem) {
-    this.selectedMenuItem = menuItem.path;
+    this.selectedMenuItemPath = menuItem.path;
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItem );
+    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath);
     if (route) {
       return route.title;
     }

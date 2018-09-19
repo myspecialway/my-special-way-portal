@@ -65,7 +65,7 @@ describe('navbar component', () => {
   it('should update the selected menu item on selection', async () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
-    expect(fixture.componentInstance.selectedMenuItem).toEqual('class');
+    expect(fixture.componentInstance.selectedMenuItemPath).toEqual('class');
   });
 
   it('should return the correct menu item', () => {
