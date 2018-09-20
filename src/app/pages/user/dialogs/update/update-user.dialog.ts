@@ -57,11 +57,4 @@ export class UpdateUserDialogComponent implements OnInit {
   async getClasses() {
     this.classes = await this.classService.getAllClasses();
   }
-
-  onUserTypeChange(event): void {
-    console.log('class value is: ' + this.data.Class);
-    if (event.value === 'MANAGER') {
-      this.data.Class = undefined;
-    }
-  }
 }
