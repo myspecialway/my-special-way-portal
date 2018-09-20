@@ -7,14 +7,18 @@
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <div class="form-row">
-                <mat-form-field>
-                  <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel"/>
+                <mat-form-field
+                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
+                  [floatLabel]="formFieldOptions.value.floatLabel">
+                  <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !username.valid" class="help-block">נא הכנס שם משתמש</div>
               </div>
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <mat-form-field>
-                  <input type="password" matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel"/>
+                <mat-form-field
+                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
+                  [floatLabel]="formFieldOptions.value.floatLabel">
+                  <input type="password" matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block">נא הכנס סיסמה</div>
                 <div *ngIf="loginFailed" class="help-block">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
@@ -27,12 +31,12 @@
                   <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent" >זכור אותי</mat-checkbox>
                 </span>
               </div>
-              <button mat-button>כניסה</button> 
+              <button mat-button>כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
-            
+
           </div>
-          
+
     </form>
 </div>
 

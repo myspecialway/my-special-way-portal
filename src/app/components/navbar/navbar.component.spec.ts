@@ -41,7 +41,7 @@ describe('navbar component', () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should render username per authentication service on init', async () => {
+  it('should render username per authentication service on init - for principle', async () => {
     // given
     const component = await shallow.render('<app-navbar></app-navbar>');
 
@@ -50,6 +50,8 @@ describe('navbar component', () => {
       data: {
         userProfile: {
           username: 'test',
+          role: 'PRINCIPLE',
+          class_id: 'some_classid',
         },
       },
     });
@@ -71,5 +73,26 @@ describe('navbar component', () => {
     fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
     const title = fixture.componentInstance.getSelectedMenuItem();
     expect(title).toEqual('ניהול כיתות');
+  });
+
+  it('should render username per authentication service on init - for teacher', async () => {
+    // given
+    const component = await shallow.render('<app-navbar></app-navbar>');
+
+    // when
+    watchQueryObservable.next({
+      data: {
+        userProfile: {
+          username: 'test',
+          role: 'TEACHER',
+          class_id: 'some_classid',
+        },
+      },
+    });
+
+    // then
+    component.fixture.detectChanges();
+    const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
+    expect(liElement.innerHTML).toBe('test');
   });
 });
