@@ -26,8 +26,10 @@
           <!--TODO:add actual code, this is a dummy code for SCSS updates-->
           <div class="msw-form-row">
               <mat-form-field color="primary">
-                <mat-select placeholder="סוג משתמש">
-                  <mat-option>מנהל</mat-option>
+                <mat-select [placeholder]="data.role" [(value)]="data.role" (valueChange)="onUserTypeChange($event)">
+                  <mat-option *ngFor="let role of roles" [value]="role">
+                    {{userRoleEnum[role]}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -35,7 +37,7 @@
           <div class="msw-div-column-left">
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input  placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
+              <input matInput #input placeholder="שם משפחה" [(ngModel)]="data.lastname" name="lastName" required>
                <button type="button" tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear" (click)="data.lastname=''">
                 <mat-icon>close</mat-icon>
               </button>
@@ -44,7 +46,7 @@
           </div>
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <input matInput #input  placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
+              <input matInput #input placeholder="אימייל" [(ngModel)]="data.email" name="email" required>
                <button type="button" tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear" (click)="data.email=''">
                 <mat-icon>close</mat-icon>
               </button>
@@ -55,10 +57,14 @@
           <!--TODO:add actual code, this is a dummy code for SCSS updates-->
           <div class="msw-form-row">
             <mat-form-field color="primary">
-              <mat-select placeholder="כיתה" >
+              <mat-select placeholder="כיתה" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="currentRole !==
+              'TEACHER'" >
                 <mat-option [value]="">בחר</mat-option>
-              </mat-select>
-            </mat-form-field>
+                <mat-option *ngFor="let clas of classes" [value]="clas">
+                  {{clas.name}}
+                </mat-option>
+                </mat-select>
+              </mat-form-field>
           </div>
         </div>
       </mat-dialog-content>
