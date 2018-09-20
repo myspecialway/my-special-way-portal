@@ -3,7 +3,7 @@
 exports[`navbar component should render component as described in snapshot 1`] = `
 <app-navbar
   apollo={[Function Object]}
-  router={[Function Router]}
+  router={[Function RouterStub]}
 >
   <nav
     class="navbar navbar-expand-lg navbar-white  navbar-absolute fixed-top"

@@ -61,8 +61,17 @@ export class NavbarComponent implements OnInit {
   }
 
   private async initMenuTitleFromRouter() {
-    this.selectedMenuItemPath = await this.router.events.pipe( filter((ev) => ev instanceof NavigationEnd), pluck('url'), first(), map(
-        (url: string) => url.replace(/^\/+/g, ''),
-      ) ).toPromise();
+    this.selectedMenuItemPath = await this.router.events
+      .pipe(
+        filter((ev) => ev instanceof NavigationEnd),
+        pluck('url'),
+        first(),
+        map(this.removeLeadingSlash),
+      )
+      .toPromise();
+  }
+
+  private removeLeadingSlash(s = '') {
+    return s.replace(/^\/+/g, '');
   }
 }
