@@ -1,7 +1,6 @@
-
 export interface Message {
-    message: string;
+  message: string;
 }
 export interface Query {
-    allMessages: Message[];
+  allMessages: Message[];
 }

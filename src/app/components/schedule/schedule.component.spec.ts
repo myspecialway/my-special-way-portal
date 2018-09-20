@@ -6,12 +6,8 @@ describe('ScheduleComponent', () => {
   let fixture: ComponentFixture<ScheduleComponent>;
   let component: ScheduleComponent;
   const mockDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
-  const mockHours = [
-    '07:30 - 08:00',
-    '08:00 - 08:50',
-    '08:50 - 09:35',
-  ];
-  const mockSchedule = [[{_id: 'some-lesson-id', title: 'some lesson title', icon: 'some lesson icon'}]];
+  const mockHours = ['07:30 - 08:00', '08:00 - 08:50', '08:50 - 09:35'];
+  const mockSchedule = [[{ _id: 'some-lesson-id', title: 'some lesson title', icon: 'some lesson icon' }]];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

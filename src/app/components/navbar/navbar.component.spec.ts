@@ -12,7 +12,6 @@ describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
   let watchQueryObservable: Subject<any>;
   beforeEach(async () => {
-
     watchQueryObservable = new Subject();
     const apolloMock = {
       watchQuery: () => ({
@@ -21,17 +20,9 @@ describe('navbar component', () => {
     };
     shallow = new Shallow(NavbarComponent, ComponentsModule);
     TestBed.configureTestingModule({
-      declarations: [
-        NavbarComponent,
-      ],
-      providers: [
-        { provide: Apollo, useValue: apolloMock },
-        HttpClient,
-        HttpHandler,
-        AuthenticationService,
-      ],
-      imports: [
-      ],
+      declarations: [NavbarComponent],
+      providers: [{ provide: Apollo, useValue: apolloMock }, HttpClient, HttpHandler, AuthenticationService],
+      imports: [],
       schemas: [NO_ERRORS_SCHEMA],
     });
     // const apollo = TestBed.get(HttpClient);

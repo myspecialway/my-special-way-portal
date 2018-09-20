@@ -1,15 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog,
-  MatSort, MatPaginator, MatPaginatorIntl,
+  MatHeaderRowDef,
+  MatRowDef,
+  MatHeaderRow,
+  MatDialog,
+  MatSort,
+  MatPaginator,
+  MatPaginatorIntl,
 } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.service';
 import {
-  Overlay, ScrollStrategyOptions,
-  ScrollDispatcher, ViewportRuler,
-  OverlayContainer, OverlayPositionBuilder,
+  Overlay,
+  ScrollStrategyOptions,
+  ScrollDispatcher,
+  ViewportRuler,
+  OverlayContainer,
+  OverlayPositionBuilder,
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -37,18 +45,8 @@ describe('student component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-
-      ],
-      declarations: [
-        StudentComponent,
-        MatHeaderRow,
-        MatRowDef,
-        MatHeaderRowDef,
-        MatSort,
-        MatPaginator,
-
-      ],
+      imports: [],
+      declarations: [StudentComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
       providers: [
         StudentService,
         { provide: MatDialog, useValue: studentDialogMock },
@@ -65,7 +63,6 @@ describe('student component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-
   });
 
   it('should render component as described in snapshot', () => {
@@ -95,7 +92,7 @@ describe('student component', () => {
   });
 
   it('should load zero students in case of promise reject', async () => {
-    const getAllStudentsMock = (studentServiceMock.getAllStudents as jest.Mock);
+    const getAllStudentsMock = studentServiceMock.getAllStudents as jest.Mock;
     getAllStudentsMock.mockReset();
     getAllStudentsMock.mockRejectedValueOnce(0);
 
@@ -104,10 +101,9 @@ describe('student component', () => {
   });
 
   it('component delete should call service delete', async () => {
-    (studentServiceMock.delete as jest.Mock).mockImplementationOnce(
-      () => {
-        return Promise.resolve(1);
-      });
+    (studentServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
 
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd');
@@ -131,7 +127,7 @@ describe('student component', () => {
   });
 
   it('should pipe promise rejection when deleteStudent fails', async () => {
-    const deleteStudentsMock = (studentServiceMock.delete as jest.Mock);
+    const deleteStudentsMock = studentServiceMock.delete as jest.Mock;
     deleteStudentsMock.mockReset();
     deleteStudentsMock.mockReturnValueOnce(Promise.reject('oh no!'));
 
