@@ -57,12 +57,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.username = '';
     student.password = '';
     student.gender = Gender.FEMALE;
-    student.class = {
-      _id: '0',
-      name: '',
-      grade: '',
-      schedule: [],
-    };
+    student.class = new Class();
     return student;
   }
 

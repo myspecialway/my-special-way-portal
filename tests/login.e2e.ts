@@ -17,7 +17,7 @@ fixture(`Login tests`)
 test('Successful login test', async (t) => {
   await t
     .maximizeWindow()
-    .typeText(loginPage.useranmeField, 'msw-principle')
+    .typeText(loginPage.useranmeField, 'principle')
     .typeText(loginPage.passwordField, 'Aa123456')
     .click(loginPage.loginButton);
 

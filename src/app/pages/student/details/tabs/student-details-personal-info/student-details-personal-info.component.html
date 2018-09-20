@@ -11,10 +11,13 @@
 
         <div class="msw-student-main-details">
           <mat-form-field class="firstname">
-            <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" required>
+            <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstName="ngModel" required>
+            <mat-error data-test-id="firstname-err" *ngIf="firstName.invalid">שם פרטי הינו שדה חובה</mat-error>
           </mat-form-field>
           <mat-form-field class="lastname">
-            <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" required>
+            <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastName="ngModel" required>
+            <mat-error data-test-id="lastname-err" *ngIf="lastName.invalid">שם משפחה הינו שדה חובה</mat-error>
+
           </mat-form-field>
           <div class="msw-student-details-gender-switch">
             <div class="msw-student-details-gender">מין</div>
@@ -30,21 +33,29 @@
         </div>
 
         <mat-form-field class="classname">
-          <mat-select placeholder="כיתה" [(ngModel)]="student.class._id" name="class_id" required>
+          <mat-select placeholder="כיתה" [(ngModel)]="student.class._id" #classId="ngModel" name="class_id" required>
             <mat-option *ngFor="let classname of classes" [value]="classname._id">
               {{classname.name}}
             </mat-option>
           </mat-select>
+          <mat-error data-test-id="class-id-err" *ngIf="classId.hasError('required')">כיתה הינו שדה חובה</mat-error>
         </mat-form-field>
 
         <mat-form-field class="username">
-          <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" autocomplete="new-username" required>
+          <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
+                 autocomplete="new-username" required [minlength]="5" [pattern]="'^[A-Za-z]+$'">
+          <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
+          <mat-error data-test-id="username-format-err" *ngIf="username.hasError('minlength') || username.hasError('pattern')">שם משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
         </mat-form-field>
         <mat-form-field class="password">
-          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" name="password" autocomplete="new-password" required>
+          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
+          <mat-error data-test-id="password-err" *ngIf="!password.valid" class="help-block">נא הכנס סיסמה</mat-error>
         </mat-form-field>
 
-        <button mat-button (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)">שמור</button>
+        <div mat-dialog-actions>
+          <button mat-button data-test-id="save-button" class="msw-button-add" (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)"
+                  [disabled]="!studentDetailsForm.valid" >שמור</button>
+        </div>
       </form>
     </div>
   </div>
