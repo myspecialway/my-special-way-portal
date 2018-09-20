@@ -17,9 +17,12 @@ export class ClassDetailsViewComponent {
   private _name: string;
   private _grade: string;
   public gradesKeys: string[];
-  @Input() schedule: TimeSlot[][];
-  @Input() daysLabels: string[];
-  @Input() hoursLabels: string[];
+  @Input()
+  schedule: TimeSlot[][];
+  @Input()
+  daysLabels: string[];
+  @Input()
+  hoursLabels: string[];
   @Input()
   set name(name: string) {
     this._name = name || '';
@@ -34,8 +37,10 @@ export class ClassDetailsViewComponent {
   get grade(): string {
     return this._grade;
   }
-  @Output() timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
-  @Output() detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
+  @Output()
+  timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
+  @Output()
+  detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
 
   constructor(private scheduleService: ScheduleService) {
     this.gradesKeys = Object.keys(this.scheduleService.grades);

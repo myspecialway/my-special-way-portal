@@ -86,9 +86,9 @@ describe('AuthenticationService', () => {
 
   // TODO: fix tests!!!
   // it('should remove token from localstorage logout  if rememberMe', () => {
-    //   authService.logout();
-    //   expect(localStorage.removeItem).toHaveBeenCalledWith('token');
-    // });
+  //   authService.logout();
+  //   expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+  // });
 
   // it('should remove token from sessionstorage logout if !rememberMe', () => {
   //   authService.logout();
@@ -140,5 +140,4 @@ describe('AuthenticationService', () => {
     await authService.logout();
     expect(localStorage.getItem('token')).toBeNull();
   });
-
 });

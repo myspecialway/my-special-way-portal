@@ -13,7 +13,6 @@ describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
   let watchQueryObservable: Subject<any>;
   beforeEach(async () => {
-
     watchQueryObservable = new Subject();
     const apolloMock = {
       watchQuery: () => ({

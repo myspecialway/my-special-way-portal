@@ -9,26 +9,20 @@ import { LessonService } from '../../services/lesson/lesson.graphql.service';
   styleUrls: ['./lesson.component.scss'],
 })
 export class LessonComponent implements OnInit {
-
   displayedColumns = ['title', 'icon', 'deleteLesson'];
   dataSource = new MatTableDataSource<Lesson>();
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
-  constructor(
-    private lessonService: LessonService,
-
-  ) { }
+  constructor(private lessonService: LessonService) {}
 
   async ngOnInit() {
-     const lessons = await this.lessonService.getLessons();
-     this.dataSource.data = [...lessons];
+    const lessons = await this.lessonService.getLessons();
+    this.dataSource.data = [...lessons];
   }
 
-  addNewLesson() {
-  }
+  addNewLesson() {}
 
-  deleteLesson(_id: number) {
-
-  }
+  deleteLesson(_id: number) {}
 }

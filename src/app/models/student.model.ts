@@ -28,6 +28,6 @@ export interface StudentQuery {
   schedule?: TimeSlot[];
 }
 
-export interface StudentsQuery  {
+export interface StudentsQuery {
   students: Student[];
 }

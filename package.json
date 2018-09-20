@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.68",
+  "version": "0.0.69",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -21,7 +21,10 @@
     "mock-graphql": "npx json-graphql-server ./src/mocks/assets/db.js",
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",
-    "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\""
+    "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
+    "precommit": "yarn format:fix",
+    "format:fix": "pretty-quick --staged",
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
   },
   "private": true,
   "dependencies": {
@@ -87,6 +90,7 @@
     "fs-readfile-promise": "^3.0.1",
     "global": "^4.3.2",
     "graphql-cli": "^2.16.2",
+    "husky": "^0.14.3",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "4.2.1",
     "jest": "^23.1.0",
@@ -95,6 +99,8 @@
     "jest-zone-patch": "^0.0.8",
     "json-graphql-server": "^2.1.1",
     "npx": "^10.2.0",
+    "prettier": "^1.14.2",
+    "pretty-quick": "^1.6.0",
     "protractor": "5.3.1",
     "shallow-render": "^6.0.3",
     "stryker": "^0.24.1",

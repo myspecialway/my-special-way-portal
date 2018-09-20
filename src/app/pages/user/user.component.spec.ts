@@ -1,14 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef,
-         MatHeaderRow, MatDialog,
-         MatSort,
-        } from '@angular/material';
+import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
-import { Overlay, ScrollStrategyOptions, ScrollDispatcher,
-         ViewportRuler, OverlayContainer, OverlayPositionBuilder,
-         OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
+import {
+  Overlay,
+  ScrollStrategyOptions,
+  ScrollDispatcher,
+  ViewportRuler,
+  OverlayContainer,
+  OverlayPositionBuilder,
+  OverlayKeyboardDispatcher,
+} from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
@@ -19,7 +22,6 @@ describe('user component', () => {
   let userDialogMock: Partial<MatDialog>;
 
   beforeEach(async () => {
-
     userServiceMock = {
       getAllUsers: jest.fn().mockReturnValueOnce(Observable.of(userTestData.users)),
       delete: jest.fn(),
@@ -34,15 +36,8 @@ describe('user component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-      ],
-      declarations: [
-        UserComponent,
-        MatHeaderRow,
-        MatRowDef,
-        MatHeaderRowDef,
-        MatSort,
-      ],
+      imports: [],
+      declarations: [UserComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },
         { provide: UserService, useValue: userServiceMock },
@@ -57,7 +52,6 @@ describe('user component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-
   });
 
   it('should render component as described in snapshot', () => {
@@ -66,8 +60,8 @@ describe('user component', () => {
   });
 
   it('should open dialog when calling addNewUser function', () => {
-    (userServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+    (userServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.componentInstance.addNewUser();
@@ -76,8 +70,8 @@ describe('user component', () => {
   });
 
   it('should open dialog when calling deleteUser function', () => {
-    (userServiceMock.delete as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+    (userServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.PRINCIPLE);
@@ -86,8 +80,8 @@ describe('user component', () => {
   });
 
   it('should open dialog when calling updateeUser function', () => {
-    (userServiceMock.update as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+    (userServiceMock.update as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd');
@@ -96,8 +90,8 @@ describe('user component', () => {
   });
 
   it('should load users from service on page load ', () => {
-    (userServiceMock.create as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve();
+    (userServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
@@ -106,14 +100,14 @@ describe('user component', () => {
   });
 
   it('should load correct number of users ', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve();
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
-});
+  });
 
   it('should load zero users when recieves promise reject', async () => {
     (userServiceMock.getAllUsers as jest.Mock).mockReset();
@@ -143,5 +137,4 @@ describe('user component', () => {
     fixture.componentInstance.applyFilter('  AA!!BB  ');
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
   });
-
 });

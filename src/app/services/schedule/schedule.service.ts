@@ -30,11 +30,7 @@ export class ScheduleService {
     '16:30 - 16:45',
   ];
 
-  buildScheduleFromTimeslots(
-    hoursCount: number,
-    daysCount: number,
-    timeslots: TimeSlot[],
-  ): TimeSlot[][] {
+  buildScheduleFromTimeslots(hoursCount: number, daysCount: number, timeslots: TimeSlot[]): TimeSlot[][] {
     const schedule: TimeSlot[][] = [];
 
     for (let hourIndex = 0; hourIndex < hoursCount; hourIndex++) {

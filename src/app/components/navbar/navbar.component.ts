@@ -3,18 +3,17 @@ import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
-import { UserType} from '../../models/user.model';
+import { UserType } from '../../models/user.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { distinctUntilChanged, pluck, filter, first, map } from 'rxjs/operators';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
-  { path: 'class', title: 'ניהול כיתות', class: 'nb-class', roles: [UserType.PRINCIPLE]},
+  { path: 'class', title: 'ניהול כיתות', class: 'nb-class', roles: [UserType.PRINCIPLE] },
   { path: 'lesson', title: 'ניהול שיעורים', class: 'nb-lesson', roles: [UserType.PRINCIPLE] },
   { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-lesson', roles: [UserType.TEACHER] },
-  { path: 'map', title: 'ניהול מפה', class: 'nb-map' , roles: [UserType.PRINCIPLE]},
-  { path: 'user', title: 'ניהול משתמשים', class: 'nb-user' , roles: [UserType.PRINCIPLE]},
-
+  { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
+  { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
 @Component({
   selector: 'app-navbar',
@@ -46,6 +45,7 @@ export class NavbarComponent implements OnInit {
           }
           return item;
         });
+        // this.selectedMenuItem = this.menuItems.length > 0 ? this.menuItems[0].path : ' ';
       });
   }
 

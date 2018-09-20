@@ -8,24 +8,20 @@ import { StudentDetailsComponent } from '../../student-details.component';
 
 describe('Student Details Notifications Component', () => {
   beforeEach(async () => {
-
     TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([]),
-      ],
-      declarations: [
-        StudentDetailsComponent,
-        StudentDetailsNotificationsComponent,
-      ],
+      imports: [RouterModule.forRoot([])],
+      declarations: [StudentDetailsComponent, StudentDetailsNotificationsComponent],
       providers: [
         {
-          provide: Router, useValue: {
+          provide: Router,
+          useValue: {
             forRoot: jest.fn(),
           },
         },
         Platform,
         {
-          provide: ActivatedRoute, useValue: {
+          provide: ActivatedRoute,
+          useValue: {
             parent: {
               params: Observable.of({ idOrNew: '_new_' }),
             },
@@ -37,8 +33,7 @@ describe('Student Details Notifications Component', () => {
   });
 
   describe('with _new_ student path', () => {
-    beforeEach(async () => {
-    });
+    beforeEach(async () => {});
 
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsNotificationsComponent);

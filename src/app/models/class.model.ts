@@ -12,7 +12,7 @@ export interface InputClass {
   schedule?: TimeSlot[];
 }
 
-export interface ClassQuery  {
+export interface ClassQuery {
   classes: Class[];
   classByName: Class;
   classById: Class;
