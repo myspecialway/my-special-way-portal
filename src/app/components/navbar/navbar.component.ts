@@ -5,7 +5,7 @@ import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.qu
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserType } from '../../models/user.model';
 import { Router, NavigationEnd } from '@angular/router';
-import { distinctUntilChanged, pluck, filter, first, map } from 'rxjs/operators';
+import { pluck, filter, first, map } from 'rxjs/operators';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
