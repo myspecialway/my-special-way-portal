@@ -15,6 +15,9 @@ export const ROUTES: RouteInfo[] = [
   { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
+
+export const DEFAULT_ROUTE = ROUTES[0];
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -45,7 +48,6 @@ export class NavbarComponent implements OnInit {
           }
           return item;
         });
-        // this.selectedMenuItem = this.menuItems.length > 0 ? this.menuItems[0].path : ' ';
       });
   }
 
@@ -54,10 +56,8 @@ export class NavbarComponent implements OnInit {
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath);
-    if (route) {
-      return route.title;
-    }
+    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
+    return route.title;
   }
 
   private async initMenuTitleFromRouter() {
