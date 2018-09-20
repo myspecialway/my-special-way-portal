@@ -39,6 +39,7 @@ exports[`student component should render component as described in snapshot 1`] 
         >
           <button
             color="primary"
+            data-test-id="add-new-student-button"
             mat-raised-button=""
             routerlink="/student/_new_"
           >
