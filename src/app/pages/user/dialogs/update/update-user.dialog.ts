@@ -1,8 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { User, UserType } from '../../../../models/user.model';
-import { UserService } from '../../services/user.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserType } from '../../../../models/user.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
 
