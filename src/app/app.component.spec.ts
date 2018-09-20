@@ -5,9 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('dashboard component', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-      ],
+      declarations: [AppComponent],
       imports: [],
       schemas: [NO_ERRORS_SCHEMA],
     });

@@ -10,17 +10,16 @@ import { Class } from '../../../../models/class.model';
   templateUrl: './add-student.dialog.html',
   styleUrls: ['./add-student.dialog.scss'],
 })
-
 export class AddStudentDialogComponent implements OnInit {
   form: FormGroup;
-  formControl = new FormControl('', [
-    Validators.required,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
   gradeList: Class[];
-  constructor(private formBuilder: FormBuilder,
-              public dialogRef: MatDialogRef<AddStudentDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Student,
-              public studentService: StudentService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<AddStudentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Student,
+    public studentService: StudentService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -34,9 +33,11 @@ export class AddStudentDialogComponent implements OnInit {
   }
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    return this.formControl.hasError('required')
+      ? 'Required field'
+      : this.formControl.hasError('email')
+        ? 'Not a valid email'
+        : '';
   }
 
   close(): void {

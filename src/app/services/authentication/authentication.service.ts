@@ -14,10 +14,7 @@ export class AuthenticationService {
   private jwtHelper = new JwtHelperService();
   private isStateRestored = false;
 
-  constructor(
-    private http: HttpClient,
-    private apollo: Apollo,
-  ) { }
+  constructor(private http: HttpClient, private apollo: Apollo) {}
 
   private getTokenFromLocalStore() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
@@ -41,10 +38,9 @@ export class AuthenticationService {
 
   async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
-      const tokenResponse = await this.http.post<LoginResponse>(
-        environment.hotConfig.MSW_HOT_LOGIN_ENDPOINT,
-        { username, password },
-      ).toPromise();
+      const tokenResponse = await this.http
+        .post<LoginResponse>(environment.hotConfig.MSW_HOT_LOGIN_ENDPOINT, { username, password })
+        .toPromise();
 
       if (!tokenResponse) {
         return false;
@@ -85,12 +81,14 @@ export class AuthenticationService {
   }
 
   private async pushUserProfileToState(userProfile: UserProfileStateModel) {
-    return this.apollo.mutate({
-      mutation: UPDATE_USER_PROFILE,
-      variables: {
-        userProfile,
-      },
-    }).toPromise();
+    return this.apollo
+      .mutate({
+        mutation: UPDATE_USER_PROFILE,
+        variables: {
+          userProfile,
+        },
+      })
+      .toPromise();
   }
 
   isTokenExpired(token: string): boolean {
@@ -101,5 +99,4 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
   }
-
 }

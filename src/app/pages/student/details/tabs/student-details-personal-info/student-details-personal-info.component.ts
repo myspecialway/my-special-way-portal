@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./student-details-personal-info.component.scss'],
 })
 export class StudentDetailsPersonalInfoComponent implements OnInit {
-
   student: Student;
   classes: Class[];
   isNewStudent: boolean;
@@ -22,7 +21,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     private classService: ClassService,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
@@ -58,12 +57,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.username = '';
     student.password = '';
     student.gender = Gender.FEMALE;
-    student.class = {
-      _id: '0',
-      name: '',
-      grade: '',
-      schedule: [],
-    };
+    student.class = new Class();
     return student;
   }
 

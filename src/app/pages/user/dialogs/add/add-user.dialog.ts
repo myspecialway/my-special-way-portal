@@ -11,7 +11,6 @@ import { Class } from '../../../../models/class.model';
   templateUrl: './add-user.dialog.html',
   styleUrls: ['./add-user.dialog.scss'],
 })
-
 export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
   roles: string[];
@@ -22,16 +21,21 @@ export class AddUserDialogComponent implements OnInit {
   EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
   selectUserType = new FormControl(null, Validators.required);
   selectGrade = new FormControl('', [Validators.required]);
-  userNameFormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[A-Za-z]+$')]);
-  constructor(private formBuilder: FormBuilder,
-              private classService: ClassService,
-              public dialogRef: MatDialogRef<AddUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: User,
-              public userService: UserService,
+  userNameFormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.pattern('^[A-Za-z]+$'),
+  ]);
+  constructor(
+    private formBuilder: FormBuilder,
+    private classService: ClassService,
+    public dialogRef: MatDialogRef<AddUserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: User,
+    public userService: UserService,
   ) {
     this.roles = Object.keys(this.userRoleEnum);
     this.getClasses();
-   }
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -42,7 +46,6 @@ export class AddUserDialogComponent implements OnInit {
       userType: this.selectUserType,
       class: undefined,
     });
-
   }
 
   close(): void {
@@ -54,14 +57,12 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onUserTypeChange(event): void {
-      this.currentRole = event;
-      if (event === 'MANAGER') {
-         this.data.Class = undefined;
-      }
-
+    this.currentRole = event;
+    if (event === 'MANAGER') {
+      this.data.Class = undefined;
+    }
   }
   async getClasses() {
     this.classes = await this.classService.getAllClasses();
   }
-
 }

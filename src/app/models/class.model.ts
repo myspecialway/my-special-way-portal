@@ -4,6 +4,13 @@ export class Class {
   name: string;
   grade: string;
   schedule: TimeSlot[];
+
+  constructor() {
+    this._id = '';
+    this.name = '';
+    this.grade = '';
+    this.schedule = [];
+  }
 }
 
 export interface InputClass {
@@ -12,7 +19,7 @@ export interface InputClass {
   schedule?: TimeSlot[];
 }
 
-export interface ClassQuery  {
+export interface ClassQuery {
   classes: Class[];
   classByName: Class;
   classById: Class;

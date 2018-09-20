@@ -5,34 +5,33 @@ import { AuthenticationService } from './authentication.service';
 import { UserType } from '../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
-import {Get} from '../../utils/get';
+import { Get } from '../../utils/get';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private authService: AuthenticationService,
-    private apollo: Apollo,
-  ) { }
+  constructor(private router: Router, private authService: AuthenticationService, private apollo: Apollo) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     await this.authService.checkRestoreAuthData();
-    const response = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
-      query: gql`
-      query {
-        userProfile @client{
-          role
-          token
-          class_id
-        }
-      }
-    `}).toPromise();
+    const response = await this.apollo
+      .query<{ userProfile: UserProfileStateModel }>({
+        query: gql`
+          query {
+            userProfile @client {
+              role
+              token
+              class_id
+            }
+          }
+        `,
+      })
+      .toPromise();
 
     if (
       response.data.userProfile &&
       response.data.userProfile.token &&
-      !this.authService.isTokenExpired(response.data.userProfile.token)
-      && this.isAuthorized(route, response.data.userProfile.role)
+      !this.authService.isTokenExpired(response.data.userProfile.token) &&
+      this.isAuthorized(route, response.data.userProfile.role)
     ) {
       return true;
     }

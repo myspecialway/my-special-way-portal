@@ -22,17 +22,13 @@ describe('Student Details Hours Component', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [
-          RouterModule.forRoot([]),
-        ],
-        declarations: [
-          StudentDetailsComponent,
-          StudentDetailsHoursComponent,
-        ],
+        imports: [RouterModule.forRoot([])],
+        declarations: [StudentDetailsComponent, StudentDetailsHoursComponent],
         providers: [
           { provide: MatDialog, useValue: scheduleDialogMock },
           {
-            provide: Router, useValue: {
+            provide: Router,
+            useValue: {
               forRoot: jest.fn(),
             },
           },
@@ -40,7 +36,8 @@ describe('Student Details Hours Component', () => {
           StudentService,
           ScheduleService,
           {
-            provide: ActivatedRoute, useValue: {
+            provide: ActivatedRoute,
+            useValue: {
               parent: {
                 params: Observable.of({ idOrNew: '_new_' }),
               },

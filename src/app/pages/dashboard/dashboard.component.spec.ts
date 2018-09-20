@@ -6,9 +6,7 @@ import { ApolloModule } from 'apollo-angular';
 describe('dashboard component', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [
-        DashboardComponent,
-      ],
+      declarations: [DashboardComponent],
       imports: [ApolloModule],
       schemas: [NO_ERRORS_SCHEMA],
     });

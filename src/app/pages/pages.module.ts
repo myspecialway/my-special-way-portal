@@ -5,7 +5,14 @@ import { ClassDetailsContainerComponent } from './class-details/class-details.co
 import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
-import { MatInputModule, MatSelectModule, MatTableModule, MatTabsModule, MatButtonToggleModule, MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
+import {
+  MatInputModule,
+  MatSelectModule,
+  MatTableModule,
+  MatTabsModule,
+  MatButtonToggleModule,
+  MAT_LABEL_GLOBAL_OPTIONS,
+} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
 import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
@@ -33,7 +40,6 @@ import { StudentDetailsNotificationsComponent } from './student/details/tabs/stu
     ClassDetailsContainerComponent,
     LessonComponent,
   ],
-  providers: [
-    { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } },
-  ]})
-export class PagesModule { }
+  providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
+})
+export class PagesModule {}
