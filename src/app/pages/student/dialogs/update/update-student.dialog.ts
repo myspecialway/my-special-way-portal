@@ -7,20 +7,20 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './update-student.dialog.html',
   styleUrls: ['./update-student.dialog.scss'],
 })
-
 export class UpdateStudentDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<UpdateStudentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
 
-  constructor(public dialogRef: MatDialogRef<UpdateStudentDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  formControl = new FormControl('', [
-    Validators.required,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    return this.formControl.hasError('required')
+      ? 'Required field'
+      : this.formControl.hasError('email')
+        ? 'Not a valid email'
+        : '';
   }
 
   close(): void {

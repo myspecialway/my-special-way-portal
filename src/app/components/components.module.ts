@@ -7,21 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-  ],
-  declarations: [
-    FooterComponent,
-    NavbarComponent,
-    ScheduleComponent,
-  ],
-  exports: [
-    FooterComponent,
-    NavbarComponent,
-    ScheduleComponent,
-  ],
+  imports: [CommonModule, RouterModule, FormsModule],
+  declarations: [FooterComponent, NavbarComponent, ScheduleComponent],
+  exports: [FooterComponent, NavbarComponent, ScheduleComponent],
 })
-
-export class ComponentsModule { }
+export class ComponentsModule {}

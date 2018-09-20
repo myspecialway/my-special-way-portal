@@ -1,14 +1,13 @@
 export class Get {
-
   static getNumber(object: object, path: string): number | undefined {
     return Get.getValue(object, path, 'number');
   }
 
-  static  getString(object: object, path: string): string | undefined {
+  static getString(object: object, path: string): string | undefined {
     return Get.getValue(object, path, 'string');
   }
 
-  static  getBoolean(object: object, path: string): boolean | undefined {
+  static getBoolean(object: object, path: string): boolean | undefined {
     return Get.getValue(object, path, 'boolean');
   }
 
@@ -28,7 +27,7 @@ export class Get {
    * Gets the value at path of object.  If the resolved value is undefined, returns undefined.
    * If type is specified, compares the value type to the given type, if match returns the value, otherwise, returns undefined.
    */
-  static getValue<T>(object: object, path: string , tp?: string): T | undefined {
+  static getValue<T>(object: object, path: string, tp?: string): T | undefined {
     const value = Get.getit(object, path);
 
     if (value === undefined || !tp) {
@@ -53,5 +52,4 @@ export class Get {
       return prev[next];
     }, data);
   }
-
 }

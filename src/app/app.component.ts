@@ -6,5 +6,4 @@ import 'rxjs/add/operator/filter';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-}
+export class AppComponent {}
