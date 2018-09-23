@@ -51,7 +51,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="updateUser(row._id, row.firstname, row.lastname, row.email, row.username)">ערוך</button>
+              <button mat-icon-button color="primary" (click)="updateUser(row._id, row.firstname, row.lastname, row.email, row.username,row.role, row.Class)">ערוך</button>
             </mat-cell>
           </ng-container>
 
