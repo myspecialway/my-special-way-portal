@@ -39,20 +39,4 @@ export default class NavbarPage {
   async navigateToLessonsPage() {
     await t.click(this.menuDropDown).click(this.menuDropDownLessons);
   }
-
-  async navigateToStudentsPageByUrl() {
-    await t.navigateTo('/student');
-  }
-
-  async navigateToUsersPageByUrl() {
-    await t.navigateTo('/user');
-  }
-
-  async navigateToClassesPageByUrl() {
-    await t.navigateTo('/class');
-  }
-
-  async navigateToLessonsPageByUrl() {
-    await t.navigateTo('/lesson');
-  }
 }

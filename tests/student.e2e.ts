@@ -15,9 +15,8 @@ fixture(`Student tests`)
 
 test('new and existing student form error messages display correctly', async (t) => {
   await navbar.navigateToStudentsPage();
-  await t.click(studentPage.newStudentButton);
-  await studentPage.firstName();
   await t
+    .click(studentPage.newStudentButton)
     .click(studentPage.firstName)
     .click(studentPage.lastName)
     .click(studentPage.classId)
@@ -25,12 +24,20 @@ test('new and existing student form error messages display correctly', async (t)
     .click(studentPage.password)
     .click(studentPage.username)
     .click(studentPage.password); // just so we leave the previous field.
-  await t.expect(studentPage.firstNameErr().exists).ok();
-  await t.expect(studentPage.lastNameErr().exists).ok();
-  await t.expect(studentPage.usernameErr().exists).ok();
-  await t.expect(studentPage.classIdErr().exists).ok();
-  await t.expect(studentPage.passwordErr().exists).ok();
-  await t.typeText(studentPage.username, 'a');
-  await t.expect(studentPage.usernameFormatErr().exists).ok();
-  await t.expect(studentPage.saveButton.hasAttribute('disabled')).ok();
+  await t
+    .expect(studentPage.firstNameErr().exists)
+    .ok()
+    .expect(studentPage.lastNameErr().exists)
+    .ok()
+    .expect(studentPage.usernameErr().exists)
+    .ok()
+    .expect(studentPage.classIdErr().exists)
+    .ok()
+    .expect(studentPage.passwordErr().exists)
+    .ok()
+    .typeText(studentPage.username, 'a')
+    .expect(studentPage.usernameFormatErr().exists)
+    .ok()
+    .expect(studentPage.saveButton.hasAttribute('disabled'))
+    .ok();
 });

@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe';
 
 export default class StudentsPage {
+  static url = '/student';
   _id: Selector;
   newStudentButton: Selector;
   saveButton: Selector;
