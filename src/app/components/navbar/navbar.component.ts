@@ -4,6 +4,8 @@ import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserType } from '../../models/user.model';
+import { Router, NavigationEnd } from '@angular/router';
+import { pluck, filter, first, map } from 'rxjs/operators';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -13,6 +15,9 @@ export const ROUTES: RouteInfo[] = [
   { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
+
+export const DEFAULT_ROUTE = ROUTES[0];
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -21,9 +26,11 @@ export const ROUTES: RouteInfo[] = [
 export class NavbarComponent implements OnInit {
   menuItems: any[];
   currentUser: string;
-  selectedMenuItem: string;
+  selectedMenuItemPath: string;
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private router: Router) {
+    this.initMenuTitleFromRouter();
+  }
 
   async ngOnInit() {
     await this.apollo
@@ -41,18 +48,30 @@ export class NavbarComponent implements OnInit {
           }
           return item;
         });
-        this.selectedMenuItem = this.menuItems.length > 0 ? this.menuItems[0].path : ' ';
       });
   }
 
   selectMenuItem(menuItem) {
-    this.selectedMenuItem = menuItem.path;
+    this.selectedMenuItemPath = menuItem.path;
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItem);
-    if (route) {
-      return route.title;
-    }
+    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
+    return route.title;
+  }
+
+  private async initMenuTitleFromRouter() {
+    this.selectedMenuItemPath = await this.router.events
+      .pipe(
+        filter((ev) => ev instanceof NavigationEnd),
+        pluck('url'),
+        first(),
+        map(this.removeLeadingSlash),
+      )
+      .toPromise();
+  }
+
+  private removeLeadingSlash(s = '') {
+    return s.replace(/^\/+/g, '');
   }
 }
