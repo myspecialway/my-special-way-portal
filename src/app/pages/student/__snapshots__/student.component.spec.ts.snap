@@ -11,6 +11,7 @@ exports[`student component should render component as described in snapshot 1`] 
 >
   <div
     class="main-content msw-student-container"
+    data-test-id="students-page"
   >
     <div
       class="container-fluid"

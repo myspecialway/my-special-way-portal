@@ -11,6 +11,7 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
 >
   <div
     class="main-content"
+    data-test-id="class-details-page"
   >
     <div
       class="container-fluid "

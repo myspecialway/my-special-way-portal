@@ -14,6 +14,7 @@ exports[`class component should render component as described in snapshot 1`] = 
 >
   <div
     class="main-content"
+    data-test-id="classes-page"
   >
     <div
       class="container-fluid"
