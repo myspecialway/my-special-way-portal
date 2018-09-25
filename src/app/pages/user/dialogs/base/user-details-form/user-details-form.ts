@@ -1,13 +1,9 @@
-import { Component, Inject, OnInit, EventEmitter, Input, ViewChild, Output, OnDestroy } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
-import { pluck } from 'rxjs-compat/operator/pluck';
-import { map } from 'rxjs/operators/map';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-details-form',
@@ -66,11 +62,11 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     this.classes = await this.classService.getAllClasses();
   }
 
-  protected close() {
+  close() {
     this.cancel.emit();
   }
 
-  protected submitForm() {
+  submitForm() {
     this.formSubmit.emit(this.form.value);
   }
 
