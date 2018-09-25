@@ -17,6 +17,10 @@ const classesPage = new ClassesPage();
 
 fixture(`Navigation tests`).page(testEnvironment.feUrl);
 
+const waitForDefaultPage = async () => {
+  await studentPage._id().exists;
+};
+
 test('principle navigates to students (default) screen after login', async (t) => {
   await loginPage.loginAsPrinciple();
   await t.expect(studentPage._id().exists).ok();
@@ -104,7 +108,3 @@ test('teacher can navigate to authorized pages only, by url (deep linking)', asy
     .expect(usersPage._id().exists)
     .notOk();
 });
-
-const waitForDefaultPage = async () => {
-  await studentPage._id().exists;
-};
