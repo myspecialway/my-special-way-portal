@@ -1,7 +1,7 @@
 import LoginPage from './pageobjects/login.po';
 import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
-import StudentPage from './pageobjects/student.po';
+import StudentPage from './pageobjects/students.po';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
