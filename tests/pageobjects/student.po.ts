@@ -23,6 +23,12 @@ export default class StudentPage {
   confirmDeleteButton: Selector;
   scheduleCell: Selector;
   editCellDialogue: Selector;
+  editCellLesson: Selector;
+  editCellLocation: Selector;
+  lessonOption: Selector;
+  locationOption: Selector;
+  editCellUpdateButton: Selector;
+  editCellCloseButton: Selector;
   constructor() {
     this.newStudentButton = Selector('[data-test-id$="new-student-button"]');
     this.personalDetailsTab = Selector('[data-test-id$="personal-info-tab"]');
@@ -45,6 +51,12 @@ export default class StudentPage {
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="username-delete-button-scheduleTestUser"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
     this.scheduleCell = Selector('[id$="studentSchedule-col-1-row-0"]');
-    this.editCellDialogue = Selector('[id$="mat-dialog-1"]');
+    this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
+    this.editCellLesson = Selector('[data-test-id$="lessons-dropDown"]');
+    this.editCellLocation = Selector('[data-test-id$="locations-dropDown"]');
+    this.lessonOption = Selector('[data-test-id$="lesson-0"]');
+    this.locationOption = Selector('[data-test-id$="location-0"]');
+    this.editCellUpdateButton = Selector('[id$="update-edit-lesson-dialogue"]');
+    this.editCellCloseButton = Selector('[id$="close-edit-lesson-dialogue"]');
   }
 }

@@ -45,3 +45,28 @@ test('should open popup on click on cell', async (t) => {
   await t.click(studentPage.scheduleCell);
   await t.expect(studentPage.editCellDialogue.exists).ok();
 });
+
+test('should update existing cell,should create lesson+location on empty cell', async (t) => {
+  await t.click(studentPage.scheduleCell);
+  await t.click(studentPage.editCellLesson);
+  await t.click(studentPage.lessonOption);
+  await t.click(studentPage.editCellLocation);
+  await t.click(studentPage.locationOption);
+  await t.click(studentPage.editCellUpdateButton);
+  //This currently fails because of a bug in the update button.
+  await t.expect(studentPage.scheduleCell.textContent).contains('אומנות');
+  await t.expect(studentPage.scheduleCell.textContent).contains('מעלית קומה 0');
+});
+
+test('should be able to discard changes inside popup', async (t) => {
+  await t.click(studentPage.scheduleCell);
+  await t.click(studentPage.editCellLesson);
+  await t.click(studentPage.lessonOption);
+  await t.click(studentPage.editCellLocation);
+  await t.click(studentPage.locationOption);
+  await t.click(studentPage.editCellCloseButton);
+  //This currently fails because of a bug in the update button.
+  await t.expect(studentPage.scheduleCell.textContent).notContains('אומנות');
+  await t.expect(studentPage.scheduleCell.textContent).notContains('מעלית קומה 0');
+  await t.expect(studentPage.scheduleCell.textContent).contains('add');
+});
