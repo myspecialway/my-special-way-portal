@@ -11,7 +11,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
   { path: 'class', title: 'ניהול כיתות', class: 'nb-class', roles: [UserType.PRINCIPLE] },
   { path: 'lesson', title: 'ניהול שיעורים', class: 'nb-lesson', roles: [UserType.PRINCIPLE] },
-  { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-lesson', roles: [UserType.TEACHER] },
+  { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-class-schedule', roles: [UserType.TEACHER] },
   { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
         query: GET_USER_PROFILE,
       })
       .valueChanges.subscribe((userProf) => {
-        this.currentUser = userProf.data.userProfile.username;
+        this.currentUser = `${userProf.data.userProfile.firstname} ${userProf.data.userProfile.lastname}`;
         const currentType = userProf.data.userProfile.role;
         const currentClassId = userProf.data.userProfile.class_id;
         this.menuItems = ROUTES.filter((menuItem) => menuItem.roles.includes(UserType[currentType]));
