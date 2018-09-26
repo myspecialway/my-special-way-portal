@@ -54,10 +54,6 @@ test('Navigate to Classes', async (t) => {
   await t.expect(location.pathname).contains('class');
   await eye.look(t, 'Navigate to Classes');
 });
-test('displays user first and last name after login', async (t) => {
-  await t.expect(navbar.username.exists).ok;
-  await t.expect(navbar.username.innerText).eql('MSW PRINCIPLE');
-});
 test('does not display username after logout', async (t) => {
   await t
     .click(navbar.toolsDropDown)
