@@ -43,11 +43,11 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      userName: this.userNameFormControl,
+      firstname: '',
+      lastname: '',
+      username: this.userNameFormControl,
       email: this.EmailFormControl,
-      userType: this.selectUserType,
+      role: this.selectUserType,
       class: this.selectGrade,
     });
   }

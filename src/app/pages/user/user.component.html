@@ -32,7 +32,7 @@
           <!-- Progress Column -->
           <ng-container matColumnDef="class">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{(row.class && row.class.name) || '' }}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{(row.class?.name) || '' }}</mat-cell>
           </ng-container>
 
           <!-- Name Column -->
@@ -51,7 +51,7 @@
           <ng-container matColumnDef="editDetails">
             <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="updateUser(row._id, row.firstname, row.lastname, row.email, row.username,row.role, row.class)">ערוך</button>
+              <button mat-icon-button color="primary" (click)="updateUser(row)">ערוך</button>
             </mat-cell>
           </ng-container>
 
@@ -59,7 +59,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteUser(row._id, row.firstname, row.lastname, row.role)"><i class="material-icons"> delete </i></button>
+              <button mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

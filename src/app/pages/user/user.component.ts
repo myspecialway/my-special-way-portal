@@ -49,51 +49,39 @@ export class UserComponent implements OnInit, AfterViewInit {
       height: '368px',
       width: '630px',
     });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        const newUser: User = this._createNewUser(data);
-        this.userService.create(newUser);
+    dialogRef.afterClosed().subscribe((newUserData) => {
+      if (newUserData) {
+        this.userService.create(newUserData);
       }
     });
   }
-  deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
+  deleteUser(userData: User) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      data: { _id, firstName, lastName, userType },
+      data: userData,
       height: '275px',
       width: '360px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.userService.delete(_id);
+        this.userService.delete(userData._id);
       }
     });
   }
-  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string, role: any, _class: any) {
+  updateUser(userData: User) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: { _id, firstname, lastname, email, username, role, class: _class },
+      data: userData,
       height: '376px',
       width: '631px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const relevantUser = _.find(this.dataSource.data, { _id });
-        const tempUser = _.assign({}, relevantUser, result, { role: result.userType });
+        const relevantUser = _.find(this.dataSource.data, { _id: userData._id });
+        const tempUser = { ...relevantUser, ...result };
 
         this.userService.update(tempUser);
       }
     });
-  }
-
-  _createNewUser(userData: any): User {
-    const user: User = new User();
-    user.firstname = userData.firstName;
-    user.lastname = userData.lastName;
-    user.username = userData.userName;
-    user.email = userData.email;
-    user.role = userData.userType;
-    user.class = userData.class;
-    return user;
   }
 }
