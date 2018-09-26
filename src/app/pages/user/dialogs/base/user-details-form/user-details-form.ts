@@ -55,7 +55,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   onUserTypeChange(event): void {
     this.currentRole = event;
     if (event === 'MANAGER') {
-      this.data.Class = undefined;
+      this.data.class = undefined;
     }
   }
   async getClasses() {

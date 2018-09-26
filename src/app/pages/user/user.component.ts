@@ -69,9 +69,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string, role: any, Class: any) {
+  updateUser(_id: number, firstname: string, lastname: string, email: string, username: string, role: any, _class: any) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
-      data: { _id, firstname, lastname, email, username, role, Class },
+      data: { _id, firstname, lastname, email, username, role, class: _class },
       height: '376px',
       width: '631px',
     });
@@ -93,7 +93,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     user.username = userData.userName;
     user.email = userData.email;
     user.role = userData.userType;
-    user.Class = userData.Class;
+    user.class = userData.class;
     return user;
   }
 }
