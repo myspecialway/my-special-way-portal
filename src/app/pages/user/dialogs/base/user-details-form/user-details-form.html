@@ -3,8 +3,8 @@
     <div class="msw-div-column-right">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="firstName" placeholder="שם פרטי" [(ngModel)]="data.firstname"
-            autocomplete='given-name' name="firstName" required>
+          <input matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
+            autocomplete='given-name' name="firstname" required>
           <button type="button" tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.firstname=''">
             <mat-icon>close</mat-icon>
@@ -14,8 +14,8 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="userName" placeholder="שם משתמש" [(ngModel)]="data.username"
-            autocomplete='username' name="userName" required>
+          <input matInput #input formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
+            autocomplete="username" name="username" required>
           <button type="button" tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.username=''">
             <mat-icon>close</mat-icon>
@@ -27,11 +27,11 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select placeholder="סוג משתמש" formControlName="userType" [(ngModel)]="data.role" name="userType"
+          <mat-select placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role"
             (valueChange)="onUserTypeChange($event)" autocomplete='role' required>
-            <mat-option>בחר</mat-option>
-            <mat-option *ngFor="let role of roles" [value]="role">
-              {{userRoleEnum[role]}}
+            <mat-option disabled>בחר</mat-option>
+            <mat-option *ngFor="let _role of roles" [value]="_role">
+              {{userRoleEnum[_role]}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
@@ -41,8 +41,8 @@
     <div class="msw-div-column-left">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="lastName" placeholder="שם משפחה" [(ngModel)]="data.lastname"
-            autocomplete='family-name' name="lastName" required>
+          <input matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
+            autocomplete='family-name' name="lastname" required>
           <button type="button" tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.lastname=''">
             <mat-icon>close</mat-icon>
@@ -64,11 +64,10 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" [(value)]="data.class"
-            name="class">
-            <mat-option>בחר</mat-option>
-            <mat-option *ngFor="let class of classes" [value]="class">
-              {{class.name}}
+          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
+           <mat-option disabled>בחר</mat-option>
+           <mat-option *ngFor="let class1 of classes" [value]="class1">
+              {{class1.name}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="selectGrade.hasError('required')">כיתה הינו שדה חובה</mat-error>
