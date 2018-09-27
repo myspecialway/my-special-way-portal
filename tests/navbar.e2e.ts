@@ -20,11 +20,7 @@ fixture(`Navbar tests`)
     await eye.closeEyes();
   })
   .beforeEach(async (t) => {
-    await t
-      // .useRole(r.teacher)
-      .typeText(loginPage.useranmeField, 'principle')
-      .typeText(loginPage.passwordField, 'Aa123456')
-      .click(loginPage.loginButton);
+    await loginPage.loginAsPrinciple();
   });
 
 test('Successful logout test', async (t) => {
