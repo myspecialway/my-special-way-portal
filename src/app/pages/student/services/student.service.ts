@@ -48,7 +48,7 @@ export class StudentService {
     return this.apollo
       .mutate({
         mutation: MUTATE_ADD_STUDENT,
-        variables: { student: { ...student, class: undefined, class_id: student.class._id } },
+        variables: { student: { ...student, class: undefined, class_id: student.class_id } },
         refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
       })
       .toPromise();
