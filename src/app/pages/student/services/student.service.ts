@@ -59,7 +59,8 @@ export class StudentService {
       .mutate({
         mutation: MUTATE_UPDATE_STUDENT,
         variables: { id: student._id, student: { ...student, _id: undefined } },
-        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
+        refetchQueries: [{ query: QUERY_GET_STUDENT_BY_ID, variables: { id: student._id } }],
+        awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: UpdateStudentResponse }) => res.data.updateStudent._id))
       .toPromise();
