@@ -70,7 +70,12 @@ export class StudentDetailsHoursComponent implements OnInit {
         return;
       }
       const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
-      const newCustomizedSlot: TimeSlot = { index: data.index, lesson: data.lesson, location: data.location, customized: true };
+      const newCustomizedSlot: TimeSlot = {
+        index: data.index,
+        lesson: data.lesson,
+        location: data.location,
+        customized: true,
+      };
       const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
 
       const tempStudent: StudentQuery = {
