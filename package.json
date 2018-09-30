@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.75",
+  "version": "0.0.76",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",

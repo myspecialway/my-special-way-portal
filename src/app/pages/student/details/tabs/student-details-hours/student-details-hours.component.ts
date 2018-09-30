@@ -76,7 +76,7 @@ export class StudentDetailsHoursComponent implements OnInit {
         lastname: this.student.lastname,
         gender: this.student.gender,
         password: this.student.password,
-        class_id: this.student.class._id,
+        class_id: this.student.class_id,
         schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
       };
       try {
