@@ -65,8 +65,7 @@ test('teacher can navigate to authorized pages only, from navbar', async (t) => 
   // allowed
   await navbar.navigateToStudentsPage();
   await t.expect(studentPage._id().exists).ok();
-  await navbar.navigateToLessonsPage();
-  // this link was actually programmed to navigate to a teacher's specific class details page.
+  await navbar.navigateToClassSchedulePage();
   await t.expect(classDetailsPage._id().exists).ok();
 
   // not allowed
