@@ -42,7 +42,7 @@ export default class StudentsPage {
     this.firstName = Selector('[name$="firstname"]');
     this.lastName = Selector('[name$="lastname"]');
     this.classId = Selector('[name$="class_id"]');
-    this.classIdFirstChoice = Selector('[id$="mat-option-0"]');
+    this.classIdFirstChoice = Selector('[class="mat-option-text"]').withExactText('טיטאן');
     this.password = Selector('[name$="password"]');
     this.usernameErr = Selector('[data-test-id$="username-err"]');
     this.usernameFormatErr = Selector('[data-test-id$="username-format-err"]');
@@ -50,16 +50,16 @@ export default class StudentsPage {
     this.lastNameErr = Selector('[data-test-id$="lastname-err"]');
     this.classIdErr = Selector('[data-test-id$="class-id-err"]');
     this.passwordErr = Selector('[data-test-id$="password-err"]');
-    this.scheduleTestUserNameCell = Selector('[data-test-id$="username-cell-scheduleTestUser"]');
+    this.scheduleTestUserNameCell = Selector('.username').withExactText('scheduleTestUser');
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="username-delete-button-scheduleTestUser"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
-    this.scheduleCell = Selector('[id$="studentSchedule-col-1-row-0"]');
+    this.scheduleCell = Selector('[data-test-id$="studentSchedule-col-1-row-0"]'); //TODO MAAYAN change this
     this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
     this.editCellLesson = Selector('[data-test-id$="lessons-dropDown"]');
     this.editCellLocation = Selector('[data-test-id$="locations-dropDown"]');
-    this.lessonOption = Selector('[data-test-id$="lesson-0"]');
-    this.locationOption = Selector('[data-test-id$="location-0"]');
-    this.editCellUpdateButton = Selector('[id$="update-edit-lesson-dialogue"]');
-    this.editCellCloseButton = Selector('[id$="close-edit-lesson-dialogue"]');
+    this.lessonOption = Selector('[data-test-id$="lesson-type"]');
+    this.locationOption = Selector('[data-test-id$="lesson-location"]');
+    this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
+    this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
   }
 }

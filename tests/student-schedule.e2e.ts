@@ -7,7 +7,7 @@ const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const studentPage = new StudentPage();
 
-fixture(`Student tests`)
+fixture(`Student Schedule tests`)
   .page(testEnvironment.feUrl)
   .beforeEach(async (t) => {
     await t

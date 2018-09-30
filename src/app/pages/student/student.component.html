@@ -32,7 +32,7 @@
 
           <ng-container matColumnDef="username">
             <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" [attr.data-test-id]="'username-cell-' + row.username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
+            <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">-->

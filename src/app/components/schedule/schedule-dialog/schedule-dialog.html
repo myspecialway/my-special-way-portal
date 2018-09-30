@@ -4,7 +4,7 @@
     <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
     <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
   </div>
-  <mat-dialog-content data-test-id="edit-cell-dialogue">
+  <mat-dialog-content [attr.data-test-id]="'edit-cell-dialogue'">
     
       <mat-form-field>
         <mat-select placeholder="שיעור"
@@ -12,10 +12,10 @@
                     name="lesson"
                     #lesson="ngModel"
                     (selectionChange)="scheduleDialogData.lesson = selectedLesson"
-                    data-test-id="lessons-dropDown"
+                    [attr.data-test-id]="'lessons-dropDown'"
                     required>
-          <mat-option *ngFor="let les of lessons; index as lessonIndex"
-                      [attr.data-test-id]="'lesson-' + lessonIndex"
+          <mat-option *ngFor="let les of lessons;"
+                      [attr.data-test-id]="'lesson-type'"
                       [value]="les"
                       selected="selectedLesson && selectedLesson.title === les.title">
             {{les.title}}
@@ -29,10 +29,10 @@
                     [(ngModel)]="selectedLocation"
                     name="location" #location="ngModel"
                     (selectionChange)="scheduleDialogData.location = selectedLocation"
-                    data-test-id="locations-dropDown"
+                    [attr.data-test-id]="'locations-dropDown'"
                     required>
-          <mat-option *ngFor="let loc of locations; index as locationIndex"
-                      [attr.data-test-id]="'location-' + locationIndex"
+          <mat-option *ngFor="let loc of locations"
+                      [attr.data-test-id]="'lesson-location'"
                       [value]="loc"
                       selected="selectedLocation && selectedLocation.name === loc.name">
             {{loc.name}}
@@ -43,8 +43,8 @@
     
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button class="mat-raised-button" id="close-edit-lesson-dialogue" (click)="dialogRef.close()">סגור</button>
-    <button mat-button class="mat-raised-button mat-primary" id="update-edit-lesson-dialogue" (click)="dialogRef.close(scheduleDialogData)"
+    <button mat-button class="mat-raised-button" [attr.data-test-id]="'close-edit-lesson-dialogue'" (click)="dialogRef.close()">סגור</button>
+    <button mat-button class="mat-raised-button mat-primary" [attr.data-test-id]="'update-edit-lesson-dialogue'" (click)="dialogRef.close(scheduleDialogData)"
     [disabled]="lesson.invalid || location.invalid" >עדכן</button>
   </mat-dialog-actions>
 
