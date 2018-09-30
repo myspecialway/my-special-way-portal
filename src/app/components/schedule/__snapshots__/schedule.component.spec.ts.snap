@@ -83,7 +83,6 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
         
         <td
           class="mat-cell cdk-column-position mat-column-position"
-          id="studentSchedule-col-0-row-0"
           role="gridcell"
         >
           
