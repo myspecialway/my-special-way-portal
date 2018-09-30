@@ -86,6 +86,8 @@ describe('navbar component', () => {
       data: {
         userProfile: {
           username: 'test',
+          firstname: 'MSW',
+          lastname: 'PRINCIPLE',
           role: 'PRINCIPLE',
           class_id: 'some_classid',
         },
@@ -95,7 +97,7 @@ describe('navbar component', () => {
     // then
     component.fixture.detectChanges();
     const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
-    expect(liElement.innerHTML).toBe('test');
+    expect(liElement.innerHTML).toBe('MSW PRINCIPLE');
   });
 
   it('should update the selected menu item on selection', async () => {
@@ -120,6 +122,8 @@ describe('navbar component', () => {
       data: {
         userProfile: {
           username: 'test',
+          firstname: 'MSW',
+          lastname: 'TEACHER',
           role: 'TEACHER',
           class_id: 'some_classid',
         },
@@ -129,6 +133,6 @@ describe('navbar component', () => {
     // then
     component.fixture.detectChanges();
     const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
-    expect(liElement.innerHTML).toBe('test');
+    expect(liElement.innerHTML).toBe('MSW TEACHER');
   });
 });
