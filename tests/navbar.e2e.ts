@@ -2,6 +2,10 @@ import LoginPage from './pageobjects/login.po';
 import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import { EyesDriver } from './eyes/eyes';
+import StudentPage from './pageobjects/students.po';
+import UsersPage from './pageobjects/users.po';
+import LessonsPage from './pageobjects/lessons.po';
+import ClassesPage from './pageobjects/classes.po';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
@@ -28,13 +32,13 @@ test('Successful logout test', async (t) => {
   const location = await t.eval(() => window.location);
   await t.expect(location.pathname).contains('login');
 });
-test('Successfull navigation to students from nav menu', async (t) => {
+test('Successful navigation to students from nav menu', async (t) => {
   await t.click(navbar.menuDropDown).click(navbar.menuDropDownStudents);
   const location = await t.eval(() => window.location);
   await t.expect(location.pathname).contains('student');
   await eye.look(t, 'Navigate to Users');
 });
-test('Successfull navigation from students to classes', async (t) => {
+test('Successful navigation from students to classes', async (t) => {
   await t.click(navbar.menuDropDown).click(navbar.menuDropDownClasses);
   const location = await t.eval(() => window.location);
   await t.expect(location.pathname).contains('class');
@@ -46,13 +50,35 @@ test('Navigate to Classes', async (t) => {
   await t.expect(location.pathname).contains('class');
   await eye.look(t, 'Navigate to Classes');
 });
-test('displays username after login', async (t) => {
-  await t.expect(navbar.username.exists).ok;
-  await t.expect(navbar.username.innerText).contains('PRINCIPLE');
-});
 test('does not display username after logout', async (t) => {
   await t
     .click(navbar.toolsDropDown)
     .click(navbar.logoutMenuItem)
     .expect(navbar.username.exists).notOk;
+});
+test('page titles match actual page', async (t) => {
+  //by URL
+  await t
+    .navigateTo(StudentPage.url)
+    .expect(navbar.pageTitle().innerText)
+    .eql('ניהול תלמידים')
+    .navigateTo(UsersPage.url)
+    .expect(navbar.pageTitle().innerText)
+    .eql('ניהול משתמשים')
+    .navigateTo(LessonsPage.url)
+    .expect(navbar.pageTitle().innerText)
+    .eql('ניהול שיעורים')
+    .navigateTo(ClassesPage.url)
+    .expect(navbar.pageTitle().innerText)
+    .eql('ניהול כיתות');
+
+  // from navbar
+  await navbar.navigateToStudentsPage();
+  await t.expect(navbar.pageTitle().innerText).eql('ניהול תלמידים');
+  await navbar.navigateToUsersPage();
+  await t.expect(navbar.pageTitle().innerText).eql('ניהול משתמשים');
+  await navbar.navigateToLessonsPage();
+  await t.expect(navbar.pageTitle().innerText).eql('ניהול שיעורים');
+  await navbar.navigateToClassesPage();
+  await t.expect(navbar.pageTitle().innerText).eql('ניהול כיתות');
 });

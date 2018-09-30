@@ -14,6 +14,8 @@ export const updateUserProfile = (_, { userProfile }, { cache }) => {
 
 export const defaultUserProfile = {
   username: null,
+  firstname: null,
+  lastname: null,
   role: null,
   token: null,
   class_id: null,
