@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, t } from 'testcafe';
 
 export default class StudentsPage {
   static url = '/student';
@@ -53,7 +53,7 @@ export default class StudentsPage {
     this.scheduleTestUserNameCell = Selector('.username').withExactText('scheduleTestUser');
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="username-delete-button-scheduleTestUser"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
-    this.scheduleCell = Selector('[data-test-id$="studentSchedule-col-1-row-0"]'); //TODO MAAYAN change this
+    this.scheduleCell = Selector('[role$="gridcell"]').nth(10);
     this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
     this.editCellLesson = Selector('[data-test-id$="lessons-dropDown"]');
     this.editCellLocation = Selector('[data-test-id$="locations-dropDown"]');
@@ -61,5 +61,32 @@ export default class StudentsPage {
     this.locationOption = Selector('[data-test-id$="lesson-location"]');
     this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
     this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
+  }
+
+  async createNewScheduleTestUser() {
+    //If the user exists - delete it.
+    if (await this.scheduleTestUserNameCell.exists) {
+      await t.click(this.scheduleTestUserDeleteButton).click(this.confirmDeleteButton);
+    }
+    //If the user still exists - fail the test
+    await t.expect(this.scheduleTestUserNameCell.exists).notOk();
+    //Create a new scheduleTestUser
+    await t.click(this.newStudentButton);
+    await this.firstName();
+    await t.typeText(this.username, 'scheduleTestUser');
+    await t.typeText(this.password, 'scheduleTestUser');
+    await t.typeText(this.firstName, 'scheduleTestUser');
+    await t.typeText(this.lastName, 'scheduleTestUser');
+    await t.click(this.classId);
+    await t.click(this.classIdFirstChoice);
+    await t.click(this.saveButton);
+
+    //user should now exist
+    await t.expect(this.scheduleTestUserNameCell.exists).ok();
+  }
+
+  async navigateToScheduleTab() {
+    await t.click(this.scheduleTestUserNameCell);
+    await t.click(this.scheduleTab);
   }
 }
