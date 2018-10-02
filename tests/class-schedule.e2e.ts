@@ -15,14 +15,15 @@ fixture(`Class Schedule tests`)
     await classesPage.createNewScheduleTestClass();
   });
 
-test('should open popup on click on cell', async (t) => {});
-/*  await t.click(classesPage.scheduleCell);
+test('should open popup on click on cell', async (t) => {
+  await t.click(classesPage.scheduleCell);
   await t.expect(classesPage.editCellDialogue.exists).ok();
 });
 
 test('should update existing cell,should create lesson+location on empty cell', async (t) => {
   await classesPage.createNewScheduleCell();
   await t.click(classesPage.editCellUpdateButton);
+  //TODO - this currently fails because of bug #264
   await t.expect(classesPage.scheduleCell.textContent).contains('אומנות0 מעלית קומה');
   await t.expect(classesPage.scheduleCell.textContent).notContains('add');
 });
@@ -32,4 +33,4 @@ test('should be able to discard changes inside popup', async (t) => {
   await t.click(classesPage.editCellCloseButton);
   await t.expect(classesPage.scheduleCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(classesPage.scheduleCell.textContent).contains('add');
-});*/
+});
