@@ -40,6 +40,7 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
             >
               <mat-form-field>
                 <input
+                  id="class-name"
                   matinput=""
                   placeholder="שם הכיתה"
                   required=""
@@ -60,6 +61,7 @@ exports[`ClassDetailsComponent should match current snapshot 1`] = `
                 class="class-detail-field"
               >
                 <mat-select
+                  id="class-grade"
                   placeholder="שכבה"
                 >
                   
