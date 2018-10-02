@@ -12,10 +12,10 @@
                     name="lesson"
                     #lesson="ngModel"
                     (selectionChange)="scheduleDialogData.lesson = selectedLesson"
-                    [attr.data-test-id]="'lessons-dropDown'"
+                    [attr.data-test-id]="'lessons-dropdown'"
                     required>
           <mat-option *ngFor="let les of lessons;"
-                      [attr.data-test-id]="'lesson-type'"
+                      class="lessons-option"
                       [value]="les"
                       selected="selectedLesson && selectedLesson.title === les.title">
             {{les.title}}
@@ -29,10 +29,10 @@
                     [(ngModel)]="selectedLocation"
                     name="location" #location="ngModel"
                     (selectionChange)="scheduleDialogData.location = selectedLocation"
-                    [attr.data-test-id]="'locations-dropDown'"
+                    [attr.data-test-id]="'locations-dropdown'"
                     required>
           <mat-option *ngFor="let loc of locations"
-                      [attr.data-test-id]="'lesson-location'"
+                      class="locations-option"
                       [value]="loc"
                       selected="selectedLocation && selectedLocation.name === loc.name">
             {{loc.name}}

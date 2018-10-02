@@ -12,7 +12,7 @@ export default class StudentsPage {
   lastName: Selector;
   username: Selector;
   classId: Selector;
-  classIdFirstChoice: Selector;
+  classIdFirstOption: Selector;
   password: Selector;
   firstNameErr: Selector;
   lastNameErr: Selector;
@@ -42,7 +42,7 @@ export default class StudentsPage {
     this.firstName = Selector('[name$="firstname"]');
     this.lastName = Selector('[name$="lastname"]');
     this.classId = Selector('[name$="class_id"]');
-    this.classIdFirstChoice = Selector('[class="mat-option-text"]').withExactText('טיטאן');
+    this.classIdFirstOption = Selector('[class="mat-option-text"]').withExactText('טיטאן');
     this.password = Selector('[name$="password"]');
     this.usernameErr = Selector('[data-test-id$="username-err"]');
     this.usernameFormatErr = Selector('[data-test-id$="username-format-err"]');
@@ -51,14 +51,14 @@ export default class StudentsPage {
     this.classIdErr = Selector('[data-test-id$="class-id-err"]');
     this.passwordErr = Selector('[data-test-id$="password-err"]');
     this.scheduleTestUserNameCell = Selector('.username').withExactText('scheduleTestUser');
-    this.scheduleTestUserDeleteButton = Selector('[data-test-id$="username-delete-button-scheduleTestUser"]');
+    this.scheduleTestUserDeleteButton = Selector('[data-test-id$="delete-user-button-scheduleTestUser"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
     this.scheduleCell = Selector('[role$="gridcell"]').nth(10);
     this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
-    this.editCellLesson = Selector('[data-test-id$="lessons-dropDown"]');
-    this.editCellLocation = Selector('[data-test-id$="locations-dropDown"]');
-    this.lessonOption = Selector('[data-test-id$="lesson-type"]');
-    this.locationOption = Selector('[data-test-id$="lesson-location"]');
+    this.editCellLesson = Selector('[data-test-id$="lessons-dropdown"]');
+    this.editCellLocation = Selector('[data-test-id$="locations-dropdown"]');
+    this.lessonOption = Selector('.lessons-option');
+    this.locationOption = Selector('.locations-option');
     this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
     this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
   }
@@ -78,7 +78,7 @@ export default class StudentsPage {
     await t.typeText(this.firstName, 'scheduleTestUser');
     await t.typeText(this.lastName, 'scheduleTestUser');
     await t.click(this.classId);
-    await t.click(this.classIdFirstChoice);
+    await t.click(this.classIdFirstOption);
     await t.click(this.saveButton);
 
     //user should now exist
@@ -88,5 +88,14 @@ export default class StudentsPage {
   async navigateToScheduleTab() {
     await t.click(this.scheduleTestUserNameCell);
     await t.click(this.scheduleTab);
+  }
+
+  async createNewScheduleCell() {
+    await t.expect(this.scheduleCell.textContent).contains('add');
+    await t.click(this.scheduleCell);
+    await t.click(this.editCellLesson);
+    await t.click(this.lessonOption);
+    await t.click(this.editCellLocation);
+    await t.click(this.locationOption);
   }
 }

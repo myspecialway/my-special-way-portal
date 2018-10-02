@@ -21,24 +21,15 @@ test('should open popup on click on cell', async (t) => {
   await t.expect(studentPage.editCellDialogue.exists).ok();
 });
 
-async function createNewScheduleCell(t) {
-  await t.expect(studentPage.scheduleCell.textContent).contains('add');
-  await t.click(studentPage.scheduleCell);
-  await t.click(studentPage.editCellLesson);
-  await t.click(studentPage.lessonOption);
-  await t.click(studentPage.editCellLocation);
-  await t.click(studentPage.locationOption);
-}
-
 test('should update existing cell,should create lesson+location on empty cell', async (t) => {
-  await createNewScheduleCell(t);
+  await studentPage.createNewScheduleCell();
   await t.click(studentPage.editCellUpdateButton);
   await t.expect(studentPage.scheduleCell.textContent).contains('אומנות0 מעלית קומה');
   await t.expect(studentPage.scheduleCell.textContent).notContains('add');
 });
 
 test('should be able to discard changes inside popup', async (t) => {
-  await createNewScheduleCell(t);
+  await studentPage.createNewScheduleCell();
   await t.click(studentPage.editCellCloseButton);
   await t.expect(studentPage.scheduleCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(studentPage.scheduleCell.textContent).contains('add');

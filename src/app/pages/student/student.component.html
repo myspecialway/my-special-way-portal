@@ -38,7 +38,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" [attr.data-test-id]="'username-delete-button-' + row.username"
+              <button mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username"
                       (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
