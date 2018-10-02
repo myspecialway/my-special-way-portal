@@ -18,19 +18,16 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   userRoleEnum = UserType;
   classes: Class[];
   currentRole: UserTypeKey;
-  formControl = new FormControl('', [Validators.required]);
-  EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  selectUserType = new FormControl(null, Validators.required);
-  selectGrade = new FormControl({ disabled: this.getClassDisabled() }, Validators.required);
-  userNameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.pattern('^[A-Za-z]+$'),
-  ]);
+  formControl: FormControl;
+  EmailFormControl: FormControl;
+  selectUserType: FormControl;
+  selectGrade: FormControl;
+  userNameFormControl: FormControl;
+  data: User;
 
   @Input()
   options = { data: {}, submitButtonLabel: 'הוסף' };
-  data: User;
+
   @Input('data')
   set _data(value: User) {
     this.data = value;
@@ -48,14 +45,8 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      firstname: '',
-      lastname: '',
-      username: this.userNameFormControl,
-      email: this.EmailFormControl,
-      role: this.selectUserType,
-      class: this.selectGrade,
-    });
+    this.createFormControls();
+    this.createForm();
   }
 
   onUserTypeChange(userType: UserTypeKey): void {
@@ -82,6 +73,29 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
 
   compareClass(c1: Class, c2: Class): boolean {
     return c1 && c2 ? c1._id === c2._id : c1 === c2;
+  }
+
+  private createFormControls() {
+    this.formControl = new FormControl('', [Validators.required]);
+    this.EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
+    this.selectUserType = new FormControl(null, Validators.required);
+    this.selectGrade = new FormControl({ disabled: this.getClassDisabled() }, Validators.required);
+    this.userNameFormControl = new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.pattern('^[A-Za-z]+$'),
+    ]);
+  }
+
+  private createForm() {
+    this.form = this.formBuilder.group({
+      firstname: '',
+      lastname: '',
+      username: this.userNameFormControl,
+      email: this.EmailFormControl,
+      role: this.selectUserType,
+      class: this.selectGrade,
+    });
   }
 
   ngOnDestroy() {}
