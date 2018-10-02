@@ -41,9 +41,8 @@ export default class ClassesPage {
   }
 
   async createNewScheduleTestClass() {
-    //TODO - uncomment before merging!!!!!!!!!!!
     //If the class exists - delete it.
-    /*if (await this.scheduleTestClassNameCell.exists) {
+    if (await this.scheduleTestClassNameCell.exists) {
       await t.click(this.scheduleTestClassDeleteButton).click(this.confirmDeleteButton);
     }
     //If the class still exists - fail the test
@@ -58,7 +57,7 @@ export default class ClassesPage {
 
     //Leave the class details page and verify that the class is created
     await t.click(this.allClassesButton);
-    await t.expect(this.scheduleTestClassNameCell.exists).ok();*/
+    await t.expect(this.scheduleTestClassNameCell.exists).ok();
     await t.click(this.scheduleTestClassNameCell);
   }
 
