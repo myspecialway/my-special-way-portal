@@ -7,7 +7,13 @@
         <div class="class-details">
           <div class="class-detail-field">
             <mat-form-field>
-              <input type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, grade: grade})"
+              <input
+                type="text"
+                matInput
+                [(ngModel)]="name"
+                placeholder="שם הכיתה"
+                (change)="detailChanged.emit({name: name, grade: grade})"
+                id="class-name"
                 required>
               <i class="material-icons" matSuffix>mode_edit</i>
             </mat-form-field>
@@ -15,7 +21,7 @@
 
           <div class="class-detail-field">
             <mat-form-field class="class-detail-field">
-              <mat-select [(value)]="grade" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, grade: grade})">
+              <mat-select [(value)]="grade" id="class-grade" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, grade: grade})">
                 <mat-option *ngFor="let key of gradesKeys" [value]="key" selected="key === grade">
                   {{scheduleService.grades[key]}}
                 </mat-option>
