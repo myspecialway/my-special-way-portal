@@ -32,13 +32,14 @@
 
           <ng-container matColumnDef="username">
             <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
+            <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)"><i class="material-icons"> delete </i></button>
+              <button mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username"
+                      (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

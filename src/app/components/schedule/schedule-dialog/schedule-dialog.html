@@ -4,11 +4,20 @@
     <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
     <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
   </div>
-  <mat-dialog-content>
+  <mat-dialog-content [attr.data-test-id]="'edit-cell-dialogue'">
     
       <mat-form-field>
-        <mat-select placeholder="שיעור" [(ngModel)]="selectedLesson" name="lesson" #lesson="ngModel" (selectionChange)="scheduleDialogData.lesson = selectedLesson" required>
-          <mat-option *ngFor="let les of lessons" [value]="les" selected="selectedLesson && selectedLesson.title === les.title">
+        <mat-select placeholder="שיעור"
+                    [(ngModel)]="selectedLesson"
+                    name="lesson"
+                    #lesson="ngModel"
+                    (selectionChange)="scheduleDialogData.lesson = selectedLesson"
+                    [attr.data-test-id]="'lessons-dropdown'"
+                    required>
+          <mat-option *ngFor="let les of lessons;"
+                      class="lessons-option"
+                      [value]="les"
+                      selected="selectedLesson && selectedLesson.title === les.title">
             {{les.title}}
           </mat-option>
         </mat-select>
@@ -16,8 +25,16 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select placeholder="מיקום" [(ngModel)]="selectedLocation" name="location" #location="ngModel"  (selectionChange)="scheduleDialogData.location = selectedLocation" required>
-          <mat-option *ngFor="let loc of locations" [value]="loc" selected="selectedLocation && selectedLocation.name === loc.name">
+        <mat-select placeholder="מיקום"
+                    [(ngModel)]="selectedLocation"
+                    name="location" #location="ngModel"
+                    (selectionChange)="scheduleDialogData.location = selectedLocation"
+                    [attr.data-test-id]="'locations-dropdown'"
+                    required>
+          <mat-option *ngFor="let loc of locations"
+                      class="locations-option"
+                      [value]="loc"
+                      selected="selectedLocation && selectedLocation.name === loc.name">
             {{loc.name}}
           </mat-option>
         </mat-select>
@@ -26,8 +43,8 @@
     
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button class="mat-raised-button" (click)="dialogRef.close()">סגור</button>
-    <button mat-button class="mat-raised-button mat-primary" (click)="dialogRef.close(scheduleDialogData)"
+    <button mat-button class="mat-raised-button" [attr.data-test-id]="'close-edit-lesson-dialogue'" (click)="dialogRef.close()">סגור</button>
+    <button mat-button class="mat-raised-button mat-primary" [attr.data-test-id]="'update-edit-lesson-dialogue'" (click)="dialogRef.close(scheduleDialogData)"
     [disabled]="lesson.invalid || location.invalid" >עדכן</button>
   </mat-dialog-actions>
 
