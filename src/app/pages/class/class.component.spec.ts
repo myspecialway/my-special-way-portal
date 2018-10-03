@@ -17,9 +17,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
-import { studentsTestData } from '../../../mocks/assets/students.mock';
 import 'rxjs-compat/add/observable/of';
-import { StudentComponent } from '../student/student.component';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;

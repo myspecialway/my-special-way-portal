@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -26,7 +26,6 @@ export class ClassComponent implements OnInit {
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
-  private classSubscription: Subscription;
 
   constructor(
     private classService: ClassService,
@@ -42,7 +41,7 @@ export class ClassComponent implements OnInit {
 
   private async populateDatasource() {
     try {
-      this.classSubscription = this.classService.getAllClasses().subscribe((data) => {
+      this.classService.getAllClasses().subscribe((data) => {
         this.dataSource.data = [...data];
       });
     } catch (error) {

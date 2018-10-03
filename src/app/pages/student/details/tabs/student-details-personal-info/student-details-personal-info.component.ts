@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
@@ -16,7 +16,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
-  private classSubscription: Subscription;
 
   constructor(
     private studentService: StudentService,
@@ -65,7 +64,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   async populateClasses() {
     try {
-      this.classSubscription = this.classService.getAllClasses().subscribe((data) => {
+      this.classService.getAllClasses().subscribe((data) => {
         this.classes = [...data];
       });
     } catch (error) {
