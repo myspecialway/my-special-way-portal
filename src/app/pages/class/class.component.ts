@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -11,13 +11,14 @@ import * as _ from 'lodash';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grade',
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.scss'],
 })
-export class ClassComponent implements OnInit {
+export class ClassComponent implements OnInit, OnDestroy {
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
@@ -26,6 +27,7 @@ export class ClassComponent implements OnInit {
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
+  private classSubscription: Subscription;
 
   constructor(
     private classService: ClassService,
@@ -39,9 +41,15 @@ export class ClassComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  ngOnDestroy(): void {
+    this.classSubscription.unsubscribe();
+  }
+
   private async populateDatasource() {
     try {
-      this.dataSource.data = await this.classService.getAllClasses();
+      this.classSubscription = this.classService.getAllClasses().subscribe((data) => {
+        this.dataSource.data = [...data];
+      });
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
@@ -56,15 +64,15 @@ export class ClassComponent implements OnInit {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
       });
-
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe(async (result) => {
         if (result === true) {
-          this.classService.delete(_id).then((res) => {
-            if (res && res.data && res.data.deleteClass !== 0) {
-              const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-              this.dataSource.data.splice(index, 1);
-            }
-          });
+          try {
+            await this.classService.delete(_id);
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
+          }
         }
       });
     }

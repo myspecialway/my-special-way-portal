@@ -3,6 +3,10 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Class, ClassQuery, InputClass } from '../../../models/class.model';
 import { GetClassesResponse } from '../../../models/responses/get-classes-reponse.model';
+import Student from '../../../models/student.model';
+import { QUERY_GET_ALL_STUDENTS } from '../../student/services/student.graphql';
+import { catchError, map } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 
 // TODO: refactor to using gql fragments, but know that it'll raise error related to __typename field that we configured to be emitted
 // need to rethink it
@@ -38,9 +42,9 @@ export class ClassService {
     }
   `;
 
-  async getAllClasses() {
-    const getClassesResponse = await this.apollo
-      .query({
+  getAllClasses() {
+    return this.apollo
+      .watchQuery<{ classes: Class[] }>({
         query: gql`
           {
             classes {
@@ -55,9 +59,15 @@ export class ClassService {
           }
         `,
       })
-      .toPromise();
-
-    return (getClassesResponse.data as GetClassesResponse).classes;
+      .valueChanges.pipe(
+        map((res) => {
+          return res.data.classes;
+        }),
+        catchError((err: TypeError) => {
+          console.warn('class.component::ngInInit:: empty stream recieved');
+          return observableOf([]);
+        }),
+      );
   }
   classById(id: string) {
     return this.apollo
@@ -133,6 +143,24 @@ export class ClassService {
         )
     }
     `,
+        refetchQueries: [
+          {
+            query: gql`
+              {
+                classes {
+                  _id
+                  grade
+                  name
+                  students {
+                    _id
+                    firstname
+                  }
+                }
+              }
+            `,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise();
   }

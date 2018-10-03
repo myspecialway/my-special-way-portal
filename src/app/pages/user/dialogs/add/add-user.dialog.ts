@@ -1,17 +1,18 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-user.dialog',
   templateUrl: './add-user.dialog.html',
   styleUrls: ['./add-user.dialog.scss'],
 })
-export class AddUserDialogComponent implements OnInit {
+export class AddUserDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
   roles: string[];
   userRoleEnum = UserType;
@@ -26,6 +27,7 @@ export class AddUserDialogComponent implements OnInit {
     Validators.minLength(5),
     Validators.pattern('^[A-Za-z]+$'),
   ]);
+  private classesSubscription: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private classService: ClassService,
@@ -48,6 +50,10 @@ export class AddUserDialogComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.classesSubscription.unsubscribe();
+  }
+
   close(): void {
     this.dialogRef.close();
   }
@@ -63,6 +69,8 @@ export class AddUserDialogComponent implements OnInit {
     }
   }
   async getClasses() {
-    this.classes = await this.classService.getAllClasses();
+    this.classesSubscription = this.classService.getAllClasses().subscribe((data) => {
+      this.classes = [...data];
+    });
   }
 }

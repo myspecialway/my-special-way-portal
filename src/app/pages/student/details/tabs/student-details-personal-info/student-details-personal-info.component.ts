@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-details-personal-info',
   templateUrl: './student-details-personal-info.component.html',
   styleUrls: ['./student-details-personal-info.component.scss'],
 })
-export class StudentDetailsPersonalInfoComponent implements OnInit {
+export class StudentDetailsPersonalInfoComponent implements OnInit, OnDestroy {
   student: Student;
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
+  private classSubscription: Subscription;
 
   constructor(
     private studentService: StudentService,
@@ -32,6 +34,10 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
     this.populateClasses();
     this.populateStudent();
+  }
+
+  ngOnDestroy(): void {
+    this.classSubscription.unsubscribe();
   }
 
   async populateStudent() {
@@ -63,7 +69,9 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   async populateClasses() {
     try {
-      this.classes = await this.classService.getAllClasses();
+      this.classSubscription = this.classService.getAllClasses().subscribe((data) => {
+        this.classes = [...data];
+      });
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
