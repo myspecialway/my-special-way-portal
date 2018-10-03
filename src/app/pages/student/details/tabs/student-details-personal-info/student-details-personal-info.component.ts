@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './student-details-personal-info.component.html',
   styleUrls: ['./student-details-personal-info.component.scss'],
 })
-export class StudentDetailsPersonalInfoComponent implements OnInit, OnDestroy {
+export class StudentDetailsPersonalInfoComponent implements OnInit {
   student: Student;
   classes: Class[];
   isNewStudent: boolean;
@@ -34,10 +34,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit, OnDestroy {
 
     this.populateClasses();
     this.populateStudent();
-  }
-
-  ngOnDestroy(): void {
-    this.classSubscription.unsubscribe();
   }
 
   async populateStudent() {

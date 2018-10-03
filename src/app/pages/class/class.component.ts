@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.scss'],
 })
-export class ClassComponent implements OnInit, OnDestroy {
+export class ClassComponent implements OnInit {
   displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
@@ -40,10 +40,6 @@ export class ClassComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
-  ngOnDestroy(): void {
-    this.classSubscription.unsubscribe();
-  }
-
   private async populateDatasource() {
     try {
       this.classSubscription = this.classService.getAllClasses().subscribe((data) => {
@@ -51,7 +47,7 @@ export class ClassComponent implements OnInit, OnDestroy {
       });
     } catch (error) {
       // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
+      console.error('Error handling not implemented ' + error);
       throw error;
     }
   }

@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-user.dialog.html',
   styleUrls: ['./add-user.dialog.scss'],
 })
-export class AddUserDialogComponent implements OnInit, OnDestroy {
+export class AddUserDialogComponent implements OnInit {
   form: FormGroup;
   roles: string[];
   userRoleEnum = UserType;
@@ -48,10 +48,6 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
       userType: this.selectUserType,
       class: undefined,
     });
-  }
-
-  ngOnDestroy(): void {
-    this.classesSubscription.unsubscribe();
   }
 
   close(): void {
