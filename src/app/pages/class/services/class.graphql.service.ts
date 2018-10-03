@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Class, ClassQuery, InputClass } from '../../../models/class.model';
-import { GetClassesResponse } from '../../../models/responses/get-classes-reponse.model';
-import Student from '../../../models/student.model';
-import { QUERY_GET_ALL_STUDENTS } from '../../student/services/student.graphql';
 import { catchError, map } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 

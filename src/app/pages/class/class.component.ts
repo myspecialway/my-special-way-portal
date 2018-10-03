@@ -7,7 +7,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { Class } from '../../models/class.model';
-import * as _ from 'lodash';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
