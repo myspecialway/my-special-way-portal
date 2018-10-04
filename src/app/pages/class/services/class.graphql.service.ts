@@ -27,6 +27,21 @@ schedule {
     }
   }
 }`;
+
+const GET_ALL_CLASSES = gql`
+  {
+    classes {
+      _id
+      grade
+      name
+      students {
+        _id
+        firstname
+      }
+    }
+  }
+`;
+
 @Injectable()
 export class ClassService {
   constructor(private apollo: Apollo) {}
@@ -42,19 +57,7 @@ export class ClassService {
   getAllClasses() {
     return this.apollo
       .watchQuery<{ classes: Class[] }>({
-        query: gql`
-          {
-            classes {
-              _id
-              grade
-              name
-              students {
-                _id
-                firstname
-              }
-            }
-          }
-        `,
+        query: GET_ALL_CLASSES,
       })
       .valueChanges.pipe(
         map((res) => {
@@ -99,6 +102,12 @@ export class ClassService {
         }) { _id }
       }
     `,
+        refetchQueries: [
+          {
+            query: GET_ALL_CLASSES,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise()
       .then((res) => {
@@ -121,6 +130,12 @@ export class ClassService {
           id: _class._id,
           class: inputClass,
         },
+        refetchQueries: [
+          {
+            query: GET_ALL_CLASSES,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise()
       .then((res) => {
@@ -142,19 +157,7 @@ export class ClassService {
     `,
         refetchQueries: [
           {
-            query: gql`
-              {
-                classes {
-                  _id
-                  grade
-                  name
-                  students {
-                    _id
-                    firstname
-                  }
-                }
-              }
-            `,
+            query: GET_ALL_CLASSES,
           },
         ],
         awaitRefetchQueries: true,
