@@ -5,10 +5,21 @@ import { RouterModule } from '@angular/router';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
-  MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatRippleModule, MatSelectModule, MatSortModule,
-  MatTableModule, MatTooltipModule, MatCheckboxModule, MatDividerModule, MatSnackBarModule,
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSortModule,
+  MatTableModule,
+  MatTooltipModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatSnackBarModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -113,5 +124,4 @@ import {LessonComponent} from './pages/lesson/lesson.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

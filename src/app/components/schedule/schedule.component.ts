@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
 
 export interface TimeSlotIndexes {
@@ -10,10 +10,9 @@ export interface TimeSlotIndexes {
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class ScheduleComponent {
-
   @Input()
   schedule: TimeSlot[][];
   @Input()

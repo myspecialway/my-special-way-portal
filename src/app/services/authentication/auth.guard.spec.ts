@@ -17,16 +17,16 @@ describe('auth guard', () => {
 
   const MOCK_URL_SEGMENT = {
     path: '',
-    parameters: {a: 'a'},
+    parameters: { a: 'a' },
     parameterMap: MOCK_PARAM_MAP,
   };
 
   const MOCK_ACTIVE_ROUTE_SNAPSHOT = {
-    url:  [MOCK_URL_SEGMENT],
+    url: [MOCK_URL_SEGMENT],
     params: null,
     queryParams: null,
     fragment: '',
-    data: {expectedRole: [UserType.PRINCIPLE]},
+    data: { expectedRole: [UserType.PRINCIPLE] },
     outlet: '',
     component: null,
     routeConfig: null,
@@ -59,7 +59,6 @@ describe('auth guard', () => {
       isTokenExpired: jest.fn(),
       checkRestoreAuthData: jest.fn(),
     } as Partial<AuthenticationService>;
-
   });
 
   it('should return true if token has been found', async () => {
@@ -113,7 +112,10 @@ describe('auth guard', () => {
       },
     });
 
-    const response = await guard.canActivate(MOCK_ACTIVE_ROUTE_SNAPSHOT as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
+    const response = await guard.canActivate(
+      MOCK_ACTIVE_ROUTE_SNAPSHOT as ActivatedRouteSnapshot,
+      {} as RouterStateSnapshot,
+    );
 
     expect(response).toBe(false);
     expect(routerMock.navigate).toHaveBeenCalled();
@@ -132,7 +134,10 @@ describe('auth guard', () => {
       },
     });
 
-    const response = await guard.canActivate(MOCK_ACTIVE_ROUTE_SNAPSHOT as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
+    const response = await guard.canActivate(
+      MOCK_ACTIVE_ROUTE_SNAPSHOT as ActivatedRouteSnapshot,
+      {} as RouterStateSnapshot,
+    );
     expect(response).toBe(true);
   });
 });

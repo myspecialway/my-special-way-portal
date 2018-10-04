@@ -48,3 +48,6 @@ lcov.*
 coverage
 reports
 /tests/eyes/screenshots
+
+#dynamic configuration file
+src/assets/config/hot-config.js

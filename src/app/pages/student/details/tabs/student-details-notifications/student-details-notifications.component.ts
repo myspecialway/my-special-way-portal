@@ -7,12 +7,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./student-details-notifications.component.scss'],
 })
 export class StudentDetailsNotificationsComponent implements OnInit {
-
   idOrNew: string;
 
-  constructor(
-    private route: ActivatedRoute,
-  ) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {

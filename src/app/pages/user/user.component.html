@@ -1,4 +1,4 @@
-<div class="main-content">
+<div data-test-id="users-page" class="main-content">
   <div class="container-fluid">
     <div class="header-menu-container msw-table-tools-header">
       <div class="header-table-count">
@@ -63,7 +63,7 @@
           <ng-container matColumnDef="deleteUser">-->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteUser(row._id, row.firstname, row.lastname)"><i class="material-icons"> delete </i></button>
+              <button mat-icon-button color="primary" (click)="deleteUser(row._id, row.firstname, row.lastname, row.role)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

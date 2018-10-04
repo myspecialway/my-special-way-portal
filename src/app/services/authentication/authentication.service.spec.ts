@@ -86,9 +86,9 @@ describe('AuthenticationService', () => {
 
   // TODO: fix tests!!!
   // it('should remove token from localstorage logout  if rememberMe', () => {
-    //   authService.logout();
-    //   expect(localStorage.removeItem).toHaveBeenCalledWith('token');
-    // });
+  //   authService.logout();
+  //   expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+  // });
 
   // it('should remove token from sessionstorage logout if !rememberMe', () => {
   //   authService.logout();
@@ -130,4 +130,14 @@ describe('AuthenticationService', () => {
     expect(apolloMock.mutate).not.toHaveBeenCalled();
   });
 
+  it('should clear token after logout', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: expiredMockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    await authService.login('someusername', 'somepassword', true);
+    expect(localStorage.getItem('token')).toBe(expiredMockToken);
+    await authService.logout();
+    expect(localStorage.getItem('token')).toBeNull();
+  });
 });

@@ -14,7 +14,7 @@ import { StudentDetailsHoursComponent } from './pages/student/details/tabs/stude
 import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
 import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
-import {UserType} from './models/user.model';
+import { UserType } from './models/user.model';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
@@ -26,32 +26,59 @@ const routes: Routes = [
       expectedRole: [UserType.TEACHER, UserType.PRINCIPLE],
     },
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'class', component: ClassComponent },
-      { path: 'class/:idOrNew', component: ClassDetailsContainerComponent },
-      { path: 'student', component: StudentComponent, canActivate: [AuthGuard], data: {expectedRole: [UserType.TEACHER, UserType.PRINCIPLE]}},
       {
-        path: 'student/:idOrNew', component: StudentDetailsComponent,
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'class',
+        component: ClassComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'class/:idOrNew',
+        component: ClassDetailsContainerComponent,
+        data: { expectedRole: [UserType.TEACHER, UserType.PRINCIPLE] },
+      },
+      {
+        path: 'student',
+        component: StudentComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.TEACHER, UserType.PRINCIPLE] },
+      },
+      {
+        path: 'student/:idOrNew',
+        component: StudentDetailsComponent,
         children: [
           { path: 'personalInfo', component: StudentDetailsPersonalInfoComponent },
           { path: 'hours', component: StudentDetailsHoursComponent },
           { path: 'notifications', component: StudentDetailsNotificationsComponent },
           { path: '', component: StudentDetailsPersonalInfoComponent },
         ],
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.TEACHER, UserType.PRINCIPLE] },
       },
-      { path: 'user', component: UserComponent },
-      { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard], data: {expectedRole: [UserType.TEACHER, UserType.PRINCIPLE]} },
+      {
+        path: 'user',
+        component: UserComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'lesson',
+        component: LessonComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
     ],
   },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes),
-  ],
-  exports: [
-  ],
+  imports: [CommonModule, BrowserModule, RouterModule.forRoot(routes)],
+  exports: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

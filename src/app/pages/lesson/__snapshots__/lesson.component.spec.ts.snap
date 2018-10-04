@@ -9,6 +9,7 @@ exports[`lesson component should render component as described in snapshot 1`] =
 >
   <div
     class="main-content"
+    data-test-id="lessons-page"
   >
     <div
       class="container-fluid"

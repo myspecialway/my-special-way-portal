@@ -11,35 +11,38 @@ import { UpdateStudentResponse } from '../../../models/responses/update-student-
 
 @Injectable()
 export class StudentService {
-
   users: Observable<Student[]>;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   async getAllStudents(): Promise<Student[]> {
-    const getStudentsResponse = await this.apollo.query({
-      query: gql`
-        {
-         students {
-          _id
-          username
-          firstname
-          lastname
-          gender
-          class {
-            name
-            _id
+    const getStudentsResponse = await this.apollo
+      .query({
+        query: gql`
+          {
+            students {
+              _id
+              username
+              firstname
+              lastname
+              gender
+              class {
+                name
+                _id
+              }
+            }
           }
-        }
-      }
-      ` }).toPromise();
+        `,
+      })
+      .toPromise();
 
     return (getStudentsResponse.data as GetStudentsResponse).students;
   }
 
-  async getById(id: string): Promise <Student> {
-    const getStudentResponse = await this.apollo.query({
-      query: gql`
+  async getById(id: string): Promise<Student> {
+    const getStudentResponse = await this.apollo
+      .query({
+        query: gql`
         {
           student(id:"${id}") {
           _id
@@ -72,14 +75,17 @@ export class StudentService {
           }
         }
       }
-      ` }).toPromise();
+      `,
+      })
+      .toPromise();
 
     return (getStudentResponse.data as GetStudentResponse).student;
   }
 
   async create(student: Student): Promise<string> {
-    const createStudentResponse = await this.apollo.mutate({
-      mutation: gql`
+    const createStudentResponse = await this.apollo
+      .mutate({
+        mutation: gql`
       mutation {
         createStudent(student: {
             username: "${student.username}"
@@ -87,17 +93,20 @@ export class StudentService {
             firstname: "${student.firstname}"
             lastname: "${student.lastname}"
             gender: ${student.gender}
-            class_id: "${student.class._id}"
+            class_id: "${student.class_id}"
             }) { _id }
         }
-    `}).toPromise();
+    `,
+      })
+      .toPromise();
 
     return (createStudentResponse.data as CreateStudentResponse).createStudent._id;
   }
 
   async update(student: StudentQuery): Promise<string> {
-    const updateStudentResponse = await this.apollo.mutate({
-      mutation: gql`
+    const updateStudentResponse = await this.apollo
+      .mutate({
+        mutation: gql`
       mutation {
         updateStudent(
             id: "${student._id}",
@@ -110,20 +119,25 @@ export class StudentService {
             class_id: "${student.class_id}"
             }) { _id }
         }
-    `}).toPromise();
+    `,
+      })
+      .toPromise();
 
     return (updateStudentResponse.data as UpdateStudentResponse).updateStudent._id;
   }
 
   async delete(id: number): Promise<number> {
-    const deleteStudentResponse = await this.apollo.mutate({
-      mutation: gql`
+    const deleteStudentResponse = await this.apollo
+      .mutate({
+        mutation: gql`
       mutation {
         deleteStudent(
           id: "${id}"
         )
     }
-    `}).toPromise();
+    `,
+      })
+      .toPromise();
 
     return (deleteStudentResponse.data as DeleteStudentResponse).deleteStudent;
   }

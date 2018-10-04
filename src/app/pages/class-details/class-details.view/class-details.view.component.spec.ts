@@ -8,15 +8,10 @@ describe('ClassDetailsComponent', () => {
   let component: ClassDetailsViewComponent;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ClassDetailsViewComponent,
-      ],
-      providers: [
-        ScheduleService,
-      ],
+      declarations: [ClassDetailsViewComponent],
+      providers: [ScheduleService],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

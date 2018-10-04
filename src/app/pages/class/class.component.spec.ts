@@ -4,12 +4,19 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { classTestData } from '../../../mocks/assets/classes.mock';
-import { Overlay, ScrollStrategyOptions, ScrollDispatcher, OverlayKeyboardDispatcher,
-  OverlayPositionBuilder, OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
+import {
+  Overlay,
+  ScrollStrategyOptions,
+  ScrollDispatcher,
+  OverlayKeyboardDispatcher,
+  OverlayPositionBuilder,
+  OverlayContainer,
+  ViewportRuler,
+} from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
-import {MSWSnackbar} from '../../services/msw-snackbar/msw-snackbar.service';
+import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import {Router} from '@angular/router';
 
 describe('class component', () => {
@@ -20,7 +27,6 @@ describe('class component', () => {
   const routeMock: Partial<Router>;
 
   beforeEach(async () => {
-
     classServiceMock = {
       getAllClasses: jest.fn(),
       delete: jest.fn(),
@@ -50,20 +56,13 @@ describe('class component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-      ],
-      declarations: [
-        ClassComponent,
-        MatHeaderRow,
-        MatRowDef,
-        MatHeaderRowDef,
-        MatSort,
-      ],
+      imports: [],
+      declarations: [ClassComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
       providers: [
         { provide: MatDialog, useValue: classDialogMock },
         { provide: ClassService, useValue: classServiceMock },
-        { provide: ScheduleService, useValue: scheduleServiceMock},
-        { provide: MSWSnackbar, useValue: snackbarMock}
+        { provide: ScheduleService, useValue: scheduleServiceMock },
+        { provide: MSWSnackbar, useValue: snackbarMock },
         { provide: Router, useValue: routeMock },
         Overlay,
         ScrollStrategyOptions,
@@ -76,7 +75,6 @@ describe('class component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-
   });
 
   it('should render component as described in snapshot', () => {
@@ -85,8 +83,8 @@ describe('class component', () => {
   });
 
   it('should open dialog when calling deleteClass function when no students assigned to the class', () => {
-    (classServiceMock.delete as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(1);
+    (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 0);
@@ -95,9 +93,9 @@ describe('class component', () => {
   });
 
   it('should not open a dialog when calling deleteClass function when students are assigned to the class', () => {
-    (classServiceMock.delete as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(0);
-      });
+    (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(0);
+    });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
     const DialogMock = TestBed.get(MatDialog);
@@ -105,9 +103,9 @@ describe('class component', () => {
   });
 
   it('should open a snackbar error message when calling deleteClass function when students are assigned to the class', () => {
-    (classServiceMock.delete as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(0);
-      });
+    (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(0);
+    });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
     const SnackbarMock = TestBed.get(MSWSnackbar);
@@ -115,8 +113,8 @@ describe('class component', () => {
   });
 
   it('should load classes from service on page load ', () => {
-    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(Promise.resolve(classTestData.classes));
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(Promise.resolve(classTestData.classes));
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();
@@ -125,8 +123,8 @@ describe('class component', () => {
   });
 
   it('should load correct number of classes', async () => {
-    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(classTestData.classes);
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(classTestData.classes);
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();
@@ -134,8 +132,8 @@ describe('class component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(23);
   });
   it('should load zero classes in case of promise reject', async () => {
-    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(
-      () => {return Promise.resolve(Promise.reject());
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(Promise.reject());
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();

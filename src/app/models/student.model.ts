@@ -8,7 +8,8 @@ export default class Student {
   firstname: string;
   lastname: string;
   gender: Gender;
-  class: Class;
+  class?: Class;
+  class_id: string;
   schedule: TimeSlot[];
 }
 
@@ -28,6 +29,6 @@ export interface StudentQuery {
   schedule?: TimeSlot[];
 }
 
-export interface StudentsQuery  {
+export interface StudentsQuery {
   students: Student[];
 }

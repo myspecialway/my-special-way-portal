@@ -12,7 +12,7 @@ import { ApolloLink } from 'apollo-link';
 
 @Injectable()
 export class ApolloConfigFactory {
-  constructor(private link: HttpLink, private apollo: Apollo) { }
+  constructor(private link: HttpLink, private apollo: Apollo) {}
 
   createConfig() {
     const authLink = setContext(async (_, { headers }) => {
@@ -23,7 +23,7 @@ export class ApolloConfigFactory {
         },
       };
     });
-    const httpLink = this.link.create({ uri: environment.beUrl });
+    const httpLink = this.link.create({ uri: environment.hotConfig.MSW_HOT_GRAPHQL_ENDPOINT });
     const cache = new InMemoryCache({
       addTypename: false,
     });
@@ -46,15 +46,17 @@ export class ApolloConfigFactory {
   }
 
   private async getTokenFromStore() {
-    const response = await this.apollo.query<{ userProfile: UserProfileStateModel }>({
-      query: gql`
-      query {
-        userProfile @client{
-          token
-        }
-      }
-    `,
-    }).toPromise();
+    const response = await this.apollo
+      .query<{ userProfile: UserProfileStateModel }>({
+        query: gql`
+          query {
+            userProfile @client {
+              token
+            }
+          }
+        `,
+      })
+      .toPromise();
 
     return response.data.userProfile.token;
   }

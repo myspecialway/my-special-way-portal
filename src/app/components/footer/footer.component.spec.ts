@@ -5,9 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('footer component', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [
-        FooterComponent,
-      ],
+      declarations: [FooterComponent],
       imports: [],
       schemas: [NO_ERRORS_SCHEMA],
     });

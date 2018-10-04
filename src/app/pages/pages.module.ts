@@ -4,7 +4,14 @@ import { ClassDetailsViewComponent } from './class-details/class-details.view/cl
 import { ClassDetailsContainerComponent } from './class-details/class-details.container/class-details.container.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
-import { MatInputModule, MatSelectModule, MatTableModule, MatTabsModule, MatButtonToggleModule } from '@angular/material';
+import {
+  MatInputModule,
+  MatSelectModule,
+  MatTableModule,
+  MatTabsModule,
+  MatButtonToggleModule,
+  MAT_LABEL_GLOBAL_OPTIONS,
+} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
 import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
@@ -31,5 +38,6 @@ import { StudentDetailsNotificationsComponent } from './student/details/tabs/stu
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
   ],
+  providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
 })
-export class PagesModule { }
+export class PagesModule {}

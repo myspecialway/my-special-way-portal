@@ -5,4 +5,5 @@ export interface JWTTokenPayloadResponse {
   firstname: string;
   lastname: string;
   role: UserType;
+  class_id?: string;
 }

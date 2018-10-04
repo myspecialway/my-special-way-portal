@@ -15,7 +15,6 @@ import { ScheduleDialogComponent } from '../../../../../components/schedule/sche
   styleUrls: ['./student-details-hours.component.scss'],
 })
 export class StudentDetailsHoursComponent implements OnInit {
-
   sub: any;
   id: string;
   schedule: TimeSlot[][];
@@ -26,7 +25,7 @@ export class StudentDetailsHoursComponent implements OnInit {
     public scheduleService: ScheduleService,
     private studentService: StudentService,
     private dialog: MatDialog,
-  ) { }
+  ) {}
 
   async ngOnInit() {
     if (!this.route.parent) {
@@ -77,7 +76,7 @@ export class StudentDetailsHoursComponent implements OnInit {
         lastname: this.student.lastname,
         gender: this.student.gender,
         password: this.student.password,
-        class_id: this.student.class._id,
+        class_id: this.student.class_id,
         schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
       };
       try {

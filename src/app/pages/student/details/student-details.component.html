@@ -16,6 +16,7 @@
           <a mat-tab-link *ngFor="let link of links"
              [routerLink]="[link.path]"
              (click)="activeLink = link.label"
+             [attr.data-test-id]="link.dataTestId"
              [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-student-tab-active' : ''}}">{{link.label}}</a>
         </nav>
 

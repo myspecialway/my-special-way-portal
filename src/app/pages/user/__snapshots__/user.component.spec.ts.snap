@@ -12,6 +12,7 @@ exports[`user component should render component as described in snapshot 1`] = `
 >
   <div
     class="main-content"
+    data-test-id="users-page"
   >
     <div
       class="container-fluid"

@@ -63,9 +63,9 @@
                 <mat-form-field color="primary">
                   <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.Class" [(value)]="data.Class" name="class" [disabled]="currentRole !== 'TEACHER'">
                     <mat-option>בחר</mat-option>
-                    <mat-option *ngFor="let clas of classes" [value]="clas">
-                      {{clas.name}}
-                    </mat-option>
+                      <mat-option *ngFor="let class of classes" [value]="class">
+                        {{class.name}}
+                      </mat-option>
                   </mat-select>
                   <mat-error *ngIf="selectGrade.hasError('required')">כיתה הינו שדה חובה</mat-error>
                 </mat-form-field>

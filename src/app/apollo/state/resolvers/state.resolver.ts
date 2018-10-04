@@ -14,8 +14,11 @@ export const updateUserProfile = (_, { userProfile }, { cache }) => {
 
 export const defaultUserProfile = {
   username: null,
+  firstname: null,
+  lastname: null,
   role: null,
   token: null,
+  class_id: null,
   __typename: 'UserProfile',
 };
 
@@ -25,6 +28,7 @@ export class UserProfileStateModel {
   lastname: string;
   role: UserType;
   token: string;
+  class_id?: string;
 
   constructor(jwtParsedToken: JWTTokenPayloadResponse) {
     Object.assign(this, {

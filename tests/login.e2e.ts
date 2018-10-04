@@ -5,35 +5,60 @@ import { EyesDriver } from './eyes/eyes';
 const loginPage = new LoginPage();
 const eye = new EyesDriver();
 
-fixture(`Login tests`).page(testEnvironment.feUrl)
-    .before(async (t) => {
-        await eye.openEyes('login tests'); // t is not here?
-    })
-    .after(async (t) => {
-        await eye.closeEyes();
-    });
+const assertLoginFailure = async (t) => {
+  const location = await t.eval(() => window.location);
+  await t.expect(location.pathname).notContains('student');
+};
 
-test('Successful login test', async (t) => {
-    await t
-        .maximizeWindow()
-        .typeText(loginPage.useranmeField, 'msw-teacher')
-        .typeText(loginPage.passwordField, 'Aa123456')
-        .click(loginPage.loginButton);
+const assertLoginSuccess = async (t) => {
+  const location = await t.eval(() => window.location);
+  await t.expect(location.pathname).contains('student');
+};
 
-    const location = await t.eval(() => window.location);
-    await t.expect(location.pathname).contains('student');
-    await eye.look(t, 'Succesful login test');
+fixture(`Login tests`)
+  .page(testEnvironment.feUrl)
+  .before(async (t) => {
+    await eye.openEyes('login tests'); // t is not here?
+  })
+  .after(async (t) => {
+    await eye.closeEyes();
+  });
+
+test('Successful login for principle', async (t) => {
+  await loginPage.loginAsPrinciple();
+  await assertLoginSuccess(t);
+  await eye.look(t, 'Succesful login test');
 });
-test('Failed login test', async (t) => {
-    await t
-        .typeText(loginPage.useranmeField, 'msw-teacher')
-        .typeText(loginPage.passwordField, '11')
-        .click(loginPage.loginButton);
-    const location = await t.eval(() => window.location);
-    await t.expect(location.pathname).notContains('student');
-    // await t.takeScreenshot('login');
-    await eye.look(t, 'Failed login test');
+test('Successful login for teacher', async (t) => {
+  await loginPage.loginAsTeacher();
+  await assertLoginSuccess(t);
+  await eye.look(t, 'Succesful login test');
 });
+test('Failed login for student', async (t) => {
+  await loginPage.loginAsStudent();
+  await assertLoginFailure(t);
+});
+
+test('Failed login - wrong credentials', async (t) => {
+  // wrong password
+  await loginPage.login('teacher', 'wrong-password');
+  await t.expect(loginPage.wrongCredentialsErr.exists).ok();
+  await assertLoginFailure(t);
+  // wrong username
+  await loginPage.login('non-existing-user', 'Aa123456');
+  await t.expect(loginPage.wrongCredentialsErr.exists).ok();
+  await assertLoginFailure(t);
+  // empty credentials
+  await loginPage.clearLoginInputFields();
+  await t
+    .click(loginPage.loginButton)
+    .expect(loginPage.emptyPasswordErr.exists)
+    .ok()
+    .expect(loginPage.emptyUsernameErr.exists)
+    .ok();
+  await assertLoginFailure(t);
+});
+
 // TODO: config ngnix to support deep linking
 // test('Successful login and deeplink', async (t) => {
 //     await t
