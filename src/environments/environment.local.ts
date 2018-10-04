@@ -6,5 +6,4 @@ export const environment = {
     MSW_HOT_LOGIN_ENDPOINT: 'http://localhost:3000/login',
   },
   production: false,
-
 } as Environment;
