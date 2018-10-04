@@ -60,7 +60,9 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   }
 
   async getClasses() {
-    this.classes = await this.classService.getAllClasses();
+    this.classService.getAllClasses().subscribe((data) => {
+      this.classes = [...data];
+    });
   }
 
   close() {
