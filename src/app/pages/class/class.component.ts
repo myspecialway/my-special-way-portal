@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
+import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-grade',
@@ -26,6 +27,9 @@ export class ClassComponent implements OnInit {
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
+
+  @SubscriptionCleaner()
+  subCollector;
 
   constructor(
     private classService: ClassService,
@@ -57,16 +61,18 @@ export class ClassComponent implements OnInit {
         data: { _id, name, level },
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result === true) {
-          this.classService.delete(_id).then((res) => {
-            if (res && res.data && res.data.deleteClass !== 0) {
-              const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-              this.dataSource.data.splice(index, 1);
-            }
-          });
-        }
-      });
+      this.subCollector(
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result === true) {
+            this.classService.delete(_id).then((res) => {
+              if (res && res.data && res.data.deleteClass !== 0) {
+                const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
+                this.dataSource.data.splice(index, 1);
+              }
+            });
+          }
+        }),
+      );
     }
   }
 
