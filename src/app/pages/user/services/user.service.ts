@@ -1,3 +1,4 @@
+import { IUserQuery } from './../../../models/user.model';
 import { Injectable } from '@angular/core';
 import { User, UserQuery } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
@@ -58,19 +59,17 @@ export class UserService {
   }
 
   update(user: User) {
+    const { username, email, firstname, lastname, role, class: classData } = user;
+
+    const userUpdate: Partial<IUserQuery> = { username, email, firstname, lastname, role };
+    if (classData) {
+      userUpdate.class_id = classData._id;
+    }
+
     return this.apollo
       .mutate({
         mutation: MUTATE_UPDATE_USER,
-        variables: {
-          id: user._id,
-          user: {
-            username: user.username,
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            role: user.role,
-          },
-        },
+        variables: { id: user._id, user: userUpdate },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
       })
       .toPromise();

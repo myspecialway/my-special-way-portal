@@ -1,6 +1,21 @@
 import { Class } from './class.model';
 
-export class User {
+interface IBaseUser {
+  _id: number;
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  role: UserType;
+}
+
+export interface IUserQuery extends IBaseUser {
+  class_id?: string;
+  class: undefined;
+}
+
+export class User implements IBaseUser {
   _id: number;
   username: string;
   password: string;

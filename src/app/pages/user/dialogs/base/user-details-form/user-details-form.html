@@ -66,11 +66,11 @@
         <mat-form-field color="primary">
           <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
            <mat-option disabled>בחר</mat-option>
-           <mat-option *ngFor="let class1 of classes" [value]="class1">
-              {{class1.name}}
+           <mat-option *ngFor="let class of classes" [value]="class">
+              {{class.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="selectGrade.hasError('required')">כיתה הינו שדה חובה</mat-error>
+          <mat-error *ngIf="selectClass.hasError('required')">כיתה הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
     </div>

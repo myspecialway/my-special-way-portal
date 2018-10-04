@@ -9,6 +9,10 @@ export const QUERY_GET_ALL_USERS = gql`
       lastname
       email
       role
+      class {
+        name
+        _id
+      }
     }
   }
 `;
