@@ -6,6 +6,7 @@ import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
 import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
+import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-user',
@@ -22,12 +23,17 @@ export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild('table')
   table: ElementRef;
 
+  @SubscriptionCleaner()
+  subCollector;
+
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe((data) => {
-      this.dataSource.data = data;
-    });
+    this.subCollector.add(
+      this.userService.getAllUsers().subscribe((data) => {
+        this.dataSource.data = data;
+      }),
+    );
   }
 
   ngAfterViewInit() {
@@ -49,12 +55,14 @@ export class UserComponent implements OnInit, AfterViewInit {
       height: '368px',
       width: '630px',
     });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        const newUser: User = this._createNewUser(data);
-        this.userService.create(newUser);
-      }
-    });
+    this.subCollector.add(
+      dialogRef.afterClosed().subscribe((data) => {
+        if (data) {
+          const newUser: User = this._createNewUser(data);
+          this.userService.create(newUser);
+        }
+      }),
+    );
   }
   deleteUser(_id: number, firstName: string, lastName: string, userType: UserType) {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
@@ -63,11 +71,13 @@ export class UserComponent implements OnInit, AfterViewInit {
       width: '360px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.userService.delete(_id);
-      }
-    });
+    this.subCollector.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.userService.delete(_id);
+        }
+      }),
+    );
   }
   updateUser(_id: number, firstname: string, lastname: string, email: string, username: string) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
@@ -76,14 +86,16 @@ export class UserComponent implements OnInit, AfterViewInit {
       width: '630px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        const relevantUser = _.find(this.dataSource.data, { _id });
-        const tempUser = _.assign({}, relevantUser, result);
+    this.subCollector.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          const relevantUser = _.find(this.dataSource.data, { _id });
+          const tempUser = _.assign({}, relevantUser, result);
 
-        this.userService.update(tempUser);
-      }
-    });
+          this.userService.update(tempUser);
+        }
+      }),
+    );
   }
 
   _createNewUser(userData: any): User {

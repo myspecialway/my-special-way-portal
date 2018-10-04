@@ -8,6 +8,7 @@ import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.com
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
+import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -19,6 +20,9 @@ export class StudentDetailsHoursComponent implements OnInit {
   id: string;
   schedule: TimeSlot[][];
   student: Student;
+
+  @SubscriptionCleaner()
+  subCollector;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,27 +69,29 @@ export class StudentDetailsHoursComponent implements OnInit {
       width: '320px',
     });
 
-    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
-      if (!data) {
-        return;
-      }
-      const tempStudent: StudentQuery = {
-        _id: this.student._id,
-        username: this.student.username,
-        firstname: this.student.firstname,
-        lastname: this.student.lastname,
-        gender: this.student.gender,
-        password: this.student.password,
-        class_id: this.student.class_id,
-        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
-      };
-      try {
-        await this.studentService.update(tempStudent);
-        this.student = await this.studentService.getById(this.id);
-        this.initSchedule();
-      } catch (error) {
-        console.log(error);
-      }
-    });
+    this.subCollector.add(
+      dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
+        if (!data) {
+          return;
+        }
+        const tempStudent: StudentQuery = {
+          _id: this.student._id,
+          username: this.student.username,
+          firstname: this.student.firstname,
+          lastname: this.student.lastname,
+          gender: this.student.gender,
+          password: this.student.password,
+          class_id: this.student.class_id,
+          schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
+        };
+        try {
+          await this.studentService.update(tempStudent);
+          this.student = await this.studentService.getById(this.id);
+          this.initSchedule();
+        } catch (error) {
+          console.log(error);
+        }
+      }),
+    );
   }
 }
