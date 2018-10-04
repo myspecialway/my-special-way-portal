@@ -52,7 +52,7 @@ import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/s
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
 import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
-import {LessonComponent} from './pages/lesson/lesson.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 @NgModule({
   imports: [

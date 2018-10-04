@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grade',
@@ -73,6 +73,6 @@ export class ClassComponent implements OnInit {
   }
 
   navigate(row_id: string) {
-    this.router.navigate( ['/class', row_id]);
+    this.router.navigate(['/class', row_id]);
   }
 }

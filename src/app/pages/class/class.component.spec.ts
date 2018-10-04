@@ -17,7 +17,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
