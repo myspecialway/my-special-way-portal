@@ -45,7 +45,7 @@ export class ClassComponent implements OnInit {
       });
     } catch (error) {
       // TODO: implement error handling on UI
-      console.error('Error handling not implemented ' + error);
+      console.error('Error handling not implemented');
       throw error;
     }
   }
@@ -59,13 +59,7 @@ export class ClassComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result === true) {
-          try {
-            await this.classService.delete(_id);
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
-          }
+          await this.classService.delete(_id);
         }
       });
     }
