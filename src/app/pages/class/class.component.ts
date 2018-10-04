@@ -85,11 +85,4 @@ export class ClassComponent implements OnInit {
   //     }
   //   });
   // }
-
-  _createNewClass(classData: any): Class {
-    const _class: Class = new Class();
-    _class.name = classData.name;
-    _class.grade = classData.grade;
-    return _class;
-  }
 }
