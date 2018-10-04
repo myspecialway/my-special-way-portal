@@ -1,10 +1,8 @@
 import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy, OnInit } from '@angular/core';
-import { verifyFunction, DEFAULT_HOOK_NAME, EMPTY_FUNCTION } from './decorators.utils';
+import { OnDestroy } from '@angular/core';
+import { DEFAULT_HOOK_NAME } from './decorators.utils';
 import { SubscriptionCleaner } from './SubscriptionCleaner.decorator';
 import { Subject } from 'rxjs';
-import { fakeAsync } from '@angular/core/testing';
-import { Observable } from 'apollo-link';
 
 describe('SubscriptionCleaner', () => {
   const propertKeyName = 'subCollector';
