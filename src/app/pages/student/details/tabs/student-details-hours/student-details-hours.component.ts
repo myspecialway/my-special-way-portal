@@ -69,6 +69,15 @@ export class StudentDetailsHoursComponent implements OnInit {
       if (!data) {
         return;
       }
+      const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
+      const newCustomizedSlot: TimeSlot = {
+        index: data.index,
+        lesson: data.lesson,
+        location: data.location,
+        customized: true,
+      };
+      const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
+
       const tempStudent: StudentQuery = {
         _id: this.student._id,
         username: this.student.username,
@@ -76,8 +85,8 @@ export class StudentDetailsHoursComponent implements OnInit {
         lastname: this.student.lastname,
         gender: this.student.gender,
         password: this.student.password,
-        class_id: this.student.class_id,
-        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
+        class_id: this.student.class._id,
+        schedule: newCustomizedSchedule,
       };
       try {
         await this.studentService.update(tempStudent);

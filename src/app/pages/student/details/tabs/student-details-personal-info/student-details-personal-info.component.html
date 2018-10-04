@@ -33,7 +33,7 @@
         </div>
 
         <mat-form-field class="classname">
-          <mat-select placeholder="כיתה" [(ngModel)]="student.class_id" #classId="ngModel" name="class_id" required>
+          <mat-select placeholder="כיתה" [(ngModel)]="student.class._id" #classId="ngModel" name="class_id" required>
             <mat-option *ngFor="let classname of classes" [value]="classname._id">
               {{classname.name}}
             </mat-option>
