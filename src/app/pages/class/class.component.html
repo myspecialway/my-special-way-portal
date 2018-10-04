@@ -7,7 +7,7 @@
         </mat-form-field>
       </div>
       <div class="example-header">
-        <button mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדש</button>
+        <button [attr.data-test-id]="'add-class-button'" mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדש</button>
       </div>
     </div>
     <div class="row">
@@ -45,7 +45,7 @@
           <ng-container matColumnDef="deleteClass">-->
             <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
+              <button [attr.data-test-id]="'delete-class-button-' + row.name" mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
