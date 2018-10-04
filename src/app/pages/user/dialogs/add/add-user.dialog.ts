@@ -5,7 +5,6 @@ import { User, UserType } from '../../../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-user.dialog',

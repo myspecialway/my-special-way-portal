@@ -4,7 +4,6 @@ import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-details-personal-info',

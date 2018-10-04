@@ -10,7 +10,6 @@ import { Class } from '../../models/class.model';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grade',
