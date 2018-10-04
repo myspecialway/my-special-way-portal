@@ -63,8 +63,8 @@ export class AddUserDialogComponent implements OnInit {
     }
   }
   async getClasses() {
-    this.classService.getAllClasses().subscribe((data) => {
-      this.classes = [...data];
+    this.classService.getAllClasses().subscribe((classes) => {
+      this.classes = [...classes];
     });
   }
 }

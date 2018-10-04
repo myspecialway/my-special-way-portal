@@ -40,8 +40,8 @@ export class ClassComponent implements OnInit {
 
   private async populateDatasource() {
     try {
-      this.classService.getAllClasses().subscribe((data) => {
-        this.dataSource.data = [...data];
+      this.classService.getAllClasses().subscribe((classes) => {
+        this.dataSource.data = [...classes];
       });
     } catch (error) {
       // TODO: implement error handling on UI

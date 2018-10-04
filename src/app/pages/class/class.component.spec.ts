@@ -135,6 +135,8 @@ describe('class component', () => {
     getAllClassesMock.mockRejectedValueOnce(0);
 
     const fixture = TestBed.createComponent(ClassComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
 });
