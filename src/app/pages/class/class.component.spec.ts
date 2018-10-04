@@ -17,6 +17,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+import 'rxjs-compat/add/observable/of';
 
 describe('class component', () => {
   let classServiceMock: Partial<ClassService>;
@@ -26,7 +27,7 @@ describe('class component', () => {
 
   beforeEach(async () => {
     classServiceMock = {
-      getAllClasses: jest.fn(),
+      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
@@ -129,12 +130,11 @@ describe('class component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(23);
   });
   it('should load zero classes in case of promise reject', async () => {
-    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(Promise.reject());
-    });
+    const getAllClassesMock = classServiceMock.getAllClasses as jest.Mock;
+    getAllClassesMock.mockReset();
+    getAllClassesMock.mockRejectedValueOnce(0);
+
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
 });

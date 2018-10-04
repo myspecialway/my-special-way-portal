@@ -63,7 +63,9 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   async populateClasses() {
     try {
-      this.classes = await this.classService.getAllClasses();
+      this.classService.getAllClasses().subscribe((data) => {
+        this.classes = [...data];
+      });
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');

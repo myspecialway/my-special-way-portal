@@ -9,5 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class UpdateUserDialogComponent extends BaseUserFormDialogComponent implements OnInit {
   ngOnInit() {
     this.formOptions.submitButtonLabel = 'עדכן';
+    this.classService.getAllClasses().subscribe((data) => {
+      this.classes = [...data];
+    });
   }
 }
