@@ -61,7 +61,7 @@ export class ClassComponent implements OnInit {
         data: { _id, name, level },
       });
 
-      this.subCollector(
+      this.subCollector.add(
         dialogRef.afterClosed().subscribe((result) => {
           if (result === true) {
             this.classService.delete(_id).then((res) => {
