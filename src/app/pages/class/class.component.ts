@@ -7,7 +7,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { Class } from '../../models/class.model';
-import * as _ from 'lodash';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
@@ -45,7 +44,9 @@ export class ClassComponent implements OnInit {
 
   private async populateDatasource() {
     try {
-      this.dataSource.data = await this.classService.getAllClasses();
+      this.classService.getAllClasses().subscribe((classes) => {
+        this.dataSource.data = [...classes];
+      });
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
@@ -60,16 +61,10 @@ export class ClassComponent implements OnInit {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
       });
-
       this.subCollector.add(
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(async (result) => {
           if (result === true) {
-            this.classService.delete(_id).then((res) => {
-              if (res && res.data && res.data.deleteClass !== 0) {
-                const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-                this.dataSource.data.splice(index, 1);
-              }
-            });
+            await this.classService.delete(_id);
           }
         }),
       );
@@ -96,11 +91,4 @@ export class ClassComponent implements OnInit {
   //     }
   //   });
   // }
-
-  _createNewClass(classData: any): Class {
-    const _class: Class = new Class();
-    _class.name = classData.name;
-    _class.grade = classData.grade;
-    return _class;
-  }
 }
