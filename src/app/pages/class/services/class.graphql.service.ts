@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Class, ClassQuery, InputClass } from '../../../models/class.model';
-import { GetClassesResponse } from '../../../models/responses/get-classes-reponse.model';
+import { catchError, map } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 
 // TODO: refactor to using gql fragments, but know that it'll raise error related to __typename field that we configured to be emitted
 // need to rethink it
@@ -26,6 +27,21 @@ schedule {
     }
   }
 }`;
+
+const GET_ALL_CLASSES = gql`
+  {
+    classes {
+      _id
+      grade
+      name
+      students {
+        _id
+        firstname
+      }
+    }
+  }
+`;
+
 @Injectable()
 export class ClassService {
   constructor(private apollo: Apollo) {}
@@ -38,26 +54,20 @@ export class ClassService {
     }
   `;
 
-  async getAllClasses() {
-    const getClassesResponse = await this.apollo
-      .query({
-        query: gql`
-          {
-            classes {
-              _id
-              grade
-              name
-              students {
-                _id
-                firstname
-              }
-            }
-          }
-        `,
+  getAllClasses() {
+    return this.apollo
+      .watchQuery<{ classes: Class[] }>({
+        query: GET_ALL_CLASSES,
       })
-      .toPromise();
-
-    return (getClassesResponse.data as GetClassesResponse).classes;
+      .valueChanges.pipe(
+        map((res) => {
+          return res.data.classes;
+        }),
+        catchError((err: TypeError) => {
+          console.warn('class.component::ngInInit:: empty stream recieved');
+          return observableOf([]);
+        }),
+      );
   }
   classById(id: string) {
     return this.apollo
@@ -92,6 +102,12 @@ export class ClassService {
         }) { _id }
       }
     `,
+        refetchQueries: [
+          {
+            query: GET_ALL_CLASSES,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise()
       .then((res) => {
@@ -114,6 +130,12 @@ export class ClassService {
           id: _class._id,
           class: inputClass,
         },
+        refetchQueries: [
+          {
+            query: GET_ALL_CLASSES,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise()
       .then((res) => {
@@ -133,6 +155,12 @@ export class ClassService {
         )
     }
     `,
+        refetchQueries: [
+          {
+            query: GET_ALL_CLASSES,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise();
   }

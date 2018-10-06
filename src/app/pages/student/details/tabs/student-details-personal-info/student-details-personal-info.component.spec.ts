@@ -44,7 +44,7 @@ describe('Student Details Personal Info Component', () => {
     };
 
     classServiceMock = {
-      getAllClasses: jest.fn(),
+      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
     };
 
     studentDialogMock = {
