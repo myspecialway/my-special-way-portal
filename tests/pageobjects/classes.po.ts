@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, t } from 'testcafe';
 
 export default class ClassesPage {
   static url = '/class';
@@ -16,5 +16,9 @@ export default class ClassesPage {
 
   static getDeleteClassButtonSelector(className: string): Selector {
     return Selector(`[data-test-id=delete-class-button-${className}]`);
+  }
+
+  async deleteClass(className: string) {
+    await t.click(ClassesPage.getDeleteClassButtonSelector(className)).click(this.deleteClassDialogDeleteButton);
   }
 }
