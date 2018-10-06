@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, t } from 'testcafe';
 
 export default class ClassDetailsPage {
   _id: Selector;
@@ -7,6 +7,15 @@ export default class ClassDetailsPage {
   gradeSelectOption: Selector;
   backToClassButton: Selector;
   classRow: Selector;
+  scheduleCell: Selector;
+  scheduleEmptyCell: Selector;
+  editCellDialogue: Selector;
+  editCellLesson: Selector;
+  editCellLocation: Selector;
+  lessonOption: Selector;
+  locationOption: Selector;
+  editCellUpdateButton: Selector;
+  editCellCloseButton: Selector;
   constructor() {
     this._id = Selector('[data-test-id$="class-details-page"]');
     this.classNameInput = Selector('[data-test-id$="class-name-input"]');
@@ -14,5 +23,23 @@ export default class ClassDetailsPage {
     this.gradeSelectOption = Selector('.grade-select-option');
     this.backToClassButton = Selector('.back');
     this.classRow = Selector('.mat-row');
+    this.scheduleCell = Selector('[role$="gridcell"]');
+    this.scheduleEmptyCell = this.scheduleCell.nth(10);
+    this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
+    this.editCellLesson = Selector('[data-test-id$="lessons-dropdown"]');
+    this.editCellLocation = Selector('[data-test-id$="locations-dropdown"]');
+    this.lessonOption = Selector('.lessons-option');
+    this.locationOption = Selector('.locations-option');
+    this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
+    this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
+  }
+
+  async createNewScheduleCell() {
+    await t.expect(this.scheduleCell.textContent).contains('add');
+    await t.click(this.scheduleCell);
+    await t.click(this.editCellLesson);
+    await t.click(this.lessonOption);
+    await t.click(this.editCellLocation);
+    await t.click(this.locationOption);
   }
 }
