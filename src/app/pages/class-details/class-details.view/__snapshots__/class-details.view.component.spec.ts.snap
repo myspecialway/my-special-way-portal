@@ -43,7 +43,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
               >
                 <mat-form-field>
                   <input
-                    matinput=""
+                    data-test-id="class-name-input"matinput=""
                     placeholder="שם הכיתה"
                     required=""
                     type="text"
@@ -63,38 +63,38 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
                   class="class-detail-field"
                 >
                   <mat-select
-                    placeholder="שכבה"
+                    data-test-id="grade-select"placeholder="שכבה"
                   >
-                    
-                    <mat-option
+
+                    <mat-optionclass="grade-select-option"
                       selected="key === grade"
                     >
-                       א 
+                       א
                     </mat-option>
                     <mat-option
-                      selected="key === grade"
+                      class="grade-select-option"selected="key === grade"
                     >
-                       ב 
+                       ב
                     </mat-option>
                     <mat-option
-                      selected="key === grade"
+                      class="grade-select-option"selected="key === grade"
                     >
-                       ג 
+                       ג
                     </mat-option>
                     <mat-option
-                      selected="key === grade"
+                      class="grade-select-option"selected="key === grade"
                     >
-                       ד 
+                       ד
                     </mat-option>
                     <mat-option
-                      selected="key === grade"
+                      class="grade-select-option"selected="key === grade"
                     >
-                       ה 
+                       ה
                     </mat-option>
-                    <mat-option
+                    <mat-optionclass="grade-select-option"
                       selected="key === grade"
                     >
-                       ו 
+                       ו
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -135,7 +135,7 @@ exports[`ClassDetailsComponent without class info should match snapshot 1`] = `
         <div
           class="col-lg-12 col-md-12 col-sm-12 class-details-container"
         >
-          
+
           <h2>
             מערכת שעות כיתת פטל
           </h2>
