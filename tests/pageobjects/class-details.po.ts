@@ -1,4 +1,4 @@
-import { Selector, t } from 'testcafe';
+import { Selector } from 'testcafe';
 
 export default class ClassDetailsPage {
   _id: Selector;
