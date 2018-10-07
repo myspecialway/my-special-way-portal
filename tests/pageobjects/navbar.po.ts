@@ -48,7 +48,7 @@ export default class NavbarPage {
     await this.navigateTo(this.menuDropDownClassSchedule);
   }
 
-  async navigateTo(pageSelector: Selector) {
+  private async navigateTo(pageSelector: Selector) {
     await t.click(this.menuDropDown).click(pageSelector);
   }
 }
