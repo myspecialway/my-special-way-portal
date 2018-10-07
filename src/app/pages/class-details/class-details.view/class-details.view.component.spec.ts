@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
