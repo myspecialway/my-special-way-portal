@@ -27,6 +27,10 @@ ClassDetailsContainerComponent {
       },
     ],
   },
+  "apollo": Apollo {
+    "_client": undefined,
+    "map": Map {},
+  },
   "classService": Object {
     "classById": [MockFunction] {
       "calls": Array [

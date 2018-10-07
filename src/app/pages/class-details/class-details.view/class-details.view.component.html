@@ -2,25 +2,27 @@
   <div class="container-fluid ">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 class-details-container">
-        <a class="back" [routerLink]="['/class']">
-          <i class="material-icons">chevron_right</i>כל הכיתות</a>
-        <div class="class-details">
-          <div class="class-detail-field">
-            <mat-form-field>
-              <input type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, grade: grade})"
-                required>
-              <i class="material-icons" matSuffix>mode_edit</i>
-            </mat-form-field>
-          </div>
+        <div *ngIf="shouldShowClassInfo">
+          <a class="back" [routerLink]="['/class']">
+            <i class="material-icons">chevron_right</i>כל הכיתות</a>
+          <div class="class-details">
+            <div class="class-detail-field">
+              <mat-form-field>
+                <input type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, grade: grade})"
+                  required>
+                <i class="material-icons" matSuffix>mode_edit</i>
+              </mat-form-field>
+            </div>
 
-          <div class="class-detail-field">
-            <mat-form-field class="class-detail-field">
-              <mat-select [(value)]="grade" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, grade: grade})">
-                <mat-option *ngFor="let key of gradesKeys" [value]="key" selected="key === grade">
-                  {{scheduleService.grades[key]}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div class="class-detail-field">
+              <mat-form-field class="class-detail-field">
+                <mat-select [(value)]="grade" placeholder="שכבה" (selectionChange)="detailChanged.emit({name: name, grade: grade})">
+                  <mat-option *ngFor="let key of gradesKeys" [value]="key" selected="key === grade">
+                    {{scheduleService.grades[key]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
         <h2>מערכת שעות כיתת {{name}}</h2>
