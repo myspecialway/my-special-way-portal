@@ -41,10 +41,10 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private classService: ClassService, public userService: UserService) {
     this.roles = Object.keys(this.userRoleEnum);
-    this.getClasses();
   }
 
   ngOnInit(): void {
+    this.attachClasses();
     this.createFormControls();
     this.createForm();
   }
@@ -59,8 +59,10 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     return this.userRoleEnum[this.currentRole] !== this.userRoleEnum.TEACHER;
   }
 
-  async getClasses() {
-    this.classes = await this.classService.getAllClasses();
+  attachClasses() {
+    this.classService.getAllClasses().subscribe((classes) => {
+      this.classes = [...classes];
+    });
   }
 
   close() {

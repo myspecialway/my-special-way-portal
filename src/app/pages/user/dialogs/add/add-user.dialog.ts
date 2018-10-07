@@ -9,8 +9,5 @@ import { Component, OnInit } from '@angular/core';
 export class AddUserDialogComponent extends BaseUserFormDialogComponent implements OnInit {
   ngOnInit() {
     this.formOptions.submitButtonLabel = 'הוסף';
-    this.classService.getAllClasses().subscribe((classes) => {
-      this.classes = [...classes];
-    });
   }
 }
