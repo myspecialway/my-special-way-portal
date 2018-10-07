@@ -27,9 +27,8 @@ ClassDetailsContainerComponent {
       },
     ],
   },
-  "apollo": Apollo {
-    "_client": undefined,
-    "map": Map {},
+  "apollo": Object {
+    "watchQuery": [Function],
   },
   "classService": Object {
     "classById": [MockFunction] {
@@ -508,5 +507,6 @@ ClassDetailsContainerComponent {
       "16:30 - 16:45",
     ],
   },
+  "shouldShowClassInfo": true,
 }
 `;

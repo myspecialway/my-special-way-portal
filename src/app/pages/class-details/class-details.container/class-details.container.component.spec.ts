@@ -21,6 +21,8 @@ describe('ClassDetailsContainerComponent', () => {
   let afterClosedMockFn: jest.Mock;
   let locationMock: Partial<Location>;
   let routeParamsMockedObservable: Subject<unknown>;
+  let watchQueryMockedObservable: Subject<any>;
+
   const mockedScheduleDialogData = {
     index: '0_0',
     lesson: {
@@ -85,6 +87,14 @@ describe('ClassDetailsContainerComponent', () => {
     const mswSnackbarMock = {
       displayTimedMessage: jest.fn(),
     } as Partial<MSWSnackbar>;
+
+    watchQueryMockedObservable = new Subject();
+    const apolloMock = {
+      watchQuery: () => ({
+        valueChanges: watchQueryMockedObservable,
+      }),
+    };
+
     TestBed.configureTestingModule({
       declarations: [ClassDetailsContainerComponent],
       providers: [
@@ -100,7 +110,7 @@ describe('ClassDetailsContainerComponent', () => {
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
         Router,
         ScheduleService,
-        Apollo,
+        { provide: Apollo, useValue: apolloMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -111,6 +121,17 @@ describe('ClassDetailsContainerComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     routeParamsMockedObservable.next({ idOrNew: '5b217b030825622c97d3757f' });
+    watchQueryMockedObservable.next({
+      data: {
+        userProfile: {
+          username: 'test',
+          firstname: 'MSW',
+          lastname: 'PRINCIPLE',
+          role: 'PRINCIPLE',
+          class_id: 'some_classid',
+        },
+      },
+    });
   });
 
   it('should create', () => {
