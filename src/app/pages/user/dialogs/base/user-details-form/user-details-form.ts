@@ -26,7 +26,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   data: User;
 
   @Input()
-  options = { data: {}, submitButtonLabel: 'הוסף' };
+  options = { submitButtonLabel: 'הוסף' };
 
   @Input('data')
   set _data(value: User) {
