@@ -23,7 +23,8 @@
     "testcafe-live": "testcafe-live chrome tests/",
     "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
     "format:fix": "pretty-quick --staged",
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\"",
+    "format:fix:all": "prettier --config ./.prettierrc --write \"src/app/**/*{.ts, .scss}\""
   },
   "private": true,
   "dependencies": {
