@@ -4,21 +4,7 @@ import { classTestData } from './../../../../../../mocks/assets/classes.mock';
 import { UserService } from './../../../services/user.service';
 import { Apollo } from 'apollo-angular';
 import { ClassService } from './../../../../class/services/class.graphql.service';
-import { RouterModule } from '@angular/router';
-import {
-  MatSort,
-  MatHeaderRowDef,
-  MatRowDef,
-  MatHeaderRow,
-  MatButtonToggleModule,
-  MatInputModule,
-  MatTableModule,
-  MatTabsModule,
-  MatSelectModule,
-  MatFormFieldModule,
-  MatFormFieldControl,
-} from '@angular/material';
-import { FormsModule, ReactiveFormsModule, NG_VALUE_ACCESSOR, FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
