@@ -8,9 +8,8 @@
   right: 0;
   bottom: 0;
   z-index: 9999;
-
 }
-.login-container{
+.login-container {
   background-color: #fff;
   height: 100%;
 }
@@ -42,13 +41,21 @@
 }
 
 @-webkit-keyframes card {
-  from {top: -40px;}
-  to {top: 0;}
+  from {
+    top: -40px;
+  }
+  to {
+    top: 0;
+  }
 }
 
 @keyframes card {
-  from {top: -40px;}
-  to {top: 0;}
+  from {
+    top: -40px;
+  }
+  to {
+    top: 0;
+  }
 }
 .msw-login-logo-ph {
   border-radius: 50%;
@@ -73,29 +80,31 @@
   color: #222222;
 }
 
-.form-row, .card-form, .mat-form-field{
+.form-row,
+.card-form,
+.mat-form-field {
   width: 100%;
 }
 
-.card-form{
+.card-form {
   padding: 15px 80px;
 }
 
-.form-row{
+.form-row {
   position: relative;
   display: flex;
   align-items: center;
   margin-top: 13px;
 }
 
-.form-row i{
+.form-row i {
   position: relative;
   top: -5px;
   margin-right: 15px;
   color: #555;
 }
 
-.card-footer{
+.card-footer {
   align-items: center;
   border: 0;
   display: flex;
@@ -105,7 +114,7 @@
   width: 100%;
 }
 
-.card-footer button{
+.card-footer button {
   background-color: #6a00cf;
   border-radius: 3px;
   color: #fff;
@@ -113,24 +122,14 @@
   width: 183px;
 }
 
-
-.msw-login-checkbox{
+.msw-login-checkbox {
   .mat-checkbox-checked {
-
     /deep/ .mat-checkbox-background {
-      background-color:#6a00cf;
+      background-color: #6a00cf;
     }
   }
 }
 
-.checkbox{
-
-//  background-color: aqua;
+.checkbox {
+  //  background-color: aqua;
 }
-
-
-
-
-
-
-
