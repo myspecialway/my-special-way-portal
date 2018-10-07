@@ -33,13 +33,4 @@ export default class ClassDetailsPage {
     this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
     this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
   }
-
-  async createNewScheduleCell() {
-    await t.expect(this.scheduleCell.textContent).contains('add');
-    await t.click(this.scheduleCell);
-    await t.click(this.editCellLesson);
-    await t.click(this.lessonOption);
-    await t.click(this.editCellLocation);
-    await t.click(this.locationOption);
-  }
 }
