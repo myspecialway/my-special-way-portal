@@ -9,6 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { User, UserType } from './../../../../../models/user.model';
+import { Class } from '../../../../../models/class.model';
 
 describe('student component', () => {
   let dataMock: User;
@@ -32,6 +33,7 @@ describe('student component', () => {
       role: UserType.PRINCIPLE,
       username: 'a',
       _id: 0,
+      class: new Class(),
     };
 
     TestBed.configureTestingModule({
@@ -66,6 +68,16 @@ describe('student component', () => {
     // fixture.detectChanges();
 
     expect(component.currentRole).toBe('TEACHER');
+  });
+
+  it('should reset Principle class on onUserTypeChange', () => {
+    component._data = dataMock;
+    expect(component.data.class).toBeInstanceOf(Class);
+
+    component.onUserTypeChange('PRINCIPLE');
+    // fixture.detectChanges();
+
+    expect(component.data.class).toBeUndefined();
   });
 
   it('should emit cancel on close', () => {

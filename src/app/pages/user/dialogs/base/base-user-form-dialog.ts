@@ -1,4 +1,4 @@
-import { Inject, Input } from '@angular/core';
+import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { User } from '../../../../models/user.model';
 
@@ -8,7 +8,6 @@ export abstract class BaseUserFormDialogComponent {
     @Inject(MAT_DIALOG_DATA) public dialogData: User,
   ) {}
 
-  @Input()
   formOptions = { submitButtonLabel: 'הוסף' };
 
   close(): void {
