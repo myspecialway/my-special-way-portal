@@ -1,4 +1,4 @@
-import { Selector, t } from 'testcafe';
+import { Selector } from 'testcafe';
 import ClassDetailsPage from './class-details.po';
 
 export default class ClassesPage {
