@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouteInfo } from './models/route-info.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserType } from '../../models/user.model';
 import { Router, NavigationEnd } from '@angular/router';
-import { pluck, filter, first, map } from 'rxjs/operators';
+import { pluck, filter, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -23,13 +24,14 @@ export const DEFAULT_ROUTE = ROUTES[0];
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   menuItems: any[];
   currentUser: string;
   selectedMenuItemPath: string;
+  routeSubscription: Subscription;
 
   constructor(private apollo: Apollo, private router: Router) {
-    this.initMenuTitleFromRouter();
+    this.subscribeToRouterEvents();
   }
 
   async ngOnInit() {
@@ -51,6 +53,10 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
+  }
+
   selectMenuItem(menuItem) {
     this.selectedMenuItemPath = menuItem.path;
   }
@@ -60,15 +66,14 @@ export class NavbarComponent implements OnInit {
     return route.title;
   }
 
-  private async initMenuTitleFromRouter() {
-    this.selectedMenuItemPath = await this.router.events
+  private subscribeToRouterEvents() {
+    this.routeSubscription = this.router.events
       .pipe(
         filter((ev) => ev instanceof NavigationEnd),
         pluck('url'),
-        first(),
         map(this.removeLeadingSlash),
       )
-      .toPromise();
+      .subscribe((path) => (this.selectedMenuItemPath = path));
   }
 
   private removeLeadingSlash(s = '') {

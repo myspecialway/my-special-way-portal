@@ -3,6 +3,7 @@
 exports[`navbar component should render component as described in snapshot 1`] = `
 <app-navbar
   apollo={[Function Object]}
+  routeSubscription={[Function Subscriber]}
   router={[Function RouterStub]}
 >
   <nav
