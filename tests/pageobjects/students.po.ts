@@ -23,14 +23,6 @@ export default class StudentsPage {
   scheduleTestUserNameCell: Selector;
   scheduleTestUserDeleteButton: Selector;
   confirmDeleteButton: Selector;
-  scheduleCell: Selector;
-  editCellDialogue: Selector;
-  editCellLesson: Selector;
-  editCellLocation: Selector;
-  lessonOption: Selector;
-  locationOption: Selector;
-  editCellUpdateButton: Selector;
-  editCellCloseButton: Selector;
   constructor() {
     this._id = Selector('[data-test-id$="students-page"]');
     this.newStudentButton = Selector('[data-test-id$="new-student-button"]');
@@ -53,14 +45,6 @@ export default class StudentsPage {
     this.scheduleTestUserNameCell = Selector('.username').withExactText('scheduleTestUser');
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="delete-user-button-scheduleTestUser"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
-    this.scheduleCell = Selector('[role$="gridcell"]').nth(10);
-    this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
-    this.editCellLesson = Selector('[data-test-id$="lessons-dropdown"]');
-    this.editCellLocation = Selector('[data-test-id$="locations-dropdown"]');
-    this.lessonOption = Selector('.lessons-option');
-    this.locationOption = Selector('.locations-option');
-    this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
-    this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
   }
 
   async createNewScheduleTestUser() {
@@ -88,14 +72,5 @@ export default class StudentsPage {
   async navigateToScheduleTab() {
     await t.click(this.scheduleTestUserNameCell);
     await t.click(this.scheduleTab);
-  }
-
-  async createNewScheduleCell() {
-    await t.expect(this.scheduleCell.textContent).contains('add');
-    await t.click(this.scheduleCell);
-    await t.click(this.editCellLesson);
-    await t.click(this.lessonOption);
-    await t.click(this.editCellLocation);
-    await t.click(this.locationOption);
   }
 }

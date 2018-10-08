@@ -37,12 +37,14 @@ export class ClassDetailsViewComponent {
   get grade(): string {
     return this._grade;
   }
+  @Input()
+  shouldShowClassInfo: boolean;
   @Output()
   timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
   @Output()
   detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
 
-  constructor(private scheduleService: ScheduleService) {
+  constructor(protected scheduleService: ScheduleService) {
     this.gradesKeys = Object.keys(this.scheduleService.grades);
   }
 }
