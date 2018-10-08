@@ -9,6 +9,17 @@ const navbar = new NavbarPage();
 const studentPage = new StudentPage();
 const classDetailsPage = new ClassDetailsPage();
 
+const createNewScheduleCell = async (t) => {
+  await t
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .contains('add')
+    .click(classDetailsPage.scheduleEmptyCell)
+    .click(classDetailsPage.editCellLesson)
+    .click(classDetailsPage.lessonOption)
+    .click(classDetailsPage.editCellLocation)
+    .click(classDetailsPage.locationOption);
+};
+
 fixture(`Student Schedule tests`)
   .page(testEnvironment.feUrl)
   .beforeEach(async (t) => {
@@ -24,14 +35,14 @@ test('should open popup on click on cell', async (t) => {
 });
 
 test('should update existing cell,should create lesson+location on empty cell', async (t) => {
-  await classDetailsPage.createNewScheduleCell();
+  await createNewScheduleCell(t);
   await t.click(classDetailsPage.editCellUpdateButton);
   await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('אומנות0 מעלית קומה');
   await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('add');
 });
 
 test('should be able to discard changes inside popup', async (t) => {
-  await classDetailsPage.createNewScheduleCell();
+  await createNewScheduleCell(t);
   await t.click(classDetailsPage.editCellCloseButton);
   await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('add');

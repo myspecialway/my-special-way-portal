@@ -10,6 +10,10 @@ import { Class } from '../../../models/class.model';
 import { ClassDetailsEventParams } from '../class-details.view/class-details.view.component';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
+import { UserProfileStateModel } from '../../../apollo/state/resolvers/state.resolver';
+import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile.query';
+import { UserType } from '../../../models/user.model';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   selector: 'app-class-details-container',
@@ -19,6 +23,7 @@ import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service
               [hoursLabels]="scheduleService.hoursLabels"
               [name]="_class && _class.name ? _class.name : null"
               [grade]="_class && _class.grade ? _class.grade : null"
+              [shouldShowClassInfo]="shouldShowClassInfo"
               (timeslotClicked)="onTimeSlotClick($event)"
               (detailChanged)="onDetailChange($event)"
             >
@@ -30,6 +35,7 @@ export class ClassDetailsContainerComponent implements OnInit {
   _class: Class;
   isNew: boolean;
   idOrNew: string;
+  shouldShowClassInfo: boolean;
 
   constructor(
     public scheduleService: ScheduleService,
@@ -38,6 +44,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private mswSnackbar: MSWSnackbar,
+    private apollo: Apollo,
   ) {}
 
   async ngOnInit() {
@@ -52,6 +59,15 @@ export class ClassDetailsContainerComponent implements OnInit {
         throw new Error(err);
       }
     });
+    // todo: create a currentUser / permissions service / directive to handle permissions.
+    this.apollo
+      .watchQuery<{ userProfile: UserProfileStateModel }>({
+        query: GET_USER_PROFILE,
+      })
+      .valueChanges.subscribe((userProf) => {
+        const currentType = userProf.data.userProfile.role;
+        this.shouldShowClassInfo = UserType[currentType] === UserType.PRINCIPLE;
+      });
   }
 
   private async initClass() {
