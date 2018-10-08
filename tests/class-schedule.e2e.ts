@@ -7,6 +7,7 @@ const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const classesPage = new ClassesPage();
 
+//TODO - after test delete classes
 fixture(`Class Schedule tests`)
   .page(testEnvironment.feUrl)
   .beforeEach(async (t) => {
@@ -33,4 +34,17 @@ test('should be able to discard changes inside popup', async (t) => {
   await t.click(classesPage.editCellCloseButton);
   await t.expect(classesPage.scheduleCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(classesPage.scheduleCell.textContent).contains('add');
+}
+
+//TODO - fix test
+test('Class name, grade and back-to-classes button should not be visible', async (t) => {
+  await loginPage.loginAsTeacher();
+  await navbar.navigateToClassSchedulePage();
+  await t
+    .expect(classDetailsPage.classNameInput.exists)
+    .notOk()
+    .expect(classDetailsPage.gradeSelect.exists)
+    .notOk()
+    .expect(classDetailsPage.backToClassButton.exists)
+    .notOk();
 });
