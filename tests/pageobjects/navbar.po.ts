@@ -29,22 +29,26 @@ export default class NavbarPage {
   }
 
   async navigateToStudentsPage() {
-    await t.click(this.menuDropDown).click(this.menuDropDownStudents);
+    await this.navigateTo(this.menuDropDownStudents);
   }
 
   async navigateToUsersPage() {
-    await t.click(this.menuDropDown).click(this.menuDropDownUsers);
+    await this.navigateTo(this.menuDropDownUsers);
   }
 
   async navigateToClassesPage() {
-    await t.click(this.menuDropDown).click(this.menuDropDownClasses);
+    await this.navigateTo(this.menuDropDownClasses);
   }
 
   async navigateToLessonsPage() {
-    await t.click(this.menuDropDown).click(this.menuDropDownLessons);
+    await this.navigateTo(this.menuDropDownLessons);
   }
 
   async navigateToClassSchedulePage() {
-    await t.click(this.menuDropDown).click(this.menuDropDownClassSchedule);
+    await this.navigateTo(this.menuDropDownClassSchedule);
+  }
+
+  async navigateTo(pageSelector: Selector) {
+    await t.click(this.menuDropDown).click(pageSelector);
   }
 }
