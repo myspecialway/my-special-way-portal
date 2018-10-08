@@ -11,8 +11,8 @@ export class DeleteUserDialogComponent {
   userRoleEnum = UserType;
 
   constructor(public dialogRef: MatDialogRef<DeleteUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
-  onNoClick(): void {
+  close(): void {
     this.dialogRef.close();
   }
-  confirmDelete(): void {}
+  submit(): void {}
 }

@@ -73,8 +73,18 @@ describe('user component', () => {
     (userServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
+
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.deleteUser(123, 'sad', 'asd', UserType.PRINCIPLE);
+    fixture.componentInstance.deleteUser(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -83,8 +93,17 @@ describe('user component', () => {
     (userServiceMock.update as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
     const fixture = TestBed.createComponent(UserComponent);
-    fixture.componentInstance.updateUser(123, 'sad', 'asd', 'asd', 'asd');
+    fixture.componentInstance.updateUser(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });

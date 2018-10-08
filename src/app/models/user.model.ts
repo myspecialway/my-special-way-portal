@@ -8,7 +8,7 @@ export class User {
   lastname: string;
   email: string;
   role: UserType;
-  Class?: Class;
+  class?: Class;
 }
 
 export enum UserType {
