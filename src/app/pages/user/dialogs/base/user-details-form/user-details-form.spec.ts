@@ -37,12 +37,7 @@ describe('student component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        // MatFormFieldModule,
-        // MatFormFieldControl,
-        FormsModule,
-      ],
+      imports: [ReactiveFormsModule, FormsModule],
       declarations: [UserDetailsFormComponent],
       providers: [FormBuilder, Apollo, UserService, { provide: ClassService, useValue: classServiceMock }],
       schemas: [NO_ERRORS_SCHEMA],

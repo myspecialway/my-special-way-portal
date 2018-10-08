@@ -34,11 +34,9 @@ mat-dialog-actions button {
 }
 
 .matInput {
-  //  background-color: yellow;
   position: relative;
   display: flex;
   align-items: baseline;
-  //  margin-top: 13px;
 }
 
 .mat-dialog-title {
@@ -49,7 +47,6 @@ mat-dialog-actions button {
 .mat-dialog-content {
   display: flex;
   flex-direction: row;
-  //  width: 650px;
   margin: 0 auto;
   padding: 0%;
   margin: 0%;
@@ -58,10 +55,8 @@ mat-dialog-actions button {
 
 .container {
   padding: 0%;
-  //  background-color:orange;
   margin: 0%;
   align-items: flex-start;
-  //  width:272px;
 }
 
 .mat-divider {
@@ -72,20 +67,17 @@ mat-dialog-actions button {
 }
 
 .msw-form-row {
-  //  background-color:yellow;
   height: 74px;
   width: 272px;
   margin: 0px;
   align-items: baseline;
 
   /deep/ .mat-form-field > * {
-    //      background-color: aqua;
     height: 74px;
     width: 272px;
   }
 
   /deep/ .mat-input > * {
-    //      background-color:crimson;
     height: 74px;
     width: 272px;
   }
