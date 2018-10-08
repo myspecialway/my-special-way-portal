@@ -10,7 +10,6 @@ const navbar = new NavbarPage();
 const classesPage = new ClassesPage();
 const classDetailsPage = new ClassDetailsPage();
 
-//TODO - after test delete classes
 fixture(`Class Schedule tests`)
   .page(testEnvironment.feUrl)
   .beforeEach(async () => {
