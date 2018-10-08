@@ -69,4 +69,5 @@ export class ClassComponent implements OnInit {
 
   navigate(row_id: string) {
     this.router.navigate(['/class', row_id]);
+  }
 }
