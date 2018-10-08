@@ -23,7 +23,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
         <div
           class="col-lg-12 col-md-12 col-sm-12 class-details-container"
         >
-
+          
           <div>
             <a
               class="back"
@@ -65,44 +65,45 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
                 >
                   <mat-select
                     data-test-id="grade-select"
+                    id="class-grade"
                     placeholder="שכבה"
                   >
-
+                    
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       א
+                       א 
                     </mat-option>
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       ב
+                       ב 
                     </mat-option>
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       ג
+                       ג 
                     </mat-option>
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       ד
+                       ד 
                     </mat-option>
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       ה
+                       ה 
                     </mat-option>
                     <mat-option
                       class="grade-select-option"
                       selected="key === grade"
                     >
-                       ו
+                       ו 
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -143,7 +144,7 @@ exports[`ClassDetailsComponent without class info should match snapshot 1`] = `
         <div
           class="col-lg-12 col-md-12 col-sm-12 class-details-container"
         >
-
+          
           <h2>
             מערכת שעות כיתת פטל
           </h2>
