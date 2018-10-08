@@ -20,11 +20,10 @@ test('new and existing student form error messages display correctly', async (t)
     .click(studentPage.firstName)
     .click(studentPage.lastName)
     .click(studentPage.classId)
-    .click(studentPage.password) // just to close the drop down
+    .pressKey('tab') // just to close the drop down
     .click(studentPage.password)
     .click(studentPage.username)
-    .click(studentPage.password); // just so we leave the previous field.
-  await t
+    .pressKey('tab') // just to leave the previous field.Z
     .expect(studentPage.firstNameErr().exists)
     .ok()
     .expect(studentPage.lastNameErr().exists)

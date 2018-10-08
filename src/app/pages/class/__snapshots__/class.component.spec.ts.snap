@@ -40,6 +40,7 @@ exports[`class component should render component as described in snapshot 1`] = 
         >
           <button
             color="primary"
+            data-test-id="add-class-button"
             mat-raised-button=""
           >
             הוספת כיתה חדש
