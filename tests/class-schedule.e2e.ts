@@ -19,51 +19,62 @@ fixture(`Class Schedule tests`)
   });
 
 async function createNewScheduleTestClass() {
-  //If the class exists - delete it.
+  // If the class exists - delete it.
   if (await classesPage.scheduleTestClassNameCell.exists) {
     await t.click(classesPage.scheduleTestClassDeleteButton).click(classesPage.confirmDeleteButton);
   }
-  //If the class still exists - fail the test
-  await t.expect(classesPage.scheduleTestClassNameCell.exists).notOk();
-
-  //Create a new scheduleTestClass
-  await t.click(classesPage.newClassButton);
-  await t.typeText(classDetailsPage.classNameInput, 'scheduleTestClass');
-  await t.click(classDetailsPage.gradeSelect);
-  await t.click(classDetailsPage.gradeSelectOption.withExactText('א'));
-
-  //Leave the class details page and verify that the class is created
-  await t.click(classDetailsPage.backToClassButton);
-  await t.expect(classesPage.scheduleTestClassNameCell.exists).ok();
-  await t.click(classesPage.scheduleTestClassNameCell);
+  // If the class still exists - fail the test
+  await t
+    .expect(classesPage.scheduleTestClassNameCell.exists)
+    .notOk()
+    // Create a new scheduleTestClas
+    .click(classesPage.newClassButton)
+    .typeText(classDetailsPage.classNameInput, 'scheduleTestClass')
+    .click(classDetailsPage.gradeSelect)
+    .click(classDetailsPage.gradeSelectOption.withExactText('א'))
+    // Leave  the class details page and verify that the class is create
+    .click(classDetailsPage.backToClassButton)
+    .expect(classesPage.scheduleTestClassNameCell.exists)
+    .ok()
+    .click(classesPage.scheduleTestClassNameCell);
 }
 
 async function createNewScheduleCell() {
-  await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('add');
-  await t.click(classDetailsPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLesson);
-  await t.click(classDetailsPage.lessonOption);
-  await t.click(classDetailsPage.editCellLocation);
-  await t.click(classDetailsPage.locationOption);
+  await t
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .contains('add')
+    .click(classDetailsPage.scheduleEmptyCell)
+    .click(classDetailsPage.editCellLesson)
+    .click(classDetailsPage.lessonOption)
+    .click(classDetailsPage.editCellLocation)
+    .click(classDetailsPage.locationOption);
 }
 
 test('should open popup on click on cell', async () => {
-  await t.click(classDetailsPage.scheduleEmptyCell);
-  await t.expect(classDetailsPage.editCellDialogue.exists).ok();
+  await t
+    .click(classDetailsPage.scheduleEmptyCell)
+    .expect(classDetailsPage.editCellDialogue.exists)
+    .ok();
 });
 
 test('should update existing cell,should create lesson+location on empty cell', async () => {
   await createNewScheduleCell();
-  await t.click(classDetailsPage.editCellUpdateButton);
-  await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('אומנות0 מעלית קומה');
-  await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('add');
+  await t
+    .click(classDetailsPage.editCellUpdateButton)
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .contains('אומנות0 מעלית קומה')
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .notContains('add');
 });
 
 test('should be able to discard changes inside popup', async () => {
   await createNewScheduleCell();
-  await t.click(classDetailsPage.editCellCloseButton);
-  await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
-  await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('add');
+  await t
+    .click(classDetailsPage.editCellCloseButton)
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .notContains('אומנות0 מעלית קומה')
+    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .contains('add');
 });
 
 test('Class name, grade and back-to-classes button should not be visible', async () => {
