@@ -5,7 +5,7 @@ import { ComponentFixture } from '../../../../../../../node_modules/@angular/cor
 jest.mock('../../../services/student.service');
 
 import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs-compat';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
