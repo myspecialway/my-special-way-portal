@@ -101,9 +101,8 @@ describe('Student Details Hours Component', () => {
       expect(fixture).toMatchSnapshot();
     });
 
-    it('should regenerate the class when classService.update succeeds', () => {
+    it('should open schedule dialog popup when onTimeSlotClick', () => {
       // given
-      // (studentServiceMock.update as jest.Mock).mockResolvedValueOnce(Promise.resolve({ _id: 'updateclassid' }));
 
       // when
       component.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
@@ -112,7 +111,7 @@ describe('Student Details Hours Component', () => {
       expect(scheduleDialogMock.open).toBeCalled();
     });
 
-    it('should regenerate the class when classService.update succeeds', (done) => {
+    it('should trigger student schedule update the class when schedule dialog is closed', (done) => {
       // given
       // (studentServiceMock.update as jest.Mock).mockResolvedValueOnce(Promise.resolve({ _id: 'updateclassid' }));
 
