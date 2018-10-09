@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button data-test-id="add-class-button" mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדש</button>
+        <button data-test-id="add-class-button" mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדשה</button>
       </div>
     </div>
     <div class="row">
@@ -20,7 +20,7 @@
           <!-- Number Column -->
           <ng-container matColumnDef="classname">
             <mat-header-cell *matHeaderCellDef>שם כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="navigate(row._id)">{{ row.name }}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="navigate(row._id)" class="class-name">{{ row.name }}</mat-cell>
           </ng-container>
 
           <!-- Title Column -->

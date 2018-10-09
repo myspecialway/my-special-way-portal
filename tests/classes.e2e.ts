@@ -3,6 +3,7 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import ClassesPage from './pageobjects/classes.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
+import { Selector, t } from 'testcafe';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
@@ -11,16 +12,20 @@ const classesPage = new ClassesPage();
 
 fixture(`Class tests`)
   .page(testEnvironment.feUrl)
-  .beforeEach(async (t) => {
+  .beforeEach(async () => {
     await loginPage.loginAsPrinciple();
     await navbar.navigateToClassesPage();
   });
 
-test('Principle can view all classes', async (t) => {
+function getDeleteClassButtonSelector(className: string) {
+  return Selector(`[data-test-id=delete-class-button-${className}]`);
+}
+
+test('Principle can view all classes', async () => {
   await t.expect(classesPage.classNameCell.withExactText('טיטאן').exists).ok();
 });
 
-test('Principle can add, edit and delete a class', async (t) => {
+test('Principle can add, edit and delete a class', async () => {
   //add a new class
   await t
     .click(classesPage.addClassButton)
@@ -43,7 +48,7 @@ test('Principle can add, edit and delete a class', async (t) => {
     .expect(classesPage.classNameCell.withExactText('editedClass').exists)
     .ok()
     // delete the class
-    .click(ClassesPage.getDeleteClassButtonSelector('editedClass'))
+    .click(getDeleteClassButtonSelector('editedClass'))
     .click(classesPage.deleteClassDialogDeleteButton)
     .expect(classesPage.classNameCell.withExactText('editedClass').exists)
     .notOk();

@@ -8,7 +8,12 @@
           <div class="class-details">
             <div class="class-detail-field">
               <mat-form-field>
-                <input data-test-id="class-name-input" type="text" matInput [(ngModel)]="name" placeholder="שם הכיתה" (change)="detailChanged.emit({name: name, grade: grade})"
+                <input data-test-id="class-name-input"
+                type="text"
+                matInput
+                [(ngModel)]="name"
+                placeholder="שם הכיתה"
+                (change)="detailChanged.emit({name: name, grade: grade})"
                   required>
                 <i class="material-icons" matSuffix>mode_edit</i>
               </mat-form-field>
