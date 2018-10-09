@@ -8,13 +8,14 @@ exports[`class component should render component as described in snapshot 1`] = 
   displayedColumns={[Function Array]}
   mswSnackbar={[Function Object]}
   resultsLength="0"
-  router="undefined"
+  router={[Function Object]}
   scheduleService={[Function Object]}
   sort={[Function MatSort]}
   table={[Function ElementRef]}
 >
   <div
     class="main-content msw-class-container"
+    data-test-id="classes-page"
   >
     <div
       class="container-fluid"

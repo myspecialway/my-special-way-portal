@@ -25,7 +25,7 @@ describe('class component', () => {
   let classDialogMock: Partial<MatDialog>;
   let scheduleServiceMock: Partial<ScheduleService>;
   let snackbarMock: Partial<MSWSnackbar>;
-  const routeMock: Partial<Router>;
+  let routeMock: Partial<Router>;
 
   beforeEach(async () => {
     classServiceMock = {
@@ -54,6 +54,10 @@ describe('class component', () => {
         e: 'ה',
         f: 'ו',
       },
+    };
+
+    routeMock = {
+      navigate: jest.fn(),
     };
 
     TestBed.configureTestingModule({
@@ -115,7 +119,7 @@ describe('class component', () => {
 
   it('should load classes from service on page load ', () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(Promise.resolve(classTestData.classes));
+      return Promise.resolve(classTestData.classes);
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();
@@ -141,5 +145,10 @@ describe('class component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+  });
+  it('should open edit-class-dialog ', () => {
+    const fixture = TestBed.createComponent(ClassComponent);
+    fixture.componentInstance.navigate("Asdasdf");
+    expect(routeMock.navigate).toHaveBeenCalled();
   });
 });
