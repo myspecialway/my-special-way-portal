@@ -59,6 +59,7 @@ describe('Student Details Hours Component', () => {
       studentServiceMock = {
         // getById: jest.fn().mockReturnValue(Promise.resolve({})),
         update: jest.fn(),
+        getById: jest.fn(),
       };
 
       TestBed.configureTestingModule({
@@ -111,7 +112,7 @@ describe('Student Details Hours Component', () => {
       expect(scheduleDialogMock.open).toBeCalled();
     });
 
-    it('should trigger student schedule update the class when schedule dialog is closed', (done) => {
+    it('should trigger student service update the class when schedule dialog is closed with data', (done) => {
       // given
       // (studentServiceMock.update as jest.Mock).mockResolvedValueOnce(Promise.resolve({ _id: 'updateclassid' }));
 
@@ -125,6 +126,45 @@ describe('Student Details Hours Component', () => {
           done();
         })),
       );
+      observableAfterClosed.next(mockedScheduleDialogData);
+
+      // then
+      expect(called).toBeTruthy();
+    });
+
+    it('should call student service getById when schedule dialog is closed with data', (done) => {
+      // given
+      let called = false;
+
+      sub.add(
+        (studentServiceMock.getById = jest.fn(() => {
+          called = true;
+          done();
+        })),
+      );
+
+      // when
+      component.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
+      observableAfterClosed.next(mockedScheduleDialogData);
+
+      // then
+      expect(called).toBeTruthy();
+    });
+
+    it('should call scheduleservice buildScheduleFromTimeslots when schedule dialog is closed with data', (done) => {
+      // given
+      let called = false;
+
+      sub.add(
+        (component.scheduleService.buildScheduleFromTimeslots = jest.fn(() => {
+          called = true;
+          done();
+        })),
+      );
+
+      // when
+      component.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
+
       observableAfterClosed.next(mockedScheduleDialogData);
 
       // then
