@@ -149,7 +149,7 @@ describe('class component', () => {
 
   it('should open edit-class-dialog ', () => {
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.navigate('Asdasdf');
+    fixture.componentInstance.navigate('class/some-class-id');
     expect(routeMock.navigate).toHaveBeenCalled();
   });
 });
