@@ -146,9 +146,10 @@ describe('class component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
+
   it('should open edit-class-dialog ', () => {
     const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.navigate("Asdasdf");
+    fixture.componentInstance.navigate('Asdasdf');
     expect(routeMock.navigate).toHaveBeenCalled();
   });
 });
