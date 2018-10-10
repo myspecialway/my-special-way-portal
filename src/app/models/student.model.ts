@@ -8,8 +8,7 @@ export default class Student {
   firstname: string;
   lastname: string;
   gender: Gender;
-  class?: Class;
-  class_id: string;
+  class: Class;
   schedule: TimeSlot[];
 }
 

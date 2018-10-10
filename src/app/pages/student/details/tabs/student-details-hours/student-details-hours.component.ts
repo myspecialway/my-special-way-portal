@@ -8,6 +8,7 @@ import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.com
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
+import { Class } from '../../../../../models/class.model';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -34,6 +35,9 @@ export class StudentDetailsHoursComponent implements OnInit {
     this.id = this.route.parent.snapshot.params.idOrNew;
     try {
       this.student = await this.studentService.getById(this.id);
+      if (!this.student.class) {
+        this.student.class = new Class();
+      }
       this.initSchedule();
     } catch (err) {
       throw err;
@@ -50,17 +54,8 @@ export class StudentDetailsHoursComponent implements OnInit {
   }
 
   onTimeSlotClick(indexes: TimeSlotIndexes) {
-    const { hourIndex, dayIndex } = indexes;
-    const dialogData = {
-      index: `${hourIndex}_${dayIndex}`,
-      lesson: this.schedule[hourIndex][dayIndex].lesson,
-      location: this.schedule[hourIndex][dayIndex].location,
-      hour: this.scheduleService.hoursLabels[hourIndex],
-      day: this.scheduleService.daysLabels[dayIndex],
-    } as ScheduleDialogData;
-
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
-      data: dialogData,
+      data: this.getDialogData(indexes),
       height: '375px',
       width: '320px',
     });
@@ -69,6 +64,15 @@ export class StudentDetailsHoursComponent implements OnInit {
       if (!data) {
         return;
       }
+      const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
+      const newCustomizedSlot: TimeSlot = {
+        index: data.index,
+        lesson: data.lesson,
+        location: data.location,
+        customized: true,
+      };
+      const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
+
       const tempStudent: StudentQuery = {
         _id: this.student._id,
         username: this.student.username,
@@ -76,8 +80,8 @@ export class StudentDetailsHoursComponent implements OnInit {
         lastname: this.student.lastname,
         gender: this.student.gender,
         password: this.student.password,
-        class_id: this.student.class_id,
-        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
+        class_id: this.student.class._id,
+        schedule: newCustomizedSchedule,
       };
       try {
         await this.studentService.update(tempStudent);
@@ -87,5 +91,16 @@ export class StudentDetailsHoursComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  getDialogData(indexes: TimeSlotIndexes) {
+    const { hourIndex, dayIndex } = indexes;
+    return {
+      index: `${hourIndex}_${dayIndex}`,
+      lesson: this.schedule[hourIndex][dayIndex].lesson,
+      location: this.schedule[hourIndex][dayIndex].location,
+      hour: this.scheduleService.hoursLabels[hourIndex],
+      day: this.scheduleService.daysLabels[dayIndex],
+    } as ScheduleDialogData;
   }
 }

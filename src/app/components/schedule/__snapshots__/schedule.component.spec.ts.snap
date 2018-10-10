@@ -86,16 +86,629 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           role="gridcell"
         >
           
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              קבלת תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
           
           <div
-            class="ts-empty"
+            class="ts-full"
           >
-            <i
-              class="material-icons"
+            <span
+              class="ts-lesson"
             >
-               add 
-            </i>
+              קבלת תלמידים
+            </span>
+            
           </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              קבלת תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              קבלת תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              קבלת תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              קבלת תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת בוקר
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              ארוחת צהריים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              הפסקה
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
+        </td>
+        <td
+          class="mat-cell cdk-column-position mat-column-position"
+          role="gridcell"
+        >
+          
+          <div
+            class="ts-full"
+          >
+            <span
+              class="ts-lesson"
+            >
+              פיזור תלמידים
+            </span>
+            
+          </div>
+          
         </td>
       </tr>
     </tbody>

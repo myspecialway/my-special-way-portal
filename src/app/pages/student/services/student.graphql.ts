@@ -40,6 +40,7 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
             floor
           }
         }
+        customized
       }
       class {
         name
