@@ -15,6 +15,7 @@ import { StudentService } from '../../../services/student.service';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 import { MatDialog } from '@angular/material';
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
+import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 
 describe('Student Details Hours Component', () => {
   let scheduleDialogMock: Partial<MatDialog>;
@@ -45,9 +46,8 @@ describe('Student Details Hours Component', () => {
       },
     } as ScheduleDialogData;
 
-    const mockSchedule = [scheduleTestData];
-
     beforeEach(async () => {
+      const mockSchedule = [scheduleTestData];
       observableAfterClosed = new Subject<ScheduleDialogData>();
 
       afterClosedMockFn = jest.fn().mockReturnValue(observableAfterClosed);
@@ -107,6 +107,22 @@ describe('Student Details Hours Component', () => {
 
       // when
       component.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
+
+      // then
+      expect(scheduleDialogMock.open).toBeCalled();
+    });
+
+    it('should open schedule dialog popup with valid params when onTimeSlotClick', (done) => {
+      // given
+      // let passedData = {};
+      const indexes = { hourIndex: 0, dayIndex: 0 };
+      const dialogData = component.getDialogData(indexes);
+      scheduleDialogMock.open = jest.fn((comp, config) => {
+        expect(config.data).toEqual(dialogData);
+        done();
+      });
+      // when
+      component.onTimeSlotClick(indexes);
 
       // then
       expect(scheduleDialogMock.open).toBeCalled();
