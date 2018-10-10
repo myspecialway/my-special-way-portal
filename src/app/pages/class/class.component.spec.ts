@@ -17,6 +17,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+import { Router } from '@angular/router';
 import 'rxjs-compat/add/observable/of';
 
 describe('class component', () => {
@@ -24,6 +25,7 @@ describe('class component', () => {
   let classDialogMock: Partial<MatDialog>;
   let scheduleServiceMock: Partial<ScheduleService>;
   let snackbarMock: Partial<MSWSnackbar>;
+  let routeMock: Partial<Router>;
 
   beforeEach(async () => {
     classServiceMock = {
@@ -54,6 +56,10 @@ describe('class component', () => {
       },
     };
 
+    routeMock = {
+      navigate: jest.fn(),
+    };
+
     TestBed.configureTestingModule({
       imports: [],
       declarations: [ClassComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
@@ -62,6 +68,7 @@ describe('class component', () => {
         { provide: ClassService, useValue: classServiceMock },
         { provide: ScheduleService, useValue: scheduleServiceMock },
         { provide: MSWSnackbar, useValue: snackbarMock },
+        { provide: Router, useValue: routeMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -112,7 +119,7 @@ describe('class component', () => {
 
   it('should load classes from service on page load ', () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(Promise.resolve(classTestData.classes));
+      return Promise.resolve(classTestData.classes);
     });
     const fixture = TestBed.createComponent(ClassComponent);
     fixture.detectChanges();
@@ -138,5 +145,11 @@ describe('class component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+  });
+
+  it('should open edit-class-dialog ', () => {
+    const fixture = TestBed.createComponent(ClassComponent);
+    fixture.componentInstance.navigate('class/some-class-id');
+    expect(routeMock.navigate).toHaveBeenCalled();
   });
 });

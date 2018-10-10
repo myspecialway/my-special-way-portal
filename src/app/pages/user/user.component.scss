@@ -1,1 +1,25 @@
-@import "../../../assets/scss/msw-table";
+@import '../../../assets/scss/msw-table';
+
+.header-table-count {
+  width: 164px;
+  height: 38px;
+  font-size: 32px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-align: right;
+  color: #222222;
+}
+.header-table-count-number {
+  font-size: 18px;
+}
+
+.header-table-count-label {
+  padding-left: 10px;
+}
+
+.header-menu-container {
+  padding-bottom: 29px;
+}

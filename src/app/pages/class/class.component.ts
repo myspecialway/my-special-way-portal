@@ -10,6 +10,7 @@ import { Class } from '../../models/class.model';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grade',
@@ -17,7 +18,7 @@ import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog
   styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent implements OnInit {
-  displayedColumns = ['classname', 'level', 'editDetails', 'deleteClass'];
+  displayedColumns = ['classname', 'level', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
@@ -31,6 +32,7 @@ export class ClassComponent implements OnInit {
     public dialog: MatDialog,
     public scheduleService: ScheduleService,
     private mswSnackbar: MSWSnackbar,
+    private router: Router,
   ) {}
 
   async ngOnInit() {
@@ -65,24 +67,7 @@ export class ClassComponent implements OnInit {
     }
   }
 
-  // editClass(_id: string, name: string, level: string) {
-  //   const dialogRef = this.dialog.open(UpdateClassDialogComponent, {
-  //     data: {_id, name, level},
-  //     height: '310px',
-  //     width: '320px',
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       const relevantClass = _.find(this.dataSource.data, {_id});
-  //       const tempClass = _.assign({}, relevantClass, result);
-
-  //       this.classService.update(tempClass)
-  //         .then((data) => {
-  //           const index = _.findIndex(this.dataSource.data, (user) => user._id === _id);
-  //           this.dataSource.data[index] = _.assign({}, relevantClass, result);
-  //         });
-  //     }
-  //   });
-  // }
+  navigate(row_id: string) {
+    this.router.navigate(['/class', row_id]);
+  }
 }

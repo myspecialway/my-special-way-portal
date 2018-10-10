@@ -16,7 +16,7 @@ export default class ClassesPage {
   constructor() {
     this.classDetailsPage = new ClassDetailsPage();
     this._id = Selector('[data-test-id$="classes-page"]');
-    this.classNameCell = Selector('.mat-row a');
+    this.classNameCell = Selector('.class-name');
     this.addClassButton = Selector('[data-test-id="add-class-button"]');
     this.deleteClassDialogDeleteButton = Selector('[data-test-id="delete-button"]');
     this.scheduleTestClassNameCell = Selector('.class-name').withExactText('scheduleTestClass');

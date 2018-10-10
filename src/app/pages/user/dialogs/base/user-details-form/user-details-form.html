@@ -3,9 +3,9 @@
     <div class="msw-div-column-right">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
+          <input tabindex="1" matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
             autocomplete='given-name' name="firstname" required>
-          <button type="button" tabindex=-1 mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear"
+          <button type="button" mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.firstname=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -14,9 +14,9 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
+          <input matInput #input tabindex="3" formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
             autocomplete="username" name="username" required>
-          <button type="button" tabindex=-1 mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear"
+          <button type="button" mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.username=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -27,7 +27,7 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role"
+          <mat-select tabindex="5" placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role"
             (valueChange)="onUserTypeChange($event)" autocomplete='role' required>
             <mat-option disabled>בחר</mat-option>
             <mat-option *ngFor="let _role of roles" [value]="_role">
@@ -41,9 +41,9 @@
     <div class="msw-div-column-left">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
+          <input tabindex="2" matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
             autocomplete='family-name' name="lastname" required>
-          <button type="button" tabindex=-1 mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear"
+          <button tabindex="0" type="button" mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.lastname=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -52,9 +52,9 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email"
+          <input tabindex="4" matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email"
             autocomplete='email' required email>
-          <button type="button" tabindex=-1 mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear"
+          <button type="button" mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.email=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -64,7 +64,7 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
+          <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
            <mat-option disabled>בחר</mat-option>
            <mat-option *ngFor="let _class of classes" [value]="_class">
               {{_class.name}}

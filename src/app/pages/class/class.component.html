@@ -1,12 +1,13 @@
-<div data-test-id="classes-page" class="main-content">
+<div class="main-content msw-class-container" data-test-id="classes-page">
   <div class="container-fluid">
     <div class="header-menu-container msw-table-tools-header">
-      <div class="example-header">
-        <mat-form-field floatLabel="never" color="accent">
-          <input matInput #filter placeholder="Filter issues">
-        </mat-form-field>
+      <div class="header-table-count">
+        <div>
+          <span class="header-table-count-label">כיתות</span>
+          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+        </div>
       </div>
-      <div class="example-header">
+      <div class="example-header msw-table-tools-header">
         <button data-test-id="add-class-button" mat-raised-button color="primary" [routerLink]="['/class', '_new_']">הוספת כיתה חדשה</button>
       </div>
     </div>
@@ -16,41 +17,28 @@
         <mat-table #table [dataSource]="dataSource" class="msw-table"
                    matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
-
-          <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
           <!-- Number Column -->
           <ng-container matColumnDef="classname">
             <mat-header-cell *matHeaderCellDef>שם כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row"><a [routerLink]="['/class', row._id]" class="class-name">{{ row.name }}</a></mat-cell>
+            <mat-cell *matCellDef="let row" (click)="navigate(row._id)" class="class-name">{{ row.name }}</mat-cell>
           </ng-container>
 
           <!-- Title Column -->
           <ng-container matColumnDef="level">
             <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ scheduleService.grades[row.grade] }}</mat-cell>
-          </ng-container>
-
-
-          <!--&lt;!&ndash; State Column &ndash;&gt;-->
-          <ng-container matColumnDef="editDetails">
-            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editClass(row._id, row.name, row.level)">ערוך</button>
-            </mat-cell>
+            <mat-cell *matCellDef="let row" (click)="navigate(row._id)">{{ scheduleService.grades[row.grade] }}</mat-cell>
           </ng-container>
 
           <!--&lt;!&ndash; State Column &ndash;&gt;-->
           <ng-container matColumnDef="deleteClass">-->
-            <mat-header-cell *matHeaderCellDef>מחיקת כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button [attr.data-test-id]="'delete-class-button-' + row.name" mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
       </div>
     </div>
