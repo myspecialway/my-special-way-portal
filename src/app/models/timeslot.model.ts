@@ -4,4 +4,5 @@ export interface TimeSlot {
   index: string;
   lesson?: Lesson;
   location?: Location;
+  customized?: boolean;
 }

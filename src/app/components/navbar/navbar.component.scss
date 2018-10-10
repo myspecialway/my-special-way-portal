@@ -1,4 +1,4 @@
-@import "../../../assets/scss/core/variables";
+@import '../../../assets/scss/core/variables';
 .navbar {
   .navbar-brand {
     display: flex;
@@ -10,10 +10,10 @@
     .logo-img-tlv {
       height: 36px;
     }
-
   }
 
-  .collapse .navbar-nav .nav-item .nav-link  {
+  .collapse .navbar-nav .nav-item .nav-link {
+    cursor: pointer;
     .msw-header-user {
       font-size: 16px;
     }

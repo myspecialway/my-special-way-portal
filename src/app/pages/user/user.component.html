@@ -1,16 +1,20 @@
 <div data-test-id="users-page" class="main-content">
   <div class="container-fluid">
     <div class="header-menu-container msw-table-tools-header">
-
-      <div class="example-header">
-        <mat-form-field class="search-user">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="פילטר">
-        </mat-form-field>
+      <div class="header-table-count">
+        <div>
+          <span class="header-table-count-label">משתמשים</span>
+          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+        </div>
       </div>
-      <div class="example-header">
-        <button mat-raised-button color="primary" (click)="addNewUser()">הוספת משתמש חדש</button>
+      <div class="example-header msw-table-tools-header">
+        <button mat-raised-button color="primary" (click)="addNewUser()">
+          <i class="material-icons">
+            add
+          </i>
+          הוספת משתמש חדש
+        </button>
       </div>
-
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
@@ -20,44 +24,44 @@
           <!-- ID Column -->
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.firstname}} {{ row.lastname }}</mat-cell>
-          </ng-container>
-
-          <!-- Progress Column -->
-          <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.username}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="updateUser(row)"> {{row.firstname}} {{ row.lastname }}</mat-cell>
           </ng-container>
 
           <!-- Progress Column -->
           <ng-container matColumnDef="class">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{(row.class?.name) || '' }}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
           </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.username}}</mat-cell>
+          </ng-container>
+
 
           <!-- Name Column -->
           <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>סוג היוזר</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{toHebrew(row.role)}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>סוג משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{toHebrew(row.role)}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="enterPersonalArea">
-            <mat-header-cell *matHeaderCellDef>אזור אישי</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="addNewUser()">כניסה</button>
-            </mat-cell>
+          <!-- Progress Column -->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.email}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="editDetails">
-            <mat-header-cell *matHeaderCellDef>עריכת פרטים</mat-header-cell>
+          <ng-container matColumnDef="recoverpassword">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="updateUser(row)">ערוך</button>
+              <button mat-icon-button color="primary" style="text-decoration: underline">שחזר סיסמא</button>
             </mat-cell>
           </ng-container>
 
           <!--&lt;!&ndash; State Column &ndash;&gt;-->
           <ng-container matColumnDef="deleteUser">-->
-            <mat-header-cell *matHeaderCellDef>מחיקת משתמש</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
             </mat-cell>

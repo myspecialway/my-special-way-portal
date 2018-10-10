@@ -17,17 +17,35 @@ exports[`lesson component should render component as described in snapshot 1`] =
       <div
         class="header-menu-container msw-table-tools-header"
       >
-        <div>
-           שיעורים (
+        <div
+          class="header-table-count"
+        >
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              שיעורים
+            </span>
+            <span
+              class="header-table-count-number"
+            >
+              (
+            </span>
+          </div>
         </div>
         <div
-          class="example-header"
+          class="example-header msw-table-tools-header"
         >
           <button
             color="primary"
             mat-raised-button=""
           >
-            הוסף שיעור חדש
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף שיעור חדש 
           </button>
         </div>
       </div>
