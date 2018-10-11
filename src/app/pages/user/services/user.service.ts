@@ -50,6 +50,7 @@ export class UserService {
             firstname: user.firstname,
             lastname: user.lastname,
             role: user.role,
+            class_id: user.class,
           },
         },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],

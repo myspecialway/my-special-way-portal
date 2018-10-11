@@ -64,9 +64,9 @@
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
+          <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.class._id" name="class" [compareWith]="compareClass">
            <mat-option disabled>בחר</mat-option>
-           <mat-option *ngFor="let _class of classes" [value]="_class">
+           <mat-option *ngFor="let _class of classes" [value]="_class._id">
               {{_class.name}}
             </mat-option>
           </mat-select>
