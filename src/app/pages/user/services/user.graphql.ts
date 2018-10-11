@@ -26,6 +26,10 @@ export const QUERY_GET_USER_BY_ID = gql`
       lastName
       email
       userType
+      class {
+        name
+        _id
+      }
     }
   }
 `;
