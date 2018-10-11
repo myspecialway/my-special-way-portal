@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
@@ -11,6 +11,7 @@ export type UserTypeKey = keyof typeof UserType;
   selector: 'app-user-details-form',
   templateUrl: './user-details-form.html',
   styleUrls: ['./user-details-form.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
