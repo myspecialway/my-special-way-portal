@@ -1,0 +1,22 @@
+<div data-test-id="maps-page" class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 map-view-container">
+        <h2>מפה</h2>
+        <mat-select class="floor-select" [value]="floor" (selectionChange)="this.floorChanged.emit($event.value)">
+          <mat-option *ngFor="let floor of availableFloors;"
+                      class="lessons-option"
+                      [value]="floor">
+            {{floor}} קומה
+          </mat-option>
+        </mat-select>
+        <mat-list>
+          <mat-list-item *ngFor="let location of locations">
+            <mat-slide-toggle [checked]="!location.disabled"
+                              (change)="onLocationStateChanged(location, !$event.checked)">{{location.name}}</mat-slide-toggle>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+</div>
