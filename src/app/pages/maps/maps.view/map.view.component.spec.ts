@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapViewComponent } from './map.view.component';
-import { MatDialog, MatListModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { MatListModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 
 const mockedLocations = [
   {
