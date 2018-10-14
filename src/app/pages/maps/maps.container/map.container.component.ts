@@ -38,6 +38,6 @@ export class MapContainerComponent implements OnInit {
 
   updateLocation(location: Location) {
     // implement
-    console.log(`updating location ${location.name}`);
+    console.log(`updating location ${JSON.stringify(location)}`);
   }
 }

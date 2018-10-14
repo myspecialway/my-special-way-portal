@@ -11,10 +11,14 @@
           </mat-option>
         </mat-select>
         <mat-list>
-          <mat-list-item *ngFor="let location of locations">
-            <mat-slide-toggle [checked]="!location.disabled"
-                              (change)="onLocationStateChanged(location, !$event.checked)">{{location.name}}</mat-slide-toggle>
-          </mat-list-item>
+            <mat-list-item *ngFor="let location of locations">
+              <mat-slide-toggle [checked]="!location.disabled"
+                                (change)="onLocationStateChanged(location, !$event.checked)"></mat-slide-toggle>
+              <input type="text"
+                     matInput
+                     [value]="location.name"
+                     (change)="onLocationNameChanged(location, $event.target.value)">
+            </mat-list-item>
         </mat-list>
       </div>
     </div>

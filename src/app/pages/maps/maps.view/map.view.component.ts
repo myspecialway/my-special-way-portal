@@ -22,4 +22,7 @@ export class MapViewComponent {
   onLocationStateChanged(location: Location, disabled: boolean) {
     this.updateLocation.emit({ ...location, disabled });
   }
+  onLocationNameChanged(location: Location, name: string) {
+    this.updateLocation.emit({ ...location, name });
+  }
 }
