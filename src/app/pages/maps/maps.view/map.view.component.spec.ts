@@ -59,4 +59,37 @@ describe('ClassDetailsComponent with class info', () => {
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
   });
+
+  it('should update Location', () => {
+    component.updateLocation.emit = jest.fn();
+    component.onLocationStateChanged(
+      {
+        _id: '3',
+        name: 'כיתת קג׳בובו',
+        disabled: false,
+        position: {
+          latitude: 31.986419691740092,
+          longitude: 34.91078563034535,
+          floor: 1,
+        },
+      },
+      true,
+    );
+    expect(component.updateLocation.emit).toHaveBeenCalled();
+    component.onLocationNameChanged(
+      {
+        _id: '3',
+        name: 'כיתת קג׳בו',
+        disabled: false,
+        position: {
+          latitude: 31.986419691740092,
+          longitude: 34.91078563034535,
+          floor: 1,
+        },
+      },
+      true,
+    );
+    expect(component.updateLocation.emit).toHaveBeenCalled();
+    // todo: further test the location update when implemented.
+  });
 });

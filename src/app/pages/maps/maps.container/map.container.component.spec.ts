@@ -99,4 +99,18 @@ describe('MapContainerComponent', () => {
     ]);
     expect(component.currentFloor).toEqual(1);
   });
+
+  it('should call locationService on updateLocation', async () => {
+    component.updateLocation({
+      _id: '1',
+      name: 'כיתת סחלב',
+      disabled: false,
+      position: {
+        latitude: 31.986419691740092,
+        longitude: 34.91078563034535,
+        floor: 1,
+      },
+    });
+    // todo: test updateLocation when implemented.
+  });
 });
