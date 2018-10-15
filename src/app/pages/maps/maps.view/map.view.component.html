@@ -10,16 +10,24 @@
             {{floor}} קומה
           </mat-option>
         </mat-select>
-        <mat-list>
+        <div class="floor-details-container">
+          <mat-list class="locations-list">
             <mat-list-item *ngFor="let location of locations">
               <mat-slide-toggle [checked]="!location.disabled"
-                                (change)="onLocationStateChanged(location, !$event.checked)"></mat-slide-toggle>
+                                (change)="onLocationDisabledChanged(location, !$event.checked)"></mat-slide-toggle>
+              <input class="location-id-input"
+                     type="text"
+                     matInput
+                     [value]="location.location_id"
+                     (change)="onLocationIdChanged(location, $event.target.value)">
               <input type="text"
                      matInput
                      [value]="location.name"
                      (change)="onLocationNameChanged(location, $event.target.value)">
             </mat-list-item>
-        </mat-list>
+          </mat-list>
+          <div class="map-model">כאן תופיע המפה של קומה {{floor}}</div>
+        </div>
       </div>
     </div>
   </div>
