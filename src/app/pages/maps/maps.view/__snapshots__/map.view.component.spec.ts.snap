@@ -3,7 +3,6 @@
 exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
 <app-map-view
   availableFloors={[Function Array]}
-  deleteLocation={[Function EventEmitter]}
   floor="0"
   floorChanged={[Function EventEmitter]}
   locations={[Function Array]}

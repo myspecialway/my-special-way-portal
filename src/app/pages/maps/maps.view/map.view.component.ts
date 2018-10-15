@@ -18,8 +18,6 @@ export class MapViewComponent {
   floorChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   updateLocation: EventEmitter<InputLocation> = new EventEmitter<InputLocation>();
-  @Output()
-  deleteLocation: EventEmitter<InputLocation> = new EventEmitter<InputLocation>();
 
   onLocationDisabledChanged(location: Location, disabled: boolean) {
     this.updateLocation.emit({ _id: location._id, disabled });
