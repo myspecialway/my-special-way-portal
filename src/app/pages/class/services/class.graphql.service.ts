@@ -88,7 +88,8 @@ export class ClassService {
         },
         refetchQueries: [
           {
-            query: GET_ALL_CLASSES,
+            query: QUERY_GET_CLASS_BY_ID,
+            variables: { id: _class._id },
           },
         ],
         awaitRefetchQueries: true,
