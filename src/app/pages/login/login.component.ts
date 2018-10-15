@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean;
   loginFailed = false;
   formFieldOptions: FormGroup;
+  hidePassword = true;
 
   constructor(
     private route: ActivatedRoute,
