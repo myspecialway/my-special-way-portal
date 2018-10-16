@@ -27,6 +27,7 @@ export class StudentComponent implements OnInit {
   async ngOnInit() {
     this.dataSource.sort = this.sort;
     this.subCollector.add(
+      this.studentService.prefetchAllStudents(),
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
       }),

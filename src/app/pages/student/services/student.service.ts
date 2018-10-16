@@ -1,3 +1,4 @@
+import { publishReplay, shareReplay, tap, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators/map';
@@ -32,6 +33,23 @@ export class StudentService {
           return observableOf([]);
         }),
       );
+  }
+
+  prefetchAllStudents() {
+    return this.apollo
+      .query<{ students: Student[] }>({
+        query: QUERY_GET_ALL_STUDENTS,
+      })
+      .pipe(
+        map((res) => {
+          return res.data.students;
+        }),
+        catchError((err: TypeError) => {
+          console.warn('user.component::ngInInit:: empty stream recieved');
+          return observableOf([]);
+        }),
+      )
+      .subscribe();
   }
 
   getById(id: string) {
