@@ -1,9 +1,9 @@
-import { publishReplay, shareReplay, tap, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators/map';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
+import { first } from 'rxjs/operators';
 import {
   QUERY_GET_ALL_STUDENTS,
   QUERY_GET_STUDENT_BY_ID,
@@ -48,6 +48,7 @@ export class StudentService {
           console.warn('user.component::ngInInit:: empty stream recieved');
           return observableOf([]);
         }),
+        first(),
       )
       .subscribe();
   }
