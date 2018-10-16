@@ -7,6 +7,7 @@ import { DeleteUserDialogComponent } from './dialogs/delete/delete-user.dialog';
 import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -56,11 +57,14 @@ export class UserComponent implements OnInit, AfterViewInit {
       width: '630px',
     });
     this.subCollector.add(
-      dialogRef.afterClosed().subscribe((newUserData) => {
-        if (newUserData) {
-          this.userService.create(newUserData);
-        }
-      }),
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((newUserData) => {
+          if (newUserData) {
+            this.userService.create(newUserData);
+          }
+        }),
     );
   }
   deleteUser(userData: User) {
@@ -71,11 +75,14 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
 
     this.subCollector.add(
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result === true) {
-          this.userService.delete(userData._id);
-        }
-      }),
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result === true) {
+            this.userService.delete(userData._id);
+          }
+        }),
     );
   }
   updateUser(userData: User) {
@@ -86,14 +93,17 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
 
     this.subCollector.add(
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          const relevantUser = _.find(this.dataSource.data, { _id: userData._id });
-          const tempUser = { ...relevantUser, ...result };
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result) {
+            const relevantUser = _.find(this.dataSource.data, { _id: userData._id });
+            const tempUser = { ...relevantUser, ...result };
 
-          this.userService.update(tempUser);
-        }
-      }),
+            this.userService.update(tempUser);
+          }
+        }),
     );
   }
 }
