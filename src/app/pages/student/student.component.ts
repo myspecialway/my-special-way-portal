@@ -24,8 +24,9 @@ export class StudentComponent implements OnInit {
 
   constructor(private studentService: StudentService, private dialog: MatDialog) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.dataSource.sort = this.sort;
+
     this.subCollector.add(
       this.studentService.prefetchAllStudents(),
       this.studentService.getAllStudents().subscribe((data) => {
