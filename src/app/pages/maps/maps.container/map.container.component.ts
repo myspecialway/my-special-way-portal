@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationService } from '../../../services/location/location.graphql.service';
-import { Location } from '../../../models/location.model';
+import { InputLocation, Location } from '../../../models/location.model';
 import * as _ from 'lodash';
 
 @Component({
@@ -36,8 +36,8 @@ export class MapContainerComponent implements OnInit {
     this.currentFloorLocations = this.locations.filter((location) => location.position.floor === floor);
   }
 
-  updateLocation(location: Location) {
-    // implement
+  async updateLocation(location: InputLocation) {
     console.log(`updating location ${JSON.stringify(location)}`);
+    this.locations = await this.locationService.update(location);
   }
 }
