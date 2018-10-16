@@ -57,7 +57,7 @@ export default class StudentsPage {
     //Create a new scheduleTestUser
     await t.click(this.newStudentButton);
     await this.firstName();
-    await t.typeText(this.username, 'scheduleTestUser');
+    await t.typeText(this.username, 'אאאאאא');
     await t.typeText(this.password, 'scheduleTestUser');
     await t.typeText(this.firstName, 'scheduleTestUser');
     await t.typeText(this.lastName, 'scheduleTestUser');

@@ -26,6 +26,15 @@ test('Principle can view all classes', async () => {
 });
 
 test('Principle can add, edit and delete a class', async () => {
+  // If the class exists - delete it.
+  while (await classesPage.classNameCell.withExactText('test').exists) {
+    await t.click(getDeleteClassButtonSelector('test')).click(classesPage.confirmDeleteButton);
+  }
+
+  while (await classesPage.classNameCell.withExactText('editedClass').exists) {
+    await t.click(getDeleteClassButtonSelector('editedClass')).click(classesPage.confirmDeleteButton);
+  }
+
   //add a new class
   await t
     .click(classesPage.addClassButton)

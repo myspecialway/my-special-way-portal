@@ -27,7 +27,7 @@ async function createNewScheduleTestClass() {
   await t
     .expect(classesPage.scheduleTestClassNameCell.exists)
     .notOk()
-    // Create a new scheduleTestClas
+    // Create a new scheduleTestClass
     .click(classesPage.newClassButton)
     .typeText(classDetailsPage.classNameInput, 'scheduleTestClass')
     .click(classDetailsPage.gradeSelect)
