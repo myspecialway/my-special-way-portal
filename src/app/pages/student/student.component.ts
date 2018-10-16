@@ -4,6 +4,11 @@ import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.di
 import { StudentService } from './services/student.service';
 import Student from '../../models/student.model';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
+import { Apollo } from 'apollo-angular';
+import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
+import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
+import { UserType } from '../../models/user.model';
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -12,6 +17,8 @@ import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decora
 export class StudentComponent implements OnInit {
   displayedColumns = ['studentName', 'gradeId', 'username', 'deleteUser'];
   dataSource = new MatTableDataSource<Student>();
+  mayAddStudent = false;
+  mayDeleteStudent = false;
 
   @ViewChild(MatSort)
   sort: MatSort;
@@ -21,7 +28,7 @@ export class StudentComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private studentService: StudentService, private dialog: MatDialog) {}
+  constructor(private studentService: StudentService, private dialog: MatDialog, private apollo: Apollo) {}
 
   async ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -30,6 +37,17 @@ export class StudentComponent implements OnInit {
         this.dataSource.data = [...data];
       }),
     );
+
+    // todo: create a currentUser / permissions service / directive to handle permissions.
+    this.apollo
+      .watchQuery<{ userProfile: UserProfileStateModel }>({
+        query: GET_USER_PROFILE,
+      })
+      .valueChanges.subscribe((userProf) => {
+        const currentType = userProf.data.userProfile.role;
+        this.mayAddStudent = UserType[currentType] === UserType.PRINCIPLE;
+        this.mayDeleteStudent = UserType[currentType] === UserType.PRINCIPLE;
+      });
   }
 
   async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {

@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button data-test-id="add-new-student-button" mat-raised-button color="primary" routerLink="/student/_new_">
+        <button data-test-id="add-new-student-button" mat-raised-button color="primary" routerLink="/student/_new_"  *ngIf="mayAddStudent">
           <i class="material-icons">
             add
           </i>
@@ -34,7 +34,7 @@
             <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="deleteUser">-->
+          <ng-container matColumnDef="deleteUser" *ngIf="mayDeleteStudent">-->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username"
