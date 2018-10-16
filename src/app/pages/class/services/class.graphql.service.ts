@@ -1,10 +1,4 @@
-import {
-  GET_ALL_CLASSES,
-  ALL_CLASS_FIELDS,
-  QUERY_GET_CLASS_BY_ID,
-  QUERY_GET_CLASS_BY_NAME,
-  MUTATE_UPDATE_CLASS,
-} from './class.graphql';
+import { GET_ALL_CLASSES, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME, MUTATE_UPDATE_CLASS } from './class.graphql';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
