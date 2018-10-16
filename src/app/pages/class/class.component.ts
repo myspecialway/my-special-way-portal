@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
@@ -64,11 +65,14 @@ export class ClassComponent implements OnInit {
         data: { _id, name, level },
       });
       this.subCollector.add(
-        dialogRef.afterClosed().subscribe(async (result) => {
-          if (result === true) {
-            await this.classService.delete(_id);
-          }
-        }),
+        dialogRef
+          .afterClosed()
+          .pipe(first())
+          .subscribe(async (result) => {
+            if (result === true) {
+              await this.classService.delete(_id);
+            }
+          }),
       );
     }
   }
