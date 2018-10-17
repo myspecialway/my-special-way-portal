@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
@@ -33,6 +33,9 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.subCollector.add(
       this.userService.getAllUsers().subscribe((data) => {
         this.dataSource.data = data;
+        this.dataSource.data = this.dataSource.data.filter((user) => {
+          return UserType[user.role] === UserType.TEACHER || UserType[user.role] === UserType.PRINCIPLE;
+        });
       }),
     );
   }
