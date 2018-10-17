@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
-import { DEFAULT_HOOK_NAME } from './decorators.utils';
+import { DEFAULT_DESTROY_HOOK } from './decorators.utils';
 import { SubscriptionCleaner } from './SubscriptionCleaner.decorator';
 import { Subject } from 'rxjs';
 
@@ -24,15 +24,15 @@ describe('SubscriptionCleaner', () => {
     expect(instance.subCollector._subscriptions.length).toBe(1);
   });
 
-  it(`should call unsubscribe once "${DEFAULT_HOOK_NAME}" is called`, () => {
+  it(`should call unsubscribe once "${DEFAULT_DESTROY_HOOK}" is called`, () => {
     setup();
     const subSpy = jest.spyOn(instance.subCollector, 'unsubscribe');
 
-    instance[DEFAULT_HOOK_NAME]();
+    instance[DEFAULT_DESTROY_HOOK]();
     expect(subSpy).toHaveBeenCalled();
   });
 
-  it(`should dispose resources held by ${propertKeyName}  once "${DEFAULT_HOOK_NAME}" is called`, () => {
+  it(`should dispose resources held by ${propertKeyName}  once "${DEFAULT_DESTROY_HOOK}" is called`, () => {
     setup();
     expect(instance.subCollector.closed).toBeFalsy();
     let disposed = false;
@@ -41,7 +41,7 @@ describe('SubscriptionCleaner', () => {
     });
     instance.subCollector.add(subToAdd);
     expect(disposed).toBeFalsy();
-    instance[DEFAULT_HOOK_NAME]();
+    instance[DEFAULT_DESTROY_HOOK]();
     expect(disposed).toBeTruthy();
 
     expect(instance.subCollector.closed).toBeTruthy();
