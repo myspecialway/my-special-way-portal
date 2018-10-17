@@ -47,9 +47,11 @@ export class ClassComponent implements OnInit {
 
   private populateDatasource() {
     try {
-      this.classService.getAllClasses().subscribe((classes) => {
-        this.dataSource.data = [...classes];
-      });
+      this.subCollector.add(
+        this.classService.getAllClasses().subscribe((classes) => {
+          this.dataSource.data = [...classes];
+        }),
+      );
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
