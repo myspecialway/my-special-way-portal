@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Location } from '../../../models/location.model';
+import { InputLocation, Location } from '../../../models/location.model';
 
 @Component({
   selector: 'app-map-view',
@@ -17,12 +17,15 @@ export class MapViewComponent {
   @Output()
   floorChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output()
-  updateLocation: EventEmitter<Location> = new EventEmitter<Location>();
+  updateLocation: EventEmitter<InputLocation> = new EventEmitter<InputLocation>();
 
-  onLocationStateChanged(location: Location, disabled: boolean) {
-    this.updateLocation.emit({ ...location, disabled });
+  onLocationDisabledChanged(location: Location, disabled: boolean) {
+    this.updateLocation.emit({ _id: location._id, disabled });
   }
   onLocationNameChanged(location: Location, name: string) {
-    this.updateLocation.emit({ ...location, name });
+    this.updateLocation.emit({ _id: location._id, name });
+  }
+  onLocationIdChanged(location: Location, location_id: string) {
+    this.updateLocation.emit({ _id: location._id, location_id });
   }
 }

@@ -62,191 +62,215 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
             </div>
             
           </mat-select>
-          <mat-list
-            class="mat-list"
+          <div
+            class="floor-details-container"
           >
-            
-            <mat-list-item
-              class="mat-list-item"
+            <mat-list
+              class="locations-list mat-list"
             >
-              <div
-                class="mat-list-item-content"
+              
+              <mat-list-item
+                class="mat-list-item"
               >
                 <div
-                  class="mat-list-item-ripple mat-ripple"
-                  mat-ripple=""
-                  ng-reflect-disabled="true"
-                  ng-reflect-trigger="[object HTMLUnknownElement]"
-                />
-                <div
-                  class="mat-list-text"
-                />
-                <mat-slide-toggle
-                  class="mat-slide-toggle mat-accent"
-                  id="mat-slide-toggle-1"
-                  ng-reflect-checked="false"
+                  class="mat-list-item-content"
                 >
-                  <label
-                    class="mat-slide-toggle-label"
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent"
+                    id="mat-slide-toggle-1"
+                    ng-reflect-checked="false"
                   >
-                    <div
-                      class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                    <label
+                      class="mat-slide-toggle-label"
                     >
-                      <input
-                        class="mat-slide-toggle-input cdk-visually-hidden"
-                        id="mat-slide-toggle-1-input"
-                        tabindex="0"
-                        type="checkbox"
-                      />
                       <div
-                        class="mat-slide-toggle-thumb-container"
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
                       >
-                        <div
-                          class="mat-slide-toggle-thumb"
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-1-input"
+                          tabindex="0"
+                          type="checkbox"
                         />
                         <div
-                          class="mat-slide-toggle-ripple mat-ripple"
-                          mat-ripple=""
-                          ng-reflect-animation="[object Object]"
-                          ng-reflect-centered="true"
-                          ng-reflect-disabled="false"
-                          ng-reflect-radius="23"
-                          ng-reflect-trigger="[object HTMLLabelElement]"
-                        />
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <span
-                      class="mat-slide-toggle-content"
-                    />
-                  </label>
-                </mat-slide-toggle>
-                <input
-                  matinput=""
-                  type="text"
-                />
-              </div>
-            </mat-list-item>
-            <mat-list-item
-              class="mat-list-item"
-            >
-              <div
-                class="mat-list-item-content"
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+              <mat-list-item
+                class="mat-list-item"
               >
                 <div
-                  class="mat-list-item-ripple mat-ripple"
-                  mat-ripple=""
-                  ng-reflect-disabled="true"
-                  ng-reflect-trigger="[object HTMLUnknownElement]"
-                />
-                <div
-                  class="mat-list-text"
-                />
-                <mat-slide-toggle
-                  class="mat-slide-toggle mat-accent mat-checked"
-                  id="mat-slide-toggle-2"
-                  ng-reflect-checked="true"
+                  class="mat-list-item-content"
                 >
-                  <label
-                    class="mat-slide-toggle-label"
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent mat-checked"
+                    id="mat-slide-toggle-2"
+                    ng-reflect-checked="true"
                   >
-                    <div
-                      class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                    <label
+                      class="mat-slide-toggle-label"
                     >
-                      <input
-                        class="mat-slide-toggle-input cdk-visually-hidden"
-                        id="mat-slide-toggle-2-input"
-                        tabindex="0"
-                        type="checkbox"
-                      />
                       <div
-                        class="mat-slide-toggle-thumb-container"
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
                       >
-                        <div
-                          class="mat-slide-toggle-thumb"
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-2-input"
+                          tabindex="0"
+                          type="checkbox"
                         />
                         <div
-                          class="mat-slide-toggle-ripple mat-ripple"
-                          mat-ripple=""
-                          ng-reflect-animation="[object Object]"
-                          ng-reflect-centered="true"
-                          ng-reflect-disabled="false"
-                          ng-reflect-radius="23"
-                          ng-reflect-trigger="[object HTMLLabelElement]"
-                        />
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <span
-                      class="mat-slide-toggle-content"
-                    />
-                  </label>
-                </mat-slide-toggle>
-                <input
-                  matinput=""
-                  type="text"
-                />
-              </div>
-            </mat-list-item>
-            <mat-list-item
-              class="mat-list-item"
-            >
-              <div
-                class="mat-list-item-content"
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+              <mat-list-item
+                class="mat-list-item"
               >
                 <div
-                  class="mat-list-item-ripple mat-ripple"
-                  mat-ripple=""
-                  ng-reflect-disabled="true"
-                  ng-reflect-trigger="[object HTMLUnknownElement]"
-                />
-                <div
-                  class="mat-list-text"
-                />
-                <mat-slide-toggle
-                  class="mat-slide-toggle mat-accent mat-checked"
-                  id="mat-slide-toggle-3"
-                  ng-reflect-checked="true"
+                  class="mat-list-item-content"
                 >
-                  <label
-                    class="mat-slide-toggle-label"
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent mat-checked"
+                    id="mat-slide-toggle-3"
+                    ng-reflect-checked="true"
                   >
-                    <div
-                      class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                    <label
+                      class="mat-slide-toggle-label"
                     >
-                      <input
-                        class="mat-slide-toggle-input cdk-visually-hidden"
-                        id="mat-slide-toggle-3-input"
-                        tabindex="0"
-                        type="checkbox"
-                      />
                       <div
-                        class="mat-slide-toggle-thumb-container"
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
                       >
-                        <div
-                          class="mat-slide-toggle-thumb"
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-3-input"
+                          tabindex="0"
+                          type="checkbox"
                         />
                         <div
-                          class="mat-slide-toggle-ripple mat-ripple"
-                          mat-ripple=""
-                          ng-reflect-animation="[object Object]"
-                          ng-reflect-centered="true"
-                          ng-reflect-disabled="false"
-                          ng-reflect-radius="23"
-                          ng-reflect-trigger="[object HTMLLabelElement]"
-                        />
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <span
-                      class="mat-slide-toggle-content"
-                    />
-                  </label>
-                </mat-slide-toggle>
-                <input
-                  matinput=""
-                  type="text"
-                />
-              </div>
-            </mat-list-item>
-          </mat-list>
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+            </mat-list>
+            <div
+              class="map-model"
+            >
+              כאן תופיע המפה של קומה 0
+            </div>
+          </div>
         </div>
       </div>
     </div>
