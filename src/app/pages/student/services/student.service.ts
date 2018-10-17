@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators/map';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
-import { first } from 'rxjs/operators';
 import {
   QUERY_GET_ALL_STUDENTS,
   QUERY_GET_STUDENT_BY_ID,
@@ -33,24 +32,6 @@ export class StudentService {
           return observableOf([]);
         }),
       );
-  }
-
-  prefetchAllStudents() {
-    return this.apollo
-      .query<{ students: Student[] }>({
-        query: QUERY_GET_ALL_STUDENTS,
-      })
-      .pipe(
-        map((res) => {
-          return res.data.students;
-        }),
-        catchError((err: TypeError) => {
-          console.warn('user.component::ngInInit:: empty stream recieved');
-          return observableOf([]);
-        }),
-        first(),
-      )
-      .subscribe();
   }
 
   getById(id: string) {

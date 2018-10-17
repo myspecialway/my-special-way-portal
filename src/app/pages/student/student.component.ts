@@ -28,7 +28,6 @@ export class StudentComponent implements OnInit {
     this.dataSource.sort = this.sort;
 
     this.subCollector.add(
-      this.studentService.prefetchAllStudents(),
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
       }),
