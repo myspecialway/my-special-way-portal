@@ -40,12 +40,12 @@ export class ClassComponent implements OnInit {
     private router: Router,
   ) {}
 
-  async ngOnInit() {
-    await this.populateDatasource();
+  ngOnInit() {
+    this.populateDatasource();
     this.dataSource.sort = this.sort;
   }
 
-  private async populateDatasource() {
+  private populateDatasource() {
     try {
       this.classService.getAllClasses().subscribe((classes) => {
         this.dataSource.data = [...classes];
