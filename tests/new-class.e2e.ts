@@ -32,8 +32,15 @@ fixture(`Class tests`)
   .beforeEach(async () => {
     await loginPage.loginAsPrinciple();
     await navbar.navigateToClassesPage();
+    await cleanup();
     await t.click(classesPage.addClassButton);
   });
+
+async function cleanup() {
+  if (await classesPage.classNameCell.withExactText(newClassName).exists) {
+    await deleteClass(newClassName);
+  }
+}
 
 async function deleteClass(className: string) {
   await t.click(getDeleteClassButtonSelector(className)).click(classesPage.deleteClassDialogDeleteButton);
