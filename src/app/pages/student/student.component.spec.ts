@@ -32,6 +32,7 @@ describe('student component', () => {
   beforeEach(async () => {
     studentServiceMock = {
       getAllStudents: jest.fn().mockReturnValueOnce(Observable.of(studentsTestData.students)),
+      prefetchAllStudents: jest.fn().mockReturnValueOnce(Observable.of(studentsTestData.students)),
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
