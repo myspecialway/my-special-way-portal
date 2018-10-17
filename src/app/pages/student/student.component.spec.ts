@@ -22,12 +22,14 @@ import {
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { studentsTestData } from '../../../mocks/assets/students.mock';
-import { Observable } from 'rxjs-compat';
+import { Observable, Subject } from 'rxjs-compat';
+import { Apollo } from 'apollo-angular';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let studentDialogMock: Partial<MatDialog>;
   let afterClosedMockFn: jest.Mock;
+  let watchQueryMockedObservable: Subject<any>;
 
   beforeEach(async () => {
     studentServiceMock = {
@@ -41,6 +43,12 @@ describe('student component', () => {
     studentDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterClosedMockFn,
+      }),
+    };
+
+    const apolloMock = {
+      watchQuery: () => ({
+        valueChanges: watchQueryMockedObservable,
       }),
     };
 
@@ -60,6 +68,7 @@ describe('student component', () => {
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
         MatPaginatorIntl,
+        { provide: Apollo, useValue: apolloMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
