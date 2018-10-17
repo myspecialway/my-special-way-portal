@@ -68,5 +68,6 @@ describe('SubscriptionCleaner', () => {
       }
     }
     instance = new TestClass();
+    instance.ngOnInit();
   }
 });
