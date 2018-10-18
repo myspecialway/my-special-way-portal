@@ -2,12 +2,12 @@ import { Eyes } from 'eyes.images'; // ConsoleLogHandler
 import * as readFilePromise from 'fs-readfile-promise';
 
 export class EyesDriver {
-
   eyes = new Eyes();
   constructor() {
     this.eyes.setApiKey('4ZzDF102xhdjJa3012AJPueEC4BR0I7kcoCqVGbKjFXCk110');
     //  this.eyes.setLogHandler(new ConsoleLogHandler(true));
     this.eyes.setOs('Windows 7');
+    // this.eyes.setHostOs('');
   }
 
   async look(t, page: string) {

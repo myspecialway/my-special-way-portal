@@ -7,7 +7,7 @@ export default class ClassDetailsPage {
   gradeSelectOption: Selector;
   backToClassButton: Selector;
   classRow: Selector;
-  scheduleEmptyCell: Selector;
+  // scheduleEmptyCell: Selector;
   editCellDialogue: Selector;
   editCellLesson: Selector;
   editCellLocation: Selector;
@@ -15,6 +15,7 @@ export default class ClassDetailsPage {
   locationOption: Selector;
   editCellUpdateButton: Selector;
   editCellCloseButton: Selector;
+  timeSlotInfoOnStudentSchedule: Selector;
   constructor() {
     this._id = Selector('[data-test-id$="class-details-page"]');
     this.classNameInput = Selector('[data-test-id$="class-name-input"]');
@@ -22,7 +23,10 @@ export default class ClassDetailsPage {
     this.gradeSelectOption = Selector('.grade-select-option');
     this.backToClassButton = Selector('.back');
     this.classRow = Selector('.mat-row');
-    this.scheduleEmptyCell = Selector('[role$="gridcell"]').nth(10);
+    // this.scheduleEmptyCell = Selector('[role$="gridcell"]').nth(10);
+    // this.scheduleEmptyCell = Selector('[role$="gridcell"]').nth(11);// todo change to general read table structure
+    // this.scheduleEmptyCell = Selector('tbody tr:nth-child(' + row + ') td:nth-child(' + column + ')')
+
     this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
     this.editCellLesson = Selector('[data-test-id$="lessons-dropdown"]');
     this.editCellLocation = Selector('[data-test-id$="locations-dropdown"]');
@@ -30,5 +34,6 @@ export default class ClassDetailsPage {
     this.locationOption = Selector('.locations-option');
     this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
     this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
+    this.timeSlotInfoOnStudentSchedule = Selector('.timeslot-info .timeslot-subtitle');
   }
 }
