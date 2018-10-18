@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-student-details',
@@ -12,9 +11,6 @@ export class StudentDetailsComponent implements OnInit {
   links: any;
   activeLink: string;
 
-  @SubscriptionCleaner()
-  subCollector;
-
   constructor(private route: ActivatedRoute) {
     this.links = [
       { label: 'פרטים אישיים', path: './personalInfo', dataTestId: 'personal-info-tab' },
@@ -25,10 +21,8 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subCollector.add(
-      this.route.params.subscribe((params) => {
-        this.idOrNew = params.idOrNew;
-      }),
-    );
+    this.route.params.subscribe((params) => {
+      this.idOrNew = params.idOrNew;
+    });
   }
 }
