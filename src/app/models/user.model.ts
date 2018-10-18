@@ -14,6 +14,7 @@ export class User {
 export enum UserType {
   PRINCIPLE = 'מנהל',
   TEACHER = 'מורה',
+  STUDENT = 'תלמיד',
 }
 
 // this is how it is represented in DB
