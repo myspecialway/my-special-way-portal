@@ -1,28 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Student Details Hours Component should render the component as described in snapshot 1`] = `
-<app-student-details-hours
-  dialog={[Function Object]}
-  route={[Function Object]}
-  schedule={[Function Array]}
-  scheduleService={[Function ScheduleService]}
-  studentService={[Function Object]}
->
-  <div
-    class="msw-student-details-hours"
-  >
-    <app-schedule />
-  </div>
-</app-student-details-hours>
-`;
-
 exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-hours
   dialog={[Function Object]}
   route={[Function Object]}
-  schedule={[Function Array]}
   scheduleService={[Function ScheduleService]}
-  studentService={[Function Object]}
+  studentService={[Function StudentService]}
 >
   <div
     class="msw-student-details-hours"
