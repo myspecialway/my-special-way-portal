@@ -94,7 +94,14 @@ export class ClassDetailsContainerComponent implements OnInit {
       return;
     }
 
-    const dialogData = this.getDialogData(indexes);
+    const { hourIndex, dayIndex } = indexes;
+    const dialogData = {
+      index: `${hourIndex}_${dayIndex}`,
+      lesson: this.schedule[hourIndex][dayIndex].lesson,
+      location: this.schedule[hourIndex][dayIndex].location,
+      hour: this.scheduleService.hoursLabels[hourIndex],
+      day: this.scheduleService.daysLabels[dayIndex],
+    } as ScheduleDialogData;
 
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
       data: dialogData,
@@ -158,17 +165,5 @@ export class ClassDetailsContainerComponent implements OnInit {
     } catch (err) {
       this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
     }
-  }
-
-  getDialogData(indexes: TimeSlotIndexes) {
-    const { hourIndex, dayIndex } = indexes;
-
-    return {
-      index: `${hourIndex}_${dayIndex}`,
-      lesson: this.schedule[hourIndex][dayIndex].lesson,
-      location: this.schedule[hourIndex][dayIndex].location,
-      hour: this.scheduleService.hoursLabels[hourIndex],
-      day: this.scheduleService.daysLabels[dayIndex],
-    } as ScheduleDialogData;
   }
 }
