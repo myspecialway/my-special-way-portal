@@ -1,4 +1,3 @@
-import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
@@ -9,7 +8,6 @@ import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.com
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
-import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
 
 @Component({
@@ -22,9 +20,6 @@ export class StudentDetailsHoursComponent implements OnInit {
   id: string;
   schedule: TimeSlot[][];
   student: Student;
-
-  @SubscriptionCleaner()
-  subCollector;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,56 +54,47 @@ export class StudentDetailsHoursComponent implements OnInit {
   }
 
   onTimeSlotClick(indexes: TimeSlotIndexes) {
-    const dialogData = this.getDialogData(indexes);
-
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
-      data: dialogData,
+      data: this.getDialogData(indexes),
       height: '375px',
       width: '320px',
     });
 
-    this.subCollector.add(
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (data: ScheduleDialogData) => {
-          if (!data) {
-            return;
-          }
-          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
-          const newCustomizedSlot: TimeSlot = {
-            index: data.index,
-            hours: data.hour,
-            lesson: data.lesson,
-            location: data.location,
-            customized: true,
-          };
-          const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
+    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
+      if (!data) {
+        return;
+      }
+      const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
+      const newCustomizedSlot: TimeSlot = {
+        index: data.index,
+        lesson: data.lesson,
+        location: data.location,
+        customized: true,
+      };
+      const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
 
-          const tempStudent: StudentQuery = {
-            _id: this.student._id,
-            username: this.student.username,
-            firstname: this.student.firstname,
-            lastname: this.student.lastname,
-            gender: this.student.gender,
-            password: this.student.password,
-            class_id: this.student.class._id,
-            schedule: newCustomizedSchedule,
-          };
-          try {
-            await this.studentService.update(tempStudent);
-            this.student = await this.studentService.getById(this.id);
-            this.initSchedule();
-          } catch (error) {
-            console.log(error);
-          }
-        }),
-    );
+      const tempStudent: StudentQuery = {
+        _id: this.student._id,
+        username: this.student.username,
+        firstname: this.student.firstname,
+        lastname: this.student.lastname,
+        gender: this.student.gender,
+        password: this.student.password,
+        class_id: this.student.class._id,
+        schedule: newCustomizedSchedule,
+      };
+      try {
+        await this.studentService.update(tempStudent);
+        this.student = await this.studentService.getById(this.id);
+        this.initSchedule();
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 
   getDialogData(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
-
     return {
       index: `${hourIndex}_${dayIndex}`,
       lesson: this.schedule[hourIndex][dayIndex].lesson,
