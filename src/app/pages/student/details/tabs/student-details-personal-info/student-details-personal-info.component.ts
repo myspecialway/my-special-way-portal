@@ -4,7 +4,6 @@ import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-student-details-personal-info',
@@ -17,9 +16,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   isNewStudent: boolean;
   idOrNew: string;
 
-  @SubscriptionCleaner()
-  subCollector;
-
   constructor(
     private studentService: StudentService,
     private classService: ClassService,
@@ -29,11 +25,9 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
-      this.subCollector.add(
-        this.route.parent.params.subscribe((params) => {
-          this.idOrNew = params.idOrNew;
-        }),
-      );
+      this.route.parent.params.subscribe((params) => {
+        this.idOrNew = params.idOrNew;
+      });
     }
 
     this.populateClasses();
