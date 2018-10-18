@@ -11,7 +11,6 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import { Router } from '@angular/router';
-import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
   selector: 'app-grade',
@@ -27,9 +26,6 @@ export class ClassComponent implements OnInit {
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
-
-  @SubscriptionCleaner()
-  subCollector;
 
   constructor(
     private classService: ClassService,
@@ -63,13 +59,11 @@ export class ClassComponent implements OnInit {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
       });
-      this.subCollector.add(
-        dialogRef.afterClosed().subscribe(async (result) => {
-          if (result === true) {
-            await this.classService.delete(_id);
-          }
-        }),
-      );
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result === true) {
+          await this.classService.delete(_id);
+        }
+      });
     }
   }
 

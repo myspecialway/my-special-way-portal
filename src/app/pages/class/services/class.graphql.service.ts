@@ -1,4 +1,3 @@
-import { GET_ALL_CLASSES, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME, MUTATE_UPDATE_CLASS } from './class.graphql';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -6,9 +5,54 @@ import { Class, ClassQuery, InputClass } from '../../../models/class.model';
 import { catchError, map } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 
+// TODO: refactor to using gql fragments, but know that it'll raise error related to __typename field that we configured to be emitted
+// need to rethink it
+const allClassFields = `
+_id
+name
+grade
+schedule {
+  index
+  lesson {
+    title
+    icon
+  }
+  location {
+    name
+    disabled
+    position {
+      latitude
+      longitude
+      floor
+    }
+  }
+}`;
+
+const GET_ALL_CLASSES = gql`
+  {
+    classes {
+      _id
+      grade
+      name
+      students {
+        _id
+        firstname
+      }
+    }
+  }
+`;
+
 @Injectable()
 export class ClassService {
   constructor(private apollo: Apollo) {}
+
+  updateClass = gql`
+    mutation updateClass($id: ID!, $class: InputClass!) {
+      updateClass(id: $id, class: $class) {
+        ${allClassFields}
+      }
+    }
+  `;
 
   getAllClasses() {
     return this.apollo
@@ -28,16 +72,22 @@ export class ClassService {
   classById(id: string) {
     return this.apollo
       .query<ClassQuery>({
-        query: QUERY_GET_CLASS_BY_ID,
-        variables: { id },
+        query: gql`{
+        classById(id: "${id}") {
+          ${allClassFields}
+        }
+      }`,
       })
       .toPromise()
       .then((res) => res.data.classById);
   }
   classByName(name: string) {
     return this.apollo.query<ClassQuery>({
-      query: QUERY_GET_CLASS_BY_NAME,
-      variables: { name },
+      query: gql`{
+        classByName(name: "${name}") {
+          ${allClassFields}
+        }
+      }`,
     });
   }
 
@@ -75,15 +125,14 @@ export class ClassService {
     }
     return this.apollo
       .mutate({
-        mutation: MUTATE_UPDATE_CLASS,
+        mutation: this.updateClass,
         variables: {
           id: _class._id,
           class: inputClass,
         },
         refetchQueries: [
           {
-            query: QUERY_GET_CLASS_BY_ID,
-            variables: { id: _class._id },
+            query: GET_ALL_CLASSES,
           },
         ],
         awaitRefetchQueries: true,
