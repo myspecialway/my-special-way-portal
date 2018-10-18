@@ -1,4 +1,3 @@
-import { first } from 'rxjs/operators';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
@@ -12,8 +11,6 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import { Router } from '@angular/router';
-import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-grade',
@@ -30,30 +27,24 @@ export class ClassComponent implements OnInit {
   @ViewChild('table')
   table: ElementRef;
 
-  @SubscriptionCleaner()
-  subCollector;
-
   constructor(
     private classService: ClassService,
     public dialog: MatDialog,
     public scheduleService: ScheduleService,
     private mswSnackbar: MSWSnackbar,
     private router: Router,
-    private translate: TranslateService,
   ) {}
 
-  ngOnInit() {
-    this.populateDatasource();
+  async ngOnInit() {
+    await this.populateDatasource();
     this.dataSource.sort = this.sort;
   }
 
-  private populateDatasource() {
+  private async populateDatasource() {
     try {
-      this.subCollector.add(
-        this.classService.getAllClasses().subscribe((classes) => {
-          this.dataSource.data = [...classes];
-        }),
-      );
+      this.classService.getAllClasses().subscribe((classes) => {
+        this.dataSource.data = [...classes];
+      });
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
@@ -63,23 +54,16 @@ export class ClassComponent implements OnInit {
 
   deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
-      this.translate.get('CLASS.COULD_NOT_DELETE_CLASS').subscribe((msg: string) => {
-        this.mswSnackbar.displayTimedMessage(msg);
-      });
+      this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
       });
-      this.subCollector.add(
-        dialogRef
-          .afterClosed()
-          .pipe(first())
-          .subscribe(async (result) => {
-            if (result === true) {
-              await this.classService.delete(_id);
-            }
-          }),
-      );
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result === true) {
+          await this.classService.delete(_id);
+        }
+      });
     }
   }
 
