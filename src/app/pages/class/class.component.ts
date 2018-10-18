@@ -11,8 +11,6 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import { Router } from '@angular/router';
-import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-grade',
@@ -20,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent implements OnInit {
-  displayedColumns = ['classname', 'level', 'deleteClass'];
+  displayedColumns = ['name', 'level', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
@@ -29,16 +27,12 @@ export class ClassComponent implements OnInit {
   @ViewChild('table')
   table: ElementRef;
 
-  @SubscriptionCleaner()
-  subCollector;
-
   constructor(
     private classService: ClassService,
     public dialog: MatDialog,
     public scheduleService: ScheduleService,
     private mswSnackbar: MSWSnackbar,
     private router: Router,
-    private translate: TranslateService,
   ) {}
 
   async ngOnInit() {
@@ -60,20 +54,16 @@ export class ClassComponent implements OnInit {
 
   deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
-      this.translate.get('CLASS.COULD_NOT_DELETE_CLASS').subscribe((msg: string) => {
-        this.mswSnackbar.displayTimedMessage(msg);
-      });
+      this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
       });
-      this.subCollector.add(
-        dialogRef.afterClosed().subscribe(async (result) => {
-          if (result === true) {
-            await this.classService.delete(_id);
-          }
-        }),
-      );
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result === true) {
+          await this.classService.delete(_id);
+        }
+      });
     }
   }
 
