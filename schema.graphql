@@ -31,8 +31,24 @@ type ListMetadata {
 }
 
 type Mutation {
-  createUser(id: ID!, userName: String!, firstName: String!, lastName: String!, email: String!, userType: String!, class_id: ID!): User
-  updateUser(id: ID!, userName: String, firstName: String, lastName: String, email: String, userType: String, class_id: ID): User
+  createUser(
+    id: ID!
+    userName: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    userType: String!
+    class_id: ID!
+  ): User
+  updateUser(
+    id: ID!
+    userName: String
+    firstName: String
+    lastName: String
+    email: String
+    userType: String
+    class_id: ID
+  ): User
   removeUser(id: ID!): Boolean
   createClass(id: ID!, level: Int!, number: Int!, name: String!): Class
   updateClass(id: ID!, level: Int, number: Int, name: String): Class
@@ -46,6 +62,7 @@ type Query {
   Class(id: ID!): Class
   allClasses(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ClassFilter): [Class]
   _allClassesMeta(page: Int, perPage: Int, filter: ClassFilter): ListMetadata
+  labels(type: LabelType!): [Label]
 }
 
 type User {

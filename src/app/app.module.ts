@@ -1,3 +1,4 @@
+import { LabelsService } from './services/label/label.graphql.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -120,6 +121,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     LessonService,
     ScheduleService,
     LocationService,
+    LabelsService,
     MSWSnackbar,
   ],
   bootstrap: [AppComponent],

@@ -1,3 +1,5 @@
+import { LabelType, Label } from './../../models/label.model';
+import { LabelsService } from './../label/label.graphql.service';
 import { Injectable } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
 
@@ -12,23 +14,19 @@ export class ScheduleService {
     f: 'ו',
   };
   daysLabels = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
-  hoursLabels = [
-    '07:30 - 08:00',
-    '08:00 - 08:50',
-    '08:50 - 09:35',
-    '09:35 - 10:00',
-    '10:00 - 10:30',
-    '10:30 - 11:15',
-    '11:15 - 12:00',
-    '12:00 - 12:45',
-    '12:45 - 13:15',
-    '13:15 - 13:45',
-    '13:45 - 14:30',
-    '14:30 - 15:15',
-    '15:15 - 16:00',
-    '16:00 - 16:30',
-    '16:30 - 16:45',
-  ];
+  hoursLabels: string[];
+
+  constructor(private labelsService: LabelsService) {
+    this.getHoursLabels();
+  }
+
+  getHoursLabels() {
+    this.labelsService.getLabelsByType(LabelType.CLASS_HOURS).then((data) => {
+      const labels: Label[] = [...data.data.labelsByType];
+      labels.sort((a, b) => (a.index || 0) - (b.index || 0));
+      this.hoursLabels = labels.map((label) => label.text);
+    });
+  }
 
   buildScheduleFromTimeslots(hoursCount: number, daysCount: number, timeslots: TimeSlot[]): TimeSlot[][] {
     const schedule: TimeSlot[][] = [];
