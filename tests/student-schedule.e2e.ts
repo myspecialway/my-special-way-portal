@@ -3,36 +3,40 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import StudentPage from './pageobjects/students.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
-import LessonsPage from './pageobjects/lessons.po';
 import { Selector } from 'testcafe';
-import MapPage from './pageobjects/map-details.po';
+// todo change before and after
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const studentPage = new StudentPage();
 const classDetailsPage = new ClassDetailsPage();
-const lessonPage = new LessonsPage();
-const mapPage = new MapPage();
 
 const createNewScheduleCell = async (t) => {
   await t
+    // .expect(studentPage.scheduleEmptyCell.textContent)
+    // .contains('add')
     .click(studentPage.scheduleEmptyCell)
     .click(classDetailsPage.editCellLesson)
     .click(classDetailsPage.lessonOption)
     .click(classDetailsPage.editCellLocation)
     .click(classDetailsPage.locationOption);
 };
-const getLessonListFromSchedule = async (t) => {
-  await t.pressKey('enter');
-  await t.pressKey('down').setTestSpeed(0.1);
-  await t.pressKey('enter');
 
-  for (let row = 1; row <= (await Selector('.mat-select-content').childElementCount) - 1; row++) {
-    studentPage.scheduleLessonList[row - 1] = await studentPage.scheduleCellLesson.nth(row).textContent;
-    studentPage.scheduleLessonList[row - 1].trim();
-  }
-  return studentPage.scheduleLessonList;
+const getTable = async (t) => {
+  const container = await Selector('table');
+  console.log('container.childElementCount:', container.childElementCount);
+
+  await t
+    // .expect('table').childElementCount
+    // .contains('add')
+    .click(studentPage.scheduleEmptyCell)
+    .click(classDetailsPage.editCellLesson)
+    .click(classDetailsPage.lessonOption)
+    .click(classDetailsPage.editCellLocation)
+    .click(classDetailsPage.locationOption);
 };
+//
+//
 
 fixture(`Student Schedule tests`)
   .page(testEnvironment.feUrl)
@@ -45,6 +49,11 @@ fixture(`Student Schedule tests`)
   });
 
 test('should open popup on click on empty cell', async (t) => {
+  // this.getStudentScheduleTableRowsNumber();
+  // await studentPage.findEmptyCell(await studentPage.getStudentScheduleTableRowsNumber());
+  // classDetailsPage.scheduleEmptyCell = Selector('tbody tr:nth-child(' + studentPage.currentRowNumber + ') td:nth-child(' + studentPage.currentColumnNumber + ')');
+  console.log('final row ' + this.currentRowNumber + ' final col ' + this.currentColumnNumber);
+
   await t.click(studentPage.scheduleEmptyCell);
   await t.expect(classDetailsPage.editCellDialogue.exists).ok();
 });
@@ -62,6 +71,19 @@ test('should be able to discard changes inside popup', async (t) => {
   await t.expect(studentPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(studentPage.scheduleEmptyCell.textContent).contains('add');
 });
+
+// verify correct hour displayed on schedule popup opened
+
+test('should display correct time frame on the new schedule cell displayed', async (t) => {
+  // await createNewScheduleCell(t);
+  // await t.expect(classDetailsPage.timeSlotInfoOnStudentSchedule).contains("");
+  //
+  // await t.click(classDetailsPage.editCellCloseButton);
+  // await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
+  // await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('add');
+});
+
+//verify update button state
 
 test('update button disabled when location/subject is empty', async (t) => {
   await t
@@ -115,15 +137,6 @@ test('update button enabled when fill-in location and lesson', async (t) => {
     .notOk();
 });
 
-test('update button enabled when fill-in location and lesson', async (t) => {
-  await t
-    .click(studentPage.scheduleEmptyCell)
-    .doubleClick(classDetailsPage.editCellLesson)
-    .doubleClick(classDetailsPage.editCellLocation)
-    .expect(classDetailsPage.editCellUpdateButton.hasAttribute('disabled'))
-    .notOk();
-});
-
 /**
  * close button of update schedule in different states
  */
@@ -155,76 +168,14 @@ test('close button enabled when just open the update schedule dialog', async (t)
     .expect(classDetailsPage.editCellCloseButton.hasAttribute('disabled'))
     .notOk();
 });
-
-test('on a cell opened verify the day displayed on the header equals to day from schedule table.', async (t) => {
-  await t.click(studentPage.scheduleEmptyCell);
-
-  await t
-    .expect(await studentPage.getSelectedSlotDayValue())
-    .contains(await studentPage.getScheduleTableDayValue(studentPage.currentColumnNumber));
-});
-
-test('on a cell opened verify header displays correct title', async (t) => {
-  await t.click(studentPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLocation);
-
-  await t.expect(await studentPage.getScheduleSlotHeader()).contains('עדכון מערכת שעות');
-});
-
-test('on a cell opened verify header displays correct timeframe', async (t) => {
-  await t.click(studentPage.scheduleEmptyCell);
-
-  await t
-    .expect(await studentPage.getSelectedSlotHour())
-    .contains(await studentPage.getScheduleTableHourValue(studentPage.currentRowNumber));
-});
-
-test('on a cell opened verify lesson alert message', async (t) => {
-  await t.click(studentPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLesson);
-  await t.pressKey('esc');
-  await t.expect(studentPage.errors.textContent).contains('חובה לבחור שיעור');
-  await t.expect(studentPage.errors.getStyleProperty('color')).eql('rgb(244, 67, 54)');
-});
-
-test('on a cell opened verify location alert message', async (t) => {
-  await t.click(studentPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLocation);
-  await t.pressKey('esc');
-  await t.expect(await studentPage.errors.nth(1).textContent).contains('חובה לבחור מיקום');
-  await t.expect(await studentPage.errors.nth(1).getStyleProperty('color')).eql('rgb(244, 67, 54)');
-});
-
-test('on a cell opened verify all Lessons Displayed In List', async (t) => {
-  // get lesson list from lesson page
-
-  await navbar.navigateToLessonsPage();
-  const lessonCount = await lessonPage.getLessonCount();
-  await lessonPage.getLessonList(lessonCount);
-  // on new student cell verify correct lesson list
-
-  await navbar.navigateToStudentsPage();
-  await studentPage.navigateToScheduleTab();
-  await t.click(studentPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLesson);
-  const count = await Selector('.mat-select-content').childElementCount;
-
-  await t.expect(count).eql(lessonCount);
-  await getLessonListFromSchedule(t);
-
-  for (let row = 0; row <= studentPage.scheduleLessonList.length - 1; row++) {
-    await t.expect(studentPage.scheduleLessonList[row].includes(lessonPage.lessonList[row]));
-  }
-});
-
-test('on a cell opened verify number locations Displayed In List', async (t) => {
-  await navbar.navigateToMapPage();
-  await mapPage.getFullLocationsList();
-  const listCount = (await mapPage.locationsList.length) / 2;
-  await navbar.navigateToStudentsPage();
-  await studentPage.navigateToScheduleTab();
-  await t.click(studentPage.scheduleEmptyCell);
-  await t.click(classDetailsPage.editCellLocation);
-  const count = await Selector('div .ng-trigger .mat-select-content').childElementCount;
-  await t.expect(count).lte(listCount);
-});
+//
+//
+// /**
+//  * verify update schedule title
+//  */
+//
+//
+// /**
+//  * verify update schedule correct timeframe
+//  * // todo fund out the day and hour of correct element
+//  */

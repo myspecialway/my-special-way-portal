@@ -24,15 +24,9 @@ export default class StudentsPage {
   scheduleTestUserNameCell: Selector;
   scheduleTestUserDeleteButton: Selector;
   confirmDeleteButton: Selector;
-  currentRowNumber: string;
-  currentColumnNumber: string;
+  currentRowNumber: number;
+  currentColumnNumber: number;
   scheduleEmptyCell: Selector;
-  scheduleSlotHeaderDay: Selector;
-  scheduleSlotHeaderHour: Selector;
-  scheduleSlotHeader: Selector;
-  errors: Selector;
-  scheduleCellLesson: Selector;
-  scheduleLessonList: string[];
 
   constructor() {
     this.userName = 'אבגדה';
@@ -57,12 +51,6 @@ export default class StudentsPage {
     this.scheduleTestUserNameCell = Selector('.username').withText(this.userName);
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="delete-user-button-' + this.userName + '"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
-    this.scheduleSlotHeaderDay = Selector('.timeslot-subtitle .timeslot-info:nth-child(1)');
-    this.scheduleSlotHeaderHour = Selector('.timeslot-subtitle .timeslot-info:nth-child(2)');
-    this.scheduleSlotHeader = Selector('h2.mat-dialog-title');
-    this.errors = Selector('[role=alert]');
-    this.scheduleCellLesson = Selector('.mat-select-content mat-option .mat-option-text');
-    this.scheduleLessonList = new Array();
   }
 
   /**
@@ -73,7 +61,6 @@ export default class StudentsPage {
     //If the user exists - delete it.
     try {
       if (await this.scheduleTestUserNameCell.visible) {
-        await t.hover(this.scheduleTestUserNameCell);
         await t.click(this.scheduleTestUserDeleteButton).click(this.confirmDeleteButton);
         await t.expect(this.scheduleTestUserNameCell.exists).notOk();
       }
@@ -105,7 +92,7 @@ export default class StudentsPage {
   async getStudentScheduleTableRowsNumber() {
     try {
       const container = await Selector('tbody');
-      // console.log((await container.childElementCount) + '   :number of rows');
+      console.log((await container.childElementCount) + '   :number of rows');
       return await container.childElementCount;
     } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
       return 0;
@@ -130,68 +117,21 @@ export default class StudentsPage {
 
   /**
    * @drieur
-   * get cell DayValue on the schedule table
-   * * @param coloumn
-   * @returns {Promise<void>}
-   */
-  async getScheduleTableDayValue(coloumn) {
-    coloumn--;
-    return await Selector('.mat-table .mat-header-row  .mat-header-cell:nth-child(' + coloumn + ')').innerText;
-  }
-
-  /**
-   * @drieur
-   * get cell DayValue on the selected opened scheduled slot
-   * @returns {Promise<void>}
-   */
-  async getSelectedSlotDayValue() {
-    try {
-      return await this.scheduleSlotHeaderDay.innerText;
-    } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
-      return '0';
-    }
-  }
-
-  /**
-   * @drieur
-   * get cell title value on the selected opened scheduled slot
-   * @returns {Promise<void>}
-   */
-  async getScheduleSlotHeader() {
-    try {
-      return await this.scheduleSlotHeader.innerText;
-    } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
-      return '0';
-    }
-  }
-
-  /**
-   * @drieur
-   * get cell header on the selected opened scheduled slot
-   * @returns {Promise<void>}
-   */
-  async getSelectedSlotHeader() {
-    return await this.scheduleSlotHeader.innerText;
-  }
-
-  /**
-   * @drieur
-   * get hour value on the schedule table
+   * get cellDayValue
    * @param row
+   * @param coloumn
    * @returns {Promise<void>}
    */
-  async getScheduleTableHourValue(row) {
-    return await Selector('.mat-table .mat-row:nth-child(' + row + ')  .mat-cell:nth-child(2)').innerText;
-  }
+  async getCellDayValue(row, coloumn) {}
 
   /**
    * @drieur
    * get cellHourValue
+   * @param row
+   * @param coloumn
    * @returns {Promise<void>}
    */
-  async getSelectedSlotHour() {
-    return await this.scheduleSlotHeaderHour.innerText;
-  }
+  async getCellHourValue(row, coloumn) {}
 
   /**
    * @drieur
@@ -200,6 +140,7 @@ export default class StudentsPage {
    * @returns {Promise<void>}
    */
   async findEmptyCell(totalRowNumber) {
+    console.log(totalRowNumber + 'total row number on find empty cell');
     let rowContent = 'initial';
     let row = 1;
     let isEmpty = false;
@@ -210,19 +151,14 @@ export default class StudentsPage {
       for (; col <= 6; col++) {
         rowContent = await this.getCellDisplayContentOnSchedule(row, col);
         if (rowContent.includes('add') && isEmpty === false) {
-          this.currentColumnNumber = col.toString();
-          this.currentRowNumber = row.toString();
+          this.currentColumnNumber = col;
+          this.currentRowNumber = row;
           isEmpty = true;
         }
       }
     }
     this.scheduleEmptyCell = Selector(
-      'tbody tr:nth-child(' + this.currentRowNumber + ' ) td:nth-child(' + this.currentColumnNumber + ')',
+      'tbody tr:nth-child(' + this.currentRowNumber + ') td:nth-child(' + this.currentColumnNumber + ')',
     );
-  }
-
-  async findLesson(row) {
-    const value = await this.scheduleCellLesson.nth(row).textContent;
-    return value.includes(row);
   }
 }
