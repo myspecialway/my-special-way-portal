@@ -43,16 +43,13 @@
 
         <mat-form-field class="username">
           <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
-                 autocomplete="new-username" required [minlength]="5" [pattern]="'^[א-תA-Za-z0-9]+$'">
+                 autocomplete="new-username" required [minlength]="5" [pattern]="'^[A-Za-z]+$'">
           <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
-          <mat-error data-test-id="username-format-length-err" *ngIf="username.hasError('pattern')">שם משתמש יכול להכיל אותיות וספרות בלבד</mat-error>
-          <mat-error data-test-id="username-format-pattern-err" *ngIf="username.hasError('minlength')">שם משתמש חייב להיות לפחות חמישה תווים</mat-error>
+          <mat-error data-test-id="username-format-err" *ngIf="username.hasError('minlength') || username.hasError('pattern')">שם משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
         </mat-form-field>
         <mat-form-field class="password">
-          <input matInput placeholder="סיסמא" [type]="showPassword ? 'text' : 'password'" [minlength]="8" [pattern]="'^(?=.*[א-תA-Za-z])(?=.*[0-9])[א-תA-Za-z0-9]{8,}$'" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
-          <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
           <mat-error data-test-id="password-err" *ngIf="!password.valid" class="help-block">נא הכנס סיסמה</mat-error>
-          <mat-error data-test-id="password-format-err" *ngIf="password.hasError('minlength') || password.hasError('pattern')">הסיסמא צריכה להכיל לפחות 8 תווים, כולל אותיות ומספרים</mat-error>
         </mat-form-field>
 
         <div mat-dialog-actions>
