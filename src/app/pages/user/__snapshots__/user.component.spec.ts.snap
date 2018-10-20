@@ -48,7 +48,7 @@ exports[`user component should render component as described in snapshot 1`] = `
             >
                add 
             </i>
-             הוספת משתמש חדש 
+             הוסף משתמש חדש 
           </button>
         </div>
       </div>
@@ -84,7 +84,6 @@ exports[`user component should render component as described in snapshot 1`] = `
             
             
             
-            --&gt; 
             
             
             
