@@ -109,7 +109,7 @@ export class ClassDetailsContainerComponent implements OnInit {
         _id: this._class._id,
         name: this._class.name,
         grade: this._class.grade,
-        schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
+        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location }],
       };
 
       try {
