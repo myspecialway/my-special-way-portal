@@ -27,6 +27,9 @@ export default class StudentsPage {
   currentRowNumber: number;
   currentColumnNumber: number;
   scheduleEmptyCell: Selector;
+  scheduleSlotHeaderDay: Selector;
+  scheduleSlotHeaderHour: Selector;
+  scheduleSlotHeader: Selector;
 
   constructor() {
     this.userName = 'אבגדה';
@@ -51,6 +54,9 @@ export default class StudentsPage {
     this.scheduleTestUserNameCell = Selector('.username').withText(this.userName);
     this.scheduleTestUserDeleteButton = Selector('[data-test-id$="delete-user-button-' + this.userName + '"]');
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
+    this.scheduleSlotHeaderDay = Selector('.timeslot-subtitle .timeslot-info:nth-child(1)');
+    this.scheduleSlotHeaderHour = Selector('.timeslot-subtitle .timeslot-info:nth-child(2)');
+    this.scheduleSlotHeader = Selector('.mat-dialog-title');
   }
 
   /**
@@ -92,7 +98,7 @@ export default class StudentsPage {
   async getStudentScheduleTableRowsNumber() {
     try {
       const container = await Selector('tbody');
-      console.log((await container.childElementCount) + '   :number of rows');
+      // console.log((await container.childElementCount) + '   :number of rows');
       return await container.childElementCount;
     } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
       return 0;
@@ -117,21 +123,62 @@ export default class StudentsPage {
 
   /**
    * @drieur
-   * get cellDayValue
-   * @param row
-   * @param coloumn
+   * get cell DayValue on the schedule table
+   * * @param coloumn
    * @returns {Promise<void>}
    */
-  async getCellDayValue(row, coloumn) {}
+  async getScheduleTableDayValue(coloumn) {
+    coloumn--;
+    return await Selector('.mat-table .mat-header-row  .mat-header-cell:nth-child(' + coloumn + ')').innerText;
+  }
+
+  /**
+   * @drieur
+   * get cell DayValue on the selected opened scheduled slot
+   * @returns {Promise<void>}
+   */
+  async getSelectedSlotDayValue() {
+    try {
+      // const container = await Selector('tbody tr:nth-child(' + row + ') td:nth-child(' + column + ')');
+      // return await container.innerText;
+      return await this.scheduleSlotHeaderDay.innerText;
+    } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
+      console.log('xxxxxx');
+      return '0';
+    }
+    // console.log('this is tge selected day on teh timeslot   '+await this.scheduleSlotHeaderDay.innerText)
+
+    // return Selector('.timeslot-subtitle .timeslot-info:nth-child(1)').textContent;
+    // console.log(Selector('.timeslot-subtitle .timeslot-info:nth-child(1)').textContent+"   8888")
+  }
+
+  /**
+   * @drieur
+   * get cell header on the selected opened scheduled slot
+   * @returns {Promise<void>}
+   */
+  async getSelectedSlotHeader() {
+    return await this.scheduleSlotHeader.innerText;
+  }
+
+  /**
+   * @drieur
+   * get hour value on the schedule table
+   * @param row
+   * @returns {Promise<void>}
+   */
+  async getScheduleTableHourValue(row) {
+    return await Selector('.mat-table .mat-row:nth-child(' + row + ')  .mat-cell:nth-child(2)').innerText;
+  }
 
   /**
    * @drieur
    * get cellHourValue
-   * @param row
-   * @param coloumn
    * @returns {Promise<void>}
    */
-  async getCellHourValue(row, coloumn) {}
+  async getSelectedSlotHour() {
+    return await this.scheduleSlotHeaderHour.innerText;
+  }
 
   /**
    * @drieur
@@ -140,7 +187,7 @@ export default class StudentsPage {
    * @returns {Promise<void>}
    */
   async findEmptyCell(totalRowNumber) {
-    console.log(totalRowNumber + 'total row number on find empty cell');
+    // console.log(totalRowNumber + 'total row number on find empty cell');
     let rowContent = 'initial';
     let row = 1;
     let isEmpty = false;
