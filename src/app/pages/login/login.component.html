@@ -20,6 +20,7 @@
             <input matInput placeholder="{{ 'LOGIN.PASSWORD' | translate}}" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
             <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility'
               : 'visibility_off'}}</mat-icon>
+                  <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
           </mat-form-field>
           <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">
             {{ 'LOGIN.INSERT_PASSWORD' | translate}} </div>
