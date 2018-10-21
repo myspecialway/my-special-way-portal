@@ -39,17 +39,19 @@ export class UserService {
       .toPromise();
   }
 
-  create(user: User) {
+  create({ username, email, firstname, lastname, role, class: _class }: User) {
+    const class_id = _class ? _class._id : undefined;
     return this.apollo
       .mutate({
         mutation: MUTATE_CREATE_USER,
         variables: {
           user: {
-            username: user.username,
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            role: user.role,
+            username,
+            email,
+            firstname,
+            lastname,
+            role,
+            class_id,
           },
         },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
@@ -57,18 +59,20 @@ export class UserService {
       .toPromise();
   }
 
-  update(user: User) {
+  update({ _id: id, username, email, firstname, lastname, role, class: _class }: User) {
+    const class_id = _class ? _class._id : undefined;
     return this.apollo
       .mutate({
         mutation: MUTATE_UPDATE_USER,
         variables: {
-          id: user._id,
+          id,
           user: {
-            username: user.username,
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            role: user.role,
+            username,
+            email,
+            firstname,
+            lastname,
+            role,
+            class_id,
           },
         },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
