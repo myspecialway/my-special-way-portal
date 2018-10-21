@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
@@ -11,6 +11,7 @@ export type UserTypeKey = keyof typeof UserType;
   selector: 'app-user-details-form',
   templateUrl: './user-details-form.html',
   styleUrls: ['./user-details-form.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
@@ -21,7 +22,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   formControl: FormControl;
   EmailFormControl: FormControl;
   selectUserType: FormControl;
-  selectGrade: FormControl;
+  selectClass: FormControl;
   userNameFormControl: FormControl;
   data: User;
 
@@ -81,7 +82,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     this.formControl = new FormControl('', [Validators.required]);
     this.EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
     this.selectUserType = new FormControl(null, Validators.required);
-    this.selectGrade = new FormControl({ disabled: this.getClassDisabled() }, Validators.required);
+    this.selectClass = new FormControl({ disabled: this.getClassDisabled() }, Validators.required);
     this.userNameFormControl = new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -96,7 +97,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
       username: this.userNameFormControl,
       email: this.EmailFormControl,
       role: this.selectUserType,
-      class: this.selectGrade,
+      class: this.selectClass,
     });
   }
 
