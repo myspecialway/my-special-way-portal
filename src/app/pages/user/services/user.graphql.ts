@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const QUERY_GET_ALL_USERS = gql`
-  {
+  query getAllUsers {
     users {
       _id
       username
@@ -9,6 +9,10 @@ export const QUERY_GET_ALL_USERS = gql`
       lastname
       email
       role
+      class {
+        name
+        _id
+      }
     }
   }
 `;
@@ -22,6 +26,10 @@ export const QUERY_GET_USER_BY_ID = gql`
       lastName
       email
       userType
+      class {
+        name
+        _id
+      }
     }
   }
 `;
