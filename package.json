@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.106",
+  "version": "0.0.87",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -13,8 +13,7 @@
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
-    "test:update": "jest --updateSnapshot",
-    "test": "jest -u --coverage",
+    "test": "jest --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "test:watch": "jest --watch --coverage",
     "start": "ng serve",
@@ -23,8 +22,11 @@
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",
     "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
+    "precommit": "yarn format:fix",
     "format:fix": "pretty-quick --staged",
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\"",
+    "dorit": "testcafe chrome tests/student-schedule.e2e.ts  --selector-timeout 10000 --speed 1 -r json > test.txt",
+    "doritTest": "testcafe chrome tests/doritTest.ts  --selector-timeout 10000 --speed 1 -r json > test.txt"
   },
   "private": true,
   "dependencies": {
@@ -42,8 +44,6 @@
     "@angular/platform-server": "6.0.7",
     "@angular/router": "6.0.7",
     "@auth0/angular-jwt": "1.2.0",
-    "@ngx-translate/core": "^10.0.2",
-    "@ngx-translate/http-loader": "^3.0.1",
     "ajv": "6.4.0",
     "apollo-angular": "^1.1.2",
     "apollo-angular-link-http": "^1.1.0",
@@ -121,8 +121,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format:fix",
-      "pre-push": "yarn tslint"
+      "pre-commit": "yarn format:fix"
     }
   },
   "jest": {
