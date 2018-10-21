@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 const MessageQuery = gql`
   {
@@ -17,11 +18,16 @@ export class DashboardComponent implements OnInit {
   messages = '';
   constructor(private apollo: Apollo) {}
 
+  @SubscriptionCleaner()
+  subCollector;
+
   ngOnInit() {
-    this.apollo
-      .query<any>({
-        query: MessageQuery,
-      })
-      .subscribe((x) => (this.messages = x.data.message));
+    this.subCollector.add(
+      this.apollo
+        .query<any>({
+          query: MessageQuery,
+        })
+        .subscribe((x) => (this.messages = x.data.message)),
+    );
   }
 }
