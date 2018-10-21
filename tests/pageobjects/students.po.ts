@@ -139,17 +139,11 @@ export default class StudentsPage {
    */
   async getSelectedSlotDayValue() {
     try {
-      // const container = await Selector('tbody tr:nth-child(' + row + ') td:nth-child(' + column + ')');
-      // return await container.innerText;
       return await this.scheduleSlotHeaderDay.innerText;
     } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
       console.log('xxxxxx');
       return '0';
     }
-    // console.log('this is tge selected day on teh timeslot   '+await this.scheduleSlotHeaderDay.innerText)
-
-    // return Selector('.timeslot-subtitle .timeslot-info:nth-child(1)').textContent;
-    // console.log(Selector('.timeslot-subtitle .timeslot-info:nth-child(1)').textContent+"   8888")
   }
 
   /**
@@ -187,7 +181,6 @@ export default class StudentsPage {
    * @returns {Promise<void>}
    */
   async findEmptyCell(totalRowNumber) {
-    // console.log(totalRowNumber + 'total row number on find empty cell');
     let rowContent = 'initial';
     let row = 1;
     let isEmpty = false;
