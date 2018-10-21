@@ -29,14 +29,12 @@ export class UserComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.subCollector.add(
-      this.userService.getAllUsers().subscribe((data) => {
-        this.dataSource.data = data;
-        this.dataSource.data = this.dataSource.data.filter((user) => {
-          return UserType[user.role] === UserType.TEACHER || UserType[user.role] === UserType.PRINCIPLE;
-        });
-      }),
-    );
+    this.userService.getAllUsers().subscribe((data) => {
+      this.dataSource.data = data;
+      this.dataSource.data = this.dataSource.data.filter((user) => {
+        return UserType[user.role] === UserType.TEACHER || UserType[user.role] === UserType.PRINCIPLE;
+      });
+    });
   }
 
   ngAfterViewInit() {
