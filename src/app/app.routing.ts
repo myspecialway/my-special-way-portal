@@ -15,6 +15,7 @@ import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tab
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
 import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
 import { UserType } from './models/user.model';
+import { MapContainerComponent } from './pages/maps/maps.container/map.container.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
@@ -70,6 +71,12 @@ const routes: Routes = [
       {
         path: 'lesson',
         component: LessonComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'map',
+        component: MapContainerComponent,
         canActivate: [AuthGuard],
         data: { expectedRole: [UserType.PRINCIPLE] },
       },
