@@ -13,8 +13,6 @@ const classDetailsPage = new ClassDetailsPage();
 
 const createNewScheduleCell = async (t) => {
   await t
-    // .expect(studentPage.scheduleEmptyCell.textContent)
-    // .contains('add')
     .click(studentPage.scheduleEmptyCell)
     .click(classDetailsPage.editCellLesson)
     .click(classDetailsPage.lessonOption)
@@ -22,21 +20,21 @@ const createNewScheduleCell = async (t) => {
     .click(classDetailsPage.locationOption);
 };
 
-const getTable = async (t) => {
-  const container = await Selector('table');
-  console.log('container.childElementCount:', container.childElementCount);
-
-  await t
-    // .expect('table').childElementCount
-    // .contains('add')
-    .click(studentPage.scheduleEmptyCell)
-    .click(classDetailsPage.editCellLesson)
-    .click(classDetailsPage.lessonOption)
-    .click(classDetailsPage.editCellLocation)
-    .click(classDetailsPage.locationOption);
-};
+// const getTable = async (t) => {
+//   const container = await Selector('table');
+//   console.log('container.childElementCount:', container.childElementCount);
 //
-//
+//   await t
+//     // .expect('table').childElementCount
+//     // .contains('add')
+//     .click(studentPage.scheduleEmptyCell)
+//     .click(classDetailsPage.editCellLesson)
+//     .click(classDetailsPage.lessonOption)
+//     .click(classDetailsPage.editCellLocation)
+//     .click(classDetailsPage.locationOption);
+// };
+// //
+// //
 
 fixture(`Student Schedule tests`)
   .page(testEnvironment.feUrl)
@@ -67,17 +65,6 @@ test('should be able to discard changes inside popup', async (t) => {
   await t.expect(studentPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
   await t.expect(studentPage.scheduleEmptyCell.textContent).contains('add');
 });
-
-test('should display correct time frame on the new schedule cell displayed', async (t) => {
-  // await createNewScheduleCell(t);
-  // await t.expect(classDetailsPage.timeSlotInfoOnStudentSchedule).contains("");
-  //
-  // await t.click(classDetailsPage.editCellCloseButton);
-  // await t.expect(classDetailsPage.scheduleEmptyCell.textContent).notContains('אומנות0 מעלית קומה');
-  // await t.expect(classDetailsPage.scheduleEmptyCell.textContent).contains('add');
-});
-
-// verify update button state
 
 test('update button disabled when location/subject is empty', async (t) => {
   await t
@@ -120,15 +107,16 @@ test('update button disabled when open the schedule dialog ', async (t) => {
     .ok();
 });
 
-// test('update button enabled when fill-in location and lesson', async (t) => {
-//   await t
-//     .expect(studentPage.scheduleEmptyCell.textContent)
-//     .contains('add')
-//     .click(studentPage.scheduleEmptyCell)
-//     .click(classDetailsPage.editCellLesson)
-//     .click(classDetailsPage.editCellLocation)
-//     .expect(classDetailsPage.editCellUpdateButton.hasAttribute('disabled')).notOk();
-// });
+test('update button enabled when fill-in location and lesson', async (t) => {
+  await t
+    .expect(studentPage.scheduleEmptyCell.textContent)
+    .contains('add')
+    .click(studentPage.scheduleEmptyCell)
+    .click(classDetailsPage.editCellLesson)
+    .click(classDetailsPage.editCellLocation)
+    .expect(classDetailsPage.editCellUpdateButton.hasAttribute('disabled'))
+    .notOk();
+});
 
 test('update button enabled when fill-in location and lesson', async (t) => {
   await t
