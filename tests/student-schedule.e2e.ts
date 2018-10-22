@@ -1,9 +1,8 @@
 import LoginPage from './pageobjects/login.po';
 import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
-import StudentPage, { default as StudentsPage } from './pageobjects/students.po';
+import StudentPage from './pageobjects/students.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
-import { Selector } from 'testcafe';
 // todo change before and after
 
 const loginPage = new LoginPage();
@@ -20,22 +19,6 @@ const createNewScheduleCell = async (t) => {
     .click(classDetailsPage.locationOption);
 };
 
-// const getTable = async (t) => {
-//   const container = await Selector('table');
-//   console.log('container.childElementCount:', container.childElementCount);
-//
-//   await t
-//     // .expect('table').childElementCount
-//     // .contains('add')
-//     .click(studentPage.scheduleEmptyCell)
-//     .click(classDetailsPage.editCellLesson)
-//     .click(classDetailsPage.lessonOption)
-//     .click(classDetailsPage.editCellLocation)
-//     .click(classDetailsPage.locationOption);
-// };
-// //
-// //
-
 fixture(`Student Schedule tests`)
   .page(testEnvironment.feUrl)
   .beforeEach(async (t) => {
@@ -47,7 +30,6 @@ fixture(`Student Schedule tests`)
   });
 
 test('should open popup on click on empty cell', async (t) => {
-  // console.log('final row ' + this.currentRowNumber + ' final col ' + this.currentColumnNumber);
   await t.click(studentPage.scheduleEmptyCell);
   await t.expect(classDetailsPage.editCellDialogue.exists).ok();
 });
