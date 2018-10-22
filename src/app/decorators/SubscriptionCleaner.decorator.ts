@@ -1,14 +1,21 @@
 import { Subscription } from 'rxjs/Subscription';
-import { verifyFunction, DEFAULT_HOOK_NAME } from './decorators.utils';
+import { verifyFunction, DEFAULT_INIT_HOOK, DEFAULT_DESTROY_HOOK } from './decorators.utils';
 
-export function SubscriptionCleaner(hookName = DEFAULT_HOOK_NAME): PropertyDecorator {
-  return (instance, propertyKey: string) => {
-    const oldMethod = verifyFunction(instance.constructor, hookName);
+export function SubscriptionCleaner(
+  initHook = DEFAULT_INIT_HOOK,
+  destroyHook = DEFAULT_DESTROY_HOOK,
+): PropertyDecorator {
+  return (instance, propertyName: string) => {
+    const originalNGonInit = verifyFunction(instance.constructor, initHook);
+    const originalNGonDestroy = verifyFunction(instance.constructor, destroyHook);
 
-    instance[propertyKey] = new Subscription();
-    instance.constructor.prototype[hookName] = function() {
-      instance[propertyKey].unsubscribe();
-      oldMethod.apply(this, arguments);
+    instance.constructor.prototype[initHook] = function(...args) {
+      this[propertyName] = new Subscription();
+      originalNGonInit.apply(this, args);
+    };
+    instance.constructor.prototype[destroyHook] = function(...args) {
+      this[propertyName].unsubscribe();
+      originalNGonDestroy.apply(this, args);
     };
   };
 }

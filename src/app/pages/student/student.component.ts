@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
@@ -23,8 +24,9 @@ export class StudentComponent implements OnInit {
 
   constructor(private studentService: StudentService, private dialog: MatDialog) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.dataSource.sort = this.sort;
+
     this.subCollector.add(
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
@@ -37,8 +39,10 @@ export class StudentComponent implements OnInit {
       data: { id, firstName, lastName, gradeId },
     });
 
-    this.subCollector.add(
-      dialogRef.afterClosed().subscribe(async (deletionConfirmed) => {
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (deletionConfirmed) => {
         if (!deletionConfirmed) {
           return;
         }
@@ -50,7 +54,6 @@ export class StudentComponent implements OnInit {
           console.error('Error handling not implemented');
           throw error;
         }
-      }),
-    );
+      });
   }
 }
