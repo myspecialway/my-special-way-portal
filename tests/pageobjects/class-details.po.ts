@@ -7,7 +7,6 @@ export default class ClassDetailsPage {
   gradeSelectOption: Selector;
   backToClassButton: Selector;
   classRow: Selector;
-  // scheduleEmptyCell: Selector;
   editCellDialogue: Selector;
   editCellLesson: Selector;
   editCellLocation: Selector;
@@ -23,10 +22,6 @@ export default class ClassDetailsPage {
     this.gradeSelectOption = Selector('.grade-select-option');
     this.backToClassButton = Selector('.back');
     this.classRow = Selector('.mat-row');
-    // this.scheduleEmptyCell = Selector('[role$="gridcell"]').nth(10);
-    // this.scheduleEmptyCell = Selector('[role$="gridcell"]').nth(11);// todo change to general read table structure
-    // this.scheduleEmptyCell = Selector('tbody tr:nth-child(' + row + ') td:nth-child(' + column + ')')
-
     this.editCellDialogue = Selector('[data-test-id$="edit-cell-dialogue"]');
     this.editCellLesson = Selector('[data-test-id$="lessons-dropdown"]');
     this.editCellLocation = Selector('[data-test-id$="locations-dropdown"]');
