@@ -1,5 +1,5 @@
 import { ClassComponent } from './class.component';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
@@ -26,6 +26,8 @@ describe('class component', () => {
   let scheduleServiceMock: Partial<ScheduleService>;
   let snackbarMock: Partial<MSWSnackbar>;
   let routeMock: Partial<Router>;
+  let fixture: ComponentFixture<ClassComponent>;
+  let component: ClassComponent;
 
   beforeEach(async () => {
     classServiceMock = {
@@ -80,10 +82,13 @@ describe('class component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
+
+    fixture = TestBed.createComponent(ClassComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should render component as described in snapshot', () => {
-    const fixture = TestBed.createComponent(ClassComponent);
     expect(fixture).toMatchSnapshot();
   });
 
@@ -91,8 +96,8 @@ describe('class component', () => {
     (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 0);
+
+    component.deleteClass('123', 'ddd', 'ddd', 0);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -101,8 +106,7 @@ describe('class component', () => {
     (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(0);
     });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
+    component.deleteClass('123', 'ddd', 'ddd', 1);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).not.toHaveBeenCalled();
   });
@@ -111,8 +115,7 @@ describe('class component', () => {
     (classServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(0);
     });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.deleteClass('123', 'ddd', 'ddd', 1);
+    component.deleteClass('123', 'ddd', 'ddd', 1);
     const SnackbarMock = TestBed.get(MSWSnackbar);
     expect(SnackbarMock.displayTimedMessage).toHaveBeenCalled();
   });
@@ -121,8 +124,6 @@ describe('class component', () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(classTestData.classes);
     });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.detectChanges();
     const DialogMock = TestBed.get(ClassService);
     expect(DialogMock.getAllClasses).toHaveBeenCalled();
   });
@@ -131,25 +132,21 @@ describe('class component', () => {
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(classTestData.classes);
     });
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(23);
+    expect(component.dataSource.data.length).toEqual(23);
   });
   it('should load zero classes in case of promise reject', async () => {
     const getAllClassesMock = classServiceMock.getAllClasses as jest.Mock;
     getAllClassesMock.mockReset();
-    getAllClassesMock.mockRejectedValueOnce(0);
+    getAllClassesMock.mockImplementationOnce(() => Observable.of([]));
 
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+    // await fixture.whenRenderingDone();
+    component.ngOnInit();
+    expect(component.dataSource.data.length).toEqual(0);
   });
 
   it('should open edit-class-dialog ', () => {
-    const fixture = TestBed.createComponent(ClassComponent);
-    fixture.componentInstance.navigate('class/some-class-id');
+    component.navigate('class/some-class-id');
     expect(routeMock.navigate).toHaveBeenCalled();
   });
 });
