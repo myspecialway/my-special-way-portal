@@ -24,9 +24,7 @@
     "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
     "precommit": "yarn format:fix",
     "format:fix": "pretty-quick --staged",
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\"",
-    "dorit": "testcafe chrome tests/student-schedule.e2e.ts  --selector-timeout 10000 --speed 1 -r json > test.txt",
-    "doritTest": "testcafe chrome tests/doritTest.ts  --selector-timeout 10000 --speed 1 -r json > test.txt"
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
   },
   "private": true,
   "dependencies": {
