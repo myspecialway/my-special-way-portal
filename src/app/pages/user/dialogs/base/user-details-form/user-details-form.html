@@ -5,10 +5,6 @@
         <mat-form-field color="primary">
           <input tabindex="1" matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
             autocomplete='given-name' name="firstname" required>
-          <button type="button" mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear"
-            (click)="data.firstname=''">
-            <mat-icon>close</mat-icon>
-          </button>
           <mat-error *ngIf="formControl.invalid">שם פרטי הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
@@ -16,10 +12,6 @@
         <mat-form-field color="primary">
           <input matInput #input tabindex="3" formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
             autocomplete="username" name="username" required>
-          <button type="button" mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear"
-            (click)="data.username=''">
-            <mat-icon>close</mat-icon>
-          </button>
           <mat-error *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
             משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
@@ -43,10 +35,6 @@
         <mat-form-field color="primary">
           <input tabindex="2" matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
             autocomplete='family-name' name="lastname" required>
-          <button tabindex="0" type="button" mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear"
-            (click)="data.lastname=''">
-            <mat-icon>close</mat-icon>
-          </button>
           <mat-error *ngIf="formControl.invalid">שם משפחה הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
@@ -54,10 +42,6 @@
         <mat-form-field color="primary">
           <input tabindex="4" matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email"
             autocomplete='email' required email>
-          <button type="button" mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear"
-            (click)="data.email=''">
-            <mat-icon>close</mat-icon>
-          </button>
           <mat-error *ngIf="EmailFormControl.hasError('required')">אימייל הינו שדה חובה</mat-error>
           <mat-error *ngIf="EmailFormControl.hasError('email')">אימייל לא חוקי</mat-error>
         </mat-form-field>
