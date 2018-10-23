@@ -12,7 +12,7 @@
           <i class="material-icons">
             add
           </i>
-          הוספת משתמש חדש
+          הוסף משתמש חדש
         </button>
       </div>
     </div>
@@ -46,7 +46,6 @@
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{toHebrew(row.role)}}</mat-cell>
           </ng-container>
 
-          <!-- Progress Column -->
           <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.email}}</mat-cell>
@@ -55,15 +54,14 @@
           <ng-container matColumnDef="recoverpassword">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" style="text-decoration: underline">שחזר סיסמא</button>
+              <button class="recover-password-button" mat-icon-button color="primary">שחזר סיסמא</button>
             </mat-cell>
           </ng-container>
 
-          <!--&lt;!&ndash; State Column &ndash;&gt;-->
-          <ng-container matColumnDef="deleteUser">-->
+          <ng-container matColumnDef="deleteUser">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
+              <button class="delete-button" mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
