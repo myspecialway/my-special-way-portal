@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
@@ -39,16 +40,18 @@ export class ClassComponent implements OnInit {
     private router: Router,
   ) {}
 
-  async ngOnInit() {
-    await this.populateDatasource();
+  ngOnInit() {
+    this.populateDatasource();
     this.dataSource.sort = this.sort;
   }
 
-  private async populateDatasource() {
+  private populateDatasource() {
     try {
-      this.classService.getAllClasses().subscribe((classes) => {
-        this.dataSource.data = [...classes];
-      });
+      this.subCollector.add(
+        this.classService.getAllClasses().subscribe((classes) => {
+          this.dataSource.data = [...classes];
+        }),
+      );
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
@@ -64,11 +67,14 @@ export class ClassComponent implements OnInit {
         data: { _id, name, level },
       });
       this.subCollector.add(
-        dialogRef.afterClosed().subscribe(async (result) => {
-          if (result === true) {
-            await this.classService.delete(_id);
-          }
-        }),
+        dialogRef
+          .afterClosed()
+          .pipe(first())
+          .subscribe(async (result) => {
+            if (result === true) {
+              await this.classService.delete(_id);
+            }
+          }),
       );
     }
   }
