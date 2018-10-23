@@ -2,14 +2,14 @@
   <mat-dialog-content>
     <div class="msw-div-column-right">
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <input tabindex="1" matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
             autocomplete='given-name' name="firstname" required>
           <mat-error *ngIf="formControl.invalid">שם פרטי הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <input matInput #input tabindex="3" formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
             autocomplete="username" name="username" required>
           <mat-error *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
@@ -18,7 +18,7 @@
         </mat-form-field>
       </div>
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <mat-select tabindex="5" placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role"
             (valueChange)="onUserTypeChange($event)" autocomplete='role' required>
             <mat-option disabled>בחר</mat-option>
@@ -32,14 +32,14 @@
     </div>
     <div class="msw-div-column-left">
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <input tabindex="2" matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
             autocomplete='family-name' name="lastname" required>
           <mat-error *ngIf="formControl.invalid">שם משפחה הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <input tabindex="4" matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email"
             autocomplete='email' required email>
           <mat-error *ngIf="EmailFormControl.hasError('required')">אימייל הינו שדה חובה</mat-error>
@@ -47,7 +47,7 @@
         </mat-form-field>
       </div>
       <div class="msw-form-row">
-        <mat-form-field color="primary">
+        <mat-form-field color="primary" hideRequiredMarker>
           <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
            <mat-option disabled>בחר</mat-option>
            <mat-option *ngFor="let _class of classes" [value]="_class">
