@@ -7,6 +7,7 @@ exports[`user component should render component as described in snapshot 1`] = `
   displayedColumns={[Function Array]}
   resultsLength="0"
   sort={[Function MatSort]}
+  subCollector={[Function Subscription]}
   table={[Function ElementRef]}
   userService={[Function Object]}
 >
@@ -32,7 +33,7 @@ exports[`user component should render component as described in snapshot 1`] = `
             <span
               class="header-table-count-number"
             >
-              (
+              (2)
             </span>
           </div>
         </div>
@@ -64,6 +65,9 @@ exports[`user component should render component as described in snapshot 1`] = `
             matsortactive="firstName"
             matsortdirection="asc"
             matsortdisableclear=""
+            ng-reflect-active="firstName"
+            ng-reflect-direction="asc"
+            ng-reflect-disable-clear=""
           >
             
             

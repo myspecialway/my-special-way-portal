@@ -25,6 +25,7 @@ export class ClassService {
         }),
       );
   }
+
   classById(id: string) {
     return this.apollo
       .query<ClassQuery>({
