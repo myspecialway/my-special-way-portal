@@ -6,6 +6,8 @@ exports[`student component should render component as described in snapshot 1`] 
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  mayAddStudent="false"
+  mayDeleteStudent="false"
   sort={[Function MatSort]}
   studentService={[Function Object]}
   table="undefined"
@@ -36,7 +38,11 @@ exports[`student component should render component as described in snapshot 1`] 
             </span>
           </div>
         </div>
-        
+        <div
+          class="example-header msw-table-tools-header"
+        >
+          
+        </div>
       </div>
       <div
         class="row"
@@ -57,6 +63,9 @@ exports[`student component should render component as described in snapshot 1`] 
             
             
             
+            
+            
+            --&gt; 
             
             
             
