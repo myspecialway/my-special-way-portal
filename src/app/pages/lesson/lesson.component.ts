@@ -24,5 +24,7 @@ export class LessonComponent implements OnInit {
 
   addNewLesson() {}
 
-  deleteLesson(_id: number) {}
+  deleteLesson(_id: string) {
+    this.lessonService.delete(_id);
+  }
 }
