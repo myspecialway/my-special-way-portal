@@ -49,7 +49,7 @@ exports[`student component should render component as described in snapshot 1`] 
             >
                add 
             </i>
-             הוספת תלמיד חדש 
+             הוסף תלמיד חדש 
           </button>
         </div>
       </div>
