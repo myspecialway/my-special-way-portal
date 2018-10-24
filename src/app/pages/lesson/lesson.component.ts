@@ -34,8 +34,6 @@ export class LessonComponent implements OnInit {
       console.error('Error handling not implemented');
       throw error;
     }
-    //const lessons = await this.lessonService.getLessons();
-    //this.dataSource.data = [...lessons];
   }
 
   addNewLesson() {}
