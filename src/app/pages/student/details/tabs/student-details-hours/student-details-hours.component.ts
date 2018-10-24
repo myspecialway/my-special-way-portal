@@ -83,7 +83,7 @@ export class StudentDetailsHoursComponent implements OnInit {
             customized: true,
           };
           const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
-          
+
           const tempStudent: StudentQuery = {
             _id: this.student._id,
             username: this.student.username,
