@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { LessonQuery } from '../../models/lesson.model';
 import { FetchResult } from 'apollo-link';
+import { catchError, map } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 
 @Injectable()
 export class LessonService {
@@ -24,7 +26,31 @@ export class LessonService {
       .toPromise()
       .then((res) => res.data.lessons);
   }
-  public delete(lessonId: string): Promise<FetchResult<Record<string, any>>> {
+  //public getAllLessons(): Observable<{lessons:  LessonQuery[]}>{
+  public getAllLessons(): any {
+    return this.apollo
+      .watchQuery<{ lessons: LessonQuery[] }>({
+        query: gql`
+          {
+            lessons {
+              _id
+              title
+              icon
+            }
+          }
+        `,
+      })
+      .valueChanges.pipe(
+        map((res) => {
+          return res.data.lessons;
+        }),
+        catchError((err: TypeError) => {
+          console.warn('user.component::ngInInit:: empty stream recieved');
+          return observableOf([]);
+        }),
+      );
+  }
+  public async delete(lessonId: string): Promise<FetchResult<Record<string, any>>> {
     return this.apollo
       .mutate({
         mutation: gql`
