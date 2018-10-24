@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
+import { FormClassData } from '../../../models/FormClassData.model';
 
 export interface ClassDetailsEventParams {
   name: string;
@@ -23,6 +24,8 @@ export class ClassDetailsViewComponent {
   daysLabels: string[];
   @Input()
   hoursLabels: string[];
+  @Input()
+  selectedClassData: FormClassData;
   @Input()
   set name(name: string) {
     this._name = name || '';

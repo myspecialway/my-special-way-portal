@@ -13,7 +13,7 @@
         class="mat-cell cdk-column-position mat-column-position"
         *ngFor="let timeslot of row; index as dayIndex" 
         role="gridcell"
-        (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex})"
+        (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex, selectedClassData:selectedClassData})"
       >
         <div *ngIf="timeslot.lesson" class="ts-full">
           <span class="ts-lesson">{{timeslot.lesson.title}}</span>
