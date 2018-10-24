@@ -7,6 +7,7 @@ exports[`Student Details Hours Component should render the component as describe
   schedule={[Function Array]}
   scheduleService={[Function ScheduleService]}
   studentService={[Function Object]}
+  subCollector={[Function Subscription]}
 >
   <div
     class="msw-student-details-hours"
@@ -23,6 +24,7 @@ exports[`Student Details Hours Component with _new_ student path should render t
   schedule={[Function Array]}
   scheduleService={[Function ScheduleService]}
   studentService={[Function Object]}
+  subCollector={[Function Subscription]}
 >
   <div
     class="msw-student-details-hours"

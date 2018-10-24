@@ -56,6 +56,8 @@ describe('user component', () => {
 
   it('should render component as described in snapshot', () => {
     const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
     expect(fixture).toMatchSnapshot();
   });
 
@@ -64,6 +66,8 @@ describe('user component', () => {
       return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
     fixture.componentInstance.addNewUser();
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
@@ -84,6 +88,8 @@ describe('user component', () => {
       email: 'asdd@sdsd.com',
     };
     const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
     fixture.componentInstance.deleteUser(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
@@ -103,6 +109,8 @@ describe('user component', () => {
       email: 'asdd@sdsd.com',
     };
     const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
     fixture.componentInstance.updateUser(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();

@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
@@ -100,24 +101,27 @@ export class ClassDetailsContainerComponent implements OnInit {
       height: '375px',
       width: '320px',
     });
-    dialogRef.afterClosed().subscribe(async (data: ScheduleDialogData) => {
-      if (!data) {
-        return;
-      }
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (data: ScheduleDialogData) => {
+        if (!data) {
+          return;
+        }
 
-      const tempClass: Class = {
-        _id: this._class._id,
-        name: this._class.name,
-        grade: this._class.grade,
-        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location }],
-      };
+        const tempClass: Class = {
+          _id: this._class._id,
+          name: this._class.name,
+          grade: this._class.grade,
+          schedule: [{ index: data.index, lesson: data.lesson, location: data.location }],
+        };
 
-      try {
-        const updateClass = await this.classService.update(tempClass);
-        this._class = updateClass;
-        this.initSchedule();
-      } catch (error) {}
-    });
+        try {
+          const updateClass = await this.classService.update(tempClass);
+          this._class = updateClass;
+          this.initSchedule();
+        } catch (error) {}
+      });
   }
 
   onDetailChange(classDetails: ClassDetailsEventParams) {
