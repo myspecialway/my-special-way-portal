@@ -1,44 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { LessonQuery } from '../../models/lesson.model';
+import { LessonQuery, Lesson } from '../../models/lesson.model';
 import { FetchResult } from 'apollo-link';
 import { catchError, map } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
+
+const GET_ALL_LESSONS_QUERY = gql`
+  {
+    lessons {
+      _id
+      title
+      icon
+    }
+  }
+`;
+const DELETE_LESSON_QUERY = (lessonId) => gql`
+mutation {
+  deleteLesson(
+    id: "${lessonId}"
+  )
+}`;
 
 @Injectable()
 export class LessonService {
   constructor(private apollo: Apollo) {}
-
-  getLessons() {
+  public getAllLessons(): Observable<Lesson[]> {
     return this.apollo
-      .query<LessonQuery>({
-        query: gql`
-          {
-            lessons {
-              _id
-              title
-              icon
-            }
-          }
-        `,
-      })
-      .toPromise()
-      .then((res) => res.data.lessons);
-  }
-  //public getAllLessons(): Observable<{lessons:  LessonQuery[]}>{
-  public getAllLessons(): any {
-    return this.apollo
-      .watchQuery<{ lessons: LessonQuery[] }>({
-        query: gql`
-          {
-            lessons {
-              _id
-              title
-              icon
-            }
-          }
-        `,
+      .watchQuery<{ lessons: Lesson[] }>({
+        query: GET_ALL_LESSONS_QUERY,
       })
       .valueChanges.pipe(
         map((res) => {
@@ -50,26 +40,21 @@ export class LessonService {
         }),
       );
   }
+  getLessons() {
+    return this.apollo
+      .query<LessonQuery>({
+        query: GET_ALL_LESSONS_QUERY,
+      })
+      .toPromise()
+      .then((res) => res.data.lessons);
+  }
   public async delete(lessonId: string): Promise<FetchResult<Record<string, any>>> {
     return this.apollo
       .mutate({
-        mutation: gql`
-      mutation {
-        deleteLesson(
-          id: "${lessonId}"
-        )
-    }`,
+        mutation: DELETE_LESSON_QUERY(lessonId),
         refetchQueries: [
           {
-            query: gql`
-              {
-                lessons {
-                  _id
-                  title
-                  icon
-                }
-              }
-            `,
+            query: GET_ALL_LESSONS_QUERY,
           },
         ],
         awaitRefetchQueries: true,
