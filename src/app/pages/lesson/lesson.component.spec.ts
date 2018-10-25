@@ -3,12 +3,15 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LessonComponent } from './lesson.component';
 import { LessonService } from '../../services/lesson/lesson.graphql.service';
 import { Lesson } from '../../models/lesson.model';
-import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator } from '@angular/material';
+import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator, MatDialog } from '@angular/material';
+
+import { Observable } from 'rxjs-compat';
 
 describe('lesson component', () => {
   let lessonServiceMock: Partial<LessonService>;
   let lessonTestData: Lesson[] = [];
-
+  let lessonDialogMock: Partial<MatDialog>;
+  let lessonDialogMockValue: boolean;
   beforeAll(async () => {
     lessonTestData = [
       {
@@ -27,12 +30,22 @@ describe('lesson component', () => {
   beforeEach(async () => {
     lessonServiceMock = {
       getLessons: jest.fn(),
+      getAllLessons: jest.fn(),
+      delete: jest.fn(),
     };
-
+    lessonDialogMockValue = true;
+    lessonDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockImplementation(() => Observable.of(lessonDialogMockValue)),
+      }),
+    };
     TestBed.configureTestingModule({
       imports: [],
       declarations: [LessonComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
-      providers: [LessonService, { provide: LessonService, useValue: lessonServiceMock }],
+      providers: [
+        { provide: LessonService, useValue: lessonServiceMock },
+        { provide: MatDialog, useValue: lessonDialogMock },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     });
   });
@@ -45,6 +58,9 @@ describe('lesson component', () => {
   it('should load correct number of lesson ', async () => {
     (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.getAllLessons as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(lessonTestData);
     });
     const fixture = TestBed.createComponent(LessonComponent);
     fixture.detectChanges();
@@ -60,5 +76,53 @@ describe('lesson component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
+  });
+
+  it('should should open delete dialoge when calling delete component ', async () => {
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.deleteLesson('1');
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonDialogMock.open).toHaveBeenCalled();
+    //expect(fixture.componentInstance.dataSource.data.length).toEqual(1);
+  });
+  it('should call delete lesson when user confirms ', async () => {
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+    lessonDialogMockValue = true;
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.deleteLesson('1');
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.delete).toHaveBeenCalledWith('1');
+  });
+
+  it('should not call delete lesson when user cancels ', async () => {
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+    lessonDialogMockValue = false;
+
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.deleteLesson('1');
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.delete).not.toHaveBeenCalled();
   });
 });

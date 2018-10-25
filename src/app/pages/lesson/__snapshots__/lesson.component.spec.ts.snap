@@ -3,6 +3,7 @@
 exports[`lesson component should render component as described in snapshot 1`] = `
 <app-lesson
   dataSource={[Function MatTableDataSource]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   lessonService={[Function Object]}
   sort={[Function MatSort]}
