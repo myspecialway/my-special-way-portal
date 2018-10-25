@@ -305,6 +305,20 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
+"@ngx-translate/core@^10.0.2":
+  version "10.0.2"
+  resolved "https://registry.npmjs.org/@ngx-translate/core/-/core-10.0.2.tgz#5eeb78f47845b476a1e892fb2fb153dbbaf72850"
+  integrity sha512-7nM3DrJaqKswwtJlbu2kuKNl+hE8Isr18sKsKvGGpSxQk+G0gO0reDlx2PhUNus7TJTkA1C59vU/JoN8hIvZ4g==
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngx-translate/http-loader@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@ngx-translate/http-loader/-/http-loader-3.0.1.tgz#20b0f98bc6c25321129d3e3302ab3cc489c0a42a"
+  integrity sha1-ILD5i8bCUyESnT4zAqs8xInApCo=
+  dependencies:
+    tslib "^1.9.0"
+
 "@schematics/angular@0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.7.1.tgz#29db78d148d3260e9bb545c86a4c6bfbaed9e933"
