@@ -1,42 +1,47 @@
 <div class="login-container">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-          <div class="login-card">
-            <div class="msw-login-logo-ph"></div>
-            <div class="msw-login-title">בדרכי שלי</div>
-            <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
-            <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-              <div class="form-row">
-                <mat-form-field
-                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
-                  [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input type="text" matInput placeholder="שם משתמש" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
-                </mat-form-field>
-                <div *ngIf="f.submitted && !username.valid" class="help-block" data-test-id="empty-username-err">נא הכנס שם משתמש</div>
-              </div>
-              <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <mat-form-field
-                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
-                  [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
-                  <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-                </mat-form-field>
-                <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
-                <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
-              </div>
-
-            </div>
-            <div class="card-footer">
-              <div class="msw-login-checkbox" >
-                <span >
-                  <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent" >זכור אותי</mat-checkbox>
-                </span>
-              </div>
-              <button mat-button>כניסה</button>
-              <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
-            </div>
+  <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <div class="login-card">
+      <div class="msw-login-logo-ph"></div>
+      <div class="msw-login-title">{{ 'LOGIN.MY_SPECIAL_WAY' | translate}}</div>
+      <div class="msw-login-subtitle">
+        {{ 'LOGIN.TITLE' | translate}}
+      </div>
+      <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <div class="form-row">
+          <mat-form-field [hideRequiredMarker]="formFieldOptions.value.hideRequired" [floatLabel]="formFieldOptions.value.floatLabel">
+            <input type="text" matInput placeholder="{{ 'LOGIN.USERNAME' | translate}}" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
+          </mat-form-field>
+          <div *ngIf="f.submitted && !username.valid" class="help-block" data-test-id="empty-username-err">
+            {{ 'LOGIN.INSERT_USERNAME' | translate}}
+          </div>
+        </div>
+        <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+          <mat-form-field [hideRequiredMarker]="formFieldOptions.value.hideRequired" [floatLabel]="formFieldOptions.value.floatLabel">
+            <input matInput placeholder="{{ 'LOGIN.PASSWORD' | translate}}" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
+            <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility'
+              : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+          <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">
+            {{ 'LOGIN.INSERT_PASSWORD' | translate}} </div>
+          <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">
+            {{ 'LOGIN.INVALID_USERNAME_OR_PASSWORD' | translate}} 
 
           </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="msw-login-checkbox">
+          <span>
+            <mat-checkbox [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent">
+              {{ 'LOGIN.REMEMBER_ME' | translate}}
+            </mat-checkbox>
+          </span>
+        </div>
+        <button mat-button> {{ 'LOGIN.LOGIN_BTN' | translate}}</button>
+        <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
+      </div>
 
-    </form>
+    </div>
+
+  </form>
 </div>
-

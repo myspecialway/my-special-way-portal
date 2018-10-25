@@ -7,6 +7,7 @@ import { UserType } from '../../models/user.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { pluck, filter, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -30,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   selectedMenuItemPath: string;
   routeSubscription: Subscription;
 
-  constructor(private apollo: Apollo, private router: Router) {
+  constructor(private apollo: Apollo, private router: Router, private translate: TranslateService) {
     this.subscribeToRouterEvents();
   }
 

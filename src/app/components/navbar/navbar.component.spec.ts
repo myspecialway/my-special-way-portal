@@ -8,6 +8,9 @@ import { ComponentsModule } from '../components.module';
 import { Apollo } from 'apollo-angular';
 import { Subject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../mocks/translate.stub';
+
 const fixUrl = (s) => s.replace(/^\/+/g, '');
 
 @Injectable()
@@ -50,7 +53,14 @@ describe('navbar component', () => {
         AuthenticationService,
         { provide: Router, useClass: RouterStub },
       ],
-      imports: [],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     });
     // const apollo = TestBed.get(HttpClient);
