@@ -4,6 +4,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { classTestData } from '../../../mocks/assets/classes.mock';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../mocks/translate.stub';
 import {
   Overlay,
   ScrollStrategyOptions,
@@ -63,7 +65,14 @@ describe('class component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       declarations: [ClassComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
       providers: [
         { provide: MatDialog, useValue: classDialogMock },
@@ -71,6 +80,7 @@ describe('class component', () => {
         { provide: ScheduleService, useValue: scheduleServiceMock },
         { provide: MSWSnackbar, useValue: snackbarMock },
         { provide: Router, useValue: routeMock },
+
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,

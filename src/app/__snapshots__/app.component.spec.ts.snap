@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dashboard component should render component as described in snapshot 1`] = `
-<app-root>
+<app-root
+  translate={[Function TranslateService]}
+>
   <div
     class="msw-wrapper wrapper"
   >
