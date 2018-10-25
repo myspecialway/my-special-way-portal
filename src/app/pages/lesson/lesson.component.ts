@@ -4,7 +4,7 @@ import { Lesson } from '../../models/lesson.model';
 import { LessonService } from '../../services/lesson/lesson.graphql.service';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { first } from 'rxjs/operators';
-import { DeleteClassDialogComponent } from '../class/dialogs/delete/delete-class.dialog';
+import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
 
 @Component({
   selector: 'app-lesson',
@@ -39,7 +39,7 @@ export class LessonComponent implements OnInit {
   addNewLesson() {}
 
   public async deleteLesson(_id: string) {
-    const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
       data: { _id, name, level: null },
     });
     this.subCollector.add(
