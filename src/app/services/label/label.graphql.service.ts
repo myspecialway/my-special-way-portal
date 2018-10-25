@@ -1,8 +1,7 @@
 import { QUERY_GET_LABELS_BY_TYPE, QUERY_GET_ALL_LABELS } from './label.graphql';
-import { LabelQuery, LabelType, Label } from './../../models/label.model';
+import { LabelQuery, LabelType } from './../../models/label.model';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 
 @Injectable()
 export class LabelsService {
