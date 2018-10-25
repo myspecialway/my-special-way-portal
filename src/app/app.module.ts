@@ -54,8 +54,6 @@ import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/s
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
 import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
-import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
-import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 
 import { SharedModule } from './shared.module';
 // AoT requires an exported function for factories
@@ -92,7 +90,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     LoginComponent,
     ClassComponent,
-    LessonComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,
@@ -102,7 +99,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
-    CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
   ],
@@ -114,7 +110,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
-    CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [
@@ -127,7 +122,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScheduleService,
     LocationService,
     MSWSnackbar,
-    PendingInterceptorServiceInterceptor,
   ],
   bootstrap: [AppComponent],
 })
