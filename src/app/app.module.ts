@@ -32,7 +32,6 @@ import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ClassComponent } from './pages/class/class.component';
-import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
@@ -54,9 +53,7 @@ import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/s
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
 import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
-import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
-import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 
 import { SharedModule } from './shared.module';
 // AoT requires an exported function for factories
@@ -93,7 +90,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     LoginComponent,
     ClassComponent,
-    LessonComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,
@@ -104,7 +100,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteLessonDialogComponent,
-    CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
   ],
@@ -117,7 +112,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
-    CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [
@@ -130,7 +124,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScheduleService,
     LocationService,
     MSWSnackbar,
-    PendingInterceptorServiceInterceptor,
   ],
   bootstrap: [AppComponent],
 })
