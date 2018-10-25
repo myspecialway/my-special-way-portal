@@ -12,6 +12,7 @@ import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { DeleteClassDialogComponent } from './dialogs/delete/delete-class.dialog';
 import { Router } from '@angular/router';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-grade',
@@ -37,6 +38,7 @@ export class ClassComponent implements OnInit {
     public scheduleService: ScheduleService,
     private mswSnackbar: MSWSnackbar,
     private router: Router,
+    private translate: TranslateService,
   ) {}
 
   async ngOnInit() {
@@ -58,7 +60,9 @@ export class ClassComponent implements OnInit {
 
   deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
-      this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
+      this.translate.get('CLASS.COULD_NOT_DELETE_CLASS').subscribe((msg: string) => {
+        this.mswSnackbar.displayTimedMessage(msg);
+      });
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
         data: { _id, name, level },
