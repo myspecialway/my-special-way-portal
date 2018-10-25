@@ -13,6 +13,7 @@ exports[`class component should render component as described in snapshot 1`] = 
   sort={[Function MatSort]}
   subCollector={[Function Subscription]}
   table={[Function ElementRef]}
+  translate={[Function TranslateService]}
 >
   <div
     class="main-content msw-class-container"
@@ -31,7 +32,7 @@ exports[`class component should render component as described in snapshot 1`] = 
             <span
               class="header-table-count-label"
             >
-              כיתות
+               CLASS.CLASSES
             </span>
             <span
               class="header-table-count-number"
@@ -48,12 +49,12 @@ exports[`class component should render component as described in snapshot 1`] = 
             data-test-id="add-class-button"
             mat-raised-button=""
           >
-            הוספת כיתה חדשה
+             CLASS.NEW_CLASS_BTN 
           </button>
         </div>
       </div>
       <div
-        class="row msw-table-container"
+        class="row"
       >
         <div
           class="col-lg-12 col-md-12 col-sm-12"
@@ -75,6 +76,7 @@ exports[`class component should render component as described in snapshot 1`] = 
             
             
             
+            --&gt; 
             
             
             
