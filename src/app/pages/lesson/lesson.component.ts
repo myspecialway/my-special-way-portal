@@ -5,6 +5,7 @@ import { LessonService } from '../../services/lesson/lesson.graphql.service';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { first } from 'rxjs/operators';
 import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lesson',
@@ -19,7 +20,7 @@ export class LessonComponent implements OnInit {
   sort: MatSort;
 
   @SubscriptionCleaner()
-  subCollector;
+  subCollector: Subscription;
   constructor(private lessonService: LessonService, public dialog: MatDialog) {}
 
   async ngOnInit() {
