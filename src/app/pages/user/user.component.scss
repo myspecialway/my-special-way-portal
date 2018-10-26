@@ -23,3 +23,21 @@
 .header-menu-container {
   padding-bottom: 29px;
 }
+.delete-button {
+  display: none;
+}
+
+.recover-password-button {
+  text-decoration: underline;
+  display: none;
+}
+
+.mat-row:hover {
+  .recover-password-button {
+    display: block;
+  }
+
+  .delete-button {
+    display: block;
+  }
+}
