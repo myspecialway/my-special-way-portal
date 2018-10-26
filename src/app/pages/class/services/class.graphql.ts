@@ -22,6 +22,7 @@ name
 grade
 schedule {
   index
+  hours
   lesson {
     title
     icon
