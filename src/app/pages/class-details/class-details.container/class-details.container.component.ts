@@ -54,7 +54,7 @@ export class ClassDetailsContainerComponent implements OnInit {
         this.idOrNew = params.idOrNew;
         this.isNew = this.idOrNew === '_new_';
         await this.initClass();
-        this.initSchedule();
+        await this.initSchedule();
       } catch (err) {
         console.log(err);
         throw new Error(err);
