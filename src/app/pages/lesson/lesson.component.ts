@@ -7,8 +7,6 @@ import { first } from 'rxjs/operators';
 import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
 import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
-import { Class } from '../../models/class.model';
-import { CantDeleteLessonDialogComponent } from './dialogs/cant-delete/cant-delete-lesson.dialog';
 
 @Component({
   selector: 'app-lesson',
@@ -41,9 +39,9 @@ export class LessonComponent implements OnInit {
 
   addNewLesson() {}
 
-  public async deleteLesson(_id: string, title: string) {
+  public async deleteLesson(_id: string, title: string = 'מולדת') {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
-      data: { _id, title },
+      data: { _id, name, level: null },
     });
     this.subCollector.add(
       dialogRef
@@ -51,27 +49,17 @@ export class LessonComponent implements OnInit {
         .pipe(first())
         .subscribe(async (result) => {
           if (result === true) {
-            const getAllClassesSub = this.classService
-              .getAllClasses()
-              .map((classes: Class[]) => this.filterClassesWithLesson(classes, title))
-              .subscribe((classesWithLessonTitle) => {
-                if (classesWithLessonTitle.length === 0) {
-                  this.lessonService.delete(_id);
-                } else {
-                  this.dialog.open(CantDeleteLessonDialogComponent, {
-                    data: { title, className: classesWithLessonTitle[0].name },
-                  });
-                }
-              });
-            this.subCollector.add(getAllClassesSub);
+            this.classService.classByLessonTitle(title).subscribe((classes) => {
+              if ((classes.data as any).classByLessonTitle.length === 0) {
+                this.lessonService.delete(_id);
+              } else {
+                alert('cant delete - used');
+              }
+
+              console.log(classes);
+            });
           }
         }),
-    );
-  }
-  private filterClassesWithLesson(classes: Class[], lessonTitle: string): Class[] {
-    return classes.filter(
-      (cls: Class) =>
-        cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson.title === lessonTitle).length > 0,
     );
   }
 }
