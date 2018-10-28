@@ -6,6 +6,11 @@ export const GET_ALL_CLASSES = gql`
       _id
       grade
       name
+      schedule {
+        lesson {
+          title
+        }
+      }
       students {
         _id
         firstname
@@ -51,6 +56,14 @@ export const QUERY_GET_CLASS_BY_NAME = gql`
           ${ALL_CLASS_FIELDS}
         }
       }`;
+
+export const QUERY_GET_CLASS_BY_LESSON_TITLE = gql`
+  query getClassByLEssonTitle($title: String!) {
+    classByLessonTitle(title: $title) {
+      _id
+    }
+  }
+`;
 
 export const MUTATE_UPDATE_CLASS = gql`
     mutation updateClass($id: ID!, $class: InputClass!) {
