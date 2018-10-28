@@ -17,14 +17,14 @@
 
       </div>
     </div>
-    <div class="row msw-table-container">
+    <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-table #table [dataSource]="dataSource" class="msw-table"
             matSort matSortActive="title" matSortDisableClear matSortDirection="asc">
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="title">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>שם שיעור</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> שם שיעור</mat-header-cell>
                   <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
                 </ng-container>
 
@@ -34,12 +34,12 @@
                   <mat-cell *matCellDef="let row">{{row.icon}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="deleteLesson">
-                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <ng-container matColumnDef="deleteLesson">-->
+                    <mat-header-cell *matHeaderCellDef>מחיקת שיעור</mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                      <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteLesson(row._id)"><i class="material-icons"> delete </i></button>
+                      <button mat-icon-button color="primary" (click)="deleteLesson(row._id, row.title)"><i class="material-icons"> delete </i></button>
                     </mat-cell>
-                </ng-container>
+                  </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
