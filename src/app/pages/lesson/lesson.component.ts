@@ -6,6 +6,7 @@ import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decora
 import { first } from 'rxjs/operators';
 import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
 import { Subscription } from 'rxjs';
+import { ClassService } from '../class/services/class.graphql.service';
 
 @Component({
   selector: 'app-lesson',
@@ -21,8 +22,7 @@ export class LessonComponent implements OnInit {
 
   @SubscriptionCleaner()
   subCollector: Subscription;
-  constructor(private lessonService: LessonService, public dialog: MatDialog) {}
-
+  constructor(private lessonService: LessonService, private classService: ClassService, public dialog: MatDialog) {}
   async ngOnInit() {
     try {
       this.subCollector.add(
@@ -39,7 +39,7 @@ export class LessonComponent implements OnInit {
 
   addNewLesson() {}
 
-  public async deleteLesson(_id: string) {
+  public async deleteLesson(_id: string, title: string = 'מולדת') {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
       data: { _id, name, level: null },
     });
@@ -49,7 +49,15 @@ export class LessonComponent implements OnInit {
         .pipe(first())
         .subscribe(async (result) => {
           if (result === true) {
-            await this.lessonService.delete(_id);
+            this.classService.classByLessonTitle(title).subscribe((classes) => {
+              if ((classes.data as any).classByLessonTitle.length === 0) {
+                this.lessonService.delete(_id);
+              } else {
+                alert('cant delete - used');
+              }
+
+              console.log(classes);
+            });
           }
         }),
     );
