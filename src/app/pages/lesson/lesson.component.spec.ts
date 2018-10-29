@@ -12,8 +12,10 @@ describe('lesson component', () => {
   let lessonServiceMock: Partial<LessonService>;
   let classServiceMock: Partial<ClassService>;
   let lessonTestData: Lesson[] = [];
+
   let lessonDialogMock: Partial<MatDialog>;
   let lessonDialogMockValue: boolean;
+  let cantDeleteDialogMock: Partial<MatDialog>;
   beforeAll(async () => {
     lessonTestData = [
       {
@@ -36,13 +38,16 @@ describe('lesson component', () => {
       delete: jest.fn(),
     };
     classServiceMock = {
-      getAllClasses: jest.fn().mockReturnValue(Observable.of([])),
+      getAllClasses: jest.fn().mockImplementation(() => Observable.of([])),
     };
     lessonDialogMockValue = true;
     lessonDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockImplementation(() => Observable.of(lessonDialogMockValue)),
       }),
+    };
+    cantDeleteDialogMock = {
+      open: jest.fn(),
     };
     TestBed.configureTestingModule({
       imports: [],
@@ -130,5 +135,27 @@ describe('lesson component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).not.toHaveBeenCalled();
+  });
+
+  it('should not call delete lesson when lesson is connected to class ', async () => {
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() =>
+      Observable.of([{ name: 'anyClass', schedule: [{ lesson: { title: 'anyTitle' } }] }]),
+    );
+    // user confirmsa
+    lessonDialogMockValue = true;
+
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.deleteLesson('1', 'anyTitle');
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.delete).not.toHaveBeenCalled();
+    expect(lessonDialogMock.open).toHaveBeenCalled();
   });
 });
