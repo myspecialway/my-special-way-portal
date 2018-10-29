@@ -2,6 +2,7 @@
 
 exports[`lesson component should render component as described in snapshot 1`] = `
 <app-lesson
+  classService={[Function Object]}
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
