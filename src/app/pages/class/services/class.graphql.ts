@@ -58,14 +58,6 @@ export const QUERY_GET_CLASS_BY_NAME = gql`
         }
       }`;
 
-// export const QUERY_GET_CLASS_BY_LESSON_TITLE = gql`
-//   query getClassByLEssonTitle($title: String!) {
-//     classByLessonTitle(title: $title) {
-//       _id
-//     }
-//   }
-// `;
-
 export const MUTATE_UPDATE_CLASS = gql`
     mutation updateClass($id: ID!, $class: InputClass!) {
       updateClass(id: $id, class: $class) {
