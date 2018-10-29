@@ -15,7 +15,7 @@ describe('lesson component', () => {
 
   let lessonDialogMock: Partial<MatDialog>;
   let lessonDialogMockValue: boolean;
-
+  let cantDeleteDialogMock: Partial<MatDialog>;
   beforeAll(async () => {
     lessonTestData = [
       {
@@ -46,7 +46,9 @@ describe('lesson component', () => {
         afterClosed: jest.fn().mockImplementation(() => Observable.of(lessonDialogMockValue)),
       }),
     };
-
+    cantDeleteDialogMock = {
+      open: jest.fn(),
+    };
     TestBed.configureTestingModule({
       imports: [],
       declarations: [LessonComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
@@ -154,5 +156,6 @@ describe('lesson component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).not.toHaveBeenCalled();
+    expect(lessonDialogMock.open).toHaveBeenCalled();
   });
 });
