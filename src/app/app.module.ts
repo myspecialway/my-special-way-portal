@@ -32,7 +32,6 @@ import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ClassComponent } from './pages/class/class.component';
-import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
@@ -92,7 +91,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     LoginComponent,
     ClassComponent,
-    LessonComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,
