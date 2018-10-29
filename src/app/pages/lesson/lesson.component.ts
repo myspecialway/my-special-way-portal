@@ -7,7 +7,6 @@ import { first } from 'rxjs/operators';
 import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
 import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
-import { cleanSession } from 'selenium-webdriver/safari';
 import { Class } from '../../models/class.model';
 
 @Component({
@@ -51,7 +50,7 @@ export class LessonComponent implements OnInit {
         .pipe(first())
         .subscribe(async (result) => {
           if (result === true) {
-            const sub = this.classService
+            const getAllClassesSub = this.classService
               .getAllClasses()
               .map((classes: Class[]) =>
                 classes.filter(
@@ -66,7 +65,7 @@ export class LessonComponent implements OnInit {
                   alert('cant delete - used');
                 }
               });
-            this.subCollector.add(sub);
+            this.subCollector.add(getAllClassesSub);
           }
         }),
     );
