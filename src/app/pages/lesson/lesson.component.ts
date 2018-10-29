@@ -8,6 +8,7 @@ import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dial
 import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
 import { Class } from '../../models/class.model';
+import { CantDeleteLessonDialogComponent } from './dialogs/cant-delete/cant-delete-lesson.dialog';
 
 @Component({
   selector: 'app-lesson',
@@ -42,7 +43,7 @@ export class LessonComponent implements OnInit {
 
   public async deleteLesson(_id: string, title: string) {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
-      data: { _id, name, level: null },
+      data: { _id, title },
     });
     this.subCollector.add(
       dialogRef
@@ -52,22 +53,25 @@ export class LessonComponent implements OnInit {
           if (result === true) {
             const getAllClassesSub = this.classService
               .getAllClasses()
-              .map((classes: Class[]) =>
-                classes.filter(
-                  (cls: Class) =>
-                    cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson.title === title).length > 0,
-                ),
-              )
-              .subscribe((classes1) => {
-                if (classes1.length === 0) {
+              .map((classes: Class[]) => this.filterClassesWithLesson(classes, title))
+              .subscribe((classesWithLessonTitle) => {
+                if (classesWithLessonTitle.length === 0) {
                   this.lessonService.delete(_id);
                 } else {
-                  alert('cant delete - used');
+                  this.dialog.open(CantDeleteLessonDialogComponent, {
+                    data: { title, className: classesWithLessonTitle[0].name },
+                  });
                 }
               });
             this.subCollector.add(getAllClassesSub);
           }
         }),
+    );
+  }
+  private filterClassesWithLesson(classes: Class[], lessonTitle: string): Class[] {
+    return classes.filter(
+      (cls: Class) =>
+        cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson.title === lessonTitle).length > 0,
     );
   }
 }
