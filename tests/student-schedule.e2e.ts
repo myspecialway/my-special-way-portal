@@ -3,12 +3,16 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import StudentPage from './pageobjects/students.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
-// todo change before and after
+import { Triggers } from 'eyes.sdk';
+import LessonsPage from './pageobjects/lessons.po';
+import MouseAction = Triggers.MouseAction;
+import { Selector } from 'testcafe';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const studentPage = new StudentPage();
 const classDetailsPage = new ClassDetailsPage();
+const lessonPage = new LessonsPage();
 
 const createNewScheduleCell = async (t) => {
   await t
@@ -17,6 +21,17 @@ const createNewScheduleCell = async (t) => {
     .click(classDetailsPage.lessonOption)
     .click(classDetailsPage.editCellLocation)
     .click(classDetailsPage.locationOption);
+};
+const getLessonListFromSchedule = async (t) => {
+  await t.pressKey('enter');
+  await t.pressKey('down').setTestSpeed(0.1);
+  await t.pressKey('enter');
+
+  for (let row = 1; row <= (await Selector('.mat-select-content').childElementCount) - 1; row++) {
+    studentPage.scheduleLessonList[row - 1] = await studentPage.scheduleCellLesson.nth(row).textContent;
+    studentPage.scheduleLessonList[row - 1].trim();
+  }
+  return studentPage.scheduleLessonList;
 };
 
 fixture(`Student Schedule tests`)
@@ -147,12 +162,13 @@ test('on a cell opened verify the day displayed on the header equals to day from
   await t
     .expect(await studentPage.getSelectedSlotDayValue())
     .contains(await studentPage.getScheduleTableDayValue(studentPage.currentColumnNumber));
-  // .expect(await studentPage.getScheduleTableDayValue(studentPage.currentColumnNumber)).contains(studentPage.getSelectedSlotDayValue);
 });
 
 test('on a cell opened verify header displays correct title', async (t) => {
   await t.click(studentPage.scheduleEmptyCell);
-  await t.expect(await studentPage.getSelectedSlotHeader()).contains('עדכון מערכת שעות');
+  await t.click(classDetailsPage.editCellLocation);
+
+  await t.expect(await studentPage.getScheduleSlotHeader()).contains('עדכון מערכת שעות');
 });
 
 test('on a cell opened verify header displays correct timeframe', async (t) => {
@@ -161,4 +177,44 @@ test('on a cell opened verify header displays correct timeframe', async (t) => {
   await t
     .expect(await studentPage.getSelectedSlotHour())
     .contains(await studentPage.getScheduleTableHourValue(studentPage.currentRowNumber));
+});
+
+test('on a cell opened verify lesson alert message', async (t) => {
+  await t.click(studentPage.scheduleEmptyCell);
+  await t.click(classDetailsPage.editCellLesson);
+  await t.pressKey('esc');
+  await t.expect(studentPage.errors.textContent).contains('חובה לבחור שיעור');
+  await t.expect(studentPage.errors.getStyleProperty('color')).eql('rgb(244, 67, 54)');
+});
+
+test('on a cell opened verify location alert message', async (t) => {
+  await t.click(studentPage.scheduleEmptyCell);
+  await t.click(classDetailsPage.editCellLocation);
+  await t.pressKey('esc');
+  await t.expect(await studentPage.errors.nth(1).textContent).contains('חובה לבחור מיקום');
+  await t.expect(await studentPage.errors.nth(1).getStyleProperty('color')).eql('rgb(244, 67, 54)');
+});
+
+test('on a cell opened verify all Lessons Displayed In List', async (t) => {
+  // get lesson list from lesson page
+
+  await navbar.navigateToLessonsPage();
+  const lessonCount = await lessonPage.getLessonCount();
+  await lessonPage.getLessonList(lessonCount);
+  // on new student cell verify correct lesson list
+
+  await navbar.navigateToStudentsPage();
+  await studentPage.navigateToScheduleTab();
+  await t.click(studentPage.scheduleEmptyCell);
+  await t.click(classDetailsPage.editCellLesson);
+  const count = await Selector('.mat-select-content').childElementCount;
+
+  await t.expect(count).eql(lessonCount);
+  await getLessonListFromSchedule(t);
+
+  for (let row = 0; row <= studentPage.scheduleLessonList.length - 1; row++) {
+    console.log(studentPage.scheduleLessonList[row] + '   ' + lessonPage.lessonList[row]);
+
+    await t.expect(studentPage.scheduleLessonList[row].includes(lessonPage.lessonList[row]));
+  }
 });

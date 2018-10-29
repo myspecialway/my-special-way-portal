@@ -24,12 +24,15 @@ export default class StudentsPage {
   scheduleTestUserNameCell: Selector;
   scheduleTestUserDeleteButton: Selector;
   confirmDeleteButton: Selector;
-  currentRowNumber: number;
-  currentColumnNumber: number;
+  currentRowNumber: string;
+  currentColumnNumber: string;
   scheduleEmptyCell: Selector;
   scheduleSlotHeaderDay: Selector;
   scheduleSlotHeaderHour: Selector;
   scheduleSlotHeader: Selector;
+  errors: Selector;
+  scheduleCellLesson: Selector;
+  scheduleLessonList: string[];
 
   constructor() {
     this.userName = 'אבגדה';
@@ -56,7 +59,10 @@ export default class StudentsPage {
     this.confirmDeleteButton = Selector('[id$="confirm-delete-user"');
     this.scheduleSlotHeaderDay = Selector('.timeslot-subtitle .timeslot-info:nth-child(1)');
     this.scheduleSlotHeaderHour = Selector('.timeslot-subtitle .timeslot-info:nth-child(2)');
-    this.scheduleSlotHeader = Selector('.mat-dialog-title');
+    this.scheduleSlotHeader = Selector('h2.mat-dialog-title');
+    this.errors = Selector('[role=alert]');
+    this.scheduleCellLesson = Selector('.mat-select-content mat-option .mat-option-text');
+    this.scheduleLessonList = new Array();
   }
 
   /**
@@ -67,6 +73,7 @@ export default class StudentsPage {
     //If the user exists - delete it.
     try {
       if (await this.scheduleTestUserNameCell.visible) {
+        await t.hover(this.scheduleTestUserNameCell);
         await t.click(this.scheduleTestUserDeleteButton).click(this.confirmDeleteButton);
         await t.expect(this.scheduleTestUserNameCell.exists).notOk();
       }
@@ -148,6 +155,19 @@ export default class StudentsPage {
 
   /**
    * @drieur
+   * get cell title value on the selected opened scheduled slot
+   * @returns {Promise<void>}
+   */
+  async getScheduleSlotHeader() {
+    try {
+      return await this.scheduleSlotHeader.innerText;
+    } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
+      return '0';
+    }
+  }
+
+  /**
+   * @drieur
    * get cell header on the selected opened scheduled slot
    * @returns {Promise<void>}
    */
@@ -191,14 +211,19 @@ export default class StudentsPage {
       for (; col <= 6; col++) {
         rowContent = await this.getCellDisplayContentOnSchedule(row, col);
         if (rowContent.includes('add') && isEmpty === false) {
-          this.currentColumnNumber = col;
-          this.currentRowNumber = row;
+          this.currentColumnNumber = col.toString();
+          this.currentRowNumber = row.toString();
           isEmpty = true;
         }
       }
     }
     this.scheduleEmptyCell = Selector(
-      'tbody tr:nth-child(' + this.currentRowNumber + ') td:nth-child(' + this.currentColumnNumber + ')',
+      'tbody tr:nth-child(' + this.currentRowNumber + ' ) td:nth-child(' + this.currentColumnNumber + ')',
     );
+  }
+
+  async findLesson(row) {
+    const value = await this.scheduleCellLesson.nth(row).textContent;
+    return value.includes(row);
   }
 }
