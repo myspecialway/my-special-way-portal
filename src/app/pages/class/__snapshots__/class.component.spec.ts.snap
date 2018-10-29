@@ -49,7 +49,12 @@ exports[`class component should render component as described in snapshot 1`] = 
             data-test-id="add-class-button"
             mat-raised-button=""
           >
-            הוספת כיתה חדשה
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף כיתה חדשה 
           </button>
         </div>
       </div>
