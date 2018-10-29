@@ -1,10 +1,4 @@
-import {
-  GET_ALL_CLASSES,
-  QUERY_GET_CLASS_BY_ID,
-  QUERY_GET_CLASS_BY_NAME,
-  MUTATE_UPDATE_CLASS,
-  QUERY_GET_CLASS_BY_LESSON_TITLE,
-} from './class.graphql';
+import { GET_ALL_CLASSES, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME, MUTATE_UPDATE_CLASS } from './class.graphql';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -47,12 +41,12 @@ export class ClassService {
       variables: { name },
     });
   }
-  classByLessonTitle(title: string) {
-    return this.apollo.query<ClassQuery>({
-      query: QUERY_GET_CLASS_BY_LESSON_TITLE,
-      variables: { title },
-    });
-  }
+  // classByLessonTitle(title: string) {
+  //   return this.apollo.query<ClassQuery>({
+  //     query: QUERY_GET_CLASS_BY_LESSON_TITLE,
+  //     variables: { title },
+  //   });
+  // }
 
   create(clss: Class | Partial<Class>) {
     return this.apollo
@@ -97,6 +91,9 @@ export class ClassService {
           {
             query: QUERY_GET_CLASS_BY_ID,
             variables: { id: _class._id },
+          },
+          {
+            query: GET_ALL_CLASSES,
           },
         ],
         awaitRefetchQueries: true,
