@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { LessonQuery, Lesson } from '../../models/lesson.model';
 import { FetchResult } from 'apollo-link';

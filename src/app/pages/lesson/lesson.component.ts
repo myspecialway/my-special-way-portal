@@ -7,6 +7,8 @@ import { first } from 'rxjs/operators';
 import { DeleteLessonDialogComponent } from './dialogs/delete/delete-lesson.dialog';
 import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
+import { cleanSession } from 'selenium-webdriver/safari';
+import { Class } from '../../models/class.model';
 
 @Component({
   selector: 'app-lesson',
@@ -39,7 +41,7 @@ export class LessonComponent implements OnInit {
 
   addNewLesson() {}
 
-  public async deleteLesson(_id: string, title: string = 'מולדת') {
+  public async deleteLesson(_id: string, title: string) {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
       data: { _id, name, level: null },
     });
@@ -49,15 +51,22 @@ export class LessonComponent implements OnInit {
         .pipe(first())
         .subscribe(async (result) => {
           if (result === true) {
-            this.classService.classByLessonTitle(title).subscribe((classes) => {
-              if ((classes.data as any).classByLessonTitle.length === 0) {
-                this.lessonService.delete(_id);
-              } else {
-                alert('cant delete - used');
-              }
-
-              console.log(classes);
-            });
+            const sub = this.classService
+              .getAllClasses()
+              .map((classes: Class[]) =>
+                classes.filter(
+                  (cls: Class) =>
+                    cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson.title === title).length > 0,
+                ),
+              )
+              .subscribe((classes1) => {
+                if (classes1.length === 0) {
+                  this.lessonService.delete(_id);
+                } else {
+                  alert('cant delete - used');
+                }
+              });
+            this.subCollector.add(sub);
           }
         }),
     );
