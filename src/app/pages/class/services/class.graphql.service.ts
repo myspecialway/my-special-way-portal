@@ -41,13 +41,6 @@ export class ClassService {
       variables: { name },
     });
   }
-  // classByLessonTitle(title: string) {
-  //   return this.apollo.query<ClassQuery>({
-  //     query: QUERY_GET_CLASS_BY_LESSON_TITLE,
-  //     variables: { title },
-  //   });
-  // }
-
   create(clss: Class | Partial<Class>) {
     return this.apollo
       .mutate({
