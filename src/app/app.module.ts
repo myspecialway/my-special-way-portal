@@ -54,6 +54,7 @@ import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
 import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
+import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 
 @NgModule({
   imports: [
@@ -99,6 +100,7 @@ import { PendingInterceptorServiceInterceptor } from './services/spinner/pending
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
   ],
@@ -110,6 +112,7 @@ import { PendingInterceptorServiceInterceptor } from './services/spinner/pending
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
+    CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [
