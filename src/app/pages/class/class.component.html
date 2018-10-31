@@ -29,11 +29,11 @@
             <mat-cell *matCellDef="let row" (click)="navigate(row._id)">{{ scheduleService.grades[row.grade] }}</mat-cell>
           </ng-container>
 
-          <!--&lt;!&ndash; State Column &ndash;&gt;-->
-          <ng-container matColumnDef="deleteClass">-->
+          <!-- State Column-->
+          <ng-container matColumnDef="deleteClass">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button [attr.data-test-id]="'delete-class-button-' + row.name" mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
+              <button class="delete-button" [attr.data-test-id]="'delete-class-button-' + row.name" mat-icon-button color="primary" (click)="deleteClass(row._id, row.name, row.level, row.students.length)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 

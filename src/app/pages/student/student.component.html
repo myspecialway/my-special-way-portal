@@ -34,7 +34,7 @@
             <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="deleteUser">-->
+          <ng-container matColumnDef="deleteUser">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username" [disabled]="!mayDeleteStudent"
