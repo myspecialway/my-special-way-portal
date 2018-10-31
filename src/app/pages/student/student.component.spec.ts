@@ -81,7 +81,7 @@ describe('student component', () => {
 
   it('should open dialog when calling deleteStudent function', () => {
     const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח');
+    fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח', 'MALE');
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -119,7 +119,7 @@ describe('student component', () => {
     });
 
     const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd');
+    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd', 'MALE');
 
     const serviceMock = TestBed.get(StudentService);
     expect(serviceMock.delete).toHaveBeenCalled();
@@ -133,7 +133,7 @@ describe('student component', () => {
 
     // when
     const fixture = TestBed.createComponent(StudentComponent);
-    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd');
+    fixture.componentInstance.deleteStudent(1, 'name', 'name', 'asd', 'MALE');
 
     // then
     expect(studentServiceMock.delete).not.toHaveBeenCalled();
@@ -146,7 +146,7 @@ describe('student component', () => {
 
     const fixture = TestBed.createComponent(StudentComponent).componentInstance;
 
-    expect(fixture.deleteStudent(1, 'a', 'a', 'a')).rejects.toEqual('oh no!');
+    expect(fixture.deleteStudent(1, 'a', 'a', 'a', 'MALE')).rejects.toEqual('oh no!');
   });
 
   xit('should display an error to the user when deleteStudent fails', () => {});
