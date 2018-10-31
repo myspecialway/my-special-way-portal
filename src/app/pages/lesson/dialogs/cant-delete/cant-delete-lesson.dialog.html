@@ -1,0 +1,10 @@
+<div class="container">
+    <h3 mat-dialog-title color="accent">מחיקת שיעור</h3>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+        לא ניתן למחוק את השיעור. '{{data.title}}' מקושר למערכת השעות של  {{data.className}}  </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onConfirmClick()" tabindex="-1">אישור</button>
+    </div>
+  </div>
+  

@@ -6,6 +6,11 @@ export const GET_ALL_CLASSES = gql`
       _id
       grade
       name
+      schedule {
+        lesson {
+          title
+        }
+      }
       students {
         _id
         firstname
