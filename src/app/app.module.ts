@@ -56,6 +56,9 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { AuthenticationModule } from '../authentication/authentication.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
@@ -86,6 +89,9 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
     MatDividerModule,
     MSWApolloModule,
     PagesModule,
+    AuthenticationModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot({}),
   ],
   declarations: [
     AppComponent,

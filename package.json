@@ -41,6 +41,8 @@
     "@angular/platform-server": "6.0.7",
     "@angular/router": "6.0.7",
     "@auth0/angular-jwt": "1.2.0",
+    "@ngrx/effects": "^6.1.2",
+    "@ngrx/store": "^6.1.1",
     "ajv": "6.4.0",
     "apollo-angular": "^1.1.2",
     "apollo-angular-link-http": "^1.1.0",
