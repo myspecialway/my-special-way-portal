@@ -11,6 +11,7 @@
 
 # IDEs and editors
 /.idea
+*.iml
 .project
 .classpath
 .c9/
@@ -51,3 +52,6 @@ reports
 
 #dynamic configuration file
 src/assets/config/hot-config.js
+
+#stryker
+.stryker-tmp/
