@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:recommended"],
+  "extends": "./node_modules/tslint/lib/configs/recommended",
   "rulesDirectory": ["node_modules/codelyzer"],
   "rules": {
     "arrow-return-shorthand": true,
