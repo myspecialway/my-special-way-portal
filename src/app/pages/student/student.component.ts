@@ -52,9 +52,9 @@ export class StudentComponent implements OnInit {
       });
   }
 
-  async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string) {
+  async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string, gender: string) {
     const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      data: { id, firstName, lastName, gradeId },
+      data: { id, firstName, lastName, gradeId, gender },
     });
 
     dialogRef
