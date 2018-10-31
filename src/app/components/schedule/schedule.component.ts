@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
-import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+// import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { FormClassData } from '../../models/FormClassData.model';
 
 export interface TimeSlotIndexes {
