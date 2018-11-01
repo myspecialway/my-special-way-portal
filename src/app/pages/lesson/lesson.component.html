@@ -17,7 +17,7 @@
 
       </div>
     </div>
-    <div class="row">
+    <div class="row msw-table-container">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-table #table [dataSource]="dataSource" class="msw-table"
             matSort matSortActive="title" matSortDisableClear matSortDirection="asc">
@@ -37,7 +37,7 @@
                 <ng-container matColumnDef="deleteLesson">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                      <button class="delete-button" mat-icon-button color="primary" (click)="deleteLesson(row._id)"><i class="material-icons"> delete </i></button>
+                      <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteLesson(row._id)"><i class="material-icons"> delete </i></button>
                     </mat-cell>
                 </ng-container>
 
