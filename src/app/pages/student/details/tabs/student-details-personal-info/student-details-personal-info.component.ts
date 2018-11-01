@@ -3,7 +3,7 @@ import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
@@ -16,6 +16,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
+  changesWhereSaved: boolean;
 
   @SubscriptionCleaner()
   subCollector;
@@ -23,7 +24,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private classService: ClassService,
-    private router: Router,
     private route: ActivatedRoute,
   ) {}
 
@@ -82,7 +82,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   async addStudent() {
     try {
       await this.studentService.create(this.student);
-      this.router.navigate(['/student']);
+      this.changesWhereSavedNotification();
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
@@ -94,11 +94,18 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.form.value._id = this.student._id;
     try {
       await this.studentService.update(student.form.value);
-      this.router.navigate(['/student']);
+      this.changesWhereSavedNotification();
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');
       throw error;
     }
+  }
+
+  changesWhereSavedNotification() {
+    this.changesWhereSaved = true;
+    setTimeout(() => {
+      this.changesWhereSaved = false;
+    }, 1000);
   }
 }
