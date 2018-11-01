@@ -128,6 +128,16 @@ td.mat-footer-cell:last-child {
 mat-row:hover {
   background-color: #e1ccf5;
   cursor: pointer;
+  mat-cell {
+    color: #8c37cd;
+  }
+  .delete-row-button {
+    display: block;
+  }
+}
+
+.delete-row-button {
+  display: none;
 }
 
 .mat-raised-button.mat-primary {
@@ -140,12 +150,35 @@ mat-row:hover {
   background-color: #ff0;
 }
 
-.delete-button {
-  display: none;
+.header-table-count {
+  width: 164px;
+  height: 38px;
+  font-size: 32px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-align: right;
+  color: #222222;
+}
+.header-table-count-number {
+  font-size: 18px;
 }
 
-.mat-row:hover {
-  .delete-button {
-    display: block;
-  }
+.header-table-count-label {
+  padding-left: 10px;
+}
+
+.header-menu-container {
+  padding-bottom: 29px;
+}
+
+.msw-table-container .mat-cell:last-child,
+.msw-table-container .mat-header-cell:last-child {
+  flex-grow: 0;
+  flex-basis: 100px;
+}
+.msw-table-container .mat-header-cell {
+  font-weight: bold;
 }
