@@ -3,18 +3,16 @@
     <div class="header-menu-container msw-table-tools-header">
       <div class="header-table-count">
         <div>
-          <span class="header-table-count-label">
-          {{'USERS.USERS_TITLE' | translate}}
-          </span>
+          <span class="header-table-count-label">משתמשים</span>
           <span class="header-table-count-number">({{dataSource.data.length}})</span>
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button mat-raised-button color="primary" (click)="addNewUser()" title="{{'USERS.USERS_INSERT' | translate}}">
+        <button mat-raised-button color="primary" (click)="addNewUser()">
           <i class="material-icons">
-           add
-          </i> {{'USERS.USERS_INSERT' | translate}}
-       
+            add
+          </i>
+          הוסף משתמש חדש
         </button>
       </div>
     </div>
@@ -25,45 +23,45 @@
 
           <!-- ID Column -->
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'USERS.USERS_NAME' | translate}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)"> {{row.firstname}} {{ row.lastname }}</mat-cell>
           </ng-container>
 
           <!-- Progress Column -->
           <ng-container matColumnDef="class">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'USERS.USERS_CLASS' | translate}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
           </ng-container>
 
           <!-- Progress Column -->
           <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'USERS.USERS_USERNAME' | translate}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.username}}</mat-cell>
           </ng-container>
 
 
           <!-- Name Column -->
           <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'USERS.USERS_USERROLE' | translate}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>סוג משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{toHebrew(row.role)}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'USERS.USERS_EMAIL' | translate}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.email}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="recoverpassword">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="recover-password-button" mat-icon-button color="primary"> {{'USERS.USERS_RECOVERPASS' | translate}}</button>
+              <button class="recover-password-button" mat-icon-button color="primary">שחזר סיסמא</button>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="delete-button" mat-icon-button color="primary" (click)="deleteUser(row)" title="{{'COMMONS.DELETE' | translate}}"><i class="material-icons">delete </i></button>
+              <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
