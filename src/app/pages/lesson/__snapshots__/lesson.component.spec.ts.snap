@@ -52,7 +52,7 @@ exports[`lesson component should render component as described in snapshot 1`] =
         </div>
       </div>
       <div
-        class="row"
+        class="row msw-table-container"
       >
         <div
           class="col-lg-12 col-md-12 col-sm-12"
