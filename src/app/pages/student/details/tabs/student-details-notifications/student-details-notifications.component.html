@@ -1,3 +1,116 @@
+<ng-template #rehabEnable>
+  <div class="table">
+    <div class="row">
+      <div class="cell">
+        <p>גמילה</p>
+      </div>
+      <div class="cell">
+        <mat-slide-toggle
+          [checked]="rehabToggleMode"
+          (change)="onToggleChanged('rehab', $event.checked)"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        ימים א-ה
+      </div>
+      <div class="cell">
+        <p class="value">08:30, 09:30, 10:30, 11:30, 12:30, 13:30, 14:30, 15:30, 16:30</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        יום ו
+      </div>
+      <div class="cell">
+        <p class="value">08:30, 09:30, 10:30, 11:30, 12:30, 13:30</p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #rehabDisabled>
+  <div class="table">
+    <div class="row">
+      <div class="cell">
+        <p>תזכורת גמילה</p>
+      </div>
+      <div class="cell">
+        <mat-slide-toggle
+          [checked]="rehabToggleMode"
+          (change)="onToggleChanged('rehab', $event.checked)"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        בחר יום ושעה
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #medicineEnable>
+  <div class="table">
+    <div class="row">
+      <div class="cell">
+        <p>תרופה</p>
+      </div>
+      <div class="cell">
+        <mat-slide-toggle
+          [checked]="medicineToggleMode"
+          (change)="onToggleChanged('medicine', $event.checked)"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        ימים א-ה
+      </div>
+      <div class="cell">
+        <p class="value">08:30, 09:30</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        יום ו
+      </div>
+      <div class="cell">
+        <p class="value">10:30</p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #medicineDisabled>
+  <div class="table">
+    <div class="row">
+      <div class="cell">
+        <p>תזכורת תרופה</p>
+      </div>
+      <div class="cell">
+        <mat-slide-toggle
+          [checked]="medicineToggleMode"
+          (change)="onToggleChanged('medicine', $event.checked)"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        בחר יום ושעה
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
 <div class="msw-student-details-notifications">
-Not implemented yet
+  <mat-card class="student-notifications rehab" [ngClass]="{'selected-radius': rehabToggleMode}">
+    <ng-container
+      *ngIf="rehabToggleMode; then rehabEnable; else rehabDisabled">
+    </ng-container>
+  </mat-card>
+  <br>
+  <mat-card class="student-notifications medicine" [ngClass]="{'selected-radius': medicineToggleMode}">
+    <ng-container
+      *ngIf="medicineToggleMode; then medicineEnable; else medicineDisabled">
+    </ng-container>
+  </mat-card>
 </div>
+
