@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClassDetailsViewComponent } from './class-details/class-details.view/class-details.view.component';
 import { ClassDetailsContainerComponent } from './class-details/class-details.container/class-details.container.component';
-import { LessonComponent } from './lesson/lesson.component';
+// import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
 import {
@@ -44,7 +44,6 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     StudentDetailsNotificationsComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
-    LessonComponent,
     MapContainerComponent,
     MapViewComponent,
   ],
