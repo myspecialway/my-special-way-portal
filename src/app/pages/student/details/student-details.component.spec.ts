@@ -20,15 +20,7 @@ import { ClassService } from '../../class/services/class.graphql.service';
 import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
 
 describe('Student Details Component', () => {
-  let routerModuleMock: Partial<RouterModule>;
-
   beforeEach(async () => {
-    routerModuleMock = {
-      forRoot: jest.fn(),
-      forChild: jest.fn(),
-      navigate: jest.fn(),
-    };
-
     const routes: Routes = [
       { path: '', redirectTo: 'student', pathMatch: 'full' },
       {
