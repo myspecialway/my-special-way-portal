@@ -22,6 +22,7 @@ export class StudentService {
     return this.apollo
       .watchQuery<{ students: Student[] }>({
         query: QUERY_GET_ALL_STUDENTS,
+        fetchPolicy: 'network-only',
       })
       .valueChanges.pipe(
         map((res) => {
