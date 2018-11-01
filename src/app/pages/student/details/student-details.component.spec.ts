@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from './student-details.component';
 import { StudentService } from '../services/student.service';
@@ -16,7 +17,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { FormsModule } from '@angular/forms';
 import { ClassService } from '../../class/services/class.graphql.service';
-import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
+import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
 
 describe('Student Details Component', () => {
   let routerModuleMock: Partial<RouterModule>;
@@ -47,7 +48,7 @@ describe('Student Details Component', () => {
       providers: [
         StudentService,
         ClassService,
-        { provide: Router, useValue: routerModuleMock },
+        { provide: APP_BASE_HREF, useValue: '/' },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
