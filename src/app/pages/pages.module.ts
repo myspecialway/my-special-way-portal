@@ -35,6 +35,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     MatInputModule,
     MatSelectModule,
     MatCardModule,
+    // MatDialog,
     MatTableModule,
     MatGridListModule,
     MatTabsModule,

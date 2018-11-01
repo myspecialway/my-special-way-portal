@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
+import { UpdateUserDialogComponent } from '../../../../user/dialogs/update/update-user.dialog';
+import { UserService } from '../../../../user/services/user.service';
+import { MatDialog } from '@angular/material';
+import { UpdateStudentDialogComponent } from '../../../dialogs/update/update-student.dialog';
+import { AddStudentDialogComponent } from '../../../dialogs/add/add-student.dialog';
+import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/add/add-student-reminder.dialog';
 
 @Component({
   selector: 'app-student-details-notifications',
@@ -16,7 +22,7 @@ export class StudentDetailsNotificationsComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     if (this.route && this.route.parent) {
@@ -36,5 +42,13 @@ export class StudentDetailsNotificationsComponent implements OnInit {
     if (toggleType === 'medicine') {
       this.medicineToggleMode = !this.medicineToggleMode;
     }
+  }
+
+  updateStudentReminder() {
+    const dialogRef = this.dialog.open(AddStudentReminderDialogComponent, {
+      data: 'userData',
+      height: '376px',
+      width: '631px',
+    });
   }
 }
