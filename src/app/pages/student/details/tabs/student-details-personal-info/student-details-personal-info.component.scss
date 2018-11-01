@@ -15,7 +15,6 @@ button {
   align-items: center;
   justify-content: space-between;
 
-
   .firstname,
   .lastname {
     margin-left: 24px;
@@ -30,6 +29,7 @@ button {
 
 .msw-student-header-nav-name {
   font-size: 32px;
+  padding-top: 5px;
   letter-spacing: 0.6px;
   text-align: right;
   color: #222222;
@@ -59,16 +59,13 @@ button {
 .msw-student-details-gender {
   font-size: 12px;
   line-height: 1.42857;
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-weight: 400;
   text-align: right;
 }
 
 .msw-student-user-pic-ph {
-
 }
 
 .msw-student-user-form {
-
 }
-
