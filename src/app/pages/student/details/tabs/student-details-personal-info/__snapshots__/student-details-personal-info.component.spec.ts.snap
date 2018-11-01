@@ -4,7 +4,6 @@ exports[`Student Details Personal Info Component with _new_ student path should 
 <app-student-details-personal-info
   classService={[Function Object]}
   route={[Function Object]}
-  router={[Function Object]}
   studentService={[Function Object]}
 >
   <div
