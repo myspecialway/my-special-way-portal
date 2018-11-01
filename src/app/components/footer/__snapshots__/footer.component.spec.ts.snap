@@ -14,6 +14,12 @@ exports[`footer component should render component as described in snapshot 1`] =
         class="copyright pull-right"
       >
          © 
+        <i
+          class="material-icons"
+        >
+           favorite 
+        </i>
+         by 
         <a
           href="https://www.corp.att.com/worldwide/att-you-israel.html"
           target="_blank"

@@ -37,8 +37,7 @@
                 <ng-container matColumnDef="deleteLesson">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                      <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteLesson(row._id)"><i class="material-icons"> delete </i></button>
-                    </mat-cell>
+                      <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteLesson(row._id, row.title)"><i class="material-icons"> delete </i></button>                    </mat-cell>
                 </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

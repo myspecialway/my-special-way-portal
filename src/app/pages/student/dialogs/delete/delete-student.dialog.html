@@ -1,9 +1,9 @@
 <div class="container">
-    <h3 mat-dialog-title color="accent">מחיקת תלמיד/ה</h3>
+    <h3 mat-dialog-title color="accent">מחיקת תלמיד{{data.gender==='FEMALE'? 'ה' : ''}}</h3>
     <mat-divider></mat-divider>
     <div mat-dialog-content>
         <br>
-      האם אתה בטוח שברצונך למחוק את התלמיד {{data.firstName}} {{data.lastName}}?
+      האם אתה בטוח שברצונך למחוק את התלמיד{{data.gender==='FEMALE'? 'ה' : ''}} {{data.firstName}} {{data.lastName}}?
     </div>
 
     <div mat-dialog-actions>
