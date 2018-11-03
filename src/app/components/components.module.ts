@@ -11,8 +11,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, FormsModule, MatProgressSpinnerModule, HttpClientModule],
+  imports: [SharedModule, CommonModule, RouterModule, FormsModule, MatProgressSpinnerModule, HttpClientModule],
   declarations: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent],
-  exports: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent],
+  exports: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent, SharedModule],
 })
 export class ComponentsModule {}
