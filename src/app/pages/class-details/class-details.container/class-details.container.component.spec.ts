@@ -12,7 +12,7 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Location } from '@angular/common';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { Apollo } from 'apollo-angular';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../../mocks/translate.stub';
 import { DictionaryService } from '../../../services/language/dictionary.service';
 

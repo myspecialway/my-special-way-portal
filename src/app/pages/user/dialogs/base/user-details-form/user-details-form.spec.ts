@@ -10,7 +10,7 @@ import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { User, UserType } from './../../../../../models/user.model';
 import { Class } from '../../../../../models/class.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../../../../mocks/translate.stub';
 
 describe('student component', () => {
