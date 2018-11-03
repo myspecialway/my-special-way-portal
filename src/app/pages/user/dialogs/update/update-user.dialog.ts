@@ -8,6 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateUserDialogComponent extends BaseUserFormDialogComponent implements OnInit {
   ngOnInit() {
-    this.formOptions.submitButtonLabel = 'עדכן';
+    this.formOptions.submitButtonLabel = 'COMMONS.UPDATE';
   }
 }

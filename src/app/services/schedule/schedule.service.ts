@@ -1,17 +1,31 @@
 import { Injectable } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ScheduleService {
+  constructor(translate: TranslateService) {
+    translate.get(this.daysLabels).subscribe((days) => {
+      this.daysLabels.forEach((item, index) => {
+        this.daysLabels[index] = days[item];
+      });
+    });
+    translate.get(Object.values(this.grades)).subscribe((grades) => {
+      Object.keys(this.grades).forEach((key) => {
+        this.grades[key] = grades[this.grades[key]];
+      });
+    });
+  }
+
   grades = {
-    a: 'א',
-    b: 'ב',
-    c: 'ג',
-    d: 'ד',
-    e: 'ה',
-    f: 'ו',
+    a: 'GRADES.A',
+    b: 'GRADES.B',
+    c: 'GRADES.C',
+    d: 'GRADES.D',
+    e: 'GRADES.E',
+    f: 'GRADES.F',
   };
-  daysLabels = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
+  daysLabels = ['DAYS.SUNDAY', 'DAYS.MONDAY', 'DAYS.TUESDAY', 'DAYS.WEDNESDAY', 'DAYS.THURSDAY', 'DAYS.FRIDAY'];
   hoursLabels = [
     '07:30 - 08:00',
     '08:00 - 08:50',

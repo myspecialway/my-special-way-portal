@@ -1,4 +1,62 @@
 {
+  "DAYS": {
+    "SUNDAY": "ראשון",
+    "MONDAY": "שני",
+    "TUESDAY": "שלישי",
+    "WEDNESDAY": "רביעי",
+    "THURSDAY": "חמישי",
+    "FRIDAY": "שישי",
+    "SATURDAY": "שבת"
+  },
+  "GRADES": {
+    "A": "א",
+    "B": "ב",
+    "C": "ג",
+    "D": "ד",
+    "E": "ה",
+    "F": "ו"
+  },
+  "COMMONS": {
+    "ADD": "הוספה",
+    "UPDATE": "עידכון",
+    "CANCEL": "ביטול",
+    "DELETE": "מחיקה"
+  },
+  "CLASS-DETAILS": {
+    "UPDATESUCCESS": "הכיתה עודכנה בהצלחה",
+    "UPDATEFAILED": "שגיאה בעדכון כיתה",
+    "CREATESUCCESS": "כיתה {{value}} נוצרה בהצלחה",
+    "CREATEFAILED": "שגיאה ביצירת כיתה"
+  },
+  "USERS": {
+    "USERS_TITLE": "משתמשים",
+    "USERS_INSERT": "   הוסף משתמש חדש",
+    "USERS_NAME": "שם",
+    "USERS_CLASS": "כיתה",
+    "USERS_USERNAME": "שם משתמש",
+    "USERS_USERROLE": "סוג משתמש",
+    "USERS_EMAIL": "אימייל",
+    "USERS_RECOVERPASS": "שחזר סיסמא"
+  },
+  "USER-DETAILS": {
+    "DIALOG_TITLE": "הוספת משתמש חדש",
+    "FIRSTNAME": "שם פרטי",
+    "FIRSTNAME_MANDATORY": "שם פרטי הינו שדה חובה",
+    "USERNAME": "שם משתמש",
+    "USERNAME_MANDATORY": "שם משתמש הינו שדה חובה",
+    "USERNAME_INVALID": "שם    משתמש חייב להיות לפחות חמישה תווים באנגלית",
+    "USERROLE": "סוג משתמש",
+    "SELECT": "בחר",
+    "USERROLE_MANDATORY": "אנא בחר סוג משתמש",
+    "LASTNAME": "שם משפחה",
+    "LASTNAME_MANDATORY": "שם משפחה הינו שדה חובה",
+    "EMAIL": "אימייל",
+    "EMAIL_MANDATORY": "אימייל הינו שדה חובה",
+    "EMAIL_INVALID": "אימייל לא חוקי",
+    "CLASS": "כיתה",
+    "CLASS_IS_MANDATORY": "כיתה הינו שדה חובה",
+    "CANCEL": "ביטול"
+  },
   "LOGIN": {
     "MY_SPECIAL_WAY": "בדרכי שלי",
     "TITLE": "כניסה למערכת הניהול - ביה״ס יחדיו",
@@ -10,8 +68,17 @@
     "REMEMBER_ME": "זכור אותי",
     "LOGIN_BTN": "כניסה"
   },
+  "ROUTES": {
+    "STUDENT": "ניהול תלמידים",
+    "CLASSES": "ניהול כיתות",
+    "LESSON": "ניהול שיעורים",
+    "CLASS": "ניהול מערכת שעות כיתתית",
+    "MAP": "ניהול מפה",
+    "USER": "ניהול משתמשים"
+  },
   "NAVBAR": {
-    "LOGOUT": "יציאה"
+    "LOGOUT": "יציאה",
+    "HELLO": "שלום"
   },
   "CLASS": {
     "COULD_NOT_DELETE_CLASS": "לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה",
