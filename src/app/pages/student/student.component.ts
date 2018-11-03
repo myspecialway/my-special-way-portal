@@ -37,6 +37,13 @@ export class StudentComponent implements OnInit {
     this.subCollector.add(
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
+        this.dataSource.data = this.dataSource.data.sort((studentA: Student, studentB: Student) => {
+          const nameCmp = studentA.firstname.localeCompare(studentB.firstname);
+          if (nameCmp === 0) {
+            return studentA.lastname.localeCompare(studentB.lastname);
+          }
+          return nameCmp;
+        });
       }),
     );
 
