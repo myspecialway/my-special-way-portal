@@ -1,7 +1,7 @@
 import { AppComponent } from './app.component';
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../mocks/translate.stub';
 
 describe('dashboard component', () => {
