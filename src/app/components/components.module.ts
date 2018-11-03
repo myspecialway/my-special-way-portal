@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { SharedModule } from '../shared.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HttpClientModule } from '@angular/common/http';
 

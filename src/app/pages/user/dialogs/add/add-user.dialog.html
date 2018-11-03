@@ -1,5 +1,7 @@
 <div class="container">
-  <h3 mat-dialog-title>יצירת משתמש חדש</h3>
+  <h3 mat-dialog-title>
+  {{'USER-DETAILS.DIALOG_TITLE' | translate}}
+  </h3>
   <mat-divider></mat-divider>
   <app-user-details-form [options]="formOptions" [data]="dialogData" (formSubmit)="submitForm($event)" (cancel)="close()"></app-user-details-form>
 </div>

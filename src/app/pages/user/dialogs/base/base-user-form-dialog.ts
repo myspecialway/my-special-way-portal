@@ -21,7 +21,7 @@ export abstract class BaseUserFormDialogComponent {
       });
   }
 
-  formOptions = { submitButtonLabel: 'הוסף' };
+  formOptions = { submitButtonLabel: 'COMMONS.ADD' };
 
   close(): void {
     this.dialogRef.close();

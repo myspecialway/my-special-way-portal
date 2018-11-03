@@ -15,6 +15,8 @@ import { UserProfileStateModel } from '../../../apollo/state/resolvers/state.res
 import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
+import { TranslateService } from '@ngx-translate/core';
+import { DictionaryService } from '../../../services/language/dictionary.service';
 
 @Component({
   selector: 'app-class-details-container',
@@ -46,17 +48,27 @@ export class ClassDetailsContainerComponent implements OnInit {
     private dialog: MatDialog,
     private mswSnackbar: MSWSnackbar,
     private apollo: Apollo,
+    private translate: DictionaryService,
   ) {}
-
+  locales: any = null;
   async ngOnInit() {
+    // load localized strings
+    this.locales = {
+      UPDATESUCCESS: '',
+      UPDATEFAILED: '',
+      CREATESUCCESS: '',
+      CREATEFAILED: '',
+    };
+
+    this.locales = await this.translate.generateDictionary(this.locales, { ns: 'CLASS-DETAILS' });
+
     this.route.params.subscribe(async (params) => {
       try {
         this.idOrNew = params.idOrNew;
         this.isNew = this.idOrNew === '_new_';
         await this.initClass();
-        await this.initSchedule();
+        this.initSchedule();
       } catch (err) {
-        console.log(err);
         throw new Error(err);
       }
     });
@@ -144,9 +156,9 @@ export class ClassDetailsContainerComponent implements OnInit {
       };
 
       this._class = await this.classService.update(classToUpdate);
-      this.mswSnackbar.displayTimedMessage('הכיתה עודכנה בהצלחה');
+      this.mswSnackbar.displayTimedMessage(this.locales.UPDATESUCCESS);
     } catch (err) {
-      this.mswSnackbar.displayTimedMessage('שגיאה בעדכון כיתה');
+      this.mswSnackbar.displayTimedMessage(this.locales.UPDATEFAILED);
     }
   }
 
@@ -154,9 +166,11 @@ export class ClassDetailsContainerComponent implements OnInit {
     try {
       const created = await this.classService.create(classDetails);
       this.router.navigate([`/class/${created._id}`]);
-      this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
+      this.mswSnackbar.displayTimedMessage(this.locales.CREATESUCCESS.replace('{{value}}', classDetails.name));
+
+      // this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
     } catch (err) {
-      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
+      this.mswSnackbar.displayTimedMessage(this.locales.CREATEFAILED);
     }
   }
 
