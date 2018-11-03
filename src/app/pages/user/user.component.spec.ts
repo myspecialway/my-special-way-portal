@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../mocks/translate.stub';
 
 import {
@@ -173,5 +173,40 @@ describe('user component', () => {
     await fixture.whenRenderingDone();
     fixture.componentInstance.applyFilter('  AA!!BB  ');
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
+  });
+
+  it('should sort users by firstname+lastname', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const component = fixture.componentInstance;
+    const data = component.dataSource.data;
+    for (let i = 0; i < data.length - 1; i++) {
+      const user1 = data[i].firstname + data[i].lastname;
+      const user2 = data[i + 1].firstname + data[i + 1].lastname;
+      const comapare = user1.localeCompare(user2);
+      expect(comapare).toEqual(-1);
+    }
+  });
+
+  it('should sort users by firstname+lastname', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const data = fixture.componentInstance.dataSource.data;
+    for (let i = 0; i < data.length - 1; i++) {
+      const user1 = data[i].firstname + data[i].lastname;
+      const user2 = data[i + 1].firstname + data[i + 1].lastname;
+      const comapare = user1.localeCompare(user2);
+      expect(comapare).toEqual(-1);
+    }
   });
 });
