@@ -10,10 +10,10 @@ import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { User, UserType } from './../../../../../models/user.model';
 import { Class } from '../../../../../models/class.model';
-import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../../../../mocks/translate.stub';
 
-describe('User component', () => {
+describe('student component', () => {
   let dataMock: User;
   let fixture: ComponentFixture<UserDetailsFormComponent>;
   let component: UserDetailsFormComponent;
@@ -39,17 +39,18 @@ describe('User component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule],
-      declarations: [UserDetailsFormComponent],
-      providers: [
-        FormBuilder,
-        Apollo,
-        UserService,
-        AuthenticationService,
-        HttpClient,
-        HttpHandler,
-        { provide: ClassService, useValue: classServiceMock },
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
       ],
+      declarations: [UserDetailsFormComponent],
+      providers: [FormBuilder, Apollo, UserService, { provide: ClassService, useValue: classServiceMock }],
       schemas: [NO_ERRORS_SCHEMA],
     });
 
@@ -59,19 +60,19 @@ describe('User component', () => {
     // fixture.detectChanges();
   });
 
-  it('should render the component as described in snapshot', () => {
-    expect(fixture).toMatchSnapshot();
-  });
-
   it('should update current role and data on data @Input', () => {
     expect(component.currentRole).toBeUndefined();
     component._data = dataMock;
+    // fixture.detectChanges();
+
     expect(component.data).toBe(dataMock);
     expect(component.currentRole).toBe(UserType.PRINCIPLE);
   });
 
   it('should update current role on onUserTypeChange', () => {
     component.onUserTypeChange('TEACHER');
+    // fixture.detectChanges();
+
     expect(component.currentRole).toBe('TEACHER');
   });
 
@@ -80,6 +81,8 @@ describe('User component', () => {
     expect(component.data.class).toBeInstanceOf(Class);
 
     component.onUserTypeChange('PRINCIPLE');
+    // fixture.detectChanges();
+
     expect(component.data.class).toBeUndefined();
   });
 
@@ -89,7 +92,11 @@ describe('User component', () => {
       called = true;
     });
     expect(called).toBeFalsy();
+
     component.close();
+
+    // fixture.detectChanges();
+
     expect(called).toBeTruthy();
   });
 
