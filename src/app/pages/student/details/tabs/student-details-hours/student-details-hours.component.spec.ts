@@ -14,6 +14,8 @@ import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 import { MatDialog } from '@angular/material';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../../../../mocks/translate.stub';
 
 describe('Student Details Hours Component', () => {
   const sub = new Subscription();
@@ -204,7 +206,15 @@ describe('Student Details Hours Component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterModule.forRoot([])],
+      imports: [
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       declarations: [StudentDetailsComponent, StudentDetailsHoursComponent],
       providers: [
         { provide: MatDialog, useValue: scheduleDialogMock },
