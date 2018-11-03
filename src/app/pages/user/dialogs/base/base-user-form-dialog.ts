@@ -8,7 +8,7 @@ export abstract class BaseUserFormDialogComponent {
     @Inject(MAT_DIALOG_DATA) public dialogData: User,
   ) {}
 
-  formOptions = { submitButtonLabel: 'הוסף' };
+  formOptions = { submitButtonLabel: 'COMMONS.ADD' };
 
   close(): void {
     this.dialogRef.close();
