@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { TranslateModule, TranslateLoader, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DictionaryService } from './services/language/dictionary.service';
 
 import { AuthGuard } from './services/authentication/auth.guard';
