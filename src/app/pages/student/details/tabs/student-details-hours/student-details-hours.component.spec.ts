@@ -14,7 +14,7 @@ import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 import { MatDialog } from '@angular/material';
-import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../../../../mocks/translate.stub';
 
 describe('Student Details Hours Component', () => {

@@ -15,7 +15,6 @@ import { UserProfileStateModel } from '../../../apollo/state/resolvers/state.res
 import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
-import { TranslateService } from '@ngx-translate/core';
 import { DictionaryService } from '../../../services/language/dictionary.service';
 
 @Component({
