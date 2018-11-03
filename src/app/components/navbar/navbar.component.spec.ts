@@ -8,7 +8,7 @@ import { ComponentsModule } from '../components.module';
 import { Apollo } from 'apollo-angular';
 import { Subject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../mocks/translate.stub';
 
 const fixUrl = (s) => s.replace(/^\/+/g, '');
