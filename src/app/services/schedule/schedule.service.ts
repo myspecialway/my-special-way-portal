@@ -4,19 +4,17 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ScheduleService {
-  constructor(translate?: TranslateService) {
-    if (translate) {
-      translate.get(this.daysLabels).subscribe((days) => {
-        this.daysLabels.forEach((item, index) => {
-          this.daysLabels[index] = days[item];
-        });
+  constructor(translate: TranslateService) {
+    translate.get(this.daysLabels).subscribe((days) => {
+      this.daysLabels.forEach((item, index) => {
+        this.daysLabels[index] = days[item];
       });
-      translate.get(Object.values(this.grades)).subscribe((grades) => {
-        Object.keys(this.grades).forEach((key) => {
-          this.grades[key] = grades[this.grades[key]];
-        });
+    });
+    translate.get(Object.values(this.grades)).subscribe((grades) => {
+      Object.keys(this.grades).forEach((key) => {
+        this.grades[key] = grades[this.grades[key]];
       });
-    }
+    });
   }
 
   grades = {
