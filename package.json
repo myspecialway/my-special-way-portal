@@ -13,6 +13,7 @@
     "git:push": "bash ./scripts/git-push",
     "lint": "ng lint",
     "ng": "ng",
+    "test:update": "jest --updateSnapshot",
     "test": "jest -u --coverage",
     "tslint": "tslint -p tsconfig.json -c tslint.json '**/*.ts' -e 'node_modules/**' -e 'src/polyfills.ts'",
     "test:watch": "jest --watch --coverage",
