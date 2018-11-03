@@ -3,6 +3,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../mocks/translate.stub';
+
 import {
   Overlay,
   ScrollStrategyOptions,
@@ -36,7 +39,14 @@ describe('user component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       declarations: [UserComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },

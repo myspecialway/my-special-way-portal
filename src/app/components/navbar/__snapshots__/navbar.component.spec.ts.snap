@@ -5,6 +5,7 @@ exports[`navbar component should render component as described in snapshot 1`] =
   apollo={[Function Object]}
   routeSubscription={[Function Subscriber]}
   router={[Function RouterStub]}
+  translate={[Function TranslateService]}
 >
   <nav
     class="navbar navbar-expand-lg navbar-white  navbar-absolute fixed-top"
