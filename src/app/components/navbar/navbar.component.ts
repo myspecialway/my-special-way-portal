@@ -10,12 +10,12 @@ import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 export const ROUTES: RouteInfo[] = [
-  { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
-  { path: 'class', title: 'ניהול כיתות', class: 'nb-class', roles: [UserType.PRINCIPLE] },
-  { path: 'lesson', title: 'ניהול שיעורים', class: 'nb-lesson', roles: [UserType.PRINCIPLE] },
-  { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-class-schedule', roles: [UserType.TEACHER] },
-  { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
-  { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
+  { path: 'student', title: 'ROUTES.STUDENT', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
+  { path: 'class', title: 'ROUTES.CLASSES', class: 'nb-class', roles: [UserType.PRINCIPLE] },
+  { path: 'lesson', title: 'ROUTES.LESSON', class: 'nb-lesson', roles: [UserType.PRINCIPLE] },
+  { path: 'class/:id', title: 'ROUTES.CLASS', class: 'nb-class-schedule', roles: [UserType.TEACHER] },
+  { path: 'map', title: 'ROUTES.MAP', class: 'nb-map', roles: [UserType.PRINCIPLE] },
+  { path: 'user', title: 'ROUTES.USER', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
 
 export const DEFAULT_ROUTE = ROUTES[0];
@@ -31,12 +31,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
   selectedMenuItemPath: string;
   routeSubscription: Subscription;
 
-  constructor(private apollo: Apollo, private router: Router, private translate: TranslateService) {
+  constructor(private apollo: Apollo, private router: Router, public translate: TranslateService) {
     this.subscribeToRouterEvents();
+
+    ROUTES.forEach((route) => {
+      this.translate.get(route.title).subscribe((resource) => {
+        route.title = resource;
+      });
+    });
   }
 
   async ngOnInit() {
-    await this.apollo
+    this.apollo
       .watchQuery<{ userProfile: UserProfileStateModel }>({
         query: GET_USER_PROFILE,
       })
@@ -45,7 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         const currentType = userProf.data.userProfile.role;
         const currentClassId = userProf.data.userProfile.class_id;
         this.menuItems = ROUTES.filter((menuItem) => menuItem.roles.includes(UserType[currentType]));
-        this.menuItems.map((item) => {
+        this.menuItems.forEach((item) => {
           if (item.path.indexOf('/:id') >= 0) {
             item.path = item.path.replace('/:id', currentClassId ? '/' + currentClassId : '');
           }
