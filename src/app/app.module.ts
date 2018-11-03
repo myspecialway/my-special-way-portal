@@ -30,8 +30,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -58,10 +57,15 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SharedModule } from './shared.module';
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   imports: [
+    SharedModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
