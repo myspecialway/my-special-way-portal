@@ -12,6 +12,9 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Location } from '@angular/common';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { Apollo } from 'apollo-angular';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../../mocks/translate.stub';
+import { DictionaryService } from '../../../services/language/dictionary.service';
 
 describe('ClassDetailsContainerComponent', () => {
   let component: ClassDetailsContainerComponent;
@@ -96,8 +99,17 @@ describe('ClassDetailsContainerComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       declarations: [ClassDetailsContainerComponent],
       providers: [
+        DictionaryService,
         { provide: ClassService, useValue: classServiceMock },
         {
           provide: ActivatedRoute,

@@ -10,6 +10,8 @@ import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { User, UserType } from './../../../../../models/user.model';
 import { Class } from '../../../../../models/class.model';
+import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCustomLoader } from '../../../../../../mocks/translate.stub';
 
 describe('student component', () => {
   let dataMock: User;
@@ -37,7 +39,16 @@ describe('student component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule],
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateCustomLoader,
+          },
+        }),
+      ],
       declarations: [UserDetailsFormComponent],
       providers: [FormBuilder, Apollo, UserService, { provide: ClassService, useValue: classServiceMock }],
       schemas: [NO_ERRORS_SCHEMA],

@@ -112,15 +112,15 @@ describe('navbar component', () => {
 
   it('should update the selected menu item on selection', async () => {
     const fixture = TestBed.createComponent(NavbarComponent);
-    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
+    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ROUTES.CLASSES', class: 'nb-class' });
     expect(fixture.componentInstance.selectedMenuItemPath).toEqual('class');
   });
 
   it('should return the correct menu item', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
-    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ניהול כיתות', class: 'nb-class' });
+    fixture.componentInstance.selectMenuItem({ path: 'class', title: 'ROUTES.CLASSES', class: 'nb-class' });
     const title = fixture.componentInstance.getSelectedMenuItem();
-    expect(title).toEqual('ניהול כיתות');
+    expect(title).toEqual('ROUTES.CLASSES');
   });
 
   it('should render username per authentication service on init - for teacher', async () => {
