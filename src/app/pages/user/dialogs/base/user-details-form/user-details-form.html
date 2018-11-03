@@ -3,80 +3,80 @@
     <div class="msw-div-column-right">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input tabindex="1" matInput #input formControlName="firstname" placeholder="שם פרטי" [(ngModel)]="data.firstname"
+          <input tabindex="1" matInput #input formControlName="firstname" placeholder="{{'USER-DETAILS.FIRSTNAME' | translate}}" [(ngModel)]="data.firstname"
             autocomplete='given-name' name="firstname" required>
           <button type="button" mat-button *ngIf="data.firstname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.firstname=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="formControl.invalid">שם פרטי הינו שדה חובה</mat-error>
+          <mat-error *ngIf="formControl.invalid">{{'USER-DETAILS.FIRSTNAME_MANDATORY' | translate}} </mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input matInput #input tabindex="3" formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
+          <input matInput #input tabindex="3" formControlName="username" placeholder="{{'USER-DETAILS.USERNAME' | translate}}" [(ngModel)]="data.username"
             autocomplete="username" name="username" required>
           <button type="button" mat-button *ngIf="data.username" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.username=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
-          <mat-error *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
-            משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
+          <mat-error *ngIf="userNameFormControl.hasError('required')">{{'USER-DETAILS.USERNAME_MANDATORY' | translate}}</mat-error>
+          <mat-error *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">{{'USER-DETAILS.USERNAME_INVALID' | translate}}
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select tabindex="5" placeholder="סוג משתמש" formControlName="role" [(ngModel)]="data.role" name="role"
+          <mat-select tabindex="5" placeholder="{{'USER-DETAILS.USERROLE' | translate}}" formControlName="role" [(ngModel)]="data.role" name="role"
             (valueChange)="onUserTypeChange($event)" autocomplete='role' required>
-            <mat-option disabled>בחר</mat-option>
+            <mat-option disabled>{{'USER-DETAILS.SELECT' | translate}}</mat-option>
             <mat-option *ngFor="let _role of roles" [value]="_role">
               {{userRoleEnum[_role]}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
+          <mat-error *ngIf="selectUserType.hasError('required')">{{'USER-DETAILS.USERROLE_MANDATORY' | translate}}</mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="msw-div-column-left">
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input tabindex="2" matInput #input formControlName="lastname" placeholder="שם משפחה" [(ngModel)]="data.lastname"
+          <input tabindex="2" matInput #input formControlName="lastname" placeholder="{{'USER-DETAILS.LASTNAME' | translate}}" [(ngModel)]="data.lastname"
             autocomplete='family-name' name="lastname" required>
           <button tabindex="0" type="button" mat-button *ngIf="data.lastname" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.lastname=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="formControl.invalid">שם משפחה הינו שדה חובה</mat-error>
+          <mat-error *ngIf="formControl.invalid">{{'USER-DETAILS.LASTNAME_MANDATORY' | translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <input tabindex="4" matInput #input formControlName="email" placeholder="אימייל" [(ngModel)]="data.email" name="email"
+          <input tabindex="4" matInput #input formControlName="email" placeholder="{{'USER-DETAILS.EMAIL' | translate}}" [(ngModel)]="data.email" name="email"
             autocomplete='email' required email>
           <button type="button" mat-button *ngIf="data.email" matSuffix mat-icon-button aria-label="Clear"
             (click)="data.email=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="EmailFormControl.hasError('required')">אימייל הינו שדה חובה</mat-error>
-          <mat-error *ngIf="EmailFormControl.hasError('email')">אימייל לא חוקי</mat-error>
+          <mat-error *ngIf="EmailFormControl.hasError('required')">{{'USER-DETAILS.EMAIL_MANDATORY' | translate}}</mat-error>
+          <mat-error *ngIf="EmailFormControl.hasError('email')">{{'USER-DETAILS.EMAIL_INVALID' | translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
         <mat-form-field color="primary">
-          <mat-select tabindex="6" placeholder="כיתה" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
-           <mat-option disabled>בחר</mat-option>
+          <mat-select tabindex="6" placeholder="{{'USER-DETAILS.CLASS' | translate}}" formControlName="class" [(ngModel)]="data.class" name="class" [compareWith]="compareClass">
+           <mat-option disabled>{{'USER-DETAILS.SELECT' | translate}}</mat-option>
            <mat-option *ngFor="let _class of classes" [value]="_class">
               {{_class.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="selectClass.hasError('required')">כיתה הינו שדה חובה</mat-error>
+          <mat-error *ngIf="selectClass.hasError('required')">{{'USER-DETAILS.CLASS_IS_MANDATORY' | translate}}</mat-error>
         </mat-form-field>
       </div>
     </div>
   </mat-dialog-content>
   <div mat-dialog-actions>
-    <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-    <button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>
+    <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">{{'COMMONS.CANCEL' | translate}}</button>
+    <button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel | translate}}</button>
   </div>
 </form>
