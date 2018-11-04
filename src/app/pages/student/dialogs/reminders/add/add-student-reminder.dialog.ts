@@ -3,11 +3,15 @@ import Student from '../../../../../models/student.model';
 import { StudentService } from '../../../services/student.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Class } from '../../../../../models/class.model';
 import { AddStudentDialogComponent } from '../../add/add-student.dialog';
 
+interface IDay {
+  day: string;
+  selected: boolean;
+}
+
 interface ReminderBlock {
-  days: { day: string; selected: boolean }[];
+  days: IDay[];
   hoursList: string[];
   selectedDay?: string;
 }

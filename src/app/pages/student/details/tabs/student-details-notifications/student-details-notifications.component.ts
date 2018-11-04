@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
-import { UpdateUserDialogComponent } from '../../../../user/dialogs/update/update-user.dialog';
-import { UserService } from '../../../../user/services/user.service';
 import { MatDialog } from '@angular/material';
-import { UpdateStudentDialogComponent } from '../../../dialogs/update/update-student.dialog';
-import { AddStudentDialogComponent } from '../../../dialogs/add/add-student.dialog';
 import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/add/add-student-reminder.dialog';
 
 @Component({
@@ -16,8 +12,8 @@ import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/ad
 export class StudentDetailsNotificationsComponent implements OnInit {
   idOrNew: string;
 
-  rehabToggleMode: boolean = false;
-  medicineToggleMode: boolean = false;
+  rehabToggleMode = false;
+  medicineToggleMode = false;
 
   @SubscriptionCleaner()
   subCollector;
@@ -45,7 +41,7 @@ export class StudentDetailsNotificationsComponent implements OnInit {
   }
 
   updateStudentReminder(type: string, event: any) {
-    const dialogRef = this.dialog.open(AddStudentReminderDialogComponent, {
+    this.dialog.open(AddStudentReminderDialogComponent, {
       data: 'userData',
       height: '376px',
       width: '631px',
