@@ -48,8 +48,9 @@
           <mat-error data-test-id="username-format-err" *ngIf="username.hasError('minlength') || username.hasError('pattern')">שם משתמש חייב להיות לפחות חמישה תווים בעברית</mat-error>
         </mat-form-field>
         <mat-form-field class="password">
-          <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
+          <input matInput placeholder="סיסמא" type="password" [minlength]="8" [pattern]="'^(?=.*[א-תA-Za-z])(?=.*[0-9])[א-תA-Za-z0-9]{8,}$'" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
           <mat-error data-test-id="password-err" *ngIf="!password.valid" class="help-block">נא הכנס סיסמה</mat-error>
+          <mat-error data-test-id="password-format-err" *ngIf="password.hasError('minlength') || password.hasError('pattern')">הסיסמא צריכה להכיל לפחות 8 תווים, כולל אותיות ומספרים</mat-error>
         </mat-form-field>
 
         <div mat-dialog-actions>
