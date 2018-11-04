@@ -36,7 +36,7 @@ mat-dialog-actions button {
 }
 
 .selections {
-  div.day-box {
+  .day-box {
     width: 32px;
     height: 32px;
     background: #f2f2f2;
@@ -47,11 +47,13 @@ mat-dialog-actions button {
     border-radius: 2px;
     float: right;
     margin-right: 3px;
+    cursor: pointer;
   }
-  div.day-box:last-child {
+  .day-box:last-child {
     width: 44px;
   }
-  div.day-box:hover {
+  .day-box:hover,
+  .selected-day {
     background: #8b66a7;
     color: #fff;
   }
@@ -124,4 +126,11 @@ mat-dialog-actions button {
 
 .container {
   position: relative;
+}
+
+.add-reminder {
+  button {
+    color: #8b66a7;
+    font-size: 14.1px;
+  }
 }

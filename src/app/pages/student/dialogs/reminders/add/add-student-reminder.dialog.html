@@ -3,33 +3,32 @@
   <mat-divider></mat-divider>
   <!--<app-user-details-form [options]="formOptions" [data]="dialogData" (formSubmit)="submitForm($event)" (cancel)="close()"></app-user-details-form>-->
 
-  <div class="day">
-    <label>יום</label>
-    <div class="selections">
-      <div class="day-box">א</div>
-      <div class="day-box">ב</div>
-      <div class="day-box">ג</div>
-      <div class="day-box">ד</div>
-      <div class="day-box">ה</div>
-      <div class="day-box">ו</div>
-      <div class="day-box">א-ה</div>
+  <div class="selection-block" *ngFor="let block of selectionBlocks">
+    <div class="day">
+      <label>יום</label>
+      <div class="selections">
+        <div [ngClass]="{'selected-day' : day.selected}" class="day-box" *ngFor="let day of block.days" (click)="daySelection(day)">{{day.day}}</div>
+      </div>
+    </div>
+
+    <div class="hour">
+      <label>שעה</label>
+      <mat-form-field class="hour-selection">
+        <mat-select placeholder="שעה" [formControl]="hours" multiple>
+          <mat-option *ngFor="let hour of block.hoursList" [value]="hour">{{hour}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 
-  <div class="hour">
-    <label>שעה</label>
-    <mat-form-field class="hour-selection">
-      <mat-select>
-        <mat-option *ngFor="let hour of hours" [value]="hour">
-          {{hour}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="add-reminder">
+    <hr>
+    <button mat-button class="msw-button-cancel" (click)="addReminder()">+ הוסף יום ושעה</button>
   </div>
-
 
   <div mat-dialog-actions>
     <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-    <button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>
+    <!--<button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>-->
+    <button type="submit" mat-button class="msw-button-submit">{{options.submitButtonLabel}}</button>
   </div>
 </div>
