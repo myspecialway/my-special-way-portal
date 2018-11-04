@@ -148,7 +148,6 @@ export default class StudentsPage {
     try {
       return await this.scheduleSlotHeaderDay.innerText;
     } catch (CantObtainInfoForElementSpecifiedBySelectorError) {
-      console.log('xxxxxx');
       return '0';
     }
   }

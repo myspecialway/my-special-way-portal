@@ -5,7 +5,6 @@ import StudentPage from './pageobjects/students.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
 import { Triggers } from 'eyes.sdk';
 import LessonsPage from './pageobjects/lessons.po';
-import MouseAction = Triggers.MouseAction;
 import { Selector } from 'testcafe';
 
 const loginPage = new LoginPage();
