@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatDialog } from '@angular/material';
 import { ClassService } from './services/class.graphql.service';
 import { classTestData } from '../../../mocks/assets/classes.mock';
-import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateCustomLoader } from '../../../mocks/translate.stub';
 import {
   Overlay,
