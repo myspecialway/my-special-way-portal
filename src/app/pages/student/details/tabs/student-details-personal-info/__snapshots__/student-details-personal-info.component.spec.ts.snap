@@ -2,6 +2,7 @@
 
 exports[`Student Details Personal Info Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-personal-info
+  changesWhereSaved="false"
   classService={[Function Object]}
   route={[Function Object]}
   studentService={[Function Object]}

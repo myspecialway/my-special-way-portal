@@ -157,6 +157,27 @@ describe('Student Details Personal Info Component', () => {
       fixture.componentInstance.addStudent();
       expect(studentServiceMock.create).toHaveBeenCalled();
     });
+
+    it('should show indication that the changes where saved', async () => {
+      jest.useFakeTimers();
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(classTestData.classes);
+      });
+
+      (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(1);
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+      await fixture.componentInstance.addStudent();
+      expect(fixture.componentInstance.changesWhereSaved).toBeTruthy();
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+      jest.advanceTimersByTime(1000);
+      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+    });
   });
 
   describe('with edit student path', () => {
@@ -221,6 +242,28 @@ describe('Student Details Personal Info Component', () => {
       await fixture.whenRenderingDone();
       fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(studentServiceMock.update).toHaveBeenCalled();
+    });
+
+    it('should show indication that the changes where saved', async () => {
+      jest.useFakeTimers();
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(classTestData.classes);
+      });
+
+      (studentServiceMock.getById as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(oneStudentTestData.student);
+      });
+
+      (studentServiceMock.update as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(1);
+      });
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+      await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
+      expect(fixture.componentInstance.changesWhereSaved).toBeTruthy();
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
   });
 });

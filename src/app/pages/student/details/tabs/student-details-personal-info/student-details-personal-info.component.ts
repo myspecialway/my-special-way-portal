@@ -16,7 +16,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
-  changesWhereSaved: boolean;
+  changesWhereSaved = false;
 
   @SubscriptionCleaner()
   subCollector;
