@@ -7,6 +7,7 @@ import {
   MUTATE_CREATE_USER,
   MUTATE_UPDATE_USER,
   MUTATE_DELETE_USER,
+  MUTATE_UPDATE_USER_PASSWORD,
 } from './user.graphql';
 import { map } from 'rxjs/operators/map';
 import { catchError } from 'rxjs/operators';
@@ -85,6 +86,19 @@ export class UserService {
       .mutate({
         mutation: MUTATE_DELETE_USER,
         variables: { id },
+        refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
+      })
+      .toPromise();
+  }
+
+  updateUserPassword(id: number, password: string) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_UPDATE_USER_PASSWORD,
+        variables: {
+          id,
+          password,
+        },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
       })
       .toPromise();
