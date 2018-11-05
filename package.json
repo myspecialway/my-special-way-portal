@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.103",
+  "version": "0.0.111",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -22,7 +22,6 @@
     "stryker": "npx stryker run",
     "testcafe-live": "testcafe-live chrome tests/",
     "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
-    "precommit": "yarn format:fix",
     "format:fix": "pretty-quick --staged",
     "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
   },
@@ -119,7 +118,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format:fix"
+      "pre-commit": "yarn format:fix",
+      "pre-push": "yarn tslint"
     }
   },
   "jest": {
