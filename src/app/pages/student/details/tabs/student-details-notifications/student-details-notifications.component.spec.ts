@@ -5,9 +5,17 @@ import { Observable } from 'rxjs-compat';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentDetailsNotificationsComponent } from './student-details-notifications.component';
 import { StudentDetailsComponent } from '../../student-details.component';
+import { MatDialog } from '@angular/material';
+let studentReminderDialogMock: Partial<MatDialog>;
 
 describe('Student Details Notifications Component', () => {
   beforeEach(async () => {
+    studentReminderDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+      }),
+    };
+
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
       declarations: [StudentDetailsComponent, StudentDetailsNotificationsComponent],
@@ -27,6 +35,7 @@ describe('Student Details Notifications Component', () => {
             },
           },
         },
+        { provide: MatDialog, useValue: studentDialogMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

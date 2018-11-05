@@ -2,14 +2,25 @@
 
 exports[`Student Details Notifications Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-notifications
+  dialog="undefined"
+  medicineToggleMode="false"
+  rehabToggleMode="false"
   route={[Function Object]}
 >
   <div
     class="msw-student-details-notifications"
   >
-    
-  Not implemented yet
-  
+    <mat-card
+      class="student-notifications rehab selected-radius"
+    >
+      
+    </mat-card>
+    <br />
+    <mat-card
+      class="student-notifications medicine selected-radius"
+    >
+      
+    </mat-card>
   </div>
 </app-student-details-notifications>
 `;
