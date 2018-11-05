@@ -24,7 +24,7 @@ interface ReminderBlock {
 })
 export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
-  formControl = new FormControl('', [Validators.required]);
+  // formControl = new FormControl('', [Validators.required]);
   emptyReminder = {
     days: [
       {
@@ -134,21 +134,21 @@ export class AddStudentReminderDialogComponent implements OnInit {
     });
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-        ? 'Not a valid email'
-        : '';
-  }
+  // getErrorMessage() {
+  //   return this.formControl.hasError('required')
+  //     ? 'Required field'
+  //     : this.formControl.hasError('email')
+  //       ? 'Not a valid email'
+  //       : '';
+  // }
 
   close(): void {
     this.dialogRef.close();
   }
 
-  confirmAdd(dialogData): void {
-    this.dialogRef.close(dialogData);
-  }
+  // confirmAdd(dialogData): void {
+  //   this.dialogRef.close(dialogData);
+  // }
 
   addReminder() {
     this.selectionBlocks.push(this.emptyReminder);
