@@ -13,11 +13,13 @@
 
     <div class="hour">
       <label>שעה</label>
-      <mat-form-field class="hour-selection">
-        <mat-select placeholder="שעה" [formControl]="hours" multiple>
+      <br>
+      <mat-form-field  *ngFor="let hourSelectionItem of block.hourSelections; let i = index" class="hour-selection">
+        <mat-select (change)="onSelectedHour($event.target.value)" [formControl]="hours">
           <mat-option *ngFor="let hour of block.hoursList" [value]="hour">{{hour}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <i class="add-select material-icons" (click)="addHourSelection(block)"> add </i>
     </div>
   </div>
 

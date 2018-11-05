@@ -59,10 +59,29 @@ mat-dialog-actions button {
   }
 }
 
+.day {
+  float: right;
+  width: 100%;
+}
+
 .hour {
+  float: right;
+  width: 100%;
   .hour-selection {
-    max-width: 102px;
-    max-height: 139px;
+    max-width: 71px;
+    max-height: 52px;
+    float: right;
+    margin: 0 0 0 20px;
+  }
+  .add-select {
+    font-size: 20px;
+    color: #fff;
+    background: #8b66a7;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    top: 20px;
+    right: 10px;
   }
 }
 

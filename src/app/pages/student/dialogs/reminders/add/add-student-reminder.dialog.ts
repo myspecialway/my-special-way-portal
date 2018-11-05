@@ -12,6 +12,7 @@ interface IDay {
 
 interface ReminderBlock {
   days: IDay[];
+  hourSelections?: string[];
   hoursList: string[];
   selectedDay?: string;
 }
@@ -106,6 +107,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
       '23:30',
     ],
     selectedDay: '',
+    hourSelections: [''],
   };
   selectionBlocks: ReminderBlock[] = [this.emptyReminder];
   hours = new FormControl();
@@ -156,7 +158,15 @@ export class AddStudentReminderDialogComponent implements OnInit {
     day.selected = !day.selected;
     console.log(day);
   }
-  // close() {
-  //   this.cancel.emit();
-  // }
+
+  addHourSelection(block) {
+    console.log(this.hours.value);
+    if (this.hours.value) {
+      block.hourSelections.push(this.hours.value);
+    }
+    console.log(block);
+  }
+  onSelectedHour(val) {
+    console.log(val);
+  }
 }
