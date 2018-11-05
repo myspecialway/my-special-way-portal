@@ -57,22 +57,16 @@ describe('Student Details Notifications Component', () => {
           },
         },
       } as never;
-      studentReminderDialogMock = {
+      const studentReminderDialogInitMock = {
         parent: {
           params: {
             subscribe: jest.fn().mockImplementationOnce((callback) => callback({})),
           },
         },
       } as never;
-      // studentReminderDialogMock = {
-      //   open: jest.fn().mockReturnValue({
-      //     afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
-      //   }),
-      // };
-      // given
       const studentDetailsNotification = new StudentDetailsNotificationsComponent(
         activatedRouteMock,
-        studentReminderDialogMock,
+        studentReminderDialogInitMock,
       );
 
       // when
