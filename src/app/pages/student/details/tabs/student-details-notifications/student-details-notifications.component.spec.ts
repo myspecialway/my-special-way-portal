@@ -35,7 +35,7 @@ describe('Student Details Notifications Component', () => {
             },
           },
         },
-        { provide: MatDialog, useValue: studentDialogMock },
+        { provide: MatDialog, useValue: studentReminderDialogMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
@@ -57,8 +57,23 @@ describe('Student Details Notifications Component', () => {
           },
         },
       } as never;
+      studentReminderDialogMock = {
+        parent: {
+          params: {
+            subscribe: jest.fn().mockImplementationOnce((callback) => callback({})),
+          },
+        },
+      } as never;
+      // studentReminderDialogMock = {
+      //   open: jest.fn().mockReturnValue({
+      //     afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+      //   }),
+      // };
       // given
-      const studentDetailsNotification = new StudentDetailsNotificationsComponent(activatedRouteMock);
+      const studentDetailsNotification = new StudentDetailsNotificationsComponent(
+        activatedRouteMock,
+        studentReminderDialogMock,
+      );
 
       // when
       studentDetailsNotification.ngOnInit();

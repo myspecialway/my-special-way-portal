@@ -2,7 +2,7 @@
 
 exports[`Student Details Notifications Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-notifications
-  dialog="undefined"
+  dialog={[Function Object]}
   medicineToggleMode="false"
   rehabToggleMode="false"
   route={[Function Object]}
