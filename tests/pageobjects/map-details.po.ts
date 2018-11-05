@@ -9,7 +9,7 @@ export default class MapPage {
   floorLocationListNames: Selector;
   floorLocationSymbolNames: Selector;
   floorList: string[];
-  locationsList: Map<string, [boolean, string, string]>;
+  locationsList: string[];
   floorOptionText: Selector;
   floorToggle: Selector;
 
@@ -17,10 +17,10 @@ export default class MapPage {
     this.mapPageTitle = Selector('app-map-view div div h2');
     this.floorTitle = Selector('.mat-select-value-text span');
     this.floorLocationListNames = Selector('div .mat-list-item-content');
-    this.floorLocationSymbolNames = Selector("div [id^='mat-input-'] ");
+    this.floorLocationSymbolNames = Selector("div [id^='mat-input-']");
     this.floorTitleSelector = Selector('.mat-select-arrow-wrapper .mat-select-arrow');
     this.floorList = new Array();
-    this.locationsList = new Map<string, [boolean, string, string]>();
+    this.locationsList = new Array();
     this.floorOptionText = Selector('.lessons-option .mat-option-text');
     this.floorToggle = Selector('.mat-slide-toggle-input');
   }
@@ -33,12 +33,8 @@ export default class MapPage {
    */
   async selectAFloor(floor) {
     await t.click(this.floorTitleSelector);
-
     const floorLocation = this.floorList.indexOf(floor);
-    console.log(floorLocation);
-
     await t.click(this.floorOptionText.nth(floorLocation));
-    console.log('floor selected   on location' + floorLocation);
   }
 
   /**
@@ -51,31 +47,18 @@ export default class MapPage {
     await this.getFloorList();
 
     // on all floors
+    let locSymbol;
 
-    for (let i = 0; i < this.floorList.length; i++) {
+    let index = 0;
+    for (let i = 0; i <= this.floorList.length; i++) {
       await this.selectAFloor(this.floorList[i]);
-      debugger;
       const numBerOfLocationsOnFloor = await this.floorLocationListNames.count;
       // get all locations
-      for (let j = 2; j <= numBerOfLocationsOnFloor; j++) {
-        const checkedStatus = (await this.floorToggle.nth(j).getAttribute('Checked')) === 'true';
-        let locSymbol;
-        let locName;
-        console.log(checkedStatus);
-        console.log((j % 2 === 0) + 'result of comparison');
-
-        if (j % 2 === 0) {
-          locSymbol = await this.floorLocationSymbolNames.nth(j).innerText;
-          console.log(locSymbol);
-        } else {
-          locName = await this.floorLocationSymbolNames.nth(j).innerText;
-
-          console.log(locName);
-        }
-        this.locationsList.set(this.floorList[i], [checkedStatus, locSymbol, locName]);
+      for (let j = 0; j < numBerOfLocationsOnFloor * 2; j++) {
+        locSymbol = await this.floorLocationSymbolNames.nth(j).getAttribute('ng-reflect-value');
+        this.locationsList[index++] = locSymbol;
       }
     }
-
     return this.locationsList;
   }
 
@@ -88,10 +71,8 @@ export default class MapPage {
     let index = 3;
 
     for (; index >= 0; index--) {
-      console.log(index + ' index');
       await t.click(this.floorTitleSelector);
       await t.click(this.floorOptionText.nth(index));
-      console.log((await this.floorOptionText.nth(index).textContent) + 'text content');
       this.floorList[index] = await this.floorOptionText.nth(index).textContent;
     }
 

@@ -3,15 +3,16 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import StudentPage from './pageobjects/students.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
-import { Triggers } from 'eyes.sdk';
 import LessonsPage from './pageobjects/lessons.po';
 import { Selector } from 'testcafe';
+import MapPage from './pageobjects/map-details.po';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const studentPage = new StudentPage();
 const classDetailsPage = new ClassDetailsPage();
 const lessonPage = new LessonsPage();
+const mapPage = new MapPage();
 
 const createNewScheduleCell = async (t) => {
   await t
@@ -212,8 +213,18 @@ test('on a cell opened verify all Lessons Displayed In List', async (t) => {
   await getLessonListFromSchedule(t);
 
   for (let row = 0; row <= studentPage.scheduleLessonList.length - 1; row++) {
-    console.log(studentPage.scheduleLessonList[row] + '   ' + lessonPage.lessonList[row]);
-
     await t.expect(studentPage.scheduleLessonList[row].includes(lessonPage.lessonList[row]));
   }
+});
+
+test('on a cell opened verify number locations Displayed In List', async (t) => {
+  await navbar.navigateToMapPage();
+  await mapPage.getFullLocationsList();
+  const listCount = (await mapPage.locationsList.length) / 2;
+  await navbar.navigateToStudentsPage();
+  await studentPage.navigateToScheduleTab();
+  await t.click(studentPage.scheduleEmptyCell);
+  await t.click(classDetailsPage.editCellLocation);
+  const count = await Selector('div .ng-trigger .mat-select-content').childElementCount;
+  await t.expect(count).lte(listCount);
 });
