@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular
 import Student from '../../../../../models/student.model';
 import { StudentService } from '../../../services/student.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { AddStudentDialogComponent } from '../../add/add-student.dialog';
 
 interface IDay {
