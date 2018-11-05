@@ -32,6 +32,7 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
@@ -93,6 +94,7 @@ import { AddStudentReminderDialogComponent } from './pages/student/dialogs/remin
     DashboardComponent,
     LoginComponent,
     ClassComponent,
+    LessonComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,

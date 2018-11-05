@@ -3,30 +3,20 @@
 }
 
 .msw-student-header-back {
-  font-size: 14px;
-  letter-spacing: 0.3px;
   text-align: right;
-  color: #6a00cf;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.msw-student-header-nav-name {
-  font-size: 32px;
-  letter-spacing: 0.6px;
-  text-align: right;
-  color: #222222;
-}
-
 .msw-student-header-nav-tabs {
-  .mat-tab-link{
+  .mat-tab-link {
     background-color: #f2f2f2;
   }
 
-  .mat-tab-nav-bar, .mat-tab-header {
-   border-bottom-color: transparent;
-
+  .mat-tab-nav-bar,
+  .mat-tab-header {
+    border-bottom-color: transparent;
   }
 
   .msw-student-tab-active {
@@ -38,4 +28,3 @@
     justify-content: center;
   }
 }
-

@@ -14,19 +14,17 @@ exports[`Student Details Component with _new_ student path should render the com
     >
       <div
         class="msw-student-header-back"
-        routerlink="/student"
-        tabindex="0"
       >
-        <i
-          class="material-icons"
+        <a
+          class="back"
         >
-           keyboard_arrow_right 
-        </i>
-        <span
-          class="msw-student-header-back-label"
-        >
+          <i
+            class="material-icons"
+          >
+            chevron_right
+          </i>
            כל התלמידים 
-        </span>
+        </a>
       </div>
       <div
         class="msw-student-header-nav"
@@ -39,8 +37,8 @@ exports[`Student Details Component with _new_ student path should render the com
           >
             
           </nav>
-          <router-outlet />
         </div>
+        <router-outlet />
       </div>
     </div>
   </div>
@@ -61,19 +59,17 @@ exports[`Student Details Component with edit student path should render the comp
     >
       <div
         class="msw-student-header-back"
-        routerlink="/student"
-        tabindex="0"
       >
-        <i
-          class="material-icons"
+        <a
+          class="back"
         >
-           keyboard_arrow_right 
-        </i>
-        <span
-          class="msw-student-header-back-label"
-        >
+          <i
+            class="material-icons"
+          >
+            chevron_right
+          </i>
            כל התלמידים 
-        </span>
+        </a>
       </div>
       <div
         class="msw-student-header-nav"
@@ -86,8 +82,8 @@ exports[`Student Details Component with edit student path should render the comp
           >
             
           </nav>
-          <router-outlet />
         </div>
+        <router-outlet />
       </div>
     </div>
   </div>
