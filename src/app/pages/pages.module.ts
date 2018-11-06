@@ -14,6 +14,7 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS,
   MatListModule,
   MatSlideToggleModule,
+  MatIconModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
@@ -36,6 +37,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
+    MatIconModule,
   ],
   declarations: [
     StudentDetailsComponent,
