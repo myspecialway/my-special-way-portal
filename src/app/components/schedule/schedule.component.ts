@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
-// import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { FormClassData } from '../../models/FormClassData.model';
 
 export interface TimeSlotIndexes {
@@ -26,17 +25,13 @@ export class ScheduleComponent implements OnInit {
   @Output()
   timeSlotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
 
-  // constructor(private mswSnackbar: MSWSnackbar) {}
-
   ngOnInit() {
     this.timeSlotClicked.subscribe((val) => {
       if (!val.selectedClassData.class) {
-        // this.mswSnackbar.displayTimedMessage('כיתה הינו שדה חובה');
         console.log('כיתה הינו שדה חובה');
         return;
       }
       if (!val.selectedClassData.grade) {
-        // this.mswSnackbar.displayTimedMessage('שכבה הינו שדה חובה');
         console.log('שכבה הינו שדה חובה');
         return;
       }
