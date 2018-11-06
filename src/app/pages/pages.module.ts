@@ -15,6 +15,7 @@ import {
   MatListModule,
   MatSlideToggleModule,
   MatButtonModule,
+  MatIconModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
@@ -38,6 +39,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
+    MatIconModule,
   ],
   declarations: [
     StudentDetailsComponent,
