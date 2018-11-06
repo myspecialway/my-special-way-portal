@@ -32,6 +32,7 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
@@ -53,6 +54,9 @@ import { ScheduleDialogComponent } from './components/schedule/schedule-dialog/s
 import { ScheduleService } from './services/schedule/schedule.service';
 import { LocationService } from './services/location/location.graphql.service';
 import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
+import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
+import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
+import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 
 @NgModule({
   imports: [
@@ -89,6 +93,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     DashboardComponent,
     LoginComponent,
     ClassComponent,
+    LessonComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,
@@ -98,6 +103,8 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     AddStudentDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteLessonDialogComponent,
+    CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
   ],
@@ -109,6 +116,8 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
+    DeleteLessonDialogComponent,
+    CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
   providers: [
@@ -121,6 +130,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
     ScheduleService,
     LocationService,
     MSWSnackbar,
+    PendingInterceptorServiceInterceptor,
   ],
   bootstrap: [AppComponent],
 })
