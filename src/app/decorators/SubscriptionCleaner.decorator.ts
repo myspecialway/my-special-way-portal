@@ -14,7 +14,9 @@ export function SubscriptionCleaner(
       originalNGonInit.apply(this, args);
     };
     instance.constructor.prototype[destroyHook] = function(...args) {
-      this[propertyName].unsubscribe();
+      if (this[propertyName]) {
+        this[propertyName].unsubscribe();
+      }
       originalNGonDestroy.apply(this, args);
     };
   };
