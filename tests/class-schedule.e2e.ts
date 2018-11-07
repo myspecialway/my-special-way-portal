@@ -56,33 +56,33 @@ async function createNewScheduleCell() {
     .click(classDetailsPage.locationOption);
 }
 
-// test('should open popup on click on cell', async () => {
-//   await t
-//     .click(studentPage.scheduleEmptyCell)
-//     .expect(classDetailsPage.editCellDialogue.exists)
-//     .ok();
-// });
+test('should open popup on click on cell', async () => {
+  await t
+    .click(studentPage.scheduleEmptyCell)
+    .expect(classDetailsPage.editCellDialogue.exists)
+    .ok();
+});
 
-// test('should update existing cell,should create lesson+location on empty cell', async () => {
-//   await createNewScheduleCell();
-//   await t
-//     .click(classDetailsPage.editCellUpdateButton)
-//     .expect(studentPage.scheduleEmptyCell.textContent)
-//     .contains('אומנות0 מעלית קומה')
-//     .expect(studentPage.scheduleEmptyCell.textContent)
-//     .notContains('add');
-// });
+test('should update existing cell,should create lesson+location on empty cell', async () => {
+  await createNewScheduleCell();
+  await t
+    .click(classDetailsPage.editCellUpdateButton)
+    .expect(studentPage.scheduleEmptyCell.textContent)
+    .contains('אומנות0 מעלית קומה')
+    .expect(studentPage.scheduleEmptyCell.textContent)
+    .notContains('add');
+});
 
-// test('should be able to discard changes inside popup', async () => {
-//   await createNewScheduleCell();
-//   await t
-//     .click(classDetailsPage.editCellCloseButton)
-//     .expect(studentPage.scheduleEmptyCell.textContent)
-//     .notContains('אומנות0 מעלית קומה')
-//     .expect(studentPage.scheduleEmptyCell.textContent)
-//     .contains('add');
-// });
-//
+test('should be able to discard changes inside popup', async () => {
+  await createNewScheduleCell();
+  await t
+    .click(classDetailsPage.editCellCloseButton)
+    .expect(studentPage.scheduleEmptyCell.textContent)
+    .notContains('אומנות0 מעלית קומה')
+    .expect(studentPage.scheduleEmptyCell.textContent)
+    .contains('add');
+});
+
 test('Class name, grade and back-to-classes button should not be visible', async () => {
   await t.click(navbar.toolsDropDown).click(navbar.logoutMenuItem);
   await loginPage.loginAsTeacher();

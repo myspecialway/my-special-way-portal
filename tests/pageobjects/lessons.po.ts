@@ -1,5 +1,4 @@
 import { Selector } from 'testcafe';
-import { list } from 'postcss';
 
 export default class LessonsPage {
   static url = '/lesson';
@@ -25,10 +24,9 @@ export default class LessonsPage {
     let indexList = 0;
     for (let row = 1; row < lessonCount * 3; row++) {
       if (row % 3 === 0) {
-        let myVar = Selector('.msw-table .mat-row .mat-cell').nth(row);
+        const myVar = Selector('.msw-table .mat-row .mat-cell').nth(row);
         this.lessonList[indexList] = await myVar.textContent;
         this.lessonList[indexList].trim();
-        // console.log(this.lessonList[indexList]);
         indexList++;
       }
     }
