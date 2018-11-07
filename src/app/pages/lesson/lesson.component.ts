@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
 import { Class } from '../../models/class.model';
 import { CantDeleteLessonDialogComponent } from './dialogs/cant-delete/cant-delete-lesson.dialog';
+import { EditLessonDialogComponent } from './dialogs/new-edit/edit-lesson.dialog';
 
 @Component({
   selector: 'app-lesson',
@@ -40,7 +41,22 @@ export class LessonComponent implements OnInit {
   }
 
   addNewLesson() {
+    const data = { title: '', icon: 'english' };
     //this.lessonService.create("a","art");
+    const dialogRef = this.dialog.open(EditLessonDialogComponent, {
+      data,
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result) {
+            this.lessonService.create(data.title, data.icon);
+          }
+          // console.log(result, data);
+        }),
+    );
   }
 
   public async deleteLesson(_id: string, title: string) {

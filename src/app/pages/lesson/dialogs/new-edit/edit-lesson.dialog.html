@@ -1,0 +1,18 @@
+<form #formControl="ngForm" [formGroup]="form" novalidate (submit)="submitForm()">
+  <div class="container">
+    <h3 mat-dialog-title color="accent">הוספת שיעור</h3>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+      <mat-form-field color="primary">
+        <input tabindex="1" matInput #input formControlName="title" placeholder="שם שיעור" [(ngModel)]="data.title"
+          autocomplete='given-name' name="title" required>
+        <mat-error *ngIf="formControl.invalid">שם שיעור הינו שדה חובה</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button type="submit" mat-button [mat-dialog-close]=true class="msw-button-submit" [disabled]="!formControl.valid">עדכן</button>
+      <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">ביטול</button>
+    </div>
+  </div>
+</form>
