@@ -21,9 +21,29 @@ mutation {
     id: "${lessonId}"
   )
 }`;
+const CREATE_LESSON_QUERY = (title, icon) => gql`
+  mutation {
+    createLesson(lesson: {
+      title: "${title}"
+      icon: "${icon}"
+    }){ _id }
+  }`;
 
 @Injectable()
 export class LessonService {
+  public create(title: string, icon: string): any {
+    return this.apollo
+      .mutate({
+        mutation: CREATE_LESSON_QUERY(title, icon),
+        awaitRefetchQueries: false,
+      })
+      .toPromise()
+      .then((res) => {
+        if (res.data) {
+          return res.data.createClass;
+        }
+      });
+  }
   constructor(private apollo: Apollo) {}
   public getAllLessons(): Observable<Lesson[]> {
     return this.apollo

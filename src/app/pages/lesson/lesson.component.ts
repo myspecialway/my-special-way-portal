@@ -39,7 +39,9 @@ export class LessonComponent implements OnInit {
     }
   }
 
-  addNewLesson() {}
+  addNewLesson() {
+    //this.lessonService.create("a","art");
+  }
 
   public async deleteLesson(_id: string, title: string) {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
