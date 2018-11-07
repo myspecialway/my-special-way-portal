@@ -14,10 +14,10 @@ export class EditLessonDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditLessonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
-  private onNoClick(): void {
+  onNoClick(): void {
     this.dialogRef.close();
   }
-  private submitForm(): void {
+  submitForm(): void {
     console.log(this.form.value);
   }
   ngOnInit(): void {
