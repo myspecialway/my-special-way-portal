@@ -109,7 +109,4 @@ export class UserComponent implements OnInit, AfterViewInit {
         }),
     );
   }
-  updateUserPassword(userData: User) {
-    this.userService.updateUserPassword(userData._id, 'Aa123456');
-  }
 }

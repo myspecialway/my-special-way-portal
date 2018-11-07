@@ -16,10 +16,15 @@ import { StudentDetailsComponent } from './pages/student/details/student-details
 import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
 import { UserType } from './models/user.model';
 import { MapContainerComponent } from './pages/maps/maps.container/map.container.component';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'first-login',
+    component: FirstloginComponent,
+  },
   {
     path: '',
     canActivate: [AuthGuard],
