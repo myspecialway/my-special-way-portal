@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
@@ -41,10 +42,17 @@ export class StudentDetailsRemindersComponent implements OnInit {
   }
 
   updateStudentReminder(type: string, event: any) {
-    this.dialog.open(AddStudentReminderDialogComponent, {
+    const dialogRef = this.dialog.open(AddStudentReminderDialogComponent, {
       data: 'userData',
       height: '376px',
       width: '631px',
     });
+
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (data) => {}),
+    );
   }
 }
