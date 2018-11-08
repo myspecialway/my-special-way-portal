@@ -1,5 +1,5 @@
 import { ReminderType } from './../../../../../models/reminder.model';
-import { getRemindersSchedule, getNewReminder } from './../../../dialogs/reminders/reminders.utils';
+import { getNewReminder } from './../../../dialogs/reminders/reminders.utils';
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';

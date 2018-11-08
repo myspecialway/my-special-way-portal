@@ -1,12 +1,8 @@
-import { IReminder } from './../../../../../models/reminder.model';
 import { REMINDERS_DIALOG_FORM_DATA, IReminderTime } from './../../../../../models/reminder-time.model';
 import { getNewReminder } from './../reminders.utils';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import Student from '../../../../../models/student.model';
-import { StudentService } from '../../../services/student.service';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { AddStudentDialogComponent } from '../../add/add-student.dialog';
 
 @Component({
   selector: 'app-add-student.dialog',
