@@ -2,9 +2,7 @@ import { NG_ASYNC_VALIDATORS, AbstractControl, AsyncValidator, ValidationErrors 
 import { Input, Directive } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { map } from 'rxjs/operators/map';
-import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs';
 
 @Directive({
   selector: '[appUniqueUsername]',

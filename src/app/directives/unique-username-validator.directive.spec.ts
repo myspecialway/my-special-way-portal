@@ -6,8 +6,7 @@ import { By } from '@angular/platform-browser';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { of } from 'rxjs/observable/of';
 import { UniqueUsernameValidatorDirective } from './unique-username-validator.directive';
-import { PagesModule } from '../pages/pages.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule } from 'apollo-angular';
 
 @Component({

@@ -11,7 +11,6 @@ import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-pr
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserUniqueValidationResponse } from '../../models/user-unique-validation-response.model';
 import { of } from 'rxjs';
-import { finalize } from 'rxjs/internal/operators/finalize';
 import { catchError, first, map } from 'rxjs/operators';
 
 @Injectable()

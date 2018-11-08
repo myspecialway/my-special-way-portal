@@ -3,7 +3,6 @@ jest.mock('@angular/common/http');
 import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
-import { Observable } from 'apollo-link';
 import { of } from 'rxjs/observable/of';
 
 describe('AuthenticationService', () => {
