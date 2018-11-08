@@ -4,7 +4,7 @@ export interface IReminderTime {
   hours: Set<string>;
 }
 export const REMINERS_DIALOG_DATA = {
-  days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו']),
+  days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'א-ה']),
   hours: new Set<string>([
     '06:00',
     '06:30',
