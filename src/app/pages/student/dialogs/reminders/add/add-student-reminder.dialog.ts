@@ -1,4 +1,5 @@
-import { REMINERS_DIALOG_DATA, IReminderTime } from './../../../../../models/reminder-time.model';
+import { IReminder } from './../../../../../models/reminder.model';
+import { REMINDERS_DIALOG_FORM_DATA, IReminderTime } from './../../../../../models/reminder-time.model';
 import { getNewReminder } from './../reminders.utils';
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import Student from '../../../../../models/student.model';
@@ -15,22 +16,19 @@ import { AddStudentDialogComponent } from '../../add/add-student.dialog';
 export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
   // formControl = new FormControl('', [Validators.required]);
-  dialogData = REMINERS_DIALOG_DATA;
-  selectionBlocks: IReminderTime[] = [getNewReminder()];
+  dialogData = REMINDERS_DIALOG_FORM_DATA;
   hours = new FormControl();
   hourSelectorEnabled = true;
 
   @Output()
   cancel = new EventEmitter<void>();
 
-  @Input()
   options = { submitButtonLabel: 'עדכן' };
 
   constructor(
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddStudentDialogComponent>,
-    public studentService: StudentService,
-    @Inject(MAT_DIALOG_DATA) public data: Student,
+    public dialogRef: MatDialogRef<AddStudentReminderDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: IReminderTime[],
   ) {}
 
   ngOnInit(): void {
@@ -44,12 +42,12 @@ export class AddStudentReminderDialogComponent implements OnInit {
     });
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(data?): void {
+    this.dialogRef.close(data);
   }
 
   addReminder() {
-    this.selectionBlocks.push(getNewReminder());
+    this.data.push(getNewReminder());
   }
 
   toggleDay(dayIndex: number, block: IReminderTime) {
