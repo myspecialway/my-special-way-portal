@@ -15,9 +15,11 @@
     </div>
 
     <div class="hour">
-      <label>שעה</label>
-      <br>
-      <span class="hour-selection" *ngFor="let selectedHour of block.hours">{{selectedHour}}<i class="material-icons" (click)="removeHour(selectedHour, block)">close</i></span>
+      <label class="hour-label">שעה</label>
+      <span class="hour-selection" *ngFor="let selectedHour of block.hours">
+        {{selectedHour}}
+        <i class="material-icons" (click)="removeHour(selectedHour, block)">close</i>
+      </span>
       <mat-form-field *ngIf="hourSelectorEnabled" class="hour-selection">
         <mat-select (ngModelChange)="selectHour($event, block)" [formControl]="hours">
             <mat-option disabled>בחר</mat-option>
@@ -25,11 +27,11 @@
           </mat-select>
       </mat-form-field>
       <i *ngIf="!hourSelectorEnabled" class="add-select material-icons" (click)="hourSelectorEnable()"> add </i>
+    <hr>
     </div>
   </div>
 
   <div class="add-reminder">
-    <hr>
     <button mat-button class="msw-button-cancel" (click)="addReminder()">+ הוסף יום ושעה</button>
   </div>
 
