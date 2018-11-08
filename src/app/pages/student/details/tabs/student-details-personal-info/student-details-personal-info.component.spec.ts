@@ -284,11 +284,11 @@ describe('Student Details Personal Info Component', () => {
     });
 
     it('should show indication when error happened on save changes', async () => {
-      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve(classTestData.classes);
+      (studentServiceMock.getById as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(oneStudentTestData.student);
       });
 
-      (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+      (studentServiceMock.update as jest.Mock).mockImplementationOnce(() => {
         throw new Error('Mock Error');
       });
 
@@ -296,7 +296,7 @@ describe('Student Details Personal Info Component', () => {
       fixture.detectChanges();
       await fixture.whenRenderingDone();
       expect(fixture.componentInstance.saveFailed).toBe(false);
-      await fixture.componentInstance.addStudent();
+      await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(fixture.componentInstance.saveFailed).toBe(true);
     });
   });
