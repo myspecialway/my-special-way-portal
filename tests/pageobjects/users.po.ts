@@ -1,5 +1,4 @@
 import { Selector, t } from 'testcafe';
-import { selector } from 'rxjs-compat/operator/publish';
 
 export default class UsersPage {
   static url = '/user';
