@@ -5,11 +5,11 @@ import { MatDialog } from '@angular/material';
 import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/add/add-student-reminder.dialog';
 
 @Component({
-  selector: 'app-student-details-notifications',
-  templateUrl: './student-details-notifications.component.html',
-  styleUrls: ['./student-details-notifications.component.scss'],
+  selector: 'app-student-details-reminders',
+  templateUrl: './student-details-reminders.component.html',
+  styleUrls: ['./student-details-reminders.component.scss'],
 })
-export class StudentDetailsNotificationsComponent implements OnInit {
+export class StudentDetailsRemindersComponent implements OnInit {
   idOrNew: string;
 
   rehabToggleMode = false;

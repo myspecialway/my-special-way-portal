@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Details Reminders Component with _new_ student path should render the component as described in snapshot 1`] = `
+<app-student-details-reminders
+  dialog={[Function Object]}
+  medicineToggleMode="false"
+  rehabToggleMode="false"
+  route={[Function Object]}
+>
+  <div
+    class="msw-student-details-reminders"
+  >
+    <mat-card
+      class="student-reminders rehab selected-radius"
+    >
+
+    </mat-card>
+    <br />
+    <mat-card
+      class="student-reminders medicine selected-radius"
+    >
+
+    </mat-card>
+  </div>
+</app-student-details-reminders>
+`;

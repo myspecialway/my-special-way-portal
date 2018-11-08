@@ -13,7 +13,7 @@
               <span>{{getSelectedMenuItem()}}</span>
               <i class="material-icons">arrow_drop_down</i>
             </span>
-          <!--<span class="notification">5</span>-->
+          <!--<span class="reminder">5</span>-->
         </a>
         <div class="dropdown-menu dropdown-menu-link" aria-labelledby="navbarDropdownMenuLink">
             <div routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item"  data-test-id="header-nav-links">
@@ -51,7 +51,7 @@
             <i class="material-icons">arrow_drop_down</i>
             </span>
 
-            <!--<span class="notification">5</span>-->
+            <!--<span class="reminder">5</span>-->
             <p>
               <span class="d-lg-none d-md-block">Some Actions</span>
             </p>
@@ -88,15 +88,15 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
-                        <p class="hidden-lg hidden-md">Notifications</p>
+                        <i class="material-icons">reminders</i>
+                        <span class="reminder">5</span>
+                        <p class="hidden-lg hidden-md">Reminders</p>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Mike John responded to your email</a></li>
                         <li><a href="#">You have 5 new tasks</a></li>
                         <li><a href="#">You're now friend with Andrew</a></li>
-                        <li><a href="#">Another Notification</a></li>
+                        <li><a href="#">Another Reminder</a></li>
                         <li><a href="#">Another One</a></li>
                     </ul>
                 </li>

@@ -3,12 +3,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { StudentDetailsNotificationsComponent } from './student-details-notifications.component';
+import { StudentDetailsRemindersComponent } from './student-details-reminders.component';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { MatDialog } from '@angular/material';
 let studentReminderDialogMock: Partial<MatDialog>;
 
-describe('Student Details Notifications Component', () => {
+describe('Student Details Reminders Component', () => {
   beforeEach(async () => {
     studentReminderDialogMock = {
       open: jest.fn().mockReturnValue({
@@ -18,7 +18,7 @@ describe('Student Details Notifications Component', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
-      declarations: [StudentDetailsComponent, StudentDetailsNotificationsComponent],
+      declarations: [StudentDetailsComponent, StudentDetailsRemindersComponent],
       providers: [
         {
           provide: Router,
@@ -45,7 +45,7 @@ describe('Student Details Notifications Component', () => {
     beforeEach(async () => {});
 
     it('should render the component as described in snapshot', () => {
-      const fixture = TestBed.createComponent(StudentDetailsNotificationsComponent);
+      const fixture = TestBed.createComponent(StudentDetailsRemindersComponent);
       expect(fixture).toMatchSnapshot();
     });
 
@@ -64,13 +64,13 @@ describe('Student Details Notifications Component', () => {
           },
         },
       } as never;
-      const studentDetailsNotification = new StudentDetailsNotificationsComponent(
+      const studentDetailsReminder = new StudentDetailsRemindersComponent(
         activatedRouteMock,
         studentReminderDialogInitMock,
       );
 
       // when
-      studentDetailsNotification.ngOnInit();
+      studentDetailsReminder.ngOnInit();
 
       // then
       // tslint:disable-next-line:no-non-null-assertion test case only

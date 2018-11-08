@@ -104,14 +104,14 @@
 </ng-template>
 
 
-<div class="msw-student-details-notifications">
-  <mat-card class="student-notifications rehab selected-radius" (click)="updateStudentReminder('rehab', $event)">
+<div class="msw-student-details-reminders">
+  <mat-card class="student-reminders rehab selected-radius" (click)="updateStudentReminder('rehab', $event)">
     <ng-container
       *ngIf="rehabToggleMode; then rehabEnable; else rehabDisabled">
     </ng-container>
   </mat-card>
   <br>
-  <mat-card class="student-notifications medicine selected-radius" (click)="updateStudentReminder('medicine', $event)">
+  <mat-card class="student-reminders medicine selected-radius" (click)="updateStudentReminder('medicine', $event)">
     <ng-container
       *ngIf="medicineToggleMode; then medicineEnable; else medicineDisabled">
     </ng-container>
