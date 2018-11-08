@@ -19,11 +19,11 @@
       <br>
       <span class="hour-selection" *ngFor="let selectedHour of block.hours">{{selectedHour}}<i class="material-icons" (click)="removeHour(selectedHour, block)">close</i></span>
       <mat-form-field *ngIf="hourSelectorEnabled" class="hour-selection">
-        <mat-select  (ngModelChange)="selectHour($event, block)" [formControl]="hours">
+        <mat-select (ngModelChange)="selectHour($event, block)" [formControl]="hours">
           <mat-option *ngFor="let hour of dialogData.hours" [value]="hour">{{hour}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <i class="add-select material-icons" (click)="hourSelectorEnable()"> add </i>
+      <i *ngIf="!hourSelectorEnabled" class="add-select material-icons" (click)="hourSelectorEnable()"> add </i>
     </div>
   </div>
 

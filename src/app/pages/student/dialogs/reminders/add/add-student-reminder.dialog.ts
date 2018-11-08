@@ -65,7 +65,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
     if (!hour || block.hours.has(hour)) return;
     block.hours.add(hour);
     block.hours = this.getSortedHours(block.hours);
-    console.log(hour);
     this.hourSelectorEnable(false);
   }
 
@@ -78,6 +77,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
 
   removeHour(hour: string, block: IReminderTime) {
     block.hours.delete(hour);
+    this.hourSelectorEnable(false);
   }
 
   private isDaySelected(dayIndex: number, block: IReminderTime) {
