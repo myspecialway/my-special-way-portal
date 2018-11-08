@@ -17,6 +17,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   isNewStudent: boolean;
   idOrNew: string;
   changesWhereSaved = false;
+  saveFailed = false;
 
   @SubscriptionCleaner()
   subCollector;
@@ -62,7 +63,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.lastname = '';
     student.username = '';
     student.password = '';
-    student.gender = Gender.FEMALE;
+    student.gender = Gender.MALE;
     student.class = new Class();
     return student;
   }
@@ -81,24 +82,24 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   async addStudent() {
     try {
+      this.saveFailed = false;
       await this.studentService.create(this.student);
       this.changesWhereSavedNotification();
     } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
+      this.saveFailed = true;
+      console.error('Error on add student', error);
     }
   }
 
   async updateStudent(student) {
     student.form.value._id = this.student._id;
     try {
+      this.saveFailed = false;
       await this.studentService.update(student.form.value);
       this.changesWhereSavedNotification();
     } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
+      this.saveFailed = true;
+      console.error('Error on update student', error);
     }
   }
 

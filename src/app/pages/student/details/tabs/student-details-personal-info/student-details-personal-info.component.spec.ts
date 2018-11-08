@@ -178,6 +178,23 @@ describe('Student Details Personal Info Component', () => {
       jest.advanceTimersByTime(1000);
       expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
     });
+
+    it('should show indication when error happened on save changes', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(classTestData.classes);
+      });
+
+      (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+        throw new Error('Mock Error');
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.saveFailed).toBe(false);
+      await fixture.componentInstance.addStudent();
+      expect(fixture.componentInstance.saveFailed).toBe(true);
+    });
   });
 
   describe('with edit student path', () => {
@@ -264,6 +281,23 @@ describe('Student Details Personal Info Component', () => {
       await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(fixture.componentInstance.changesWhereSaved).toBeTruthy();
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+    });
+
+    it('should show indication when error happened on save changes', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(classTestData.classes);
+      });
+
+      (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+        throw new Error('Mock Error');
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.saveFailed).toBe(false);
+      await fixture.componentInstance.addStudent();
+      expect(fixture.componentInstance.saveFailed).toBe(true);
     });
   });
 });

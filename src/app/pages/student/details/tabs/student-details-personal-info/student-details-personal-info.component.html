@@ -25,10 +25,10 @@
             <div class="msw-student-details-gender">מין</div>
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender"
               required>
-              <mat-button-toggle value="FEMALE">
+              <mat-button-toggle value="MALE">
                 <i class="material-icons"> face </i>
               </mat-button-toggle>
-              <mat-button-toggle value="MALE">
+              <mat-button-toggle value="FEMALE">
                 <i class="material-icons"> face </i>
               </mat-button-toggle>
             </mat-button-toggle-group>
@@ -61,10 +61,12 @@
           <button *ngIf="!changesWhereSaved" mat-raised-button color="primary" data-test-id="save-button" class="msw-button-add"
             (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)" [disabled]="!studentDetailsForm.valid">שמור</button>
           <button *ngIf="changesWhereSaved" mat-raised-button color="accent" data-test-id="saved-button" class="msw-button-saved-indicator">
-             נשמר
+            נשמר
             <i class="material-icons">
               done
-          </i></button>
+            </i>
+          </button>
+          <mat-error data-test-id="save-err" *ngIf="saveFailed" class="help-block">השמירה נכשלה. אנא נסה שנית</mat-error>
         </div>
       </form>
     </div>
