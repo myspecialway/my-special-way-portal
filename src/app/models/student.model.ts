@@ -1,3 +1,4 @@
+import { IReminders } from './reminder.model';
 import { Class } from './class.model';
 import { TimeSlot } from './timeslot.model';
 
@@ -10,6 +11,7 @@ export default class Student {
   gender: Gender;
   class: Class;
   schedule: TimeSlot[];
+  reminders: IReminders;
 }
 
 export enum Gender {
@@ -26,6 +28,7 @@ export interface StudentQuery {
   gender: Gender;
   class_id: string;
   schedule?: TimeSlot[];
+  reminders?: IReminders;
 }
 
 export interface StudentsQuery {
