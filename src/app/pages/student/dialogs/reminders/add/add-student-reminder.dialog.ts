@@ -64,7 +64,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   selectHour(hour: string, block: IReminderTime) {
     if (!hour || block.hours.has(hour)) return;
     block.hours.add(hour);
-    block.hours = this.sortedHours(block.hours);
+    block.hours = this.getSortedHours(block.hours);
     console.log(hour);
     this.hourSelectorEnable(false);
   }
@@ -84,8 +84,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
     return block.daysindex.has(dayIndex);
   }
 
-  private sortedHours(hours: Set<string>) {
-    const asArray = Array.from(hours);
+  private getSortedHours(hours: Set<string>) {
     return new Set<string>([...Array.from(hours)].sort());
   }
 }
