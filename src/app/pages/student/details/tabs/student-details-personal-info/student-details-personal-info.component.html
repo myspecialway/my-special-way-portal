@@ -43,9 +43,10 @@
 
         <mat-form-field class="username">
           <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
-                 autocomplete="new-username" required [minlength]="5" [pattern]="'^[א-ת]+$'">
+                 autocomplete="new-username" required appUniqueUsername userId={{student._id}} [minlength]="5" [pattern]="'^[א-ת]+$'" [ngModelOptions]="{updateOn: 'blur'}">
           <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error data-test-id="username-format-err" *ngIf="username.hasError('minlength') || username.hasError('pattern')">שם משתמש חייב להיות לפחות חמישה תווים בעברית</mat-error>
+          <mat-error data-test-id="username-unique-err" *ngIf="username.hasError('isTaken')">שם משתמש כבר קיים. אנא נסה שם משתמש אחר</mat-error>
         </mat-form-field>
         <mat-form-field class="password">
           <input matInput placeholder="סיסמא" type="password" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>

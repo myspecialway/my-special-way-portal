@@ -3,6 +3,8 @@ jest.mock('@angular/common/http');
 import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
+import { Observable } from 'apollo-link';
+import { of } from 'rxjs/observable/of';
 
 describe('AuthenticationService', () => {
   let authService: AuthenticationService;
@@ -139,5 +141,42 @@ describe('AuthenticationService', () => {
     expect(localStorage.getItem('token')).toBe(expiredMockToken);
     await authService.logout();
     expect(localStorage.getItem('token')).toBeNull();
+  });
+
+  describe('user uniqueness validation', () => {
+    it('should return true if user is unique', (done) => {
+      const mockedResponse = of({ isUnique: true });
+
+      (httpClient.post as jest.Mock).mockImplementation(() => mockedResponse);
+
+      authService.checkUsernameUnique('username', 'id').subscribe((isUnique) => {
+        expect(isUnique).toBe(true);
+        done();
+      });
+    });
+
+    it('should return false if user is taken', (done) => {
+      const mockedResponse = of({ isUnique: false });
+
+      (httpClient.post as jest.Mock).mockImplementation(() => mockedResponse);
+
+      authService.checkUsernameUnique('username', 'id').subscribe((isUnique) => {
+        expect(isUnique).toBe(false);
+        done();
+      });
+    });
+
+    it('should return true on error', (done) => {
+      const mockedResponse = { status: 500 };
+
+      (httpClient.post as jest.Mock).mockImplementation(() => {
+        throw mockedResponse;
+      });
+
+      authService.checkUsernameUnique('username', 'id').subscribe((isUnique) => {
+        expect(isUnique).toBe(true);
+        done();
+      });
+    });
   });
 });
