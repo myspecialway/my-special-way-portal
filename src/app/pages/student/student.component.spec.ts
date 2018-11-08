@@ -29,7 +29,7 @@ describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let studentDialogMock: Partial<MatDialog>;
   let afterClosedMockFn: jest.Mock;
-  const watchQueryMockedObservable: Subject<any>;
+  const watchQueryMockedObservable: Subject<any> = new Subject();
 
   beforeEach(async () => {
     studentServiceMock = {
@@ -86,9 +86,9 @@ describe('student component', () => {
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  /* 
+  /*
   ** temporry remove this as it fails with undefined of valueChanges
-  * 
+  *
   it('should load students from service on page load ', () => {
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
