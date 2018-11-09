@@ -3,7 +3,13 @@ export interface IReminderTime {
   daysindex: Set<number>;
   hours: Set<string>;
 }
-export const REMINERS_DIALOG_DATA = {
+
+export interface IDbReminderTime {
+  daysindex: number[];
+  hours: string[];
+}
+
+export const REMINDERS_DIALOG_FORM_DATA = {
   days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'א-ה']),
   hours: new Set<string>([
     '06:00',

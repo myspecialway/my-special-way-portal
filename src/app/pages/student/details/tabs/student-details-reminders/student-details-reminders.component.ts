@@ -1,3 +1,5 @@
+import { ReminderType } from './../../../../../models/reminder.model';
+import { getNewReminder } from './../../../dialogs/reminders/reminders.utils';
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +14,11 @@ import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/ad
 })
 export class StudentDetailsRemindersComponent implements OnInit {
   idOrNew: string;
+
+  get reminderTypes() {
+    const keys = Object.keys(ReminderType);
+    return keys.map((el) => [el, Object(ReminderType)[el]]);
+  }
 
   rehabToggleMode = false;
   medicineToggleMode = false;
@@ -43,7 +50,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
 
   updateStudentReminder(type: string, event: any) {
     const dialogRef = this.dialog.open(AddStudentReminderDialogComponent, {
-      data: 'userData',
+      data: [getNewReminder()], //getRemindersSchedule(type, this.student.reminders),
       height: '376px',
       width: '631px',
     });

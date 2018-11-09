@@ -74,7 +74,7 @@ mat-dialog-actions button {
   }
   span.hour-selection {
     border-bottom: 1px solid #999999;
-    width: 60px;
+    min-width: 60px;
     i {
       float: left;
     }
