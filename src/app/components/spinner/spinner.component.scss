@@ -1,0 +1,22 @@
+$spinner-background-color: #f1f1f1 !default;
+$spinner-opacity: 0.7 !default;
+$colored-background-color: #333 !default;
+
+#spinner {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: $spinner-opacity;
+  background-color: $spinner-background-color;
+}
+
+::ng-deep .colored-parent,
+::ng-deep .colored > div {
+  background-color: $colored-background-color;
+}

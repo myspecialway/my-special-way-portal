@@ -41,7 +41,6 @@ export class ClassService {
       variables: { name },
     });
   }
-
   create(clss: Class | Partial<Class>) {
     return this.apollo
       .mutate({
@@ -85,6 +84,9 @@ export class ClassService {
           {
             query: QUERY_GET_CLASS_BY_ID,
             variables: { id: _class._id },
+          },
+          {
+            query: GET_ALL_CLASSES,
           },
         ],
         awaitRefetchQueries: true,

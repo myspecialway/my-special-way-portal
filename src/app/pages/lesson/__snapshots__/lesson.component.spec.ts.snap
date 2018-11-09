@@ -2,7 +2,9 @@
 
 exports[`lesson component should render component as described in snapshot 1`] = `
 <app-lesson
+  classService={[Function Object]}
   dataSource={[Function MatTableDataSource]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   lessonService={[Function Object]}
   sort={[Function MatSort]}
@@ -50,7 +52,7 @@ exports[`lesson component should render component as described in snapshot 1`] =
         </div>
       </div>
       <div
-        class="row"
+        class="row msw-table-container"
       >
         <div
           class="col-lg-12 col-md-12 col-sm-12"
@@ -69,7 +71,6 @@ exports[`lesson component should render component as described in snapshot 1`] =
             
             
             
-            --&gt; 
             
             
             

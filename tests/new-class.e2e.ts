@@ -3,6 +3,7 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import ClassesPage from './pageobjects/classes.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
+import StudentPage from './pageobjects/students.po';
 import * as _ from 'lodash';
 import { Selector, t } from 'testcafe';
 
@@ -10,19 +11,20 @@ const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const classDetailsPage = new ClassDetailsPage();
 const classesPage = new ClassesPage();
+const studentsPage = new StudentPage();
 
 const newClassName = 'newClassTest';
 
 const assertSchedulingDisabled = async () => {
   await t
-    .click(classDetailsPage.scheduleEmptyCell)
+    .click(studentsPage.scheduleEmptyCell)
     .expect(classDetailsPage.editCellDialogue.exists)
     .notOk();
 };
 
 const assertScheduleCellWithExactText = async (cellNumbers: number[], text: string) => {
   cellNumbers.map(async (cellNumber) => {
-    const cell = classDetailsPage.scheduleEmptyCell.nth(cellNumber);
+    const cell = studentsPage.scheduleEmptyCell.nth(cellNumber);
     await t.expect(cell.textContent).eql(text, `scheduled cell ${cellNumber} doesn't contain the text "${text}"`);
   });
 };

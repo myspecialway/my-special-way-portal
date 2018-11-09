@@ -23,7 +23,7 @@ test('new and existing student form error messages display correctly', async (t)
     .pressKey('tab') // just to close the drop down
     .click(studentPage.password)
     .click(studentPage.username)
-    .pressKey('tab') // just to leave the previous field
+    .pressKey('tab') // just to leave the previous field.Z
     .expect(studentPage.firstNameErr().exists)
     .ok()
     .expect(studentPage.lastNameErr().exists)

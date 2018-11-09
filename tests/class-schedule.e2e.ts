@@ -3,12 +3,14 @@ import NavbarPage from './pageobjects/navbar.po';
 import { testEnvironment } from './config/config';
 import ClassesPage from './pageobjects/classes.po';
 import ClassDetailsPage from './pageobjects/class-details.po';
+import StudentDetailsPage from './pageobjects/students.po';
 import { t } from 'testcafe';
 
 const loginPage = new LoginPage();
 const navbar = new NavbarPage();
 const classesPage = new ClassesPage();
 const classDetailsPage = new ClassDetailsPage();
+const studentPage = new StudentDetailsPage();
 
 fixture(`Class Schedule tests`)
   .page(testEnvironment.feUrl)
@@ -16,6 +18,7 @@ fixture(`Class Schedule tests`)
     await loginPage.loginAsPrinciple();
     await navbar.navigateToClassesPage();
     await createNewScheduleTestClass();
+    await studentPage.findEmptyCell(await studentPage.getStudentScheduleTableRowsNumber());
   });
 
 async function createNewScheduleTestClass() {
@@ -32,8 +35,10 @@ async function createNewScheduleTestClass() {
     .typeText(classDetailsPage.classNameInput, 'scheduleTestClass')
     .click(classDetailsPage.gradeSelect)
     .click(classDetailsPage.gradeSelectOption.withExactText('א'))
+    .setTestSpeed(0.1)
     // Leave  the class details page and verify that the class is create
     .click(classDetailsPage.backToClassButton)
+    .setTestSpeed(0.5)
     .expect(classesPage.scheduleTestClassNameCell.exists)
     .ok()
     .click(classesPage.scheduleTestClassNameCell);
@@ -41,9 +46,9 @@ async function createNewScheduleTestClass() {
 
 async function createNewScheduleCell() {
   await t
-    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .expect(studentPage.scheduleEmptyCell.textContent)
     .contains('add')
-    .click(classDetailsPage.scheduleEmptyCell)
+    .click(studentPage.scheduleEmptyCell)
     .click(classDetailsPage.editCellLesson)
     .click(classDetailsPage.lessonOption)
     .click(classDetailsPage.editCellLocation)
@@ -52,7 +57,7 @@ async function createNewScheduleCell() {
 
 test('should open popup on click on cell', async () => {
   await t
-    .click(classDetailsPage.scheduleEmptyCell)
+    .click(studentPage.scheduleEmptyCell)
     .expect(classDetailsPage.editCellDialogue.exists)
     .ok();
 });
@@ -61,9 +66,9 @@ test('should update existing cell,should create lesson+location on empty cell', 
   await createNewScheduleCell();
   await t
     .click(classDetailsPage.editCellUpdateButton)
-    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .expect(studentPage.scheduleEmptyCell.textContent)
     .contains('אומנות0 מעלית קומה')
-    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .expect(studentPage.scheduleEmptyCell.textContent)
     .notContains('add');
 });
 
@@ -71,9 +76,9 @@ test('should be able to discard changes inside popup', async () => {
   await createNewScheduleCell();
   await t
     .click(classDetailsPage.editCellCloseButton)
-    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .expect(studentPage.scheduleEmptyCell.textContent)
     .notContains('אומנות0 מעלית קומה')
-    .expect(classDetailsPage.scheduleEmptyCell.textContent)
+    .expect(studentPage.scheduleEmptyCell.textContent)
     .contains('add');
 });
 
