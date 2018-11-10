@@ -13,6 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [SharedModule, CommonModule, RouterModule, FormsModule, MatProgressSpinnerModule, HttpClientModule],
   declarations: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent],
-  exports: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent, SharedModule,SpinnerComponent],
+  exports: [FooterComponent, NavbarComponent, ScheduleComponent, SpinnerComponent, SharedModule, SpinnerComponent],
 })
 export class ComponentsModule {}
