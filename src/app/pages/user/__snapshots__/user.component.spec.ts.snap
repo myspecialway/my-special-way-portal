@@ -28,7 +28,7 @@ exports[`user component should render component as described in snapshot 1`] = `
             <span
               class="header-table-count-label"
             >
-               USERS.USERS_TITLE 
+              משתמשים
             </span>
             <span
               class="header-table-count-number"
@@ -44,14 +44,13 @@ exports[`user component should render component as described in snapshot 1`] = `
             color="primary"
             data-test-id="add-new-user-button"
             mat-raised-button=""
-            title="USERS.USERS_INSERT"
           >
             <i
               class="material-icons"
             >
                add 
             </i>
-             USERS.USERS_INSERT 
+             הוסף משתמש חדש 
           </button>
         </div>
       </div>
