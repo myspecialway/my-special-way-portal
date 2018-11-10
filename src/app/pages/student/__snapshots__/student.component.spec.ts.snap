@@ -2,9 +2,12 @@
 
 exports[`student component should render component as described in snapshot 1`] = `
 <app-student
+  apollo={[Function Object]}
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  mayAddStudent="false"
+  mayDeleteStudent="false"
   sort={[Function MatSort]}
   studentService={[Function Object]}
   table="undefined"
