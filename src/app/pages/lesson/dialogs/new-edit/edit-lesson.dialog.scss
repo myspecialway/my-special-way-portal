@@ -21,7 +21,8 @@
 
 .container {
   align-items: flex-start;
-  width: 312px;
+  width: 620px;
+  height: 550px;
   padding: 0px;
 }
 .mat-dialog-actions {
@@ -56,4 +57,12 @@
   font-weight: normal;
   letter-spacing: 1.3px;
   height: 105px;
+}
+
+.icon-list-container {
+  width: 572px;
+  height: 240px;
+  background-color: #fafafa;
+  padding: 9px;
+  // background-color: red;
 }

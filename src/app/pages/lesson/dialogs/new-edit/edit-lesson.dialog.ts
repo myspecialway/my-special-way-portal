@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./edit-lesson.dialog.scss'],
 })
 export class EditLessonDialogComponent implements OnInit {
+  private icons = ['english', 'art', 'lunch', 'hebrew', 'therapy', 'breakfeast', 'english2', 'arabic', 'russian'];
   form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,

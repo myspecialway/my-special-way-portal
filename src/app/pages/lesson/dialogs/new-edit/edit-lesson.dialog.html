@@ -8,8 +8,13 @@
           autocomplete='given-name' name="title" required>
         <mat-error *ngIf="formControl.invalid">שם שיעור הינו שדה חובה</mat-error>
       </mat-form-field>
-    </div>
 
+    </div>
+    <div class="icon-list-container">
+      <div *ngFor="let icon of icons">
+        <app-lesson-icon></app-lesson-icon>
+      </div>
+    </div>
     <div mat-dialog-actions>
       <button type="submit" mat-button [mat-dialog-close]=true class="msw-button-submit" [disabled]="!formControl.valid">עדכן</button>
       <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">ביטול</button>
