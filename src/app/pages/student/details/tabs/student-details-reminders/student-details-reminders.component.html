@@ -1,32 +1,25 @@
 
-<div class="msw-student-details-reminders">
-  <mat-card *ngFor="let type of reminderTypes" class="student-reminders rehab selected-radius" (click)="updateStudentReminder(type[0], $event)">
+<div *ngIf="student" class="msw-student-details-reminders">
+  <mat-card *ngFor="let reminder of student.reminders" class="student-reminders selected-radius"
+            (click)="updateStudentReminder(reminder)">
     <div class="table">
       <div class="row">
         <div class="cell">
-          <p>{{type[1]}}</p>
+          <p>{{reminderType[reminder.type]}}</p>
         </div>
         <div class="cell mat-slide-toggle">
           <mat-slide-toggle
-            [checked]="rehabToggleMode"
-            (change)="onToggleChanged(type[0], $event.checked)"
+            [(ngModel)]="reminder.enabled"
             (click)="$event.stopPropagation()"></mat-slide-toggle>
         </div>
       </div>
-      <div class="row">
+
+      <div *ngFor="let slot of reminder.schedule" class="row">
         <div class="cell">
-          ימים א-ה
+          {{slot.daysindex.join(',')}}
         </div>
         <div class="cell">
-          <p class="value">08:30, 09:30, 10:30, 11:30, 12:30, 13:30, 14:30, 15:30, 16:30</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell">
-          יום ו
-        </div>
-        <div class="cell">
-          <p class="value">08:30, 09:30, 10:30, 11:30, 12:30, 13:30</p>
+          <p class="value">{{slot.hours.join(',')}}</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
+import { IReminder, ISetReminder, ReminderType } from './../../../../../models/reminder.model';
 import { REMINDERS_DIALOG_FORM_DATA, IReminderTime } from './../../../../../models/reminder-time.model';
-import { getNewReminder } from './../reminders.utils';
+import { getNewReminder, getSetReminder, getDbReminder } from './../reminders.utils';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
@@ -15,35 +16,38 @@ export class AddStudentReminderDialogComponent implements OnInit {
   dialogData = REMINDERS_DIALOG_FORM_DATA;
   hours = new FormControl();
   hourSelectorEnabled = true;
+  protected reminderType = ReminderType;
 
   @Output()
   cancel = new EventEmitter<void>();
 
   options = { submitButtonLabel: 'עדכן' };
 
+  data: ISetReminder;
+
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddStudentReminderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IReminderTime[],
-  ) {}
-
-  ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      gender: '',
-      userName: '',
-      password: '',
-      class: undefined,
-    });
+    @Inject(MAT_DIALOG_DATA) public _data: IReminder,
+  ) {
+    this.data = getSetReminder(_data);
   }
 
-  close(data?): void {
-    this.dialogRef.close(data);
+  ngOnInit(): void {
+    if (this.data.schedule.length === 0) {
+      this.addReminder();
+    }
+    this.form = this.formBuilder.group({});
+  }
+
+  close(data?: ISetReminder): void {
+    const retData: IReminder | undefined = data ? getDbReminder(data) : data;
+    this._data = retData as IReminder;
+    this.dialogRef.close(retData);
   }
 
   addReminder() {
-    this.data.push(getNewReminder());
+    this.data.schedule.push(getNewReminder());
   }
 
   toggleDay(dayIndex: number, block: IReminderTime) {
@@ -52,7 +56,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
     } else {
       block.daysindex.add(dayIndex);
     }
-    console.log(dayIndex);
   }
 
   selectHour(hour: string, block: IReminderTime) {

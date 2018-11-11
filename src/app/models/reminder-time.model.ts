@@ -48,7 +48,7 @@ export const REMINDERS_DIALOG_FORM_DATA = {
   ]),
 };
 
-export const BASE_REMINDER = {
+export const BASE_REMINDER: IReminderTime = {
   daysindex: new Set<number>([]),
   hours: new Set<string>([]),
 };

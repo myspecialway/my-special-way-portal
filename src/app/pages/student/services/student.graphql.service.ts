@@ -74,6 +74,14 @@ export class StudentService {
             }
           }
         }
+        reminders {
+          enabled
+          type
+          schedule {
+            daysindex
+            hours
+          }
+        }
       }
       `,
       })
@@ -117,6 +125,7 @@ export class StudentService {
             lastname: "${student.lastname}"
             gender: ${student.gender}
             class_id: "${student.class_id}"
+            reminders: "${student.reminders}"
             }) { _id }
         }
     `,
