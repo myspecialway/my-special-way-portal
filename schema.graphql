@@ -49,7 +49,7 @@ type Mutation {
     userType: String
     class_id: ID
   ): User
-  updateUserPassword(id: ID!, password: String): User
+  updateUserPassword(username: String!, password: String): User
   removeUser(id: ID!): Boolean
   createClass(id: ID!, level: Int!, number: Int!, name: String!): Class
   updateClass(id: ID!, level: Int, number: Int, name: String): Class

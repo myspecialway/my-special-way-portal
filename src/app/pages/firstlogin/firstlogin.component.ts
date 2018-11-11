@@ -11,7 +11,7 @@ export class FirstloginComponent implements OnInit {
 
   ngOnInit() {}
 
-  updateUserPassword(userId: number, password: string) {
-    this.firstLoginService.updateUserPassword(userId, password);
+  updateUserPassword(username: string, password: string) {
+    this.userService.updateUserPassword(username, password);
   }
 }
