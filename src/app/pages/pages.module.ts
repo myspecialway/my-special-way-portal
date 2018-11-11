@@ -47,7 +47,6 @@ import { FirstloginComponent } from './firstlogin/firstlogin.component';
     ClassDetailsContainerComponent,
     MapContainerComponent,
     MapViewComponent,
-    FirstloginComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
 })

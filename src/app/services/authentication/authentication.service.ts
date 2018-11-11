@@ -36,6 +36,31 @@ export class AuthenticationService {
     await this.pushUserProfileToState(userProfile);
   }
 
+  async firstLogin(firstLoginToken: string): Promise<UserProfileStateModel | null> {
+    try {
+      const tokenResponse = await this.http
+        .post<LoginResponse>(environment.hotConfig.MSW_HOT_FIRSTLOGIN_ENDPOINT, { firstLoginToken })
+        .toPromise();
+
+      if (!tokenResponse) {
+        return null;
+      }
+
+      this.saveTokenInStorage(false, tokenResponse);
+      const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      await this.pushUserProfileToState(userProfile);
+
+      return userProfile;
+    } catch (error) {
+      const typedError = error as HttpErrorResponse;
+
+      if (typedError.status !== 401) {
+        throw error;
+      }
+    }
+    return null;
+  }
+
   async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http
@@ -46,11 +71,7 @@ export class AuthenticationService {
         return false;
       }
 
-      if (isRememberMeActive) {
-        localStorage.setItem('token', tokenResponse.accessToken);
-      } else {
-        sessionStorage.setItem('token', tokenResponse.accessToken);
-      }
+      this.saveTokenInStorage(isRememberMeActive, tokenResponse);
 
       const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
       await this.pushUserProfileToState(userProfile);
@@ -64,6 +85,14 @@ export class AuthenticationService {
       }
 
       return false;
+    }
+  }
+
+  private saveTokenInStorage(isRememberMeActive: boolean, tokenResponse: LoginResponse) {
+    if (isRememberMeActive) {
+      localStorage.setItem('token', tokenResponse.accessToken);
+    } else {
+      sessionStorage.setItem('token', tokenResponse.accessToken);
     }
   }
 

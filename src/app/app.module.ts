@@ -57,6 +57,7 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
     LessonComponent,
     StudentComponent,
     UserComponent,
+    FirstloginComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,

@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
-    path: 'first-login',
+    path: 'first-login/:token',
     component: FirstloginComponent,
   },
   {
