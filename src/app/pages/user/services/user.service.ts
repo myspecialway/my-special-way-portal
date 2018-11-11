@@ -37,7 +37,6 @@ export class UserService {
         query: QUERY_GET_USER_BY_ID,
         variables: { id },
       })
-      .pipe(map((res) => res.data.user))
       .toPromise();
   }
 
