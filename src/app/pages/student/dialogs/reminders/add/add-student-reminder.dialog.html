@@ -12,6 +12,7 @@
           {{day}}
         </div>
       </div>
+      <mat-error class="error-msg" *ngIf="!block.daysindex.size && dirty">לא נבחר יום</mat-error>
     </div>
 
     <div class="hour">
@@ -37,7 +38,6 @@
 
   <div mat-dialog-actions>
     <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-    <!--<button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>-->
-    <button type="submit" mat-button class="msw-button-submit" (click)="close(data)">{{options.submitButtonLabel}}</button>
+    <button type="button" mat-button class="msw-button-submit" (click)="submit()">{{options.submitButtonLabel}}</button>
   </div>
 </div>

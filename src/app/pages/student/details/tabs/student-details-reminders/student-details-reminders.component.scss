@@ -3,6 +3,9 @@
   align-items: center;
   flex-direction: column;
   padding: 48px;
+  & > .student-reminders {
+    margin: 0 0 30px 0;
+  }
   .student-reminders {
     width: 600px;
     height: 120px;
