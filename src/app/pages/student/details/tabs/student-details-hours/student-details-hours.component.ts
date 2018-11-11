@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
+import to from 'await-to-js';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -38,15 +39,18 @@ export class StudentDetailsHoursComponent implements OnInit {
       return;
     }
     this.id = this.route.parent.snapshot.params.idOrNew;
-    try {
-      this.student = await this.studentService.getById(this.id);
-      if (!this.student.class) {
-        this.student.class = new Class();
-      }
-      this.initSchedule();
-    } catch (err) {
+
+    const [err, student] = await to<Student>(this.studentService.getById(this.id));
+
+    if (err) {
       throw err;
     }
+
+    this.student = student as Student;
+    if (!this.student.class) {
+      this.student.class = new Class();
+    }
+    this.initSchedule();
   }
 
   private initSchedule() {
