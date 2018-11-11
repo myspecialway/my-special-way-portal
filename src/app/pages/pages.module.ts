@@ -22,7 +22,6 @@ import { StudentDetailsHoursComponent } from './student/details/tabs/student-det
 import { StudentDetailsNotificationsComponent } from './student/details/tabs/student-details-notifications/student-details-notifications.component';
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
-import { FirstloginComponent } from './firstlogin/firstlogin.component';
 
 @NgModule({
   imports: [

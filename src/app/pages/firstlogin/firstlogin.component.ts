@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user/services/user.service';
-import { User } from '../../models/user.model';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
 @Component({
