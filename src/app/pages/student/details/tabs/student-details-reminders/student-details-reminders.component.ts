@@ -1,6 +1,5 @@
 import { StudentService } from './../../../services/student.service';
 import { ReminderType, IReminder } from './../../../../../models/reminder.model';
-import { getNewReminder, getSetReminder } from './../../../dialogs/reminders/reminders.utils';
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
