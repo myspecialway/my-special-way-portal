@@ -144,25 +144,6 @@ describe('user component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 
-  it('should sort users by firstname+lastname', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve();
-    });
-
-    const fixture = TestBed.createComponent(UserComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    let component = fixture.componentInstance;
-    component.sort.sort({ id: 'name' });
-    sortValidation(component.dataSource.data, -1);
-    const sortElement = fixture.elementRef.nativeElement.querySelector('mat-header-cell.mat-column-name');
-    sortElement.click();
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    component = fixture.componentInstance;
-    sortValidation(component.dataSource.data, 1);
-  });
-
   it('should load zero users when recieves promise reject', async () => {
     (userServiceMock.getAllUsers as jest.Mock).mockReset();
     (userServiceMock.getAllUsers as jest.Mock).mockReturnValueOnce(Observable.of([]));
@@ -191,12 +172,39 @@ describe('user component', () => {
     fixture.componentInstance.applyFilter('  AA!!BB  ');
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
   });
+
+  it('should sort users by firstname+lastname', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const component = fixture.componentInstance;
+    const data = component.dataSource.data;
+    for (let i = 0; i < data.length - 1; i++) {
+      const user1 = data[i].firstname + data[i].lastname;
+      const user2 = data[i + 1].firstname + data[i + 1].lastname;
+      const comapare = user1.localeCompare(user2);
+      expect(comapare).toEqual(-1);
+    }
+  });
+
+  it('should sort users by firstname+lastname', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const data = fixture.componentInstance.dataSource.data;
+    for (let i = 0; i < data.length - 1; i++) {
+      const user1 = data[i].firstname + data[i].lastname;
+      const user2 = data[i + 1].firstname + data[i + 1].lastname;
+      const comapare = user1.localeCompare(user2);
+      expect(comapare).toEqual(-1);
+    }
+  });
 });
-function sortValidation(data: User[], sortDirection: number) {
-  for (let i = 0; i < data.length - 1; i++) {
-    const user1 = data[i].firstname + data[i].lastname;
-    const user2 = data[i + 1].firstname + data[i + 1].lastname;
-    const comapare = user1.localeCompare(user2);
-    expect(comapare).toEqual(sortDirection);
-  }
-}

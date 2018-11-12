@@ -25,12 +25,12 @@
           </ng-container>
 
           <ng-container matColumnDef="gradeId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
             <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
           </ng-container>
 
