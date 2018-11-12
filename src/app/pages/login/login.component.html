@@ -1,8 +1,8 @@
+<app-session-header></app-session-header>
 <div class="login-container">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
           <div class="login-card">
-            <div class="msw-login-logo-ph"></div>
-            <div class="msw-login-title">בדרכי שלי</div>
+            <img src="assets/img/msw-login-logo.png"/>
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <div class="form-row">
@@ -31,7 +31,7 @@
                   <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent" >זכור אותי</mat-checkbox>
                 </span>
               </div>
-              <button mat-button>כניסה</button>
+              <button mat-button class="btn btn-main">כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
 
@@ -39,4 +39,5 @@
 
     </form>
 </div>
+<app-session-footer></app-session-footer>
 

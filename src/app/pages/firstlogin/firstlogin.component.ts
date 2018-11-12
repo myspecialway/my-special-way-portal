@@ -13,6 +13,9 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
 export class FirstloginComponent implements OnInit {
   formFieldOptions: FormGroup;
   userToDisplay: UserProfileStateModel;
+  rememberMe: boolean;
+  loginFailed = false;
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,

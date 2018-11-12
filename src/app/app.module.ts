@@ -58,6 +58,8 @@ import { PendingInterceptorServiceInterceptor } from './services/spinner/pending
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
+import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 
 @NgModule({
   imports: [
@@ -109,6 +111,8 @@ import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SessionHeaderComponent,
+    SessionFooterComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,

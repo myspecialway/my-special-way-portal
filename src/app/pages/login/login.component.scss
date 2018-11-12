@@ -1,3 +1,5 @@
+@import '../../../assets/scss/core/buttons';
+
 :host {
   height: 100%;
   background-color: #fff;
@@ -11,7 +13,8 @@
 }
 .login-container {
   background-color: #fff;
-  height: 100%;
+  // height: 100%;
+  height: 516px;
 }
 
 .login-card {
@@ -57,27 +60,17 @@
     top: 0;
   }
 }
-.msw-login-logo-ph {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  background-color: #d8d8d8;
-  margin-top: 20px;
-}
-.msw-login-title {
-  margin-top: 20px;
-  height: 24px;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  color: #6a00cf;
+
+img {
+  height: 20%;
 }
 
 .msw-login-subtitle {
-  margin-top: 12px;
+  margin-top: 2em;
   font-size: 21px;
   letter-spacing: 0.4px;
-  color: #222222;
+  color: $gray-darker;
+  font-weight: 500;
 }
 
 .form-row,
@@ -115,21 +108,7 @@
 }
 
 .card-footer button {
-  background-color: #6a00cf;
   border-radius: 3px;
-  color: #fff;
   height: 36px;
   width: 183px;
-}
-
-.msw-login-checkbox {
-  .mat-checkbox-checked {
-    /deep/ .mat-checkbox-background {
-      background-color: #6a00cf;
-    }
-  }
-}
-
-.checkbox {
-  //  background-color: aqua;
 }

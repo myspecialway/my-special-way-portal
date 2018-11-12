@@ -1,3 +1,43 @@
-<div class="msw-login-logo-ph"></div>
-<div class="msw-login-title">בדרכי שלי</div>
-<div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
+<app-session-header></app-session-header>
+<div class="login-container">
+    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+          <div class="login-card">
+            <img src="assets/img/msw-login-logo.png"/>
+            <div class="msw-login-title">שלום {{ userToDisplay.firstname }}</div>
+            <div class="msw-login-subtitle msw-login-subtitle-small">על מנת להיכנס אל המערכת אנא הגדר סיסמא</div>
+            <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+              <div class="form-row">
+                <mat-form-field
+                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
+                  [floatLabel]="formFieldOptions.value.floatLabel">
+                  <input type="text" matInput placeholder="סיסמא" name="password" required/>
+                </mat-form-field>
+                <div *ngIf="f.submitted && !username.valid" class="help-block" data-test-id="empty-username-err">נא הכנס סיסמא</div>
+              </div>
+              <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !passwordConfirm.valid }">
+                <mat-form-field
+                  [hideRequiredMarker]="formFieldOptions.value.hideRequired"
+                  [floatLabel]="formFieldOptions.value.floatLabel">
+                  <input matInput placeholder="אישור סיסמא" name="passwordConfirmm" required>
+                </mat-form-field>
+                <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
+                <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="msw-login-checkbox" >
+                <span >
+                  <mat-checkbox  [checked]="rememberMe" (change)="rememberMe = !rememberMe" color="accent" >זכור אותי</mat-checkbox>
+                </span>
+              </div>
+              <button mat-button class="btn btn-main">כניסה</button>
+              <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
+            </div>
+
+          </div>
+
+    </form>
+</div>
+<app-session-footer></app-session-footer>
+
