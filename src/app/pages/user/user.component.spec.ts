@@ -1,6 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import {
+  MatHeaderRowDef,
+  MatRowDef,
+  MatHeaderRow,
+  MatDialog,
+  MatSort,
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import {
@@ -13,7 +21,7 @@ import {
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { UserType } from '../../models/user.model';
+import { UserType, User } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 
@@ -136,6 +144,25 @@ describe('user component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 
+  it('should sort users by firstname+lastname', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    let component = fixture.componentInstance;
+    component.sort.sort({ id: 'name' });
+    sortValidation(component.dataSource.data, -1);
+    const sortElement = fixture.elementRef.nativeElement.querySelector('mat-header-cell.mat-column-name');
+    sortElement.click();
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    component = fixture.componentInstance;
+    sortValidation(component.dataSource.data, 1);
+  });
+
   it('should load zero users when recieves promise reject', async () => {
     (userServiceMock.getAllUsers as jest.Mock).mockReset();
     (userServiceMock.getAllUsers as jest.Mock).mockReturnValueOnce(Observable.of([]));
@@ -165,3 +192,11 @@ describe('user component', () => {
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
   });
 });
+function sortValidation(data: User[], sortDirection: number) {
+  for (let i = 0; i < data.length - 1; i++) {
+    const user1 = data[i].firstname + data[i].lastname;
+    const user2 = data[i + 1].firstname + data[i + 1].lastname;
+    const comapare = user1.localeCompare(user2);
+    expect(comapare).toEqual(sortDirection);
+  }
+}

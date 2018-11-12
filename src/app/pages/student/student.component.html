@@ -18,14 +18,14 @@
     </div>
     <div class="row msw-table-container">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table [dataSource]="dataSource" class="msw-table" matSort matSortDisableClear>
+        <mat-table [dataSource]="dataSource" class="msw-table" matSort matSortActive="studentName" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="studentName">
-            <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{ row.firstname }} {{ row.lastname }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="gradeId">
-            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
           </ng-container>
 

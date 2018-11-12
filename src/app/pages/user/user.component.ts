@@ -38,6 +38,23 @@ export class UserComponent implements OnInit, AfterViewInit {
         });
       }),
     );
+
+    this.dataSource.sortingDataAccessor = this.customSortingDataAccessor();
+  }
+
+  private customSortingDataAccessor(): (data: User, sortHeaderId: string) => string | number {
+    return (item, property) => {
+      switch (property) {
+        case 'name':
+          return item.firstname + item.lastname;
+        case 'class':
+          return item.class && item.class.name ? item.class.name : '';
+        case 'type':
+          return this.toHebrew(item.role);
+        default:
+          return item[property];
+      }
+    };
   }
 
   ngAfterViewInit() {
