@@ -32,6 +32,9 @@ export default class NavbarPage {
     await this.navigateTo(this.menuDropDownStudents);
   }
 
+  async navigateToMapPage() {
+    await this.navigateTo(this.menuDropDownMap);
+  }
   async navigateToUsersPage() {
     await this.navigateTo(this.menuDropDownUsers);
   }
