@@ -1,6 +1,9 @@
 <form #formControl="ngForm" [formGroup]="form" novalidate (submit)="submitForm()">
   <div class="container">
-    <h3 mat-dialog-title color="accent">הוספת שיעור</h3>
+    <h3 mat-dialog-title color="accent">
+      <div *ngIf="!data._id">הוספת שיעור</div>
+      <div *ngIf="data._id">עדכון שיעור</div>
+    </h3>
     <mat-divider></mat-divider>
     <div mat-dialog-content>
       <mat-form-field color="primary">
@@ -17,7 +20,9 @@
     </div>
     <div mat-dialog-actions>
       <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">ביטול</button>
-      <button type="submit" mat-button [mat-dialog-close]=true class="mat-dialog-submit" [disabled]="!formControl.valid">עדכן</button>
+      <button type="submit" mat-button [mat-dialog-close]=true class="mat-dialog-submit" [disabled]="!formControl.valid">
+        {{data._id? updateButtonTitle : addButtonTitle}}  
+      </button>
     </div>
   </div>
 </form>

@@ -40,8 +40,7 @@ export class LessonComponent implements OnInit {
     }
   }
 
-  addNewLesson() {
-    const data = { title: '', icon: 'english' };
+  public openLessonDialog(data: Lesson) {
     const dialogRef = this.dialog.open(EditLessonDialogComponent, {
       data,
     });
@@ -55,6 +54,12 @@ export class LessonComponent implements OnInit {
           }
         }),
     );
+  }
+  public addNewLesson() {
+    this.openLessonDialog({ _id: '', title: '', icon: '' });
+  }
+  public editLesson(lesson: Lesson): void {
+    this.openLessonDialog(lesson);
   }
 
   public async deleteLesson(_id: string, title: string) {
