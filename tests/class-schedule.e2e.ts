@@ -49,6 +49,7 @@ async function createNewScheduleCell() {
     .expect(studentPage.scheduleEmptyCell.textContent)
     .contains('add')
     .click(studentPage.scheduleEmptyCell)
+    .debug()
     .click(classDetailsPage.editCellLesson)
     .click(classDetailsPage.lessonOption)
     .click(classDetailsPage.editCellLocation)
