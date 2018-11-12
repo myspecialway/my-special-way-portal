@@ -1,14 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  MatHeaderRowDef,
-  MatRowDef,
-  MatHeaderRow,
-  MatDialog,
-  MatSort,
-  MatTable,
-  MatTableDataSource,
-} from '@angular/material';
+import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import {
@@ -21,7 +13,7 @@ import {
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { UserType, User } from '../../models/user.model';
+import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 

@@ -24,7 +24,6 @@ import { Platform } from '@angular/cdk/platform';
 import { studentsTestData } from '../../../mocks/assets/students.mock';
 import { Observable, Subject } from 'rxjs-compat';
 import { Apollo } from 'apollo-angular';
-import { of } from 'rxjs/observable/of';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
