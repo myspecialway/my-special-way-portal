@@ -1,14 +1,16 @@
 import { IReminderTime, IDbReminderTime } from './reminder-time.model';
 
+export type ReminderTypeKey = keyof typeof ReminderType;
+
 export interface IReminder {
   enabled: boolean;
-  type: ReminderType;
+  type: ReminderTypeKey;
   schedule: IDbReminderTime[];
 }
 
 export interface ISetReminder {
   enabled: boolean;
-  type: ReminderType;
+  type: ReminderTypeKey;
   schedule: IReminderTime[];
 }
 
@@ -17,15 +19,10 @@ export enum ReminderType {
   REHAB = 'גמילה',
 }
 
-export const DEFAULT_REMINDERS: IReminder[] = [
-  {
-    enabled: false,
-    type: ReminderType.MEDICINE,
-    schedule: [],
-  },
-  {
-    enabled: false,
-    type: ReminderType.REHAB,
-    schedule: [],
-  },
-];
+export const getReminderTypeKeys = Object.keys(ReminderType);
+
+export const DEFAULT_REMINDERS: IReminder[] = getReminderTypeKeys.map((key: ReminderTypeKey) => ({
+  enabled: false,
+  type: key,
+  schedule: [],
+}));
