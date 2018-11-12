@@ -18,6 +18,10 @@ export class EditLessonDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  private onIconClick(selectedIcon: string): void {
+    this.data.icon = selectedIcon;
+    // alert(selectedIcon);
+  }
   submitForm(): void {
     console.log(this.form.value);
   }

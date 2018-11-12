@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lesson-icon',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lesson-icon.component.scss'],
 })
 export class LessonIconComponent implements OnInit {
+  @Input()
   private icon = 'english';
   ngOnInit(): void {}
 }
