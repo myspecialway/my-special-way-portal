@@ -2,13 +2,11 @@
     <h3 mat-dialog-title color="accent">מחיקת משתמש</h3>
     <mat-divider></mat-divider>
     <div mat-dialog-content>
-      המשתמש/ת {{data.firstname}} {{data.lastname}} בעל/ת הרשאת {{userRoleEnum[data.role]}} ימחק/תימחק מהמערכת.
-      <br>
-      האם את/ה בטוח שברצונך למחוק אותו/אותה?
+       האם אתה בטוח שברצונך למחוק את המשתמש {{data.firstname}} {{data.lastname}}?
     </div>
 
     <div mat-dialog-actions>
       <button mat-button class="msw-button-cancel" (click)="close()" tabindex="-1">ביטול</button>
-      <button mat-button class="msw-button-delete" [mat-dialog-close]=true (click)="submit()">מחק</button>
+      <button mat-button class="msw-button-delete" id="confirm-delete-user" [mat-dialog-close]=true (click)="submit()">מחק</button>
     </div>
   </div>

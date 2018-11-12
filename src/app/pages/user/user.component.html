@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button mat-raised-button color="primary" (click)="addNewUser()">
+        <button data-test-id="add-new-user-button" mat-raised-button color="primary" (click)="addNewUser()">
           <i class="material-icons">
             add
           </i>
@@ -33,10 +33,10 @@
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
           </ng-container>
 
-          <!-- Progress Column -->
+          <!-- Username Column -->
           <ng-container matColumnDef="username">
             <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.username}}</mat-cell>
+            <mat-cell *matCellDef="let row" class="username" (click)="updateUser(row)">{{row.username}}</mat-cell>
           </ng-container>
 
 
@@ -54,14 +54,14 @@
           <ng-container matColumnDef="recoverpassword">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="recover-password-button" mat-icon-button color="primary">שחזר סיסמא</button>
+              <button class="recover-password-button" mat-icon-button [attr.data-test-id]="'recover-password-' + row.username" color="primary">שחזר סיסמא</button>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
+              <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
             </mat-cell>
           </ng-container>
 
