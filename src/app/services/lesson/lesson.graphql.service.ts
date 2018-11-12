@@ -35,7 +35,12 @@ export class LessonService {
     return this.apollo
       .mutate({
         mutation: CREATE_LESSON_QUERY(title, icon),
-        awaitRefetchQueries: false,
+        refetchQueries: [
+          {
+            query: GET_ALL_LESSONS_QUERY,
+          },
+        ],
+        awaitRefetchQueries: true,
       })
       .toPromise()
       .then((res) => {

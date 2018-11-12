@@ -42,7 +42,6 @@ export class LessonComponent implements OnInit {
 
   addNewLesson() {
     const data = { title: '', icon: 'english' };
-    //this.lessonService.create("a","art");
     const dialogRef = this.dialog.open(EditLessonDialogComponent, {
       data,
     });
@@ -54,7 +53,6 @@ export class LessonComponent implements OnInit {
           if (result) {
             this.lessonService.create(data.title, data.icon);
           }
-          // console.log(result, data);
         }),
     );
   }
