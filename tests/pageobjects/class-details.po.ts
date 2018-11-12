@@ -15,6 +15,8 @@ export default class ClassDetailsPage {
   editCellUpdateButton: Selector;
   editCellCloseButton: Selector;
   timeSlotInfoOnStudentSchedule: Selector;
+  errorMessageTitleOnCell: Selector;
+
   constructor() {
     this._id = Selector('[data-test-id$="class-details-page"]');
     this.classNameInput = Selector('[data-test-id$="class-name-input"]');
@@ -30,5 +32,6 @@ export default class ClassDetailsPage {
     this.editCellUpdateButton = Selector('[data-test-id$="update-edit-lesson-dialogue"]');
     this.editCellCloseButton = Selector('[data-test-id$="close-edit-lesson-dialogue"]');
     this.timeSlotInfoOnStudentSchedule = Selector('.timeslot-info .timeslot-subtitle');
+    this.errorMessageTitleOnCell = Selector('.mat-error');
   }
 }
