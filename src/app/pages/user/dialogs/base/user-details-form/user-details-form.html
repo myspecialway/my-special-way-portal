@@ -9,7 +9,7 @@
             (click)="data.firstname=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="formControl.invalid">שם פרטי הינו שדה חובה</mat-error>
+          <mat-error data-test-id="firstname-err" *ngIf="formControl.invalid">שם פרטי הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
@@ -20,8 +20,8 @@
             (click)="data.username=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
-          <mat-error *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
+          <mat-error data-test-id="username-err1" *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
+          <mat-error data-test-id="username-err2" *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
             משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
         </mat-form-field>
       </div>
@@ -34,7 +34,7 @@
               {{userRoleEnum[_role]}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
+          <mat-error data-test-id="role-err" *ngIf="selectUserType.hasError('required')">אנא בחר סוג משתמש</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -47,7 +47,7 @@
             (click)="data.lastname=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="formControl.invalid">שם משפחה הינו שדה חובה</mat-error>
+          <mat-error data-test-id="lastname-err" *ngIf="formControl.invalid">שם משפחה הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
@@ -58,8 +58,8 @@
             (click)="data.email=''">
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="EmailFormControl.hasError('required')">אימייל הינו שדה חובה</mat-error>
-          <mat-error *ngIf="EmailFormControl.hasError('email')">אימייל לא חוקי</mat-error>
+          <mat-error data-test-id="email-err1" *ngIf="EmailFormControl.hasError('required')">אימייל הינו שדה חובה</mat-error>
+          <mat-error data-test-id="email-err2" *ngIf="EmailFormControl.hasError('email')">אימייל לא חוקי</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
@@ -70,13 +70,13 @@
               {{_class.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="selectClass.hasError('required')">כיתה הינו שדה חובה</mat-error>
+          <mat-error data-test-id="class-err" *ngIf="selectClass.hasError('required')">כיתה הינו שדה חובה</mat-error>
         </mat-form-field>
       </div>
     </div>
   </mat-dialog-content>
   <div mat-dialog-actions>
-    <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-    <button type="submit" mat-button class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>
+    <button type="button" mat-button data-test-id="cancel-button" class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
+    <button type="submit" mat-button data-test-id="submit-button" class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>
   </div>
 </form>

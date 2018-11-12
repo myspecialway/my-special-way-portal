@@ -7,7 +7,7 @@ describe('ScheduleComponent', () => {
   let fixture: ComponentFixture<ScheduleComponent>;
   let component: ScheduleComponent;
   const mockDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
-  const mockHours = ['07:30 - 08:00', '08:00 - 08:50', '08:50 - 09:35'];
+  const mockHours = ['07:30 - 08:00', '08:00 - 08:50', '08:50 - 09:30'];
   const mockSchedule = [scheduleTestData];
 
   beforeEach(async(() => {
