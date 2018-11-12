@@ -9,10 +9,10 @@ import { Lesson } from '../../../../models/lesson.model';
   styleUrls: ['./edit-lesson.dialog.scss'],
 })
 export class EditLessonDialogComponent implements OnInit {
-  private updateButtonTitle = 'עדכן';
-  private addButtonTitle = 'הוסף';
+  public updateButtonTitle = 'עדכן';
+  public addButtonTitle = 'הוסף';
 
-  private icons = ['english', 'art', 'lunch', 'hebrew', 'therapy', 'breakfeast', 'english2', 'arabic', 'russian'];
+  public icons = ['english', 'art', 'lunch', 'hebrew', 'therapy', 'breakfeast', 'english2', 'arabic', 'russian'];
   form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -22,7 +22,7 @@ export class EditLessonDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  private onIconClick(selectedIcon: string): void {
+  public onIconClick(selectedIcon: string): void {
     this.data.icon = selectedIcon;
   }
 

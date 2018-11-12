@@ -7,6 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LessonIconComponent implements OnInit {
   @Input()
-  private icon = 'english';
+  public icon = '';
   ngOnInit(): void {}
 }
