@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,9 +16,13 @@ export class FirstloginComponent implements OnInit {
   userToDisplay: UserProfileStateModel;
   rememberMe: boolean;
   tokenFetchFailed = false;
+  submitDisabled = true;
   matchFailed = false;
   hidePassword = true;
   hidePasswordConfirm = true;
+
+  @ViewChild('passwordConfirm')
+  public _confirmPasswordInputEl: any;
 
   constructor(
     private userService: UserService,
@@ -63,7 +67,22 @@ export class FirstloginComponent implements OnInit {
       // this.loading = false;
     }
   }
+
   updateUserPassword(username: string, password: string) {
     this.userService.updateUserPassword(username, password);
+  }
+
+  onConfirmBlur() {
+    if (this.model.password && this.model.passwordConfirm && this.model.password !== this.model.passwordConfirm) {
+      setTimeout(() => {
+        console.log('err occured');
+        // this._confirmPasswordInputEl.oneTimeErrorMessage = 'Please enter the same password';
+      }, 100);
+      this.matchFailed = true;
+    } else {
+      this.matchFailed = false;
+    }
+
+    this.submitDisabled = this.matchFailed;
   }
 }
