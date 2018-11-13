@@ -1,9 +1,9 @@
 <app-session-header></app-session-header>
 <div class="login-container">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-          <div class="login-card">
+          <div id="passChangeCard" *ngIf="!tokenFetchFailed;else err_message" class="login-card">
             <img src="assets/img/msw-login-logo.png"/>
-            <div class="msw-login-title">שלום {{ userToDisplay.firstname }}</div>
+            <div class="msw-login-title">שלום {{ userToDisplay?.firstname }}</div>
             <div class="msw-login-subtitle msw-login-subtitle-small">על מנת להיכנס אל המערכת אנא הגדר סיסמא</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
               <div class="form-row">
@@ -21,7 +21,7 @@
                   <input matInput placeholder="אישור סיסמא" name="passwordConfirmm" required>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
-                <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
+                <div *ngIf="matchFailed" class="help-block" data-test-id="wrong-credentials-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
               </div>
 
             </div>
@@ -34,8 +34,14 @@
               <button mat-button class="btn btn-main">כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
-
           </div>
+
+          <ng-template #err_message>
+                <div id="errMessage" class="login-card">
+                    <img src="assets/img/msw-login-logo.png"/>
+                    <div class="msw-login-title">נראה שאירעה תקלה... אנא נסה שנית</div>
+                </div>
+          </ng-template>
 
     </form>
 </div>

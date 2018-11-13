@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user/services/user.service';
@@ -14,13 +14,17 @@ export class FirstloginComponent implements OnInit {
   formFieldOptions: FormGroup;
   userToDisplay: UserProfileStateModel;
   rememberMe: boolean;
-  loginFailed = false;
+  tokenFetchFailed = false;
+  matchFailed = false;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
+    formBuilder: FormBuilder,
   ) {
+    this.formFieldOptions = formBuilder.group({ hideRequired: true });
+
     this.route.params.subscribe(async (params) => {
       console.log('First Login with params: ', params);
       try {
@@ -29,6 +33,7 @@ export class FirstloginComponent implements OnInit {
         this.userToDisplay = userProfile;
         console.log(`Retreived: `, userProfile);
       } catch (err) {
+        this.tokenFetchFailed = true;
         console.error('Cannot get user details');
         console.log(err);
       }
