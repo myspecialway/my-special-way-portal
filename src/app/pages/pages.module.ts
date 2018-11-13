@@ -14,6 +14,7 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS,
   MatListModule,
   MatSlideToggleModule,
+  MatButtonModule,
   MatIconModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +33,7 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     FormsModule,
     RouterModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatInputModule,
     MatSelectModule,
     MatTableModule,
