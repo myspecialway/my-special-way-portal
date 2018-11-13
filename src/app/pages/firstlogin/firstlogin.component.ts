@@ -11,11 +11,14 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
   styleUrls: ['./firstlogin.component.scss'],
 })
 export class FirstloginComponent implements OnInit {
+  model: any = {};
   formFieldOptions: FormGroup;
   userToDisplay: UserProfileStateModel;
   rememberMe: boolean;
   tokenFetchFailed = false;
   matchFailed = false;
+  hidePassword = true;
+  hidePasswordConfirm = true;
 
   constructor(
     private userService: UserService,
@@ -29,7 +32,10 @@ export class FirstloginComponent implements OnInit {
       console.log('First Login with params: ', params);
       try {
         const userProfile = await this.authenticationService.firstLogin(params.token);
-        if (userProfile === null) return;
+        if (userProfile === null) {
+          this.tokenFetchFailed = true;
+          return;
+        }
         this.userToDisplay = userProfile;
         console.log(`Retreived: `, userProfile);
       } catch (err) {
@@ -42,6 +48,21 @@ export class FirstloginComponent implements OnInit {
 
   ngOnInit() {}
 
+  async passChange() {
+    try {
+      const loginResponse = await this.updateUserPassword(this.userToDisplay.username, this.model.password);
+
+      if (!loginResponse) {
+        console.warn('login.component::login:: login error');
+        return;
+      }
+    } catch (err) {
+      console.error(`login.component::login:: error in authentication ${err}`);
+      // TODO: handle error in authetication
+    } finally {
+      // this.loading = false;
+    }
+  }
   updateUserPassword(username: string, password: string) {
     this.userService.updateUserPassword(username, password);
   }

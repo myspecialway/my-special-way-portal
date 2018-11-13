@@ -1,6 +1,6 @@
 <app-session-header></app-session-header>
 <div class="login-container">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && passChange()" #f="ngForm" novalidate>
           <div id="passChangeCard" *ngIf="!tokenFetchFailed;else err_message" class="login-card">
             <img src="assets/img/msw-login-logo.png"/>
             <div class="msw-login-title">שלום {{ userToDisplay?.firstname }}</div>
@@ -10,7 +10,8 @@
                 <mat-form-field
                   [hideRequiredMarker]="formFieldOptions.value.hideRequired"
                   [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input type="text" matInput placeholder="סיסמא" name="password" required/>
+                  <input type="text" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+                  <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !username.valid" class="help-block" data-test-id="empty-username-err">נא הכנס סיסמא</div>
               </div>
@@ -18,7 +19,8 @@
                 <mat-form-field
                   [hideRequiredMarker]="formFieldOptions.value.hideRequired"
                   [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input matInput placeholder="אישור סיסמא" name="passwordConfirmm" required>
+                  <input matInput placeholder="אישור סיסמא" name="passwordConfirm" [(ngModel)]="model.passwordConfirm" #passwordConfirm="ngModel" required>
+                  <mat-icon class="show-password-icon" matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm">{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
                 <div *ngIf="matchFailed" class="help-block" data-test-id="wrong-credentials-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
