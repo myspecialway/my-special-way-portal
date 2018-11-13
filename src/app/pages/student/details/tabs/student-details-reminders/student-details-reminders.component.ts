@@ -7,6 +7,7 @@ import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionClean
 import { MatDialog } from '@angular/material';
 import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/add/add-student-reminder.dialog';
 import Student from '../../../../../models/student.model';
+import to from 'await-to-js';
 
 @Component({
   selector: 'app-student-details-reminders',
@@ -56,6 +57,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
         .afterClosed()
         .pipe(first())
         .subscribe(async (data: IReminder) => {
+          if (!data) return;
           const { class: _class, reminders, ...studentQuery } = this.student;
           const class_id = _class ? _class._id : '';
           const newReminders = reminders.map((_reminder) => {
@@ -65,12 +67,17 @@ export class StudentDetailsRemindersComponent implements OnInit {
             return _reminder;
           });
 
-          await this.studentService.update({ ...studentQuery, reminders: newReminders, class_id });
+          const [err, res] = await to<string>(
+            this.studentService.update({ ...studentQuery, reminders: newReminders, class_id }),
+          );
+          if (!err) {
+            await this.fetchStudent(studentQuery._id.toString());
+          }
         }),
     );
   }
 
-  async fetchStudent(id) {
+  async fetchStudent(id: string) {
     this.student = await this.studentService.getById(id);
   }
 }
