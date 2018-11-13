@@ -29,7 +29,7 @@ describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let studentDialogMock: Partial<MatDialog>;
   let afterClosedMockFn: jest.Mock;
-  const watchQueryMockedObservable: Subject<any> = new Subject();
+  const watchQueryMockedObservable = new Subject<any>();
 
   beforeEach(async () => {
     studentServiceMock = {
@@ -147,6 +147,22 @@ describe('student component', () => {
     const fixture = TestBed.createComponent(StudentComponent).componentInstance;
 
     expect(fixture.deleteStudent(1, 'a', 'a', 'a', 'MALE')).rejects.toEqual('oh no!');
+  });
+
+  it('should sort students by firstname+lastname', async () => {
+    // (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(() => {
+    //   return of(studentsTestData.students);
+    // });
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const data = fixture.componentInstance.dataSource.data;
+    for (let i = 0; i < data.length - 1; i++) {
+      const student1 = data[i].firstname + data[i].lastname;
+      const student2 = data[i + 1].firstname + data[i + 1].lastname;
+      const comapare = student1.localeCompare(student2);
+      expect(comapare).toEqual(-1);
+    }
   });
 
   xit('should display an error to the user when deleteStudent fails', () => {});
