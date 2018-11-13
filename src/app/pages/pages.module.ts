@@ -15,6 +15,7 @@ import {
   MatListModule,
   MatSlideToggleModule,
   MatCardModule,
+  MatButtonModule,
   MatIconModule,
   MatGridListModule,
 } from '@angular/material';
@@ -33,6 +34,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     FormsModule,
     RouterModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatInputModule,
     MatSelectModule,
     MatCardModule,

@@ -3,7 +3,7 @@ import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 
 @Component({
@@ -16,6 +16,8 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
+  changesWereSaved = false;
+  saveFailed = false;
 
   @SubscriptionCleaner()
   subCollector;
@@ -23,7 +25,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private classService: ClassService,
-    private router: Router,
     private route: ActivatedRoute,
   ) {}
 
@@ -62,7 +63,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.lastname = '';
     student.username = '';
     student.password = '';
-    student.gender = Gender.FEMALE;
+    student.gender = Gender.MALE;
     student.class = new Class();
     return student;
   }
@@ -81,24 +82,31 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
 
   async addStudent() {
     try {
+      this.saveFailed = false;
       await this.studentService.create(this.student);
-      this.router.navigate(['/student']);
+      this.changesWereSavedNotification();
     } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
+      this.saveFailed = true;
+      console.error('Error on add student', error);
     }
   }
 
   async updateStudent(student) {
     student.form.value._id = this.student._id;
     try {
+      this.saveFailed = false;
       await this.studentService.update(student.form.value);
-      this.router.navigate(['/student']);
+      this.changesWereSavedNotification();
     } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
+      this.saveFailed = true;
+      console.error('Error on update student', error);
     }
+  }
+
+  changesWereSavedNotification() {
+    this.changesWereSaved = true;
+    setTimeout(() => {
+      this.changesWereSaved = false;
+    }, 1000);
   }
 }
