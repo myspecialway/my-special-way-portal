@@ -62,8 +62,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
-    return route.title;
+    // const route = ROUTES.find((menuItem) => menuItem.path === this.removeNewFromPath(this.selectedMenuItemPath)) || DEFAULT_ROUTE;
+    // const route = ROUTES.find((menuItem) => menuItem.path.includes(this.removeNewFromPath(this.selectedMenuItemPath))) || DEFAULT_ROUTE;
+
+    const route =
+      ROUTES.find((menuItem) => menuItem.path.includes(this.getFirstPathToken(this.selectedMenuItemPath))) ||
+      DEFAULT_ROUTE;
   }
 
   private subscribeToRouterEvents() {
@@ -78,5 +82,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private removeLeadingSlash(s = '') {
     return s.replace(/^\/+/g, '');
+  }
+
+  private removeNewFromPath(s = '') {
+    if (s.includes('_new_')) {
+      return s.replace('/_new_', '');
+    } else return s;
+  }
+
+  private getFirstPathToken(s = '') {
+    const firstToken = s.split('/');
+    console.log('this is the first token   ' + firstToken[0]);
+    return firstToken[0];
   }
 }
