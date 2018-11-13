@@ -1,4 +1,3 @@
-import { getDbReminder } from './../../../dialogs/reminders/reminders.utils';
 import { REMINDERS_CONSTANTS, IDbReminderTime } from './../../../../../models/reminder-time.model';
 import { StudentService } from './../../../services/student.service';
 import { ReminderType, IReminder } from './../../../../../models/reminder.model';
