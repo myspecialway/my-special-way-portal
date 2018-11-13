@@ -13,7 +13,7 @@
                   <input type="text" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
-                <div *ngIf="f.submitted && !username.valid" class="help-block" data-test-id="empty-username-err">נא הכנס סיסמא</div>
+                <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמא</div>
               </div>
               <div class="form-row" [ngClass]="{ 'has-error': f.submitted && !passwordConfirm.valid }">
                 <mat-form-field
@@ -22,8 +22,8 @@
                   <input matInput placeholder="אישור סיסמא" name="passwordConfirm" [(ngModel)]="model.passwordConfirm" #passwordConfirm="ngModel" required>
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm">{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
-                <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
-                <div *ngIf="matchFailed" class="help-block" data-test-id="wrong-credentials-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
+                <div *ngIf="f.submitted && !passwordConfirm.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
+                <div *ngIf="matchFailed" class="help-block" data-test-id="not-match-pass-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
               </div>
 
             </div>
