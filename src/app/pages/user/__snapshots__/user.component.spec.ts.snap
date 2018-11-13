@@ -63,10 +63,10 @@ exports[`user component should render component as described in snapshot 1`] = `
           <mat-table
             class="msw-table"
             matsort=""
-            matsortactive="firstName"
+            matsortactive="name"
             matsortdirection="asc"
             matsortdisableclear=""
-            ng-reflect-active="firstName"
+            ng-reflect-active="name"
             ng-reflect-direction="asc"
             ng-reflect-disable-clear=""
           >

@@ -38,6 +38,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         });
       }),
     );
+
+    this.dataSource.sortingDataAccessor = (item) => item.firstname + item.lastname;
   }
 
   ngAfterViewInit() {
