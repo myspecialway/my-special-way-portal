@@ -16,7 +16,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   classes: Class[];
   isNewStudent: boolean;
   idOrNew: string;
-  changesWhereSaved = false;
+  changesWereSaved = false;
   saveFailed = false;
 
   @SubscriptionCleaner()
@@ -84,7 +84,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     try {
       this.saveFailed = false;
       await this.studentService.create(this.student);
-      this.changesWhereSavedNotification();
+      this.changesWereSavedNotification();
     } catch (error) {
       this.saveFailed = true;
       console.error('Error on add student', error);
@@ -96,17 +96,17 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     try {
       this.saveFailed = false;
       await this.studentService.update(student.form.value);
-      this.changesWhereSavedNotification();
+      this.changesWereSavedNotification();
     } catch (error) {
       this.saveFailed = true;
       console.error('Error on update student', error);
     }
   }
 
-  changesWhereSavedNotification() {
-    this.changesWhereSaved = true;
+  changesWereSavedNotification() {
+    this.changesWereSaved = true;
     setTimeout(() => {
-      this.changesWhereSaved = false;
+      this.changesWereSaved = false;
     }, 1000);
   }
 }

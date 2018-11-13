@@ -158,7 +158,7 @@ describe('Student Details Personal Info Component', () => {
       expect(studentServiceMock.create).toHaveBeenCalled();
     });
 
-    it('should show indication that the changes where saved', async () => {
+    it('should show indication that the changes were saved', async () => {
       jest.useFakeTimers();
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
         return Promise.resolve(classTestData.classes);
@@ -171,12 +171,12 @@ describe('Student Details Personal Info Component', () => {
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       fixture.detectChanges();
       await fixture.whenRenderingDone();
-      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+      expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.addStudent();
-      expect(fixture.componentInstance.changesWhereSaved).toBeTruthy();
+      expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
       jest.advanceTimersByTime(1000);
-      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+      expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
     });
 
     it('should show indication when error happened on save changes', async () => {
@@ -261,7 +261,7 @@ describe('Student Details Personal Info Component', () => {
       expect(studentServiceMock.update).toHaveBeenCalled();
     });
 
-    it('should show indication that the changes where saved', async () => {
+    it('should show indication that the changes were saved', async () => {
       jest.useFakeTimers();
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
         return Promise.resolve(classTestData.classes);
@@ -277,9 +277,9 @@ describe('Student Details Personal Info Component', () => {
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       fixture.detectChanges();
       await fixture.whenRenderingDone();
-      expect(fixture.componentInstance.changesWhereSaved).toBeFalsy();
+      expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
-      expect(fixture.componentInstance.changesWhereSaved).toBeTruthy();
+      expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
 

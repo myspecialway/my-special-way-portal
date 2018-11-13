@@ -59,9 +59,9 @@
         </mat-form-field>
 
         <div mat-dialog-actions>
-          <button *ngIf="!changesWhereSaved" mat-raised-button color="primary" data-test-id="save-button" class="msw-button-add"
+          <button *ngIf="!changesWereSaved" mat-raised-button color="primary" data-test-id="save-button" class="msw-button-add"
             (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)" [disabled]="!studentDetailsForm.valid">שמור</button>
-          <button *ngIf="changesWhereSaved" mat-raised-button color="accent" data-test-id="saved-button" class="msw-button-saved-indicator">
+          <button *ngIf="changesWereSaved" mat-raised-button color="accent" data-test-id="saved-button" class="msw-button-saved-indicator">
             נשמר
             <i class="material-icons">
               done
