@@ -1,3 +1,5 @@
+import { getDbReminder } from './../../../dialogs/reminders/reminders.utils';
+import { REMINDERS_CONSTANTS, IDbReminderTime } from './../../../../../models/reminder-time.model';
 import { StudentService } from './../../../services/student.service';
 import { ReminderType, IReminder } from './../../../../../models/reminder.model';
 import { first } from 'rxjs/operators';
@@ -28,6 +30,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
   rehabToggleMode = false;
   medicineToggleMode = false;
   student: Student;
+  dayNames: string[] = Array.from(REMINDERS_CONSTANTS.days);
   protected reminderType = ReminderType;
 
   @SubscriptionCleaner()
@@ -83,5 +86,21 @@ export class StudentDetailsRemindersComponent implements OnInit {
     if (!err) {
       this.student = _.cloneDeep(student as Student);
     }
+  }
+
+  protected getSelectedDays(slot: IDbReminderTime): string {
+    if (!slot.daysindex) {
+      return '';
+    }
+    slot.daysindex.sort();
+    return slot.daysindex.map((dayIndex) => this.dayNames[dayIndex]).join(',');
+  }
+
+  protected getSelectedHours(slot: IDbReminderTime): string {
+    if (!slot.hours) {
+      return '';
+    }
+    slot.hours.sort();
+    return slot.hours.join(',');
   }
 }
