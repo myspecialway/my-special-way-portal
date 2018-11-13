@@ -16,6 +16,7 @@ export enum ReminderType {
   MEDICINE = 'תרופה',
   REHAB = 'גמילה',
 }
+
 export type ReminderTypeKey = keyof typeof ReminderType;
 
 export const getReminderTypeKeys = Object.keys(ReminderType) as ReminderTypeKey[];

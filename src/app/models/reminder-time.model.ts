@@ -9,7 +9,7 @@ export interface IDbReminderTime {
   hours: string[];
 }
 
-export const REMINDERS_DIALOG_FORM_DATA = {
+export const REMINDERS_CONSTANTS = {
   days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'א-ה']),
   hours: new Set<string>([
     '06:00',

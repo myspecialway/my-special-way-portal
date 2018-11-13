@@ -1,5 +1,5 @@
 import { IReminder, ISetReminder, ReminderType } from './../../../../../models/reminder.model';
-import { REMINDERS_DIALOG_FORM_DATA, IReminderTime } from './../../../../../models/reminder-time.model';
+import { REMINDERS_CONSTANTS, IReminderTime } from './../../../../../models/reminder-time.model';
 import { getNewReminder, getSetReminder, getDbReminder } from './../reminders.utils';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -13,7 +13,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
   // formControl = new FormControl('', [Validators.required]);
-  dialogData = REMINDERS_DIALOG_FORM_DATA;
+  dialogData = REMINDERS_CONSTANTS;
   hours = new FormControl();
   hourSelectorEnabled = true;
   protected reminderType = ReminderType;
