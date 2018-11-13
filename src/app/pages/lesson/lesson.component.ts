@@ -32,6 +32,7 @@ export class LessonComponent implements OnInit {
           this.dataSource.data = [...lessons];
         }),
       );
+      this.dataSource.sort = this.sort;
     } catch (error) {
       // TODO: implement error handling on UI
       console.error('Error handling not implemented');

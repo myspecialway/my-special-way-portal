@@ -20,7 +20,7 @@ import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decora
   styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent implements OnInit {
-  displayedColumns = ['classname', 'level', 'deleteClass'];
+  displayedColumns = ['name', 'level', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 

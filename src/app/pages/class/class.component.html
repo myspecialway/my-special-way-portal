@@ -23,8 +23,8 @@
                    matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
           <!-- Number Column -->
-          <ng-container matColumnDef="classname">
-            <mat-header-cell *matHeaderCellDef>שם כיתה</mat-header-cell>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם כיתה</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="navigate(row._id)" class="class-name">{{ row.name }}</mat-cell>
           </ng-container>
 
