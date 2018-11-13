@@ -1,4 +1,5 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
@@ -8,6 +9,9 @@ import { JWTTokenPayloadResponse } from '../../models/jwt-token-resonse.model';
 import { Apollo } from 'apollo-angular';
 import { UPDATE_USER_PROFILE } from '../../apollo/state/mutations/update-user-profile.mutation';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
+import { UserUniqueValidationResponse } from '../../models/user-unique-validation-response.model';
+import { of } from 'rxjs';
+import { catchError, first, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
@@ -98,5 +102,26 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+  }
+
+  checkUsernameUnique(username: string, id: string) {
+    if (!username) {
+      return of(true);
+    }
+    const userID = id === '' ? undefined : id;
+    try {
+      return this.http
+        .post<UserUniqueValidationResponse>(environment.hotConfig.MSW_HOT_USER_UNIQUE_VALIDATION_ENDPOINT, {
+          username,
+          id: userID,
+        })
+        .pipe(
+          first(),
+          map((res) => res.isUnique),
+          catchError(() => of(true)),
+        );
+    } catch (error) {
+      return of(true);
+    }
   }
 }
