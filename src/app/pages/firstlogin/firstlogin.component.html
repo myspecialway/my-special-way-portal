@@ -10,7 +10,7 @@
                 <mat-form-field
                   [hideRequiredMarker]="formFieldOptions.value.hideRequired"
                   [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input type="text" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+                  <input type="text" matInput placeholder="סיסמא" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'"/>
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמא</div>
@@ -19,7 +19,7 @@
                 <mat-form-field
                   [hideRequiredMarker]="formFieldOptions.value.hideRequired"
                   [floatLabel]="formFieldOptions.value.floatLabel">
-                  <input matInput placeholder="אישור סיסמא" name="passwordConfirm" [(ngModel)]="model.passwordConfirm" #passwordConfirm="ngModel" required>
+                  <input matInput placeholder="אישור סיסמא" name="passwordConfirm" [(ngModel)]="model.passwordConfirm" #passwordConfirm="ngModel" required [type]="hidePasswordConfirm ? 'password' : 'text'"> 
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm">{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
                 <div *ngIf="f.submitted && !passwordConfirm.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
