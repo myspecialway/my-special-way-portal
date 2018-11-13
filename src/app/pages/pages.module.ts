@@ -14,6 +14,7 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS,
   MatListModule,
   MatSlideToggleModule,
+  MatButtonModule,
   MatIconModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +32,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     FormsModule,
     RouterModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatInputModule,
     MatSelectModule,
     MatTableModule,
