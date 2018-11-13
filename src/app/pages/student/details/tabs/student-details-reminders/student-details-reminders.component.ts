@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { AddStudentReminderDialogComponent } from '../../../dialogs/reminders/add/add-student-reminder.dialog';
 import Student from '../../../../../models/student.model';
 import to from 'await-to-js';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-student-details-reminders',
@@ -67,7 +68,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
             return _reminder;
           });
 
-          const [err, res] = await to<string>(
+          const [err] = await to<string>(
             this.studentService.update({ ...studentQuery, reminders: newReminders, class_id }),
           );
           if (!err) {
@@ -78,6 +79,9 @@ export class StudentDetailsRemindersComponent implements OnInit {
   }
 
   async fetchStudent(id: string) {
-    this.student = await this.studentService.getById(id);
+    const [err, student] = await to<Student>(this.studentService.getById(id));
+    if (!err) {
+      this.student = _.cloneDeep(student as Student);
+    }
   }
 }
