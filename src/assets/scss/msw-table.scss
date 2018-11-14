@@ -1,3 +1,5 @@
+@import './core/_variables.scss';
+
 $mat-header-row-height: 48px;
 $mat-row-height: 50px;
 $mat-row-horizontal-padding: 24px;
@@ -126,10 +128,10 @@ td.mat-footer-cell:last-child {
 }
 
 mat-row:hover {
-  background-color: #e1ccf5;
+  background-color: $msw-hover;
   cursor: pointer;
   mat-cell {
-    color: #8c37cd;
+    color: $msw-primary;
   }
   .delete-row-button {
     display: block;
