@@ -6,9 +6,6 @@ import { FormBuilder } from '@angular/forms';
 
 // @ts-ignore
 describe('AddStudentReminderDialogComponent', () => {
-  let component: AddStudentReminderDialogComponent;
-  let fixture: ComponentFixture<AddStudentReminderDialogComponent>;
-
   // @ts-ignore
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,19 +18,19 @@ describe('AddStudentReminderDialogComponent', () => {
 
   // @ts-ignore
   beforeEach(() => {
+    // let component: AddStudentReminderDialogComponent;
+    let fixture: ComponentFixture<AddStudentReminderDialogComponent>;
     fixture = TestBed.createComponent(AddStudentReminderDialogComponent);
-    component = fixture.componentInstance;
+    // component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   // @ts-ignore
   it('should close the dialog', () => {
-    console.log('componentcomponent: ', fixture);
-
+    // console.log('componentcomponent: ', fixture);
     // fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח', 'MALE');
     // const DialogMock = TestBed.get(MatDialog);
     // expect(DialogMock.open).toHaveBeenCalled();
-
     // @ts-ignore
     // expect(thisFixture.componentInstance.close()).toBeDefined();
   });
