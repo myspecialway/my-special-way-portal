@@ -14,6 +14,7 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS,
   MatListModule,
   MatSlideToggleModule,
+  MatButtonModule,
   MatIconModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +24,7 @@ import { StudentDetailsHoursComponent } from './student/details/tabs/student-det
 import { StudentDetailsNotificationsComponent } from './student/details/tabs/student-details-notifications/student-details-notifications.component';
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
+import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 
 @NgModule({
   imports: [
@@ -31,6 +33,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     FormsModule,
     RouterModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatInputModule,
     MatSelectModule,
     MatTableModule,
@@ -48,6 +51,7 @@ import { MapViewComponent } from './maps/maps.view/map.view.component';
     ClassDetailsContainerComponent,
     MapContainerComponent,
     MapViewComponent,
+    UniqueUsernameValidatorDirective,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

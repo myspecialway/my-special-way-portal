@@ -11,21 +11,24 @@
 
         <div class="msw-student-main-details">
           <mat-form-field class="firstname">
-            <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstName="ngModel" required>
+            <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstName="ngModel"
+              required>
             <mat-error data-test-id="firstname-err" *ngIf="firstName.invalid">שם פרטי הינו שדה חובה</mat-error>
           </mat-form-field>
           <mat-form-field class="lastname">
-            <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastName="ngModel" required>
+            <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastName="ngModel"
+              required>
             <mat-error data-test-id="lastname-err" *ngIf="lastName.invalid">שם משפחה הינו שדה חובה</mat-error>
 
           </mat-form-field>
           <div class="msw-student-details-gender-switch">
             <div class="msw-student-details-gender">מין</div>
-            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender" required>
-              <mat-button-toggle value="FEMALE">
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender"
+              required>
+              <mat-button-toggle value="MALE">
                 <i class="material-icons"> face </i>
               </mat-button-toggle>
-              <mat-button-toggle value="MALE">
+              <mat-button-toggle value="FEMALE">
                 <i class="material-icons"> face </i>
               </mat-button-toggle>
             </mat-button-toggle-group>
@@ -43,10 +46,12 @@
 
         <mat-form-field class="username">
           <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
-                 autocomplete="new-username" required [minlength]="5" [pattern]="'^[א-תA-Za-z0-9]+$'">
+                 autocomplete="new-username" required appUniqueUsername userId={{student._id}} [minlength]="5" [pattern]="'^[א-תA-Za-z0-9]+$'" [ngModelOptions]="{updateOn: 'blur'}">
           <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error data-test-id="username-format-length-err" *ngIf="username.hasError('pattern')">שם משתמש יכול להכיל אותיות וספרות בלבד</mat-error>
           <mat-error data-test-id="username-format-pattern-err" *ngIf="username.hasError('minlength')">שם משתמש חייב להיות לפחות חמישה תווים</mat-error>
+          <mat-error data-test-id="username-unique-err" *ngIf="username.hasError('isTaken')">שם משתמש כבר קיים. אנא נסה שם משתמש אחר</mat-error>
+
         </mat-form-field>
         <mat-form-field class="password">
           <input matInput placeholder="סיסמא" [type]="showPassword ? 'text' : 'password'" [minlength]="8" [pattern]="'^(?=.*[א-תA-Za-z])(?=.*[0-9])[א-תA-Za-z0-9]{8,}$'" [(ngModel)]="student.password" #password="ngModel" name="password" autocomplete="new-password" required>
@@ -56,8 +61,15 @@
         </mat-form-field>
 
         <div mat-dialog-actions>
-          <button mat-button data-test-id="save-button" class="msw-button-add" (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)"
-                  [disabled]="!studentDetailsForm.valid" >שמור</button>
+          <button *ngIf="!changesWereSaved" mat-raised-button color="primary" data-test-id="save-button" class="msw-button-add"
+            (click)="isNewStudent ? addStudent() : updateStudent(studentDetailsForm)" [disabled]="!studentDetailsForm.valid">שמור</button>
+          <button *ngIf="changesWereSaved" mat-raised-button color="accent" data-test-id="saved-button" class="msw-button-saved-indicator">
+            נשמר
+            <i class="material-icons">
+              done
+            </i>
+          </button>
+          <mat-error data-test-id="save-err" *ngIf="saveFailed" class="help-block">השמירה נכשלה. אנא נסה שנית</mat-error>
         </div>
       </form>
     </div>
