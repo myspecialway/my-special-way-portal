@@ -3,6 +3,7 @@ export interface Environment {
     MSW_HOT_GRAPHQL_ENDPOINT: string;
     MSW_HOT_LOGIN_ENDPOINT: string;
     MSW_HOT_FIRSTLOGIN_ENDPOINT: string;
+    MSW_HOT_USER_UNIQUE_VALIDATION_ENDPOINT: string;
   };
   production: boolean;
 }
