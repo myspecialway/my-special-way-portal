@@ -102,4 +102,9 @@ export class StudentDetailsRemindersComponent implements OnInit {
     slot.hours.sort();
     return slot.hours.join(',');
   }
+
+  //@TODO: create the enable/disable functionality
+  toggleActivity(reminder) {
+    console.log(reminder);
+  }
 }

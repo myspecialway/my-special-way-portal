@@ -18,6 +18,7 @@ import {
   MatButtonModule,
   MatIconModule,
   MatGridListModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
@@ -36,6 +37,7 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     RouterModule,
     MatButtonToggleModule,
     MatButtonModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
     MatCardModule,

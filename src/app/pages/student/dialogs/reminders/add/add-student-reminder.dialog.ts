@@ -17,6 +17,9 @@ export class AddStudentReminderDialogComponent implements OnInit {
   hours = new FormControl();
   hourSelectorEnabled = true;
   protected reminderType = ReminderType;
+  daySelected = true;
+  dirty = false;
+  hourInput = new FormControl();
 
   @Output()
   cancel = new EventEmitter<void>();
@@ -51,11 +54,13 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   toggleDay(dayIndex: number, block: IReminderTime) {
+    this.dirty = true;
     if (this.isDaySelected(dayIndex, block)) {
       block.daysindex.delete(dayIndex);
     } else {
       block.daysindex.add(dayIndex);
     }
+    console.log(dayIndex);
   }
 
   selectHour(hour: string, block: IReminderTime) {
@@ -78,10 +83,18 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   private isDaySelected(dayIndex: number, block: IReminderTime) {
+    this.daySelected = !!block.daysindex.size;
     return block.daysindex.has(dayIndex);
   }
 
   private getSortedHours(hours: Set<string>) {
     return new Set<string>([...Array.from(hours)].sort());
+  }
+
+  submit() {
+    console.log(this.daySelected);
+    // if (!this.daySelected) {
+    //
+    // }
   }
 }

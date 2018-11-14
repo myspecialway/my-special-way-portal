@@ -10,7 +10,8 @@
         <div class="cell mat-slide-toggle">
           <mat-slide-toggle
             [(ngModel)]="reminder.enabled"
-            (click)="$event.stopPropagation()"></mat-slide-toggle>
+            (click)="$event.stopPropagation()"
+            (ngModelChange)="toggleActivity(reminder)"></mat-slide-toggle>
         </div>
       </div>
 

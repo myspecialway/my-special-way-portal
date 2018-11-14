@@ -8,7 +8,7 @@
   }
   .student-reminders {
     width: 600px;
-    height: 120px;
+    min-height: 120px;
     transition: opacity 0.15s ease-in-out;
   }
   .mat-slide-toggle {

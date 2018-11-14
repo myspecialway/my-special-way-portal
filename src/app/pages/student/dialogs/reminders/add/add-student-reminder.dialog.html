@@ -26,6 +26,16 @@
             <mat-option disabled>בחר</mat-option>
             <mat-option *ngFor="let hour of dialogData.hours" [value]="hour">{{hour}}</mat-option>
           </mat-select>
+
+        <!--@TODO: change select box to auto complete to allow inserting an hour-->
+        <!--<input type="text" name="hourInput" matInput [formControl]="hourInput" [matAutocomplete]="auto">-->
+        <!--<mat-autocomplete #auto="matAutocomplete" (onSelectionChange)="selectHour($event, block)" [formControl]="hours">-->
+          <!--<mat-option disabled>בחר</mat-option>-->
+          <!--<mat-option *ngFor="let hour of dialogData.hours" [value]="hour">-->
+            <!--{{hour}}-->
+          <!--</mat-option>-->
+        <!--</mat-autocomplete>-->
+
       </mat-form-field>
       <i *ngIf="!hourSelectorEnabled" class="add-select material-icons" (click)="hourSelectorEnable()"> add </i>
     <hr>

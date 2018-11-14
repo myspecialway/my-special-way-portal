@@ -20,6 +20,7 @@ import {
   MatCheckboxModule,
   MatDividerModule,
   MatSnackBarModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -71,6 +72,7 @@ import { AddStudentReminderDialogComponent } from './pages/student/dialogs/remin
     MatInputModule,
     MatTooltipModule,
     MatTableModule,
+    MatAutocompleteModule,
     MatSortModule,
     MatPaginatorModule,
     MatPaginatorModule,
