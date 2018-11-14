@@ -45,6 +45,10 @@
   padding: 20px;
 }
 
+.help-block {
+  text-align: right;
+}
+
 @-webkit-keyframes card {
   from {
     top: -40px;
@@ -92,7 +96,7 @@ img {
 
 .form-row {
   position: relative;
-  display: flex;
+  display: block;
   align-items: center;
   margin-top: 13px;
 }

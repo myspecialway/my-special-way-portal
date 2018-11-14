@@ -2,8 +2,9 @@
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <a class="navbar-brand" href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/Vision.aspx">
-        <img class="logo-img" src="/assets/img/msw-logo.png"/>
-        <img class="logo-img-tlv" src="/assets/img/tlv-logo-small-white.jpg"/>
+        <img class="logo-img" src="/assets/img/msw-header-logo.png"/>
+        <span class="logo-title">בדרכי שלי</span>
+        <!-- <img class="logo-img-tlv" src="/assets/img/tlv-logo-small-white.jpg"/> -->
 
       </a>
       <div class="msw-page-title-dropdown dropdown">
@@ -41,6 +42,8 @@
       <!--</button>-->
       <!--</div>-->
       <!--</form>-->
+      
+
       <ul *ngIf="currentUser" class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -51,13 +54,12 @@
             <i class="material-icons">arrow_drop_down</i>
             </span>
 
-            <!--<span class="notification">5</span>-->
             <p>
               <span class="d-lg-none d-md-block">Some Actions</span>
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-link" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" id="logout" [routerLink]="['/login']">Logout</a>
+            <a class="dropdown-item" id="logout" [routerLink]="['/login']"><mat-icon>exit_to_app</mat-icon><span>יציאה מהמערכת</span></a>
           </div>
         </li>
             <!-- <div *ngIf="currentUser">Hi, {{currentUser}}</div> -->
