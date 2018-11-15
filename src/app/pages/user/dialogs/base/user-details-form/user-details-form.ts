@@ -51,7 +51,14 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   }
 
   onUserTypeChange(userType: UserTypeKey): void {
+    const classControl = this.form.get('class');
     this.currentRole = userType;
+
+    if (classControl && this.userRoleEnum[this.currentRole] === this.userRoleEnum.TEACHER) {
+      classControl.setValidators([Validators.required]);
+      classControl.updateValueAndValidity();
+    }
+
     if (this.userRoleEnum[userType] === this.userRoleEnum.PRINCIPLE && this.data.class) {
       this.data.class = undefined;
     }
@@ -82,7 +89,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     this.formControl = new FormControl('', [Validators.required]);
     this.EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
     this.selectUserType = new FormControl(null, Validators.required);
-    this.selectClass = new FormControl({ disabled: this.getClassDisabled() }, Validators.required);
+    this.selectClass = new FormControl({ disabled: this.getClassDisabled() });
     this.userNameFormControl = new FormControl('', [
       Validators.required,
       Validators.minLength(5),
