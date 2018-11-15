@@ -1,8 +1,6 @@
-import { NG_ASYNC_VALIDATORS, AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
+import { NG_ASYNC_VALIDATORS, AbstractControl, AsyncValidator } from '@angular/forms';
 import { Input, Directive } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { map } from 'rxjs/operators/map';
-import { Observable } from 'rxjs/Observable';
 import { UniqueUsernameValidator } from '../validators/UniqueUsernameValidator';
 
 @Directive({
