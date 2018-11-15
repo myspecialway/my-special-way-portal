@@ -4,6 +4,8 @@ import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
+import { UniqueUsernameValidator } from '../../../../../validators/UniqueUsernameValidator';
+import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 
 export type UserTypeKey = keyof typeof UserType;
 
@@ -40,7 +42,12 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   @Output()
   cancel = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private classService: ClassService, public userService: UserService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private classService: ClassService,
+    public userService: UserService,
+    private authenticationService: AuthenticationService,
+  ) {
     this.roles = Object.keys(this.userRoleEnum);
   }
 
@@ -90,11 +97,13 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     this.EmailFormControl = new FormControl('', [Validators.required, Validators.email]);
     this.selectUserType = new FormControl(null, Validators.required);
     this.selectClass = new FormControl({ disabled: this.getClassDisabled() });
-    this.userNameFormControl = new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.pattern('^[A-Za-z]+$'),
-    ]);
+    this.userNameFormControl = new FormControl('', {
+      validators: [Validators.required, Validators.minLength(5), Validators.pattern('^[A-Za-z]+$')],
+      asyncValidators: [
+        UniqueUsernameValidator.createValidator(this.authenticationService, this.data ? this.data._id : ''),
+      ],
+      updateOn: 'blur',
+    });
   }
 
   private createForm() {

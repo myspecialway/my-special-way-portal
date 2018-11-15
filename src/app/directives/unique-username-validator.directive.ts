@@ -3,6 +3,7 @@ import { Input, Directive } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { map } from 'rxjs/operators/map';
 import { Observable } from 'rxjs/Observable';
+import { UniqueUsernameValidator } from '../validators/UniqueUsernameValidator';
 
 @Directive({
   selector: '[appUniqueUsername]',
@@ -13,13 +14,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UniqueUsernameValidatorDirective implements AsyncValidator {
   @Input()
-  userId: string;
+  userID: string;
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  validate(control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.authenticationService
-      .checkUsernameUnique(control.value, this.userId)
-      .pipe(map((res) => (res ? null : { isTaken: true })));
+  validate(control: AbstractControl) {
+    return UniqueUsernameValidator.createValidator(this.authenticationService, this.userID)(control);
   }
 }

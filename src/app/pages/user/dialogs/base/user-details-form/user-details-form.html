@@ -15,6 +15,7 @@
           <mat-error data-test-id="username-err1" *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error data-test-id="username-err2" *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
             משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
+          <mat-error data-test-id="username-unique-err" *ngIf="userNameFormControl.hasError('isTaken')">שם משתמש כבר קיים. אנא נסה שם משתמש אחר</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
