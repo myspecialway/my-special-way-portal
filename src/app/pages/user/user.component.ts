@@ -58,8 +58,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   addNewUser() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
       data: { user: User },
-      height: '368px',
-      width: '630px',
+      height: '380px',
+      width: '635px',
     });
     this.subCollector.add(
       dialogRef
