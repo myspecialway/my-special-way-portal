@@ -36,7 +36,7 @@ test('Successful navigation to students from nav menu', async (t) => {
   await t.click(navbar.menuDropDown).click(navbar.menuDropDownStudents);
   const location = await t.eval(() => window.location);
   await t.expect(location.pathname).contains('student');
-  await eye.look(t, 'Navigate to Users');
+  await eye.look(t, 'Navigate to Students');
 });
 test('Successful navigation from students to classes', async (t) => {
   await t.click(navbar.menuDropDown).click(navbar.menuDropDownClasses);

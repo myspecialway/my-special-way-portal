@@ -40,6 +40,8 @@ export class StudentComponent implements OnInit {
       }),
     );
 
+    this.dataSource.sortingDataAccessor = (item) => item.firstname + item.lastname;
+
     // todo: create a currentUser / permissions service / directive to handle permissions.
     this.apollo
       .watchQuery<{ userProfile: UserProfileStateModel }>({
