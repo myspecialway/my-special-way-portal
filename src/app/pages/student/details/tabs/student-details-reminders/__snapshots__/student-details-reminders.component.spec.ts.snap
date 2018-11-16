@@ -2,15 +2,15 @@
 
 exports[`Student Details Reminders Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-reminders
+  dayNames={[Function Array]}
   dialog={[Function Object]}
   medicineToggleMode="false"
   rehabToggleMode="false"
+  reminderType={[Function Object]}
   route={[Function Object]}
+  studentService={[Function Object]}
+  subCollector={[Function Subscription]}
 >
-  <div
-    class="msw-student-details-reminders"
-  >
-    
-  </div>
+  
 </app-student-details-reminders>
 `;

@@ -26,7 +26,7 @@ describe('AddStudentReminderDialogComponent', () => {
   });
 
   // @ts-ignore
-  it('should close the dialog', () => {
+  it.skip('should close the dialog', () => {
     // console.log('componentcomponent: ', fixture);
     // fixture.componentInstance.deleteStudent(123, 'sad', 'asd', 'אשוח', 'MALE');
     // const DialogMock = TestBed.get(MatDialog);

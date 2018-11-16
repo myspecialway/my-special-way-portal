@@ -6,14 +6,23 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentDetailsRemindersComponent } from './student-details-reminders.component';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { MatDialog } from '@angular/material';
+import { StudentService } from '../../../services/student.service';
 let studentReminderDialogMock: Partial<MatDialog>;
 
 describe('Student Details Reminders Component', () => {
+  let studentServiceMock: Partial<StudentService>;
+
   beforeEach(async () => {
     studentReminderDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
       }),
+    };
+
+    studentServiceMock = {
+      // getById: jest.fn().mockReturnValue(Promise.resolve({})),
+      update: jest.fn(),
+      getById: jest.fn(),
     };
 
     TestBed.configureTestingModule({
@@ -35,6 +44,7 @@ describe('Student Details Reminders Component', () => {
             },
           },
         },
+        { provide: StudentService, useValue: studentServiceMock },
         { provide: MatDialog, useValue: studentReminderDialogMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -46,6 +56,7 @@ describe('Student Details Reminders Component', () => {
 
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsRemindersComponent);
+      fixture.detectChanges();
       expect(fixture).toMatchSnapshot();
     });
 
