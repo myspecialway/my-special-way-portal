@@ -16,7 +16,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   dialogData = REMINDERS_CONSTANTS;
   hours = new FormControl();
   hourSelectorEnabled = true;
-  protected reminderType = ReminderType;
+  reminderType = ReminderType;
   daySelected = true;
   dirty = false;
   hourInput = new FormControl();
