@@ -51,7 +51,11 @@ export class LessonComponent implements OnInit {
         .pipe(first())
         .subscribe((result) => {
           if (result) {
-            this.lessonService.create(data.title, data.icon);
+            if (data._id !== '') {
+              this.lessonService.update(data._id, data.title, data.icon);
+            } else {
+              this.lessonService.create(data.title, data.icon);
+            }
           }
         }),
     );
@@ -60,7 +64,7 @@ export class LessonComponent implements OnInit {
     this.openLessonDialog({ _id: '', title: '', icon: '' });
   }
   public editLesson(lesson: Lesson): void {
-    this.openLessonDialog(lesson);
+    this.openLessonDialog(JSON.parse(JSON.stringify(lesson)));
   }
 
   public async deleteLesson(_id: string, title: string) {

@@ -8,5 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LessonIconComponent implements OnInit {
   @Input()
   public icon = '';
-  ngOnInit(): void {}
+  @Input()
+  public data: { icon: string };
+
+  public ngOnInit(): void {}
 }
