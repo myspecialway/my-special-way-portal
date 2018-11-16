@@ -10,8 +10,10 @@ import { UserDetailsFormComponent } from './user-details-form';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { User, UserType } from './../../../../../models/user.model';
 import { Class } from '../../../../../models/class.model';
+import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
-describe('student component', () => {
+describe('User component', () => {
   let dataMock: User;
   let fixture: ComponentFixture<UserDetailsFormComponent>;
   let component: UserDetailsFormComponent;
@@ -39,7 +41,15 @@ describe('student component', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule],
       declarations: [UserDetailsFormComponent],
-      providers: [FormBuilder, Apollo, UserService, { provide: ClassService, useValue: classServiceMock }],
+      providers: [
+        FormBuilder,
+        Apollo,
+        UserService,
+        AuthenticationService,
+        HttpClient,
+        HttpHandler,
+        { provide: ClassService, useValue: classServiceMock },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     });
 
@@ -47,6 +57,10 @@ describe('student component', () => {
     component = fixture.componentInstance;
     component.ngOnInit();
     // fixture.detectChanges();
+  });
+
+  it('should render the component as described in snapshot', () => {
+    expect(fixture).toMatchSnapshot();
   });
 
   it('should update current role and data on data @Input', () => {
