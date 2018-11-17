@@ -41,7 +41,7 @@ export class LessonComponent implements OnInit {
     }
   }
 
-  public openLessonDialog(data: Lesson) {
+  private openLessonDialog(data: Lesson) {
     const dialogRef = this.dialog.open(EditLessonDialogComponent, {
       data,
     });

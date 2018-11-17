@@ -36,6 +36,8 @@ describe('lesson component', () => {
       getLessons: jest.fn(),
       getAllLessons: jest.fn(),
       delete: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
     };
     classServiceMock = {
       getAllClasses: jest.fn().mockImplementation(() => Observable.of([])),
@@ -154,5 +156,48 @@ describe('lesson component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).not.toHaveBeenCalled();
+  });
+  // add-edit tests
+  it('should call lesson update when user edits a lesson', async () => {
+    const anyLesson: Lesson = {
+      _id: 'anyId',
+      title: 'sometitle',
+      icon: 'an-icon',
+    };
+
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.componentInstance.editLesson(anyLesson);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.update).toHaveBeenCalled();
+  });
+  it('should call lesson create when calling add new lesson ', async () => {
+    const anyLesson: Lesson = {
+      _id: '', // no id provided
+      title: 'sometitle',
+      icon: 'an-icon',
+    };
+
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.componentInstance.editLesson(anyLesson);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.create).toHaveBeenCalled();
   });
 });
