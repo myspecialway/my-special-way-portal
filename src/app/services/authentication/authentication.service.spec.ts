@@ -178,4 +178,39 @@ describe('AuthenticationService', () => {
       });
     });
   });
+  describe('first login', () => {
+    it('should create sessionStorage token key', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      await authService.firstLogin('somefirsttoken');
+      expect(sessionStorage.getItem('token')).toBe(expiredMockToken);
+    });
+    it('should not create local Storage token key', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      await authService.firstLogin('somefirsttoken');
+      expect(localStorage.getItem('token')).toBe(null);
+    });
+
+    it('should return user profile when valid token was received', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      const user = await authService.firstLogin('somefirsttoken');
+      expect(user).toBeDefined();
+    });
+    it('should appollo mutate called when valid user profile was received', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      const user = await authService.firstLogin('somefirsttoken');
+      expect(apolloMock.mutate).toHaveBeenCalled();
+    });
+  });
 });
