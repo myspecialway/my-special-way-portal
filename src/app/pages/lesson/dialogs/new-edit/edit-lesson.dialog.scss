@@ -78,3 +78,18 @@
   background-color: #fafafa;
   padding: 9px;
 }
+
+.lesson-icon-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  float: left;
+  margin: 5px;
+}
+.lesson-icon-selected {
+  border-radius: 2px;
+  border: solid 2px #8b66a7;
+}

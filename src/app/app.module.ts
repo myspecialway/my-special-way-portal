@@ -33,8 +33,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
-import { LessonIconComponent } from './pages/lesson/lesson-icon.component';
-
 import { StudentComponent } from './pages/student/student.component';
 import { StudentService } from './pages/student/services/student.service';
 import { DeleteClassDialogComponent } from './pages/class/dialogs/delete/delete-class.dialog';
@@ -96,7 +94,6 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     LoginComponent,
     ClassComponent,
     LessonComponent,
-    LessonIconComponent,
     StudentComponent,
     UserComponent,
     UserDetailsFormComponent,

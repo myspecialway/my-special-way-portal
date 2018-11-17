@@ -18,7 +18,9 @@
       </div>
       <div class="icon-list-container">
         <button type="button" *ngFor="let icon of icons" (click)='onIconClick(icon)'>
-          <app-lesson-icon [icon]="icon" [data]="data"></app-lesson-icon>
+          <div class="lesson-icon-container" ngClass = "{{data.icon === icon ? 'lesson-icon-selected' : '' }}" >
+            {{icon}}
+        </div>
         </button>
       </div>
     </div>
