@@ -201,7 +201,7 @@ describe('lesson component', () => {
     (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-
+    lessonDialogMockValue = false;
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.componentInstance.addNewLesson();
