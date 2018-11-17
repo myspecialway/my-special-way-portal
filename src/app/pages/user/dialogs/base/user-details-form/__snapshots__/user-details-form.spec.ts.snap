@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User component should render the component as described in snapshot 1`] = `
+<app-user-details-form
+  EmailFormControl={[Function FormControl]}
+  authenticationService={[Function AuthenticationService]}
+  cancel={[Function EventEmitter]}
+  classService={[Function Object]}
+  classes={[Function Array]}
+  form={[Function FormGroup]}
+  formBuilder={[Function FormBuilder]}
+  formControl={[Function FormControl]}
+  formSubmit={[Function EventEmitter]}
+  options={[Function Object]}
+  roles={[Function Array]}
+  selectClass={[Function FormControl]}
+  selectUserType={[Function FormControl]}
+  userNameFormControl={[Function FormControl]}
+  userRoleEnum={[Function Object]}
+  userService={[Function UserService]}
+>
+  <form
+    novalidate=""
+  >
+    <mat-dialog-content>
+      <div
+        class="msw-div-column-right"
+      >
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <input
+              autocomplete="given-name"
+              formcontrolname="firstname"
+              matinput=""
+              name="firstname"
+              placeholder="שם פרטי"
+              required=""
+              tabindex="1"
+            />
+            
+          </mat-form-field>
+        </div>
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <input
+              autocomplete="username"
+              formcontrolname="username"
+              matinput=""
+              name="username"
+              placeholder="שם משתמש"
+              required=""
+              tabindex="3"
+            />
+            
+            
+            
+          </mat-form-field>
+        </div>
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <mat-select
+              autocomplete="role"
+              formcontrolname="role"
+              name="role"
+              placeholder="סוג משתמש"
+              required=""
+              tabindex="5"
+            >
+              <mat-option
+                disabled=""
+              >
+                בחר
+              </mat-option>
+              
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        class="msw-div-column-left"
+      >
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <input
+              autocomplete="family-name"
+              formcontrolname="lastname"
+              matinput=""
+              name="lastname"
+              placeholder="שם משפחה"
+              required=""
+              tabindex="2"
+            />
+            
+          </mat-form-field>
+        </div>
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <input
+              autocomplete="email"
+              email=""
+              formcontrolname="email"
+              matinput=""
+              name="email"
+              placeholder="אימייל"
+              required=""
+              tabindex="4"
+            />
+            
+            
+          </mat-form-field>
+        </div>
+        <div
+          class="msw-form-row"
+        >
+          <mat-form-field
+            color="primary"
+            hiderequiredmarker=""
+          >
+            <mat-select
+              formcontrolname="class"
+              name="class"
+              placeholder="כיתה"
+              tabindex="6"
+            >
+              <mat-option
+                disabled=""
+              >
+                בחר
+              </mat-option>
+              
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <div
+      mat-dialog-actions=""
+    >
+      <button
+        class="msw-button-cancel"
+        data-test-id="cancel-button"
+        mat-button=""
+        tabindex="-1"
+        type="button"
+      >
+        ביטול
+      </button>
+      <button
+        class="msw-button-submit"
+        data-test-id="submit-button"
+        mat-button=""
+        type="submit"
+      >
+        
+      </button>
+    </div>
+  </form>
+</app-user-details-form>
+`;
