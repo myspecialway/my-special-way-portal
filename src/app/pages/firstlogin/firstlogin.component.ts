@@ -41,7 +41,6 @@ export class FirstloginComponent implements OnInit {
           return;
         }
         this.userToDisplay = userProfile;
-        console.log(`Retreived: `, userProfile);
       } catch (err) {
         this.tokenFetchFailed = true;
         console.error('Cannot get user details');
@@ -54,12 +53,7 @@ export class FirstloginComponent implements OnInit {
 
   async passChange() {
     try {
-      const loginResponse = await this.updateUserPassword(this.userToDisplay.username, this.model.password);
-
-      if (!loginResponse) {
-        console.warn('login.component::login:: login error');
-        return;
-      }
+      await this.updateUserPassword(this.userToDisplay.username, this.model.password);
     } catch (err) {
       console.error(`login.component::login:: error in authentication ${err}`);
       // TODO: handle error in authetication

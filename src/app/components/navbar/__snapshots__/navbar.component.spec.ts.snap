@@ -21,12 +21,13 @@ exports[`navbar component should render component as described in snapshot 1`] =
         >
           <img
             class="logo-img"
-            src="/assets/img/msw-logo.png"
+            src="/assets/img/msw-header-logo.png"
           />
-          <img
-            class="logo-img-tlv"
-            src="/assets/img/tlv-logo-small-white.jpg"
-          />
+          <span
+            class="logo-title"
+          >
+            בדרכי שלי
+          </span>
         </a>
         <div
           class="msw-page-title-dropdown dropdown"
