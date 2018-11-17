@@ -209,7 +209,7 @@ describe('AuthenticationService', () => {
         accessToken: expiredMockToken,
       };
       toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-      const user = await authService.firstLogin('somefirsttoken');
+      await authService.firstLogin('somefirsttoken');
       expect(apolloMock.mutate).toHaveBeenCalled();
     });
   });
