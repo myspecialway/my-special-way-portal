@@ -19,17 +19,18 @@ export class EditLessonDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditLessonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Lesson,
   ) {}
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
   public onIconClick(selectedIcon: string): void {
     this.data.icon = selectedIcon;
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form = this.formBuilder.group({
       title: '',
       icon: '',
     });
   }
+  public submitForm() {}
 }

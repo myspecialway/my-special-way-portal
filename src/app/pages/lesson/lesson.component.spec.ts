@@ -181,7 +181,7 @@ describe('lesson component', () => {
   });
   it('should call lesson create when calling add new lesson ', async () => {
     const anyLesson: Lesson = {
-      _id: '', // no id provided
+      _id: '', // no id provided - this means we are adding new lesson
       title: 'sometitle',
       icon: 'an-icon',
     };
