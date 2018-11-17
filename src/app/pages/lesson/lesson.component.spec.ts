@@ -180,12 +180,6 @@ describe('lesson component', () => {
     expect(lessonServiceMock.update).toHaveBeenCalled();
   });
   it('should call lesson create when calling add new lesson ', async () => {
-    const anyLesson: Lesson = {
-      _id: '', // no id provided - this means we are adding new lesson
-      title: 'sometitle',
-      icon: 'an-icon',
-    };
-
     (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(lessonTestData);
     });
@@ -195,9 +189,25 @@ describe('lesson component', () => {
 
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.editLesson(anyLesson);
+    fixture.componentInstance.addNewLesson();
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.create).toHaveBeenCalled();
+  });
+  it('should not call lesson create or update when dialog resilt is false ', async () => {
+    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(lessonTestData);
+    });
+    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    const fixture = TestBed.createComponent(LessonComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.componentInstance.addNewLesson();
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(lessonServiceMock.create).not.toHaveBeenCalled();
+    expect(lessonServiceMock.update).not.toHaveBeenCalled();
   });
 });
