@@ -12,16 +12,3 @@ exports[`Student Details Reminders Component should render the component as desc
   
 </app-student-details-reminders>
 `;
-
-exports[`Student Details Reminders Component with _new_ student path should render the component as described in snapshot 1`] = `
-<app-student-details-reminders
-  dayNames={[Function Array]}
-  dialog={[Function Object]}
-  reminderType={[Function Object]}
-  route={[Function Object]}
-  studentService={[Function Object]}
-  subCollector={[Function Subscription]}
->
-  
-</app-student-details-reminders>
-`;
