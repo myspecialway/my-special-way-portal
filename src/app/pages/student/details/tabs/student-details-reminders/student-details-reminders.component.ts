@@ -78,7 +78,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
     }
   }
 
-  protected getSelectedDays(slot: IDbReminderTime): string {
+  getSelectedDays(slot: IDbReminderTime): string {
     if (!slot.daysindex) {
       return '';
     }
@@ -86,7 +86,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
     return slot.daysindex.map((dayIndex) => this.dayNames[dayIndex]).join(',');
   }
 
-  protected getSelectedHours(slot: IDbReminderTime): string {
+  getSelectedHours(slot: IDbReminderTime): string {
     if (!slot.hours) {
       return '';
     }
