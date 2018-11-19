@@ -125,6 +125,22 @@ describe('Student Details Reminders Component', () => {
     expect(studentReminderDialogMock.open).toBeCalledWith(AddStudentReminderDialogComponent, expected);
   });
 
+  it('should call onDialogClose on dialog afterclosed', async () => {
+    // given
+    const dialogData = {} as IReminder;
+    setComponent();
+    component.fetchStudent = jest.fn();
+    fixture.detectChanges();
+
+    component.onDialogClose = jest.fn();
+
+    // when
+    component.updateStudentReminder(dialogData);
+    observableAfterClosed.next(dialogData);
+
+    expect(component.onDialogClose).toBeCalledWith(dialogData);
+  });
+
   it('should call studentService.update on onDialogClose', async () => {
     // given
     const reminder = {
