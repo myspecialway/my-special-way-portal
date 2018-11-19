@@ -59,7 +59,7 @@ import { PendingInterceptorServiceInterceptor } from './services/spinner/pending
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
-
+import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -108,6 +108,7 @@ import { AddStudentReminderDialogComponent } from './pages/student/dialogs/remin
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteLessonDialogComponent,
+    EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
@@ -122,6 +123,7 @@ import { AddStudentReminderDialogComponent } from './pages/student/dialogs/remin
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
+    EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
