@@ -1,14 +1,18 @@
+import { Gender } from './../../../../../models/student.model';
+import { AddStudentReminderDialogComponent } from './../../../dialogs/reminders/add/add-student-reminder.dialog';
+import { IReminder } from './../../../../../models/reminder.model';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { Observable } from 'rxjs-compat';
+import { Observable, Subject } from 'rxjs-compat';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentDetailsRemindersComponent } from './student-details-reminders.component';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { MatDialog } from '@angular/material';
 import { StudentService } from '../../../services/student.service';
 import { IDbReminderTime } from '../../../../../models/reminder-time.model';
-let studentReminderDialogMock: Partial<MatDialog>;
+import Student from '../../../../../models/student.model';
+import { Class } from '../../../../../models/class.model';
 
 describe('Student Details Reminders Component', () => {
   let studentServiceMock: Partial<StudentService>;
@@ -16,6 +20,10 @@ describe('Student Details Reminders Component', () => {
   let component: StudentDetailsRemindersComponent;
   let activatedRouteMock: Partial<ActivatedRoute>;
   let paramsMock;
+  let studentReminderDialogMock: Partial<MatDialog>;
+  let observableAfterClosed: Subject<IReminder>;
+  let afterClosedMockFn: jest.Mock;
+  let studentMock: Student;
 
   beforeEach(setup);
 
@@ -84,10 +92,94 @@ describe('Student Details Reminders Component', () => {
     expect(component.getSelectedHours(unsortedHours)).toEqual(expected);
   });
 
-  // });
+  it('should open reminder dialog popup when updateStudentReminder', () => {
+    // given
+    const dialogData = {} as IReminder;
+    setComponent();
+    fixture.detectChanges();
+
+    // when
+    component.updateStudentReminder(dialogData);
+
+    // then
+    expect(studentReminderDialogMock.open).toBeCalled();
+  });
+
+  it('should open reminder dialog popup with valid params when updateStudentReminder', () => {
+    // given
+    const dialogData = {} as IReminder;
+    setComponent();
+    component.fetchStudent = jest.fn();
+    fixture.detectChanges();
+    const expected = {
+      data: dialogData,
+      height: '376px',
+      width: '631px',
+    };
+    component.onDialogClose = jest.fn();
+
+    // when
+    component.updateStudentReminder(dialogData);
+
+    // then
+    expect(studentReminderDialogMock.open).toBeCalledWith(AddStudentReminderDialogComponent, expected);
+  });
+
+  it('should call studentService.update on onDialogClose', async () => {
+    // given
+    const reminder = {
+      ...studentMock.reminders[0],
+    };
+    setComponent();
+    fixture.detectChanges();
+
+    component.student = { ...studentMock };
+
+    await component.onDialogClose(reminder);
+    expect(studentServiceMock.update).toBeCalled();
+  });
+
+  it('should call studentService getById with student id on onDialogClose', async () => {
+    // given
+    const reminder = {
+      ...studentMock.reminders[0],
+    };
+    setComponent();
+    fixture.detectChanges();
+
+    component.student = { ...studentMock };
+
+    await component.onDialogClose(reminder);
+    expect(studentServiceMock.getById).toBeCalledWith(component.student._id);
+  }); // });
 
   function setup() {
-    paramsMock = { idOrNew: 'someid' };
+    const studentId = 'someid';
+
+    studentMock = {
+      _id: studentId,
+      username: 'student',
+      password: 'Aa123456',
+      firstname: 'Msw',
+      lastname: 'Student',
+      gender: Gender.MALE,
+      reminders: [
+        {
+          enabled: false,
+          type: 'MEDICINE',
+          schedule: [],
+        },
+        {
+          enabled: false,
+          type: 'REHAB',
+          schedule: [],
+        },
+      ],
+      schedule: [],
+      class: new Class(),
+    };
+
+    paramsMock = { idOrNew: studentId };
 
     studentReminderDialogMock = {
       open: jest.fn().mockReturnValue({
@@ -97,8 +189,8 @@ describe('Student Details Reminders Component', () => {
 
     studentServiceMock = {
       // getById: jest.fn().mockReturnValue(Promise.resolve({})),
-      update: jest.fn(),
-      getById: jest.fn(),
+      update: jest.fn().mockResolvedValue(studentMock._id),
+      getById: jest.fn().mockResolvedValue({ ...studentMock }),
     };
 
     activatedRouteMock = {
@@ -108,6 +200,16 @@ describe('Student Details Reminders Component', () => {
         },
       },
     } as never;
+
+    observableAfterClosed = new Subject<IReminder>();
+
+    afterClosedMockFn = jest.fn().mockReturnValue(observableAfterClosed);
+
+    studentReminderDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: afterClosedMockFn,
+      }),
+    };
 
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],

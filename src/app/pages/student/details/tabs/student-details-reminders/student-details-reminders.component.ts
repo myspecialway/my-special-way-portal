@@ -51,24 +51,26 @@ export class StudentDetailsRemindersComponent implements OnInit {
         .afterClosed()
         .pipe(first())
         .subscribe(async (data: IReminder) => {
-          if (!data) return;
-          const { class: _class, reminders, ...studentQuery } = this.student;
-          const class_id = _class ? _class._id : '';
-          const newReminders = reminders.map((_reminder) => {
-            if (_reminder.type === data.type) {
-              return data;
-            }
-            return _reminder;
-          });
-
-          const [err] = await to<string>(
-            this.studentService.update({ ...studentQuery, reminders: newReminders, class_id }),
-          );
-          if (!err) {
-            await this.fetchStudent(studentQuery._id.toString());
-          }
+          await this.onDialogClose(data);
         }),
     );
+  }
+
+  async onDialogClose(data: IReminder) {
+    if (!data) return;
+    const { class: _class, reminders, ...studentQuery } = this.student;
+    const class_id = _class ? _class._id : '';
+    const newReminders = reminders.map((_reminder) => {
+      if (_reminder.type === data.type) {
+        return data;
+      }
+      return _reminder;
+    });
+
+    const [err] = await to<string>(this.studentService.update({ ...studentQuery, reminders: newReminders, class_id }));
+    if (!err) {
+      await this.fetchStudent(studentQuery._id.toString());
+    }
   }
 
   async fetchStudent(id: string) {
