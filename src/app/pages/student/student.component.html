@@ -23,7 +23,7 @@
             <mat-header-cell *matHeaderCellDef>
               <span class="pl-2" mat-sort-header>שם</span>
               <span (click)="toggleStudentNameFilter()">
-                <mat-icon *ngIf="!showStudentNameFilter" matPrefix>search</mat-icon>
+                <mat-icon class="pt-1" *ngIf="!showStudentNameFilter" matPrefix>search</mat-icon>
               </span>
               <mat-form-field *ngIf="showStudentNameFilter" class="filter" floatLabel="never">
                 <mat-icon matPrefix>search</mat-icon>
@@ -39,9 +39,9 @@
 
           <ng-container matColumnDef="gradeId">
             <mat-header-cell *matHeaderCellDef>
-                <span class="pl-2">כיתה</span>
+                <span class="pl-2" mat-sort-header>כיתה</span>
                 <span (click)="toggleGradeIdFilter()">
-                    <mat-icon *ngIf="!showGradeIdFilter" matPrefix>search</mat-icon>
+                    <mat-icon class="pt-1" *ngIf="!showGradeIdFilter" matPrefix>search</mat-icon>
                   </span> 
                 <mat-form-field *ngIf="showGradeIdFilter" class="filter" floatLabel="never">
                   <mat-icon matPrefix>search</mat-icon>
