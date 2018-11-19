@@ -39,7 +39,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
     }
   }
 
-  updateStudentReminder(reminder: IReminder) {
+  showReminderDialog(reminder: IReminder) {
     const dialogRef = this.dialog.open(AddStudentReminderDialogComponent, {
       data: reminder,
       height: '376px',

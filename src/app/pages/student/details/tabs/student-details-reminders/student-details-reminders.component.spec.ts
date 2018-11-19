@@ -102,20 +102,20 @@ describe('Student Details Reminders Component', () => {
     expect(component.getSelectedHours(unsortedHours)).toEqual(expected);
   });
 
-  it('should open reminder dialog popup when updateStudentReminder', () => {
+  it('should open reminder dialog popup when showReminderDialog', () => {
     // given
     const dialogData = {} as IReminder;
     setComponent();
     fixture.detectChanges();
 
     // when
-    component.updateStudentReminder(dialogData);
+    component.showReminderDialog(dialogData);
 
     // then
     expect(studentReminderDialogMock.open).toBeCalled();
   });
 
-  it('should open reminder dialog popup with valid params when updateStudentReminder', () => {
+  it('should open reminder dialog popup with valid params when showReminderDialog', () => {
     // given
     const dialogData = {} as IReminder;
     setComponent();
@@ -129,13 +129,13 @@ describe('Student Details Reminders Component', () => {
     component.updateStudentReminders = jest.fn();
 
     // when
-    component.updateStudentReminder(dialogData);
+    component.showReminderDialog(dialogData);
 
     // then
     expect(studentReminderDialogMock.open).toBeCalledWith(AddStudentReminderDialogComponent, expected);
   });
 
-  it('should call onDialogClose on dialog afterclosed', async () => {
+  it('should call updateStudentReminder on dialog afterclosed', async () => {
     // given
     const dialogData = {} as IReminder;
     setComponent();
@@ -145,13 +145,29 @@ describe('Student Details Reminders Component', () => {
     component.updateStudentReminders = jest.fn();
 
     // when
-    component.updateStudentReminder(dialogData);
+    component.showReminderDialog(dialogData);
     observableAfterClosed.next(dialogData);
 
     expect(component.updateStudentReminders).toBeCalledWith(dialogData);
   });
 
-  it('should call studentService.update on onDialogClose', async () => {
+  it('should call updateStudentReminder on toggleActivity', async () => {
+    // given
+    const dialogData = {} as IReminder;
+    setComponent();
+    component.fetchStudent = jest.fn();
+    fixture.detectChanges();
+
+    component.updateStudentReminders = jest.fn();
+
+    // when
+    component.toggleActivity(dialogData);
+    observableAfterClosed.next(dialogData);
+
+    expect(component.updateStudentReminders).toBeCalledWith(dialogData);
+  });
+
+  it('should call studentService.update on updateStudentReminder', async () => {
     // given
     const reminder = {
       ...studentMock.reminders[0],
@@ -165,7 +181,7 @@ describe('Student Details Reminders Component', () => {
     expect(studentServiceMock.update).toBeCalled();
   });
 
-  it('should fetchStudent when studentService.update was successful when onDialogClose', async () => {
+  it('should fetchStudent when studentService.update was successful when updateStudentReminder', async () => {
     // given
     const reminder = {
       ...studentMock.reminders[0],
@@ -186,7 +202,7 @@ describe('Student Details Reminders Component', () => {
     expect(component.fetchStudent).toBeCalledWith(studentMock._id);
   });
 
-  it("shouldn't fetchStudent when studentService.update has failed when onDialogClose", async () => {
+  it("shouldn't fetchStudent when studentService.update has failed when updateStudentReminder", async () => {
     // given
     const reminder = {
       ...studentMock.reminders[0],
@@ -213,7 +229,7 @@ describe('Student Details Reminders Component', () => {
     expect(component.fetchStudent).not.toBeCalledWith(655777);
   });
 
-  it('should call studentService getById with student id on onDialogClose', async () => {
+  it('should call studentService getById with student id on updateStudentReminder', async () => {
     // given
     const reminder = {
       ...studentMock.reminders[0],
