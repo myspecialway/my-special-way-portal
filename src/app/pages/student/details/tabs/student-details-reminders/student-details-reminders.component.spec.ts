@@ -1,4 +1,4 @@
-import { Gender } from './../../../../../models/student.model';
+import { Gender, StudentQuery } from './../../../../../models/student.model';
 import { AddStudentReminderDialogComponent } from './../../../dialogs/reminders/add/add-student-reminder.dialog';
 import { IReminder } from './../../../../../models/reminder.model';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
@@ -82,6 +82,16 @@ describe('Student Details Reminders Component', () => {
     expect(component.getSelectedDays(unsortedDays)).toEqual(expected);
   });
 
+  it('should get empty string from getSelectedDays on empty slot', () => {
+    setComponent();
+
+    // given
+    const unsortedDays = ({ daysindex: [] } as any) as IDbReminderTime;
+    const expected = '';
+
+    expect(component.getSelectedDays(unsortedDays)).toEqual(expected);
+  });
+
   it('should get sorted selected hours names string from getSelectedDays', () => {
     setComponent();
 
@@ -153,6 +163,54 @@ describe('Student Details Reminders Component', () => {
 
     await component.onDialogClose(reminder);
     expect(studentServiceMock.update).toBeCalled();
+  });
+
+  it('should fetchStudent when studentService.update was successful when onDialogClose', async () => {
+    // given
+    const reminder = {
+      ...studentMock.reminders[0],
+    };
+    setComponent();
+    fixture.detectChanges();
+
+    component.student = { ...studentMock };
+    component.fetchStudent = jest.fn().mockImplementationOnce(() => {});
+
+    // when
+    await component.onDialogClose(reminder);
+
+    // then
+    expect(studentServiceMock.update).toBeCalled();
+    const res = await (studentServiceMock.update as jest.Mock)({} as StudentQuery);
+    expect(res).toBeDefined();
+    expect(component.fetchStudent).toBeCalledWith(studentMock._id);
+  });
+
+  it("shouldn't fetchStudent when studentService.update has failed when onDialogClose", async () => {
+    // given
+    const reminder = {
+      ...studentMock.reminders[0],
+    };
+    (studentServiceMock.update as jest.Mock).mockRejectedValue('err');
+    setComponent();
+
+    component.student = { ...studentMock, _id: 655777 };
+    component.fetchStudent = jest.fn();
+
+    fixture.detectChanges();
+
+    // when
+    await component.onDialogClose(reminder);
+
+    // then
+    expect(studentServiceMock.update).toBeCalled();
+    try {
+      // tslint:disable-next-line:no-non-null-assertion
+      await studentServiceMock.update!({} as StudentQuery);
+    } catch (err) {
+      expect(err).toBe('err');
+    }
+    expect(component.fetchStudent).not.toBeCalledWith(655777);
   });
 
   it('should call studentService getById with student id on onDialogClose', async () => {
