@@ -15,7 +15,6 @@ describe('Student Details Reminders Component', () => {
   let fixture: ComponentFixture<StudentDetailsRemindersComponent>;
   let component: StudentDetailsRemindersComponent;
   let activatedRouteMock: Partial<ActivatedRoute>;
-  let studentReminderDialogInitMock;
   let paramsMock;
 
   beforeEach(setup);
@@ -65,7 +64,7 @@ describe('Student Details Reminders Component', () => {
     expect(studentServiceMock.getById).toBeCalledWith(paramsMock.idOrNew);
   });
 
-  it('should get sorted selected days from getSelected Days', () => {
+  it('should get sorted selected days names string from getSelectedDays', () => {
     setComponent();
 
     // given
@@ -73,6 +72,16 @@ describe('Student Details Reminders Component', () => {
     const expected = [component.dayNames[1], component.dayNames[3], component.dayNames[4]].join(',');
 
     expect(component.getSelectedDays(unsortedDays)).toEqual(expected);
+  });
+
+  it('should get sorted selected hours names string from getSelectedDays', () => {
+    setComponent();
+
+    // given
+    const unsortedHours = { hours: ['10:00', '07:30', '13:00'] } as IDbReminderTime;
+    const expected = [['07:30', '10:00', '13:00']].join(',');
+
+    expect(component.getSelectedHours(unsortedHours)).toEqual(expected);
   });
 
   // });
