@@ -19,15 +19,6 @@ import * as _ from 'lodash';
 export class StudentDetailsRemindersComponent implements OnInit {
   idOrNew: string;
 
-  // get reminderTypes() {
-  //   const keys = Object.keys(ReminderType);
-  //   return keys.map((el) => [el, Object(ReminderType)[el]]);
-  // }
-  // get reminderTypeNames() {
-  //   return this.reminderTypes.map((type) => ReminderType[type]);
-  // }
-  rehabToggleMode = false;
-  medicineToggleMode = false;
   student: Student;
   dayNames: string[] = Array.from(REMINDERS_CONSTANTS.days);
   protected reminderType = ReminderType;
