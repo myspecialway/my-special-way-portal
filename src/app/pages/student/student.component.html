@@ -20,12 +20,38 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
         <mat-table [dataSource]="dataSource" class="msw-table" matSort matSortActive="studentName" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="studentName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <span class="pl-2" mat-sort-header>שם</span>
+              <span (click)="toggleStudentNameFilter()">
+                <mat-icon *ngIf="!showStudentNameFilter" matPrefix>search</mat-icon>
+              </span>
+              <mat-form-field *ngIf="showStudentNameFilter" class="filter">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>חיפוש תלמיד</mat-label>
+                <input matInput [formControl]="studentNameFilter" (focusout)="toggleStudentNameFilter()">
+                <button mat-icon-button matSuffix *ngIf="studentNameFilter.value" (click)="studentNameFilter.setValue('')">
+                    <mat-icon matSuffix>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{ row.firstname }} {{ row.lastname }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="gradeId">
-            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+                <span class="pl-2">כיתה</span>
+                <span (click)="toggleGradeIdFilter()">
+                    <mat-icon *ngIf="!showGradeIdFilter" matPrefix>search</mat-icon>
+                  </span> 
+                <mat-form-field *ngIf="showGradeIdFilter" class="filter">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <mat-label>חיפוש כיתה</mat-label>
+                  <input matInput [formControl]="gradeIdFilter" (focusout)="toggleGradeIdFilter()">
+                  <button mat-icon-button matSuffix *ngIf="gradeIdFilter.value" (click)="gradeIdFilter.setValue('')">
+                      <mat-icon matSuffix>cancel</mat-icon>
+                  </button>
+                  </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
           </ng-container>
 

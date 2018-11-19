@@ -9,6 +9,7 @@ import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../models/user.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-student',
@@ -20,6 +21,14 @@ export class StudentComponent implements OnInit {
   dataSource = new MatTableDataSource<Student>();
   mayAddStudent = false;
   mayDeleteStudent = false;
+  showStudentNameFilter = false;
+  showGradeIdFilter = false;
+  studentNameFilter = new FormControl('');
+  gradeIdFilter = new FormControl('');
+  filterValues = {
+    studentName: '',
+    gradeId: '',
+  };
 
   @ViewChild(MatSort)
   sort: MatSort;
@@ -33,6 +42,7 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.tableFilter();
 
     this.subCollector.add(
       this.studentService.getAllStudents().subscribe((data) => {
@@ -52,6 +62,37 @@ export class StudentComponent implements OnInit {
         this.mayAddStudent = UserType[currentType] === UserType.PRINCIPLE;
         this.mayDeleteStudent = UserType[currentType] === UserType.PRINCIPLE;
       });
+
+    this.studentNameFilter.valueChanges.subscribe((studentName) => {
+      this.filterValues.studentName = studentName.trim().toLowerCase();
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+    this.gradeIdFilter.valueChanges.subscribe((gradeId) => {
+      this.filterValues.gradeId = gradeId.trim().toLowerCase();
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+  }
+
+  tableFilter(): (data: any, filter: string) => boolean {
+    const filterFunction = (data, filter): boolean => {
+      const searchTerms = JSON.parse(filter);
+      const studentName = `${data.firstname} ${data.lastname}`.toLowerCase();
+      const gradeId = `${(data.class && data.class.name) || ''}`.toLowerCase();
+      return studentName.indexOf(searchTerms.studentName) !== -1 && gradeId.indexOf(searchTerms.gradeId) !== -1;
+    };
+    return filterFunction;
+  }
+
+  toggleStudentNameFilter() {
+    if (!this.studentNameFilter.value.trim()) {
+      this.showStudentNameFilter = !this.showStudentNameFilter;
+    }
+  }
+
+  toggleGradeIdFilter() {
+    if (!this.gradeIdFilter.value.trim()) {
+      this.showGradeIdFilter = !this.showGradeIdFilter;
+    }
   }
 
   async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string, gender: string) {
