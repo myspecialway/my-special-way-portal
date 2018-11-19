@@ -109,14 +109,6 @@ describe('Student Details Reminders Component', () => {
       },
     } as never;
 
-    studentReminderDialogInitMock = {
-      parent: {
-        params: {
-          subscribe: jest.fn().mockImplementation((callback) => callback({})),
-        },
-      },
-    } as never;
-
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
       declarations: [StudentDetailsComponent, StudentDetailsRemindersComponent],
