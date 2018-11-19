@@ -51,12 +51,12 @@ export class StudentDetailsRemindersComponent implements OnInit {
         .afterClosed()
         .pipe(first())
         .subscribe(async (data: IReminder) => {
-          await this.onDialogClose(data);
+          await this.updateStudentReminders(data);
         }),
     );
   }
 
-  async onDialogClose(data: IReminder) {
+  async updateStudentReminders(data: IReminder) {
     if (!data) return;
     const { class: _class, reminders, ...studentQuery } = this.student;
     const class_id = _class ? _class._id : '';
@@ -96,8 +96,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
     return slot.hours.join(',');
   }
 
-  //@TODO: create the enable/disable functionality
-  toggleActivity(reminder) {
-    console.log(reminder);
+  toggleActivity(reminder: IReminder) {
+    this.updateStudentReminders(reminder);
   }
 }

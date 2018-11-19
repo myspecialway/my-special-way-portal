@@ -126,7 +126,7 @@ describe('Student Details Reminders Component', () => {
       height: '376px',
       width: '631px',
     };
-    component.onDialogClose = jest.fn();
+    component.updateStudentReminders = jest.fn();
 
     // when
     component.updateStudentReminder(dialogData);
@@ -142,13 +142,13 @@ describe('Student Details Reminders Component', () => {
     component.fetchStudent = jest.fn();
     fixture.detectChanges();
 
-    component.onDialogClose = jest.fn();
+    component.updateStudentReminders = jest.fn();
 
     // when
     component.updateStudentReminder(dialogData);
     observableAfterClosed.next(dialogData);
 
-    expect(component.onDialogClose).toBeCalledWith(dialogData);
+    expect(component.updateStudentReminders).toBeCalledWith(dialogData);
   });
 
   it('should call studentService.update on onDialogClose', async () => {
@@ -161,7 +161,7 @@ describe('Student Details Reminders Component', () => {
 
     component.student = { ...studentMock };
 
-    await component.onDialogClose(reminder);
+    await component.updateStudentReminders(reminder);
     expect(studentServiceMock.update).toBeCalled();
   });
 
@@ -177,7 +177,7 @@ describe('Student Details Reminders Component', () => {
     component.fetchStudent = jest.fn().mockImplementationOnce(() => {});
 
     // when
-    await component.onDialogClose(reminder);
+    await component.updateStudentReminders(reminder);
 
     // then
     expect(studentServiceMock.update).toBeCalled();
@@ -200,7 +200,7 @@ describe('Student Details Reminders Component', () => {
     fixture.detectChanges();
 
     // when
-    await component.onDialogClose(reminder);
+    await component.updateStudentReminders(reminder);
 
     // then
     expect(studentServiceMock.update).toBeCalled();
@@ -223,7 +223,7 @@ describe('Student Details Reminders Component', () => {
 
     component.student = { ...studentMock };
 
-    await component.onDialogClose(reminder);
+    await component.updateStudentReminders(reminder);
     expect(studentServiceMock.getById).toBeCalledWith(component.student._id);
   }); // });
 
