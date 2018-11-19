@@ -23,6 +23,7 @@ export class StudentComponent implements OnInit {
   mayDeleteStudent = false;
   showStudentNameFilter = false;
   showGradeIdFilter = false;
+  showNoRecords = false;
   studentNameFilter = new FormControl('');
   gradeIdFilter = new FormControl('');
   filterValues = {
@@ -66,11 +67,21 @@ export class StudentComponent implements OnInit {
     this.studentNameFilter.valueChanges.subscribe((studentName) => {
       this.filterValues.studentName = studentName.trim().toLowerCase();
       this.dataSource.filter = JSON.stringify(this.filterValues);
+      this.dealNoDataCase();
     });
     this.gradeIdFilter.valueChanges.subscribe((gradeId) => {
       this.filterValues.gradeId = gradeId.trim().toLowerCase();
       this.dataSource.filter = JSON.stringify(this.filterValues);
+      this.dealNoDataCase();
     });
+  }
+
+  private dealNoDataCase() {
+    if (this.dataSource.filteredData.length === 0) {
+      this.showNoRecords = true;
+    } else {
+      this.showNoRecords = false;
+    }
   }
 
   tableFilter(): (data: any, filter: string) => boolean {
