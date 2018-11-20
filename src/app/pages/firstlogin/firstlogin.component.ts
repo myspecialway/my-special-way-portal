@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user/services/user.service';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 
@@ -18,6 +18,7 @@ export class FirstloginComponent implements OnInit {
   tokenFetchFailed = false;
   submitDisabled = true;
   matchFailed = false;
+  passUpdateFailed = false;
   hidePassword = true;
   hidePasswordConfirm = true;
 
@@ -27,6 +28,7 @@ export class FirstloginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
     private authenticationService: AuthenticationService,
     formBuilder: FormBuilder,
   ) {
@@ -56,9 +58,9 @@ export class FirstloginComponent implements OnInit {
       await this.updateUserPassword(this.userToDisplay.username, this.model.password);
     } catch (err) {
       console.error(`login.component::login:: error in authentication ${err}`);
-      // TODO: handle error in authetication
+      this.passUpdateFailed = false;
     } finally {
-      // this.loading = false;
+      this.router.navigate(['/']);
     }
   }
 

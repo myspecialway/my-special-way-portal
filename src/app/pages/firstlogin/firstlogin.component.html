@@ -38,6 +38,7 @@
                 </mat-form-field>
                 <!-- <div *ngIf="f.submitted && !passwordConfirm.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div> -->
                 <div [hidden]="!matchFailed" class="help-block" data-test-id="not-match-pass-err">הסיסמאות אינן תואמות, אנא נסה שנית</div>
+                <div [hidden]="!passUpdateFailed" class="help-block" data-test-id="not-match-pass-err">אירעה תקלה, אנא נסה שנית מאוחר יותר</div>
               </div>
 
             </div>
