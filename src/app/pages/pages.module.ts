@@ -28,6 +28,7 @@ import { StudentDetailsRemindersComponent } from './student/details/tabs/student
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     MapContainerComponent,
     MapViewComponent,
     UniqueUsernameValidatorDirective,
+    ResetPasswordComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],
