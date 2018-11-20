@@ -6,8 +6,10 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Shallow } from 'shallow-render/dist';
 import { ComponentsModule } from '../components.module';
 import { Apollo } from 'apollo-angular';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
+import { MatDialog } from '@angular/material';
+
 const fixUrl = (s) => s.replace(/^\/+/g, '');
 
 @Injectable()
@@ -32,12 +34,20 @@ describe('navbar component', () => {
   let shallow: Shallow<NavbarComponent>;
   let watchQueryObservable: Subject<any>;
   let router: RouterStub;
+  let exitSystemDialogMock: Partial<MatDialog>;
+  let lessonDialogMockValue: boolean;
 
   beforeEach(async () => {
     watchQueryObservable = new Subject();
     const apolloMock = {
       watchQuery: () => ({
         valueChanges: watchQueryObservable,
+      }),
+    };
+    lessonDialogMockValue = true;
+    exitSystemDialogMock = {
+      open: jest.fn().mockReturnValue({
+        afterClosed: jest.fn().mockReturnValue(() => Observable.of(lessonDialogMockValue)),
       }),
     };
     shallow = new Shallow(NavbarComponent, ComponentsModule);
@@ -49,6 +59,7 @@ describe('navbar component', () => {
         HttpHandler,
         AuthenticationService,
         { provide: Router, useClass: RouterStub },
+        { provide: MatDialog, useValue: exitSystemDialogMock },
       ],
       imports: [],
       schemas: [NO_ERRORS_SCHEMA],

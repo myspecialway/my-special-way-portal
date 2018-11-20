@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   exitSystem() {
     const dialogRef = this.dialog.open(ExitSystemDialogComponent, {
-      height: '275px',
+      height: '250px',
       width: '360px',
     });
     this.subCollector.add(
