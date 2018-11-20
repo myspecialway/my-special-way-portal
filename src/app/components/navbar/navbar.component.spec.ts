@@ -35,7 +35,6 @@ describe('navbar component', () => {
   let watchQueryObservable: Subject<any>;
   let router: RouterStub;
   let exitSystemDialogMock: Partial<MatDialog>;
-  let lessonDialogMockValue: boolean;
 
   beforeEach(async () => {
     watchQueryObservable = new Subject();
@@ -44,10 +43,9 @@ describe('navbar component', () => {
         valueChanges: watchQueryObservable,
       }),
     };
-    lessonDialogMockValue = true;
     exitSystemDialogMock = {
       open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockReturnValue(() => Observable.of(lessonDialogMockValue)),
+        afterClosed: jest.fn().mockImplementation(() => Observable.of(true)),
       }),
     };
     shallow = new Shallow(NavbarComponent, ComponentsModule);
@@ -145,5 +143,14 @@ describe('navbar component', () => {
     component.fixture.detectChanges();
     const liElement = component.element.nativeElement.querySelector('.msw-header-user-name') as HTMLLIElement;
     expect(liElement.innerHTML).toBe('MSW TEACHER');
+  });
+
+  it('should open exit system dialoge when click on exit button ', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.componentInstance.exitSystem();
+    fixture.detectChanges();
+    fixture.whenRenderingDone();
+    expect(exitSystemDialogMock.open).toHaveBeenCalled();
   });
 });
