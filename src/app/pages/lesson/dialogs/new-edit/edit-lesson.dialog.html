@@ -19,7 +19,7 @@
       <div class="icon-list-container">
         <button type="button" *ngFor="let icon of icons" (click)='onIconClick(icon)'>
           <div class="lesson-icon-container" ngClass = "{{data.icon === icon ? 'lesson-icon-selected' : '' }}" >
-            {{icon}}
+            <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
         </div>
         </button>
       </div>
