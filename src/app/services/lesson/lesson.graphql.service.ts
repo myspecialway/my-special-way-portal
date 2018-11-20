@@ -21,9 +21,59 @@ mutation {
     id: "${lessonId}"
   )
 }`;
+const CREATE_LESSON_QUERY = (title, icon) => gql`
+  mutation {
+    createLesson(lesson: {
+      title: "${title}"
+      icon: "${icon}"
+    }){ _id }
+  }`;
+const UPDATE_LESSON_QUERY = (lessonid, title, icon) => gql`
+mutation {
+  updateLesson(id: "${lessonid}", lesson: {
+    title: "${title}"
+    icon: "${icon}"
+  }){ _id }
+}`;
 
 @Injectable()
 export class LessonService {
+  public create(title: string, icon: string): any {
+    return this.apollo
+      .mutate({
+        mutation: CREATE_LESSON_QUERY(title, icon),
+        refetchQueries: [
+          {
+            query: GET_ALL_LESSONS_QUERY,
+          },
+        ],
+        awaitRefetchQueries: true,
+      })
+      .toPromise()
+      .then((res) => {
+        if (res.data) {
+          return res.data.createClass;
+        }
+      });
+  }
+  public update(lessonId: string, title: string, icon: string): any {
+    return this.apollo
+      .mutate({
+        mutation: UPDATE_LESSON_QUERY(lessonId, title, icon),
+        refetchQueries: [
+          {
+            query: GET_ALL_LESSONS_QUERY,
+          },
+        ],
+        awaitRefetchQueries: true,
+      })
+      .toPromise()
+      .then((res) => {
+        if (res.data) {
+          return res.data.createClass;
+        }
+      });
+  }
   constructor(private apollo: Apollo) {}
   public getAllLessons(): Observable<Lesson[]> {
     return this.apollo

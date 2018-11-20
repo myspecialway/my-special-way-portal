@@ -29,6 +29,7 @@ schedule {
   index
   hours
   lesson {
+    _id
     title
     icon
   }

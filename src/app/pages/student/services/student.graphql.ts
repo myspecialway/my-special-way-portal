@@ -46,6 +46,14 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
         name
         _id
       }
+      reminders {
+        enabled
+        type
+        schedule {
+          daysindex
+          hours
+        }
+      }
     }
   }
 `;

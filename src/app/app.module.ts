@@ -20,6 +20,7 @@ import {
   MatCheckboxModule,
   MatDividerModule,
   MatSnackBarModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -60,7 +61,8 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
 import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
 import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
 import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
-
+import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
+import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -73,6 +75,7 @@ import { SessionFooterComponent } from './pages/shared/session-mgmt/session-foot
     MatInputModule,
     MatTooltipModule,
     MatTableModule,
+    MatAutocompleteModule,
     MatSortModule,
     MatPaginatorModule,
     MatPaginatorModule,
@@ -105,9 +108,11 @@ import { SessionFooterComponent } from './pages/shared/session-mgmt/session-foot
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
     AddStudentDialogComponent,
+    AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteLessonDialogComponent,
+    EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
@@ -119,10 +124,12 @@ import { SessionFooterComponent } from './pages/shared/session-mgmt/session-foot
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
     AddStudentDialogComponent,
+    AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
+    EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
   ],
