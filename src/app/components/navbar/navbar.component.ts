@@ -72,7 +72,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return route.title;
   }
 
-  exitSystem() {
+  public async exitSystem() {
     const dialogRef = this.dialog.open(ExitSystemDialogComponent, {
       height: '250px',
       width: '360px',
@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       dialogRef
         .afterClosed()
         .pipe(first())
-        .subscribe((result) => {
+        .subscribe(async (result) => {
           if (result === true) {
             this.router.navigate(['/login']);
           }
