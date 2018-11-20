@@ -5,8 +5,11 @@ import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.qu
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { UserType } from '../../models/user.model';
 import { Router, NavigationEnd } from '@angular/router';
-import { pluck, filter, map } from 'rxjs/operators';
+import { pluck, filter, map, first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { ExitSystemDialogComponent } from './dialogs/exit/exit-system.dialog';
+import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -30,7 +33,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   selectedMenuItemPath: string;
   routeSubscription: Subscription;
 
-  constructor(private apollo: Apollo, private router: Router) {
+  @SubscriptionCleaner()
+  subCollector;
+
+  constructor(private apollo: Apollo, private router: Router, public dialog: MatDialog) {
     this.subscribeToRouterEvents();
   }
 
@@ -64,6 +70,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getSelectedMenuItem() {
     const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
     return route.title;
+  }
+
+  exitSystem() {
+    const dialogRef = this.dialog.open(ExitSystemDialogComponent, {
+      height: '275px',
+      width: '360px',
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result === true) {
+            this.router.navigate(['/login']);
+          }
+        }),
+    );
   }
 
   private subscribeToRouterEvents() {
