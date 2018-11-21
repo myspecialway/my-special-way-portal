@@ -18,6 +18,7 @@ export class EditLessonDialogComponent implements OnInit {
   public updateButtonTitle = 'עדכן';
   public addButtonTitle = 'הוסף';
   public icons;
+  private allTLessons: Lesson[];
   public allicons = [
     '00026',
     '00036',
@@ -191,6 +192,12 @@ export class EditLessonDialogComponent implements OnInit {
     'trip',
   ];
   form: FormGroup;
+  public get isDuplicate(): boolean {
+    if (this.allTLessons && this.allTLessons.find((lesson) => lesson.title === this.data.title)) {
+      return true;
+    }
+    return false;
+  }
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditLessonDialogComponent>,
@@ -211,6 +218,7 @@ export class EditLessonDialogComponent implements OnInit {
     });
     this.subCollector.add(
       this.lessonService.getAllLessons().subscribe((lessons: Lesson[]) => {
+        this.allTLessons = lessons.filter((lesson) => lesson._id !== this.data._id);
         const usedIcons = lessons.map((lesson) => lesson.icon);
         this.icons = this.allicons.filter((icon) => {
           return usedIcons.indexOf(icon) < 0;
