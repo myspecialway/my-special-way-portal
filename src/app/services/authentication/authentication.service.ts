@@ -71,6 +71,29 @@ export class AuthenticationService {
     }
   }
 
+  async restorePassword(email: string): Promise<boolean> {
+    try {
+      const tokenResponse = await this.http
+        .post<any>(environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT, { email })
+        .toPromise();
+
+      console.log(tokenResponse);
+
+      // const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      // await this.pushUserProfileToState(userProfile);
+      //
+      return true;
+    } catch (error) {
+      const typedError = error as HttpErrorResponse;
+
+      if (typedError.status !== 401) {
+        throw error;
+      }
+
+      return false;
+    }
+  }
+
   private getProfileFromToken(token: string): UserProfileStateModel {
     const jwrParsedToken = this.parseToken(token);
     const userProfile = new UserProfileStateModel(jwrParsedToken);

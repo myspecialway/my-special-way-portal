@@ -8,6 +8,8 @@ import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { first } from 'rxjs/operators';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { RestorePasswordDialogComponent } from './dialogs/restore/restore.dialog';
 
 @Component({
   selector: 'app-user',
@@ -27,7 +29,11 @@ export class UserComponent implements OnInit, AfterViewInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog,
+    private authenticationService: AuthenticationService,
+  ) {}
 
   ngOnInit(): void {
     this.subCollector.add(
@@ -89,6 +95,27 @@ export class UserComponent implements OnInit, AfterViewInit {
           }
         }),
     );
+  }
+  async restoreUserPassword(userData: User) {
+    const loginResponse = await this.authenticationService.restorePassword(userData.email);
+    if (loginResponse) {
+      const dialogRef = this.dialog.open(RestorePasswordDialogComponent, {
+        data: userData,
+        height: '275px',
+        width: '360px',
+      });
+
+      this.subCollector.add(
+        dialogRef
+          .afterClosed()
+          .pipe(first())
+          .subscribe((result) => {
+            if (result === true) {
+              // this.userService.delete(userData._id);
+            }
+          }),
+      );
+    }
   }
   updateUser(userData: User) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
