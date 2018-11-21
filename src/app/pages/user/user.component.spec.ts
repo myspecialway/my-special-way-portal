@@ -17,6 +17,9 @@ import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 import { classTestData } from '../../../mocks/assets/classes.mock';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -47,7 +50,11 @@ describe('user component', () => {
         ScrollDispatcher,
         Platform,
         ViewportRuler,
+        HttpHandler,
+        AuthenticationService,
+        HttpClient,
         OverlayContainer,
+        Apollo,
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
       ],
@@ -230,7 +237,7 @@ describe('user component', () => {
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.displayedColumns).toBe([
+    expect(fixture.componentInstance.displayedColumns).toEqual([
       'name',
       'class',
       'username',
@@ -239,16 +246,24 @@ describe('user component', () => {
       'recoverpassword',
       'deleteUser',
     ]);
-    expect(fixture.componentInstance.dataSource).toBe([]);
-    expect(fixture.componentInstance.resultsLength).toBe(0);
+    expect(fixture.componentInstance.resultsLength).toEqual(0);
   });
-  it('balat', () => {
-    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(classTestData.classes);
+  it('resultsLength should be 0', () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
     });
 
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
     expect(fixture.componentInstance.resultsLength).toBe(0);
+  });
+  it('should load correct number of lesson ', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 });

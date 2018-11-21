@@ -9,12 +9,15 @@ import {
   MUTATE_DELETE_USER,
 } from './user.graphql';
 import { map } from 'rxjs/operators/map';
-import { catchError } from 'rxjs/operators';
+import { catchError, first } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs/observable/of';
+import { RestorePasswordDialogComponent } from '../dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from '../dialogs/restore/error/restore-error.dialog';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Injectable()
 export class UserService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private authenticationService: AuthenticationService) {}
 
   getAllUsers() {
     return this.apollo

@@ -1,6 +1,7 @@
 import { UserType } from '../../../../../models/user.model';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-restore-password-error.dialog',
@@ -13,9 +14,12 @@ export class RestorePasswordErrorDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<RestorePasswordErrorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private authenticationService: AuthenticationService,
   ) {}
   close(): void {
     this.dialogRef.close();
   }
-  submit(): void {}
+  submit(): void {
+    this.authenticationService.restorePassword(this.data.email, this.data.firstname, this.data.lastname);
+  }
 }
