@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Lesson } from '../../../../models/lesson.model';
 
+import { LessonService } from '../../../../services/lesson/lesson.graphql.service';
+
 @Component({
   selector: 'app-edit-lesson.dialog',
   templateUrl: './edit-lesson.dialog.html',
@@ -11,8 +13,8 @@ import { Lesson } from '../../../../models/lesson.model';
 export class EditLessonDialogComponent implements OnInit {
   public updateButtonTitle = 'עדכן';
   public addButtonTitle = 'הוסף';
-
-  public icons = [
+  public icons;
+  public allicons = [
     '00026',
     '00036',
     '00040',
@@ -183,21 +185,13 @@ export class EditLessonDialogComponent implements OnInit {
     'toilet floor 1',
     'toilet floor 2',
     'trip',
-    '----',
-    'art',
-    'lunch',
-    'hebrew',
-    'therapy',
-    'breakfeast',
-    'english2',
-    'arabic',
-    'russian',
   ];
   form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditLessonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Lesson,
+    private lessonService: LessonService,
   ) {}
   public onNoClick(): void {
     this.dialogRef.close();
@@ -210,6 +204,12 @@ export class EditLessonDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: '',
       icon: '',
+    });
+    this.lessonService.getAllLessons().subscribe((lessons: Lesson[]) => {
+      const usedIcons = lessons.map((lesson) => lesson.icon);
+      this.icons = this.allicons.filter((icon) => {
+        return usedIcons.indexOf(icon) < 0;
+      });
     });
   }
   public submitForm() {}
