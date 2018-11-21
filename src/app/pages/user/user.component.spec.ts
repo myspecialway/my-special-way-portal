@@ -17,8 +17,6 @@ import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 import { classTestData } from '../../../mocks/assets/classes.mock';
-import { oneStudentTestData } from '../../../mocks/assets/student.mock';
-import { StudentDetailsPersonalInfoComponent } from '../student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
