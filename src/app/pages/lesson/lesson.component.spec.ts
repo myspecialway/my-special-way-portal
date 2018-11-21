@@ -98,7 +98,7 @@ describe('lesson component', () => {
     });
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteLesson('1', 'anyTitle');
+    await fixture.componentInstance.deleteLesson({ _id: '1', title: 'anyTitle', icon: '' });
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonDialogMock.open).toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe('lesson component', () => {
     lessonDialogMockValue = true;
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteLesson('1', 'anyTitle');
+    await fixture.componentInstance.deleteLesson({ _id: '1', title: 'anyTitle', icon: '' });
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).toHaveBeenCalledWith('1');
@@ -131,7 +131,7 @@ describe('lesson component', () => {
 
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteLesson('1', 'anyTitle');
+    await fixture.componentInstance.deleteLesson({ _id: '1', title: 'anyTitle', icon: '' });
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).not.toHaveBeenCalled();
@@ -145,14 +145,14 @@ describe('lesson component', () => {
       return Promise.resolve(1);
     });
     (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() =>
-      Observable.of([{ name: 'anyClass', schedule: [{ lesson: { title: 'anyTitle' } }] }]),
+      Observable.of([{ name: 'anyClass', schedule: [{ lesson: { _id: '1', title: 'anyTitle' } }] }]),
     );
     // user confirmsa
     lessonDialogMockValue = true;
 
     const fixture = TestBed.createComponent(LessonComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteLesson('1', 'anyTitle');
+    await fixture.componentInstance.deleteLesson({ _id: '1', title: 'anyTitle', icon: '' });
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lessonServiceMock.delete).not.toHaveBeenCalled();
