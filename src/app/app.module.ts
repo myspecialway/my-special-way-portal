@@ -60,7 +60,8 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
-import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/restore.dialog';
+import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -105,6 +106,7 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/res
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
     RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -120,6 +122,7 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/res
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
     RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,

@@ -9,7 +9,8 @@ import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { RestorePasswordDialogComponent } from './dialogs/restore/restore.dialog';
+import { RestorePasswordDialogComponent } from './dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './dialogs/restore/error/restore-error.dialog';
 
 @Component({
   selector: 'app-user',
@@ -97,25 +98,20 @@ export class UserComponent implements OnInit, AfterViewInit {
     );
   }
   async restoreUserPassword(userData: User) {
-    const loginResponse = await this.authenticationService.restorePassword(userData.email);
-    if (loginResponse) {
-      const dialogRef = this.dialog.open(RestorePasswordDialogComponent, {
-        data: userData,
-        height: '275px',
-        width: '360px',
-      });
-
-      this.subCollector.add(
-        dialogRef
-          .afterClosed()
-          .pipe(first())
-          .subscribe((result) => {
-            if (result === true) {
-              // this.userService.delete(userData._id);
-            }
-          }),
-      );
-    }
+    const restore = await this.authenticationService.restorePassword(
+      userData.email,
+      userData.firstname,
+      userData.lastname,
+    );
+    const config = {
+      data: userData,
+      height: '275px',
+      width: '360px',
+    };
+    const dialogRef = restore
+      ? this.dialog.open(RestorePasswordDialogComponent, config)
+      : this.dialog.open(RestorePasswordErrorDialogComponent, config);
+    this.subCollector.add(dialogRef.afterClosed().pipe(first()));
   }
   updateUser(userData: User) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {

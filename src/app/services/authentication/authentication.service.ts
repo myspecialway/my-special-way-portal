@@ -71,25 +71,19 @@ export class AuthenticationService {
     }
   }
 
-  async restorePassword(email: string): Promise<boolean> {
+  async restorePassword(email: string, firstname: string, lastname: string): Promise<boolean> {
     try {
-      const tokenResponse = await this.http
-        .post<any>(environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT, { email })
+      await this.http
+        .post<{ email: string; firstname: string; lastname: string }>(
+          environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT,
+          { email, firstname, lastname },
+        )
         .toPromise();
 
-      console.log(tokenResponse);
-
-      // const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
-      // await this.pushUserProfileToState(userProfile);
-      //
       return true;
     } catch (error) {
       const typedError = error as HttpErrorResponse;
-
-      if (typedError.status !== 401) {
-        throw error;
-      }
-
+      console.log(typedError);
       return false;
     }
   }

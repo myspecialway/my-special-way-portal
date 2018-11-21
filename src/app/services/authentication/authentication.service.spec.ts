@@ -50,6 +50,15 @@ describe('AuthenticationService', () => {
     expect(localStorage.getItem('token')).toBe(expiredMockToken);
   });
 
+  it('should return true if restore password email sent', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: expiredMockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const response = await authService.restorePassword('someemail@g.com', 'somefirstname', 'somelastname');
+    expect(response).toBe(true);
+  });
+
   it('should not create localstorage token key on authentication sucess with rememberme disabled', async () => {
     const mockedResponse: LoginResponse = {
       accessToken: expiredMockToken,

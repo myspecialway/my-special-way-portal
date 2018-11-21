@@ -16,6 +16,9 @@ import { Platform } from '@angular/cdk/platform';
 import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { classTestData } from '../../../mocks/assets/classes.mock';
+import { oneStudentTestData } from '../../../mocks/assets/student.mock';
+import { StudentDetailsPersonalInfoComponent } from '../student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -91,6 +94,28 @@ describe('user component', () => {
     fixture.detectChanges();
 
     fixture.componentInstance.deleteUser(user);
+    const DialogMock = TestBed.get(MatDialog);
+    expect(DialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should open dialog when calling restoreUserPassword function', () => {
+    (userServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
+    fixture.componentInstance.restoreUserPassword(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
@@ -198,5 +223,34 @@ describe('user component', () => {
       const comapare = user1.localeCompare(user2);
       expect(comapare).toEqual(-1);
     }
+  });
+  it('should cover class params', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.displayedColumns).toBe([
+      'name',
+      'class',
+      'username',
+      'type',
+      'email',
+      'recoverpassword',
+      'deleteUser',
+    ]);
+    expect(fixture.componentInstance.dataSource).toBe([]);
+    expect(fixture.componentInstance.resultsLength).toBe(0);
+  });
+  it('balat', () => {
+    (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(classTestData.classes);
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.resultsLength).toBe(0);
   });
 });
