@@ -16,7 +16,6 @@ import { Platform } from '@angular/cdk/platform';
 import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
-import { classTestData } from '../../../mocks/assets/classes.mock';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
