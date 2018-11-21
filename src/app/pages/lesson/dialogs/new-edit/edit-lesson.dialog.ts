@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Lesson } from '../../../../models/lesson.model';
 
 import { LessonService } from '../../../../services/lesson/lesson.graphql.service';
+import { SubscriptionCleaner } from '../../../../decorators/SubscriptionCleaner.decorator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-lesson.dialog',
@@ -11,6 +13,8 @@ import { LessonService } from '../../../../services/lesson/lesson.graphql.servic
   styleUrls: ['./edit-lesson.dialog.scss'],
 })
 export class EditLessonDialogComponent implements OnInit {
+  @SubscriptionCleaner()
+  subCollector: Subscription;
   public updateButtonTitle = 'עדכן';
   public addButtonTitle = 'הוסף';
   public icons;
@@ -205,12 +209,14 @@ export class EditLessonDialogComponent implements OnInit {
       title: '',
       icon: '',
     });
-    this.lessonService.getAllLessons().subscribe((lessons: Lesson[]) => {
-      const usedIcons = lessons.map((lesson) => lesson.icon);
-      this.icons = this.allicons.filter((icon) => {
-        return usedIcons.indexOf(icon) < 0;
-      });
-    });
+    this.subCollector.add(
+      this.lessonService.getAllLessons().subscribe((lessons: Lesson[]) => {
+        const usedIcons = lessons.map((lesson) => lesson.icon);
+        this.icons = this.allicons.filter((icon) => {
+          return usedIcons.indexOf(icon) < 0;
+        });
+      }),
+    );
   }
   public submitForm() {}
 }
