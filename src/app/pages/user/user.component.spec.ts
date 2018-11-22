@@ -23,9 +23,6 @@ import { Apollo } from 'apollo-angular';
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
-  let authService: AuthenticationService;
-  const httpClient: HttpClient;
-  const apolloMock: any;
 
   beforeEach(async () => {
     userServiceMock = {
@@ -62,7 +59,6 @@ describe('user component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-    authService = new AuthenticationService(httpClient, apolloMock);
   });
 
   it('should render component as described in snapshot', () => {
