@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import {
   MatDialog,
   MatSort,
@@ -26,7 +26,7 @@ import { studentsTestData } from '../../../mocks/assets/students.mock';
 import { Observable, Subject } from 'rxjs-compat';
 import { Apollo } from 'apollo-angular';
 import { CdkTableModule } from '@angular/cdk/table';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
