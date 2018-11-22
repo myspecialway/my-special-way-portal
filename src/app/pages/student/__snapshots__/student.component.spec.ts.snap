@@ -10,6 +10,7 @@ exports[`student component should render component as described in snapshot 1`] 
   gradeIdFilter={[Function FormControl]}
   mayAddStudent="false"
   mayDeleteStudent="false"
+  ref={[Function ViewRef_]}
   showGradeIdFilter="false"
   showNoRecords="false"
   showStudentNameFilter="false"

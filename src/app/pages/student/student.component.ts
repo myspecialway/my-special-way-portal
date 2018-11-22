@@ -1,5 +1,5 @@
 import { first } from 'rxjs/operators';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
 import { StudentService } from './services/student.service';
@@ -36,10 +36,21 @@ export class StudentComponent implements OnInit {
   @ViewChild('table')
   table: ElementRef;
 
+  @ViewChild('studentNameField')
+  studentNameField: ElementRef;
+
+  @ViewChild('gradeIdField')
+  gradeIdField: ElementRef;
+
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private studentService: StudentService, private dialog: MatDialog, private apollo: Apollo) {}
+  constructor(
+    private ref: ChangeDetectorRef,
+    private studentService: StudentService,
+    private dialog: MatDialog,
+    private apollo: Apollo,
+  ) {}
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -96,14 +107,24 @@ export class StudentComponent implements OnInit {
   }
 
   toggleStudentNameFilter() {
-    if (!this.studentNameFilter.value.trim()) {
+    const isEmpty = !this.studentNameFilter.value.trim();
+    if (isEmpty) {
       this.showStudentNameFilter = !this.showStudentNameFilter;
+    }
+    if (this.showStudentNameFilter && isEmpty) {
+      this.ref.detectChanges();
+      this.studentNameField.nativeElement.focus();
     }
   }
 
   toggleGradeIdFilter() {
-    if (!this.gradeIdFilter.value.trim()) {
+    const isEmpty = !this.gradeIdFilter.value.trim();
+    if (isEmpty) {
       this.showGradeIdFilter = !this.showGradeIdFilter;
+    }
+    if (this.showGradeIdFilter && isEmpty) {
+      this.ref.detectChanges();
+      this.gradeIdField.nativeElement.focus();
     }
   }
 
