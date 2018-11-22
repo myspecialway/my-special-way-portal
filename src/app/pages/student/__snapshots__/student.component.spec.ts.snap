@@ -57,23 +57,13 @@ exports[`student component should render component as described in snapshot 1`] 
           class="col-lg-12 col-md-12 col-sm-12"
         >
           <mat-table
-            class="msw-table"
+            class="msw-table mat-table"
             matsort=""
             matsortactive="studentName"
             matsortdirection="asc"
             matsortdisableclear=""
+            role="grid"
           >
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             
             

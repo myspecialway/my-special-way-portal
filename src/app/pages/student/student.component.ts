@@ -48,6 +48,7 @@ export class StudentComponent implements OnInit {
     this.subCollector.add(
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
+        this.dealNoDataCase();
       }),
     );
 
@@ -77,7 +78,7 @@ export class StudentComponent implements OnInit {
   }
 
   private dealNoDataCase() {
-    if (this.dataSource.filteredData.length === 0) {
+    if (this.dataSource.data.length === 0 || this.dataSource.filteredData.length === 0) {
       this.showNoRecords = true;
     } else {
       this.showNoRecords = false;
