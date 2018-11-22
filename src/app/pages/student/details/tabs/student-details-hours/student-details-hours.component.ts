@@ -39,7 +39,7 @@ export class StudentDetailsHoursComponent implements OnInit {
     }
     this.id = this.route.parent.snapshot.params.idOrNew;
     try {
-      this.student = await this.studentService.getById(this.id);
+      this.student = { ...(await this.studentService.getById(this.id)) };
       if (!this.student.class) {
         this.student.class = new Class();
       }
