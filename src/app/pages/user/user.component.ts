@@ -111,7 +111,12 @@ export class UserComponent implements OnInit, AfterViewInit {
     const dialogRef = restore
       ? this.dialog.open(RestorePasswordDialogComponent, config)
       : this.dialog.open(RestorePasswordErrorDialogComponent, config);
-    this.subCollector.add(dialogRef.afterClosed().pipe(first()));
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(() => {}),
+    );
   }
   updateUser(userData: User) {
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {

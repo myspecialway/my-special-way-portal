@@ -23,6 +23,9 @@ import { Apollo } from 'apollo-angular';
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
+  let authService: AuthenticationService;
+  const httpClient: HttpClient;
+  const apolloMock: any;
 
   beforeEach(async () => {
     userServiceMock = {
@@ -59,6 +62,7 @@ describe('user component', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
+    authService = new AuthenticationService(httpClient, apolloMock);
   });
 
   it('should render component as described in snapshot', () => {
@@ -98,28 +102,6 @@ describe('user component', () => {
     fixture.detectChanges();
 
     fixture.componentInstance.deleteUser(user);
-    const DialogMock = TestBed.get(MatDialog);
-    expect(DialogMock.open).toHaveBeenCalled();
-  });
-
-  it('should open dialog when calling restoreUserPassword function', () => {
-    (userServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-
-    const user = {
-      _id: 123,
-      username: 'uname',
-      firstname: 'sad',
-      lastname: 'asd',
-      role: UserType.PRINCIPLE,
-      password: '123',
-      email: 'asdd@sdsd.com',
-    };
-    const fixture = TestBed.createComponent(UserComponent);
-    fixture.detectChanges();
-
-    fixture.componentInstance.restoreUserPassword(user);
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
   });
