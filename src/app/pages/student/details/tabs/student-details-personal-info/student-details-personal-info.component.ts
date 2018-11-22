@@ -48,7 +48,10 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     } else {
       this.isNewStudent = false;
       try {
-        this.student = await this.studentService.getById(this.idOrNew);
+        this.student = { ...(await this.studentService.getById(this.idOrNew)) };
+        if (!this.student.class) {
+          this.student.class = new Class();
+        }
       } catch (error) {
         // TODO: implement error handling on UI
         console.error('Error handling not implemented');
