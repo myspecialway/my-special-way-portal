@@ -82,8 +82,6 @@ export class AuthenticationService {
 
       return true;
     } catch (error) {
-      const typedError = error as HttpErrorResponse;
-      console.log(typedError);
       return false;
     }
   }

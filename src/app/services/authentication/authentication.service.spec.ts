@@ -50,6 +50,15 @@ describe('AuthenticationService', () => {
     expect(localStorage.getItem('token')).toBe(expiredMockToken);
   });
 
+  it('should restorePassword return status ok', async () => {
+    const mockedResponse: any = {
+      status: 'ok',
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const res = await authService.restorePassword('someusername', 'somepassword', 'flastname');
+    expect(res).toBe(true);
+  });
+
   it('should return true if restore password email sent', async () => {
     const mockedResponse: LoginResponse = {
       accessToken: expiredMockToken,
