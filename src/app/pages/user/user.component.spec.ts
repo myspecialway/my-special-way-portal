@@ -23,6 +23,7 @@ import { Apollo } from 'apollo-angular';
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
+  let authService: Partial<AuthenticationService>;
 
   beforeEach(async () => {
     userServiceMock = {
@@ -30,6 +31,10 @@ describe('user component', () => {
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+    };
+
+    authService = {
+      restorePassword: jest.fn(),
     };
 
     userDialogMock = {
@@ -78,6 +83,27 @@ describe('user component', () => {
     fixture.componentInstance.addNewUser();
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should open dialog when calling restoreUserPassword function', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
   });
 
   it('should open dialog when calling deleteUser function', () => {

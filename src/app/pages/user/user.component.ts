@@ -97,7 +97,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         }),
     );
   }
-  async restoreUserPassword(userData: User) {
+  async restoreUserPassword(userData: User): void {
     const restore = await this.authenticationService.restorePassword(
       userData.email,
       userData.firstname,
