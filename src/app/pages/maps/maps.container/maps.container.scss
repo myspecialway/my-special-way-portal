@@ -25,12 +25,44 @@
     height: 100%;
   }
   .map-control {
-    border: 1px dotted #f0f;
     height: 100%;
+    margin-right: 5px;
     width: 400px;
-  }
 
-  .maps-table {
-    width: 100%;
+    .msw-maps-header-nav {
+      margin-bottom: 16px;
+    }
+
+    .mat-tab-link {
+      background-color: #f2f2f2;
+      color: #222;
+      font-weight: 700;
+      width: 50%;
+    }
+
+    .msw-maps-tab-active {
+      background-color: #fff;
+      font-weight: normal;
+    }
+
+    .maps-table {
+      width: 100%;
+    }
+
+    .mat-cell,
+    .mat-header-cell {
+      cursor: pointer;
+
+      &:last-child {
+        flex-basis: 40px;
+      }
+      &:not(:first-child) {
+        justify-content: center;
+      }
+
+      .delete-row-button.mat-icon-button.mat-primary {
+        color: #8b66a7;
+      }
+    }
   }
 }
