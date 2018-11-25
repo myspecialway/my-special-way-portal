@@ -35,10 +35,8 @@ export class StudentComponent implements OnInit {
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
-
   @ViewChild('studentNameField')
   studentNameField: ElementRef;
-
   @ViewChild('gradeIdField')
   gradeIdField: ElementRef;
 
@@ -81,6 +79,7 @@ export class StudentComponent implements OnInit {
       this.dataSource.filter = JSON.stringify(this.filterValues);
       this.dealNoDataCase();
     });
+
     this.gradeIdFilter.valueChanges.subscribe((gradeId) => {
       this.filterValues.gradeId = gradeId.trim().toLowerCase();
       this.dataSource.filter = JSON.stringify(this.filterValues);

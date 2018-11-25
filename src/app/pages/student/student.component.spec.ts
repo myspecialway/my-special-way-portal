@@ -87,7 +87,6 @@ describe('student component', () => {
         MatPaginatorIntl,
         { provide: Apollo, useValue: apolloMock },
       ],
-      //schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -103,9 +102,9 @@ describe('student component', () => {
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  /* 
+  /*
   ** temporry remove this as it fails with undefined of valueChanges
-  * 
+  *
   it('should load students from service on page load ', () => {
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
@@ -249,13 +248,13 @@ describe('student component', () => {
         expect(fixture.componentInstance.showGradeIdFilter).toBe(false);
       });
 
-      it('should show filter name input after call to to toggleStudentNameFilter', () => {
+      it("should show filter's gradeId input after call to to toggleGradeIdFilter", () => {
         const fixture = TestBed.createComponent(StudentComponent);
         fixture.componentInstance.toggleGradeIdFilter();
         expect(fixture.componentInstance.showGradeIdFilter).toBe(true);
       });
 
-      it('should show filter name input in any case, if there is filter applyed', () => {
+      it("should show filter's gradeId input in any case, if there is filter applyed", () => {
         const fixture = TestBed.createComponent(StudentComponent);
         fixture.componentInstance.toggleGradeIdFilter();
         fixture.componentInstance.gradeIdFilter.setValue('some text');
@@ -265,7 +264,7 @@ describe('student component', () => {
         expect(fixture.componentInstance.showGradeIdFilter).toBe(true);
       });
 
-      it('should show no records massage if the gradeId filter has no macth', fakeAsync(() => {
+      it('should show no records massage if the gradeId filter has no match', fakeAsync(() => {
         // given
         const fixture = TestBed.createComponent(StudentComponent);
         fixture.detectChanges();

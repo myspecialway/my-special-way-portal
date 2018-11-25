@@ -1,6 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  MatDialog,
+  MatSort,
+  MatTableModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatTooltipModule,
+} from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import {
@@ -16,6 +23,11 @@ import { Platform } from '@angular/cdk/platform';
 import { UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { CdkTableModule } from '@angular/cdk/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -36,8 +48,19 @@ describe('user component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [UserComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
+      imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatTableModule,
+        MatIconModule,
+        CdkTableModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+      declarations: [UserComponent, MatSort],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },
         { provide: UserService, useValue: userServiceMock },
@@ -50,7 +73,6 @@ describe('user component', () => {
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -198,5 +220,110 @@ describe('user component', () => {
       const comapare = user1.localeCompare(user2);
       expect(comapare).toEqual(-1);
     }
+  });
+
+  it('should not show no records massage if there is data', fakeAsync(() => {
+    // given
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(false);
+  }));
+
+  it('should show no records massage if there is no data', fakeAsync(() => {
+    // given
+    userServiceMock.getAllUsers = jest.fn().mockReturnValueOnce(Observable.of([]));
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(true);
+  }));
+
+  describe('filter table', () => {
+    describe('filter by name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        expect(fixture.componentInstance.showNameFilter).toBe(false);
+      });
+
+      it('should show filter name input after call to to toggleNameFilter', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+      });
+
+      it('should show filter name input in any case, if there is filter applyed', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleNameFilter();
+        fixture.componentInstance.nameFilter.setValue('some text');
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+      });
+
+      it('should show no records massage if the name filter has no macth', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-name mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-name input'));
+        input.triggerEventHandler('input', { target: { value: 'no such user' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
+
+    describe('filter by class name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        expect(fixture.componentInstance.showClassFilter).toBe(false);
+      });
+
+      it("should show filter's class input after call to to toggleClassFilter", () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+      });
+
+      it("should show filter's class input in any case, if there is filter applyed", () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleClassFilter();
+        fixture.componentInstance.classFilter.setValue('some text');
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+      });
+
+      it('should show no records massage if the class filter has no match', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-class mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-class input'));
+        input.triggerEventHandler('input', { target: { value: 'no such class' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
   });
 });
