@@ -1,0 +1,38 @@
+<div class="container">
+  <h3 mat-dialog-title>מקטע חסום</h3>
+ <mat-dialog-content>
+   <div>
+     שים לב: בהגדרת מקטע חסום חובה לציין שתי נקודות הסמוכות זו לזו
+   </div>
+
+  <form class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input formControlName="blockedReason" class="form-control" placeholder="סיבת חסימה" [(ngModel)]="data.blockedReason" name="blockedReason"  >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input formControlName="fromPoint" class="form-control" placeholder="מנקודה" [(ngModel)]="data.fromPoint" name="fromPoint"  >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input formControlName="toPoint" class="form-control" placeholder="עד נקודה" [(ngModel)]="data.toPoint" name="toPoint"  >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+ </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button"  (click)="close()">ביטול</button>
+    <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)">
+      {{data.isNewBlock ? 'הוסף מקטע חסום' :
+    'עדכן'}}
+      </button>
+  </mat-dialog-actions>
+</div>

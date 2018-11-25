@@ -61,6 +61,8 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
+import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
+import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -108,6 +110,8 @@ import { MapsContainerComponent } from './pages/maps/maps.container/maps.contain
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteBlockDialogComponent,
+    AddUpdateBlockDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
@@ -122,6 +126,8 @@ import { MapsContainerComponent } from './pages/maps/maps.container/maps.contain
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteBlockDialogComponent,
+    AddUpdateBlockDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,

@@ -24,7 +24,7 @@
         <div class="msw-maps-header-nav">
           <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">
             <nav mat-tab-nav-bar>
-              <a mat-tab-link *ngFor="let link of links" [routerLink]="[link.path]" (click)="activeLink = link.label"
+              <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.label"
                  [attr.data-test-id]="link.dataTestId" [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-maps-tab-active' : ''}}">{{link.label}}</a>
             </nav>
           </div>
@@ -34,30 +34,31 @@
           <mat-table [dataSource]="dataSource" class="msw-table">
             <ng-container matColumnDef="blockedReason">
               <mat-header-cell *matHeaderCellDef>סיבת חסימה</mat-header-cell>
-              <mat-cell *matCellDef="let row" >{{row.blockedReason}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.blockedReason}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="fromPoint">
               <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" >A</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.fromPoint}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="toPoint">
               <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" >B</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.toPoint}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deleteBlock">
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
               <mat-cell *matCellDef="let row">
-                <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-block-button-' + 'A' + 'B'" [disabled]="!mayDeleteBlock"
-                        (click)="deleteBlock()"><i class="material-icons"> delete </i> </button>
+                <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-block-button-' + 'A' + 'B'"
+                        (click)="deleteBlock(row.fromPoint, row.toPoint, row.blockedReason)"><i class="material-icons"> delete </i> </button>
               </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
+          <a class="add-block" (click)="addOrEditBlock()">+ הוסף מקטע</a>
         </div >
       </div>
     </div>
