@@ -14,14 +14,17 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS,
   MatListModule,
   MatSlideToggleModule,
+  MatCardModule,
   MatButtonModule,
   MatIconModule,
+  MatGridListModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
 import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 import { StudentDetailsHoursComponent } from './student/details/tabs/student-details-hours/student-details-hours.component';
-import { StudentDetailsNotificationsComponent } from './student/details/tabs/student-details-notifications/student-details-notifications.component';
+import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
@@ -34,9 +37,13 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     RouterModule,
     MatButtonToggleModule,
     MatButtonModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
+    MatCardModule,
+    // MatDialog,
     MatTableModule,
+    MatGridListModule,
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
@@ -46,7 +53,7 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     StudentDetailsComponent,
     StudentDetailsPersonalInfoComponent,
     StudentDetailsHoursComponent,
-    StudentDetailsNotificationsComponent,
+    StudentDetailsRemindersComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
     MapContainerComponent,

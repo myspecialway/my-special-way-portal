@@ -13,7 +13,7 @@ import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentDetailsHoursComponent } from './pages/student/details/tabs/student-details-hours/student-details-hours.component';
 import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
-import { StudentDetailsNotificationsComponent } from './pages/student/details/tabs/student-details-notifications/student-details-notifications.component';
+import { StudentDetailsRemindersComponent } from './pages/student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { UserType } from './models/user.model';
 import { MapContainerComponent } from './pages/maps/maps.container/map.container.component';
 
@@ -56,7 +56,7 @@ const routes: Routes = [
         children: [
           { path: 'personalInfo', component: StudentDetailsPersonalInfoComponent },
           { path: 'hours', component: StudentDetailsHoursComponent },
-          { path: 'notifications', component: StudentDetailsNotificationsComponent },
+          { path: 'reminders', component: StudentDetailsRemindersComponent },
           { path: '', component: StudentDetailsPersonalInfoComponent },
         ],
         canActivate: [AuthGuard],

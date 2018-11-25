@@ -35,7 +35,7 @@ describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let studentDialogMock: Partial<MatDialog>;
   let afterClosedMockFn: jest.Mock;
-  const watchQueryMockedObservable = new Subject();
+  const watchQueryMockedObservable = new Subject<any>();
 
   beforeEach(async () => {
     studentServiceMock = {
