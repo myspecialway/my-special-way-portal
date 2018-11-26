@@ -24,17 +24,14 @@ fixture(`Class Schedule tests`)
 async function createNewScheduleTestClass() {
   // If the class exists - delete it.
   if (await classesPage.scheduleTestClassNameCell.exists) {
-    await t
-      .hover(classesPage.scheduleTestClassNameCell)
-      .click(classesPage.scheduleTestClassDeleteButton)
-      .click(classesPage.confirmDeleteButton);
+    await t.click(classesPage.scheduleTestClassDeleteButton).click(classesPage.confirmDeleteButton);
   }
   // If the class still exists - fail the test
-  await t.expect(classesPage.scheduleTestClassNameCell.exists).notOk();
   await t
+    .expect(classesPage.scheduleTestClassNameCell.exists)
+    .notOk()
     // Create a new scheduleTestClas
-    .setTestSpeed(0.1)
-    .click(classesPage.addClassButton)
+    .click(classesPage.newClassButton)
     .typeText(classDetailsPage.classNameInput, 'scheduleTestClass')
     .click(classDetailsPage.gradeSelect)
     .click(classDetailsPage.gradeSelectOption.withExactText('א'))

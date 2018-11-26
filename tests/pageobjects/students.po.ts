@@ -83,7 +83,7 @@ export default class StudentsPage {
     await t.click(this.newStudentButton);
     await this.firstName();
     await t.typeText(this.username, this.userName);
-    await t.typeText(this.password, '12scheduleTestUser');
+    await t.typeText(this.password, 'scheduleTestUser');
     await t.typeText(this.firstName, 'scheduleTestUser');
     await t.typeText(this.lastName, 'scheduleTestUser');
     await t.click(this.classId);
