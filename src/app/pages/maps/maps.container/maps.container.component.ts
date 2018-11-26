@@ -133,7 +133,7 @@ export class MapsContainerComponent implements OnInit {
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
     ];
-    this.activeLink = this.links[1].label;
+    this.activeLink = this.links[0].label;
   }
 
   ngOnInit(): void {

@@ -29,6 +29,8 @@ import { MapContainerComponent } from './maps/maps.container/map.container.compo
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
+import { MapPointsComponent } from './maps/maps.container/tabs/map-points/map-points.component';
+import { MapPointsViewComponent } from './maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
 
 @NgModule({
   imports: [
@@ -60,6 +62,8 @@ import { MapsContainerComponent } from './maps/maps.container/maps.container.com
     MapContainerComponent,
     MapsContainerComponent,
     MapViewComponent,
+    MapPointsComponent,
+    MapPointsViewComponent,
     UniqueUsernameValidatorDirective,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],

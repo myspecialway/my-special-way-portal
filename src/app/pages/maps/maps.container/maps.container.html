@@ -30,7 +30,8 @@
           </div>
           <!--<router-outlet></router-outlet>-->
         </div>
-        <div class="msw-table-container" *ngIf="activeLink === links[1].label">
+        <app-map-points *ngIf="activeLink === links[0].label"></app-map-points>
+        <div *ngIf="activeLink === links[1].label" class="msw-table-container">
           <mat-table [dataSource]="dataSource" class="msw-table">
             <ng-container matColumnDef="blockedReason">
               <mat-header-cell *matHeaderCellDef>סיבת חסימה</mat-header-cell>

@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
+<app-map-view
+  availableFloors={[Function Array]}
+  floor="0"
+  floorChanged={[Function EventEmitter]}
+  locations={[Function Array]}
+  updateLocation={[Function EventEmitter]}
+>
+  <div
+    class="main-content"
+    data-test-id="maps-page"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 map-view-container"
+        >
+          <h2>
+            מפה
+          </h2>
+          <mat-select
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-multiselectable="false"
+            aria-required="false"
+            class="floor-select mat-select"
+            id="mat-select-0"
+            ng-reflect-value="0"
+            role="listbox"
+            tabindex="0"
+          >
+            <div
+              aria-hidden="true"
+              cdk-overlay-origin=""
+              class="mat-select-trigger"
+            >
+              <div
+                class="mat-select-value"
+                ng-reflect-ng-switch="true"
+              >
+                
+                <span
+                  class="mat-select-placeholder"
+                >
+                   
+                </span>
+                
+              </div>
+              <div
+                class="mat-select-arrow-wrapper"
+              >
+                <div
+                  class="mat-select-arrow"
+                />
+              </div>
+            </div>
+            
+          </mat-select>
+          <div
+            class="floor-details-container"
+          >
+            <mat-list
+              class="locations-list mat-list"
+            >
+              
+              <mat-list-item
+                class="mat-list-item"
+              >
+                <div
+                  class="mat-list-item-content"
+                >
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent"
+                    id="mat-slide-toggle-1"
+                    ng-reflect-checked="false"
+                  >
+                    <label
+                      class="mat-slide-toggle-label"
+                    >
+                      <div
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                      >
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-1-input"
+                          tabindex="0"
+                          type="checkbox"
+                        />
+                        <div
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
+                      </div>
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+              <mat-list-item
+                class="mat-list-item"
+              >
+                <div
+                  class="mat-list-item-content"
+                >
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent mat-checked"
+                    id="mat-slide-toggle-2"
+                    ng-reflect-checked="true"
+                  >
+                    <label
+                      class="mat-slide-toggle-label"
+                    >
+                      <div
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                      >
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-2-input"
+                          tabindex="0"
+                          type="checkbox"
+                        />
+                        <div
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
+                      </div>
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+              <mat-list-item
+                class="mat-list-item"
+              >
+                <div
+                  class="mat-list-item-content"
+                >
+                  <div
+                    class="mat-list-item-ripple mat-ripple"
+                    mat-ripple=""
+                    ng-reflect-disabled="true"
+                    ng-reflect-trigger="[object HTMLUnknownElement]"
+                  />
+                  <div
+                    class="mat-list-text"
+                  />
+                  <mat-slide-toggle
+                    class="mat-slide-toggle mat-accent mat-checked"
+                    id="mat-slide-toggle-3"
+                    ng-reflect-checked="true"
+                  >
+                    <label
+                      class="mat-slide-toggle-label"
+                    >
+                      <div
+                        class="mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin"
+                      >
+                        <input
+                          class="mat-slide-toggle-input cdk-visually-hidden"
+                          id="mat-slide-toggle-3-input"
+                          tabindex="0"
+                          type="checkbox"
+                        />
+                        <div
+                          class="mat-slide-toggle-thumb-container"
+                        >
+                          <div
+                            class="mat-slide-toggle-thumb"
+                          />
+                          <div
+                            class="mat-slide-toggle-ripple mat-ripple"
+                            mat-ripple=""
+                            ng-reflect-animation="[object Object]"
+                            ng-reflect-centered="true"
+                            ng-reflect-disabled="false"
+                            ng-reflect-radius="23"
+                            ng-reflect-trigger="[object HTMLLabelElement]"
+                          />
+                        </div>
+                      </div>
+                      <span
+                        class="mat-slide-toggle-content"
+                      />
+                    </label>
+                  </mat-slide-toggle>
+                  <input
+                    class="location-id-input"
+                    matinput=""
+                    type="text"
+                  />
+                  <input
+                    matinput=""
+                    type="text"
+                  />
+                </div>
+              </mat-list-item>
+            </mat-list>
+            <div
+              class="map-model"
+            >
+              כאן תופיע המפה של קומה 0
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-map-view>
+`;

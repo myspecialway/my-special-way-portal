@@ -1,3 +1,4 @@
+import { MapsContainerComponent } from './maps.container.component';
 import { ComponentFixture, TestBed } from '../../../../../node_modules/@angular/core/testing';
 import { MapContainerComponent } from './map.container.component';
 import { NO_ERRORS_SCHEMA } from '../../../../../node_modules/@angular/compiler/src/core';
