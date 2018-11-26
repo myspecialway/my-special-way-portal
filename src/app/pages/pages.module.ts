@@ -31,6 +31,7 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
 import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
 import { MapPointsComponent } from './maps/maps.container/tabs/map-points/map-points.component';
 import { MapPointsViewComponent } from './maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
+import { MapFloorListComponent } from './maps/maps.container/tabs/map-floor-list/map-floor-list.component';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { MapPointsViewComponent } from './maps/maps.container/tabs/map-points/ma
     MapPointsComponent,
     MapPointsViewComponent,
     UniqueUsernameValidatorDirective,
+    MapFloorListComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

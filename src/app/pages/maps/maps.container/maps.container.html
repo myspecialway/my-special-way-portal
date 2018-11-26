@@ -18,8 +18,9 @@
 
     <div class="maps-body">
       <div class="maps-poi-list">
+        <app-map-floor-list (change)="onFloorChange($event)"></app-map-floor-list>
       </div>
-      <div class="map-container"></div>
+      <div class="map-container"><img *ngIf="currentFloor==1" src="/assets/img/floor1.jpeg"/></div>
       <div class="map-control">
         <div class="msw-maps-header-nav">
           <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">
@@ -30,7 +31,7 @@
           </div>
           <!--<router-outlet></router-outlet>-->
         </div>
-        <app-map-points *ngIf="activeLink === links[0].label"></app-map-points>
+        <app-map-points *ngIf="activeLink === links[0].label" [floor]="currentFloor"></app-map-points>
         <div *ngIf="activeLink === links[1].label" class="msw-table-container">
           <mat-table [dataSource]="dataSource" class="msw-table">
             <ng-container matColumnDef="blockedReason">

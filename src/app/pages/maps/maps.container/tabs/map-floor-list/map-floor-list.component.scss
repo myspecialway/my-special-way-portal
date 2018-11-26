@@ -1,0 +1,16 @@
+button {
+  height: 48px;
+  background: white;
+  color: black;
+  direction: rtl;
+  width: 100%;
+
+  &.active,
+  &:active,
+  &:focus,
+  &:hover,
+  &:active:hover {
+    background-color: #8249d1;
+    color: white;
+  }
+}

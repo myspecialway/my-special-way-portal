@@ -94,6 +94,7 @@ export class MapsContainerComponent implements OnInit {
   links: any;
   activeLink: string;
   dataSource = mockedData;
+  currentFloor = 0;
 
   @SubscriptionCleaner()
   subCollector;
@@ -172,5 +173,9 @@ export class MapsContainerComponent implements OnInit {
           throw error;
         }
       });
+  }
+
+  onFloorChange(floor) {
+    this.currentFloor = floor;
   }
 }

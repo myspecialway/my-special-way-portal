@@ -8,20 +8,24 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./map-points.component.scss'],
 })
 export class MapPointsComponent implements OnInit {
-  locations: Location[];
+  locations: Location[] = [];
   currentFloorLocations: Location[];
+  floor = 0;
 
-  @Input()
-  currentFloor = 0;
+  @Input('floor')
+  set _floor(value) {
+    this.floor = Number(value);
+    this.updateFloorLocations();
+  }
 
   constructor(public locationService: LocationService) {}
 
   async ngOnInit() {
     this.locations = await this.locationService.getLocations();
-    this.currentFloorLocations = this.getFloorLocations(this.currentFloor);
+    this.updateFloorLocations();
   }
 
-  getFloorLocations(floor = 0) {
-    return this.locations.filter((location) => location.position.floor === floor);
+  updateFloorLocations() {
+    this.currentFloorLocations = this.locations.filter((location) => location.position.floor === this.floor);
   }
 }
