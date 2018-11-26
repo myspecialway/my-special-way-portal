@@ -62,53 +62,23 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 
 const mockedData: BlockedSection[] = [
   {
-    blockedReason: 'Reason 1',
+    blockedReason: 'שיפוץ',
     fromPoint: 'A',
     toPoint: 'B',
   },
   {
-    blockedReason: 'Reason 2',
+    blockedReason: 'הצפה',
     fromPoint: 'A',
     toPoint: 'C',
   },
   {
-    blockedReason: 'Reason 3',
+    blockedReason: 'מרתון תל אביב',
     fromPoint: 'C',
     toPoint: 'B',
   },
   {
-    blockedReason: 'Reason 4',
+    blockedReason: 'גודזילה',
     fromPoint: 'D',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'Reason 1',
-    fromPoint: 'D',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'Reason 2',
-    fromPoint: 'C',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'Reason 3',
-    fromPoint: 'A',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'Reason 4',
-    fromPoint: 'C',
-    toPoint: 'A',
-  },
-  {
-    blockedReason: 'Reason 5',
-    fromPoint: 'A',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'Reason 6',
-    fromPoint: 'A',
     toPoint: 'B',
   },
 ];
