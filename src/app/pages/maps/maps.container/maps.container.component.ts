@@ -131,7 +131,7 @@ export class MapsContainerComponent implements OnInit {
   constructor(private route: ActivatedRoute, private dialog: MatDialog) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
-      { label: 'מקטאים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
+      { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
     ];
     this.activeLink = this.links[1].label;
   }
