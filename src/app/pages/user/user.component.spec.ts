@@ -100,10 +100,11 @@ describe('user component', () => {
       password: '123',
       email: 'asdd@sdsd.com',
     };
-    fixture.componentInstance.restoreUserPassword(user);
+    const rp = fixture.componentInstance.restoreUserPassword(user);
     const DialogMock = TestBed.get(MatDialog);
     console.log('DialogMock:DialogMock', DialogMock);
     expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
   });
 
   it('should open dialog when calling deleteUser function', () => {
