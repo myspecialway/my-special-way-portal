@@ -68,6 +68,22 @@ describe('AuthenticationService', () => {
     expect(response).toBe(true);
   });
 
+  // it('should return true if restore password email sent',  () => {
+  //   // const mockedResponse: LoginResponse = {
+  //   //   accessToken: expiredMockToken,
+  //   // };
+  //   // toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+  //   // const response = await authService.restorePassword('1', '2', '3');
+  //   // expect(response).toThrow();
+  //   // const mockedResponse = {
+  //   //   status: 500,
+  //   // };
+  //   // (httpClient.post as jest.Mock).mockImplementation(() => {
+  //   //   throw mockedResponse;
+  //   // });
+  //   return expect(authService.restorePassword('someusername', 'somepassword', '1')).rejects.toBeFalsy();
+  // });
+
   it('should not create localstorage token key on authentication sucess with rememberme disabled', async () => {
     const mockedResponse: LoginResponse = {
       accessToken: expiredMockToken,

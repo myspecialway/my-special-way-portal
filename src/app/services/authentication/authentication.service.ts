@@ -71,7 +71,7 @@ export class AuthenticationService {
     }
   }
 
-  async restorePassword(email: string, firstname: string, lastname: string): Promise<boolean> {
+  async restorePassword(email: string, firstname: string, lastname: string) {
     try {
       await this.http
         .post<{ email: string; firstname: string; lastname: string }>(
