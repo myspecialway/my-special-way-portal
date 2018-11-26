@@ -1,9 +1,6 @@
 import { Location } from './../../../../../models/location.model';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
-import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-map-points',
@@ -17,7 +14,7 @@ export class MapPointsComponent implements OnInit {
   @Input()
   currentFloor = 0;
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, public locationService: LocationService) {}
+  constructor(public locationService: LocationService) {}
 
   async ngOnInit() {
     this.locations = await this.locationService.getLocations();

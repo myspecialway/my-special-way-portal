@@ -41,20 +41,18 @@ const mockedLocations = [
 const beforeEachAsync = async () => {
   TestBed.configureTestingModule({
     imports: [MatSlideToggleModule, MatSelectModule, MatListModule],
-    declarations: [MapViewComponent],
+    declarations: [MapPointsViewComponent],
   }).compileComponents();
 };
 
 describe('ClassDetailsComponent with class info', () => {
-  let fixture: ComponentFixture<MapViewComponent>;
-  let component: MapViewComponent;
+  let fixture: ComponentFixture<MapPointsViewComponent>;
+  let component: MapPointsViewComponent;
   beforeEach(beforeEachAsync);
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapViewComponent);
+    fixture = TestBed.createComponent(MapPointsViewComponent);
     component = fixture.componentInstance;
-    component.floor = 0;
-    component.availableFloors = [0, 1];
     component.locations = mockedLocations;
     fixture.detectChanges();
   });
