@@ -52,6 +52,10 @@ export default class NavbarPage {
   }
 
   async navigateTo(pageSelector: Selector) {
-    await t.click(this.menuDropDown).click(pageSelector);
+    await t
+      .setTestSpeed(0.1)
+      .click(this.menuDropDown)
+      .click(pageSelector)
+      .setTestSpeed(0.5);
   }
 }
