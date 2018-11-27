@@ -31,6 +31,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
@@ -60,6 +61,7 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { ErrorDialogComponent } from './components/error-dialog/error.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -90,9 +92,11 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     MatDividerModule,
     MSWApolloModule,
     PagesModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -114,6 +118,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     ScheduleDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
