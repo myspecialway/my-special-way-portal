@@ -3,15 +3,14 @@
     {{data.title}}
   </h3>
   <mat-divider></mat-divider>
-  <div mat-dialog-content>
+  <div mat-dialog-content class="details">
       <div *ngIf="data.details && data.details.length > 0">
           <h6 *ngFor="let row of data.details" class="text-nowrap">
             {{row}}
           </h6>
       </div>
-      <div>{{data.bottomline}}</div>
-  </div>
-
+    </div>
+  <div mat-dialog-content class="bottomline">{{data.bottomline}}</div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">אישור</button>
   </div>

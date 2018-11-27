@@ -24,10 +24,18 @@ import { Platform } from '@angular/cdk/platform';
 import { studentsTestData } from '../../../mocks/assets/students.mock';
 import { Observable, Subject } from 'rxjs-compat';
 import { Apollo } from 'apollo-angular';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+import { ClassService } from '../class/services/class.graphql.service';
+import { classTestData } from '../../../mocks/assets/classes.mock';
+import { Papa } from 'ngx-papaparse';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
+  let authenticationServiceMock: Partial<AuthenticationService>;
   let studentDialogMock: Partial<MatDialog>;
+  let classServiceMock: Partial<ClassService>;
+  let papaMock: Partial<Papa>;
   let afterClosedMockFn: jest.Mock;
   const watchQueryMockedObservable = new Subject<any>();
 
@@ -37,6 +45,22 @@ describe('student component', () => {
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+    };
+
+    authenticationServiceMock = {
+      checkUsernameUnique: jest.fn().mockReturnValue(Observable.of(true)),
+    };
+
+    classServiceMock = {
+      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
+    };
+
+    const mswSnackbarMock = {
+      displayTimedMessage: jest.fn(),
+    } as Partial<MSWSnackbar>;
+
+    papaMock = {
+      parse: jest.fn(),
     };
 
     afterClosedMockFn = jest.fn().mockReturnValue(Observable.of(true));
@@ -59,6 +83,10 @@ describe('student component', () => {
         StudentService,
         { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
+        { provide: AuthenticationService, useValue: authenticationServiceMock },
+        { provide: ClassService, useValue: classServiceMock },
+        { provide: MSWSnackbar, useValue: mswSnackbarMock },
+        { provide: Papa, useValue: papaMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -150,9 +178,9 @@ describe('student component', () => {
   });
 
   it('should sort students by firstname+lastname', async () => {
-    // (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(() => {
-    //   return of(studentsTestData.students);
-    // });
+    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(() => {
+      return of(studentsTestData.students);
+    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();

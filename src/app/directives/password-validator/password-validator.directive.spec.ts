@@ -64,7 +64,7 @@ describe('password validator directive', () => {
     });
   });
 
-  it('should not invalidate field if it is OK', async(() => {
+  it('should not invalidate password field if it is OK', async(() => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     component.field = 'g0odPassw0rd';

@@ -9,6 +9,9 @@ export class PasswordValidator {
   }
 
   static validate(password: string) {
+    if (!password) {
+      return null;
+    }
     if (password.length < minlength || !password.match(pattern)) {
       return { invalidPassword: 'הסיסמא צריכה להכיל לפחות 8 תווים, כולל אותיות ומספרים' };
     }

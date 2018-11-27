@@ -14,6 +14,9 @@ export class UsernameValidator {
   }
 
   static validate(authenticationService: AuthenticationService, username: string, userID: string | number) {
+    if (!username) {
+      return of(null);
+    }
     // validate minlength
     if (username.length < minlength) {
       return of({ invalidUsername: 'שם משתמש חייב להיות לפחות חמישה תווים' });
