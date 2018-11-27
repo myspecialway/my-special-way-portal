@@ -21,6 +21,7 @@ export default class StudentsPage {
   usernameFormatErr: Selector;
   classIdErr: Selector;
   passwordErr: Selector;
+  passwordFormatErr: Selector;
   scheduleTestUserNameCell: Selector;
   scheduleTestUserDeleteButton: Selector;
   confirmDeleteButton: Selector;
@@ -49,7 +50,7 @@ export default class StudentsPage {
     this.classIdFirstOption = Selector('[class="mat-option-text"]').withExactText('טיטאן');
     this.password = Selector('[name$="password"]');
     this.usernameErr = Selector('[data-test-id$="username-err"]');
-    this.usernameFormatErr = Selector('[data-test-id$="username-format-err"]');
+    this.usernameFormatErr = Selector('[data-test-id$="username-format-pattern-err"]');
     this.firstNameErr = Selector('[data-test-id$="firstname-err"]');
     this.lastNameErr = Selector('[data-test-id$="lastname-err"]');
     this.classIdErr = Selector('[data-test-id$="class-id-err"]');
@@ -63,6 +64,7 @@ export default class StudentsPage {
     this.errors = Selector('[role=alert]');
     this.scheduleCellLesson = Selector('.mat-select-content mat-option .mat-option-text');
     this.scheduleLessonList = new Array();
+    this.passwordFormatErr = Selector('[data-test-id$="password-format-err"]');
   }
 
   /**
