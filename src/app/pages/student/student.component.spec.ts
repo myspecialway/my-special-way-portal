@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async, fakeAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   MatHeaderRowDef,
@@ -29,12 +29,19 @@ import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { ClassService } from '../class/services/class.graphql.service';
 import { classTestData } from '../../../mocks/assets/classes.mock';
 import { Papa } from 'ngx-papaparse';
+import {
+  studentsValidCsvParseResultTestData,
+  studentsInvalidCsvParseResultTestData,
+  studentsInvalidCsvErrorsExpectation,
+} from '../../../mocks/assets/students.csv.mock';
+import { ErrorDialogComponent } from '../../components/error-dialog/error.dialog';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
   let authenticationServiceMock: Partial<AuthenticationService>;
   let studentDialogMock: Partial<MatDialog>;
   let classServiceMock: Partial<ClassService>;
+  let mswSnackbarMock: Partial<MSWSnackbar>;
   let papaMock: Partial<Papa>;
   let afterClosedMockFn: jest.Mock;
   const watchQueryMockedObservable = new Subject<any>();
@@ -45,6 +52,7 @@ describe('student component', () => {
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+      createMany: jest.fn().mockImplementation(() => Promise.resolve()),
     };
 
     authenticationServiceMock = {
@@ -52,12 +60,12 @@ describe('student component', () => {
     };
 
     classServiceMock = {
-      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
+      getAllClasses: jest.fn().mockReturnValue(Observable.of(classTestData.classes)),
     };
 
-    const mswSnackbarMock = {
+    mswSnackbarMock = {
       displayTimedMessage: jest.fn(),
-    } as Partial<MSWSnackbar>;
+    };
 
     papaMock = {
       parse: jest.fn(),
@@ -80,7 +88,6 @@ describe('student component', () => {
       imports: [],
       declarations: [StudentComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
       providers: [
-        StudentService,
         { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
         { provide: AuthenticationService, useValue: authenticationServiceMock },
@@ -178,9 +185,6 @@ describe('student component', () => {
   });
 
   it('should sort students by firstname+lastname', async () => {
-    (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(() => {
-      return of(studentsTestData.students);
-    });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -194,4 +198,95 @@ describe('student component', () => {
   });
 
   xit('should display an error to the user when deleteStudent fails', () => {});
+
+  describe('import students from file', () => {
+    it('should call to the csv parser for a given file ', () => {
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      //when
+      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+      //then
+      expect(papaMock.parse).toBeCalled();
+    });
+
+    it('should add all the students from csv file', (done) => {
+      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
+        options.complete(studentsValidCsvParseResultTestData);
+      });
+      studentServiceMock.createMany = jest.fn().mockImplementationOnce((students) => {
+        //then
+        expect(students.length).toBe(studentsValidCsvParseResultTestData.data.length);
+        done();
+      });
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+    });
+
+    it('should show snackbar on sucsess', (done) => {
+      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
+        options.complete(studentsValidCsvParseResultTestData);
+      });
+      mswSnackbarMock.displayTimedMessage = jest.fn().mockImplementationOnce((message) => {
+        //then
+        expect(message).toBe('קובץ נטען בהצלחה');
+        done();
+      });
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+    });
+
+    it('should rise error dialog with all the format errors', (done) => {
+      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
+        options.complete(studentsInvalidCsvParseResultTestData);
+      });
+
+      studentDialogMock.open = jest.fn().mockImplementationOnce((component, error) => {
+        //then
+        expect(component).toEqual(ErrorDialogComponent);
+        expect(error).toEqual(studentsInvalidCsvErrorsExpectation);
+        done();
+      });
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+    });
+
+    it('should rise error dialog on connection failure', (done) => {
+      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
+        options.complete(studentsValidCsvParseResultTestData);
+      });
+
+      studentServiceMock.createMany = jest.fn().mockImplementationOnce(() => {
+        throw new Error('Mock Error');
+      });
+
+      studentDialogMock.open = jest.fn().mockImplementationOnce((component, error) => {
+        //then
+        expect(component).toEqual(ErrorDialogComponent);
+        expect(error.data.title).toBe('שגיאה בטעינת הקובץ');
+        done();
+      });
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+    });
+  });
 });

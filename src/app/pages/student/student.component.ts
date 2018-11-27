@@ -241,7 +241,7 @@ export class StudentComponent implements OnInit {
     return { title: 'קובץ לא תקין', details, bottomline: 'אנא תקן את הקובץ ונסה שנית.' };
   }
 
-  private async populateClasses() {
+  private populateClasses() {
     try {
       this.classService.getAllClasses().subscribe((classes) => {
         this.classes = [...classes];
