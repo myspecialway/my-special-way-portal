@@ -61,7 +61,9 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { ErrorDialogComponent } from './components/error-dialog/error.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -116,6 +118,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error.dialog';
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -131,6 +134,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error.dialog';
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   providers: [
     AuthGuard,

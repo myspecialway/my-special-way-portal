@@ -1,5 +1,5 @@
 import { first } from 'rxjs/operators';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DeleteStudentDialogComponent } from './dialogs/delete/delete-student.dialog';
 import { StudentService } from './services/student.service';
@@ -9,6 +9,7 @@ import { Apollo } from 'apollo-angular';
 import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolver';
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../models/user.model';
+import { FormControl } from '@angular/forms';
 import { Papa } from 'ngx-papaparse';
 import { Class } from '../../models/class.model';
 import { ClassService } from '../class/services/class.graphql.service';
@@ -49,16 +50,30 @@ export class StudentComponent implements OnInit {
   fileInput: string;
   mayAddStudent = false;
   mayDeleteStudent = false;
+  showStudentNameFilter = false;
+  showGradeIdFilter = false;
+  showNoRecords = false;
+  studentNameFilter = new FormControl('');
+  gradeIdFilter = new FormControl('');
+  filterValues = {
+    studentName: '',
+    gradeId: '',
+  };
 
   @ViewChild(MatSort)
   sort: MatSort;
   @ViewChild('table')
   table: ElementRef;
+  @ViewChild('studentNameField')
+  studentNameField: ElementRef;
+  @ViewChild('gradeIdField')
+  gradeIdField: ElementRef;
 
   @SubscriptionCleaner()
   subCollector;
 
   constructor(
+    private ref: ChangeDetectorRef,
     private studentService: StudentService,
     private authenticationService: AuthenticationService,
     private snackbar: MSWSnackbar,
@@ -70,10 +85,12 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.tableFilter();
 
     this.subCollector.add(
       this.studentService.getAllStudents().subscribe((data) => {
         this.dataSource.data = [...data];
+        this.dealNoDataCase();
       }),
     );
 
@@ -89,7 +106,60 @@ export class StudentComponent implements OnInit {
         this.mayAddStudent = UserType[currentType] === UserType.PRINCIPLE;
         this.mayDeleteStudent = UserType[currentType] === UserType.PRINCIPLE;
       });
+
+    this.studentNameFilter.valueChanges.subscribe((studentName) => {
+      this.filterValues.studentName = studentName.trim().toLowerCase();
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      this.dealNoDataCase();
+    });
+
+    this.gradeIdFilter.valueChanges.subscribe((gradeId) => {
+      this.filterValues.gradeId = gradeId.trim().toLowerCase();
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      this.dealNoDataCase();
+    });
+
     this.populateClasses();
+  }
+
+  private dealNoDataCase() {
+    if (this.dataSource.data.length === 0 || this.dataSource.filteredData.length === 0) {
+      this.showNoRecords = true;
+    } else {
+      this.showNoRecords = false;
+    }
+  }
+
+  tableFilter(): (data: any, filter: string) => boolean {
+    const filterFunction = (data, filter): boolean => {
+      const searchTerms = JSON.parse(filter);
+      const studentName = `${data.firstname} ${data.lastname}`.toLowerCase();
+      const gradeId = `${(data.class && data.class.name) || ''}`.toLowerCase();
+      return studentName.indexOf(searchTerms.studentName) !== -1 && gradeId.indexOf(searchTerms.gradeId) !== -1;
+    };
+    return filterFunction;
+  }
+
+  toggleStudentNameFilter() {
+    const isEmpty = !this.studentNameFilter.value.trim();
+    if (isEmpty) {
+      this.showStudentNameFilter = !this.showStudentNameFilter;
+    }
+    if (this.showStudentNameFilter && isEmpty) {
+      this.ref.detectChanges();
+      this.studentNameField.nativeElement.focus();
+    }
+  }
+
+  toggleGradeIdFilter() {
+    const isEmpty = !this.gradeIdFilter.value.trim();
+    if (isEmpty) {
+      this.showGradeIdFilter = !this.showGradeIdFilter;
+    }
+    if (this.showGradeIdFilter && isEmpty) {
+      this.ref.detectChanges();
+      this.gradeIdField.nativeElement.focus();
+    }
   }
 
   async deleteStudent(id: number, firstName: string, lastName: string, gradeId: string, gender: string) {
