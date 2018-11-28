@@ -52,8 +52,8 @@ exports[`student component should render component as described in snapshot 1`] 
         <div
           class="example-header msw-table-tools-header"
         >
-
-
+          
+          
         </div>
       </div>
       <div
@@ -70,11 +70,11 @@ exports[`student component should render component as described in snapshot 1`] 
             matsortdisableclear=""
             role="grid"
           >
-
-
-
+            
+            
+            
           </mat-table>
-
+          
         </div>
       </div>
     </div>

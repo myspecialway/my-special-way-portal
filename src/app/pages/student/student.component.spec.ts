@@ -40,6 +40,7 @@ import {
   studentsInvalidCsvParseResultTestData,
   studentsInvalidCsvErrorsExpectation,
 } from '../../../mocks/assets/students.csv.mock';
+import { ErrorDialogComponent } from '../../components/error-dialog/error.dialog';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
