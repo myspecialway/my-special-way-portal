@@ -7,7 +7,7 @@
       <img src="http://via.placeholder.com/140x100">
     </div>
     <div class="msw-student-user-form">
-      <form class="msw-student-details-form" #studentDetailsForm="ngForm" *ngIf="student">
+      <form *ngIf="student" class="msw-student-details-form" #studentDetailsForm="ngForm">
 
         <div class="msw-student-main-details">
           <mat-form-field class="firstname">
@@ -46,7 +46,7 @@
 
         <mat-form-field class="username">
           <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
-                 autocomplete="new-username" required appUniqueUsername userId={{student._id}} [minlength]="5" [pattern]="'^[א-תA-Za-z0-9]+$'" [ngModelOptions]="{updateOn: 'blur'}">
+                 autocomplete="new-username" required appUniqueUsername userID={{student._id}} [minlength]="5" [pattern]="'^[א-תA-Za-z0-9]+$'">
           <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error data-test-id="username-format-length-err" *ngIf="username.hasError('pattern')">שם משתמש יכול להכיל אותיות וספרות בלבד</mat-error>
           <mat-error data-test-id="username-format-pattern-err" *ngIf="username.hasError('minlength')">שם משתמש חייב להיות לפחות חמישה תווים</mat-error>

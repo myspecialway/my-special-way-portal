@@ -54,7 +54,7 @@ export class StudentService {
       .toPromise();
   }
 
-  update(student: StudentQuery) {
+  update(student: StudentQuery): Promise<string> {
     return this.apollo
       .mutate({
         mutation: MUTATE_UPDATE_STUDENT,
@@ -63,7 +63,7 @@ export class StudentService {
         awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: UpdateStudentResponse }) => res.data.updateStudent._id))
-      .toPromise();
+      .toPromise() as Promise<string>;
   }
 
   delete(id: number) {

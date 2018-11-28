@@ -8,6 +8,7 @@ export const GET_ALL_CLASSES = gql`
       name
       schedule {
         lesson {
+          _id
           title
         }
       }
@@ -29,6 +30,7 @@ schedule {
   index
   hours
   lesson {
+    _id
     title
     icon
   }

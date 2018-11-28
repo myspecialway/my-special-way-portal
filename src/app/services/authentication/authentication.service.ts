@@ -104,7 +104,7 @@ export class AuthenticationService {
     sessionStorage.removeItem('token');
   }
 
-  checkUsernameUnique(username: string, id: string) {
+  checkUsernameUnique(username: string, id: string | number) {
     if (!username) {
       return of(true);
     }

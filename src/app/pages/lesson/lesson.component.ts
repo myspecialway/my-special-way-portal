@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ClassService } from '../class/services/class.graphql.service';
 import { Class } from '../../models/class.model';
 import { CantDeleteLessonDialogComponent } from './dialogs/cant-delete/cant-delete-lesson.dialog';
+import { EditLessonDialogComponent } from './dialogs/new-edit/edit-lesson.dialog';
 
 @Component({
   selector: 'app-lesson',
@@ -40,11 +41,35 @@ export class LessonComponent implements OnInit {
     }
   }
 
-  addNewLesson() {}
+  private openLessonDialog(data: Lesson) {
+    const dialogRef = this.dialog.open(EditLessonDialogComponent, {
+      data,
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result) {
+            if (data._id !== '') {
+              this.lessonService.update(data._id, data.title, data.icon);
+            } else {
+              this.lessonService.create(data.title, data.icon);
+            }
+          }
+        }),
+    );
+  }
+  public addNewLesson() {
+    this.openLessonDialog({ _id: '', title: '', icon: '' });
+  }
+  public editLesson(lesson: Lesson): void {
+    this.openLessonDialog(JSON.parse(JSON.stringify(lesson)));
+  }
 
-  public async deleteLesson(_id: string, title: string) {
+  public async deleteLesson(lesson: Lesson) {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
-      data: { _id, title },
+      data: { _id: lesson._id, title: lesson.title },
     });
     this.subCollector.add(
       dialogRef
@@ -54,13 +79,13 @@ export class LessonComponent implements OnInit {
           if (result === true) {
             const getAllClassesSub = this.classService
               .getAllClasses()
-              .map((classes: Class[]) => this.filterClassesWithLesson(classes, title))
+              .map((classes: Class[]) => this.filterClassesWithLesson(classes, lesson._id))
               .subscribe((classesWithLessonTitle) => {
                 if (classesWithLessonTitle.length === 0) {
-                  this.lessonService.delete(_id);
+                  this.lessonService.delete(lesson._id);
                 } else {
                   this.dialog.open(CantDeleteLessonDialogComponent, {
-                    data: { title, className: classesWithLessonTitle[0].name },
+                    data: { title: lesson.title, className: classesWithLessonTitle[0].name },
                   });
                 }
               });
@@ -69,10 +94,11 @@ export class LessonComponent implements OnInit {
         }),
     );
   }
-  private filterClassesWithLesson(classes: Class[], lessonTitle: string): Class[] {
+  private filterClassesWithLesson(classes: Class[], lessonId: string): Class[] {
     return classes.filter(
       (cls: Class) =>
-        cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson.title === lessonTitle).length > 0,
+        cls.schedule.filter((schedule) => schedule.lesson && schedule.lesson._id.toString() === lessonId.toString())
+          .length > 0,
     );
   }
 }

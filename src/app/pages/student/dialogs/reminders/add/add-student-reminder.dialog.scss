@@ -1,0 +1,201 @@
+@import '../../../../../app.component.scss';
+
+* {
+  direction: rtl;
+  text-align: right;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-dialog-actions button {
+  text-align: center;
+}
+
+.mat-dialog-title {
+  vertical-align: text-top;
+  height: 24px;
+  margin-bottom: 12px;
+}
+
+.container {
+  padding: 0%;
+  //  background-color:orange;
+  margin: 0%;
+  align-items: flex-start;
+  //  width:272px;
+}
+
+.mat-divider {
+  border-bottom-color: #6a00cf;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  margin-bottom: 12px;
+}
+
+.selections {
+  .day-box {
+    width: 32px;
+    height: 32px;
+    background: #f2f2f2;
+    text-align: center;
+    font-size: 16px;
+    line-height: 2;
+    font-weight: 500;
+    border-radius: 2px;
+    float: right;
+    margin-right: 3px;
+    cursor: pointer;
+  }
+  .day-box:last-child {
+    width: 44px;
+  }
+  .day-box:hover,
+  .selected-day {
+    background: #8b66a7;
+    color: #fff;
+  }
+}
+
+.day {
+  float: right;
+  width: 100%;
+  .error-msg {
+    float: right;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 4px;
+  }
+}
+
+.hour {
+  float: right;
+  margin: 10px 0 0 0;
+  width: 100%;
+  .hour-label {
+    float: right;
+    width: 100%;
+  }
+  span.hour-selection {
+    border-bottom: 1px solid #999999;
+    min-width: 60px;
+    i {
+      float: left;
+    }
+  }
+  span.hour-selection:hover {
+    border-bottom: 2px solid #8b66a7;
+    i {
+      display: block;
+      line-height: 2;
+      margin-right: 4px;
+    }
+  }
+  .hour-selection {
+    i {
+      font-size: 13px;
+      display: none;
+      cursor: pointer;
+    }
+    max-width: 71px;
+    max-height: 52px;
+    float: right;
+    margin: 0 0 0 20px;
+    &hover {
+      display: block;
+    }
+  }
+  .add-select {
+    font-size: 20px;
+    color: #fff;
+    background: #8b66a7;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    right: 10px;
+  }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-dialog-actions button {
+  text-align: center;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  position: relative !important;
+  width: 100% !important;
+}
+
+.mat-dialog-actions button {
+  text-align: center;
+}
+.msw-button-submit {
+  width: 109.7px;
+  height: 36px;
+  border-radius: 3px;
+  background-color: #6a00cf;
+  padding: 0px;
+
+  /deep/ .mat-button-wrapper {
+    width: 93.7px;
+    height: 16px;
+    font-family: Rubik;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: 1.3px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+
+.msw-button-cancel {
+  width: 93.7px;
+  height: 16px;
+  font-family: Rubik;
+  font-size: 14.1px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.container {
+  position: relative;
+}
+
+.add-reminder {
+  float: right;
+  width: 100%;
+  button {
+    color: #8b66a7;
+    font-size: 14.1px;
+  }
+}
+
+.hour-selection.mat-form-field {
+  margin: -20px 0 0 0 !important;
+}
+
+hr {
+  float: right;
+  width: 100%;
+  //test
+}
