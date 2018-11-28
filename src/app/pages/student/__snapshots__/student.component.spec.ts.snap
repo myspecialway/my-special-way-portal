@@ -6,9 +6,16 @@ exports[`student component should render component as described in snapshot 1`] 
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  filterValues={[Function Object]}
+  gradeIdFilter={[Function FormControl]}
   mayAddStudent="false"
   mayDeleteStudent="false"
+  ref={[Function ViewRef_]}
+  showGradeIdFilter="false"
+  showNoRecords="false"
+  showStudentNameFilter="false"
   sort={[Function MatSort]}
+  studentNameFilter={[Function FormControl]}
   studentService={[Function Object]}
   table="undefined"
 >
@@ -51,27 +58,18 @@ exports[`student component should render component as described in snapshot 1`] 
           class="col-lg-12 col-md-12 col-sm-12"
         >
           <mat-table
-            class="msw-table"
+            class="msw-table mat-table"
             matsort=""
             matsortactive="studentName"
             matsortdirection="asc"
             matsortdisableclear=""
+            role="grid"
           >
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </mat-table>
+          
         </div>
       </div>
     </div>
