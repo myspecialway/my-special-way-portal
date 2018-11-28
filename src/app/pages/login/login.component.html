@@ -1,7 +1,9 @@
 <div class="login-container">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
           <div class="login-card">
-            <div class="msw-login-logo-ph"></div>
+            <div class="msw-login-logo-ph">
+              <img src="/assets/img/msw-proj-logo.png" alt="" width="80" height="80">
+            </div>
             <div class="msw-login-title">בדרכי שלי</div>
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
