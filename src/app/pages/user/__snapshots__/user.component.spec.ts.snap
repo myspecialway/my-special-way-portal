@@ -208,7 +208,7 @@ exports[`user component should render component as described in snapshot 1`] = `
                   data-test-id="recover-password-Rotem"
                   mat-icon-button=""
                 >
-                  שחזר סיסמא
+                   שחזר סיסמא 
                 </button>
               </mat-cell>
               <mat-cell
@@ -274,7 +274,7 @@ exports[`user component should render component as described in snapshot 1`] = `
                   data-test-id="recover-password-John321"
                   mat-icon-button=""
                 >
-                  שחזר סיסמא
+                   שחזר סיסמא 
                 </button>
               </mat-cell>
               <mat-cell
