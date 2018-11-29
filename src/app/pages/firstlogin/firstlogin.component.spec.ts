@@ -1,15 +1,10 @@
-import { Observable } from 'rxjs/Observable';
 import { DebugElement } from '@angular/core';
-import 'rxjs/add/observable/of';
-import { classTestData } from '../../../mocks/assets/classes.mock';
 import { UserService } from '../user/services/user.service';
 import { Apollo } from 'apollo-angular';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { User, UserType } from '../../models/user.model';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FirstloginComponent } from './firstlogin.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/observable/of';
