@@ -1,5 +1,3 @@
-@import './core/_variables.scss';
-
 $mat-header-row-height: 48px;
 $mat-row-height: 50px;
 $mat-row-horizontal-padding: 24px;
@@ -128,10 +126,10 @@ td.mat-footer-cell:last-child {
 }
 
 mat-row:hover {
-  background-color: $msw-hover;
+  background-color: #e1ccf5;
   cursor: pointer;
   mat-cell {
-    color: $msw-primary;
+    color: #8c37cd;
   }
   .delete-row-button {
     display: block;
@@ -143,7 +141,7 @@ mat-row:hover {
 }
 
 .mat-raised-button.mat-primary {
-  // background-color: #6a00cf;
+  background-color: #6a00cf;
   border-radius: 3px;
 }
 
@@ -183,4 +181,31 @@ mat-row:hover {
 }
 .msw-table-container .mat-header-cell {
   font-weight: bold;
+}
+
+.no-records-msg {
+  padding: 100px;
+  text-align: center;
+}
+
+.filter-toggle-button {
+  font-size: large;
+  padding-top: 0.5rem;
+}
+
+.filter {
+  max-width: 70%;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
 }
