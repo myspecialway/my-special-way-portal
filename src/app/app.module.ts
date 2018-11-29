@@ -63,6 +63,7 @@ import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-head
 import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -118,6 +119,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     ScheduleDialogComponent,
     SessionHeaderComponent,
     SessionFooterComponent,
+    ExitSystemDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -132,6 +134,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   providers: [
     AuthGuard,
