@@ -21,6 +21,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -60,6 +61,8 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { SettingService } from './pages/settings/services/settings.service';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -73,6 +76,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     MatTooltipModule,
     MatTableModule,
     MatAutocompleteModule,
+    MatSlideToggleModule,
     MatSortModule,
     MatPaginatorModule,
     MatPaginatorModule,
@@ -112,6 +116,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SettingsComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -136,6 +141,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     LessonService,
     ScheduleService,
     LocationService,
+    SettingService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
   ],

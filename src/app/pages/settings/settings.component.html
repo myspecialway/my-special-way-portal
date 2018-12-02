@@ -1,0 +1,33 @@
+<div data-test-id="settings-page" class="main-content">
+    <div class="container-fluid">
+        <div class="header-menu-container msw-table-tools-header">
+            <div class="header-table-count">
+                <div>
+                    <span class="header-table-count-label">הגדרות</span>
+                </div>
+            </div>
+        </div>
+        <div style="width: 360px; margin: 10px auto;">
+            <mat-card class="selected-radius">
+                <div class="table">
+                    <div class="row">
+                        <div class="cell">
+                            <p>קוד מורה</p>
+                        </div>
+                        <div class="cell" style="width: 42px; padding-left: 20px"> 
+                            <mat-form-field style="width: 42px; text-align: center" floatLabel="never">
+                                <input data-test-id="teacher-code-input" 
+                                    type="text"
+                                    matInput 
+                                    [(ngModel)]="teachercode"
+                                    placeholder="קוד"
+                                    (change)="codeChanged(teachercode)"
+                                >
+                              </mat-form-field> 
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

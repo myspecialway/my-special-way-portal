@@ -15,6 +15,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-class-schedule', roles: [UserType.TEACHER] },
   { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
+  { path: 'settings', title: 'הגדרות', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
 
 export const DEFAULT_ROUTE = ROUTES[0];
