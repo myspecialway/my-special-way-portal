@@ -80,6 +80,27 @@
   color: #222222;
 }
 
+.msw-login-header {
+  margin-top: 36px;
+  margin-right: 48px;
+  font-size: 21px;
+  letter-spacing: 0.4px;
+  color: #222222;
+  text-align: right;
+  line-height: 80px;
+}
+
+.msw-login-footer {
+  margin-top: 36px;
+  margin-right: 25%;
+  vertical-align: baseline;
+  //  font-size: 21px;
+  letter-spacing: 0.4px;
+  color: #222222;
+  text-align: right;
+  width: 100%;
+}
+
 .form-row,
 .card-form,
 .mat-form-field {
