@@ -9,6 +9,7 @@ import {
   MUTATE_ADD_STUDENT,
   MUTATE_UPDATE_STUDENT,
   MUTATE_DELETE_STUDENT,
+  MUTATE_ADD_STUDENTS,
 } from './student.graphql';
 import Student, { StudentQuery } from '../../../models/student.model';
 import { DeleteStudentResponse } from '../../../models/responses/delete-student-response.model';
@@ -49,6 +50,18 @@ export class StudentService {
       .mutate({
         mutation: MUTATE_ADD_STUDENT,
         variables: { student: { ...student, class: undefined, class_id: student.class._id } },
+        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
+      })
+      .toPromise();
+  }
+
+  createMany(students: Student[]) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_ADD_STUDENTS,
+        variables: {
+          students: students.map((student) => ({ ...student, class: undefined, class_id: student.class._id })),
+        },
         refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
       })
       .toPromise();

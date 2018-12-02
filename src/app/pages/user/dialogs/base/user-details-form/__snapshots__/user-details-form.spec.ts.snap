@@ -63,7 +63,6 @@ exports[`User component should render the component as described in snapshot 1`]
             />
             
             
-            
           </mat-form-field>
         </div>
         <div
@@ -170,7 +169,7 @@ exports[`User component should render the component as described in snapshot 1`]
         tabindex="-1"
         type="button"
       >
-        ביטול
+        בטל
       </button>
       <button
         class="msw-button-submit"

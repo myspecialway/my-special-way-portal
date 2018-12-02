@@ -26,7 +26,7 @@
       </div>
     </div>
     <div mat-dialog-actions>
-      <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">ביטול</button>
+      <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">בטל</button>
       <button type="submit" mat-button [mat-dialog-close]=true class="mat-dialog-submit" [disabled]="!formControl.valid || !data.icon || isDuplicate">
         {{data._id? updateButtonTitle : addButtonTitle}}
       </button>

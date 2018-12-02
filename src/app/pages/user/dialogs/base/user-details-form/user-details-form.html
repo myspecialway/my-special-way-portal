@@ -13,9 +13,7 @@
           <input matInput #input tabindex="3" formControlName="username" placeholder="שם משתמש" [(ngModel)]="data.username"
             autocomplete="username" name="username" required>
           <mat-error data-test-id="username-err1" *ngIf="userNameFormControl.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
-          <mat-error data-test-id="username-err2" *ngIf="userNameFormControl.hasError('minlength') || userNameFormControl.hasError('pattern')">שם
-            משתמש חייב להיות לפחות חמישה תווים באנגלית</mat-error>
-          <mat-error data-test-id="username-unique-err" *ngIf="userNameFormControl.hasError('isTaken')">שם משתמש כבר קיים. אנא נסה שם משתמש אחר</mat-error>
+          <mat-error data-test-id="username-err2" *ngIf="userNameFormControl.hasError('invalidUsername')">{{userNameFormControl.errors.invalidUsername}}</mat-error>
         </mat-form-field>
       </div>
       <div class="msw-form-row">
@@ -61,7 +59,7 @@
     </div>
   </mat-dialog-content>
   <div mat-dialog-actions>
-    <button type="button" mat-button data-test-id="cancel-button" class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
+    <button type="button" mat-button data-test-id="cancel-button" class="msw-button-cancel" tabindex="-1" (click)="close()">בטל</button>
     <button type="submit" mat-button data-test-id="submit-button" class="msw-button-submit" [disabled]="!formControl.valid">{{options.submitButtonLabel}}</button>
   </div>
 </form>
