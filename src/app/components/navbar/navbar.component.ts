@@ -101,13 +101,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe((path) => (this.selectedMenuItemPath = path));
   }
 
-  private removeLeadingSlash(s = '') {
-    return s.replace(/^\/+/g, '');
+  private removeLeadingSlash(domainString = '') {
+    return domainString.replace(/^\/+/g, '');
   }
 
   //@doritrieur in order to get the first part of the path and compare to the route content.
-  private getFirstPathToken(s = '') {
-    const firstToken = s.split('/');
+  private getFirstPathToken(domainString = '') {
+    const firstToken = domainString.split('/');
     return firstToken[0];
   }
 }
