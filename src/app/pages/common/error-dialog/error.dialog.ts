@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface ErrorDetails {
   title: string;
-  details: string[];
+  details?: string[];
   bottomline: string;
 }
 

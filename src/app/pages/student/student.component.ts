@@ -17,7 +17,7 @@ import { PasswordValidator } from '../../validators/password.validator';
 import { UsernameValidator } from '../../validators/username.validator';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
-import { ErrorDialogComponent, ErrorDetails } from '../../components/error-dialog/error.dialog';
+import { ErrorDialogComponent, ErrorDetails } from '../common/error-dialog/error.dialog';
 
 interface StudentError {
   index: number;

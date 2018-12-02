@@ -62,7 +62,7 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
-import { ErrorDialogComponent } from './components/error-dialog/error.dialog';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,

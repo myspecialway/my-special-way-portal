@@ -1,0 +1,15 @@
+<div class="container">
+  <h3 mat-dialog-title color="accent">
+    {{data.title}}
+  </h3>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content *ngIf="data.details && data.details.length > 0" class="details">
+    <h6 *ngFor="let row of data.details" class="text-nowrap">
+      {{row}}
+    </h6>
+  </div>
+  <div mat-dialog-content class="bottomline">{{data.bottomline}}</div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">אישור</button>
+  </div>
+</div>
