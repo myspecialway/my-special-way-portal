@@ -92,13 +92,14 @@
 
 .msw-login-footer {
   margin-top: 36px;
-  margin-right: 25%;
   vertical-align: baseline;
   //  font-size: 21px;
   letter-spacing: 0.4px;
   color: #222222;
   text-align: right;
   width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
 .form-row,
