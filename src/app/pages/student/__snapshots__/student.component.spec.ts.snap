@@ -3,16 +3,14 @@
 exports[`student component should render component as described in snapshot 1`] = `
 <app-student
   apollo={[Function Object]}
-  authenticationService={[Function Object]}
-  classService={[Function Object]}
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  fileUploadStudentService={[Function Object]}
   filterValues={[Function Object]}
   gradeIdFilter={[Function FormControl]}
   mayAddStudent="false"
   mayDeleteStudent="false"
-  papa={[Function Object]}
   ref={[Function ViewRef_]}
   showGradeIdFilter="false"
   showNoRecords="false"

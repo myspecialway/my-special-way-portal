@@ -30,25 +30,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
-import { ClassService } from '../class/services/class.graphql.service';
-import { classTestData } from '../../../mocks/assets/classes.mock';
-import { Papa } from 'ngx-papaparse';
+import { ErrorDialogComponent } from '../common/error-dialog/error.dialog';
+import { FileUploadStudentService } from '../../file-upload/students-file-upload/students-file-upload.service';
 import {
-  studentsValidCsvParseResultTestData,
-  studentsInvalidCsvParseResultTestData,
+  studentsFileErrors,
   studentsInvalidCsvErrorsExpectation,
-} from '../../../mocks/assets/students.csv.mock';
-import { ErrorDialogComponent } from '../../components/error-dialog/error.dialog';
+} from '../../../mocks/assets/students.file-upload.errors.mock';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
-  let authenticationServiceMock: Partial<AuthenticationService>;
+  let fileUploadStudentServiceMock: Partial<FileUploadStudentService>;
   let studentDialogMock: Partial<MatDialog>;
-  let classServiceMock: Partial<ClassService>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
-  let papaMock: Partial<Papa>;
   let afterClosedMockFn: jest.Mock;
   const watchQueryMockedObservable = new Subject<any>();
 
@@ -61,20 +55,12 @@ describe('student component', () => {
       createMany: jest.fn().mockImplementation(() => Promise.resolve()),
     };
 
-    authenticationServiceMock = {
-      checkUsernameUnique: jest.fn().mockReturnValue(Observable.of(true)),
-    };
-
-    classServiceMock = {
-      getAllClasses: jest.fn().mockReturnValue(Observable.of(classTestData.classes)),
+    fileUploadStudentServiceMock = {
+      getStudents: jest.fn(),
     };
 
     mswSnackbarMock = {
       displayTimedMessage: jest.fn(),
-    };
-
-    papaMock = {
-      parse: jest.fn(),
     };
 
     afterClosedMockFn = jest.fn().mockReturnValue(Observable.of(true));
@@ -107,10 +93,8 @@ describe('student component', () => {
       providers: [
         { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
-        { provide: AuthenticationService, useValue: authenticationServiceMock },
-        { provide: ClassService, useValue: classServiceMock },
+        { provide: FileUploadStudentService, useValue: fileUploadStudentServiceMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
-        { provide: Papa, useValue: papaMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -321,93 +305,71 @@ describe('student component', () => {
   });
 
   describe('import students from file', () => {
-    it('should call to the csv parser for a given file ', () => {
+    it('should add all the students from csv file', async () => {
+      fileUploadStudentServiceMock.getStudents = jest
+        .fn()
+        .mockImplementationOnce(async () => [[], studentsTestData.students]);
+
       //given
       const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
       //when
-      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
       //then
-      expect(papaMock.parse).toBeCalled();
+      expect(studentServiceMock.createMany).toHaveBeenCalledWith(studentsTestData.students);
     });
 
-    it('should add all the students from csv file', (done) => {
-      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
-        options.complete(studentsValidCsvParseResultTestData);
-      });
-      studentServiceMock.createMany = jest.fn().mockImplementationOnce((students) => {
-        //then
-        expect(students.length).toBe(studentsValidCsvParseResultTestData.data.length);
-        done();
-      });
+    it('should show snackbar on sucsess', async () => {
+      fileUploadStudentServiceMock.getStudents = jest
+        .fn()
+        .mockImplementationOnce(async () => [[], studentsTestData.students]);
 
       //given
       const fixture = TestBed.createComponent(StudentComponent);
       fixture.detectChanges();
 
       //when
-      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(mswSnackbarMock.displayTimedMessage).toHaveBeenCalledWith('קובץ נטען בהצלחה');
     });
 
-    it('should show snackbar on sucsess', (done) => {
-      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
-        options.complete(studentsValidCsvParseResultTestData);
-      });
-      mswSnackbarMock.displayTimedMessage = jest.fn().mockImplementationOnce((message) => {
-        //then
-        expect(message).toBe('קובץ נטען בהצלחה');
-        done();
-      });
+    it('should rise error dialog with all the format errors', async () => {
+      fileUploadStudentServiceMock.getStudents = jest.fn().mockImplementationOnce(async () => [studentsFileErrors, []]);
 
       //given
       const fixture = TestBed.createComponent(StudentComponent);
       fixture.detectChanges();
 
       //when
-      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(studentDialogMock.open).toHaveBeenCalledWith(ErrorDialogComponent, studentsInvalidCsvErrorsExpectation);
     });
 
-    it('should rise error dialog with all the format errors', (done) => {
-      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
-        options.complete(studentsInvalidCsvParseResultTestData);
-      });
-
-      studentDialogMock.open = jest.fn().mockImplementationOnce((component, error) => {
-        //then
-        expect(component).toEqual(ErrorDialogComponent);
-        expect(error).toEqual(studentsInvalidCsvErrorsExpectation);
-        done();
-      });
-
-      //given
-      const fixture = TestBed.createComponent(StudentComponent);
-      fixture.detectChanges();
-
-      //when
-      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
-    });
-
-    it('should rise error dialog on connection failure', (done) => {
-      papaMock.parse = jest.fn().mockImplementationOnce((_, options) => {
-        options.complete(studentsValidCsvParseResultTestData);
-      });
-
+    it('should rise error dialog on connection failure', async () => {
       studentServiceMock.createMany = jest.fn().mockImplementationOnce(() => {
         throw new Error('Mock Error');
       });
 
-      studentDialogMock.open = jest.fn().mockImplementationOnce((component, error) => {
-        //then
-        expect(component).toEqual(ErrorDialogComponent);
-        expect(error.data.title).toBe('שגיאה בטעינת הקובץ');
-        done();
-      });
-
       //given
       const fixture = TestBed.createComponent(StudentComponent);
       fixture.detectChanges();
 
       //when
-      fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(studentDialogMock.open).toHaveBeenCalledWith(
+        ErrorDialogComponent,
+        expect.objectContaining({
+          data: expect.objectContaining({ title: 'שגיאה בטעינת הקובץ', bottomline: 'אנא נסה שנית.' }),
+        }),
+      );
     });
   });
 });
