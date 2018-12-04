@@ -20,7 +20,7 @@ import {
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { UserType } from '../../models/user.model';
+import { UserType, User } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Class } from '../../models/class.model';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
@@ -187,41 +188,6 @@ describe('user component', () => {
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
   });
 
-  it('should sort users by firstname+lastname', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve();
-    });
-
-    const fixture = TestBed.createComponent(UserComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    const component = fixture.componentInstance;
-    const data = component.dataSource.data;
-    for (let i = 0; i < data.length - 1; i++) {
-      const user1 = data[i].firstname + data[i].lastname;
-      const user2 = data[i + 1].firstname + data[i + 1].lastname;
-      const comapare = user1.localeCompare(user2);
-      expect(comapare).toEqual(-1);
-    }
-  });
-
-  it('should sort users by firstname+lastname', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve();
-    });
-
-    const fixture = TestBed.createComponent(UserComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    const data = fixture.componentInstance.dataSource.data;
-    for (let i = 0; i < data.length - 1; i++) {
-      const user1 = data[i].firstname + data[i].lastname;
-      const user2 = data[i + 1].firstname + data[i + 1].lastname;
-      const comapare = user1.localeCompare(user2);
-      expect(comapare).toEqual(-1);
-    }
-  });
-
   it('should not show no records massage if there is data', fakeAsync(() => {
     // given
     const fixture = TestBed.createComponent(UserComponent);
@@ -240,6 +206,37 @@ describe('user component', () => {
     // then
     expect(fixture.componentInstance.showNoRecords).toBe(true);
   }));
+
+  describe('sort table', () => {
+    it('should sort users by firstname+lastname', async () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      const data = fixture.componentInstance.dataSource.data;
+      for (let i = 0; i < data.length - 1; i++) {
+        const user1 = data[i].firstname + data[i].lastname;
+        const user2 = data[i + 1].firstname + data[i + 1].lastname;
+        const comapare = user1.localeCompare(user2);
+        expect(comapare).toEqual(-1);
+      }
+    });
+
+    it('should sort users by class name', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', class: { name: 'class name' } } as User & { class: Class };
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'class');
+      expect(result).toBe(user.class.name);
+    });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', username: 'ab123', class: { name: 'class name' } } as User;
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'username');
+      expect(result).toBe(user.username);
+    });
+  });
 
   describe('filter table', () => {
     describe('filter by name', () => {
