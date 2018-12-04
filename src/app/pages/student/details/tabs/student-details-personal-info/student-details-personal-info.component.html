@@ -4,7 +4,7 @@
   </div>
   <div class="msw-student-body">
     <div class="msw-student-user-pic-ph">
-      <img src="http://via.placeholder.com/140x100">
+      <img src="/assets/img/Tinti.png" alt="" width="80" height="80" style="background-color:white;">
     </div>
     <div class="msw-student-user-form">
       <form *ngIf="student" class="msw-student-details-form" #studentDetailsForm="ngForm">
@@ -26,10 +26,14 @@
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender"
               required>
               <mat-button-toggle value="MALE">
-                <i class="material-icons"> face </i>
+                <i>
+                  <mat-icon svgIcon="male_face"></mat-icon>
+                </i>                
               </mat-button-toggle>
               <mat-button-toggle value="FEMALE">
-                <i class="material-icons"> face </i>
+                  <i>
+                    <mat-icon svgIcon="female_face"></mat-icon>
+                  </i>
               </mat-button-toggle>
             </mat-button-toggle-group>
           </div>
