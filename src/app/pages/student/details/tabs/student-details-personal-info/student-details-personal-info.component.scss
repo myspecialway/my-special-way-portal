@@ -46,14 +46,17 @@ button {
 }
 
 .msw-student-body {
-  height: 475px;
+  height: 420px;
   border-radius: 3px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-right: 48px;
+  padding-left: 48px;
 }
 
 .msw-student-details-gender {
@@ -73,11 +76,6 @@ button {
 }
 
 .msw-student-user-pic-ph {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  background-color: #f2f2f2;
-  margin-top: 20px;
 }
 
 .msw-student-user-form {
