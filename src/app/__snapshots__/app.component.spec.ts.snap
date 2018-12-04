@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dashboard component should render component as described in snapshot 1`] = `
-<app-root>
+<app-root
+  domSanitizer={[Function DomSanitizerImpl]}
+  matIconRegistry={[Function MatIconRegistry]}
+>
   <div
     class="msw-wrapper wrapper"
   >
