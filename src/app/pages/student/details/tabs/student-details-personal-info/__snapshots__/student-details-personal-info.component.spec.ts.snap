@@ -21,7 +21,7 @@ exports[`Student Details Personal Info Component with _new_ student path should 
         <img
           alt=""
           height="80"
-          src="/assets/img/Tinti.png"
+          src="/assets/img/picking.tinti.png"
           style="background-color:white;"
           width="80"
         />
