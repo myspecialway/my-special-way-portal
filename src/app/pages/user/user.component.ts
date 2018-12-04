@@ -57,7 +57,16 @@ export class UserComponent implements OnInit {
       }),
     );
 
-    this.dataSource.sortingDataAccessor = (item) => item.firstname + item.lastname;
+    this.dataSource.sortingDataAccessor = this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'name':
+          return item.firstname + item.lastname;
+        case 'class':
+          return item.class ? item.class.name : '';
+        default:
+          return item[property];
+      }
+    };
 
     this.nameFilter.valueChanges.subscribe((name) => {
       this.filterValues.name = name.trim().toLowerCase();
