@@ -228,6 +228,14 @@ describe('user component', () => {
       const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'class');
       expect(result).toBe(user.class.name);
     });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', username: 'ab123', class: { name: 'class name' } } as User;
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'username');
+      expect(result).toBe(user.username);
+    });
   });
 
   describe('filter table', () => {

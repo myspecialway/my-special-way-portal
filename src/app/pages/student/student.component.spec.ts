@@ -206,6 +206,13 @@ describe('student component', () => {
       const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'gradeId');
       expect(result).toBe(studentsTestData.students[0].class.name);
     });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'username');
+      expect(result).toBe(studentsTestData.students[0].username);
+    });
   });
 
   describe('filter table', () => {
