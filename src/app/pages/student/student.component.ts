@@ -61,7 +61,16 @@ export class StudentComponent implements OnInit {
       }),
     );
 
-    this.dataSource.sortingDataAccessor = (item) => item.firstname + item.lastname;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'studentName':
+          return item.firstname + item.lastname;
+        case 'gradeId':
+          return item.class.name;
+        default:
+          return item[property];
+      }
+    };
 
     // todo: create a currentUser / permissions service / directive to handle permissions.
     this.apollo
