@@ -9,13 +9,16 @@ import { Settings } from '../../models/settings.mode';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  teachercode: number | undefined;
+  teachercode: number;
   _settings: Settings | undefined;
 
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private settingsService: SettingService) {}
+  constructor(private settingsService: SettingService) {
+    this.teachercode = 0;
+  }
+
   ngOnInit(): void {
     this.subCollector.add(
       this.settingsService.getAll().subscribe((data) => {
