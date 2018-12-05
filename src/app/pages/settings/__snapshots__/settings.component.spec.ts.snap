@@ -2,70 +2,81 @@
 
 exports[`setting component should render component as described in snapshot 1`] = `
 <app-settings
+  formBuilder={[Function FormBuilder]}
   settingsService={[Function Object]}
+  teachercode="0"
 >
-  <div
-    class="main-content"
-    data-test-id="settings-page"
+  <form
+    novalidate=""
   >
     <div
-      class="container-fluid"
+      class="main-content"
+      data-test-id="settings-page"
     >
       <div
-        class="header-menu-container msw-table-tools-header"
+        class="container-fluid"
       >
         <div
-          class="header-table-count"
-        >
-          <div>
-            <span
-              class="header-table-count-label"
-            >
-              הגדרות
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style="width: 360px; margin: 10px auto;"
-      >
-        <mat-card
-          class="selected-radius"
+          class="header-menu-container msw-table-tools-header"
         >
           <div
-            class="table"
+            class="header-table-count"
           >
-            <div
-              class="row"
-            >
-              <div
-                class="cell"
+            <div>
+              <span
+                class="header-table-count-label"
               >
-                <p>
-                  קוד מורה
-                </p>
-              </div>
-              <div
-                class="cell"
-                style="width: 42px; padding-left: 20px"
-              >
-                <mat-form-field
-                  floatlabel="never"
-                  style="width: 42px; text-align: center"
-                >
-                  <input
-                    data-test-id="teacher-code-input"
-                    matinput=""
-                    placeholder="קוד"
-                    type="text"
-                  />
-                </mat-form-field>
-              </div>
+                הגדרות
+              </span>
             </div>
           </div>
-        </mat-card>
+        </div>
+        <div
+          style="width: 360px; margin: 10px auto;"
+        >
+          <mat-card
+            class="selected-radius"
+            style="height:75px"
+          >
+            <div
+              class="table"
+            >
+              <div
+                class="row"
+              >
+                <div
+                  class="cell"
+                >
+                  <p>
+                    קוד מורה
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  style="width: 100px; padding-left: 20px"
+                >
+                  <mat-form-field
+                    floatlabel="never"
+                    style="width: 100px; text-align: center"
+                  >
+                    <input
+                      data-test-id="teacher-code-input"
+                      formcontrolname="teachercodecontrol"
+                      matinput=""
+                      name="teachercodecontrol"
+                      placeholder="קוד"
+                      type="text"
+                    />
+                    
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </app-settings>
 `;

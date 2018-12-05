@@ -6,6 +6,7 @@ import { SettingService } from './services/settings.service';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { settingsTestData } from '../../../mocks/assets/settings.mock';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 describe('setting component', () => {
   let settingsServiceMock: Partial<SettingService>;
@@ -17,9 +18,9 @@ describe('setting component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [ReactiveFormsModule, FormsModule],
       declarations: [SettingsComponent],
-      providers: [SettingService, { provide: SettingService, useValue: settingsServiceMock }, Platform],
+      providers: [FormBuilder, SettingService, { provide: SettingService, useValue: settingsServiceMock }, Platform],
       schemas: [NO_ERRORS_SCHEMA],
     });
   });

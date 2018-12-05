@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { SettingService } from './services/settings.service';
 import { Settings } from '../../models/settings.mode';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -11,11 +12,14 @@ import { Settings } from '../../models/settings.mode';
 export class SettingsComponent implements OnInit {
   teachercode: number;
   _settings: Settings | undefined;
+  formControl: FormControl;
+  form: FormGroup;
+  teacherCodeFormControl: FormControl;
 
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private settingsService: SettingService) {
+  constructor(private formBuilder: FormBuilder, private settingsService: SettingService) {
     this.teachercode = 0;
   }
 
@@ -28,7 +32,28 @@ export class SettingsComponent implements OnInit {
         }
       }),
     );
+    this.createFormControls();
+    this.createForm();
   }
+
+  private createForm() {
+    this.form = this.formBuilder.group({
+      teachercodecontrol: this.teacherCodeFormControl,
+    });
+  }
+
+  private createFormControls() {
+    this.teacherCodeFormControl = new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(4),
+        Validators.pattern('^[1-9]+$'),
+      ],
+      updateOn: 'blur',
+    });
+  }
+
   codeChanged(code: number): void {
     let updatedSettings: Settings = new Settings();
     if (this._settings !== undefined) {
