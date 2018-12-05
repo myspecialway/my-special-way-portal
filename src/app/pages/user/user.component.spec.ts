@@ -85,9 +85,39 @@ describe('user component', () => {
     expect(DialogMock.open).toHaveBeenCalled();
   });
 
-  it('should open dialog when calling restoreUserPassword function', () => {
+  it('should open dialog when calling restoreUserPassword function and output error message', () => {
     (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
+      return Promise.resolve(false);
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const rp = fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
+  });
+
+  it('should open dialog when calling restoreUserPassword function and output ok message', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve({
+        _id: 123,
+        username: 'uname',
+        firstname: 'sad',
+        lastname: 'asd',
+        role: UserType.PRINCIPLE,
+        password: '123',
+        email: 'asdd@sdsd.com',
+      });
     });
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();

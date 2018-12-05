@@ -108,9 +108,13 @@ export class UserComponent implements OnInit, AfterViewInit {
       height: '275px',
       width: '360px',
     };
-    const dialogRef = restore
-      ? this.dialog.open(RestorePasswordDialogComponent, config)
-      : this.dialog.open(RestorePasswordErrorDialogComponent, config);
+    let dialogRef;
+    if (restore) {
+      dialogRef = this.dialog.open(RestorePasswordDialogComponent, config);
+    } else {
+      dialogRef = this.dialog.open(RestorePasswordErrorDialogComponent, config);
+    }
+
     this.subCollector.add(
       dialogRef
         .afterClosed()
