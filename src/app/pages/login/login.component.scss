@@ -96,19 +96,39 @@
 .msw-login-footer {
   margin-top: 36px;
   vertical-align: baseline;
-  //  font-size: 21px;
   letter-spacing: 0.4px;
   color: #222222;
   text-align: right;
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: 54px;
+  .gray-bar {
+    width: 992px;
+    height: 4.7px;
+    opacity: 0.4;
+    background-color: #d8d8d8;
+    margin-right: 58px;
+  }
 }
 
 .form-row,
 .card-form,
 .mat-form-field {
   width: 100%;
+  .forgot-password {
+    height: 14px;
+    width: 100%;
+    font-family: Rubik;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    text-align: left;
+    margin-top: -25px;
+  }
 }
 
 .card-form {

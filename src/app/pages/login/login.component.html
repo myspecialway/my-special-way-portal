@@ -23,6 +23,7 @@
                   <input matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
+                <div class="forgot-password">שכחתי ססמא</div>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
                 <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
               </div>
@@ -41,7 +42,7 @@
         </form>
         <div class ="msw-login-footer" >
             <img src="/assets/img/tinti.png" alt="" valign="bottom" style="margin-right: 25%;">
-            <div style="background-color: lightgray; height:48.2px;"></div>
+            <div class="gray-bar"></div>
         </div>
 </div>
 
