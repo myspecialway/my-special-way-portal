@@ -3,8 +3,9 @@
 exports[`navbar component should render component as described in snapshot 1`] = `
 <app-navbar
   apollo={[Function Object]}
+  dialog={[Function Object]}
   routeSubscription={[Function Subscriber]}
-  router={[Function RouterStub]}
+  router={[Function Object]}
 >
   <nav
     class="navbar navbar-expand-lg navbar-white  navbar-absolute fixed-top"
