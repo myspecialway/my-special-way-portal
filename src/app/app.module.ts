@@ -62,6 +62,7 @@ import { AddStudentReminderDialogComponent } from './pages/student/dialogs/remin
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
+import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -116,6 +117,7 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -132,6 +134,7 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   providers: [
     AuthGuard,

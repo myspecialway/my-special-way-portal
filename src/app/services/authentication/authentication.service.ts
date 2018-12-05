@@ -117,6 +117,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    this.apollo.getClient().resetStore();
   }
 
   checkUsernameUnique(username: string, id: string | number) {

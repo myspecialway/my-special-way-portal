@@ -8,8 +8,9 @@
     <div mat-dialog-content>
       <mat-form-field color="primary">
         <input tabindex="1" matInput #input formControlName="title" placeholder="שם שיעור" [(ngModel)]="data.title"
-          name="title" required>
+          name="title" required title="{{isDuplicate ? 'שם שיעור קיים' : ''}}">
         <mat-error *ngIf="formControl.invalid">שם שיעור הינו שדה חובה</mat-error>
+
       </mat-form-field>
       <div>
         <label>
@@ -18,15 +19,15 @@
       </div>
       <div class="icon-list-container">
         <button type="button" *ngFor="let icon of icons" (click)='onIconClick(icon)'>
-          <div class="lesson-icon-container" ngClass = "{{data.icon === icon ? 'lesson-icon-selected' : '' }}" >
-            {{icon}}
-        </div>
+          <div class="lesson-icon-container" ngClass="{{data.icon === icon ? 'lesson-icon-selected' : '' }}">
+            <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
+          </div>
         </button>
       </div>
     </div>
     <div mat-dialog-actions>
       <button type="button" mat-button [mat-dialog-close]=true (click)="onNoClick()" tabindex="-1">ביטול</button>
-      <button type="submit" mat-button [mat-dialog-close]=true class="mat-dialog-submit" [disabled]="!formControl.valid || !data.icon">
+      <button type="submit" mat-button [mat-dialog-close]=true class="mat-dialog-submit" [disabled]="!formControl.valid || !data.icon || isDuplicate">
         {{data._id? updateButtonTitle : addButtonTitle}}
       </button>
     </div>

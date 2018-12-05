@@ -3,13 +3,22 @@
 exports[`user component should render component as described in snapshot 1`] = `
 <app-user
   authenticationService={[Function AuthenticationService]}
+  classField="undefined"
+  classFilter={[Function FormControl]}
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  filterValues={[Function Object]}
+  nameField="undefined"
+  nameFilter={[Function FormControl]}
+  ref={[Function ViewRef_]}
   resultsLength="0"
+  showClassFilter="false"
+  showNameFilter="false"
+  showNoRecords="false"
   sort={[Function MatSort]}
   subCollector={[Function Subscription]}
-  table={[Function ElementRef]}
+  table={[Function MatTable]}
   userService={[Function Object]}
 >
   <div
@@ -62,39 +71,234 @@ exports[`user component should render component as described in snapshot 1`] = `
           class="col-lg-12 col-md-12 col-sm-12"
         >
           <mat-table
-            class="msw-table"
+            class="msw-table mat-table"
             matsort=""
             matsortactive="name"
             matsortdirection="asc"
             matsortdisableclear=""
             ng-reflect-active="name"
+            ng-reflect-data-source="[object Object]"
             ng-reflect-direction="asc"
             ng-reflect-disable-clear=""
+            role="grid"
           >
             
+            <mat-header-row
+              class="mat-header-row"
+              role="row"
+            >
+              
+              <mat-header-cell
+                class="mat-header-cell cdk-column-name mat-column-name"
+                role="columnheader"
+              >
+                <span
+                  class="pl-2"
+                  mat-sort-header=""
+                >
+                  שם
+                </span>
+                <span>
+                  
+                  <mat-icon
+                    aria-hidden="true"
+                    class="filter-toggle-button mat-icon material-icons"
+                    matprefix=""
+                    role="img"
+                  >
+                    search
+                  </mat-icon>
+                </span>
+                
+              </mat-header-cell>
+              <mat-header-cell
+                class="mat-header-cell cdk-column-class mat-column-class"
+                role="columnheader"
+              >
+                <span
+                  class="pl-2"
+                  mat-sort-header=""
+                >
+                  כיתה
+                </span>
+                <span>
+                  
+                  <mat-icon
+                    aria-hidden="true"
+                    class="filter-toggle-button mat-icon material-icons"
+                    matprefix=""
+                    role="img"
+                  >
+                    search
+                  </mat-icon>
+                </span>
+                
+              </mat-header-cell>
+              <mat-header-cell
+                class="mat-header-cell cdk-column-username mat-column-username"
+                role="columnheader"
+              >
+                שם משתמש
+              </mat-header-cell>
+              <mat-header-cell
+                class="mat-header-cell cdk-column-type mat-column-type"
+                mat-sort-header=""
+                role="columnheader"
+              >
+                סוג משתמש
+              </mat-header-cell>
+              <mat-header-cell
+                class="mat-header-cell cdk-column-email mat-column-email"
+                mat-sort-header=""
+                role="columnheader"
+              >
+                אימייל
+              </mat-header-cell>
+              <mat-header-cell
+                class="mat-header-cell cdk-column-recoverpassword mat-column-recoverpassword"
+                role="columnheader"
+              />
+              <mat-header-cell
+                class="mat-header-cell cdk-column-deleteUser mat-column-deleteUser"
+                role="columnheader"
+              />
+            </mat-header-row>
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            <mat-row
+              class="mat-row"
+              role="row"
+            >
+              
+              <mat-cell
+                class="mat-cell cdk-column-name mat-column-name"
+                role="gridcell"
+              >
+                 John1 Worg1
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-class mat-column-class"
+                role="gridcell"
+              >
+                
+              </mat-cell>
+              <mat-cell
+                class="username mat-cell cdk-column-username mat-column-username"
+                role="gridcell"
+              >
+                Rotem
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-type mat-column-type"
+                role="gridcell"
+              >
+                מורה
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-email mat-column-email"
+                role="gridcell"
+              >
+                www@www.com
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-recoverpassword mat-column-recoverpassword"
+                role="gridcell"
+              >
+                <button
+                  class="recover-password-button"
+                  color="primary"
+                  data-test-id="recover-password-Rotem"
+                  mat-icon-button=""
+                >
+                  שחזר סיסמא
+                </button>
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-deleteUser mat-column-deleteUser"
+                role="gridcell"
+              >
+                <button
+                  class="delete-row-button"
+                  color="primary"
+                  data-test-id="delete-user-button-Rotem"
+                  mat-icon-button=""
+                >
+                  <i
+                    class="material-icons"
+                  >
+                     delete 
+                  </i>
+                </button>
+              </mat-cell>
+            </mat-row>
+            <mat-row
+              class="mat-row"
+              role="row"
+            >
+              
+              <mat-cell
+                class="mat-cell cdk-column-name mat-column-name"
+                role="gridcell"
+              >
+                 John2 Worg2
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-class mat-column-class"
+                role="gridcell"
+              >
+                
+              </mat-cell>
+              <mat-cell
+                class="username mat-cell cdk-column-username mat-column-username"
+                role="gridcell"
+              >
+                John321
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-type mat-column-type"
+                role="gridcell"
+              >
+                מורה
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-email mat-column-email"
+                role="gridcell"
+              >
+                www@www.com
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-recoverpassword mat-column-recoverpassword"
+                role="gridcell"
+              >
+                <button
+                  class="recover-password-button"
+                  color="primary"
+                  data-test-id="recover-password-John321"
+                  mat-icon-button=""
+                >
+                  שחזר סיסמא
+                </button>
+              </mat-cell>
+              <mat-cell
+                class="mat-cell cdk-column-deleteUser mat-column-deleteUser"
+                role="gridcell"
+              >
+                <button
+                  class="delete-row-button"
+                  color="primary"
+                  data-test-id="delete-user-button-John321"
+                  mat-icon-button=""
+                >
+                  <i
+                    class="material-icons"
+                  >
+                     delete 
+                  </i>
+                </button>
+              </mat-cell>
+            </mat-row>
             
           </mat-table>
+          
         </div>
       </div>
     </div>

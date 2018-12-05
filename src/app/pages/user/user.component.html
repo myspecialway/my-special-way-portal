@@ -23,13 +23,39 @@
 
           <!-- ID Column -->
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>שם</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <span class="pl-2" mat-sort-header>שם</span>
+              <span (click)="toggleNameFilter()">
+                <mat-icon class="filter-toggle-button" *ngIf="!showNameFilter" matPrefix>search</mat-icon>
+              </span>
+              <mat-form-field *ngIf="showNameFilter" class="filter" floatLabel="never">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>חיפוש משתמש</mat-label>
+                <input #nameField matInput [formControl]="nameFilter" (focusout)="toggleNameFilter()">
+                <button mat-icon-button matSuffix *ngIf="nameFilter.value" (click)="nameFilter.setValue('')">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)"> {{row.firstname}} {{ row.lastname }}</mat-cell>
           </ng-container>
 
-          <!-- Progress Column -->
+          <!-- Class Column -->
           <ng-container matColumnDef="class">
-            <mat-header-cell *matHeaderCellDef>כיתה</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <span class="pl-2" mat-sort-header>כיתה</span>
+              <span (click)="toggleClassFilter()">
+                <mat-icon class="filter-toggle-button" *ngIf="!showClassFilter" matPrefix>search</mat-icon>
+              </span>
+              <mat-form-field *ngIf="showClassFilter" class="filter" floatLabel="never">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>חיפוש כיתה</mat-label>
+                <input #classField matInput [formControl]="classFilter" (focusout)="toggleClassFilter()">
+                <button mat-icon-button matSuffix *ngIf="classFilter.value" (click)="classFilter.setValue('')">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+          </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
           </ng-container>
 
@@ -69,6 +95,10 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;">
         </mat-row>
         </mat-table>
+        <div *ngIf="showNoRecords" class="no-records-msg">
+          <i class="material-icons md-48">info_outline</i>
+          <h4>לא נמצאו תוצאות</h4>
+        </div>
       </div>
     </div>
   </div>
