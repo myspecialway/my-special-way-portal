@@ -4,8 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SettingsComponent } from './settings.component';
 import { SettingService } from './services/settings.service';
 import { Platform } from '@angular/cdk/platform';
-import { Observable, Subject } from 'rxjs-compat';
-import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs-compat';
 import { settingsTestData } from '../../../mocks/assets/settings.mock';
 
 describe('setting component', () => {

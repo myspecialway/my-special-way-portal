@@ -4,7 +4,6 @@ import { throwError } from 'rxjs';
 
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
-import { Settings } from '../../../models/settings.mode';
 
 const apollo = new Apollo();
 
