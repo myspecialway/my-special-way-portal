@@ -1,0 +1,24 @@
+* {
+  direction: rtl;
+  text-align: right;
+}
+
+.add-map-modal {
+  width: 358px;
+}
+
+mat-dialog-actions button {
+  text-align: center;
+}
+
+.mat-divider {
+  border-top: 3px solid #8b66a7;
+  margin-bottom: 28px;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-bottom: -12px;
+}

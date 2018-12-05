@@ -1,0 +1,12 @@
+<div class="container add-map-modal">
+  <h3 mat-dialog-title>הוספת מפה</h3>
+
+  <mat-divider></mat-divider>
+
+  <input type="text" placeholder="שם מפה" />
+  <input type="text" placeholder="קומה" />
+  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+    הוסף
+  </button>
+</div>

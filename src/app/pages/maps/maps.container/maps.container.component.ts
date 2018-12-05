@@ -6,6 +6,7 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { BlockedSection } from '../../../models/BlockedSection.model';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
+import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 
 // const mockedData: BlockedSection[] = [
 //   {
@@ -171,6 +172,16 @@ export class MapsContainerComponent implements OnInit {
           console.error('Error handling not implemented');
           throw error;
         }
+      });
+  }
+
+  addMap() {
+    const dialogRef = this.dialog.open(AddMapDialogComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (addMapConfirmed) => {
+        console.log(addMapConfirmed);
       });
   }
 }
