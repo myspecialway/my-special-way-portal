@@ -4,8 +4,8 @@ export class NonActiveTime {
   _id: string;
   title: string;
   isAllDayEvent: boolean;
-  startDateTime?: Date;
-  endDateTime?: Date;
+  startDateTime: number;
+  endDateTime: number;
   isAllClassesEvent: boolean;
   classes?: Class[];
 }

@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 import { Observable, of as observableOf } from 'rxjs';
-import { Lesson } from '../../models/lesson.model';
 import { catchError, map } from 'rxjs/operators';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { FetchResult } from 'apollo-link';
 
 const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
   {
-    NonActiveTime {
+    nonActiveTimes {
       _id
       title
       isAllDayEvent
@@ -31,7 +30,6 @@ mutation {
 }`;
 
 const CREATE_NON_ACTIVE_TIME_QUERY = (
-  id: string,
   title: string,
   isAllDayEvent: boolean,
   startDateTime: Date,
@@ -40,14 +38,14 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
   classesIds: string[],
 ) => gql`
   mutation {
-    createNonActiveTime {
-      _id: "${id}"
+    createNonActiveTime(nonActiveTime: {
       title: "${title}"
       isAllDayEvent: "${isAllDayEvent}"
       startDateTime: "${startDateTime}"
       endDateTime: "${endDateTime}"
       isAllClassesEvent: "${isAllClassesEvent}"
-      classes: "${classesIds}"
+      classesIds: "${classesIds}"
+    }){ _id }
   }`;
 
 const UPDATE_NON_ACTIVE_TIME_QUERY = (
@@ -59,16 +57,16 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
   isAllClassesEvent: boolean,
   classesIds: string[],
 ) => gql`
-  mutation {
-    updateNonActiveTime {
-      _id: "${id}"
-      title: "${title}"
-      isAllDayEvent: "${isAllDayEvent}"
-      startDateTime: "${startDateTime}"
-      endDateTime: "${endDateTime}"
-      isAllClassesEvent: "${isAllClassesEvent}"
-      classes: "${classesIds}"
-  }`;
+ mutation {
+  updateNonActiveTime(id: "${id}", nonActiveTime: {
+    title: "${title}"
+    isAllDayEvent: "${isAllDayEvent}"
+    startDateTime: "${startDateTime}"
+    endDateTime: "${endDateTime}"
+    isAllClassesEvent: "${isAllClassesEvent}"
+    classes: "${classesIds}"
+  }){ _id }
+}`;
 
 @Injectable()
 export class NonActiveTimeService {
@@ -84,16 +82,30 @@ export class NonActiveTimeService {
           return res.data.nonActiveTime;
         }),
         catchError((err: TypeError) => {
-          console.warn('user.component::ngInInit:: empty stream recieved');
+          console.warn('user.component::ngInInit:: empty stream received');
           return observableOf([]);
         }),
       );
   }
 
-  /*  public update(lessonId: string, title: string, icon: string): any {
+  public create(
+    title: string,
+    isAllDayEvent: boolean,
+    startDateTime: Date,
+    endDateTime: Date,
+    isAllClassesEvent: boolean,
+    classes: string[],
+  ): any {
     return this.apollo
       .mutate({
-        mutation: UPDATE_NON_ACTIVE_TIME_QUERY(lessonId, title, icon),
+        mutation: CREATE_NON_ACTIVE_TIME_QUERY(
+          title,
+          isAllDayEvent,
+          startDateTime,
+          endDateTime,
+          isAllClassesEvent,
+          classes,
+        ),
         refetchQueries: [
           {
             query: GET_ALL_NON_ACTIVE_TIMES_QUERY,
@@ -101,13 +113,38 @@ export class NonActiveTimeService {
         ],
         awaitRefetchQueries: true,
       })
-      .toPromise()
-      .then((res) => {
-        if (res.data) {
-          return res.data.createClass;
-        }
-      });
-  }*/
+      .toPromise();
+  }
+
+  public update(
+    id: string,
+    title: string,
+    isAllDayEvent: boolean,
+    startDateTime: Date,
+    endDateTime: Date,
+    isAllClassesEvent: boolean,
+    classes: string[],
+  ): any {
+    return this.apollo
+      .mutate({
+        mutation: UPDATE_NON_ACTIVE_TIME_QUERY(
+          id,
+          title,
+          isAllDayEvent,
+          startDateTime,
+          endDateTime,
+          isAllClassesEvent,
+          classes,
+        ),
+        refetchQueries: [
+          {
+            query: GET_ALL_NON_ACTIVE_TIMES_QUERY,
+          },
+        ],
+        awaitRefetchQueries: true,
+      })
+      .toPromise();
+  }
 
   public async delete(nonActiveTimeId: string): Promise<FetchResult<Record<string, any>>> {
     return this.apollo
