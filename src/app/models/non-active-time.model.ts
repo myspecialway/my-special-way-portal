@@ -7,5 +7,5 @@ export class NonActiveTime {
   startDateTime: number;
   endDateTime: number;
   isAllClassesEvent: boolean;
-  classes?: Class[];
+  classesIds?: string[];
 }

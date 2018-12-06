@@ -15,9 +15,8 @@ const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
       startDateTime
       endDateTime
       isAllClassesEvent
-      classes {
-        _id: string
-        name: string
+      classesIds {
+        _id: string        
     }
   }
 `;
@@ -35,7 +34,7 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
   startDateTime: Date,
   endDateTime: Date,
   isAllClassesEvent: boolean,
-  classes: string[],
+  classesIds: string[],
 ) => gql`
   mutation {
     createNonActiveTime(nonActiveTime: {
@@ -44,7 +43,7 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
       startDateTime: "${startDateTime}"
       endDateTime: "${endDateTime}"
       isAllClassesEvent: "${isAllClassesEvent}"
-      classesIds: "${classes}"
+      classesIds: "${classesIds}"
     }){ _id }
   }`;
 
@@ -64,7 +63,7 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
     startDateTime: "${startDateTime}"
     endDateTime: "${endDateTime}"
     isAllClassesEvent: "${isAllClassesEvent}"
-    classes: "${classesIds}"
+    classesIds: "${classesIds}"
   }){ _id }
 }`;
 
@@ -123,7 +122,7 @@ export class NonActiveTimeService {
     startDateTime: Date,
     endDateTime: Date,
     isAllClassesEvent: boolean,
-    classes: string[],
+    classesIds: string[],
   ): any {
     return this.apollo
       .mutate({
@@ -134,7 +133,7 @@ export class NonActiveTimeService {
           startDateTime,
           endDateTime,
           isAllClassesEvent,
-          classes,
+          classesIds,
         ),
         refetchQueries: [
           {
