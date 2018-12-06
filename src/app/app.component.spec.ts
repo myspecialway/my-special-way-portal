@@ -11,6 +11,8 @@ class MockDomSanitizer {
 describe('dashboard component', () => {
   let sanitizerSpy: jasmine.Spy;
   let iconRegSpy: jasmine.Spy;
+  let sanitier: DomSanitizer;
+  let iconRegistry: MatIconRegistry;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -19,17 +21,24 @@ describe('dashboard component', () => {
       imports: [],
       schemas: [NO_ERRORS_SCHEMA],
     });
-
-    beforeEach(() => {
-      const sanitier = TestBed.get(DomSanitizer);
-      const iconRegistry = TestBed.get(MatIconRegistry);
-
-      sanitizerSpy = spyOn(sanitier, 'bypassSecurityTrustResourceUrl');
-      iconRegSpy = spyOn(iconRegistry, 'addSvgIcon');
-    });
   });
 
-  it('should register svg icon', () => {
+  beforeEach(() => {
+    sanitier = TestBed.get(DomSanitizer);
+    iconRegistry = TestBed.get(MatIconRegistry);
+
+    sanitizerSpy = spyOn(sanitier, 'bypassSecurityTrustResourceUrl');
+    iconRegSpy = spyOn(iconRegistry, 'addSvgIcon');
+  });
+
+  it('should register svg icon for male face', () => {
+    iconRegistry.addSvgIcon(`male_face`, sanitier.bypassSecurityTrustResourceUrl('../assets/icon/male.svg'));
+    expect(sanitizerSpy).toHaveBeenCalled();
+    expect(iconRegSpy).toHaveBeenCalled();
+  });
+
+  it('should register svg icon for female face', () => {
+    iconRegistry.addSvgIcon(`male_face`, sanitier.bypassSecurityTrustResourceUrl('../assets/icon/female.svg'));
     expect(sanitizerSpy).toHaveBeenCalled();
     expect(iconRegSpy).toHaveBeenCalled();
   });
