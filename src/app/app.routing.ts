@@ -82,7 +82,7 @@ const routes: Routes = [
         data: { expectedRole: [UserType.PRINCIPLE] },
       },
       {
-        path: 'nonActiveTimes',
+        path: 'non-active-times',
         component: NonActiveTimeComponent,
         canActivate: [AuthGuard],
         data: { expectedRole: [UserType.PRINCIPLE] },
