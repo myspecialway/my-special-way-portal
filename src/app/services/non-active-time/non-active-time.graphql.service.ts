@@ -35,7 +35,7 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
   startDateTime: Date,
   endDateTime: Date,
   isAllClassesEvent: boolean,
-  classesIds: string[],
+  classes: string[],
 ) => gql`
   mutation {
     createNonActiveTime(nonActiveTime: {
@@ -44,7 +44,7 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
       startDateTime: "${startDateTime}"
       endDateTime: "${endDateTime}"
       isAllClassesEvent: "${isAllClassesEvent}"
-      classesIds: "${classesIds}"
+      classesIds: "${classes}"
     }){ _id }
   }`;
 
