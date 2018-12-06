@@ -101,14 +101,17 @@
   text-align: right;
   width: 100%;
   position: fixed;
-  bottom: 54px;
-  .gray-bar {
-    width: 992px;
-    height: 4.7px;
-    opacity: 0.4;
-    background-color: #d8d8d8;
-    margin-right: 58px;
+  bottom: 7%;
+  .img {
+    margin-right: 18%;
   }
+}
+.gray-bar {
+  width: 73%;
+  height: 3px;
+  opacity: 0.4;
+  background-color: #d8d8d8;
+  margin-right: 2%;
 }
 
 .form-row,
