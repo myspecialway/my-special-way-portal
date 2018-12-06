@@ -2,7 +2,7 @@
 
 exports[`dashboard component should render component as described in snapshot 1`] = `
 <app-root
-  domSanitizer={[Function DomSanitizerImpl]}
+  domSanitizer={[Function MockDomSanitizer]}
   matIconRegistry={[Function MatIconRegistry]}
 >
   <div
