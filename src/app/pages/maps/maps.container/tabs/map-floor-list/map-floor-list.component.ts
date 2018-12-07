@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LocationService } from '../../../../../services/location/location.graphql.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-map-floor-list',
