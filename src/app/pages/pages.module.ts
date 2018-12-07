@@ -25,8 +25,6 @@ import { StudentDetailsComponent } from './student/details/student-details.compo
 import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 import { StudentDetailsHoursComponent } from './student/details/tabs/student-details-hours/student-details-hours.component';
 import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
-import { MapContainerComponent } from './maps/maps.container/map.container.component';
-import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
 import { MapPointsComponent } from './maps/maps.container/tabs/map-points/map-points.component';
@@ -60,9 +58,7 @@ import { MapFloorListComponent } from './maps/maps.container/tabs/map-floor-list
     StudentDetailsRemindersComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
-    MapContainerComponent,
     MapsContainerComponent,
-    MapViewComponent,
     MapPointsComponent,
     MapPointsViewComponent,
     UniqueUsernameValidatorDirective,
