@@ -36,6 +36,12 @@ describe('dashboard component', () => {
     iconRegSpy = spyOn(iconRegistry, 'addSvgIcon');
   });
 
+  it('should verify loadIcons on ngOnInit ', async () => {
+    spyOn(component, 'loadIcons');
+    fixture.detectChanges();
+    expect(component.loadIcons).toHaveBeenCalled();
+  });
+
   it('should register svg icon ', () => {
     component.loadIcons();
     expect(sanitizerSpy).toHaveBeenCalled();
