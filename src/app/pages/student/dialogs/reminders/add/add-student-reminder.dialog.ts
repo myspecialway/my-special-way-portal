@@ -60,7 +60,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
     } else {
       block.daysindex.add(dayIndex);
     }
-    console.log(dayIndex);
   }
 
   selectHour(hour: string, block: IReminderTime) {
@@ -92,7 +91,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.daySelected);
+    // console.log(this.daySelected);
     // if (!this.daySelected) {
     //
     // }
