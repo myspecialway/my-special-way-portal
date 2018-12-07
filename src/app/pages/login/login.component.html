@@ -1,7 +1,12 @@
 <div class="login-container">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <div class ="msw-login-header">
+        <img src="/assets/img/school-logo.png" alt="" align="right">ביה"ס יחדיו
+      </div>
+        <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
           <div class="login-card">
-            <div class="msw-login-logo-ph"></div>
+            <div class="msw-login-logo-ph">
+              <img src="/assets/img/msw-proj-logo.png" alt="" width="80" height="80" style="background-color:white;">
+            </div>
             <div class="msw-login-title">בדרכי שלי</div>
             <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
@@ -34,9 +39,11 @@
               <button mat-button>כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
-
-          </div>
-
-    </form>
+            </div>
+        </form>
+        <div class ="msw-login-footer" >
+            <img src="/assets/img/Tinti.png" alt="" valign="bottom" style="margin-right: 25%;">
+            <div style="background-color: lightgray; height:48.2px;"></div>
+        </div>
 </div>
 

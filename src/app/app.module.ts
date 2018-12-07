@@ -60,6 +60,9 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
+import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 
@@ -106,6 +109,8 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -117,11 +122,14 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -133,6 +141,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   providers: [
     AuthGuard,
