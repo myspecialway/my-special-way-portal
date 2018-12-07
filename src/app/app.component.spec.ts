@@ -1,6 +1,6 @@
 import { AppComponent } from './app.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
