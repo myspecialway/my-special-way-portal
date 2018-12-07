@@ -1,6 +1,5 @@
 import { Location, InputLocation } from './../../../../../../models/location.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LocaleDataIndex } from '@angular/common';
 
 @Component({
   selector: 'app-map-points-view',
