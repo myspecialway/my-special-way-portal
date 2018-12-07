@@ -1,11 +1,9 @@
 <div class="container">
-  <h3 mat-dialog-title color="accent">מחיקת מקטע חסום</h3>
+  <h3 mat-dialog-title color="accent">מחיקת {{data.title}}</h3>
   <mat-divider></mat-divider>
   <div mat-dialog-content>
     <br>
-    האם אתה בטוח שברצונך למחוק את המקטע {{data.fromPoint}} - {{data.toPoint}} -
-    {{data.reason}}
-    ?
+    האם אתה בטוח שברצונך למחוק את {{data.question}}  ?
   </div>
 
   <div mat-dialog-actions>
