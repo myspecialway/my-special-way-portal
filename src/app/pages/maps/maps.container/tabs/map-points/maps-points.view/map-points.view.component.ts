@@ -1,5 +1,6 @@
 import { Location, InputLocation } from './../../../../../../models/location.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { LocaleDataIndex } from '@angular/common';
 
 @Component({
   selector: 'app-map-points-view',
@@ -7,21 +8,22 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./map-points.view.component.scss'],
 })
 export class MapPointsViewComponent {
-  displayedColumns = ['name', 'label', 'icon', 'enabled', 'delete'];
+  displayedColumns = ['name', 'label', 'icon', 'type', 'delete'];
 
   @Input()
   locations: Location[];
 
   @Output()
-  updateLocation: EventEmitter<InputLocation> = new EventEmitter<InputLocation>();
+  update = new EventEmitter<InputLocation>();
 
-  onLocationDisabledChanged(location: Location, disabled: boolean) {
-    this.updateLocation.emit({ _id: location._id, disabled });
+  @Output()
+  delete = new EventEmitter<Location>();
+
+  onUpdate(location: Location, update: Partial<Location>) {
+    this.update.emit({ ...location, ...update });
   }
-  onLocationNameChanged(location: Location, name: string) {
-    this.updateLocation.emit({ _id: location._id, name });
-  }
-  onLocationIdChanged(location: Location, location_id: string) {
-    this.updateLocation.emit({ _id: location._id, location_id });
+
+  onDelete(point: Location) {
+    this.delete.emit(point);
   }
 }

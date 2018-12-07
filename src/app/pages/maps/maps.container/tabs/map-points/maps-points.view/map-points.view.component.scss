@@ -1,32 +1,29 @@
-.map-view-container {
-  direction: rtl;
-  text-align: right;
-  h2 {
-    font-size: 32px;
+@import '../../../../../../../assets/scss/msw-table';
+
+.mat-cell,
+.mat-header-cell {
+  cursor: pointer;
+
+  &:last-child {
+    flex-basis: 58px;
   }
-}
-
-.floor-select {
-  width: 100px;
-  margin-top: 30px;
-}
-
-.location-id-input {
-  width: 50px;
-}
-
-.floor-details-container {
-  display: flex;
-  flex-direction: row;
-  .locations-list {
-    max-height: calc(100vh - 350px);
-    overflow: auto;
-    width: 400px;
-  }
-  .map-model {
-    width: 100%;
-    display: flex;
-    align-items: center;
+  &:not(:first-child) {
     justify-content: center;
   }
+
+  .delete-row-button.mat-icon-button.mat-primary {
+    color: #8b66a7;
+  }
+}
+
+.add-block {
+  color: #8b66a7;
+  font-size: 14px;
+  font-weight: 700;
+  display: block;
+  direction: rtl;
+  text-align: right;
+  padding: 20px;
+  letter-spacing: 1.1px;
+  cursor: pointer;
 }
