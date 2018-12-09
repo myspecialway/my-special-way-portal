@@ -16,7 +16,8 @@ const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
       endDateTime
       isAllClassesEvent
       classesIds {
-        _id: string        
+        _id
+      }
     }
   }
 `;
@@ -31,8 +32,8 @@ mutation {
 const CREATE_NON_ACTIVE_TIME_QUERY = (
   title: string,
   isAllDayEvent: boolean,
-  startDateTime: Date,
-  endDateTime: Date,
+  startDateTime: number,
+  endDateTime: number,
   isAllClassesEvent: boolean,
   classesIds: string[],
 ) => gql`
@@ -51,8 +52,8 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
   id: string,
   title: string,
   isAllDayEvent: boolean,
-  startDateTime: Date,
-  endDateTime: Date,
+  startDateTime: number,
+  endDateTime: number,
   isAllClassesEvent: boolean,
   classesIds: string[],
 ) => gql`
@@ -90,8 +91,8 @@ export class NonActiveTimeService {
   public create(
     title: string,
     isAllDayEvent: boolean,
-    startDateTime: Date,
-    endDateTime: Date,
+    startDateTime: number,
+    endDateTime: number,
     isAllClassesEvent: boolean,
     classes: string[],
   ): any {
@@ -119,8 +120,8 @@ export class NonActiveTimeService {
     id: string,
     title: string,
     isAllDayEvent: boolean,
-    startDateTime: Date,
-    endDateTime: Date,
+    startDateTime: number,
+    endDateTime: number,
     isAllClassesEvent: boolean,
     classesIds: string[],
   ): any {

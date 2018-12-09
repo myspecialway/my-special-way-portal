@@ -61,6 +61,7 @@ import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-del
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -141,6 +142,7 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })
