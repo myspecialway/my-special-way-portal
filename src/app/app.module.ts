@@ -64,11 +64,12 @@ import { MapsContainerComponent } from './pages/maps/maps.container/maps.contain
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    FileUploadModule,
     BrowserModule,
     FormsModule,
     ComponentsModule,
@@ -99,7 +100,6 @@ import { FileSelectDirective } from 'ng2-file-upload';
   ],
   declarations: [
     AppComponent,
-    FileSelectDirective,
     DashboardComponent,
     LoginComponent,
     ClassComponent,

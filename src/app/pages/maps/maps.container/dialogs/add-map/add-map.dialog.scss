@@ -30,20 +30,29 @@
 input {
   margin-bottom: 22px;
 }
+.file-uploader {
+  height: 40px;
+}
+
+.nv-file-over {
+  border: dotted 3px #8249d1;
+}
+
+.progress-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  font-size: 14px;
-  margin-bottom: 24px;
-
-  button {
+  border: 10px solid transparent;
+  span {
     color: #8249d1;
     background-color: white;
     border: 1px solid #8249d1;
     border-radius: 3px;
     margin-bottom: 18px;
-
+    overflow: hidden;
+    font-size: 16px;
     i {
       font-size: inherit;
       vertical-align: middle;
@@ -67,7 +76,6 @@ input {
     visibility: hidden;
   }
 }
-
 .mat-dialog-actions {
   display: flex;
   width: 100%;

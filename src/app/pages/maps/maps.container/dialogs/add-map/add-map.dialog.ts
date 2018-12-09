@@ -1,26 +1,56 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
+import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 
-const URL = 'http://localhost:3000/api/upload';
+const URL = 'http://localhost:3000/map';
 
 @Component({
   selector: 'app-add-map.dialog',
   templateUrl: './add-map.dialog.html',
   styleUrls: ['./add-map.dialog.scss'],
 })
-export class AddMapDialogComponent {
-  uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'mapPhoto' });
-  mapName = '';
-  fileName = 'file name';
+export class AddMapDialogComponent implements OnInit {
+  public url = URL;
+  public mapName = '';
+  public uploader: FileUploader;
+  public hasBaseDropZoneOver: boolean;
 
-  constructor(private dialogRef: MatDialogRef<AddMapDialogComponent>) {}
+  constructor(
+    private dialogRef: MatDialogRef<AddMapDialogComponent>,
+    private authenticationService: AuthenticationService,
+  ) {
+    this.uploader = new FileUploader({
+      url: 'http://localhost:3000/map',
+      itemAlias: 'mapFilename',
+      headers: [
+        { name: 'authorization', value: ('Bearer ' + this.authenticationService.getTokenFromLocalStore()) as string },
+      ],
+    });
 
-  close(): void {
-    this.dialogRef.close();
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+      console.log('ImageUpload:onBeforeUploadItem:', item);
+      this.uploader.options.additionalParameter = {
+        floor: this.mapName,
+      };
+    };
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log('ImageUpload:onCompleteItem:', item, status, response);
+    };
+    this.hasBaseDropZoneOver = false;
   }
 
-  fileUpload(e) {
-    this.fileName = e.target.files[0].name;
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  ngOnInit(): void {}
+
+  public filesCatchEvents(count) {}
+  close(): void {
+    this.dialogRef.close();
   }
 }
