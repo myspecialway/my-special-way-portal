@@ -16,7 +16,7 @@ export class AddMapDialogComponent implements OnInit {
   public mapName = '';
   public uploader: FileUploader;
   public hasBaseDropZoneOver: boolean;
-
+  // test to push
   constructor(
     private dialogRef: MatDialogRef<AddMapDialogComponent>,
     private authenticationService: AuthenticationService,
