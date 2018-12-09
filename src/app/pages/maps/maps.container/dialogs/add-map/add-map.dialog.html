@@ -1,12 +1,25 @@
 <div class="container add-map-modal">
   <h3 mat-dialog-title>הוספת מפה</h3>
-
   <mat-divider></mat-divider>
 
-  <input type="text" placeholder="שם מפה" />
-  <input type="text" placeholder="קומה" />
-  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-    הוסף
-  </button>
+  <input type="text" class="form-control" placeholder="שם מפה" [(ngModel)]="mapName" />
+
+  <div class="upload-btn-wrapper">
+    <button>
+      <i class="material-icons">insert_photo</i>
+      הוסף תמונה מקובץ
+    </button>
+    <div class="chosen-file" [ngClass]="{ 'visible': uploader.getNotUploadedItems().length }">{{ fileName }}</div>
+    <input type="file" name="mapPhoto" ng2FileSelect [uploader]="uploader" (change)="fileUpload($event)" />
+  </div>
+
+  <mat-dialog-actions>
+    <button class="mat-button" (click)="close()">ביטול</button>
+    <button type="button"
+      class="mat-raised-button mat-primary"
+      (click)="uploader.uploadAll()"
+      [disabled]="!mapName || !uploader.getNotUploadedItems().length">
+      הוסף
+    </button>
+  </mat-dialog-actions>
 </div>

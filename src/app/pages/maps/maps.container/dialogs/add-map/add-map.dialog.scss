@@ -3,17 +3,69 @@
   text-align: right;
 }
 
-.add-map-modal {
-  width: 358px;
+.visible {
+  visibility: visible;
 }
 
-mat-dialog-actions button {
-  text-align: center;
+::ng-deep .mat-dialog-container {
+  border-radius: 4px;
+  overflow: initial;
+}
+
+.add-map-modal {
+  width: 310px;
+}
+
+.mat-dialog-title {
+  font-family: Rubik;
+  font-weight: 500;
+  letter-spacing: 0.2px;
 }
 
 .mat-divider {
-  border-top: 3px solid #8b66a7;
+  border-top: 3px solid #8249d1;
   margin-bottom: 28px;
+}
+
+input {
+  margin-bottom: 22px;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+  margin-bottom: 24px;
+
+  button {
+    color: #8249d1;
+    background-color: white;
+    border: 1px solid #8249d1;
+    border-radius: 3px;
+    margin-bottom: 18px;
+
+    i {
+      font-size: inherit;
+      vertical-align: middle;
+    }
+  }
+
+  input[type='file'] {
+    cursor: pointer;
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  .chosen-file {
+    padding: 0 10px;
+    background-color: #f3f3f3;
+    border-radius: 3px;
+    letter-spacing: 1.3px;
+    visibility: hidden;
+  }
 }
 
 .mat-dialog-actions {
@@ -21,4 +73,11 @@ mat-dialog-actions button {
   width: 100%;
   justify-content: flex-end;
   margin-bottom: -12px;
+
+  button {
+    text-align: center;
+    font-family: Rubik;
+    font-weight: 500;
+    letter-spacing: 1.3px;
+  }
 }

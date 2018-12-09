@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 
 const URL = 'http://localhost:3000/api/upload';
@@ -10,33 +9,18 @@ const URL = 'http://localhost:3000/api/upload';
   templateUrl: './add-map.dialog.html',
   styleUrls: ['./add-map.dialog.scss'],
 })
-export class AddMapDialogComponent implements OnInit {
-  form: FormGroup;
-  formControl = new FormControl('', [Validators.required]);
-  uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'photo' });
+export class AddMapDialogComponent {
+  uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'mapPhoto' });
+  mapName = '';
+  fileName = 'file name';
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddMapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data,
-  ) {}
-
-  ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      mapName: '',
-    });
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' : '';
-  }
+  constructor(private dialogRef: MatDialogRef<AddMapDialogComponent>) {}
 
   close(): void {
     this.dialogRef.close();
   }
 
-  sendAddMapRequest(dialogData) {
-    this.dialogRef.close(dialogData);
-    // TODO
+  fileUpload(e) {
+    this.fileName = e.target.files[0].name;
   }
 }
