@@ -169,7 +169,7 @@ exports[`User component should render the component as described in snapshot 1`]
         tabindex="-1"
         type="button"
       >
-        בטל
+        ביטול
       </button>
       <button
         class="msw-button-submit"

@@ -5,6 +5,10 @@ import { throwError } from 'rxjs';
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
 import Student, { Gender } from '../../../models/student.model';
+import {
+  studentsFileErrors,
+  studentsInvalidCsvErrorsExpectation,
+} from '../../../../mocks/assets/students.file-import.errors.mock';
 
 const apollo = new Apollo();
 
@@ -59,5 +63,13 @@ describe('student service tests', () => {
   it('should normalize delete student response', async () => {
     (apollo.mutate as jest.Mock).mockReturnValue(of({ data: { deleteStudent: { _id: 1 } } }));
     expect(await service.delete(1)).toEqual({ _id: 1 });
+  });
+
+  it('should return all the format errors as error message object', async () => {
+    //when
+    const errorDetailes = service.buildErrorMessage(studentsFileErrors);
+
+    //then
+    expect(errorDetailes).toEqual(studentsInvalidCsvErrorsExpectation);
   });
 });

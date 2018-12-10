@@ -13,10 +13,7 @@ import { FormControl } from '@angular/forms';
 import { Class } from '../../models/class.model';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { ErrorDialogComponent, ErrorDetails } from '../common/error-dialog/error.dialog';
-import {
-  FileUploadStudentService,
-  StudentError,
-} from '../../file-upload/students-file-upload/students-file-upload.service';
+import { FileImportStudentService } from '../../file-import/students-file-import/students-file-import.service';
 
 @Component({
   selector: 'app-student',
@@ -55,7 +52,7 @@ export class StudentComponent implements OnInit {
   constructor(
     private ref: ChangeDetectorRef,
     private studentService: StudentService,
-    private fileUploadStudentService: FileUploadStudentService,
+    private fileImportStudentService: FileImportStudentService,
     private snackbar: MSWSnackbar,
     private dialog: MatDialog,
     private apollo: Apollo,
@@ -162,12 +159,12 @@ export class StudentComponent implements OnInit {
     this.fileInput = '';
     if (!files || files.length === 0) return;
     try {
-      const [studentsFileErrors, students] = await this.fileUploadStudentService.getStudents(files[0]);
-      if (studentsFileErrors.length === 0) {
+      const [studentsFileErrors, students] = await this.fileImportStudentService.getStudents(files[0]);
+      if (!studentsFileErrors) {
         await this.studentService.createMany(students);
         this.snackbar.displayTimedMessage('קובץ נטען בהצלחה');
       } else {
-        const errorDetails = this.buildErrorMessage(students, studentsFileErrors);
+        const errorDetails = this.studentService.buildErrorMessage(studentsFileErrors);
         this.dialog.open(ErrorDialogComponent, {
           data: errorDetails,
         });
@@ -182,18 +179,5 @@ export class StudentComponent implements OnInit {
         data: errorDetails,
       });
     }
-  }
-
-  private buildErrorMessage(studentsFromFile: Student[], studentsFileErrors: StudentError[]): ErrorDetails {
-    const details: string[] = [];
-    for (const rowError of studentsFileErrors) {
-      let detailsStr = `שורה ${rowError.index + 1} - `;
-      for (const field of rowError.fields) {
-        detailsStr += `${field}, `;
-      }
-      detailsStr = detailsStr.slice(0, -2);
-      details.push(detailsStr);
-    }
-    return { title: 'קובץ לא תקין', details, bottomline: 'אנא תקן את הקובץ ונסה שנית.' };
   }
 }

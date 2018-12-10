@@ -32,15 +32,15 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
 import { ErrorDialogComponent } from '../common/error-dialog/error.dialog';
-import { FileUploadStudentService } from '../../file-upload/students-file-upload/students-file-upload.service';
+import { FileImportStudentService } from '../../file-import/students-file-import/students-file-import.service';
 import {
   studentsFileErrors,
   studentsInvalidCsvErrorsExpectation,
-} from '../../../mocks/assets/students.file-upload.errors.mock';
+} from '../../../mocks/assets/students.file-import.errors.mock';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
-  let fileUploadStudentServiceMock: Partial<FileUploadStudentService>;
+  let fileImportStudentServiceMock: Partial<FileImportStudentService>;
   let studentDialogMock: Partial<MatDialog>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
   let afterClosedMockFn: jest.Mock;
@@ -55,7 +55,7 @@ describe('student component', () => {
       createMany: jest.fn().mockImplementation(() => Promise.resolve()),
     };
 
-    fileUploadStudentServiceMock = {
+    fileImportStudentServiceMock = {
       getStudents: jest.fn(),
     };
 
@@ -93,7 +93,7 @@ describe('student component', () => {
       providers: [
         { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
-        { provide: FileUploadStudentService, useValue: fileUploadStudentServiceMock },
+        { provide: FileImportStudentService, useValue: fileImportStudentServiceMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
         Overlay,
         ScrollStrategyOptions,
@@ -306,9 +306,9 @@ describe('student component', () => {
 
   describe('import students from file', () => {
     it('should add all the students from csv file', async () => {
-      fileUploadStudentServiceMock.getStudents = jest
+      fileImportStudentServiceMock.getStudents = jest
         .fn()
-        .mockImplementationOnce(async () => [[], studentsTestData.students]);
+        .mockImplementationOnce(async () => [null, studentsTestData.students]);
 
       //given
       const fixture = TestBed.createComponent(StudentComponent);
@@ -322,9 +322,9 @@ describe('student component', () => {
     });
 
     it('should show snackbar on sucsess', async () => {
-      fileUploadStudentServiceMock.getStudents = jest
+      fileImportStudentServiceMock.getStudents = jest
         .fn()
-        .mockImplementationOnce(async () => [[], studentsTestData.students]);
+        .mockImplementationOnce(async () => [null, studentsTestData.students]);
 
       //given
       const fixture = TestBed.createComponent(StudentComponent);
@@ -338,7 +338,10 @@ describe('student component', () => {
     });
 
     it('should rise error dialog with all the format errors', async () => {
-      fileUploadStudentServiceMock.getStudents = jest.fn().mockImplementationOnce(async () => [studentsFileErrors, []]);
+      fileImportStudentServiceMock.getStudents = jest.fn().mockImplementationOnce(async () => [studentsFileErrors, []]);
+      studentServiceMock.buildErrorMessage = jest
+        .fn()
+        .mockImplementationOnce(() => studentsInvalidCsvErrorsExpectation);
 
       //given
       const fixture = TestBed.createComponent(StudentComponent);
@@ -348,7 +351,9 @@ describe('student component', () => {
       await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
 
       //then
-      expect(studentDialogMock.open).toHaveBeenCalledWith(ErrorDialogComponent, studentsInvalidCsvErrorsExpectation);
+      expect(studentDialogMock.open).toHaveBeenCalledWith(ErrorDialogComponent, {
+        data: studentsInvalidCsvErrorsExpectation,
+      });
     });
 
     it('should rise error dialog on connection failure', async () => {

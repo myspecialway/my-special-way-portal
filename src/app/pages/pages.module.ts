@@ -28,7 +28,7 @@ import { MapContainerComponent } from './maps/maps.container/map.container.compo
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
 import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
-import { FileUploadModule } from '../file-upload/file-upload.module';
+import { FileImportModule } from '../file-import/file-import.module';
 
 @NgModule({
   imports: [
@@ -48,7 +48,7 @@ import { FileUploadModule } from '../file-upload/file-upload.module';
     MatListModule,
     MatSlideToggleModule,
     MatIconModule,
-    FileUploadModule,
+    FileImportModule,
   ],
   declarations: [
     StudentDetailsComponent,

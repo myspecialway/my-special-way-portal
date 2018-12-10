@@ -1,4 +1,4 @@
-import { StudentError } from '../../app/file-upload/students-file-upload/students-file-upload.service';
+import { StudentError } from '../../app/file-import/students-file-import/students-file-import.service';
 
 export const studentsInvalidCsvParseResultTestData = {
   data: [
@@ -21,16 +21,14 @@ export const studentsFileErrors: StudentError[] = [
 ];
 
 export const studentsInvalidCsvErrorsExpectation = {
-  data: {
-    title: 'קובץ לא תקין',
-    details: [
-      'שורה 1 - שם פרטי',
-      'שורה 2 - שם משפחה',
-      'שורה 3 - מין, שם משתמש',
-      'שורה 4 - כיתה',
-      'שורה 5 - שם משתמש',
-      'שורה 6 - סיסמא',
-    ],
-    bottomline: 'אנא תקן את הקובץ ונסה שנית.',
-  },
+  title: 'קובץ לא תקין',
+  details: [
+    'שורה 1 - שם פרטי',
+    'שורה 2 - שם משפחה',
+    'שורה 3 - מין, שם משתמש',
+    'שורה 4 - כיתה',
+    'שורה 5 - שם משתמש',
+    'שורה 6 - סיסמא',
+  ],
+  bottomline: 'אנא תקן את הקובץ ונסה שנית.',
 };

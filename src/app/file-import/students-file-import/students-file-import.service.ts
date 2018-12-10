@@ -27,7 +27,7 @@ const passwordCsvColumn: CsvColumn = { index: 5, display: 'סיסמא' };
 @Injectable({
   providedIn: 'root',
 })
-export class FileUploadStudentService {
+export class FileImportStudentService {
   classes: Class[] = [];
 
   constructor(
@@ -38,7 +38,7 @@ export class FileUploadStudentService {
     this.populateClasses();
   }
 
-  async getStudents(file: File): Promise<[StudentError[], Student[]]> {
+  async getStudents(file: File): Promise<[StudentError[] | null, Student[]]> {
     const result = await this.parseCSV(file);
     return this.csvRowsToStudent(result.data);
   }
@@ -52,7 +52,7 @@ export class FileUploadStudentService {
     });
   }
 
-  private async csvRowsToStudent(csvRowsArray: string[][]): Promise<[StudentError[], Student[]]> {
+  private async csvRowsToStudent(csvRowsArray: string[][]): Promise<[StudentError[] | null, Student[]]> {
     const studentsFromFile: Student[] = [];
     const studentsFileErrors: StudentError[] = [];
     for (let i = 0; i < csvRowsArray.length; i++) {
@@ -72,7 +72,8 @@ export class FileUploadStudentService {
         studentsFileErrors.push(errors);
       }
     }
-    return [studentsFileErrors, studentsFromFile];
+    const error = studentsFileErrors.length === 0 ? null : studentsFileErrors;
+    return [error, studentsFromFile];
   }
 
   private setPassword(row: string[], errors: StudentError, student: Student) {

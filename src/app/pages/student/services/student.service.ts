@@ -14,6 +14,8 @@ import {
 import Student, { StudentQuery } from '../../../models/student.model';
 import { DeleteStudentResponse } from '../../../models/responses/delete-student-response.model';
 import { UpdateStudentResponse } from '../../../models/responses/update-student-response.model';
+import { StudentError } from '../../../file-import/students-file-import/students-file-import.service';
+import { ErrorDetails } from '../../common/error-dialog/error.dialog';
 
 @Injectable()
 export class StudentService {
@@ -88,5 +90,18 @@ export class StudentService {
       })
       .pipe(map((res: { data: DeleteStudentResponse }) => res.data.deleteStudent))
       .toPromise();
+  }
+
+  buildErrorMessage(studentsFileErrors: StudentError[]): ErrorDetails {
+    const details: string[] = [];
+    for (const rowError of studentsFileErrors) {
+      let detailsStr = `שורה ${rowError.index + 1} - `;
+      for (const field of rowError.fields) {
+        detailsStr += `${field}, `;
+      }
+      detailsStr = detailsStr.slice(0, -2);
+      details.push(detailsStr);
+    }
+    return { title: 'קובץ לא תקין', details, bottomline: 'אנא תקן את הקובץ ונסה שנית.' };
   }
 }

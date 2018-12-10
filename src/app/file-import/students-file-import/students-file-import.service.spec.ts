@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FileUploadStudentService } from './students-file-upload.service';
+import { FileImportStudentService } from './students-file-import.service';
 import { Papa } from 'ngx-papaparse';
 import { ClassService } from '../../pages/class/services/class.graphql.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -8,14 +8,14 @@ import { studentsValidCsvParseResultTestData } from '../../../mocks/assets/stude
 import {
   studentsFileErrors,
   studentsInvalidCsvParseResultTestData,
-} from '../../../mocks/assets/students.file-upload.errors.mock';
+} from '../../../mocks/assets/students.file-import.errors.mock';
 import { of } from 'rxjs';
 
-describe('FileUploadStudentService', () => {
+describe('FileImportStudentService', () => {
   let authenticationServiceMock: Partial<AuthenticationService>;
   let classServiceMock: Partial<ClassService>;
   let papaMock: Partial<Papa>;
-  let service: FileUploadStudentService;
+  let service: FileImportStudentService;
 
   beforeEach(() => {
     authenticationServiceMock = {
@@ -32,7 +32,7 @@ describe('FileUploadStudentService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        FileUploadStudentService,
+        FileImportStudentService,
         { provide: AuthenticationService, useValue: authenticationServiceMock },
         { provide: ClassService, useValue: classServiceMock },
         { provide: Papa, useValue: papaMock },
@@ -41,12 +41,12 @@ describe('FileUploadStudentService', () => {
   });
 
   it('should be created', () => {
-    service = TestBed.get(FileUploadStudentService);
+    service = TestBed.get(FileImportStudentService);
     expect(service).toBeTruthy();
   });
 
   it('should populate classes field', () => {
-    service = TestBed.get(FileUploadStudentService);
+    service = TestBed.get(FileImportStudentService);
     expect(service.classes.length).toBe(classTestData.classes.length);
   });
 
@@ -57,13 +57,13 @@ describe('FileUploadStudentService', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: Papa, useValue: papaMock }],
     });
-    service = TestBed.get(FileUploadStudentService);
+    service = TestBed.get(FileImportStudentService);
 
     //when
     const [errors, students] = await service.getStudents({} as File);
     //then
     expect(students.length).toBe(studentsValidCsvParseResultTestData.data.length);
-    expect(errors.length).toBe(0);
+    expect(errors).toBe(null);
   });
 
   it('should return all the format errors', async () => {
@@ -73,7 +73,7 @@ describe('FileUploadStudentService', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: Papa, useValue: papaMock }],
     });
-    service = TestBed.get(FileUploadStudentService);
+    service = TestBed.get(FileImportStudentService);
 
     //when
     const [errors, students] = await service.getStudents({} as File);

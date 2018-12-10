@@ -6,7 +6,7 @@ exports[`student component should render component as described in snapshot 1`] 
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
-  fileUploadStudentService={[Function Object]}
+  fileImportStudentService={[Function Object]}
   filterValues={[Function Object]}
   gradeIdFilter={[Function FormControl]}
   mayAddStudent="false"
