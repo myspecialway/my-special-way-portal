@@ -65,7 +65,7 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       { validator: HourValidator.hourRangeValidator },
     );
 
-    if (this.data) {
+    if (this.data._id) {
       this.setValuesForEdit(this.data);
     }
     this.populateClasses();
@@ -85,10 +85,10 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
   }
 
   private prepareFormValuesToOutput() {
-    const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, min: 0, sec: 0, ms: 0 };
-    const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, min: 0, sec: 0, ms: 0 };
-    this.form.value.startDateTime = this.form.value.startDateTime.setHours(startHour);
-    this.form.value.endDateTime = this.form.value.endDateTime.setHours(endHour);
+    const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, min: 0 };
+    const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, min: 0 };
+    this.form.value.startDateTime = this.form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
+    this.form.value.endDateTime = this.form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
   }
 
   private setValuesForEdit(data: NonActiveTime) {
