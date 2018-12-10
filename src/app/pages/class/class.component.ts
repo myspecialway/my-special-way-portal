@@ -20,7 +20,7 @@ import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decora
   styleUrls: ['./class.component.scss'],
 })
 export class ClassComponent implements OnInit {
-  displayedColumns = ['name', 'level', 'deleteClass'];
+  displayedColumns = ['name', 'grade', 'deleteClass'];
   dataSource = new MatTableDataSource<Class>();
   resultsLength = 0;
 
@@ -59,12 +59,12 @@ export class ClassComponent implements OnInit {
     }
   }
 
-  deleteClass(_id: string, name: string, level: string, numberOfStudents: number) {
+  deleteClass(_id: string, name: string, grade: string, numberOfStudents: number) {
     if (numberOfStudents > 0) {
       this.mswSnackbar.displayTimedMessage('לא ניתן למחוק את הכיתה כיוון שיש תלמידים המשוייכים אליה');
     } else {
       const dialogRef = this.dialog.open(DeleteClassDialogComponent, {
-        data: { _id, name, level },
+        data: { _id, name, grade },
       });
       this.subCollector.add(
         dialogRef

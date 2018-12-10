@@ -19,7 +19,9 @@ exports[`Student Details Personal Info Component with _new_ student path should 
         class="msw-student-user-pic-ph"
       >
         <img
-          src="http://via.placeholder.com/140x100"
+          alt=""
+          class="img"
+          src="/assets/img/picking.tinti.png"
         />
       </div>
       <div
