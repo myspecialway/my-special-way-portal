@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
-
-const URL = 'http://localhost:3000/map';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-map.dialog',
@@ -23,7 +22,7 @@ export class AddMapDialogComponent implements OnInit {
     private authenticationService: AuthenticationService,
   ) {
     this.uploader = new FileUploader({
-      url: URL,
+      url: environment.hotConfig.MSW_HOT_UPLOAD_MAP,
       itemAlias: 'mapFilename',
       headers: [
         { name: 'authorization', value: ('Bearer ' + this.authenticationService.getTokenFromLocalStore()) as string },
