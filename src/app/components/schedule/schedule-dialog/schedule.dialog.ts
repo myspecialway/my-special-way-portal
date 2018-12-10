@@ -16,6 +16,7 @@ export class ScheduleDialogComponent implements OnInit {
   locations: Location[];
   selectedLesson: Lesson | undefined;
   selectedLocation: Location | undefined;
+  selectedWeeks: string | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<ScheduleDialogComponent>,

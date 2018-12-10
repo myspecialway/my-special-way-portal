@@ -21,6 +21,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRadioModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -67,6 +68,7 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    MatRadioModule,
     FormsModule,
     ComponentsModule,
     RouterModule,

@@ -7,7 +7,7 @@
 .timeslot-info {
   font: 600 16px Rubik;
   color: rgba(0, 0, 0, 0.87);
-  direction: initial;
+  direction: rtl;
 }
 .mat-dialog-actions {
   display: flex;
@@ -19,4 +19,10 @@
 .mat-dialog-actions button {
   text-align: center;
   box-shadow: none;
+}
+.radio-temporal {
+  display: inline;
+}
+.week-select {
+  width: auto;
 }

@@ -43,6 +43,23 @@ schedule {
       floor
     }
   }
+  temporal {
+    expired
+    lesson {
+      _id
+      title
+      icon
+    }
+    location {
+      name
+      disabled
+      position {
+        latitude
+        longitude
+        floor
+      }
+    }
+  }
 }`;
 
 export const QUERY_GET_CLASS_BY_ID = gql`
