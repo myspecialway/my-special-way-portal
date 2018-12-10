@@ -64,7 +64,7 @@ export class AddMapDialogComponent implements OnInit {
 
   removeFile(event) {
     event.stopPropagation();
-    this.uploader.queue = [];
+    this.uploader.clearQueue();
     this.fileUploaded = false;
   }
 
