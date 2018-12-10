@@ -110,6 +110,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     this.changesWereSaved = true;
     setTimeout(() => {
       this.changesWereSaved = false;
-    }, 1000);
+    }, 4000);
   }
 }

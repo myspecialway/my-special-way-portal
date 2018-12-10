@@ -1,0 +1,11 @@
+<div class="container">
+  <h3 mat-dialog-title color="accent">שחזור ססמא</h3>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    לא הצלחנו לשלוח אמייל לכתובת: {{data.email}}. אנא נסה שוב.
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="msw-button-delete" id="confirm-delete-user" [mat-dialog-close]=true (click)="submit()">נסו שוב</button>
+    <button mat-button class="msw-button-cancel" (click)="close()" tabindex="-1">אישור</button>
+  </div>
+</div>
