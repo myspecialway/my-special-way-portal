@@ -10,11 +10,9 @@ import { environment } from '../../../../../../environments/environment';
   styleUrls: ['./add-map.dialog.scss'],
 })
 export class AddMapDialogComponent implements OnInit {
-  public url = URL;
   public mapName = '';
   public uploader: FileUploader;
   public hasBaseDropZoneOver: boolean;
-  // test to push
   constructor(
     private dialogRef: MatDialogRef<AddMapDialogComponent>,
     private authenticationService: AuthenticationService,
