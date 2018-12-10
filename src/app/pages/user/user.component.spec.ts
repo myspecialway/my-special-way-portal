@@ -23,6 +23,9 @@ import { Platform } from '@angular/cdk/platform';
 import { UserType, User } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -33,6 +36,7 @@ import { Class } from '../../models/class.model';
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
+  let authService: Partial<AuthenticationService>;
 
   beforeEach(async () => {
     userServiceMock = {
@@ -40,6 +44,10 @@ describe('user component', () => {
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+    };
+
+    authService = {
+      restorePassword: jest.fn(),
     };
 
     userDialogMock = {
@@ -70,7 +78,11 @@ describe('user component', () => {
         ScrollDispatcher,
         Platform,
         ViewportRuler,
+        HttpHandler,
+        AuthenticationService,
+        HttpClient,
         OverlayContainer,
+        Apollo,
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
       ],
@@ -94,6 +106,58 @@ describe('user component', () => {
     fixture.componentInstance.addNewUser();
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should open dialog when calling restoreUserPassword function and output error message', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(false);
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const rp = fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
+  });
+
+  it('should open dialog when calling restoreUserPassword function and output ok message', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve({
+        _id: 123,
+        username: 'uname',
+        firstname: 'sad',
+        lastname: 'asd',
+        role: UserType.PRINCIPLE,
+        password: '123',
+        email: 'asdd@sdsd.com',
+      });
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const rp = fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
   });
 
   it('should open dialog when calling deleteUser function', () => {
@@ -322,5 +386,42 @@ describe('user component', () => {
         expect(fixture.componentInstance.showNoRecords).toBe(true);
       }));
     });
+  });
+  it('should cover class params', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.displayedColumns).toEqual([
+      'name',
+      'class',
+      'username',
+      'type',
+      'email',
+      'recoverpassword',
+      'deleteUser',
+    ]);
+    expect(fixture.componentInstance.resultsLength).toEqual(0);
+  });
+  it('resultsLength should be 0', () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.resultsLength).toBe(0);
+  });
+  it('should load correct number of lesson ', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 });
