@@ -22,7 +22,7 @@ export class HourValidator {
     }
     let valid = startHour.hour <= endHour.hour;
     if (startHour.hour === endHour.hour) {
-      valid = startHour.minutes < endHour.minutes;
+      valid = startHour.min < endHour.min;
     }
     return valid ? null : { invalidHourRange: true };
   }

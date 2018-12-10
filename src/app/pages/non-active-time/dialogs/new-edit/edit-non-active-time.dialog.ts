@@ -8,7 +8,7 @@ import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
 import { AppDateAdapter } from '../../../../utils/date.adapter';
 import { HourValidator } from '../../../../validators/HourValidator';
-import { toHour } from '../../../../utils/hours.utils';
+import { toHour, parseHourStringFromDate } from '../../../../utils/hours.utils';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -65,6 +65,9 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       { validator: HourValidator.hourRangeValidator },
     );
 
+    if (this.data) {
+      this.setValuesForEdit(this.data);
+    }
     this.populateClasses();
     this.isAllDayEvent(this.form.value.isAllDayEvent);
     this.isAllClassesEvent(this.form.value.isAllClassesEvent);
@@ -76,14 +79,31 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
 
   public submitForm() {
     if (this.validateAllFormFields(this.form)) {
-      const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, minutes: 0 };
-      const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, minutes: 0 };
-      this.form.value.startDateTime.setHours(startHour.hour);
-      this.form.value.startDateTime.setMinutes(startHour.minutes);
-      this.form.value.endDateTime.setHours(endHour.hour);
-      this.form.value.endDateTime.setMinutes(endHour.minutes);
+      this.prepareFormValuesToOutput();
       this.dialogRef.close(this.form.value);
     }
+  }
+
+  private prepareFormValuesToOutput() {
+    const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, min: 0, sec: 0, ms: 0 };
+    const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, min: 0, sec: 0, ms: 0 };
+    this.form.value.startDateTime = this.form.value.startDateTime.setHours(startHour);
+    this.form.value.endDateTime = this.form.value.endDateTime.setHours(endHour);
+  }
+
+  private setValuesForEdit(data: NonActiveTime) {
+    const startDateTime = new Date(data.startDateTime);
+    const endDateTime = new Date(data.endDateTime);
+    this.form.setValue({
+      title: data.title,
+      isAllDayEvent: data.isAllDayEvent,
+      startDateTime,
+      endDateTime,
+      startHour: parseHourStringFromDate(startDateTime),
+      endHour: parseHourStringFromDate(endDateTime),
+      isAllClassesEvent: data.isAllClassesEvent,
+      classes: data.classes,
+    });
   }
 
   private populateClasses() {
