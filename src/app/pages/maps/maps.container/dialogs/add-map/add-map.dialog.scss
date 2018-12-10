@@ -1,3 +1,5 @@
+$purple-color: #8249d1;
+
 * {
   direction: rtl;
   text-align: right;
@@ -20,47 +22,60 @@
   font-family: Rubik;
   font-weight: 500;
   letter-spacing: 0.2px;
+  margin: 0 0 10px;
 }
 
 .mat-divider {
-  border-top: 3px solid #8249d1;
+  border-top: 3px solid $purple-color;
   margin-bottom: 28px;
 }
 
 input {
   margin-bottom: 22px;
 }
-.file-uploader {
-  height: 40px;
-}
-
-.nv-file-over {
-  border: dotted 3px #8249d1;
-}
-
-.progress-container {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
 
 .upload-btn-wrapper {
-  border: 10px solid transparent;
-  span {
-    color: #8249d1;
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+  margin-bottom: 18px;
+  border: solid 3px transparent;
+
+  &.nv-file-over {
+    border: dotted 3px $purple-color;
+  }
+
+  .add-button {
+    color: $purple-color;
     background-color: white;
-    border: 1px solid #8249d1;
+    border: 1px solid $purple-color;
     border-radius: 3px;
     margin-bottom: 18px;
-    overflow: hidden;
-    font-size: 16px;
+    cursor: pointer;
+
     i {
       font-size: inherit;
       vertical-align: middle;
     }
   }
 
+  .chosen-file {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding: 0 10px;
+    background-color: #f3f3f3;
+    border-radius: 3px;
+    letter-spacing: 1.3px;
+    visibility: hidden;
+
+    .remove {
+      cursor: pointer;
+    }
+  }
+
   input[type='file'] {
-    cursor: pointer;
+    display: none;
     font-size: 100px;
     position: absolute;
     left: 0;
@@ -68,14 +83,26 @@ input {
     opacity: 0;
   }
 
-  .chosen-file {
-    padding: 0 10px;
-    background-color: #f3f3f3;
-    border-radius: 3px;
-    letter-spacing: 1.3px;
+  .progress-container {
     visibility: hidden;
+
+    .progress-bar {
+      background-color: $purple-color;
+    }
+  }
+
+  &.file-uploaded {
+    .add-button {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .chosen-file {
+      visibility: visible;
+    }
   }
 }
+
 .mat-dialog-actions {
   display: flex;
   width: 100%;

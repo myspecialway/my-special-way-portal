@@ -4,15 +4,28 @@
 
   <input type="text" class="form-control" placeholder="שם מפה" [(ngModel)]="mapName" />
 
-  <div ng2FileDrop [ngClass]="hasBaseDropZoneOver?'nv-file-over': 'upload-btn-wrapper'" (fileOver)="fileOverBase($event)"
-    [uploader]="uploader" (click)="fileInput.click()" class="well my-drop-zone">
-    <span>
+  <div ng2FileDrop class="upload-btn-wrapper"
+    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': fileUploaded }"
+    [uploader]="uploader" 
+    (fileOver)="fileOverBase($event)"
+    (onFileDrop)="onFileChosen()"
+    (click)="fileInput.click()">
+
+    <button class="add-button">
       <i class="material-icons">insert_photo</i>
       הוסף תמונה מקובץ
-      <input type="file" #fileInput ng2FileSelect [uploader]="uploader" style="display: none" />
-    </span>
+    </button>
 
-    <div class="progress-container" [hidden]="!uploader.getNotUploadedItems().length || !mapName">
+    <input type="file" #fileInput ng2FileSelect [uploader]="uploader"
+      [disabled]="fileUploaded"
+      (onFileSelected)="onFileChosen()" />
+    
+    <div class="chosen-file">
+      {{ fileName }}
+      <span class="remove" (click)="removeFile($event)">x</span>
+    </div>
+
+    <div class="progress-container" [ngClass]="{ 'visible': isSending }">
       <div class="progress">
         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
@@ -28,7 +41,10 @@
 
   <mat-dialog-actions>
     <button class="mat-button" (click)="close()">ביטול</button>
-    <button type="button" class="mat-raised-button mat-primary" (click)="uploader.uploadAll()" [disabled]="!mapName">
+    <button type="button"
+      class="mat-raised-button mat-primary"
+      [disabled]="!mapName || !fileUploaded"
+      (click)="sendMapFile()">
       הוסף
     </button>
   </mat-dialog-actions>
