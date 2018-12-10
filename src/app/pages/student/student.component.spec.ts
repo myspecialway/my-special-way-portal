@@ -196,7 +196,7 @@ describe('student component', () => {
       expect(comapare).toEqual(-1);
     }
   });
-  
+
   xit('should display an error to the user when deleteStudent fails', () => {});
 
   it('should not show no records massage if there is data', fakeAsync(() => {
