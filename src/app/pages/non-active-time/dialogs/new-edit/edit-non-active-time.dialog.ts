@@ -94,16 +94,14 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
   private setValuesForEdit(data: NonActiveTime) {
     const startDateTime = new Date(data.startDateTime);
     const endDateTime = new Date(data.endDateTime);
-    this.form.setValue({
-      title: data.title,
-      isAllDayEvent: data.isAllDayEvent,
-      startDateTime,
-      endDateTime,
-      startHour: parseHourStringFromDate(startDateTime),
-      endHour: parseHourStringFromDate(endDateTime),
-      isAllClassesEvent: data.isAllClassesEvent,
-      classes: data.classes,
-    });
+    this.form.setValue(
+      Object.assign(data, {
+        startDateTime,
+        endDateTime,
+        startHour: parseHourStringFromDate(startDateTime),
+        endHour: parseHourStringFromDate(endDateTime),
+      }),
+    );
   }
 
   private populateClasses() {
