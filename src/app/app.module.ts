@@ -21,6 +21,9 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -63,6 +66,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/new-edit/edit-non-active-time.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/delete/delete-non-active-time-dialogue.component';
 @NgModule({
@@ -93,8 +97,12 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
   ],
   declarations: [
     AppComponent,
@@ -121,6 +129,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
     DeleteNonActiveTimeDialogueComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -139,6 +148,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
     DeleteNonActiveTimeDialogueComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   providers: [
     AuthGuard,

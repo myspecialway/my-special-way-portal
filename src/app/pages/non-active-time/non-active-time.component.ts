@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
-import { Subscription } from 'rxjs';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
-import { EditLessonDialogComponent } from '../lesson/dialogs/new-edit/edit-lesson.dialog';
-import { first } from 'rxjs/operators';
 import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
+import { first } from 'rxjs/operators';
+import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
 
 @Component({
   selector: 'app-non-active-time',
@@ -21,7 +20,7 @@ export class NonActiveTimeComponent implements OnInit {
   sort: MatSort;
 
   @SubscriptionCleaner()
-  subCollector: Subscription;
+  subCollector;
 
   constructor(private nonActiveTimeService: NonActiveTimeService, public dialog: MatDialog) {}
 
@@ -43,9 +42,8 @@ export class NonActiveTimeComponent implements OnInit {
     }
   }
 
-  private openNonActiveTimeDialog(data: NonActiveTime) {
-    const dialogRef = this.dialog.open(EditLessonDialogComponent, {
-      //TODO - change to the right dialogue component
+  private openNonActiveTimeEditDialog(data: NonActiveTime) {
+    const dialogRef = this.dialog.open(EditNonActiveTimeDialogComponent, {
       data,
     });
     this.subCollector.add(
@@ -54,68 +52,38 @@ export class NonActiveTimeComponent implements OnInit {
         .pipe(first())
         .subscribe((result) => {
           if (result) {
-            if (data._id !== '') {
-              if (data.classes) {
-                this.nonActiveTimeService.update(
-                  data._id,
-                  data.title,
-                  data.isAllDayEvent,
-                  data.startDateTime,
-                  data.endDateTime,
-                  data.isAllClassesEvent,
-                  data.classes.map((classObj) => classObj._id),
-                );
-              } else {
-                this.nonActiveTimeService.update(
-                  data._id,
-                  data.title,
-                  data.isAllDayEvent,
-                  data.startDateTime,
-                  data.endDateTime,
-                  data.isAllClassesEvent,
-                  undefined,
-                );
-              }
+            const nonActiveTime = result as NonActiveTime;
+            if (data._id && data._id !== '') {
+              this.nonActiveTimeService.update(
+                nonActiveTime._id,
+                nonActiveTime.title,
+                nonActiveTime.isAllDayEvent,
+                nonActiveTime.startDateTime,
+                nonActiveTime.endDateTime,
+                nonActiveTime.isAllClassesEvent,
+                nonActiveTime.classes ? nonActiveTime.classes.map((c) => c._id) : [],
+              );
             } else {
-              if (data.classes) {
-                this.nonActiveTimeService.create(
-                  data.title,
-                  data.isAllDayEvent,
-                  data.startDateTime,
-                  data.endDateTime,
-                  data.isAllClassesEvent,
-                  data.classes.map((classObj) => classObj._id),
-                );
-              } else {
-                this.nonActiveTimeService.create(
-                  data.title,
-                  data.isAllDayEvent,
-                  data.startDateTime,
-                  data.endDateTime,
-                  data.isAllClassesEvent,
-                  undefined,
-                );
-              }
+              this.nonActiveTimeService.create(
+                nonActiveTime.title,
+                nonActiveTime.isAllDayEvent,
+                nonActiveTime.startDateTime,
+                nonActiveTime.endDateTime,
+                nonActiveTime.isAllClassesEvent,
+                nonActiveTime.classes ? nonActiveTime.classes.map((c) => c._id) : [],
+              );
             }
           }
         }),
     );
   }
 
-  public addNewNonActiveTime() {
-    this.openNonActiveTimeDialog({
-      _id: '',
-      title: '',
-      isAllDayEvent: false,
-      startDateTime: '0',
-      endDateTime: '0',
-      isAllClassesEvent: false,
-      classes: [],
-    });
+  public addNonActiveTime() {
+    this.openNonActiveTimeEditDialog({} as NonActiveTime);
   }
 
-  public editNewNonActiveTime(nonActiveTime: NonActiveTime): void {
-    this.openNonActiveTimeDialog(JSON.parse(JSON.stringify(nonActiveTime)));
+  public editNonActiveTime(nonActiveTime: NonActiveTime): void {
+    this.openNonActiveTimeEditDialog(JSON.parse(JSON.stringify(nonActiveTime)));
   }
 
   public async deleteNonActiveTime(nonActiveTime: NonActiveTime) {
