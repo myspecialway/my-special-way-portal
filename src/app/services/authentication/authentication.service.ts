@@ -71,6 +71,21 @@ export class AuthenticationService {
     }
   }
 
+  async restorePassword(email: string, firstname: string, lastname: string) {
+    try {
+      await this.http
+        .post<{ email: string; firstname: string; lastname: string }>(
+          environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT,
+          { email, firstname, lastname },
+        )
+        .toPromise();
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   private getProfileFromToken(token: string): UserProfileStateModel {
     const jwrParsedToken = this.parseToken(token);
     const userProfile = new UserProfileStateModel(jwrParsedToken);
