@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
-import { Lesson } from '../../models/lesson.model';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { Subscription } from 'rxjs';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
+import { EditLessonDialogComponent } from '../lesson/dialogs/new-edit/edit-lesson.dialog';
+import { first } from 'rxjs/operators';
+import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
 
 @Component({
   selector: 'app-non-active-time',
@@ -12,7 +14,7 @@ import { NonActiveTime } from '../../models/non-active-time.model';
   styleUrls: ['./non-active-time.component.scss'],
 })
 export class NonActiveTimeComponent implements OnInit {
-  displayedColumns = ['title', 'icon', 'deleteLesson'];
+  displayedColumns = ['title'];
   dataSource = new MatTableDataSource<NonActiveTime>();
 
   @ViewChild(MatSort)
@@ -21,17 +23,15 @@ export class NonActiveTimeComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector: Subscription;
 
-  constructor(private nonActiveTimeService: NonActiveTimeService) {}
+  constructor(private nonActiveTimeService: NonActiveTimeService, public dialog: MatDialog) {}
 
   async ngOnInit() {
     try {
       this.subCollector.add(
         this.nonActiveTimeService.getAllNonActiveTimes().subscribe((nonActiveTimes) => {
           if (nonActiveTimes !== null) {
-            console.log('I am here 1');
             this.dataSource.data = [...nonActiveTimes];
           } else {
-            console.log('I am here 2');
             this.dataSource.data = [];
           }
         }),
@@ -41,5 +41,96 @@ export class NonActiveTimeComponent implements OnInit {
       console.error('Error getting non active times');
       throw error;
     }
+  }
+
+  private openNonActiveTimeDialog(data: NonActiveTime) {
+    const dialogRef = this.dialog.open(EditLessonDialogComponent, {
+      //TODO - change to the right dialogue component
+      data,
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result) {
+            if (data._id !== '') {
+              if (data.classes) {
+                this.nonActiveTimeService.update(
+                  data._id,
+                  data.title,
+                  data.isAllDayEvent,
+                  data.startDateTime,
+                  data.endDateTime,
+                  data.isAllClassesEvent,
+                  data.classes.map((classObj) => classObj._id),
+                );
+              } else {
+                this.nonActiveTimeService.update(
+                  data._id,
+                  data.title,
+                  data.isAllDayEvent,
+                  data.startDateTime,
+                  data.endDateTime,
+                  data.isAllClassesEvent,
+                  undefined,
+                );
+              }
+            } else {
+              if (data.classes) {
+                this.nonActiveTimeService.create(
+                  data.title,
+                  data.isAllDayEvent,
+                  data.startDateTime,
+                  data.endDateTime,
+                  data.isAllClassesEvent,
+                  data.classes.map((classObj) => classObj._id),
+                );
+              } else {
+                this.nonActiveTimeService.create(
+                  data.title,
+                  data.isAllDayEvent,
+                  data.startDateTime,
+                  data.endDateTime,
+                  data.isAllClassesEvent,
+                  undefined,
+                );
+              }
+            }
+          }
+        }),
+    );
+  }
+
+  public addNewNonActiveTime() {
+    this.openNonActiveTimeDialog({
+      _id: '',
+      title: '',
+      isAllDayEvent: false,
+      startDateTime: '0',
+      endDateTime: '0',
+      isAllClassesEvent: false,
+      classes: [],
+    });
+  }
+
+  public editNewNonActiveTime(nonActiveTime: NonActiveTime): void {
+    this.openNonActiveTimeDialog(JSON.parse(JSON.stringify(nonActiveTime)));
+  }
+
+  public async deleteNonActiveTime(nonActiveTime: NonActiveTime) {
+    const dialogRef = this.dialog.open(DeleteNonActiveTimeDialogueComponent, {
+      data: { _id: nonActiveTime._id, title: nonActiveTime.title },
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (result) => {
+          if (result === true) {
+            this.nonActiveTimeService.delete(nonActiveTime._id);
+          }
+        }),
+    );
   }
 }

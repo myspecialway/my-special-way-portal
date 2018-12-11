@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { FetchResult } from 'apollo-link';
+import { Class } from '../../models/class.model';
+import { ClassService } from '../../pages/class/services/class.graphql.service';
+import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
   {
@@ -15,8 +18,9 @@ const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
       startDateTime
       endDateTime
       isAllClassesEvent
-      classesIds {
+      classes {
         _id
+        name
       }
     }
   }
@@ -32,10 +36,10 @@ mutation {
 const CREATE_NON_ACTIVE_TIME_QUERY = (
   title: string,
   isAllDayEvent: boolean,
-  startDateTime: number,
-  endDateTime: number,
+  startDateTime: string,
+  endDateTime: string,
   isAllClassesEvent: boolean,
-  classesIds: string[],
+  classesIds: string[] | undefined,
 ) => gql`
   mutation {
     createNonActiveTime(nonActiveTime: {
@@ -52,10 +56,10 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
   id: string,
   title: string,
   isAllDayEvent: boolean,
-  startDateTime: number,
-  endDateTime: number,
+  startDateTime: string,
+  endDateTime: string,
   isAllClassesEvent: boolean,
-  classesIds: string[],
+  classesIds: string[] | undefined,
 ) => gql`
  mutation {
   updateNonActiveTime(id: "${id}", nonActiveTime: {
@@ -70,16 +74,19 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
 
 @Injectable()
 export class NonActiveTimeService {
+  @SubscriptionCleaner()
+  subCollector: Subscription;
+
   constructor(private apollo: Apollo) {}
 
   public getAllNonActiveTimes(): Observable<NonActiveTime[]> {
     return this.apollo
-      .watchQuery<{ nonActiveTime: NonActiveTime[] }>({
+      .watchQuery<{ nonActiveTimes: NonActiveTime[] }>({
         query: GET_ALL_NON_ACTIVE_TIMES_QUERY,
       })
       .valueChanges.pipe(
         map((res) => {
-          return res.data.nonActiveTime;
+          return res.data.nonActiveTimes;
         }),
         catchError((err: TypeError) => {
           console.warn('user.component::ngInInit:: empty stream received');
@@ -91,10 +98,10 @@ export class NonActiveTimeService {
   public create(
     title: string,
     isAllDayEvent: boolean,
-    startDateTime: number,
-    endDateTime: number,
+    startDateTime: string,
+    endDateTime: string,
     isAllClassesEvent: boolean,
-    classes: string[],
+    classesIds: string[] | undefined,
   ): any {
     return this.apollo
       .mutate({
@@ -104,7 +111,7 @@ export class NonActiveTimeService {
           startDateTime,
           endDateTime,
           isAllClassesEvent,
-          classes,
+          classesIds,
         ),
         refetchQueries: [
           {
@@ -120,10 +127,10 @@ export class NonActiveTimeService {
     id: string,
     title: string,
     isAllDayEvent: boolean,
-    startDateTime: number,
-    endDateTime: number,
+    startDateTime: string,
+    endDateTime: string,
     isAllClassesEvent: boolean,
-    classesIds: string[],
+    classesIds: string[] | undefined,
   ): any {
     return this.apollo
       .mutate({
