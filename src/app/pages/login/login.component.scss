@@ -37,7 +37,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-  margin-top: 100px;
+  margin-top: 45px;
+  overflow: visible;
 }
 
 @-webkit-keyframes card {
@@ -59,10 +60,12 @@
 }
 .msw-login-logo-ph {
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  background-color: #d8d8d8;
+  width: 166px;
+  height: 96px;
+  background-color: white;
   margin-top: 20px;
+  margin-bottom: 40px;
+  padding-left: 20px;
 }
 .msw-login-title {
   margin-top: 20px;
@@ -70,7 +73,7 @@
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0.4px;
-  color: #6a00cf;
+  color: #8249d1;
 }
 
 .msw-login-subtitle {
@@ -93,19 +96,42 @@
 .msw-login-footer {
   margin-top: 36px;
   vertical-align: baseline;
-  //  font-size: 21px;
   letter-spacing: 0.4px;
   color: #222222;
   text-align: right;
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: 7%;
+  .img {
+    margin-right: 18%;
+  }
+}
+.gray-bar {
+  width: 73%;
+  height: 3px;
+  opacity: 0.4;
+  background-color: #d8d8d8;
+  margin-right: 2%;
 }
 
 .form-row,
 .card-form,
 .mat-form-field {
   width: 100%;
+  .forgot-password {
+    height: 14px;
+    width: 100%;
+    font-family: Rubik;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    text-align: left;
+    margin-top: -25px;
+  }
 }
 
 .card-form {
@@ -137,7 +163,7 @@
 }
 
 .card-footer button {
-  background-color: #6a00cf;
+  background-color: #8249d1;
   border-radius: 3px;
   color: #fff;
   height: 36px;
@@ -147,7 +173,7 @@
 .msw-login-checkbox {
   .mat-checkbox-checked {
     /deep/ .mat-checkbox-background {
-      background-color: #6a00cf;
+      background-color: #8249d1;
     }
   }
 }
