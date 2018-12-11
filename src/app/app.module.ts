@@ -63,7 +63,6 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
-import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
