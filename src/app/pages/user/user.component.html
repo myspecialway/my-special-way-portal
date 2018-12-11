@@ -80,7 +80,7 @@
           <ng-container matColumnDef="recoverpassword">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="recover-password-button" mat-icon-button [attr.data-test-id]="'recover-password-' + row.username" color="primary">שחזר סיסמא</button>
+              <button class="recover-password-button" mat-icon-button [attr.data-test-id]="'recover-password-' + row.username" (click)="restoreUserPassword(row)" color="primary">שחזר סיסמא</button>
             </mat-cell>
           </ng-container>
 
