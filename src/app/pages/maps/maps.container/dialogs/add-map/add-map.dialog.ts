@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
@@ -9,9 +9,8 @@ import { environment } from '../../../../../../environments/environment';
   templateUrl: './add-map.dialog.html',
   styleUrls: ['./add-map.dialog.scss'],
 })
-export class AddMapDialogComponent implements OnInit {
+export class AddMapDialogComponent {
   mapName = '';
-  fileName = '';
   isSending = false;
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
@@ -20,6 +19,32 @@ export class AddMapDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddMapDialogComponent>,
     private authenticationService: AuthenticationService,
   ) {
+    this.initUploader();
+  }
+
+  fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  onChangeFile(event: any): void {
+    event.srcElement.value = '';
+  }
+
+  removeFile(event) {
+    event.stopPropagation();
+    this.uploader.clearQueue();
+  }
+
+  sendFile() {
+    this.isSending = true;
+    this.uploader.uploadAll();
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  private initUploader() {
     this.uploader = new FileUploader({
       queueLimit: 1,
       url: environment.hotConfig.MSW_HOT_UPLOAD_MAP,
@@ -41,31 +66,5 @@ export class AddMapDialogComponent implements OnInit {
       console.log('ImageUpload:onCompleteItem:', item, status, response);
       this.close();
     };
-
-    this.hasBaseDropZoneOver = false;
-  }
-  onChangeFile(event: any): void {
-    event.srcElement.value = '';
-  }
-  ngOnInit(): void {}
-
-  fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
-
-  filesCatchEvents(count) {}
-
-  close(): void {
-    this.dialogRef.close();
-  }
-
-  removeFile(event) {
-    event.stopPropagation();
-    this.uploader.clearQueue();
-  }
-
-  sendMapFile() {
-    this.isSending = true;
-    this.uploader.uploadAll();
   }
 }
