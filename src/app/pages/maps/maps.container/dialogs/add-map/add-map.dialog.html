@@ -5,15 +5,14 @@
   <input type="text" class="form-control" placeholder="שם מפה" [(ngModel)]="mapName" />
 
   <div ng2FileDrop class="upload-btn-wrapper" [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length > 0 }"
-    [uploader]="uploader" (fileOver)="fileOverBase($event)" (onFileDrop)="onFileChosen()" (click)="fileInput.click()">
+    [uploader]="uploader" (fileOver)="fileOverBase($event)" (click)="fileInput.click()">
 
     <button class="add-button">
       <i class="material-icons">insert_photo</i>
       הוסף תמונה מקובץ
     </button>
 
-    <input type="file" #fileInput ng2FileSelect [uploader]="uploader" [disabled]="uploader.getNotUploadedItems().length > 0"
-      (onFileSelected)="onFileChosen()" />
+    <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (change)="onChangeFile($event)" [disabled]="uploader.getNotUploadedItems().length > 0"/>
 
     <div *ngFor="let item of uploader.queue">
       <div class="chosen-file">

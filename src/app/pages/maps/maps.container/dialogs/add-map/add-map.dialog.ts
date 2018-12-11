@@ -44,7 +44,9 @@ export class AddMapDialogComponent implements OnInit {
 
     this.hasBaseDropZoneOver = false;
   }
-
+  onChangeFile(event: any): void {
+    event.srcElement.value = '';
+  }
   ngOnInit(): void {}
 
   fileOverBase(e: any): void {
