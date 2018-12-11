@@ -62,7 +62,6 @@ import { DeleteNonActiveTimeDialogueComponent } from './non-active-time/delete/d
     MapViewComponent,
     UniqueUsernameValidatorDirective,
     NonActiveTimeComponent,
-    DeleteNonActiveTimeDialogueComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

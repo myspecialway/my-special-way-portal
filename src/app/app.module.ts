@@ -64,6 +64,7 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/suc
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/delete/delete-non-active-time-dialogue.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -119,6 +120,7 @@ import { NonActiveTimeService } from './services/non-active-time/non-active-time
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogueComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
@@ -136,6 +138,7 @@ import { NonActiveTimeService } from './services/non-active-time/non-active-time
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogueComponent,
   ],
   providers: [
     AuthGuard,

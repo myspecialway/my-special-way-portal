@@ -14,7 +14,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active
   styleUrls: ['./non-active-time.component.scss'],
 })
 export class NonActiveTimeComponent implements OnInit {
-  displayedColumns = ['title', 'classes', 'dates', 'hours'];
+  displayedColumns = ['title', 'classes', 'dates', 'hours', 'deleteNonActiveTime'];
   dataSource = new MatTableDataSource<NonActiveTime>();
 
   @ViewChild(MatSort)
