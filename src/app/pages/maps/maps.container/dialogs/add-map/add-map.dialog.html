@@ -4,25 +4,22 @@
 
   <input type="text" class="form-control" placeholder="שם מפה" [(ngModel)]="mapName" />
 
-  <div ng2FileDrop class="upload-btn-wrapper"
-    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': fileUploaded }"
-    [uploader]="uploader" 
-    (fileOver)="fileOverBase($event)"
-    (onFileDrop)="onFileChosen()"
-    (click)="fileInput.click()">
+  <div ng2FileDrop class="upload-btn-wrapper" [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length > 0 }"
+    [uploader]="uploader" (fileOver)="fileOverBase($event)" (onFileDrop)="onFileChosen()" (click)="fileInput.click()">
 
     <button class="add-button">
       <i class="material-icons">insert_photo</i>
       הוסף תמונה מקובץ
     </button>
 
-    <input type="file" #fileInput ng2FileSelect [uploader]="uploader"
-      [disabled]="fileUploaded"
+    <input type="file" #fileInput ng2FileSelect [uploader]="uploader" [disabled]="uploader.getNotUploadedItems().length > 0"
       (onFileSelected)="onFileChosen()" />
-    
-    <div class="chosen-file">
-      {{ fileName }}
-      <span class="remove" (click)="removeFile($event)">x</span>
+
+    <div *ngFor="let item of uploader.queue">
+      <div class="chosen-file">
+        <strong>{{ item?.file?.name }}</strong>
+        <span class="remove" (click)="removeFile($event)">x</span>
+      </div>
     </div>
 
     <div class="progress-container" [ngClass]="{ 'visible': isSending }">
@@ -31,20 +28,11 @@
       </div>
     </div>
 
-    <!-- <div *ngFor="let item of uploader.queue">
-      <div class="chosen-file">
-        {{ fileName }}
-        <span (click)="item.cancel()">x</span>
-      </div>
-    </div> -->
   </div>
 
   <mat-dialog-actions>
     <button class="mat-button" (click)="close()">ביטול</button>
-    <button type="button"
-      class="mat-raised-button mat-primary"
-      [disabled]="!mapName || !fileUploaded"
-      (click)="sendMapFile()">
+    <button type="button" class="mat-raised-button mat-primary" [disabled]="!mapName || !uploader.getNotUploadedItems().length" (click)="sendMapFile()">
       הוסף
     </button>
   </mat-dialog-actions>

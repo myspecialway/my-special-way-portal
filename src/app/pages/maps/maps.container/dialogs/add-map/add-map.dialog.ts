@@ -13,7 +13,6 @@ export class AddMapDialogComponent implements OnInit {
   mapName = '';
   fileName = '';
   isSending = false;
-  fileUploaded = false;
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
 
@@ -22,6 +21,7 @@ export class AddMapDialogComponent implements OnInit {
     private authenticationService: AuthenticationService,
   ) {
     this.uploader = new FileUploader({
+      queueLimit: 1,
       url: environment.hotConfig.MSW_HOT_UPLOAD_MAP,
       itemAlias: 'mapFilename',
       headers: [
@@ -57,15 +57,9 @@ export class AddMapDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onFileChosen() {
-    this.fileUploaded = true;
-    this.fileName = this.uploader.queue[0].file.name;
-  }
-
   removeFile(event) {
     event.stopPropagation();
     this.uploader.clearQueue();
-    this.fileUploaded = false;
   }
 
   sendMapFile() {
