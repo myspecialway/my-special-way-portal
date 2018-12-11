@@ -14,7 +14,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active
   styleUrls: ['./non-active-time.component.scss'],
 })
 export class NonActiveTimeComponent implements OnInit {
-  displayedColumns = ['title', 'classes', 'dates'];
+  displayedColumns = ['title', 'classes', 'dates', 'hours'];
   dataSource = new MatTableDataSource<NonActiveTime>();
 
   @ViewChild(MatSort)
@@ -151,5 +151,15 @@ export class NonActiveTimeComponent implements OnInit {
     }
 
     return result;
+  }
+
+  getHoursDisplayData(row: NonActiveTime): string {
+    if (row.isAllDayEvent) return 'כל היום';
+    const startDateTime = new Date(row.startDateTime);
+    const endDateTime = new Date(row.endDateTime);
+    const options = { hour: 'numeric', minute: 'numeric' };
+    return (
+      startDateTime.toLocaleTimeString('he-IL', options) + ' עד ' + endDateTime.toLocaleTimeString('he-IL', options)
+    );
   }
 }

@@ -45,6 +45,14 @@
             </mat-cell>
           </ng-container>
 
+          <!-- Hours Column -->
+          <ng-container matColumnDef="hours">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שעות</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+              <div>{{getHoursDisplayData(row)}}</div>
+            </mat-cell>
+          </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
