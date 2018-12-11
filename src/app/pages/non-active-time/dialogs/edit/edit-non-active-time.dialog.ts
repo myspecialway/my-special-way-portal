@@ -65,7 +65,7 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       { validator: HourValidator.hourRangeValidator },
     );
 
-    if (this.data._id) {
+    if (this.data._id && this.data._id !== '') {
       this.setValuesForEdit(this.data);
     }
     this.populateClasses();
@@ -79,16 +79,25 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
 
   public submitForm() {
     if (this.validateAllFormFields(this.form)) {
-      this.prepareFormValuesToOutput();
-      this.dialogRef.close(this.form.value);
+      this.dialogRef.close(this.prepareOutput());
     }
   }
 
-  private prepareFormValuesToOutput() {
+  private prepareOutput(): NonActiveTime {
     const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, min: 0 };
     const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, min: 0 };
-    this.form.value.startDateTime = this.form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
-    this.form.value.endDateTime = this.form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
+    this.form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
+    this.form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
+
+    return {
+      _id: this.data._id,
+      title: this.form.value.title,
+      isAllDayEvent: this.form.value.isAllDayEvent,
+      startDateTime: this.form.value.startDateTime.toUTCString(),
+      endDateTime: this.form.value.endDateTime.toUTCString(),
+      isAllClassesEvent: this.form.value.isAllClassesEvent,
+      classesIds: this.form.value.classes ? this.form.value.classes.map((c) => c._id) : undefined,
+    };
   }
 
   private setValuesForEdit(data: NonActiveTime) {
