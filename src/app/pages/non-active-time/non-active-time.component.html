@@ -21,11 +21,19 @@
         <mat-table #table [dataSource]="dataSource" class="msw-table" matSort matSortActive="title" matSortDisableClear
                    matSortDirection="asc" >
 
-          <!-- Name Column -->
+          <!-- Title Column -->
           <ng-container matColumnDef="title" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>אירוע</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
               <div>{{row.title}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Classes Column -->
+          <ng-container matColumnDef="classes">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+              <div>{{getClassesDisplayData(row)}}</div>
             </mat-cell>
           </ng-container>
 

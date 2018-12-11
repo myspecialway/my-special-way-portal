@@ -14,7 +14,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active
   styleUrls: ['./non-active-time.component.scss'],
 })
 export class NonActiveTimeComponent implements OnInit {
-  displayedColumns = ['title'];
+  displayedColumns = ['title', 'classes'];
   dataSource = new MatTableDataSource<NonActiveTime>();
 
   @ViewChild(MatSort)
@@ -132,5 +132,12 @@ export class NonActiveTimeComponent implements OnInit {
           }
         }),
     );
+  }
+
+  getClassesDisplayData(row: NonActiveTime): string {
+    if (row.isAllClassesEvent) return 'כל הכיתות';
+    if (!row.classes) throw new Error('Non active time is marked for specific classes, but no classes were specified');
+    if (row.classes.length === 1) return row.classes[0].name;
+    return row.classes[0].name + ' + ' + (row.classes.length - 1);
   }
 }
