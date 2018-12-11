@@ -66,7 +66,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
-import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/new-edit/edit-non-active-time.dialog';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/delete/delete-non-active-time-dialogue.component';
 @NgModule({
