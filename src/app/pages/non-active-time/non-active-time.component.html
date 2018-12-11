@@ -64,6 +64,10 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <div *ngIf="dataSource.data.length === 0" class="no-records-msg">
+          <i class="material-icons md-48">info_outline</i>
+          <h4>כרגע לא מוגדרים זמני אי פעילות</h4>
+        </div>
       </div>
     </div>
   </div>
