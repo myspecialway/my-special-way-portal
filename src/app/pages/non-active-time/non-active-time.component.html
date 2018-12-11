@@ -37,6 +37,14 @@
             </mat-cell>
           </ng-container>
 
+          <!-- Dates Column -->
+          <ng-container matColumnDef="dates">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+              <div>{{getDatesDisplayData(row)}}</div>
+            </mat-cell>
+          </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>

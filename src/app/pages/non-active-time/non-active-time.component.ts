@@ -14,7 +14,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active
   styleUrls: ['./non-active-time.component.scss'],
 })
 export class NonActiveTimeComponent implements OnInit {
-  displayedColumns = ['title', 'classes'];
+  displayedColumns = ['title', 'classes', 'dates'];
   dataSource = new MatTableDataSource<NonActiveTime>();
 
   @ViewChild(MatSort)
@@ -139,5 +139,17 @@ export class NonActiveTimeComponent implements OnInit {
     if (!row.classes) throw new Error('Non active time is marked for specific classes, but no classes were specified');
     if (row.classes.length === 1) return row.classes[0].name;
     return row.classes[0].name + ' + ' + (row.classes.length - 1);
+  }
+
+  getDatesDisplayData(row: NonActiveTime): string {
+    const startDateTime = new Date(row.startDateTime);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    let result: string = startDateTime.toLocaleDateString('he-IL', options);
+    if (row.startDateTime !== row.endDateTime) {
+      const endDateTime = new Date(row.startDateTime);
+      result += ' עד ' + endDateTime.toLocaleDateString('he-IL', options);
+    }
+
+    return result;
   }
 }
