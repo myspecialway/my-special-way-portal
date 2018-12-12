@@ -53,14 +53,28 @@ export class AddStudentReminderDialogComponent implements OnInit {
     this.data.schedule.push(getNewReminder());
   }
 
-  toggleDay(dayIndex: number, block: IReminderTime) {
+  toggleDay(selectedIndex: number, block: IReminderTime) {
     this.dirty = true;
-    if (this.isDaySelected(dayIndex, block)) {
-      block.daysindex.delete(dayIndex);
+    type Action = 'delete' | 'add';
+    const weekDaysIndexes = [0, 1, 2, 3, 4];
+    const multiDayIndex = 6;
+    let daysIndexes: number[];
+    let action: Action = this.isDaySelected(selectedIndex, block) ? 'delete' : 'add';
+
+    if (selectedIndex === multiDayIndex) {
+      daysIndexes = [...weekDaysIndexes];
     } else {
-      block.daysindex.add(dayIndex);
+      daysIndexes = [selectedIndex];
     }
-    console.log(dayIndex);
+
+    daysIndexes.forEach((i) => {
+      block.daysindex[action](i);
+    });
+
+    // if week day is toggled off - toggle off the multi-day button, too
+    const shouldSelectMultiDayIndex = weekDaysIndexes.every((i) => this.isDaySelected(i, block));
+    action = shouldSelectMultiDayIndex ? 'add' : 'delete';
+    block.daysindex[action](multiDayIndex);
   }
 
   selectHour(hour: string, block: IReminderTime) {
@@ -92,7 +106,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.daySelected);
+    // console.log(this.daySelected);
     // if (!this.daySelected) {
     //
     // }
