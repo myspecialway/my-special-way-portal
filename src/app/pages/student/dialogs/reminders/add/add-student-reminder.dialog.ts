@@ -104,11 +104,4 @@ export class AddStudentReminderDialogComponent implements OnInit {
   private getSortedHours(hours: Set<string>) {
     return new Set<string>([...Array.from(hours)].sort());
   }
-
-  submit() {
-    // console.log(this.daySelected);
-    // if (!this.daySelected) {
-    //
-    // }
-  }
 }
