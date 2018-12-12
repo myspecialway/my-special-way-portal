@@ -1,0 +1,731 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditNonActiveTimeDialogComponent should render component as described in snapshot 1`] = `
+<app-edit-non-active-time
+  addButtonTitle={[Function String]}
+  addDialogTitle={[Function String]}
+  classService={[Function Object]}
+  data={[Function Object]}
+  dialogRef={[Function Object]}
+  formBuilder={[Function FormBuilder]}
+  hours={[Function Array]}
+  updateButtonTitle={[Function String]}
+  updateDialogTitle={[Function String]}
+>
+  <form
+    novalidate=""
+  >
+    <div
+      class="container"
+    >
+      <h3
+        class="mat-dialog-title"
+        mat-dialog-title=""
+      >
+        
+      </h3>
+      <div
+        class="mat-dialog-content"
+        mat-dialog-content=""
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col"
+          >
+            <mat-form-field
+              class="w-100 mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      formcontrolname="title"
+                      matinput=""
+                      name="title"
+                    />
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col w-25"
+          >
+            <mat-form-field
+              class="app-input-no-underline app-form-field-no-padding-bottom mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      matinput=""
+                      style="display: none"
+                    />
+                    <mat-radio-group
+                      class="mat-radio-group"
+                      formcontrolname="isAllClassesEvent"
+                      role="radiogroup"
+                    >
+                      <mat-radio-button
+                        class="mat-radio-button mat-accent"
+                        color="primary"
+                      >
+                        <label
+                          class="mat-radio-label"
+                        >
+                          <div
+                            class="mat-radio-container"
+                          >
+                            <div
+                              class="mat-radio-outer-circle"
+                            />
+                            <div
+                              class="mat-radio-inner-circle"
+                            />
+                            <div
+                              class="mat-radio-ripple mat-ripple"
+                              mat-ripple=""
+                            />
+                          </div>
+                          <input
+                            class="mat-radio-input cdk-visually-hidden"
+                            type="radio"
+                          />
+                          <div
+                            class="mat-radio-label-content"
+                          >
+                            <span
+                              style="display:none"
+                            >
+                               
+                            </span>
+                             בחר כיתה 
+                          </div>
+                        </label>
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+          <div
+            class="col w-50"
+          >
+            <mat-form-field
+              class="app-form-field-no-padding-bottom mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <mat-select
+                      class="mat-select"
+                      formcontrolname="classes"
+                      multiple=""
+                      role="listbox"
+                    >
+                      <div
+                        aria-hidden="true"
+                        cdk-overlay-origin=""
+                        class="mat-select-trigger"
+                      >
+                        <div
+                          class="mat-select-value"
+                        >
+                          
+                          
+                        </div>
+                        <div
+                          class="mat-select-arrow-wrapper"
+                        >
+                          <div
+                            class="mat-select-arrow"
+                          />
+                        </div>
+                      </div>
+                      
+                    </mat-select>
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+            
+          </div>
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col w-25"
+          >
+            <mat-form-field
+              class="app-input-no-underline app-form-field-no-border app-form-field-no-padding-bottom mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      matinput=""
+                      style="display: none"
+                    />
+                    <mat-radio-group
+                      class="mat-radio-group"
+                      formcontrolname="isAllClassesEvent"
+                      role="radiogroup"
+                    >
+                      <mat-radio-button
+                        class="mat-radio-button mat-accent"
+                        color="primary"
+                      >
+                        <label
+                          class="mat-radio-label"
+                        >
+                          <div
+                            class="mat-radio-container"
+                          >
+                            <div
+                              class="mat-radio-outer-circle"
+                            />
+                            <div
+                              class="mat-radio-inner-circle"
+                            />
+                            <div
+                              class="mat-radio-ripple mat-ripple"
+                              mat-ripple=""
+                            />
+                          </div>
+                          <input
+                            class="mat-radio-input cdk-visually-hidden"
+                            type="radio"
+                          />
+                          <div
+                            class="mat-radio-label-content"
+                          >
+                            <span
+                              style="display:none"
+                            >
+                               
+                            </span>
+                             כל הכיתות 
+                          </div>
+                        </label>
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider
+          class="mat-divider"
+          role="separator"
+        />
+        <div
+          class="row"
+        >
+          <div
+            class="col date-input-field"
+          >
+            <mat-form-field
+              class="date mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      formcontrolname="startDateTime"
+                      matinput=""
+                      readonly=""
+                    />
+                    <mat-datepicker
+                      touchui=""
+                    />
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+          <div
+            class="col label-between-fields"
+          >
+            <span>
+              עד
+            </span>
+          </div>
+          <div
+            class="col date-input-field"
+          >
+            <mat-form-field
+              class="date mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      formcontrolname="endDateTime"
+                      matinput=""
+                      readonly=""
+                    />
+                    <mat-datepicker
+                      touchui=""
+                    />
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider
+          class="mat-divider"
+          role="separator"
+        />
+        <div
+          class="row"
+        >
+          <div
+            class="col w-25"
+          >
+            <mat-form-field
+              class="app-input-no-underline app-form-field-no-padding-bottom mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      matinput=""
+                      style="display: none"
+                    />
+                    <mat-radio-group
+                      class="mat-radio-group"
+                      formcontrolname="isAllDayEvent"
+                      role="radiogroup"
+                    >
+                      <mat-radio-button
+                        class="mat-radio-button mat-accent"
+                        color="primary"
+                      >
+                        <label
+                          class="mat-radio-label"
+                        >
+                          <div
+                            class="mat-radio-container"
+                          >
+                            <div
+                              class="mat-radio-outer-circle"
+                            />
+                            <div
+                              class="mat-radio-inner-circle"
+                            />
+                            <div
+                              class="mat-radio-ripple mat-ripple"
+                              mat-ripple=""
+                            />
+                          </div>
+                          <input
+                            class="mat-radio-input cdk-visually-hidden"
+                            type="radio"
+                          />
+                          <div
+                            class="mat-radio-label-content"
+                          >
+                            <span
+                              style="display:none"
+                            >
+                               
+                            </span>
+                             שעות 
+                          </div>
+                        </label>
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+          <div
+            class="col w-50"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col date-input-field"
+              >
+                <mat-form-field
+                  class="hour app-form-field-no-padding-bottom mat-form-field mat-primary"
+                >
+                  <div
+                    class="mat-form-field-wrapper"
+                  >
+                    <div
+                      class="mat-form-field-flex"
+                    >
+                      
+                      
+                      <div
+                        class="mat-form-field-infix"
+                      >
+                        <input
+                          class="text-center mat-input-element mat-form-field-autofill-control"
+                          formcontrolname="startHour"
+                          matinput=""
+                          type="text"
+                        />
+                        <span
+                          class="mat-form-field-label-wrapper"
+                        >
+                          
+                        </span>
+                      </div>
+                      
+                    </div>
+                    
+                    <div
+                      class="mat-form-field-subscript-wrapper"
+                    >
+                      
+                      
+                    </div>
+                  </div>
+                </mat-form-field>
+                <mat-autocomplete
+                  class="mat-autocomplete"
+                >
+                  
+                </mat-autocomplete>
+                
+              </div>
+              <div
+                class="col label-between-fields"
+              >
+                <span>
+                  עד
+                </span>
+              </div>
+              <div
+                class="col date-input-field"
+              >
+                <mat-form-field
+                  class="hour app-form-field-no-padding-bottom mat-form-field mat-primary"
+                >
+                  <div
+                    class="mat-form-field-wrapper"
+                  >
+                    <div
+                      class="mat-form-field-flex"
+                    >
+                      
+                      
+                      <div
+                        class="mat-form-field-infix"
+                      >
+                        <input
+                          class="text-center mat-input-element mat-form-field-autofill-control"
+                          formcontrolname="endHour"
+                          matinput=""
+                          type="text"
+                        />
+                        <span
+                          class="mat-form-field-label-wrapper"
+                        >
+                          
+                        </span>
+                      </div>
+                      
+                    </div>
+                    
+                    <div
+                      class="mat-form-field-subscript-wrapper"
+                    >
+                      
+                      
+                    </div>
+                  </div>
+                </mat-form-field>
+                <mat-autocomplete
+                  class="mat-autocomplete"
+                >
+                  
+                </mat-autocomplete>
+                
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col w-25"
+          >
+            <mat-form-field
+              class="app-input-no-underline app-form-field-no-border app-form-field-no-padding-bottom mat-form-field mat-primary"
+            >
+              <div
+                class="mat-form-field-wrapper"
+              >
+                <div
+                  class="mat-form-field-flex"
+                >
+                  
+                  
+                  <div
+                    class="mat-form-field-infix"
+                  >
+                    <input
+                      class="mat-input-element mat-form-field-autofill-control"
+                      matinput=""
+                      style="display: none"
+                    />
+                    <mat-radio-group
+                      class="mat-radio-group"
+                      formcontrolname="isAllDayEvent"
+                      role="radiogroup"
+                    >
+                      <mat-radio-button
+                        class="mat-radio-button mat-accent"
+                        color="primary"
+                      >
+                        <label
+                          class="mat-radio-label"
+                        >
+                          <div
+                            class="mat-radio-container"
+                          >
+                            <div
+                              class="mat-radio-outer-circle"
+                            />
+                            <div
+                              class="mat-radio-inner-circle"
+                            />
+                            <div
+                              class="mat-radio-ripple mat-ripple"
+                              mat-ripple=""
+                            />
+                          </div>
+                          <input
+                            class="mat-radio-input cdk-visually-hidden"
+                            type="radio"
+                          />
+                          <div
+                            class="mat-radio-label-content"
+                          >
+                            <span
+                              style="display:none"
+                            >
+                               
+                            </span>
+                             כל היום 
+                          </div>
+                        </label>
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <span
+                      class="mat-form-field-label-wrapper"
+                    >
+                      
+                    </span>
+                  </div>
+                  
+                </div>
+                
+                <div
+                  class="mat-form-field-subscript-wrapper"
+                >
+                  
+                  
+                </div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mat-dialog-actions"
+        mat-dialog-actions=""
+      >
+        <button
+          class="msw-button-cancel"
+          data-test-id="cancel-button"
+          mat-button=""
+          tabindex="-1"
+          type="button"
+        >
+          ביטול
+        </button>
+        <button
+          class="msw-button-submit"
+          data-test-id="submit-button"
+          mat-button=""
+          type="submit"
+        >
+           
+        </button>
+      </div>
+    </div>
+  </form>
+</app-edit-non-active-time>
+`;

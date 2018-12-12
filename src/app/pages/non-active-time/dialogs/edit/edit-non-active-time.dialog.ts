@@ -7,7 +7,7 @@ import { NonActiveTime } from '../../../../models/non-active-time.model';
 import { ClassService } from '../../../class/services/class.graphql.service';
 import { Class } from '../../../../models/class.model';
 import { AppDateAdapter } from '../../../../utils/date.adapter';
-import { HourValidator } from '../../../../validators/HourValidator';
+import { HourValidator } from '../../../../validators/hour-validator/HourValidator';
 import { toHour, parseHourStringFromDate } from '../../../../utils/hours.utils';
 
 export const MY_DATE_FORMATS = {
@@ -44,8 +44,8 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
   classes: Class[];
 
   constructor(
-    private formBuilder: FormBuilder,
-    private classService: ClassService,
+    public formBuilder: FormBuilder,
+    public classService: ClassService,
     public dialogRef: MatDialogRef<EditNonActiveTimeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NonActiveTime,
   ) {}
@@ -77,26 +77,27 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public submitForm() {
-    if (this.validateAllFormFields(this.form)) {
-      this.dialogRef.close(this.prepareOutput());
+  public submitForm(form: FormGroup) {
+    if (this.validateAllFormFields(form)) {
+      this.dialogRef.close(this.prepareOutput(form));
     }
   }
 
-  private prepareOutput(): NonActiveTime {
-    const startHour = toHour(this.form.getRawValue().startHour) || { hour: 0, min: 0 };
-    const endHour = toHour(this.form.getRawValue().endHour) || { hour: 0, min: 0 };
-    this.form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
-    this.form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
+  private prepareOutput(form: FormGroup): NonActiveTime {
+    const startHour = toHour(form.getRawValue().startHour) || { hour: 0, min: 0 };
+    const endHour = toHour(form.getRawValue().endHour) || { hour: 0, min: 0 };
+    form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
+    form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
 
     return {
       _id: this.data._id,
-      title: this.form.value.title,
-      isAllDayEvent: this.form.value.isAllDayEvent,
-      startDateTime: this.form.value.startDateTime.toUTCString(),
-      endDateTime: this.form.value.endDateTime.toUTCString(),
-      isAllClassesEvent: this.form.value.isAllClassesEvent,
-      classesIds: this.form.value.classes ? this.form.value.classes.map((c) => c._id) : undefined,
+      title: form.value.title,
+      isAllDayEvent: form.value.isAllDayEvent,
+      startDateTime: form.value.startDateTime.toUTCString(),
+      endDateTime: form.value.endDateTime.toUTCString(),
+      isAllClassesEvent: form.value.isAllClassesEvent,
+      classesIds:
+        form.value.classes && form.value.classes.length > 0 ? form.value.classes.map((c) => c._id) : undefined,
     };
   }
 
