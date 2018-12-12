@@ -1,3 +1,4 @@
+import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -118,6 +119,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteBlockDialogComponent,
     AddUpdateBlockDialogComponent,
     DeleteLessonDialogComponent,
+    AddEditPointDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
@@ -138,6 +140,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     AddUpdateBlockDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
+    AddEditPointDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,

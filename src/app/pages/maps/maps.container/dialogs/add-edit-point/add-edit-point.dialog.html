@@ -1,0 +1,41 @@
+<div class="container add-update-point-modal">
+  <h3 mat-dialog-title>{{dialogTitle}}</h3>
+
+<mat-divider></mat-divider>
+ <mat-dialog-content>
+  <form class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
+    <div class="point-details">
+      <mat-form-field color="primary">
+        <input matInput #input formControlName="location_id" class="form-control" placeholder="נקודה" [(ngModel)]="data.location_id" name="location_id">
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary">
+        <input matInput #input formControlName="name" class="form-control" placeholder="שם" [(ngModel)]="data.name" name="name">
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary">
+        <mat-select placeholder="נקודה" formControlName="type" (ngModelChange)="onTypeSelect($event)" [formControl]="type">
+            <mat-option disabled>בחר</mat-option>
+            <mat-option *ngFor="let pointType of pointTypes" [value]="pointType">{{pointType}}</mat-option>
+          </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="icons-list-container">
+        <button type="button" *ngFor="let icon of icons" (click)='onIconClick(icon)'>
+          <div class="icons-container" ngClass="{{data.icon === icon ? 'lesson-icon-selected' : '' }}">
+            <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
+          </div>
+        </button>
+      </div>
+  </form>
+ </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-button"  (click)="close()">ביטול</button>
+    <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)">
+      {{data.isNewPoint ? 'הוסף' :
+    'עדכן'}}
+      </button>
+  </mat-dialog-actions>
+</div>
