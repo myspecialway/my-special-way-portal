@@ -26,7 +26,6 @@ import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/stud
 import { StudentDetailsHoursComponent } from './student/details/tabs/student-details-hours/student-details-hours.component';
 import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
-import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
 
 @NgModule({
   imports: [

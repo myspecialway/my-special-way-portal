@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators/map';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
-import gql from 'graphql-tag';
 
 import BlockedSection from '../../../../models/blocked-section.model';
 import { QUERY_GET_ALL_BLOCKED_SECTIONS, MUTATE_ADD_BLOCKED_SECTION } from './maps.graphql';
