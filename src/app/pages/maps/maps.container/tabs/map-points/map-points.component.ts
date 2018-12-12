@@ -29,7 +29,10 @@ export class MapPointsComponent implements OnInit {
   }
 
   updateFloorLocations() {
-    this.currentFloorLocations = this.locations.filter((location) => location.position.floor === this.floor);
+    this.currentFloorLocations = this.locations
+      .filter((location) => location.position.floor === this.floor)
+      // todo - integrate icon as part of Location DB model
+      .map((location) => ({ ...location, icon: '' }));
   }
 
   onDelete(point: Location) {
