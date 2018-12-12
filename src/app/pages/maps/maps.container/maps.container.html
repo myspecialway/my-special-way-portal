@@ -32,26 +32,26 @@
         </div>
         <div class="msw-table-container" *ngIf="activeLink === links[1].label">
           <mat-table [dataSource]="dataSource" class="msw-table">
-            <ng-container matColumnDef="blockedReason">
+            <ng-container matColumnDef="reason">
               <mat-header-cell *matHeaderCellDef>סיבת חסימה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.blockedReason}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.reason}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="fromPoint">
+            <ng-container matColumnDef="from">
               <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.fromPoint}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.from}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="toPoint">
+            <ng-container matColumnDef="to">
               <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.blockedReason, row.fromPoint, row.toPoint)">{{row.toPoint}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.to}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deleteBlock">
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-block-button-' + 'A' + 'B'"
-                        (click)="deleteBlock(row.fromPoint, row.toPoint, row.blockedReason)"><i class="material-icons"> delete </i> </button>
+                        (click)="deleteBlock(row.from, row.to, row.reason)"><i class="material-icons"> delete </i> </button>
               </mat-cell>
             </ng-container>
 

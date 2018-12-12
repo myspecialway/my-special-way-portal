@@ -58,7 +58,6 @@ import { MapsContainerComponent } from './maps/maps.container/maps.container.com
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
     MapContainerComponent,
-    MapsContainerComponent,
     MapViewComponent,
     UniqueUsernameValidatorDirective,
   ],

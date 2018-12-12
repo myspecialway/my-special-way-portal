@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { map } from 'rxjs/operators/map';
+import { of as observableOf } from 'rxjs/observable/of';
+import { catchError } from 'rxjs/operators/catchError';
+import gql from 'graphql-tag';
+
+import BlockedSection from '../../../../models/blocked-section.model';
+import { QUERY_GET_ALL_BLOCKED_SECTIONS } from './maps.graphql';
+
+@Injectable()
+export class MapsService {
+  constructor(private apollo: Apollo) {}
+
+  getAllBlockedSections() {
+    return this.apollo
+      .watchQuery<{ blockedSections: BlockedSection[] }>({
+        query: QUERY_GET_ALL_BLOCKED_SECTIONS,
+      })
+      .valueChanges.pipe(
+        map((res) => {
+          return res.data.blockedSections;
+        }),
+        catchError((err: TypeError) => {
+          return observableOf([]);
+        }),
+      );
+  }
+
+  // create(blockedSection: BlockedSection) {
+  //   return this.apollo
+  //     .mutate({
+  //       mutation: gql`
+  //      mutation {
+  //       createBlockedSection(blockedSection: {
+  //         reason: "${blockedSection.reason}"
+  //         from: "${blockedSection.from}"
+  //         to: "${blockedSection.to}"
+  //          }) { _id }
+  //     }
+  //   `,
+  //       refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
+  //     })
+  //     .toPromise()
+  //     .then((res) => {
+  //       if (res.data) {
+  //         return res.data.createBlockedSection;
+  //       }
+  //     });
+  // }
+}

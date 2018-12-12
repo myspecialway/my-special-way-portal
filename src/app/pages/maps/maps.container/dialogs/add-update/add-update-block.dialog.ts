@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { BlockedSection } from '../../../../../models/BlockedSection.model';
+import BlockedSection from '../../../../../models/blocked-section.model';
 
 @Component({
   selector: 'app-add-update-block.dialog',

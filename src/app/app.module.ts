@@ -21,6 +21,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -63,6 +64,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
+import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -85,6 +87,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -101,11 +104,13 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     ClassComponent,
     LessonComponent,
     StudentComponent,
+    MapsContainerComponent,
     UserComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    AddUpdateBlockDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -124,6 +129,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteUserDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
+    AddUpdateBlockDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
@@ -139,6 +145,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     AuthenticationService,
     UserService,
     StudentService,
+    MapsService,
     ClassService,
     LessonService,
     ScheduleService,
