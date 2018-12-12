@@ -135,6 +135,7 @@ import { MapsService } from './pages/maps/maps.container/services/maps.container
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
