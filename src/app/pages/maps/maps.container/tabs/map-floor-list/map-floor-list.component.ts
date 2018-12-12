@@ -15,6 +15,9 @@ export class MapFloorListComponent implements OnInit {
   @Output()
   change: EventEmitter<number> = new EventEmitter<number>();
 
+  @Output()
+  delete: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(public locationService: LocationService) {}
 
   async ngOnInit() {
@@ -25,11 +28,19 @@ export class MapFloorListComponent implements OnInit {
     this.floors = Array.from(new Set(floors));
   }
 
-  onFloorClick(ev: MouseEvent) {
-    const floor = Number(ev && ev.target && ev.target['value']);
+  onClick(ev: MouseEvent) {
+    const elm = ev.target as Element;
+    if (!elm) return;
+    const floor = Number(elm['value'] || (elm.parentElement && elm.parentElement['value']));
+    const isDelete = elm.getAttribute('data-action') === 'delete';
+
     if (Number.isFinite(floor) && this.floors.includes(floor)) {
       this.currentFloor = floor;
-      this.change.emit(floor);
+      if (isDelete) {
+        this.delete.emit(floor);
+      } else {
+        this.change.emit(floor);
+      }
     }
   }
 }
