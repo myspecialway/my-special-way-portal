@@ -57,7 +57,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
     this.dirty = true;
     type Action = 'delete' | 'add';
     const weekDaysIndexes = [0, 1, 2, 3, 4];
-    const isWeekDay = weekDaysIndexes.includes(selectedIndex);
     const multiDayIndex = 6;
     let daysIndexes: number[];
     let action: Action = this.isDaySelected(selectedIndex, block) ? 'delete' : 'add';
