@@ -5,6 +5,8 @@ export interface Location {
   disabled: boolean;
   location_id: string;
   position: Point;
+  type?: string;
+  icon?: string;
 }
 
 export interface InputLocation {
@@ -13,6 +15,8 @@ export interface InputLocation {
   disabled?: boolean;
   location_id?: string;
   position?: Point;
+  type?: string;
+  icon?: string;
 }
 
 export interface LocationQuery {

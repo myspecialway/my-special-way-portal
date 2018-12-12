@@ -29,7 +29,7 @@ export class MapFloorListComponent implements OnInit {
   }
 
   onClick(ev: MouseEvent) {
-    const elm = ev.target as Element;
+    const elm = ev && (ev.target as Element);
     if (!elm) return;
     const floor = Number(elm['value'] || (elm.parentElement && elm.parentElement['value']));
     const isDelete = elm.getAttribute('data-action') === 'delete';
