@@ -5,8 +5,6 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { FetchResult } from 'apollo-link';
-import { Class } from '../../models/class.model';
-import { ClassService } from '../../pages/class/services/class.graphql.service';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 
 const GET_ALL_NON_ACTIVE_TIMES_QUERY = gql`
