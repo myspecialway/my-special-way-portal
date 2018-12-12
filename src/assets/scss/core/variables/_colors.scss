@@ -45,8 +45,8 @@ $purple-a200: #e040fb !default;
 $purple-a400: #d500f9 !default;
 $purple-a700: #a0f !default;
 $purple: $purple-500 !default;
-$puple-msw: #6a00cf !default;
-$puple-msw: #6a00cf !default;
+$puple-msw: #8249d1 !default;
+$puple-msw: #8249d1 !default;
 
 $deep-purple-50: #ede7f6 !default;
 $deep-purple-100: #d1c4e9 !default;
@@ -308,21 +308,22 @@ $black: #000;
 $white: #fff;
 
 // New colors
-$gray-color:  #999999 !default;
-$black-color: #3C4858 !default;
+$gray-color: #999999 !default;
+$black-color: #3c4858 !default;
 
-$black: #000000; $rgb-black: "0,0,0" !default;
-$white: #ffffff; $rgb-white: "255,255,255" !default;
+$black: #000000;
+$rgb-black: '0,0,0' !default;
+$white: #ffffff;
+$rgb-white: '255,255,255' !default;
 
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:              lighten($gray-base, 20%) !default;   // #333
-$gray:                   lighten($gray-base, 33.5%) !default; // #555
-$gray-light:             #999999 !default; // #999999
-$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
-
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: lighten($gray-base, 20%) !default; // #333
+$gray: lighten($gray-base, 33.5%) !default; // #555
+$gray-light: #999999 !default; // #999999
+$gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
 
 //## MSW Colors
 $msw-hover-lilac: #e1ccf5;
