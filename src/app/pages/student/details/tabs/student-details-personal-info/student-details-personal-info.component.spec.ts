@@ -1,5 +1,5 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
@@ -20,7 +20,6 @@ import { ClassService } from '../../../../class/services/class.graphql.service';
 import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
 import { oneStudentTestData } from '../../../../../../mocks/assets/student.mock';
 import { StudentDetailsPersonalInfoComponent } from './student-details-personal-info.component';
-import { By } from '@angular/platform-browser';
 
 describe('Student Details Personal Info Component', () => {
   let studentServiceMock: Partial<StudentService>;
@@ -28,8 +27,6 @@ describe('Student Details Personal Info Component', () => {
   let activatedRouteMock;
   let studentDialogMock: Partial<MatDialog>;
   let routerModuleMock: Partial<RouterModule>;
-  // let component: StudentDetailsPersonalInfoComponent;
-  // let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
 
   beforeEach(async () => {
     studentServiceMock = {
@@ -103,58 +100,7 @@ describe('Student Details Personal Info Component', () => {
     });
   });
 
-  // describe('Generic UI', () => {
-  // let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
-  // let debugElement: DebugElement;
-
-  // beforeEach(async(() => {
-  //   TestBed.configureTestingModule({
-  //     declarations: [
-  //       StudentDetailsPersonalInfoComponent,
-  //     ],
-  //   }).compileComponents();
-
-  //   fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-  //   debugElement = fixture.debugElement;
-  // }));
-
-  // it('should toggle icon value (enabled/disabled) for male and female face', () => {
-  //   fixture.componentInstance.toggleIconFace();
-  //   expect(fixture.componentInstance.maleFaceIcon).toEqual("male_face_disabled");
-  //   expect(fixture.componentInstance.femaleFaceIcon).toEqual("female_face_enabled");
-  // });
-
-  // it('should increment in template', () => {
-  //   debugElement
-  //     .query(By.css('mat-button-toggle.MALE'))
-  //     .triggerEventHandler('click', null);
-
-  //   fixture.detectChanges();
-  //   const value = debugElement.query(By.css('h1')).nativeElement.innerText;
-  //   expect(value).toEqual('1');
-  // });
-
-  // it('should test toggleIconFace', async () => {
-  //      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-  //      fixture.detectChanges();
-  //      await fixture.whenRenderingDone();
-  //    expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
-  //      await fixture.componentInstance.toggleIconFace();
-
-  //    fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-  //    component = fixture.componentInstance;
-
-  //      spyOn(component, 'toggleIconFace');
-  //    const genderButton = fixture.debugElement.query(By.css('msw-student-details-gender')).nativeElement.click();
-  //    fixture.detectChanges();
-  //      expect(fixture.componentInstance.toggleIconFace()).toHaveBeenCalled();
-  // });
-  // });
-
   describe('with _new_ student path', () => {
-    let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
-    let debugElement: DebugElement;
-
     beforeEach(async () => {
       TestBed.configureTestingModule({
         providers: [
@@ -168,12 +114,12 @@ describe('Student Details Personal Info Component', () => {
           },
         ],
       });
-
-      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-      debugElement = fixture.debugElement;
     });
 
     it('should toggle icon value (enabled/disabled) for male and female face', () => {
+      let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
+      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+
       fixture.componentInstance.toggleIconFace();
       expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
       expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
@@ -181,20 +127,6 @@ describe('Student Details Personal Info Component', () => {
       fixture.componentInstance.toggleIconFace();
       expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_enabled');
       expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_disabled');
-    });
-
-    it('should test toggleIconFace', async () => {
-      //       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-      //       fixture.detectChanges();
-      //       await fixture.whenRenderingDone();
-      // //    expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
-      //       await fixture.componentInstance.toggleIconFace();
-      //    fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-      //    component = fixture.componentInstance;
-      //      spyOn(component, 'toggleIconFace');
-      //    const genderButton = fixture.debugElement.query(By.css('msw-student-details-gender')).nativeElement.click();
-      //    fixture.detectChanges();
-      // expect(fixture.componentInstance.toggleIconFace()).toHaveBeenCalled();
     });
 
     it('should render the component as described in snapshot', () => {
