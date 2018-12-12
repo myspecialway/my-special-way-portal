@@ -2,7 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClassDetailsViewComponent } from './class-details/class-details.view/class-details.view.component';
 import { ClassDetailsContainerComponent } from './class-details/class-details.container/class-details.container.component';
-// import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
 import {
@@ -29,7 +28,6 @@ import { MapContainerComponent } from './maps/maps.container/map.container.compo
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
-import { DeleteNonActiveTimeDialogueComponent } from './non-active-time/delete/delete-non-active-time-dialogue.component';
 
 @NgModule({
   imports: [
