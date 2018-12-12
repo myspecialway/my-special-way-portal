@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapPointsViewComponent } from './map-points.view.component';
-import { MatListModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { MatListModule, MatSelectModule, MatSlideToggleModule, MatDialog } from '@angular/material';
 
 const mockedLocations = [
   {
@@ -38,16 +38,16 @@ const mockedLocations = [
   },
 ];
 
-const beforeEachAsync = async () => {
-  TestBed.configureTestingModule({
-    imports: [MatSlideToggleModule, MatSelectModule, MatListModule],
-    declarations: [MapPointsViewComponent],
-  }).compileComponents();
-};
-
 describe('ClassDetailsComponent with class info', () => {
   let fixture: ComponentFixture<MapPointsViewComponent>;
   let component: MapPointsViewComponent;
+  const beforeEachAsync = async () => {
+    TestBed.configureTestingModule({
+      imports: [MatSlideToggleModule, MatSelectModule, MatListModule],
+      providers: [MatDialog],
+      declarations: [MapPointsViewComponent],
+    }).compileComponents();
+  };
   beforeEach(beforeEachAsync);
 
   beforeEach(() => {
@@ -62,7 +62,7 @@ describe('ClassDetailsComponent with class info', () => {
   });
 
   it('should update Location', () => {
-    component.updateLocation.emit = jest.fn();
+    component.update.emit = jest.fn();
 
     const testLocation = {
       _id: '3',
@@ -76,11 +76,11 @@ describe('ClassDetailsComponent with class info', () => {
       },
     };
 
-    component.onLocationDisabledChanged(testLocation, true);
-    expect(component.updateLocation.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, disabled: true });
+    component.onUpdate(testLocation, {});
+    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, disabled: true });
     component.onLocationNameChanged(testLocation, 'test name');
-    expect(component.updateLocation.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, name: 'test name' });
+    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, name: 'test name' });
     component.onLocationIdChanged(testLocation, '4');
-    expect(component.updateLocation.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, location_id: '4' });
+    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, location_id: '4' });
   });
 });
