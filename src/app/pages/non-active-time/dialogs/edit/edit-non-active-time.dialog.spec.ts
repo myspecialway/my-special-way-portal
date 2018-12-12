@@ -33,7 +33,7 @@ describe('EditNonActiveTimeDialogComponent', () => {
       startDateTime: new Date().toUTCString(),
       endDateTime: new Date().toUTCString(),
       isAllClassesEvent: true,
-      classesIds: undefined,
+      classes: undefined,
     };
 
     classServiceMock = {
@@ -92,7 +92,7 @@ describe('EditNonActiveTimeDialogComponent', () => {
         startHour: ['09:00'],
         endHour: ['11:00'],
         isAllClassesEvent: [false],
-        classes: [[classTestData.classes[0]]],
+        classes: [[{ _id: '5b10fb1ff8022f6011f30f48', name: 'טיטאן' }]],
       }),
     );
     expect(matDialogRefMock.close).toHaveBeenCalledWith({
@@ -102,7 +102,7 @@ describe('EditNonActiveTimeDialogComponent', () => {
       startDateTime: 'Tue, 11 Dec 2018 07:00:00 GMT',
       endDateTime: 'Tue, 11 Dec 2018 09:00:00 GMT',
       isAllClassesEvent: false,
-      classesIds: [classTestData.classes[0]._id],
+      classes: [{ _id: '5b10fb1ff8022f6011f30f48', name: 'טיטאן' }],
     });
   });
 });

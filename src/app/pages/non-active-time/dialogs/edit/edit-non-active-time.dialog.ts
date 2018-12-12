@@ -5,10 +5,10 @@ import { SubscriptionCleaner } from '../../../../decorators/SubscriptionCleaner.
 import { Subscription } from 'rxjs';
 import { NonActiveTime } from '../../../../models/non-active-time.model';
 import { ClassService } from '../../../class/services/class.graphql.service';
-import { Class } from '../../../../models/class.model';
 import { AppDateAdapter } from '../../../../utils/date.adapter';
 import { HourValidator } from '../../../../validators/hour-validator/HourValidator';
 import { toHour, parseHourStringFromDate } from '../../../../utils/hours.utils';
+import { NonActiveTimeClassData } from '../../../../models/non-active-time-classes-data.model';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -41,7 +41,7 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
   addDialogTitle = 'הוספת זמן אי פעילות';
   hours = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
   form: FormGroup;
-  classes: Class[];
+  classes: NonActiveTimeClassData[];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -96,8 +96,7 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       startDateTime: form.value.startDateTime.toUTCString(),
       endDateTime: form.value.endDateTime.toUTCString(),
       isAllClassesEvent: form.value.isAllClassesEvent,
-      classesIds:
-        form.value.classes && form.value.classes.length > 0 ? form.value.classes.map((c) => c._id) : undefined,
+      classes: form.value.classes,
     };
   }
 

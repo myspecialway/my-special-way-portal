@@ -39,7 +39,9 @@
                 {{ form.value.classes?.length > 0 ? 'כיתת ' + form.value.classes[0].name : '' }}
                 <span *ngIf="form.value.classes?.length > 1"> +{{ form.value.classes.length - 1 }} </span>
               </mat-select-trigger>
-              <mat-option *ngFor="let class of classes" [value]="class">כיתת {{ class.name }}</mat-option>
+              <mat-option *ngFor="let class of classes" [value]="{ _id: class._id, name: class.name }"
+                >כיתת {{ class.name }}</mat-option
+              >
             </mat-select>
           </mat-form-field>
           <mat-error *ngIf="form.get('classes').hasError('required')">אנא בחר כיתות</mat-error>

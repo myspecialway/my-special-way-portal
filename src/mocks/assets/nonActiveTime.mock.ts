@@ -9,7 +9,7 @@ export const nonActiveTimeTestData: { nonActiveTimes: NonActiveTime[] } = {
       startDateTime: 'Tue, 11 Dec 2018 00:00:00 GMT',
       endDateTime: 'Tue, 11 Dec 2018 00:00:00 GMT',
       isAllClassesEvent: true,
-      classesIds: ['5b10fb1ff8022f6011f30f48', '5b10fb1fb4eb0c7fda30f70a'],
+      classes: [{ _id: '5b10fb1ff8022f6011f30f48', name: 'טיטאן' }, { _id: '5b10fb1fb4eb0c7fda30f70a', name: 'פטל' }],
     },
   ],
 };
