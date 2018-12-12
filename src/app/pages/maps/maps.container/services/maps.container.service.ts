@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators/catchError';
 import gql from 'graphql-tag';
 
 import BlockedSection from '../../../../models/blocked-section.model';
-import { QUERY_GET_ALL_BLOCKED_SECTIONS } from './maps.graphql';
+import { QUERY_GET_ALL_BLOCKED_SECTIONS, MUTATE_ADD_BLOCKED_SECTION } from './maps.graphql';
 
 @Injectable()
 export class MapsService {
@@ -27,25 +27,13 @@ export class MapsService {
       );
   }
 
-  // create(blockedSection: BlockedSection) {
-  //   return this.apollo
-  //     .mutate({
-  //       mutation: gql`
-  //      mutation {
-  //       createBlockedSection(blockedSection: {
-  //         reason: "${blockedSection.reason}"
-  //         from: "${blockedSection.from}"
-  //         to: "${blockedSection.to}"
-  //          }) { _id }
-  //     }
-  //   `,
-  //       refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
-  //     })
-  //     .toPromise()
-  //     .then((res) => {
-  //       if (res.data) {
-  //         return res.data.createBlockedSection;
-  //       }
-  //     });
-  // }
+  create(blockedSection: BlockedSection) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_ADD_BLOCKED_SECTION,
+        variables: { blockedSection: { ...blockedSection } },
+        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
+      })
+      .toPromise();
+  }
 }

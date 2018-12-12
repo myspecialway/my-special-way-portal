@@ -12,12 +12,9 @@ export const QUERY_GET_ALL_BLOCKED_SECTIONS = gql`
 `;
 
 export const MUTATE_ADD_BLOCKED_SECTION = gql`
-  mutation {
+  mutation addBlockedSection($blockedSection: InputBlockedSection!) {
     createBlockedSection(blockedSection: $blockedSection) {
       _id
-      reason
-      from
-      to
     }
   }
 `;

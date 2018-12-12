@@ -9,32 +9,32 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 
-const mockedData: BlockedSection[] = [
-  {
-    _id: 1,
-    reason: 'שיפוץ',
-    from: 'A',
-    to: 'B',
-  },
-  {
-    _id: 2,
-    reason: 'הצפה',
-    from: 'A',
-    to: 'C',
-  },
-  {
-    _id: 3,
-    reason: 'מרתון תל אביב',
-    from: 'C',
-    to: 'B',
-  },
-  {
-    _id: 4,
-    reason: 'גודזילה',
-    from: 'D',
-    to: 'B',
-  },
-];
+// const mockedData: BlockedSection[] = [
+//   {
+//     _id: 1,
+//     reason: 'שיפוץ',
+//     from: 'A',
+//     to: 'B',
+//   },
+//   {
+//     _id: 2,
+//     reason: 'הצפה',
+//     from: 'A',
+//     to: 'C',
+//   },
+//   {
+//     _id: 3,
+//     reason: 'מרתון תל אביב',
+//     from: 'C',
+//     to: 'B',
+//   },
+//   {
+//     _id: 4,
+//     reason: 'גודזילה',
+//     from: 'D',
+//     to: 'B',
+//   },
+// ];
 
 @Component({
   selector: 'app-maps-container',
@@ -80,40 +80,42 @@ export class MapsContainerComponent implements OnInit {
     }
   }
 
-  addOrEditBlock(blockedReason: string, fromPoint: string, toPoint: string) {
+  addOrEditBlock(blockedSection) {
     let isNewBlock = true;
     let dataObj = {};
-    if (blockedReason && fromPoint && toPoint) {
+    if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
-      dataObj = { blockedReason, fromPoint, toPoint, isNewBlock };
+      dataObj = { ...blockedSection, isNewBlock };
     } else {
       dataObj = { isNewBlock };
     }
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (addConfirmed) => {
-        if (!addConfirmed) {
-          return;
-        }
-
-        try {
-          if (isNewBlock) {
-            console.log('Need to add a NEW block to somewhere!!');
-          } else {
-            console.log('Need to UPDATE a block to somewhere!!');
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (result) => {
+          if (!result) {
+            return;
           }
-          // await this.studentService.delete(id);
-        } catch (error) {
-          // TODO: implement error handling on UI
-          console.error('Error handling not implemented');
-          throw error;
-        }
-      });
+
+          try {
+            if (isNewBlock) {
+              console.log('Need to add a NEW block to somewhere!!');
+              await this.mapsService.create(result);
+            } else {
+              console.log('Need to UPDATE a block to somewhere!!');
+            }
+            // await this.studentService.delete(id);
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
+          }
+        }),
+    );
   }
 
   deleteBlock(fromPoint: string, toPoint: string, reason: string) {

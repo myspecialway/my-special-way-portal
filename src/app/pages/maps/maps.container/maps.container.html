@@ -34,17 +34,17 @@
           <mat-table [dataSource]="dataSource" class="msw-table">
             <ng-container matColumnDef="reason">
               <mat-header-cell *matHeaderCellDef>סיבת חסימה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.reason}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.reason}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="from">
               <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.from}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.from}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="to">
               <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row.reason, row.from, row.to)">{{row.to}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.to}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deleteBlock">

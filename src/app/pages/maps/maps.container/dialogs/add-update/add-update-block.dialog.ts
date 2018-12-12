@@ -3,6 +3,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import BlockedSection from '../../../../../models/blocked-section.model';
 
+interface AddUpdateBlockedSection {
+  from: string;
+  to: string;
+  reason: string;
+  isNewBlock: boolean;
+}
+
 @Component({
   selector: 'app-add-update-block.dialog',
   templateUrl: './add-update-block.dialog.html',
@@ -14,15 +21,23 @@ export class AddUpdateBlockDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddUpdateBlockDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: BlockedSection,
+    @Inject(MAT_DIALOG_DATA) public data: AddUpdateBlockedSection,
   ) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      fromPoint: '',
-      toPoint: '',
-      blockedReason: '',
-    });
+    if (this.data.isNewBlock) {
+      this.form = this.formBuilder.group({
+        from: '',
+        to: '',
+        reason: '',
+      });
+    } else {
+      this.form = this.formBuilder.group({
+        from: this.data.from,
+        to: this.data.to,
+        reason: this.data.reason,
+      });
+    }
   }
 
   getErrorMessage() {
