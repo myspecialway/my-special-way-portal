@@ -3,10 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import BlockedSection from '../../../../../models/blocked-section.model';
 
-interface AddUpdateBlockedSection {
-  from: string;
-  to: string;
-  reason: string;
+interface AddUpdateBlockedSection extends BlockedSection {
   isNewBlock: boolean;
 }
 
