@@ -1,3 +1,6 @@
+import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
+import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
+import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
 import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -22,6 +25,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -61,12 +65,10 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
-import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
-import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
-import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
-
+import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -89,6 +91,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -105,13 +108,16 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     ClassComponent,
     LessonComponent,
     StudentComponent,
+    MapsContainerComponent,
+    MapPointsComponent,
+    MapPointsViewComponent,
+    MapFloorListComponent,
     UserComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
-    RestorePasswordDialogComponent,
-    RestorePasswordErrorDialogComponent,
+    AddUpdateBlockDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -124,33 +130,31 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
-    ExitSystemDialogComponent,
   ],
   entryComponents: [
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
-    RestorePasswordDialogComponent,
-    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
+    AddUpdateBlockDialogComponent,
+    AddEditPointDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
     AddUpdateBlockDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
-    AddEditPointDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
-    ExitSystemDialogComponent,
   ],
   providers: [
     AuthGuard,
     AuthenticationService,
     UserService,
     StudentService,
+    MapsService,
     ClassService,
     LessonService,
     ScheduleService,

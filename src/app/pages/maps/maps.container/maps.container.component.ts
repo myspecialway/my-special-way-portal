@@ -2,86 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
-import { MatDialog } from '@angular/material';
-import { BlockedSection } from '../../../models/BlockedSection.model';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
+import BlockedSection from '../../../models/blocked-section.model';
+import { MapsService } from './services/maps.container.service';
 
 // const mockedData: BlockedSection[] = [
 //   {
-//     blockedReason: 'Reason 1',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 66 },
+//     _id: 1,
+//     reason: 'שיפוץ',
+//     from: 'A',
+//     to: 'B',
 //   },
 //   {
-//     blockedReason: 'Reason 2',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 55 },
+//     _id: 2,
+//     reason: 'הצפה',
+//     from: 'A',
+//     to: 'C',
 //   },
 //   {
-//     blockedReason: 'Reason 3',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 77 },
+//     _id: 3,
+//     reason: 'מרתון תל אביב',
+//     from: 'C',
+//     to: 'B',
 //   },
 //   {
-//     blockedReason: 'Reason 4',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 99 },
-//   },
-//   {
-//     blockedReason: 'Reason 1',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 66 },
-//   },
-//   {
-//     blockedReason: 'Reason 2',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 55 },
-//   },
-//   {
-//     blockedReason: 'Reason 3',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 77 },
-//   },
-//   {
-//     blockedReason: 'Reason 4',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 99 },
-//   },
-//   {
-//     blockedReason: 'Reason 5',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 66 },
-//   },
-//   {
-//     blockedReason: 'Reason 6',
-//     fromPoint: { latitude: 1, longitude: 2, floor: 6 },
-//     toPoint: { latitude: 11, longitude: 22, floor: 55 },
+//     _id: 4,
+//     reason: 'גודזילה',
+//     from: 'D',
+//     to: 'B',
 //   },
 // ];
-
-const mockedData: BlockedSection[] = [
-  {
-    blockedReason: 'שיפוץ',
-    fromPoint: 'A',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'הצפה',
-    fromPoint: 'A',
-    toPoint: 'C',
-  },
-  {
-    blockedReason: 'מרתון תל אביב',
-    fromPoint: 'C',
-    toPoint: 'B',
-  },
-  {
-    blockedReason: 'גודזילה',
-    fromPoint: 'D',
-    toPoint: 'B',
-  },
-];
 
 @Component({
   selector: 'app-maps-container',
@@ -89,17 +42,18 @@ const mockedData: BlockedSection[] = [
   styleUrls: ['./maps.container.scss'],
 })
 export class MapsContainerComponent implements OnInit {
-  displayedColumns = ['blockedReason', 'fromPoint', 'toPoint', 'deleteBlock'];
+  displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
   idOrNew: string;
   links: any;
   activeLink: string;
-  dataSource = mockedData;
+  // dataSource = mockedData;
   currentFloor = 0;
+  dataSource = new MatTableDataSource<BlockedSection>();
 
   @SubscriptionCleaner()
   subCollector;
-
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
+  // private mapsService: MapsService
+  constructor(private route: ActivatedRoute, private dialog: MatDialog, private mapsService: MapsService) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
@@ -108,37 +62,49 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subCollector.add(
-      this.route.params.subscribe((params) => {
-        this.idOrNew = params.idOrNew;
-      }),
-    );
+    // this.subCollector.add(
+    //   this.route.params.subscribe((params) => {
+    //     this.idOrNew = params.idOrNew;
+    //   }),
+    // );
+
+    try {
+      this.subCollector.add(
+        this.mapsService.getAllBlockedSections().subscribe((data) => {
+          this.dataSource.data = [...data];
+        }),
+      );
+    } catch (error) {
+      // TODO: implement error handling on UI
+      console.error('Error handling not implemented');
+      throw error;
+    }
   }
 
-  addOrEditBlock(blockedReason: string, fromPoint: string, toPoint: string) {
+  addOrEditBlock(blockedSection) {
     let isNewBlock = true;
     let dataObj = {};
-    if (blockedReason && fromPoint && toPoint) {
+    if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
-      dataObj = { blockedReason, fromPoint, toPoint, isNewBlock };
+      dataObj = { ...blockedSection, isNewBlock };
     } else {
       dataObj = { isNewBlock };
     }
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe(async (addConfirmed) => {
-        if (!addConfirmed) {
+      .subscribe(async (result) => {
+        if (!result) {
           return;
         }
 
         try {
           if (isNewBlock) {
             console.log('Need to add a NEW block to somewhere!!');
+            await this.mapsService.create(result);
           } else {
             console.log('Need to UPDATE a block to somewhere!!');
           }
@@ -156,6 +122,9 @@ export class MapsContainerComponent implements OnInit {
       data: {
         title: 'מקטע חסום',
         question: `המקטע ${fromPoint} - ${toPoint} - ${reason}`,
+        fromPoint,
+        toPoint,
+        reason,
       },
     });
 
