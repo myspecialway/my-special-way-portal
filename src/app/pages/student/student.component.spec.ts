@@ -165,19 +165,6 @@ describe('student component', () => {
     expect(fixture.deleteStudent(1, 'a', 'a', 'a', 'MALE')).rejects.toEqual('oh no!');
   });
 
-  it('should sort students by firstname+lastname', async () => {
-    const fixture = TestBed.createComponent(StudentComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    const data = fixture.componentInstance.dataSource.data;
-    for (let i = 0; i < data.length - 1; i++) {
-      const student1 = data[i].firstname + data[i].lastname;
-      const student2 = data[i + 1].firstname + data[i + 1].lastname;
-      const comapare = student1.localeCompare(student2);
-      expect(comapare).toEqual(-1);
-    }
-  });
-
   xit('should display an error to the user when deleteStudent fails', () => {});
 
   it('should not show no records massage if there is data', fakeAsync(() => {
@@ -198,6 +185,35 @@ describe('student component', () => {
     // then
     expect(fixture.componentInstance.showNoRecords).toBe(true);
   }));
+
+  describe('sort table', () => {
+    it('should sort students by firstname+lastname', async () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      const data = fixture.componentInstance.dataSource.data;
+      for (let i = 0; i < data.length - 1; i++) {
+        const student1 = data[i].firstname + data[i].lastname;
+        const student2 = data[i + 1].firstname + data[i + 1].lastname;
+        const comapare = student1.localeCompare(student2);
+        expect(comapare).toEqual(-1);
+      }
+    });
+
+    it('should sort students by class name', () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'gradeId');
+      expect(result).toBe(studentsTestData.students[0].class.name);
+    });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'username');
+      expect(result).toBe(studentsTestData.students[0].username);
+    });
+  });
 
   describe('filter table', () => {
     describe('filter by student name', () => {

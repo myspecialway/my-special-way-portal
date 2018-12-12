@@ -2,6 +2,7 @@
 
 exports[`user component should render component as described in snapshot 1`] = `
 <app-user
+  authenticationService={[Function AuthenticationService]}
   classField="undefined"
   classFilter={[Function FormControl]}
   dataSource={[Function MatTableDataSource]}
