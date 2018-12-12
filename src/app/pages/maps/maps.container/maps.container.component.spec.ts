@@ -4,15 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { MapsContainerComponent } from './maps.container.component';
 import { ComponentFixture, TestBed } from '../../../../../node_modules/@angular/core/testing';
 import { LocationService } from '../../../services/location/location.graphql.service';
-import {
-  MatTableModule,
-  MatDialog,
-  MatSlideToggleModule,
-  MatSelectModule,
-  MatListModule,
-  MatDialogModule,
-} from '@angular/material';
-import { Overlay } from '@angular/cdk/overlay';
+import { MatTableModule, MatDialog, MatDialogModule } from '@angular/material';
 
 const mockedLocations = [
   {
@@ -50,7 +42,7 @@ const locationServiceMock = {
 
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
-  let component: MapsContainerComponent;
+  // let component: MapsContainerComponent;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -63,7 +55,7 @@ describe('MapsContainerComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapsContainerComponent);
-    component = fixture.componentInstance;
+    // component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

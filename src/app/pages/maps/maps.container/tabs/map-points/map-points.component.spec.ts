@@ -2,7 +2,7 @@ import { mockedLocations } from './../../../../../../mocks/assets/locations.mock
 import { LocationService } from './../../../../../services/location/location.graphql.service';
 import { MatDialog } from '@angular/material';
 import { MapPointsViewComponent } from './maps-points.view/map-points.view.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapPointsComponent } from './map-points.component';
 
