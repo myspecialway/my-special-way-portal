@@ -2,7 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClassDetailsViewComponent } from './class-details/class-details.view/class-details.view.component';
 import { ClassDetailsContainerComponent } from './class-details/class-details.container/class-details.container.component';
-// import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
 import {
@@ -25,7 +24,9 @@ import { StudentDetailsComponent } from './student/details/student-details.compo
 import { StudentDetailsPersonalInfoComponent } from './student/details/tabs/student-details-personal-info/student-details-personal-info.component';
 import { StudentDetailsHoursComponent } from './student/details/tabs/student-details-hours/student-details-hours.component';
 import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
-import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
+import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
+import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
+import { FileImportModule } from '../file-import/file-import.module';
 
 @NgModule({
   imports: [
@@ -39,13 +40,13 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    // MatDialog,
     MatTableModule,
     MatGridListModule,
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
     MatIconModule,
+    FileImportModule,
   ],
   declarations: [
     StudentDetailsComponent,
@@ -54,7 +55,8 @@ import { UniqueUsernameValidatorDirective } from '../directives/unique-username-
     StudentDetailsRemindersComponent,
     ClassDetailsViewComponent,
     ClassDetailsContainerComponent,
-    UniqueUsernameValidatorDirective,
+    UsernameValidatorDirective,
+    PasswordValidatorDirective,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

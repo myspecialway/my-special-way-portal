@@ -36,6 +36,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
@@ -69,6 +70,7 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/suc
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
@@ -104,9 +106,11 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     MatDividerModule,
     MSWApolloModule,
     PagesModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -138,6 +142,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     ExitSystemDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
