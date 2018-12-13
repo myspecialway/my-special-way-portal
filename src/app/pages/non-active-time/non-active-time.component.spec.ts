@@ -91,6 +91,16 @@ describe('non active time component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 
+  it('should get empty array if no Non active times are defined', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(undefined);
+    });
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data).toEqual([]);
+  });
+
   it('should load zero Non active times in case of error', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
       return Observable.throwError('testing with errors');
