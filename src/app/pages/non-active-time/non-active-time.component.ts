@@ -70,7 +70,7 @@ export class NonActiveTimeComponent implements OnInit {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     let result: string = startDateTime.toLocaleDateString('he-IL', options);
     if (row.startDateTime !== row.endDateTime) {
-      const endDateTime = new Date(row.startDateTime);
+      const endDateTime = new Date(row.endDateTime);
       result += ' עד ' + endDateTime.toLocaleDateString('he-IL', options);
     }
 
