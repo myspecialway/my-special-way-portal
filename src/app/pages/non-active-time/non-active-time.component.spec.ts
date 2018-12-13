@@ -21,7 +21,7 @@ describe('non active time component', () => {
         title: 'best title ever',
         isAllDayEvent: false,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+        endDateTime: 'Tue, 11 Dec 2018 14:23:09 GMT',
         isAllClassesEvent: false,
         classes: [
           {
@@ -37,7 +37,7 @@ describe('non active time component', () => {
       {
         _id: '5c0fbbb04e773c17106afdb0',
         title: 'best title ever 2222222',
-        isAllDayEvent: false,
+        isAllDayEvent: true,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
         endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
         isAllClassesEvent: false,
@@ -47,6 +47,14 @@ describe('non active time component', () => {
             name: 'פטל',
           },
         ],
+      },
+      {
+        _id: '5c0fbbb04e773c17106afdb0',
+        title: 'best title ever 2222222',
+        isAllDayEvent: true,
+        startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+        endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+        isAllClassesEvent: true,
       },
     ];
   });
@@ -89,7 +97,7 @@ describe('non active time component', () => {
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(3);
   });
 
   it('should load zero Non active times in case of error', async () => {
@@ -159,5 +167,13 @@ describe('non active time component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data).toEqual([]);
+  });
+
+  it('should get correct display string for an all day event', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[2])).toEqual('כל הכיתות');
   });
 });
