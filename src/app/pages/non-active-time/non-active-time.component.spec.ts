@@ -241,8 +241,15 @@ describe('non active time component', () => {
   it('should get correct time-display string for a non all day event', async () => {
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+
+    const options = { hour: 'numeric', minute: 'numeric' };
+    const startDateTime = new Date(nonActiveTimeTestData[0].startDateTime).toLocaleTimeString('he-IL', options);
+    const endDateTime = new Date(nonActiveTimeTestData[0].endDateTime).toLocaleTimeString('he-IL', options);
+
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[0])).toEqual('14:23 עד 16:23');
+    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[0])).toEqual(
+      startDateTime + ' עד ' + endDateTime,
+    );
   });
 });
