@@ -195,4 +195,12 @@ describe('non active time component', () => {
     }
     expect(err).toBeTruthy();
   });
+
+  it('should get correct display string for an all day event with one class', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[1])).toEqual('פטל');
+  });
 });
