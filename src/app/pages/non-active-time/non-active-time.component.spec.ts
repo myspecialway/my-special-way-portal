@@ -7,10 +7,10 @@ import { ClassService } from '../class/services/class.graphql.service';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { NonActiveTimeComponent } from './non-active-time.component';
+import of = module;
 
-describe('lesson component', () => {
+describe('non active time component', () => {
   let nonActiveTimeServiceMock: Partial<NonActiveTimeService>;
-  let classServiceMock: Partial<ClassService>;
   let nonActiveTimeTestData: NonActiveTime[] = [];
 
   let nonActiveTimeDialogueMock: Partial<MatDialog>;
@@ -60,9 +60,6 @@ describe('lesson component', () => {
       create: jest.fn(),
       update: jest.fn(),
     };
-    classServiceMock = {
-      getAllClasses: jest.fn().mockImplementation(() => Observable.of([])),
-    };
     nonActiveTimeDialogueMockValue = true;
     nonActiveTimeDialogueMock = {
       open: jest.fn().mockReturnValue({
@@ -76,7 +73,6 @@ describe('lesson component', () => {
       providers: [
         { provide: NonActiveTimeService, useValue: nonActiveTimeServiceMock },
         { provide: MatDialog, useValue: nonActiveTimeDialogueMock },
-        { provide: ClassService, useValue: classServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
@@ -89,7 +85,7 @@ describe('lesson component', () => {
 
   it('should load correct number of Non active times ', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     fixture.detectChanges();
@@ -97,9 +93,9 @@ describe('lesson component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 
-  it('should load zero Non active times in case of promise reject', async () => {
+  it('should load zero Non active times in case of error', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.reject();
+      return Observable.throwError('testing with errors');
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     fixture.detectChanges();
@@ -107,9 +103,9 @@ describe('lesson component', () => {
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
 
-  it('should open delete delete component dialogue', async () => {
+  it('should open delete component dialogue', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
@@ -123,7 +119,7 @@ describe('lesson component', () => {
   });
   it('should call deleteNonActiveTime when user confirms ', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
@@ -139,7 +135,7 @@ describe('lesson component', () => {
 
   it('should not call deleteNonActiveTime when user cancels ', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
@@ -153,58 +149,4 @@ describe('lesson component', () => {
     await fixture.whenRenderingDone();
     expect(nonActiveTimeServiceMock.delete).not.toHaveBeenCalled();
   });
-
-  // add-edit tests
-  /*it('should call lesson update when user edits a lesson', async () => {
-    const anyLesson: Lesson = {
-      _id: 'anyId',
-      title: 'sometitle',
-      icon: 'an-icon',
-    };
-
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.editLesson(anyLesson);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.update).toHaveBeenCalled();
-  });
-  it('should call lesson create when calling add new lesson ', async () => {
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.addNewLesson();
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.create).toHaveBeenCalled();
-  });
-  it('should not call lesson create or update when dialog resilt is false ', async () => {
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-    lessonDialogMockValue = false;
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.addNewLesson();
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.create).not.toHaveBeenCalled();
-    expect(lessonServiceMock.update).not.toHaveBeenCalled();
-  });*/
 });

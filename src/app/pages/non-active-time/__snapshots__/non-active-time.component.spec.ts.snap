@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lesson component should render component as described in snapshot 1`] = `
+exports[`non active time component should render component as described in snapshot 1`] = `
 <app-non-active-time
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
