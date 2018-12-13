@@ -169,7 +169,7 @@ describe('non active time component', () => {
     expect(fixture.componentInstance.dataSource.data).toEqual([]);
   });
 
-  it('should get correct display string for an all day event', async () => {
+  it('should get correct class-display string for an all day event', async () => {
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
@@ -196,7 +196,7 @@ describe('non active time component', () => {
     expect(err).toBeTruthy();
   });
 
-  it('should get correct display string for an all day event with one class', async () => {
+  it('should get correct class-display string for an all day event with one class', async () => {
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
@@ -204,11 +204,29 @@ describe('non active time component', () => {
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[1])).toEqual('פטל');
   });
 
-  it('should get correct display string for an all day event with multiple classes', async () => {
+  it('should get correct class-display string for an all day event with multiple classes', async () => {
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[0])).toEqual('טיטאן + 1');
+  });
+
+  it('should get correct date-display string for an event startDate===endDate', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[1])).toEqual('2018 M12 10');
+  });
+
+  it('should get correct date-display string for an event startDate!==endDate', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[0])).toEqual(
+      '2018 M12 10 עד 2018 M12 10',
+    );
   });
 });
