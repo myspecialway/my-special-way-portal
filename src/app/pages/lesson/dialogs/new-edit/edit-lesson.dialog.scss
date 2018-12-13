@@ -45,11 +45,11 @@
   height: 36px;
   border-radius: 3px;
   color: #ffffff;
-  background-color: #8b66a7;
+  background-color: #8249d1;
 }
 
 .mat-divider {
-  border-bottom-color: #8b66a7;
+  border-bottom-color: #8249d1;
   border-bottom-style: solid;
   border-bottom-width: 3px;
   margin-bottom: 28px;
@@ -83,7 +83,7 @@
   width: 80px;
   height: 80px;
   border-radius: 2px;
-  background-color: #ffffff;
+  background-color: #fafafa;
   text-align: center;
   vertical-align: middle;
   float: left;
@@ -91,5 +91,9 @@
 }
 .lesson-icon-selected {
   border-radius: 2px;
-  border: solid 2px #8b66a7;
+  border: solid 2px #8249d1;
+}
+img {
+  width: 70px;
+  height: 70px;
 }
