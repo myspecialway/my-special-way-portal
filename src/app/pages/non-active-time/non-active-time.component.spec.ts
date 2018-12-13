@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { LessonService } from '../../services/lesson/lesson.graphql.service';
-import { Lesson } from '../../models/lesson.model';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator, MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs-compat';
