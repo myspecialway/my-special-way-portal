@@ -176,4 +176,23 @@ describe('non active time component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[2])).toEqual('כל הכיתות');
   });
+
+  it('should get error for a non all day event with no classes', async () => {
+    const badNonActiveTime: NonActiveTime = {
+      _id: '5c0fbbb04e773c17106afdb0',
+      title: 'best title ever 2222222',
+      isAllDayEvent: true,
+      startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+      endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+      isAllClassesEvent: false,
+    };
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    let err = false;
+    try {
+      fixture.componentInstance.getClassesDisplayData(badNonActiveTime);
+    } catch (e) {
+      err = true;
+    }
+    expect(err).toBeTruthy();
+  });
 });
