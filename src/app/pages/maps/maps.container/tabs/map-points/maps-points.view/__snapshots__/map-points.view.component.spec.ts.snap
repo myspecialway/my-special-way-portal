@@ -67,7 +67,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-          פטל כיתת
+           פטל כיתת 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"
@@ -132,7 +132,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-          כיתת סחלב
+           כיתת סחלב 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"
@@ -197,7 +197,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-          כיתת קג׳בובו
+           כיתת קג׳בובו 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"

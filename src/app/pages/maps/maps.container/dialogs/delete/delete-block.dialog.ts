@@ -12,7 +12,6 @@ export class DeleteBlockDialogComponent {
     this.dialogRef.close();
   }
   confirmDelete(): void {
-    // המקטע ימחק. במידה והפעולה לא נעשית בצורה מידית, יש להציג אנימציית טעינה (כמו בלוגין)
     this.dialogRef.close(true);
   }
 }
