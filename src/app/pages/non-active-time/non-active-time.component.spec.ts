@@ -217,7 +217,7 @@ describe('non active time component', () => {
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[1])).toEqual('2018 M12 10');
+    expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[2])).toEqual('2018 M12 10');
   });
 
   it('should get correct date-display string for an event startDate!==endDate', async () => {
