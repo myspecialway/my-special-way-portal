@@ -229,4 +229,20 @@ describe('non active time component', () => {
       '2018 M12 10 עד 2018 M12 10',
     );
   });
+
+  it('should get correct time-display string for an all day event', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[1])).toEqual('כל היום');
+  });
+
+  it('should get correct time-display string for a non all day event', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[0])).toEqual('16:23 עד 16:23');
+  });
 });
