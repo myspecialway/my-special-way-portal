@@ -39,7 +39,7 @@ describe('non active time component', () => {
         title: 'best title ever 2222222',
         isAllDayEvent: true,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
+        endDateTime: 'Mon, 10 Dec 2018 16:23:09 GMT',
         isAllClassesEvent: false,
         classes: [
           {
@@ -243,6 +243,6 @@ describe('non active time component', () => {
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[0])).toEqual('16:23 עד 16:23');
+    expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[0])).toEqual('14:23 עד 16:23');
   });
 });
