@@ -31,6 +31,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
@@ -65,6 +66,8 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/delete/delete-non-active-time-dialogue.component';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -95,9 +98,11 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     MatDividerModule,
     MSWApolloModule,
     PagesModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -123,6 +128,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     DeleteNonActiveTimeDialogueComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,

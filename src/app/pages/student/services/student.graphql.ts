@@ -66,6 +66,14 @@ export const MUTATE_ADD_STUDENT = gql`
   }
 `;
 
+export const MUTATE_ADD_STUDENTS = gql`
+  mutation addStudents($students: [InputStudent!]!) {
+    createStudents(students: $students) {
+      _id
+    }
+  }
+`;
+
 export const MUTATE_UPDATE_STUDENT = gql`
   mutation updateStudent($id: ID!, $student: InputStudent!) {
     updateStudent(id: $id, student: $student) {

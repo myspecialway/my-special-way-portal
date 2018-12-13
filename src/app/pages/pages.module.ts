@@ -28,6 +28,9 @@ import { MapContainerComponent } from './maps/maps.container/map.container.compo
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
+import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
+import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
+import { FileImportModule } from '../file-import/file-import.module';
 
 @NgModule({
   imports: [
@@ -41,13 +44,13 @@ import { NonActiveTimeComponent } from './non-active-time/non-active-time.compon
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    // MatDialog,
     MatTableModule,
     MatGridListModule,
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
     MatIconModule,
+    FileImportModule,
   ],
   declarations: [
     StudentDetailsComponent,
@@ -60,6 +63,8 @@ import { NonActiveTimeComponent } from './non-active-time/non-active-time.compon
     MapViewComponent,
     UniqueUsernameValidatorDirective,
     NonActiveTimeComponent,
+    UsernameValidatorDirective,
+    PasswordValidatorDirective,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

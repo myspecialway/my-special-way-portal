@@ -8,6 +8,7 @@ import { GetStudentsResponse } from '../../../models/responses/get-students-repo
 import { GetStudentResponse } from '../../../models/responses/get-student-reponse.model';
 import { DeleteStudentResponse } from '../../../models/responses/delete-student-response.model';
 import { UpdateStudentResponse } from '../../../models/responses/update-student-response.model';
+import { CreateStudentsResponse } from '../../../models/responses/create-students-response.model';
 
 @Injectable()
 export class StudentService {
@@ -109,6 +110,28 @@ export class StudentService {
       .toPromise();
 
     return (createStudentResponse.data as CreateStudentResponse).createStudent._id;
+  }
+
+  async createMany(students: Student[]): Promise<string[]> {
+    const studentsToDB = students.map((student) => ({
+      username: student.username,
+      password: student.password,
+      firstname: student.firstname,
+      lastname: student.lastname,
+      gender: student.gender,
+      class_id: student.class._id,
+    }));
+    const createStudentsResponse = await this.apollo
+      .mutate({
+        mutation: gql`
+      mutation {
+        createStudents(students: ${JSON.stringify(studentsToDB)})
+        }
+    `,
+      })
+      .toPromise();
+
+    return (createStudentsResponse.data as CreateStudentsResponse).createStudents._ids;
   }
 
   async update(student: StudentQuery): Promise<string> {
