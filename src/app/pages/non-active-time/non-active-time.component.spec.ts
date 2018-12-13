@@ -94,7 +94,6 @@ describe('non active time component', () => {
       return Observable.of(nonActiveTimeTestData);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(3);
@@ -105,7 +104,6 @@ describe('non active time component', () => {
       return Observable.throwError('testing with errors');
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
@@ -119,7 +117,7 @@ describe('non active time component', () => {
       return Promise.resolve(1);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.ngOnInit();
     await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -134,7 +132,7 @@ describe('non active time component', () => {
     });
     nonActiveTimeDialogueMockValue = true;
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.ngOnInit();
     await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -151,7 +149,7 @@ describe('non active time component', () => {
     nonActiveTimeDialogueMockValue = false;
 
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.ngOnInit();
     await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -163,15 +161,16 @@ describe('non active time component', () => {
       return Observable.of(null);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data).toEqual([]);
   });
 
   it('should get correct class-display string for an all day event', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(null);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[2])).toEqual('כל הכיתות');
@@ -197,32 +196,40 @@ describe('non active time component', () => {
   });
 
   it('should get correct class-display string for an all day event with one class', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(null);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[1])).toEqual('פטל');
   });
 
   it('should get correct class-display string for an all day event with multiple classes', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(null);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[0])).toEqual('טיטאן + 1');
   });
 
   it('should get correct date-display string for an event startDate===endDate', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(nonActiveTimeTestData);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[2])).toEqual('2018 M12 10');
   });
 
   it('should get correct date-display string for an event startDate!==endDate', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(nonActiveTimeTestData);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[0])).toEqual(
@@ -231,17 +238,20 @@ describe('non active time component', () => {
   });
 
   it('should get correct time-display string for an all day event', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(nonActiveTimeTestData);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getHoursDisplayData(nonActiveTimeTestData[1])).toEqual('כל היום');
   });
 
   it('should get correct time-display string for a non all day event', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(nonActiveTimeTestData);
+    });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-
     const options = { hour: 'numeric', minute: 'numeric' };
     const startDateTime = new Date(nonActiveTimeTestData[0].startDateTime).toLocaleTimeString('he-IL', options);
     const endDateTime = new Date(nonActiveTimeTestData[0].endDateTime).toLocaleTimeString('he-IL', options);
