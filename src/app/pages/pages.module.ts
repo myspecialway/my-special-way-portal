@@ -26,7 +26,6 @@ import { StudentDetailsHoursComponent } from './student/details/tabs/student-det
 import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
-import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
 import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
 import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
@@ -61,7 +60,6 @@ import { FileImportModule } from '../file-import/file-import.module';
     ClassDetailsContainerComponent,
     MapContainerComponent,
     MapViewComponent,
-    UniqueUsernameValidatorDirective,
     NonActiveTimeComponent,
     UsernameValidatorDirective,
     PasswordValidatorDirective,
