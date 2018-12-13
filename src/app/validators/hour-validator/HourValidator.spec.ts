@@ -1,5 +1,6 @@
 import { HourValidator } from './HourValidator';
 import { AbstractControl, FormGroup } from '@angular/forms';
+import * as moment from 'moment';
 
 describe('HourValidator', () => {
   describe('hour validator', () => {
@@ -23,9 +24,9 @@ describe('HourValidator', () => {
             case 'endHour':
               return { value: '09:00' };
             case 'startDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
             case 'endDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
           }
         }),
       };
@@ -41,9 +42,9 @@ describe('HourValidator', () => {
             case 'endHour':
               return { value: '08:00' };
             case 'startDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
             case 'endDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
           }
         }),
       };
@@ -59,9 +60,9 @@ describe('HourValidator', () => {
             case 'endHour':
               return { value: '09:00' };
             case 'startDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
             case 'endDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
           }
         }),
       };
@@ -77,9 +78,9 @@ describe('HourValidator', () => {
             case 'endHour':
               return { value: '08:00' };
             case 'startDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 00:00:00 GMT') };
             case 'endDateTime':
-              return { value: new Date('Tue, 12 Dec 2018 00:00:00 GMT') };
+              return { value: moment('Tue, 12 Dec 2018 00:00:00 GMT') };
           }
         }),
       };
@@ -101,9 +102,9 @@ describe('HourValidator', () => {
             case 'endHour':
               return { value: '99:99' };
             case 'startDateTime':
-              return { value: new Date('Tue, 11 Dec 2018 99:99:00 GMT') };
+              return { value: moment('Tue, 11 Dec 2018 99:99:00 GMT') };
             case 'endDateTime':
-              return { value: new Date('Tue, 12 Dec 2018 99:99:00 GMT') };
+              return { value: moment('Tue, 12 Dec 2018 99:99:00 GMT') };
           }
         }),
       };

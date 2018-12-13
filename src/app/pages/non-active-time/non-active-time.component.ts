@@ -6,6 +6,7 @@ import { NonActiveTime } from '../../models/non-active-time.model';
 import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
 import { first } from 'rxjs/operators';
 import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-non-active-time',
@@ -20,7 +21,7 @@ export class NonActiveTimeComponent implements OnInit {
   sort: MatSort;
 
   @SubscriptionCleaner()
-  subCollector;
+  subCollector: Subscription;
 
   constructor(private nonActiveTimeService: NonActiveTimeService, public dialog: MatDialog) {}
 

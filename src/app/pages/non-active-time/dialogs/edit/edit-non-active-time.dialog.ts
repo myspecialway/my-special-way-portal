@@ -1,24 +1,26 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SubscriptionCleaner } from '../../../../decorators/SubscriptionCleaner.decorator';
 import { Subscription } from 'rxjs';
 import { NonActiveTime } from '../../../../models/non-active-time.model';
 import { ClassService } from '../../../class/services/class.graphql.service';
-import { AppDateAdapter } from '../../../../utils/date.adapter';
 import { HourValidator } from '../../../../validators/hour-validator/HourValidator';
-import { toHour, parseHourStringFromDate } from '../../../../utils/hours.utils';
+import { toHour } from '../../../../utils/hours.utils';
 import { NonActiveTimeClassData } from '../../../../models/non-active-time-classes-data.model';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    dateInput: 'MMMM DD YYYY',
   },
   display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'numeric' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    dateInput: 'MMMM DD YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
   },
 };
 
@@ -27,8 +29,9 @@ export const MY_DATE_FORMATS = {
   templateUrl: './edit-non-active-time.dialog.html',
   styleUrls: ['./edit-non-active-time.dialog.scss'],
   providers: [
-    { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'he-IL' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
   ],
 })
 export class EditNonActiveTimeDialogComponent implements OnInit {
@@ -55,8 +58,8 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       {
         title: ['', Validators.required],
         isAllDayEvent: [true],
-        startDateTime: [new Date()],
-        endDateTime: [new Date()],
+        startDateTime: [moment()],
+        endDateTime: [moment()],
         startHour: [this.hours[0], { updateOn: 'blur' }],
         endHour: [this.hours[1], { updateOn: 'blur' }],
         isAllClassesEvent: [true],
@@ -86,29 +89,29 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
   private prepareOutput(form: FormGroup): NonActiveTime {
     const startHour = toHour(form.getRawValue().startHour) || { hour: 0, min: 0 };
     const endHour = toHour(form.getRawValue().endHour) || { hour: 0, min: 0 };
-    form.value.startDateTime.setHours(startHour.hour, startHour.min, 0, 0);
-    form.value.endDateTime.setHours(endHour.hour, endHour.min, 0, 0);
+    (form.value.startDateTime as Moment).hours(startHour.hour).minutes(startHour.min);
+    (form.value.endDateTime as Moment).hours(endHour.hour).minutes(endHour.min);
 
     return {
       _id: this.data._id,
       title: form.value.title,
       isAllDayEvent: form.value.isAllDayEvent,
-      startDateTime: form.value.startDateTime.toUTCString(),
-      endDateTime: form.value.endDateTime.toUTCString(),
+      startDateTime: (form.value.startDateTime as Moment).toDate().toUTCString(),
+      endDateTime: (form.value.endDateTime as Moment).toDate().toUTCString(),
       isAllClassesEvent: form.value.isAllClassesEvent,
       classes: form.value.classes,
     };
   }
 
   private setValuesForEdit(data: NonActiveTime) {
-    const startDateTime = new Date(data.startDateTime);
-    const endDateTime = new Date(data.endDateTime);
+    const startDateTime = moment(data.startDateTime);
+    const endDateTime = moment(data.endDateTime);
     this.form.setValue(
       Object.assign(data, {
         startDateTime,
         endDateTime,
-        startHour: parseHourStringFromDate(startDateTime),
-        endHour: parseHourStringFromDate(endDateTime),
+        startHour: startDateTime.format('hh:mm'),
+        endHour: endDateTime.format('hh:mm'),
       }),
     );
   }

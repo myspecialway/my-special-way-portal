@@ -1,5 +1,6 @@
 import { FormGroup, ValidationErrors, AbstractControl } from '@angular/forms';
 import { toHour, hourRegex } from '../../utils/hours.utils';
+import { Moment } from 'moment';
 
 export class HourValidator {
   static hourRangeValidator(formGroup: FormGroup): ValidationErrors | null {
@@ -10,8 +11,8 @@ export class HourValidator {
     if (!startHourControl || !endHourControl || !startDateControl || !endDateControl) {
       return null;
     }
-    const startDateString = (startDateControl.value as Date).toDateString();
-    const endDateString = (endDateControl.value as Date).toDateString();
+    const startDateString = (startDateControl.value as Moment).format();
+    const endDateString = (endDateControl.value as Moment).format();
     if (startDateString !== endDateString) {
       return null;
     }

@@ -23,9 +23,8 @@ import {
   MatAutocompleteModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -98,7 +97,7 @@ import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/de
     MatCheckboxModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,

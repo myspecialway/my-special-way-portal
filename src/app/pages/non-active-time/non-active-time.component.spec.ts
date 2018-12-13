@@ -1,59 +1,51 @@
 import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { LessonService } from '../../services/lesson/lesson.graphql.service';
-import { Lesson } from '../../models/lesson.model';
-import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatSort, MatPaginator, MatDialog, MatTableModule } from '@angular/material';
 
 import { Observable } from 'rxjs-compat';
-import { ClassService } from '../class/services/class.graphql.service';
-import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
-import { NonActiveTime } from '../../models/non-active-time.model';
 import { NonActiveTimeComponent } from './non-active-time.component';
+import { NO_ERRORS_SCHEMA, Provider } from '@angular/core';
+import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
+import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
+import { nonActiveTimeTestData } from '../../../mocks/assets/nonActiveTime.mock';
+import { CdkTableModule } from '@angular/cdk/table';
+import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
 
-describe('lesson component', () => {
+describe('NonActiveTimeComponent', () => {
   let nonActiveTimeServiceMock: Partial<NonActiveTimeService>;
-  let classServiceMock: Partial<ClassService>;
-  let nonActiveTimeTestData: NonActiveTime[] = [];
+  const singleNonActiveTime = nonActiveTimeTestData.nonActiveTimes[0];
+  let matDialogMock: Partial<MatDialog>;
+  function matDialogMockFactory(result) {
+    const mock = {
+      open: jest.fn().mockImplementation(() => ({
+        afterClosed: mock.open,
+        pipe: mock.open,
+        subscribe: jest.fn().mockImplementation((func) => {
+          func(result);
+        }),
+      })),
+    };
+    return mock;
+  }
 
-  let nonActiveTimeDialogueMock: Partial<MatDialog>;
-  let nonActiveTimeDialogueMockValue: boolean;
+  async function createFixture(providers: Provider[] = []) {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [CdkTableModule, MatTableModule],
+      declarations: [NonActiveTimeComponent, MatSort, MatPaginator],
+      providers: [
+        { provide: NonActiveTimeService, useValue: nonActiveTimeServiceMock },
+        { provide: MatDialog, useValue: matDialogMock },
+        ...providers,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
-  beforeAll(async () => {
-    nonActiveTimeTestData = [
-      {
-        _id: '5c0fa61642d6052794ab44c8',
-        title: 'best title ever',
-        isAllDayEvent: false,
-        startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        isAllClassesEvent: false,
-        classes: [
-          {
-            _id: '5c04f3814408e8334404ef16',
-            name: 'טיטאן',
-          },
-          {
-            _id: '5c04f3814408e8334404ef17',
-            name: 'פטל',
-          },
-        ],
-      },
-      {
-        _id: '5c0fbbb04e773c17106afdb0',
-        title: 'best title ever 2222222',
-        isAllDayEvent: false,
-        startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        isAllClassesEvent: false,
-        classes: [
-          {
-            _id: '5c04f3814408e8334404ef17',
-            name: 'פטל',
-          },
-        ],
-      },
-    ];
-  });
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    // fixture.componentInstance.subCollector = { add: jest.fn() };
+    await fixture.componentInstance.ngOnInit();
+    fixture.detectChanges();
+    return fixture;
+  }
 
   beforeEach(async () => {
     nonActiveTimeServiceMock = {
@@ -62,151 +54,147 @@ describe('lesson component', () => {
       create: jest.fn(),
       update: jest.fn(),
     };
-    classServiceMock = {
-      getAllClasses: jest.fn().mockImplementation(() => Observable.of([])),
-    };
-    nonActiveTimeDialogueMockValue = true;
-    nonActiveTimeDialogueMock = {
-      open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockImplementation(() => Observable.of(nonActiveTimeDialogueMockValue)),
-      }),
-    };
 
-    TestBed.configureTestingModule({
-      imports: [],
-      declarations: [NonActiveTimeComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
-      providers: [
-        { provide: NonActiveTimeService, useValue: nonActiveTimeServiceMock },
-        { provide: MatDialog, useValue: nonActiveTimeDialogueMock },
-        { provide: ClassService, useValue: classServiceMock },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+    matDialogMock = matDialogMockFactory(singleNonActiveTime);
   });
 
   it('should render component as described in snapshot', () => {
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    expect(fixture).toMatchSnapshot();
+    expect(createFixture()).toMatchSnapshot();
   });
 
-  it('should load correct number of Non active times ', async () => {
+  it('should load correct number of Non active times', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData.nonActiveTimes);
     });
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    fixture.detectChanges();
+    const fixture = await createFixture();
     await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(nonActiveTimeTestData.nonActiveTimes.length);
   });
 
   it('should load zero Non active times in case of promise reject', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.reject();
+      return Observable.of([]);
     });
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    fixture.detectChanges();
+    const fixture = await createFixture();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
   });
 
-  it('should open delete delete component dialogue', async () => {
+  it('should open delete component dialog', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData.nonActiveTimes);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    const fixture = await createFixture();
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(nonActiveTimeDialogueMock.open).toHaveBeenCalled();
+    expect(matDialogMock.open).toHaveBeenCalledWith(DeleteNonActiveTimeDialogueComponent);
   });
-  it('should call deleteNonActiveTime when user confirms ', async () => {
+
+  it('should call deleteNonActiveTime when user confirms', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-    nonActiveTimeDialogueMockValue = true;
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    const fixture = await createFixture([{ provide: MatDialog, useValue: matDialogMockFactory(Observable.of(true)) }]);
+
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
+    await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData.nonActiveTimes[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(nonActiveTimeServiceMock.delete).toHaveBeenCalledWith(nonActiveTimeTestData[0]._id);
+    expect(nonActiveTimeServiceMock.delete).toHaveBeenCalledWith(nonActiveTimeTestData.nonActiveTimes[0]._id);
   });
 
-  it('should not call deleteNonActiveTime when user cancels ', async () => {
+  it('should not call deleteNonActiveTime when user cancels', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(nonActiveTimeTestData);
+      return Observable.of(nonActiveTimeTestData.nonActiveTimes);
     });
     (nonActiveTimeServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-    nonActiveTimeDialogueMockValue = false;
-
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData[0]);
+    const fixture = await createFixture([{ provide: MatDialog, useValue: matDialogMockFactory(Observable.of(false)) }]);
+    //await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData.nonActiveTimes[0]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(nonActiveTimeServiceMock.delete).not.toHaveBeenCalled();
   });
 
-  // add-edit tests
-  /*it('should call lesson update when user edits a lesson', async () => {
-    const anyLesson: Lesson = {
-      _id: 'anyId',
-      title: 'sometitle',
-      icon: 'an-icon',
-    };
-
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.editLesson(anyLesson);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.update).toHaveBeenCalled();
+  it('should open dialog for create new nonActiveTime', async () => {
+    const fixture = await createFixture();
+    fixture.componentInstance.addNonActiveTime();
+    expect(matDialogMock.open).toBeCalledWith(EditNonActiveTimeDialogComponent, { data: {} });
+    expect(nonActiveTimeServiceMock.create).toBeCalledWith(
+      singleNonActiveTime.title,
+      singleNonActiveTime.isAllDayEvent,
+      singleNonActiveTime.startDateTime,
+      singleNonActiveTime.endDateTime,
+      singleNonActiveTime.isAllClassesEvent,
+      singleNonActiveTime.classes ? singleNonActiveTime.classes.map((c) => c._id) : [],
+    );
   });
-  it('should call lesson create when calling add new lesson ', async () => {
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
 
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.addNewLesson();
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.create).toHaveBeenCalled();
+  it('should open dialog for create new nonActiveTime even if there is no classes', async () => {
+    const matDialogMockNoClassID = matDialogMockFactory(
+      Object.assign(JSON.parse(JSON.stringify(singleNonActiveTime)), { classes: undefined }),
+    );
+    const fixture = await createFixture([{ provide: MatDialog, useValue: matDialogMockNoClassID }]);
+    fixture.componentInstance.addNonActiveTime();
+    expect(matDialogMockNoClassID.open).toBeCalled();
+    expect(nonActiveTimeServiceMock.create).toBeCalledWith(
+      singleNonActiveTime.title,
+      singleNonActiveTime.isAllDayEvent,
+      singleNonActiveTime.startDateTime,
+      singleNonActiveTime.endDateTime,
+      singleNonActiveTime.isAllClassesEvent,
+      [],
+    );
   });
-  it('should not call lesson create or update when dialog resilt is false ', async () => {
-    (lessonServiceMock.getLessons as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(lessonTestData);
-    });
-    (lessonServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
-    });
-    lessonDialogMockValue = false;
-    const fixture = TestBed.createComponent(LessonComponent);
-    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
-    fixture.componentInstance.addNewLesson();
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(lessonServiceMock.create).not.toHaveBeenCalled();
-    expect(lessonServiceMock.update).not.toHaveBeenCalled();
-  });*/
+
+  it('should open dialog for update exist nonActiveTime', async () => {
+    const fixture = await createFixture();
+    fixture.componentInstance.editNonActiveTime(singleNonActiveTime);
+    expect(matDialogMock.open).toBeCalledWith(EditNonActiveTimeDialogComponent, { data: singleNonActiveTime });
+    expect(nonActiveTimeServiceMock.update).toBeCalledWith(
+      singleNonActiveTime._id,
+      singleNonActiveTime.title,
+      singleNonActiveTime.isAllDayEvent,
+      singleNonActiveTime.startDateTime,
+      singleNonActiveTime.endDateTime,
+      singleNonActiveTime.isAllClassesEvent,
+      singleNonActiveTime.classes ? singleNonActiveTime.classes.map((c) => c._id) : [],
+    );
+  });
+
+  it('should open dialog for update exist nonActiveTime even if there is no classes', async () => {
+    const matDialogMockNoClassID = matDialogMockFactory(
+      Object.assign(JSON.parse(JSON.stringify(singleNonActiveTime)), { classes: undefined }),
+    );
+    const fixture = await createFixture([{ provide: MatDialog, useValue: matDialogMockNoClassID }]);
+    fixture.componentInstance.editNonActiveTime(singleNonActiveTime);
+    expect(matDialogMockNoClassID.open).toBeCalled();
+    expect(nonActiveTimeServiceMock.update).toBeCalledWith(
+      singleNonActiveTime._id,
+      singleNonActiveTime.title,
+      singleNonActiveTime.isAllDayEvent,
+      singleNonActiveTime.startDateTime,
+      singleNonActiveTime.endDateTime,
+      singleNonActiveTime.isAllClassesEvent,
+      [],
+    );
+  });
+
+  it('should do nothing if there is no output from the dialog', async () => {
+    const matDialogMockNoResult = matDialogMockFactory(null);
+    const fixture = await createFixture([{ provide: MatDialog, useValue: matDialogMockNoResult }]);
+    fixture.componentInstance.addNonActiveTime();
+    expect(matDialogMockNoResult.open).toBeCalled();
+    expect(nonActiveTimeServiceMock.create).not.toBeCalled();
+  });
 });

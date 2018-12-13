@@ -16,9 +16,3 @@ export function toHour(hourString: string): Hour | null {
   min = isNaN(min) ? 0 : min;
   return { hour, min };
 }
-
-export function parseHourStringFromDate(date: Date) {
-  const hour = date.getHours();
-  const min = date.getMinutes();
-  return [(hour > 9 ? '' : '0') + hour, (min > 9 ? '' : '0') + min].join(':');
-}
