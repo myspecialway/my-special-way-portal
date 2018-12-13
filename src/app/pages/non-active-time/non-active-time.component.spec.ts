@@ -203,4 +203,12 @@ describe('non active time component', () => {
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[1])).toEqual('פטל');
   });
+
+  it('should get correct display string for an all day event with multiple classes', async () => {
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.getClassesDisplayData(nonActiveTimeTestData[0])).toEqual('טיטאן + 1');
+  });
 });
