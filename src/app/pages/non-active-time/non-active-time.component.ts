@@ -4,7 +4,6 @@ import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decora
 import { Subscription } from 'rxjs';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
-import { EditLessonDialogComponent } from '../lesson/dialogs/new-edit/edit-lesson.dialog';
 import { first } from 'rxjs/operators';
 import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
 

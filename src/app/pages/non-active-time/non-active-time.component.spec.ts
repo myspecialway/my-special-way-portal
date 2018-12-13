@@ -3,11 +3,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator, MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs-compat';
-import { ClassService } from '../class/services/class.graphql.service';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { NonActiveTimeComponent } from './non-active-time.component';
-import of = module;
 
 describe('non active time component', () => {
   let nonActiveTimeServiceMock: Partial<NonActiveTimeService>;
