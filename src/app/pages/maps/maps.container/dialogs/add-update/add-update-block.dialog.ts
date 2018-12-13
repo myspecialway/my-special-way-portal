@@ -33,6 +33,7 @@ export class AddUpdateBlockDialogComponent implements OnInit {
         from: this.data.from,
         to: this.data.to,
         reason: this.data.reason,
+        _id: this.data._id,
       });
     }
   }

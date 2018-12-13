@@ -51,7 +51,7 @@ export class MapsContainerComponent implements OnInit {
 
   @SubscriptionCleaner()
   subCollector;
-  // private mapsService: MapsService
+
   constructor(private route: ActivatedRoute, private dialog: MatDialog, private mapsService: MapsService) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
@@ -61,12 +61,6 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.subCollector.add(
-    //   this.route.params.subscribe((params) => {
-    //     this.idOrNew = params.idOrNew;
-    //   }),
-    // );
-
     try {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
@@ -103,12 +97,10 @@ export class MapsContainerComponent implements OnInit {
 
           try {
             if (isNewBlock) {
-              console.log('Need to add a NEW block to somewhere!!');
               await this.mapsService.create(result);
             } else {
-              console.log('Need to UPDATE a block to somewhere!!');
+              await this.mapsService.update(result);
             }
-            // await this.studentService.delete(id);
           } catch (error) {
             // TODO: implement error handling on UI
             console.error('Error handling not implemented');
@@ -118,27 +110,28 @@ export class MapsContainerComponent implements OnInit {
     );
   }
 
-  deleteBlock(fromPoint: string, toPoint: string, reason: string) {
+  deleteBlock(blockedSection: BlockedSection) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
-      data: { fromPoint, toPoint, reason },
+      data: blockedSection,
     });
 
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (deletionConfirmed) => {
-        if (!deletionConfirmed) {
-          return;
-        }
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (result) => {
+          if (!result) {
+            return;
+          }
 
-        try {
-          // await this.studentService.delete(id);
-          console.log('Need to delete the block from somewhere!!');
-        } catch (error) {
-          // TODO: implement error handling on UI
-          console.error('Error handling not implemented');
-          throw error;
-        }
-      });
+          try {
+            await this.mapsService.delete(blockedSection._id);
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
+          }
+        }),
+    );
   }
 }

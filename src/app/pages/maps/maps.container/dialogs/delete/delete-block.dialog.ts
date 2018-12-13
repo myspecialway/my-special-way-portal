@@ -11,7 +11,5 @@ export class DeleteBlockDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  confirmDelete(): void {
-    // המקטע ימחק. במידה והפעולה לא נעשית בצורה מידית, יש להציג אנימציית טעינה (כמו בלוגין)
-  }
+  confirmDelete(): void {}
 }
