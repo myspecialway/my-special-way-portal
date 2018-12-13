@@ -1,6 +1,6 @@
 import { mockedLocations } from './../../../../../../mocks/assets/locations.mock';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
-import { MatDialog, MatDialogModule, MatTableModule } from '@angular/material';
+import { MatDialogModule, MatTableModule } from '@angular/material';
 import { MapPointsViewComponent } from './maps-points.view/map-points.view.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 

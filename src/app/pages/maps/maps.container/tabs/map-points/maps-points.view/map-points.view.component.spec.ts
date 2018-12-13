@@ -5,7 +5,6 @@ import {
   MatListModule,
   MatSelectModule,
   MatSlideToggleModule,
-  MatDialog,
   MatTableModule,
   MatInputModule,
   MatButtonModule,
