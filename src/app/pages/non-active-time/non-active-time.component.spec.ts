@@ -86,19 +86,10 @@ describe('non active time component', () => {
       return Observable.of(nonActiveTimeTestData);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
-  });
-
-  it('should get empty array if no Non active times are defined', async () => {
-    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Observable.of(undefined);
-    });
-    const fixture = TestBed.createComponent(NonActiveTimeComponent);
-    fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    expect(fixture.componentInstance.dataSource.data).toEqual([]);
   });
 
   it('should load zero Non active times in case of error', async () => {
@@ -106,6 +97,7 @@ describe('non active time component', () => {
       return Observable.throwError('testing with errors');
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(0);
@@ -156,5 +148,16 @@ describe('non active time component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(nonActiveTimeServiceMock.delete).not.toHaveBeenCalled();
+  });
+
+  it('should get empty array if no Non active times are defined', async () => {
+    (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(undefined);
+    });
+    const fixture = TestBed.createComponent(NonActiveTimeComponent);
+    await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data).toEqual([]);
   });
 });
