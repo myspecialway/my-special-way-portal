@@ -152,7 +152,7 @@ describe('non active time component', () => {
 
   it('should get empty array if no Non active times are defined', async () => {
     (nonActiveTimeServiceMock.getAllNonActiveTimes as jest.Mock).mockImplementationOnce(() => {
-      return Observable.of(undefined);
+      return Observable.of(null);
     });
     const fixture = TestBed.createComponent(NonActiveTimeComponent);
     await fixture.componentInstance.ngOnInit(); // this triggers the subCleaner instantiator.
