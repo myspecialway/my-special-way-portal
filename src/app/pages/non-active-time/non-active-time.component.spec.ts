@@ -21,7 +21,7 @@ describe('non active time component', () => {
         title: 'best title ever',
         isAllDayEvent: false,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
-        endDateTime: 'Tue, 11 Dec 2018 14:23:09 GMT',
+        endDateTime: 'Tue, 11 Dec 2018 16:23:09 GMT',
         isAllClassesEvent: false,
         classes: [
           {
