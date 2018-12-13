@@ -233,7 +233,7 @@ describe('non active time component', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData[0])).toEqual(
-      '2018 M12 10 עד 2018 M12 10',
+      '2018 M12 10 עד 2018 M12 11',
     );
   });
 
