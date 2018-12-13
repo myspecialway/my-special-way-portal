@@ -7,7 +7,9 @@
 
     <ng-container matColumnDef="label">
       <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="onEdit(row)">{{row.name}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="onEdit(row)">
+        {{row.name}}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="icon">

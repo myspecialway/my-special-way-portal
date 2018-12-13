@@ -1,50 +1,36 @@
+import { mockedLocations } from './../../../../../../../mocks/assets/locations.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapPointsViewComponent } from './map-points.view.component';
-import { MatListModule, MatSelectModule, MatSlideToggleModule, MatDialog } from '@angular/material';
-
-const mockedLocations = [
-  {
-    _id: '0',
-    name: 'פטל כיתת',
-    disabled: true,
-    location_id: '0',
-    position: {
-      latitude: 31.986417758011342,
-      longitude: 34.91077744955874,
-      floor: 0,
-    },
-  },
-  {
-    _id: '1',
-    name: 'כיתת סחלב',
-    disabled: false,
-    location_id: '1',
-    position: {
-      latitude: 31.986419691740092,
-      longitude: 34.91078563034535,
-      floor: 1,
-    },
-  },
-  {
-    _id: '3',
-    name: 'כיתת קג׳בובו',
-    disabled: false,
-    location_id: '2',
-    position: {
-      latitude: 31.986419691740092,
-      longitude: 34.91078563034535,
-      floor: 1,
-    },
-  },
-];
+import {
+  MatListModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatDialog,
+  MatTableModule,
+  MatInputModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatGridListModule,
+  MatDialogModule,
+} from '@angular/material';
 
 describe('ClassDetailsComponent with class info', () => {
   let fixture: ComponentFixture<MapPointsViewComponent>;
   let component: MapPointsViewComponent;
   const beforeEachAsync = async () => {
     TestBed.configureTestingModule({
-      imports: [MatSlideToggleModule, MatSelectModule, MatListModule],
-      providers: [MatDialog],
+      imports: [
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatTableModule,
+        MatGridListModule,
+        MatSlideToggleModule,
+        MatListModule,
+      ],
+      // providers: [MatDialog],
       declarations: [MapPointsViewComponent],
     }).compileComponents();
   };
@@ -76,11 +62,21 @@ describe('ClassDetailsComponent with class info', () => {
       },
     };
 
-    component.onUpdate(testLocation, {});
-    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, disabled: true });
-    component.onLocationNameChanged(testLocation, 'test name');
-    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, name: 'test name' });
-    component.onLocationIdChanged(testLocation, '4');
-    expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, location_id: '4' });
+    component.onUpdate(testLocation, { name: 'new location name' });
+    expect(component.update.emit).toHaveBeenLastCalledWith({
+      _id: '3',
+      name: 'new location name',
+      disabled: false,
+      location_id: '3',
+      position: {
+        latitude: 31.986419691740092,
+        longitude: 34.91078563034535,
+        floor: 1,
+      },
+    });
+    // component.onLocationNameChanged(testLocation, 'test name');
+    // expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, name: 'test name' });
+    // component.onLocationIdChanged(testLocation, '4');
+    // expect(component.update.emit).toHaveBeenLastCalledWith({ _id: testLocation._id, location_id: '4' });
   });
 });

@@ -1,6 +1,6 @@
 import { mockedLocations } from './../../../../../../mocks/assets/locations.mock';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogModule, MatTableModule } from '@angular/material';
 import { MapPointsViewComponent } from './maps-points.view/map-points.view.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,8 +14,9 @@ describe('MapPointsComponent', () => {
   };
   const beforeEachAsync = async () => {
     TestBed.configureTestingModule({
+      imports: [MatTableModule, MatDialogModule],
       declarations: [MapPointsComponent, MapPointsViewComponent],
-      providers: [MatDialog, { provide: LocationService, useValue: locationServiceMock }],
+      providers: [{ provide: LocationService, useValue: locationServiceMock }],
     }).compileComponents();
   };
 
