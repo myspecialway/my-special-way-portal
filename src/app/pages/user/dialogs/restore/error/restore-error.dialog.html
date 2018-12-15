@@ -1,11 +1,18 @@
 <div class="container">
-  <h3 mat-dialog-title color="accent">שחזור ססמא</h3>
-  <mat-divider></mat-divider>
-  <div mat-dialog-content>
-    לא הצלחנו לשלוח אמייל לכתובת: {{data.email}}. אנא נסה שוב.
+  <div class="msw-login-logo-ph">
+    <img class="img" src="../../../../../../assets/img/email.sent.png" alt="">
+  </div>
+  <div class="mat-dialog-content">
+שחזור הססמא נכשל
+  </div>
+  <div class="mat-dialog-content-small">
+    לא הצלחנו לשלוח אימייל לכתובת: {{data.email}}
+  </div>
+  <div class="mat-dialog-content-small">
+    אנא נסו שנית או פנו למנהל המערכת
   </div>
   <div mat-dialog-actions>
-    <button mat-button class="msw-button-delete" id="confirm-delete-user" [mat-dialog-close]=true (click)="submit()">נסו שוב</button>
-    <button mat-button class="msw-button-cancel" (click)="close()" tabindex="-1">אישור</button>
+    <button mat-button class="msw-button-retry" id="confirm-delete-user" [mat-dialog-close]=true (click)="submit()">נסו שוב</button>
+    <button mat-button class="msw-button-close" (click)="close()" tabindex="-1">אישור</button>
   </div>
 </div>
