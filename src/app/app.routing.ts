@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
-import { FirstTimeLoginComponent } from './pages/login/first-time/first.time.login.component';
 import { StudentComponent } from './pages/student/student.component';
 import { ClassComponent } from './pages/class/class.component';
 import { UserComponent } from './pages/user/user.component';
@@ -21,7 +20,6 @@ import { MapContainerComponent } from './pages/maps/maps.container/map.container
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'first-login', component: FirstTimeLoginComponent },
   {
     path: '',
     canActivate: [AuthGuard],

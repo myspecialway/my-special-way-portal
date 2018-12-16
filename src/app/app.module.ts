@@ -28,12 +28,10 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
-import { FirstTimeLoginComponent } from './pages/login/first-time/first.time.login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PapaParseModule } from 'ngx-papaparse';
-
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -103,7 +101,6 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
-    FirstTimeLoginComponent,
     ClassComponent,
     LessonComponent,
     StudentComponent,
