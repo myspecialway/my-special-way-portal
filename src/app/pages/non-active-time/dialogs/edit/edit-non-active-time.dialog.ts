@@ -86,6 +86,34 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
     }
   }
 
+  public isAllDayEvent(flag: boolean) {
+    if (flag) {
+      this.form.controls.startHour.disable();
+      this.form.controls.startHour.clearValidators();
+      this.form.controls.endHour.disable();
+      this.form.controls.endHour.clearValidators();
+    } else {
+      this.form.controls.startHour.enable();
+      this.form.controls.startHour.setValidators([HourValidator.hourValidator, Validators.required]);
+      this.form.controls.endHour.enable();
+      this.form.controls.endHour.setValidators([HourValidator.hourValidator, Validators.required]);
+    }
+  }
+
+  public isAllClassesEvent(flag: boolean) {
+    if (flag) {
+      this.form.controls.classes.disable();
+      this.form.controls.classes.clearValidators();
+    } else {
+      this.form.controls.classes.enable();
+      this.form.controls.classes.setValidators([Validators.required]);
+    }
+  }
+
+  public compareNonActiveTimeClassData(x: NonActiveTimeClassData, y: NonActiveTimeClassData): boolean {
+    return x && y ? x._id === y._id : x === y;
+  }
+
   private prepareOutput(form: FormGroup): NonActiveTime {
     const startHour = toHour(form.getRawValue().startHour) || { hour: 0, min: 0 };
     const endHour = toHour(form.getRawValue().endHour) || { hour: 0, min: 0 };
@@ -130,30 +158,6 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
     }
   }
 
-  private isAllDayEvent(flag: boolean) {
-    if (flag) {
-      this.form.controls.startHour.disable();
-      this.form.controls.startHour.clearValidators();
-      this.form.controls.endHour.disable();
-      this.form.controls.endHour.clearValidators();
-    } else {
-      this.form.controls.startHour.enable();
-      this.form.controls.startHour.setValidators([HourValidator.hourValidator, Validators.required]);
-      this.form.controls.endHour.enable();
-      this.form.controls.endHour.setValidators([HourValidator.hourValidator, Validators.required]);
-    }
-  }
-
-  private isAllClassesEvent(flag: boolean) {
-    if (flag) {
-      this.form.controls.classes.disable();
-      this.form.controls.classes.clearValidators();
-    } else {
-      this.form.controls.classes.enable();
-      this.form.controls.classes.setValidators([Validators.required]);
-    }
-  }
-
   private validateAllFormFields(formGroup: FormGroup): boolean {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
@@ -167,9 +171,5 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       }
     });
     return formGroup.errors === null;
-  }
-
-  compareNonActiveTimeClassData(x: NonActiveTimeClassData, y: NonActiveTimeClassData): boolean {
-    return x && y ? x._id === y._id : x === y;
   }
 }

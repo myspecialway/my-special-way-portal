@@ -24,7 +24,7 @@
               <mat-radio-button
                 color="primary"
                 [value]="false"
-                [checked]="!form.get('isAllClassesEvent').value"
+                [checked]="!form.get('isAllClassesEvent')!.value"
                 (change)="isAllClassesEvent(false)"
               >
                 בחר כיתה
@@ -44,7 +44,7 @@
               >
             </mat-select>
           </mat-form-field>
-          <mat-error *ngIf="form.get('classes').hasError('required')">אנא בחר כיתות</mat-error>
+          <mat-error *ngIf="form.get('classes')!.hasError('required')">אנא בחר כיתות</mat-error>
         </div>
       </div>
       <div class="row">
@@ -56,7 +56,7 @@
               <mat-radio-button
                 color="primary"
                 [value]="true"
-                [checked]="form.get('isAllClassesEvent').value"
+                [checked]="form.get('isAllClassesEvent')!.value"
                 (change)="isAllClassesEvent(true)"
               >
                 כל הכיתות
@@ -99,7 +99,7 @@
               <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
             </mat-datepicker-toggle>
             <mat-datepicker touchUi #endDateTime></mat-datepicker>
-            <mat-error *ngIf="form.get('endDateTime').hasError('matDatepickerMin')"
+            <mat-error *ngIf="form.get('endDateTime')!.hasError('matDatepickerMin')"
               >תאריך סיום אינו יכול להיות לפני תאריך ההתחלה</mat-error
             >
           </mat-form-field>
@@ -116,7 +116,7 @@
               <mat-radio-button
                 color="primary"
                 [value]="false"
-                [checked]="!form.get('isAllDayEvent').value"
+                [checked]="!form.get('isAllDayEvent')!.value"
                 (change)="isAllDayEvent(false)"
               >
                 שעות
@@ -141,9 +141,9 @@
               </mat-autocomplete>
               <mat-error
                 *ngIf="
-                  form.get('startHour').hasError('invalidHour') &&
-                  !form.get('startHour').hasError('required') &&
-                  !form.get('endHour').hasError('required')
+                  form.get('startHour')!.hasError('invalidHour') &&
+                  !form.get('startHour')!.hasError('required') &&
+                  !form.get('endHour')!.hasError('required')
                 "
                 >שעה לא תקינה</mat-error
               >
@@ -158,9 +158,9 @@
               </mat-autocomplete>
               <mat-error
                 *ngIf="
-                  form.get('endHour').hasError('invalidHour') &&
-                  !form.get('startHour').hasError('required') &&
-                  !form.get('endHour').hasError('required')
+                  form.get('endHour')!.hasError('invalidHour') &&
+                  !form.get('startHour')!.hasError('required') &&
+                  !form.get('endHour')!.hasError('required')
                 "
                 >שעה לא תקינה</mat-error
               >
@@ -169,14 +169,14 @@
               class="row mat-error"
               *ngIf="
                 form.hasError('invalidHourRange') &&
-                !form.get('endHour').hasError('invalidHour') &&
-                !form.get('startHour').hasError('invalidHour')
+                !form.get('endHour')!.hasError('invalidHour') &&
+                !form.get('startHour')!.hasError('invalidHour')
               "
             >
               שעת הסיום חייבת להיות מאוחרת משעת ההתחלה
             </div>
           </div>
-          <mat-error *ngIf="form.get('startHour').hasError('required') || form.get('endHour').hasError('required')"
+          <mat-error *ngIf="form.get('startHour')!.hasError('required') || form.get('endHour')!.hasError('required')"
             >אנא בחר שעת התחלה וסיום</mat-error
           >
         </div>
@@ -190,7 +190,7 @@
               <mat-radio-button
                 color="primary"
                 [value]="true"
-                [checked]="form.get('isAllDayEvent').value"
+                [checked]="form.get('isAllDayEvent')!.value"
                 (change)="isAllDayEvent(true)"
               >
                 כל היום
