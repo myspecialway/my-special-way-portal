@@ -17,10 +17,10 @@
 }
 .mat-dialog-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 .msw-login-logo-ph {
@@ -93,8 +93,8 @@
   width: 109.7px;
   height: 36px;
   border-radius: 3px;
-  color: #ffffff;
-  background-color: #8249d1;
+  //  color: #ffffff;
+  // background-color: #8249d1;
 }
 
 .msw-button-retry {
@@ -103,5 +103,5 @@
   height: 36px;
   border-radius: 3px;
   color: #ffffff;
-  background-color: #ff213c;
+  background-color: #8249d1;
 }

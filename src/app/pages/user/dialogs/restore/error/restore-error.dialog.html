@@ -3,16 +3,13 @@
     <img class="img" src="../../../../../../assets/img/email.sent.png" alt="">
   </div>
   <div class="mat-dialog-content">
-שחזור הססמא נכשל
+שחזור ססמא
   </div>
   <div class="mat-dialog-content-small">
-    לא הצלחנו לשלוח אימייל לכתובת: {{data.email}}
-  </div>
-  <div class="mat-dialog-content-small">
-    אנא נסו שנית או פנו למנהל המערכת
+    לא הצלחנו לשלוח אימייל לכתובת: {{data.email}}. אנא נסה שוב.
   </div>
   <div mat-dialog-actions>
-    <button mat-button class="msw-button-retry" id="confirm-delete-user" [mat-dialog-close]=true (click)="submit()">נסו שוב</button>
-    <button mat-button class="msw-button-close" (click)="close()" tabindex="-1">אישור</button>
+    <button mat-button class="msw-button-close" (click)="close()" tabindex="-1">ביטול</button>
+    <button mat-button class="msw-button-retry" id="retry" [mat-dialog-close]=true (click)="submit()">נסה שוב</button>
   </div>
 </div>
