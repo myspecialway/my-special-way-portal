@@ -42,11 +42,11 @@ const CREATE_NON_ACTIVE_TIME_QUERY = (
   mutation {
     createNonActiveTime(nonActiveTime: {
       title: "${title}"
-      isAllDayEvent: "${isAllDayEvent}"
+      isAllDayEvent: ${isAllDayEvent}
       startDateTime: "${startDateTime}"
       endDateTime: "${endDateTime}"
-      isAllClassesEvent: "${isAllClassesEvent}"
-      classesIds: "${classesIds}"
+      isAllClassesEvent: ${isAllClassesEvent}
+      classesIds: ${classesIds ? '[' + classesIds.map((classesId) => `"${classesId}"`) + ']' : undefined}
     }){ _id }
   }`;
 
@@ -62,11 +62,11 @@ const UPDATE_NON_ACTIVE_TIME_QUERY = (
  mutation {
   updateNonActiveTime(id: "${id}", nonActiveTime: {
     title: "${title}"
-    isAllDayEvent: "${isAllDayEvent}"
+    isAllDayEvent: ${isAllDayEvent}
     startDateTime: "${startDateTime}"
     endDateTime: "${endDateTime}"
-    isAllClassesEvent: "${isAllClassesEvent}"
-    classesIds: "${classesIds}"
+    isAllClassesEvent: ${isAllClassesEvent}
+    classesIds: ${classesIds ? '[' + classesIds.map((classesId) => `"${classesId}"`) + ']' : undefined}
   }){ _id }
 }`;
 

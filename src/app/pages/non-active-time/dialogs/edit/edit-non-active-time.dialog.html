@@ -1,0 +1,219 @@
+<form #formControl="ngForm" [formGroup]="form" novalidate (submit)="submitForm(form)">
+  <div class="container">
+    <h3 mat-dialog-title>
+      <div>{{ data._id ? updateDialogTitle : addDialogTitle }}</div>
+    </h3>
+
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="w-100">
+            <input matInput formControlName="title" name="title" />
+            <mat-hint *ngIf="!form.value.title">הזן כותרת</mat-hint>
+            <mat-error *ngIf="formControl.invalid">אנא הזן כותרת</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col w-25">
+          <mat-form-field class="app-input-no-underline app-form-field-no-padding-bottom">
+            <!-- work around for material's issue: https://github.com/angular/material2/issues/7891 -->
+            <input matInput style="display: none" />
+            <mat-radio-group formControlName="isAllClassesEvent">
+              <mat-radio-button
+                color="primary"
+                [value]="false"
+                [checked]="!form.get('isAllClassesEvent').value"
+                (change)="isAllClassesEvent(false)"
+              >
+                בחר כיתה
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-form-field>
+        </div>
+        <div class="col w-50">
+          <mat-form-field class="app-form-field-no-padding-bottom">
+            <mat-select formControlName="classes" [compareWith]="compareNonActiveTimeClassData" multiple>
+              <mat-select-trigger>
+                {{ form.value.classes?.length > 0 ? 'כיתת ' + form.value.classes[0].name : '' }}
+                <span *ngIf="form.value.classes?.length > 1"> +{{ form.value.classes.length - 1 }} </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let class of classes" [value]="{ _id: class._id, name: class.name }"
+                >כיתת {{ class.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('classes').hasError('required')">אנא בחר כיתות</mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col w-25">
+          <mat-form-field class="app-input-no-underline app-form-field-no-border app-form-field-no-padding-bottom">
+            <!-- work around for material's issue: https://github.com/angular/material2/issues/7891 -->
+            <input matInput style="display: none" />
+            <mat-radio-group formControlName="isAllClassesEvent">
+              <mat-radio-button
+                color="primary"
+                [value]="true"
+                [checked]="form.get('isAllClassesEvent').value"
+                (change)="isAllClassesEvent(true)"
+              >
+                כל הכיתות
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="row">
+        <div class="col date-input-field">
+          <mat-form-field class="date">
+            <input
+              formControlName="startDateTime"
+              matInput
+              [matDatepicker]="startDateTime"
+              (click)="startDateTime.open()"
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="startDateTime">
+              <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #startDateTime></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col label-between-fields"><span>עד</span></div>
+        <div class="col date-input-field">
+          <mat-form-field class="date">
+            <input
+              formControlName="endDateTime"
+              matInput
+              [min]="form.value.startDateTime"
+              [matDatepicker]="endDateTime"
+              (click)="endDateTime.open()"
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="endDateTime">
+              <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #endDateTime></mat-datepicker>
+            <mat-error *ngIf="form.get('endDateTime').hasError('matDatepickerMin')"
+              >תאריך סיום אינו יכול להיות לפני תאריך ההתחלה</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+      <div class="row">
+        <div class="col w-25">
+          <mat-form-field class="app-input-no-underline app-form-field-no-padding-bottom">
+            <!-- work around for material's issue: https://github.com/angular/material2/issues/7891 -->
+            <input matInput style="display: none" />
+            <mat-radio-group formControlName="isAllDayEvent">
+              <mat-radio-button
+                color="primary"
+                [value]="false"
+                [checked]="!form.get('isAllDayEvent').value"
+                (change)="isAllDayEvent(false)"
+              >
+                שעות
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-form-field>
+        </div>
+        <div class="col w-50">
+          <div class="row">
+            <div class="col date-input-field">
+              <mat-form-field class="hour app-form-field-no-padding-bottom">
+                <input
+                  type="text"
+                  matInput
+                  formControlName="startHour"
+                  class="text-center"
+                  [matAutocomplete]="startHour"
+                />
+              </mat-form-field>
+              <mat-autocomplete #startHour="matAutocomplete">
+                <mat-option *ngFor="let hour of hours" [value]="hour"> {{ hour }} </mat-option>
+              </mat-autocomplete>
+              <mat-error
+                *ngIf="
+                  form.get('startHour').hasError('invalidHour') &&
+                  !form.get('startHour').hasError('required') &&
+                  !form.get('endHour').hasError('required')
+                "
+                >שעה לא תקינה</mat-error
+              >
+            </div>
+            <div class="col label-between-fields"><span>עד</span></div>
+            <div class="col date-input-field">
+              <mat-form-field class="hour app-form-field-no-padding-bottom">
+                <input type="text" matInput formControlName="endHour" class="text-center" [matAutocomplete]="endHour" />
+              </mat-form-field>
+              <mat-autocomplete #endHour="matAutocomplete">
+                <mat-option *ngFor="let hour of hours" [value]="hour"> {{ hour }} </mat-option>
+              </mat-autocomplete>
+              <mat-error
+                *ngIf="
+                  form.get('endHour').hasError('invalidHour') &&
+                  !form.get('startHour').hasError('required') &&
+                  !form.get('endHour').hasError('required')
+                "
+                >שעה לא תקינה</mat-error
+              >
+            </div>
+            <div
+              class="row mat-error"
+              *ngIf="
+                form.hasError('invalidHourRange') &&
+                !form.get('endHour').hasError('invalidHour') &&
+                !form.get('startHour').hasError('invalidHour')
+              "
+            >
+              שעת הסיום חייבת להיות מאוחרת משעת ההתחלה
+            </div>
+          </div>
+          <mat-error *ngIf="form.get('startHour').hasError('required') || form.get('endHour').hasError('required')"
+            >אנא בחר שעת התחלה וסיום</mat-error
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col w-25">
+          <mat-form-field class="app-input-no-underline app-form-field-no-border app-form-field-no-padding-bottom">
+            <!-- work around for material's issue: https://github.com/angular/material2/issues/7891 -->
+            <input matInput style="display: none" />
+            <mat-radio-group formControlName="isAllDayEvent">
+              <mat-radio-button
+                color="primary"
+                [value]="true"
+                [checked]="form.get('isAllDayEvent').value"
+                (change)="isAllDayEvent(true)"
+              >
+                כל היום
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button
+        type="button"
+        mat-button
+        data-test-id="cancel-button"
+        class="msw-button-cancel"
+        tabindex="-1"
+        (click)="onNoClick()"
+      >
+        ביטול
+      </button>
+      <button type="submit" mat-button data-test-id="submit-button" class="msw-button-submit">
+        {{ data._id ? updateButtonTitle : addButtonTitle }}
+      </button>
+    </div>
+  </div>
+</form>
