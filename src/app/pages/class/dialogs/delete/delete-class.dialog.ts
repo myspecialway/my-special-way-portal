@@ -5,7 +5,7 @@ import { ScheduleService } from '../../../../services/schedule/schedule.service'
 @Component({
   selector: 'app-delete-class.dialog',
   templateUrl: './delete-class.dialog.html',
-  styleUrls: ['./delete-class.dialog.scss'],
+  styleUrls: ['../../../../../assets/scss/msw-alert-dialog.scss'],
 })
 export class DeleteClassDialogComponent {
   constructor(

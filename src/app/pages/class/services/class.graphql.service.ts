@@ -36,10 +36,13 @@ export class ClassService {
       .then((res) => res.data.classById);
   }
   classByName(name: string) {
-    return this.apollo.query<ClassQuery>({
-      query: QUERY_GET_CLASS_BY_NAME,
-      variables: { name },
-    });
+    return this.apollo
+      .query<ClassQuery>({
+        query: QUERY_GET_CLASS_BY_NAME,
+        variables: { name },
+      })
+      .toPromise()
+      .then((res) => res.data.classByName);
   }
   create(clss: Class | Partial<Class>) {
     return this.apollo

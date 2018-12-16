@@ -31,6 +31,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
@@ -63,6 +64,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -93,9 +95,11 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     MatDividerModule,
     MSWApolloModule,
     PagesModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -120,6 +124,7 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     ExitSystemDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,

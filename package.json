@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.146",
+  "version": "0.0.150",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -65,6 +65,7 @@
     "jquery": "3.2.1",
     "lodash": "^4.17.10",
     "moment": "2.19.3",
+    "ngx-papaparse": "3",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.14.3",
     "rxjs": "^6.2.1",
