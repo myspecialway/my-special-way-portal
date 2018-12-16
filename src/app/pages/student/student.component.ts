@@ -10,6 +10,10 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
 import { GET_USER_PROFILE } from '../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../models/user.model';
 import { FormControl } from '@angular/forms';
+import { Class } from '../../models/class.model';
+import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+import { ErrorDialogComponent, ErrorDetails } from '../common/error-dialog/error.dialog';
+import { FileImportStudentService } from '../../file-import/students-file-import/students-file-import.service';
 
 @Component({
   selector: 'app-student',
@@ -19,6 +23,8 @@ import { FormControl } from '@angular/forms';
 export class StudentComponent implements OnInit {
   displayedColumns = ['studentName', 'gradeId', 'username', 'deleteUser'];
   dataSource = new MatTableDataSource<Student>();
+  classes: Class[];
+  fileInput: string;
   mayAddStudent = false;
   mayDeleteStudent = false;
   showStudentNameFilter = false;
@@ -46,6 +52,8 @@ export class StudentComponent implements OnInit {
   constructor(
     private ref: ChangeDetectorRef,
     private studentService: StudentService,
+    private fileImportStudentService: FileImportStudentService,
+    private snackbar: MSWSnackbar,
     private dialog: MatDialog,
     private apollo: Apollo,
   ) {}
@@ -97,11 +105,7 @@ export class StudentComponent implements OnInit {
   }
 
   private dealNoDataCase() {
-    if (this.dataSource.data.length === 0 || this.dataSource.filteredData.length === 0) {
-      this.showNoRecords = true;
-    } else {
-      this.showNoRecords = false;
-    }
+    this.showNoRecords = this.dataSource.data.length === 0 || this.dataSource.filteredData.length === 0;
   }
 
   tableFilter(): (data: any, filter: string) => boolean {
@@ -157,5 +161,32 @@ export class StudentComponent implements OnInit {
           throw error;
         }
       });
+  }
+
+  async onFileChange(event) {
+    const files = event.target.files || event.srcElement.files;
+    this.fileInput = '';
+    if (!files || files.length === 0) return;
+    try {
+      const [studentsFileErrors, students] = await this.fileImportStudentService.getStudents(files[0]);
+      if (!studentsFileErrors) {
+        await this.studentService.createMany(students);
+        this.snackbar.displayTimedMessage('קובץ נטען בהצלחה');
+      } else {
+        const errorDetails = this.studentService.buildErrorMessage(studentsFileErrors);
+        this.dialog.open(ErrorDialogComponent, {
+          data: errorDetails,
+        });
+      }
+    } catch (error) {
+      const errorDetails: ErrorDetails = {
+        title: 'שגיאה בטעינת הקובץ',
+        details: [error.message],
+        bottomline: 'אנא נסה שנית.',
+      };
+      this.dialog.open(ErrorDialogComponent, {
+        data: errorDetails,
+      });
+    }
   }
 }
