@@ -18,7 +18,7 @@ describe('non active time component', () => {
     nonActiveTimeTestData = [
       {
         _id: '5c0fa61642d6052794ab44c8',
-        title: 'best title ever',
+        title: 'אירוע 1',
         isAllDayEvent: false,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
         endDateTime: 'Tue, 11 Dec 2018 16:23:09 GMT',
@@ -36,7 +36,7 @@ describe('non active time component', () => {
       },
       {
         _id: '5c0fbbb04e773c17106afdb0',
-        title: 'best title ever 2222222',
+        title: 'אירוע 2',
         isAllDayEvent: true,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
         endDateTime: 'Mon, 10 Dec 2018 16:23:09 GMT',
@@ -50,7 +50,7 @@ describe('non active time component', () => {
       },
       {
         _id: '5c0fbbb04e773c17106afdb0',
-        title: 'best title ever 2222222',
+        title: 'אירוע 3',
         isAllDayEvent: true,
         startDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
         endDateTime: 'Mon, 10 Dec 2018 14:23:09 GMT',
