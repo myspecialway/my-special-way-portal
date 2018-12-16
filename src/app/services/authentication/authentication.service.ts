@@ -99,6 +99,20 @@ export class AuthenticationService {
       sessionStorage.setItem('token', tokenResponse.accessToken);
     }
   }
+  async restorePassword(email: string, firstname: string, lastname: string) {
+    try {
+      await this.http
+        .post<{ email: string; firstname: string; lastname: string }>(
+          environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT,
+          { email, firstname, lastname },
+        )
+        .toPromise();
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 
   private getProfileFromToken(token: string): UserProfileStateModel {
     const jwrParsedToken = this.parseToken(token);
@@ -131,6 +145,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    this.apollo.getClient().resetStore();
   }
 
   checkUsernameUnique(username: string, id: string | number) {

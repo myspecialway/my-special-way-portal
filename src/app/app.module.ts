@@ -63,6 +63,8 @@ import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-head
 import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 @NgModule({
   imports: [
@@ -108,6 +110,8 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -125,6 +129,8 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,

@@ -5,6 +5,7 @@ export const environment = {
     MSW_HOT_GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql',
     MSW_HOT_LOGIN_ENDPOINT: 'http://localhost:3000/login',
     MSW_HOT_FIRSTLOGIN_ENDPOINT: 'http://localhost:3000/first-login',
+    MSW_HOT_RESTORE_PASSWORD_ENDPOINT: 'http://localhost:3000/restore-password',
     MSW_HOT_USER_UNIQUE_VALIDATION_ENDPOINT: 'http://localhost:3000/validateUserNameUnique',
   },
   production: false,

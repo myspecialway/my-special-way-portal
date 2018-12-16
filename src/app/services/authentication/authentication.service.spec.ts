@@ -31,6 +31,9 @@ describe('AuthenticationService', () => {
       mutate: jest.fn().mockReturnValue({
         toPromise: apolloMutateFnMock,
       }),
+      getClient: jest.fn().mockReturnValue({
+        resetStore: jest.fn(),
+      }),
     } as any; // Damn you Typescript
 
     authService = new AuthenticationService(httpClient, apolloMock);
@@ -49,6 +52,40 @@ describe('AuthenticationService', () => {
     await authService.login('someusername', 'somepassword', true);
     expect(localStorage.getItem('token')).toBe(expiredMockToken);
   });
+
+  it('should restorePassword return status ok', async () => {
+    const mockedResponse: any = {
+      status: 'ok',
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const res = await authService.restorePassword('someusername', 'somepassword', 'flastname');
+    expect(res).toBe(true);
+  });
+
+  it('should return true if restore password email sent', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: expiredMockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const response = await authService.restorePassword('someemail@g.com', 'somefirstname', 'somelastname');
+    expect(response).toBe(true);
+  });
+
+  // it('should return true if restore password email sent',  () => {
+  //   // const mockedResponse: LoginResponse = {
+  //   //   accessToken: expiredMockToken,
+  //   // };
+  //   // toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+  //   // const response = await authService.restorePassword('1', '2', '3');
+  //   // expect(response).toThrow();
+  //   // const mockedResponse = {
+  //   //   status: 500,
+  //   // };
+  //   // (httpClient.post as jest.Mock).mockImplementation(() => {
+  //   //   throw mockedResponse;
+  //   // });
+  //   return expect(authService.restorePassword('someusername', 'somepassword', '1')).rejects.toBeFalsy();
+  // });
 
   it('should not create localstorage token key on authentication sucess with rememberme disabled', async () => {
     const mockedResponse: LoginResponse = {
@@ -95,6 +132,11 @@ describe('AuthenticationService', () => {
   //   authService.logout();
   //   expect(sessionStorage.removeItem).toHaveBeenCalledWith('token');
   // });
+
+  it('should remove apollo cache on logout', () => {
+    authService.logout();
+    expect(apolloMock.getClient().resetStore).toHaveBeenCalled();
+  });
 
   it('should push user profile to store if local token has been found', () => {
     // given

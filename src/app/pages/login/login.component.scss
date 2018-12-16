@@ -1,5 +1,3 @@
-@import '../../../assets/scss/core/buttons';
-
 :host {
   height: 100%;
   background-color: #fff;
@@ -10,24 +8,10 @@
   right: 0;
   bottom: 0;
   z-index: 9999;
-  overflow: auto;
-
-  form {
-    display: flex;
-    justify-content: center;
-  }
-
-  img {
-    height: 10vh;
-    margin-bottom: 5vh;
-  }
-
-  .btn {
-    margin: 10px;
-  }
 }
 .login-container {
   background-color: #fff;
+  height: 100%;
 }
 
 .login-card {
@@ -46,11 +30,15 @@
   animation-name: card;
   display: flex;
   flex-direction: column;
+  height: 516px;
   padding: 20px;
-}
-
-.help-block {
-  text-align: right;
+  position: absolute;
+  width: 520px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 45px;
+  overflow: visible;
 }
 
 @-webkit-keyframes card {
@@ -70,23 +58,80 @@
     top: 0;
   }
 }
-
-img {
-  height: 20%;
+.msw-login-logo-ph {
+  border-radius: 50%;
+  width: 166px;
+  height: 96px;
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding-left: 20px;
+}
+.msw-login-title {
+  margin-top: 20px;
+  height: 24px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #8249d1;
 }
 
 .msw-login-subtitle {
-  margin-top: 2em;
+  margin-top: 12px;
   font-size: 21px;
   letter-spacing: 0.4px;
-  color: $gray-darker;
-  font-weight: 500;
+  color: #222222;
+}
+
+.msw-login-header {
+  margin-top: 36px;
+  margin-right: 48px;
+  font-size: 21px;
+  letter-spacing: 0.4px;
+  color: #222222;
+  text-align: right;
+  line-height: 80px;
+}
+
+.msw-login-footer {
+  margin-top: 36px;
+  vertical-align: baseline;
+  letter-spacing: 0.4px;
+  color: #222222;
+  text-align: right;
+  width: 100%;
+  position: fixed;
+  bottom: 7%;
+  .img {
+    margin-right: 18%;
+  }
+}
+.gray-bar {
+  width: 73%;
+  height: 3px;
+  opacity: 0.4;
+  background-color: #d8d8d8;
+  margin-right: 2%;
 }
 
 .form-row,
 .card-form,
 .mat-form-field {
   width: 100%;
+  .forgot-password {
+    height: 14px;
+    width: 100%;
+    font-family: Rubik;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    text-align: left;
+    margin-top: -25px;
+  }
 }
 
 .card-form {
@@ -95,7 +140,7 @@ img {
 
 .form-row {
   position: relative;
-  display: block;
+  display: flex;
   align-items: center;
   margin-top: 13px;
 }
@@ -118,11 +163,21 @@ img {
 }
 
 .card-footer button {
+  background-color: #8249d1;
   border-radius: 3px;
+  color: #fff;
   height: 36px;
   width: 183px;
 }
 
 .msw-login-checkbox {
-  margin-left: 10vh;
+  .mat-checkbox-checked {
+    /deep/ .mat-checkbox-background {
+      background-color: #8249d1;
+    }
+  }
+}
+
+.checkbox {
+  //  background-color: aqua;
 }

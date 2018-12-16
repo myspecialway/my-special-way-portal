@@ -16,20 +16,19 @@ exports[`navbar component should render component as described in snapshot 1`] =
       <div
         class="navbar-wrapper"
       >
-        <a
+        <div
           class="navbar-brand"
-          href="https://www.tlv-edu.gov.il/sites/yachdav/Pages/Vision.aspx"
         >
           <img
             class="logo-img"
-            src="/assets/img/msw-header-logo.png"
+            src="/assets/img/msw-proj-logo.png"
           />
-          <span
-            class="logo-title"
+          <div
+            class="logo-text"
           >
             בדרכי שלי
-          </span>
-        </a>
+          </div>
+        </div>
         <div
           class="msw-page-title-dropdown dropdown"
         >
