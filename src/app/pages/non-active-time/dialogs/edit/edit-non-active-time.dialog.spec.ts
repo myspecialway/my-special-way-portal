@@ -82,7 +82,7 @@ describe('EditNonActiveTimeDialogComponent', () => {
 
   it('should output correct NonActiveTime object if dialog was submited', () => {
     const startDateTime = moment('Tue, 11 Dec 2018 00:00:00 GMT');
-    const endDateTime = moment('Tue, 11 Dec 2018 01:00:00 GMT');
+    const endDateTime = moment('Tue, 11 Dec 2018 00:00:00 GMT');
     const fixture = TestBed.createComponent(EditNonActiveTimeDialogComponent);
     fixture.componentInstance.submitForm(
       fixture.componentInstance.formBuilder.group({
@@ -96,12 +96,21 @@ describe('EditNonActiveTimeDialogComponent', () => {
         classes: [[{ _id: '5b10fb1ff8022f6011f30f48', name: 'טיטאן' }]],
       }),
     );
+
     expect(matDialogRefMock.close).toHaveBeenCalledWith({
       _id: dialogData._id,
       title: 'a',
       isAllDayEvent: false,
-      startDateTime: 'Tue, 11 Dec 2018 07:00:00 GMT',
-      endDateTime: 'Tue, 11 Dec 2018 09:00:00 GMT',
+      startDateTime: startDateTime
+        .hours(9)
+        .minutes(0)
+        .toDate()
+        .toUTCString(),
+      endDateTime: endDateTime
+        .hours(11)
+        .minutes(0)
+        .toDate()
+        .toUTCString(),
       isAllClassesEvent: false,
       classes: [{ _id: '5b10fb1ff8022f6011f30f48', name: 'טיטאן' }],
     });
