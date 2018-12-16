@@ -16,6 +16,7 @@ import { DeleteStudentResponse } from '../../../models/responses/delete-student-
 import { UpdateStudentResponse } from '../../../models/responses/update-student-response.model';
 import { StudentError } from '../../../file-import/students-file-import/students-file-import.service';
 import { ErrorDetails } from '../../common/error-dialog/error.dialog';
+import { GET_ALL_CLASSES } from '../../class/services/class.graphql';
 
 @Injectable()
 export class StudentService {
@@ -86,7 +87,8 @@ export class StudentService {
       .mutate({
         mutation: MUTATE_DELETE_STUDENT,
         variables: { id },
-        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
+        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }, { query: GET_ALL_CLASSES }],
+        awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: DeleteStudentResponse }) => res.data.deleteStudent))
       .toPromise();
