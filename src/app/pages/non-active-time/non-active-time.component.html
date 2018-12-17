@@ -1,0 +1,74 @@
+<div data-test-id="non-active-time-page" class="main-content msw-non-active-time-container">
+  <div class="container-fluid">
+    <div class="header-menu-container msw-table-tools-header">
+      <div class="header-table-count">
+        <div>
+          <span class="header-table-count-label">זמני אי פעילות</span>
+          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+        </div>
+      </div>
+      <div class="example-header msw-table-tools-header">
+        <button data-test-id="add-new-non-active-time-button" mat-raised-button color="primary" (click)="addNonActiveTime()">
+          <i class="material-icons">
+            add
+          </i>
+          הוסף זמן אי פעילות
+        </button>
+      </div>
+    </div>
+    <div class="row msw-table-container">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-table #table [dataSource]="dataSource" class="msw-table" matSort matSortActive="title" matSortDisableClear
+                   matSortDirection="asc" >
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="title" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>אירוע</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
+              <div>{{row.title}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Classes Column -->
+          <ng-container matColumnDef="classes">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
+              <div>{{getClassesDisplayData(row)}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Dates Column -->
+          <ng-container matColumnDef="dates">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
+              <div>{{getDatesDisplayData(row)}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Hours Column -->
+          <ng-container matColumnDef="hours">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שעות</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
+              <div>{{getHoursDisplayData(row)}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="deleteNonActiveTime">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button class="delete-row-button" mat-icon-button color="primary" (click)="deleteNonActiveTime(row)"><i
+                class="material-icons"> delete </i></button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <div *ngIf="dataSource.data.length === 0" class="no-records-msg">
+          <i class="material-icons md-48">info_outline</i>
+          <h4>כרגע לא מוגדרים זמני אי פעילות</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
