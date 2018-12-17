@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
-        <button data-test-id="add-new-non-active-time-button" mat-raised-button color="primary" routerLink="/student/_new_">
+        <button data-test-id="add-new-non-active-time-button" mat-raised-button color="primary" (click)="addNonActiveTime()">
           <i class="material-icons">
             add
           </i>
@@ -24,7 +24,7 @@
           <!-- Title Column -->
           <ng-container matColumnDef="title" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>אירוע</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
               <div>{{row.title}}</div>
             </mat-cell>
           </ng-container>
@@ -32,7 +32,7 @@
           <!-- Classes Column -->
           <ng-container matColumnDef="classes">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
               <div>{{getClassesDisplayData(row)}}</div>
             </mat-cell>
           </ng-container>
@@ -40,7 +40,7 @@
           <!-- Dates Column -->
           <ng-container matColumnDef="dates">
             <mat-header-cell *matHeaderCellDef mat-sort-header>כיתה</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
               <div>{{getDatesDisplayData(row)}}</div>
             </mat-cell>
           </ng-container>
@@ -48,7 +48,7 @@
           <!-- Hours Column -->
           <ng-container matColumnDef="hours">
             <mat-header-cell *matHeaderCellDef mat-sort-header>שעות</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="editNewNonActiveTime(row)">
+            <mat-cell *matCellDef="let row" (click)="editNonActiveTime(row)">
               <div>{{getHoursDisplayData(row)}}</div>
             </mat-cell>
           </ng-container>

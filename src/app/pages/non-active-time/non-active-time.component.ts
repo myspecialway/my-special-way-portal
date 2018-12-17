@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
-import { Subscription } from 'rxjs';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { NonActiveTime } from '../../models/non-active-time.model';
+import { DeleteNonActiveTimeDialogComponent } from './dialogs/delete/delete-non-active-time-dialogue.component';
 import { first } from 'rxjs/operators';
-import { DeleteNonActiveTimeDialogueComponent } from './delete/delete-non-active-time-dialogue.component';
+import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-non-active-time',
@@ -42,8 +43,52 @@ export class NonActiveTimeComponent implements OnInit {
     }
   }
 
+  private openNonActiveTimeEditDialog(data: NonActiveTime) {
+    const dialogRef = this.dialog.open(EditNonActiveTimeDialogComponent, {
+      data,
+    });
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe((result) => {
+          if (result) {
+            const nonActiveTime = result as NonActiveTime;
+            if (data._id && data._id !== '') {
+              this.nonActiveTimeService.update(
+                nonActiveTime._id,
+                nonActiveTime.title,
+                nonActiveTime.isAllDayEvent,
+                nonActiveTime.startDateTime,
+                nonActiveTime.endDateTime,
+                nonActiveTime.isAllClassesEvent,
+                nonActiveTime.classes ? nonActiveTime.classes.map((c) => c._id) : [],
+              );
+            } else {
+              this.nonActiveTimeService.create(
+                nonActiveTime.title,
+                nonActiveTime.isAllDayEvent,
+                nonActiveTime.startDateTime,
+                nonActiveTime.endDateTime,
+                nonActiveTime.isAllClassesEvent,
+                nonActiveTime.classes ? nonActiveTime.classes.map((c) => c._id) : [],
+              );
+            }
+          }
+        }),
+    );
+  }
+
+  public addNonActiveTime() {
+    this.openNonActiveTimeEditDialog({} as NonActiveTime);
+  }
+
+  public editNonActiveTime(nonActiveTime: NonActiveTime) {
+    this.openNonActiveTimeEditDialog(JSON.parse(JSON.stringify(nonActiveTime)));
+  }
+
   public async deleteNonActiveTime(nonActiveTime: NonActiveTime) {
-    const dialogRef = this.dialog.open(DeleteNonActiveTimeDialogueComponent, {
+    const dialogRef = this.dialog.open(DeleteNonActiveTimeDialogComponent, {
       data: { _id: nonActiveTime._id, title: nonActiveTime.title },
     });
     this.subCollector.add(

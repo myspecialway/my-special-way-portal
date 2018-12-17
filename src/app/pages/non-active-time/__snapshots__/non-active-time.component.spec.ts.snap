@@ -7,6 +7,7 @@ exports[`non active time component should render component as described in snaps
   displayedColumns={[Function Array]}
   nonActiveTimeService={[Function Object]}
   sort={[Function MatSort]}
+  subCollector={[Function Subscription]}
 >
   <div
     class="main-content msw-non-active-time-container"
@@ -30,7 +31,7 @@ exports[`non active time component should render component as described in snaps
             <span
               class="header-table-count-number"
             >
-              (
+              (4)
             </span>
           </div>
         </div>
@@ -41,7 +42,6 @@ exports[`non active time component should render component as described in snaps
             color="primary"
             data-test-id="add-new-non-active-time-button"
             mat-raised-button=""
-            routerlink="/student/_new_"
           >
             <i
               class="material-icons"
@@ -64,6 +64,9 @@ exports[`non active time component should render component as described in snaps
             matsortactive="title"
             matsortdirection="asc"
             matsortdisableclear=""
+            ng-reflect-active="title"
+            ng-reflect-direction="asc"
+            ng-reflect-disable-clear=""
           >
             
             
