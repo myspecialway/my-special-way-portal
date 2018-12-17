@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`non active time component should render component as described in snapshot 1`] = `
+<app-non-active-time
+  dataSource={[Function MatTableDataSource]}
+  dialog={[Function Object]}
+  displayedColumns={[Function Array]}
+  nonActiveTimeService={[Function Object]}
+  sort={[Function MatSort]}
+>
+  <div
+    class="main-content msw-non-active-time-container"
+    data-test-id="non-active-time-page"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="header-menu-container msw-table-tools-header"
+      >
+        <div
+          class="header-table-count"
+        >
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              זמני אי פעילות
+            </span>
+            <span
+              class="header-table-count-number"
+            >
+              (
+            </span>
+          </div>
+        </div>
+        <div
+          class="example-header msw-table-tools-header"
+        >
+          <button
+            color="primary"
+            data-test-id="add-new-non-active-time-button"
+            mat-raised-button=""
+            routerlink="/student/_new_"
+          >
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף זמן אי פעילות 
+          </button>
+        </div>
+      </div>
+      <div
+        class="row msw-table-container"
+      >
+        <div
+          class="col-lg-12 col-md-12 col-sm-12"
+        >
+          <mat-table
+            class="msw-table"
+            matsort=""
+            matsortactive="title"
+            matsortdirection="asc"
+            matsortdisableclear=""
+          >
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </mat-table>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</app-non-active-time>
+`;

@@ -64,7 +64,10 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -122,6 +125,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogueComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -140,6 +144,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogueComponent,
   ],
   providers: [
     AuthGuard,
@@ -152,6 +157,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })
