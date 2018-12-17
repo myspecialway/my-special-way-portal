@@ -1,3 +1,5 @@
+import { Location } from './../../../models/location.model';
+import { LocationService } from './../../../services/location/location.graphql.service';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
@@ -48,11 +50,12 @@ export class MapsContainerComponent implements OnInit {
   // dataSource = mockedData;
   currentFloor = 0;
   dataSource = new MatTableDataSource<BlockedSection>();
+  locations: Location[] = [];
 
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private dialog: MatDialog, private mapsService: MapsService) {
+  constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
@@ -65,6 +68,9 @@ export class MapsContainerComponent implements OnInit {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
           this.dataSource.data = [...data];
+        }),
+        this.locationService.getLocationsFeed$().subscribe((data) => {
+          this.locations = data;
         }),
       );
     } catch (error) {

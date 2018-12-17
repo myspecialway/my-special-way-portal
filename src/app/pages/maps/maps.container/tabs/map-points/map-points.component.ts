@@ -12,20 +12,21 @@ import { MatDialog } from '@angular/material';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapPointsComponent implements OnInit {
-  locations: Location[] = [];
   currentFloorLocations: Location[];
+  locations: Location[] = [];
   floor = 0;
 
   @Input('floor')
   set _floor(value) {
+    if (!this.locations) return;
     this.floor = Number(value);
     this.updateFloorLocations();
   }
 
-  constructor(public locationService: LocationService, private dialog: MatDialog) {}
-
-  async ngOnInit() {
-    this.locations = await this.locationService.getLocations();
+  @Input('locations')
+  set _locations(value: Location[]) {
+    if (!value) return;
+    this.locations = value;
     this.updateFloorLocations();
   }
 

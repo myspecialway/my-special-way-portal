@@ -17,14 +17,22 @@ export class MapFloorListComponent implements OnInit {
   @Output()
   change: EventEmitter<number> = new EventEmitter<number>();
 
+  @Input()
+  set locations(value: Location[]) {
+    this.updateFloors(value || []);
+  }
+
   @Output()
   delete: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(public locationService: LocationService) {}
 
   async ngOnInit() {
-    const locations = await this.locationService.getLocations();
+    // const locations = await this.locationService.getLocations();
     // this.setFloor(this.currentFloor);
+  }
+
+  updateFloors(locations: Location[]) {
     const floors = locations.map((location) => location.position.floor);
     floors.sort();
     this.floors = Array.from(new Set(floors));
