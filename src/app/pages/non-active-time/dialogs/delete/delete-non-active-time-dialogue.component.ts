@@ -6,9 +6,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   templateUrl: './delete-non-active-time-dialogue.component.html',
   styleUrls: ['../../../../../assets/scss/msw-alert-dialog.scss'],
 })
-export class DeleteNonActiveTimeDialogueComponent {
+export class DeleteNonActiveTimeDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeleteNonActiveTimeDialogueComponent>,
+    public dialogRef: MatDialogRef<DeleteNonActiveTimeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
   onNoClick(): void {

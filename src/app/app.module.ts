@@ -68,7 +68,7 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
-import { DeleteNonActiveTimeDialogueComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 
 @NgModule({
@@ -132,7 +132,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
-    DeleteNonActiveTimeDialogueComponent,
+    DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
   ],
   entryComponents: [
@@ -152,7 +152,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
-    DeleteNonActiveTimeDialogueComponent,
+    DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
   ],
   providers: [

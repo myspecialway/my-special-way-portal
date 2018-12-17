@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA, Provider } from '@angular/core';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
 import { nonActiveTimeTestData } from '../../../mocks/assets/nonActiveTime.mock';
-import { DeleteNonActiveTimeDialogueComponent } from './dialogs/delete/delete-non-active-time-dialogue.component';
+import { DeleteNonActiveTimeDialogComponent } from './dialogs/delete/delete-non-active-time-dialogue.component';
 
 describe('non active time component', () => {
   let nonActiveTimeServiceMock: Partial<NonActiveTimeService>;
@@ -90,7 +90,7 @@ describe('non active time component', () => {
     await fixture.componentInstance.deleteNonActiveTime(nonActiveTimeTestData.nonActiveTimes[1]);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    expect(matDialogMock.open).toHaveBeenCalledWith(DeleteNonActiveTimeDialogueComponent, {
+    expect(matDialogMock.open).toHaveBeenCalledWith(DeleteNonActiveTimeDialogComponent, {
       data: { _id: nonActiveTimeTestData.nonActiveTimes[1]._id, title: nonActiveTimeTestData.nonActiveTimes[1].title },
     });
   });
