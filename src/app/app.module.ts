@@ -1,7 +1,3 @@
-import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
-import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
-import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
-import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +22,13 @@ import {
   MatSnackBarModule,
   MatAutocompleteModule,
   MatTabsModule,
+  MatButtonToggleModule,
 } from '@angular/material';
+
+import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
+import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
+import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
+import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -98,6 +100,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     MatSelectModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatButtonToggleModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,

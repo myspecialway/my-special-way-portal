@@ -21,19 +21,16 @@
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
-
-    <div class="icons-list-container">
-        <button type="button" *ngFor="let icon of icons" (click)='onIconClick(icon)'>
-          <div class="icons-container" ngClass="{{data.icon === icon ? 'lesson-icon-selected' : '' }}">
-            <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
-          </div>
-        </button>
-      </div>
+    <mat-button-toggle-group formControlName="type" name="icon" class="icons-list-container" aria-label="Map Point Icon">
+      <mat-button-toggle *ngFor="let icon of icons; let idx = index;" [value]="icon" [checked]="idx===0" class="icons-container">
+        <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   </form>
  </mat-dialog-content>
   <mat-dialog-actions>
-    <button class="mat-button"  (click)="close()">ביטול</button>
-    <button class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)">
+    <button class="mat-button"  (click)="close(CANCEL)">ביטול</button>
+    <button class="mat-raised-button mat-primary" (click)="close()">
       {{data.isNewPoint ? 'הוסף' :
     'עדכן'}}
       </button>
