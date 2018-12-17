@@ -11,6 +11,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 })
 export class AddEditPointDialogComponent implements OnInit {
   dialogTitle = 'נקודת ניווט';
+  CANCEL = true;
   pointTypes = MAP_POINT_TYPES;
   form: FormGroup;
   formControl = new FormControl('', [Validators.required]);
@@ -36,16 +37,13 @@ export class AddEditPointDialogComponent implements OnInit {
     return this.formControl.hasError('required') ? 'Required field' : '';
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
-
-  confirmAdd(dialogData): void {
-    this.dialogRef.close(dialogData);
+  close(cancel = false): void {
+    const response = cancel ? undefined : this.form.value;
+    this.dialogRef.close(response);
   }
 
   onIconClick(selectedIcon: string): void {
-    this.data.icon = selectedIcon;
+    this.form.value.icon = selectedIcon;
   }
 
   onTypeSelect(ev) {}

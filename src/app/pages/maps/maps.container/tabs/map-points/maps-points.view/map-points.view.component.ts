@@ -30,13 +30,11 @@ export class MapPointsViewComponent {
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe((result) => {
-        if (!result) return;
-      });
-  }
+      .subscribe((update: Partial<Location>) => {
+        if (!update) return;
 
-  onUpdate(location: Location, update: Partial<Location>) {
-    this.update.emit({ ...location, ...update });
+        this.update.emit({ ...data, ...update });
+      });
   }
 
   onDelete(point: Location) {

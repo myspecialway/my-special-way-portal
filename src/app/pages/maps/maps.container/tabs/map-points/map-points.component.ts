@@ -30,11 +30,12 @@ export class MapPointsComponent implements OnInit {
     this.updateFloorLocations();
   }
 
+  constructor(public locationService: LocationService, private dialog: MatDialog) {}
+
+  async ngOnInit() {}
+
   updateFloorLocations() {
-    this.currentFloorLocations = this.locations
-      .filter((location) => location.position.floor === this.floor)
-      // todo - integrate icon as part of Location DB model
-      .map((location) => ({ ...location, icon: '' }));
+    this.currentFloorLocations = this.locations.filter((location) => location.position.floor === this.floor);
   }
 
   onDelete(point: Location) {
@@ -63,5 +64,7 @@ export class MapPointsComponent implements OnInit {
       });
   }
 
-  onUpdate(location: InputLocation) {}
+  onUpdate(location: InputLocation) {
+    this.locationService.update(location);
+  }
 }
