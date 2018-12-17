@@ -34,7 +34,6 @@ import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PapaParseModule } from 'ngx-papaparse';
-
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
