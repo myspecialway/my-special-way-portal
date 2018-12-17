@@ -59,8 +59,8 @@ describe('non active time component', () => {
     matDialogMock = matDialogMockFactory(singleNonActiveTime);
   });
 
-  it('should render component as described in snapshot', () => {
-    expect(createFixture()).toMatchSnapshot();
+  it('should render component as described in snapshot', async () => {
+    expect(await createFixture()).toMatchSnapshot();
   });
 
   it('should load correct number of Non active times', async () => {
