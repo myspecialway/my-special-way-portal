@@ -46,7 +46,7 @@
 
         <mat-form-field class="username">
           <input matInput placeholder="שם משתמש" [(ngModel)]="student.username" name="username" #username="ngModel"
-                 autocomplete="new-username" required appUsername userID={{student._id}} [ngModelOptions]="{updateOn: 'blur'}">
+                 autocomplete="off" required appUsername userID={{student._id}} [ngModelOptions]="{updateOn: 'blur'}">
           <mat-error data-test-id="username-err" *ngIf="username.hasError('required')">שם משתמש הינו שדה חובה</mat-error>
           <mat-error data-test-id="username-invalidUsername-err" *ngIf="username.hasError('invalidUsername')">{{username.errors.invalidUsername}}</mat-error>
         </mat-form-field>
