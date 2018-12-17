@@ -2,13 +2,14 @@ import { DeleteBlockDialogComponent } from './../../dialogs/delete/delete-block.
 import { first } from 'rxjs/operators';
 import { Location, InputLocation } from './../../../../../models/location.model';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-map-points',
   template: `<app-map-points-view [locations]="currentFloorLocations" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
   styleUrls: ['./map-points.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapPointsComponent implements OnInit {
   locations: Location[] = [];

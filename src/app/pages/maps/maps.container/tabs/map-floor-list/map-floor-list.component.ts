@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Location } from './../../../../../models/location.model';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { LocationService } from '../../../../../services/location/location.graphql.service';
 
 @Component({
   selector: 'app-map-floor-list',
   templateUrl: './map-floor-list.component.html',
   styleUrls: ['./map-floor-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapFloorListComponent implements OnInit {
   floors: number[];
