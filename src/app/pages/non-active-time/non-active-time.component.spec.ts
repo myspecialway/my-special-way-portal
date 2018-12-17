@@ -1,13 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  MatSort,
-  MatPaginator,
-  MatDialog,
-  MatTableModule,
-  MatHeaderRow,
-  MatRowDef,
-  MatHeaderRowDef,
-} from '@angular/material';
+import { MatSort, MatPaginator, MatDialog, MatHeaderRow, MatRowDef, MatHeaderRowDef } from '@angular/material';
 import { Observable } from 'rxjs-compat';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { NonActiveTimeComponent } from './non-active-time.component';
@@ -15,7 +7,6 @@ import { NO_ERRORS_SCHEMA, Provider } from '@angular/core';
 import { NonActiveTimeService } from '../../services/non-active-time/non-active-time.graphql.service';
 import { EditNonActiveTimeDialogComponent } from './dialogs/edit/edit-non-active-time.dialog';
 import { nonActiveTimeTestData } from '../../../mocks/assets/nonActiveTime.mock';
-import { CdkTableModule } from '@angular/cdk/table';
 import { DeleteNonActiveTimeDialogueComponent } from './dialogs/delete/delete-non-active-time-dialogue.component';
 
 describe('non active time component', () => {
