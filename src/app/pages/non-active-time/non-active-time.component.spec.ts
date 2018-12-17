@@ -1,5 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { MatSort, MatPaginator, MatDialog, MatTableModule } from '@angular/material';
+import {
+  MatSort,
+  MatPaginator,
+  MatDialog,
+  MatTableModule,
+  MatHeaderRow,
+  MatRowDef,
+  MatHeaderRowDef,
+} from '@angular/material';
 import { Observable } from 'rxjs-compat';
 import { NonActiveTime } from '../../models/non-active-time.model';
 import { NonActiveTimeComponent } from './non-active-time.component';
@@ -30,8 +38,7 @@ describe('non active time component', () => {
   async function createFixture(providers: Provider[] = []) {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      imports: [CdkTableModule, MatTableModule],
-      declarations: [NonActiveTimeComponent, MatSort, MatPaginator],
+      declarations: [NonActiveTimeComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
       providers: [
         { provide: NonActiveTimeService, useValue: nonActiveTimeServiceMock },
         { provide: MatDialog, useValue: matDialogMock },

@@ -59,273 +59,31 @@ exports[`non active time component should render component as described in snaps
           class="col-lg-12 col-md-12 col-sm-12"
         >
           <mat-table
-            class="msw-table mat-table"
+            class="msw-table"
             matsort=""
             matsortactive="title"
             matsortdirection="asc"
             matsortdisableclear=""
             ng-reflect-active="title"
-            ng-reflect-data-source="[object Object]"
             ng-reflect-direction="asc"
             ng-reflect-disable-clear=""
-            role="grid"
           >
             
-            <mat-header-row
-              class="mat-header-row"
-              role="row"
-            >
-              
-              <mat-header-cell
-                class="mat-header-cell cdk-column-title mat-column-title"
-                mat-sort-header=""
-                role="columnheader"
-              >
-                אירוע
-              </mat-header-cell>
-              <mat-header-cell
-                class="mat-header-cell cdk-column-classes mat-column-classes"
-                mat-sort-header=""
-                role="columnheader"
-              >
-                כיתה
-              </mat-header-cell>
-              <mat-header-cell
-                class="mat-header-cell cdk-column-dates mat-column-dates"
-                mat-sort-header=""
-                role="columnheader"
-              >
-                כיתה
-              </mat-header-cell>
-              <mat-header-cell
-                class="mat-header-cell cdk-column-hours mat-column-hours"
-                mat-sort-header=""
-                role="columnheader"
-              >
-                שעות
-              </mat-header-cell>
-              <mat-header-cell
-                class="mat-header-cell cdk-column-deleteNonActiveTime mat-column-deleteNonActiveTime"
-                role="columnheader"
-              />
-            </mat-header-row>
             
-            <mat-row
-              class="mat-row"
-              role="row"
-            >
-              
-              <mat-cell
-                class="mat-cell cdk-column-title mat-column-title"
-                role="gridcell"
-              >
-                <div>
-                  אירוע 1
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-classes mat-column-classes"
-                role="gridcell"
-              >
-                <div>
-                  כל הכיתות
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-dates mat-column-dates"
-                role="gridcell"
-              >
-                <div>
-                  2018 M12 11
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-hours mat-column-hours"
-                role="gridcell"
-              >
-                <div>
-                  כל היום
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-deleteNonActiveTime mat-column-deleteNonActiveTime"
-                role="gridcell"
-              >
-                <button
-                  class="delete-row-button"
-                  color="primary"
-                  mat-icon-button=""
-                >
-                  <i
-                    class="material-icons"
-                  >
-                     delete 
-                  </i>
-                </button>
-              </mat-cell>
-            </mat-row>
-            <mat-row
-              class="mat-row"
-              role="row"
-            >
-              
-              <mat-cell
-                class="mat-cell cdk-column-title mat-column-title"
-                role="gridcell"
-              >
-                <div>
-                  אירוע 2
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-classes mat-column-classes"
-                role="gridcell"
-              >
-                <div>
-                  טיטאן + 1
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-dates mat-column-dates"
-                role="gridcell"
-              >
-                <div>
-                  2018 M12 10 עד 2018 M12 11
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-hours mat-column-hours"
-                role="gridcell"
-              >
-                <div>
-                  16:23 עד 18:23
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-deleteNonActiveTime mat-column-deleteNonActiveTime"
-                role="gridcell"
-              >
-                <button
-                  class="delete-row-button"
-                  color="primary"
-                  mat-icon-button=""
-                >
-                  <i
-                    class="material-icons"
-                  >
-                     delete 
-                  </i>
-                </button>
-              </mat-cell>
-            </mat-row>
-            <mat-row
-              class="mat-row"
-              role="row"
-            >
-              
-              <mat-cell
-                class="mat-cell cdk-column-title mat-column-title"
-                role="gridcell"
-              >
-                <div>
-                  אירוע 3
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-classes mat-column-classes"
-                role="gridcell"
-              >
-                <div>
-                  פטל
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-dates mat-column-dates"
-                role="gridcell"
-              >
-                <div>
-                  2018 M12 10 עד 2018 M12 10
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-hours mat-column-hours"
-                role="gridcell"
-              >
-                <div>
-                  כל היום
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-deleteNonActiveTime mat-column-deleteNonActiveTime"
-                role="gridcell"
-              >
-                <button
-                  class="delete-row-button"
-                  color="primary"
-                  mat-icon-button=""
-                >
-                  <i
-                    class="material-icons"
-                  >
-                     delete 
-                  </i>
-                </button>
-              </mat-cell>
-            </mat-row>
-            <mat-row
-              class="mat-row"
-              role="row"
-            >
-              
-              <mat-cell
-                class="mat-cell cdk-column-title mat-column-title"
-                role="gridcell"
-              >
-                <div>
-                  אירוע 4
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-classes mat-column-classes"
-                role="gridcell"
-              >
-                <div>
-                  כל הכיתות
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-dates mat-column-dates"
-                role="gridcell"
-              >
-                <div>
-                  2018 M12 10
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-hours mat-column-hours"
-                role="gridcell"
-              >
-                <div>
-                  כל היום
-                </div>
-              </mat-cell>
-              <mat-cell
-                class="mat-cell cdk-column-deleteNonActiveTime mat-column-deleteNonActiveTime"
-                role="gridcell"
-              >
-                <button
-                  class="delete-row-button"
-                  color="primary"
-                  mat-icon-button=""
-                >
-                  <i
-                    class="material-icons"
-                  >
-                     delete 
-                  </i>
-                </button>
-              </mat-cell>
-            </mat-row>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
           </mat-table>
           
