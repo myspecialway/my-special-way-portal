@@ -1,9 +1,10 @@
 jest.mock('@angular/common/http');
 
 import { AuthenticationService } from './authentication.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { of } from 'rxjs/observable/of';
+import { resolve } from 'path';
 
 describe('AuthenticationService', () => {
   let authService: AuthenticationService;
@@ -253,6 +254,38 @@ describe('AuthenticationService', () => {
       toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
       await authService.firstLogin('somefirsttoken');
       expect(apolloMock.mutate).toHaveBeenCalled();
+    });
+
+    it('should return null when null returned from server', async () => {
+      toPromiseFn.mockResolvedValue(Promise.resolve(null));
+      const result = await authService.firstLogin('somefirsttoken');
+      expect(result).toBeNull();
+    });
+    it('should throw erron when different than 401 returned', async () => {
+      const mockedResponse = {
+        status: 400,
+      };
+
+      (httpClient.post as jest.Mock).mockImplementation(() => {
+        throw mockedResponse;
+      });
+      try {
+        await authService.firstLogin('somefirsttoken');
+        expect(true).toBeFalsy();
+      } catch (error) {
+        expect(error.status).toEqual(400);
+      }
+    });
+    it('should return null when 401 returned', async () => {
+      const mockedResponse = {
+        status: 401,
+      };
+
+      (httpClient.post as jest.Mock).mockImplementation(() => {
+        throw mockedResponse;
+      });
+      const result = await authService.firstLogin('somefirsttoken');
+      expect(result).toBeNull();
     });
   });
 });
