@@ -68,9 +68,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   addReminder() {
-    // if (this.data.schedule.length) {
     this.data.schedule.push(getNewReminder());
-    // }
   }
 
   toggleDay(selectedIndex: number, block: IReminderTime) {
@@ -105,9 +103,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   hourSelectorEnable(val = true) {
-    // if(block.hours.size === 0 ){
-    //   return;
-    // }
     this.hourSelectorEnabled = val;
   }
 
