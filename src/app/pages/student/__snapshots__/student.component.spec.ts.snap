@@ -6,6 +6,7 @@ exports[`student component should render component as described in snapshot 1`] 
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  fileImportStudentService={[Function Object]}
   filterValues={[Function Object]}
   gradeIdFilter={[Function FormControl]}
   mayAddStudent="false"
@@ -14,6 +15,7 @@ exports[`student component should render component as described in snapshot 1`] 
   showGradeIdFilter="false"
   showNoRecords="false"
   showStudentNameFilter="false"
+  snackbar={[Function Object]}
   sort={[Function MatSort]}
   studentNameFilter={[Function FormControl]}
   studentService={[Function Object]}
@@ -48,6 +50,7 @@ exports[`student component should render component as described in snapshot 1`] 
         <div
           class="example-header msw-table-tools-header"
         >
+          
           
         </div>
       </div>

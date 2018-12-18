@@ -25,6 +25,14 @@ describe('AddStudentReminderDialogComponent', () => {
     fixture.detectChanges();
   });
 
+  // it('should remove an element from the array', () => {
+  //   const array = [1,2,3];
+  //   const index = 1;
+  //   const fixture = TestBed.createComponent(AddStudentReminderDialogComponent);
+  //   fixture.componentInstance.deleteReminder(array, index);
+  //   expect(fixture).toEqual(2);
+  // });
+
   // @ts-ignore
   it.skip('should close the dialog', () => {
     // console.log('componentcomponent: ', fixture);

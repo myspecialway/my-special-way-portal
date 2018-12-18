@@ -22,6 +22,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
   student: Student;
   dayNames: string[] = Array.from(REMINDERS_CONSTANTS.days);
   protected reminderType = ReminderType;
+  emptyDialogString = 'בחר יום ושעה';
 
   @SubscriptionCleaner()
   subCollector;

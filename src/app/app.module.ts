@@ -21,8 +21,10 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRadioModule,
+  MatDatepickerModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -31,7 +33,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { PapaParseModule } from 'ngx-papaparse';
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -60,7 +62,14 @@ import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delet
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -89,11 +98,17 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -104,6 +119,8 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -114,11 +131,16 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -129,6 +151,8 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -141,6 +165,7 @@ import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })
