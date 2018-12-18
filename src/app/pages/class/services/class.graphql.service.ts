@@ -1,4 +1,4 @@
-import { GET_ALL_CLASSES, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME, MUTATE_UPDATE_CLASS } from './class.graphql';
+import { GET_ALL_CLASSES, MUTATE_UPDATE_CLASS, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME } from './class.graphql';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -35,6 +35,7 @@ export class ClassService {
       .toPromise()
       .then((res) => res.data.classById);
   }
+
   classByName(name: string) {
     return this.apollo
       .query<ClassQuery>({
@@ -44,30 +45,37 @@ export class ClassService {
       .toPromise()
       .then((res) => res.data.classByName);
   }
-  create(clss: Class | Partial<Class>) {
-    return this.apollo
-      .mutate({
-        mutation: gql`
-      mutation {
-        createClass(class: {
-            grade: "${clss.grade}"
-            name: "${clss.name}"
-        }) { _id }
-      }
-    `,
-        refetchQueries: [
-          {
-            query: GET_ALL_CLASSES,
-          },
-        ],
-        awaitRefetchQueries: true,
-      })
-      .toPromise()
-      .then((res) => {
-        if (res.data) {
-          return res.data.createClass;
-        }
-      });
+
+  async create(clss: Class | Partial<Class>) {
+    if (!clss.name) throw new Error('Cannot create a class without a name');
+    const result = await this.classByName(clss.name);
+    if (result === null) {
+      return this.apollo
+        .mutate({
+          mutation: gql`
+          mutation {
+            createClass(class: {
+              grade: "${clss.grade}"
+              name: "${clss.name}"
+            }) { _id }
+          }
+        `,
+          refetchQueries: [
+            {
+              query: GET_ALL_CLASSES,
+            },
+          ],
+          awaitRefetchQueries: true,
+        })
+        .toPromise()
+        .then((res) => {
+          if (res.data) {
+            return res.data.createClass;
+          }
+        });
+    } else {
+      throw new Error('כיתה עם שם זהה כבר קיימת');
+    }
   }
 
   update(_class: Class) {
@@ -106,12 +114,12 @@ export class ClassService {
     return this.apollo
       .mutate({
         mutation: gql`
-      mutation {
-        deleteClass(
-          id: "${id}"
-        )
-    }
-    `,
+        mutation {
+          deleteClass(
+            id: "${id}"
+          )
+        }
+      `,
         refetchQueries: [
           {
             query: GET_ALL_CLASSES,
