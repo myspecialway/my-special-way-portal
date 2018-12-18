@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.150",
+  "version": "0.0.158",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -36,6 +36,7 @@
     "@angular/forms": "6.0.7",
     "@angular/http": "6.0.7",
     "@angular/material": "^6.3.2",
+    "@angular/material-moment-adapter": "^7.1.1",
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/platform-server": "6.0.7",

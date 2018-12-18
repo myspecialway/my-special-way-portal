@@ -21,8 +21,10 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRadioModule,
+  MatDatepickerModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -32,7 +34,6 @@ import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PapaParseModule } from 'ngx-papaparse';
-
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -64,7 +65,11 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -93,8 +98,12 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
     PapaParseModule,
   ],
   declarations: [
@@ -122,6 +131,8 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -140,6 +151,8 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -152,6 +165,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })
