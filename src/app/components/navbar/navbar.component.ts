@@ -74,9 +74,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getSelectedMenuItem() {
-    const route =
-      ROUTES.find((menuItem) => menuItem.path.includes(this.getFirstPathToken(this.selectedMenuItemPath))) ||
-      DEFAULT_ROUTE;
+    let route = DEFAULT_ROUTE;
+    if (this.selectedMenuItemPath) {
+      route = ROUTES.find((menuItem) => this.selectedMenuItemPath.includes(menuItem.path)) || DEFAULT_ROUTE;
+    }
     return route.title;
   }
 
@@ -109,11 +110,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private removeLeadingSlash(domainString = '') {
     return domainString.replace(/^\/+/g, '');
-  }
-
-  //@doritrieur in order to get the first part of the path and compare to the route content.
-  private getFirstPathToken(domainString = '') {
-    const firstToken = domainString.split('/');
-    return firstToken[0];
   }
 }
