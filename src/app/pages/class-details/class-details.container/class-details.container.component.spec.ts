@@ -187,11 +187,11 @@ describe('ClassDetailsContainerComponent', () => {
     expect(fixture.componentInstance.onDetailChange).toThrowError();
   });
 
-  it('should throw an error when class already exists', () => {
+  it('should show an error when class already exists', () => {
     (classServiceMock.create as jest.Mock).mockRejectedValueOnce(new Error('class already exists'));
     fixture = TestBed.createComponent(ClassDetailsContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.componentInstance.isNew = true;
+    fixture.componentInstance.onDetailChange({ name: 'newName', grade: 'a' });
     expect(fixture.componentInstance._class).not.toBeDefined();
   });
 });
