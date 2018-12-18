@@ -1,10 +1,9 @@
 jest.mock('@angular/common/http');
 
 import { AuthenticationService } from './authentication.service';
-import { HttpClient, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoginResponse } from '../../models/login-response.model';
 import { of } from 'rxjs/observable/of';
-import { resolve } from 'path';
 
 describe('AuthenticationService', () => {
   let authService: AuthenticationService;
