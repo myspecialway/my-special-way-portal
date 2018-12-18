@@ -156,7 +156,7 @@ export class ClassDetailsContainerComponent implements OnInit {
       this.router.navigate([`/class/${created._id}`]);
       this.mswSnackbar.displayTimedMessage(`כיתה ${classDetails.name} נוצרה בהצלחה`);
     } catch (err) {
-      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה');
+      this.mswSnackbar.displayTimedMessage('שגיאה ביצירת כיתה: ' + err.message);
     }
   }
 
