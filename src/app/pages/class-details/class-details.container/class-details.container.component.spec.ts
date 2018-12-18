@@ -20,7 +20,7 @@ describe('ClassDetailsContainerComponent', () => {
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
   let afterClosedMockFn: jest.Mock;
   let locationMock: Partial<Location>;
-  let routeParamsMockedObservable: Subject<unknown>;
+  let routeParamsMockedObservable: Subject<undefined>;
   let watchQueryMockedObservable: Subject<any>;
 
   const mockedScheduleDialogData = {
@@ -75,6 +75,7 @@ describe('ClassDetailsContainerComponent', () => {
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
       update: jest.fn(),
+      create: jest.fn(),
     };
     scheduleDialogMock = {
       open: jest.fn().mockReturnValue({
@@ -184,5 +185,13 @@ describe('ClassDetailsContainerComponent', () => {
     (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
     fixture.componentInstance.onDetailChange({ name: 'newName', grade: 'a' });
     expect(fixture.componentInstance.onDetailChange).toThrowError();
+  });
+
+  it('should throw an error when class already exists', () => {
+    (classServiceMock.create as jest.Mock).mockRejectedValueOnce(new Error('class already exists'));
+    fixture = TestBed.createComponent(ClassDetailsContainerComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(fixture.componentInstance._class).not.toBeDefined();
   });
 });
