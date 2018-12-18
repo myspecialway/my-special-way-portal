@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-delete-student.dialog',
   templateUrl: './delete-student.dialog.html',
-  styleUrls: ['./delete-student.dialog.scss'],
+  styleUrls: ['../../../../../assets/scss/msw-alert-dialog.scss'],
 })
 export class DeleteStudentDialogComponent {
   constructor(

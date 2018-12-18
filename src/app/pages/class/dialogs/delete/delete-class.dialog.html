@@ -2,13 +2,16 @@
   <h3 mat-dialog-title color="accent">מחיקת כיתה</h3>
   <mat-divider></mat-divider>
   <div mat-dialog-content>
-    האם אתה בטוח שברצונך למחוק את הכיתה {{data.name}} משכבה {{ scheduleService.grades[data.grade] }}'?
+    האם אתה בטוח שברצונך למחוק את הכיתה    {{data.name}}
+
+   משכבה {{ scheduleService.grades[data.grade] }}'?
+
+
+
   </div>
 
   <div mat-dialog-actions>
-    <button data-test-id="delete-button" mat-button [mat-dialog-close]="true" (click)="confirmDelete()">
-      <i class="material-icons"> מחק </i>
-    </button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button mat-button class="msw-button-delete" data-test-id="delete-button" [mat-dialog-close]=true (click)="confirmDelete()">מחק</button>
   </div>
 </div>
