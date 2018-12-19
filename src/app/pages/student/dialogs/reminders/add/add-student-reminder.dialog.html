@@ -22,7 +22,7 @@
         {{selectedHour}}
         <i class="material-icons" (click)="removeHour(selectedHour, block)">close</i>
       </span>
-      <mat-form-field *ngIf="hourSelectorEnabled" class="hour-selection">
+      <mat-form-field *ngIf="block.hourSelectorEnabled" class="hour-selection">
         <mat-select (ngModelChange)="selectHour($event, block)" [formControl]="hours">
             <mat-option disabled>בחר</mat-option>
             <mat-option *ngFor="let hour of dialogData.hours" [value]="hour">{{hour}}</mat-option>
@@ -38,7 +38,7 @@
         <!--</mat-autocomplete>-->
 
       </mat-form-field>
-      <i *ngIf="!hourSelectorEnabled" class="add-select material-icons" (click)="hourSelectorEnable()"> add </i>
+      <i *ngIf="!block.hourSelectorEnabled" class="add-select material-icons" (click)="enableHourSelector(block)"> add </i>
     <hr>
     </div>
   </div>

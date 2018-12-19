@@ -48,7 +48,8 @@ export const REMINDERS_CONSTANTS = {
   ]),
 };
 
-export const BASE_REMINDER: IReminderTime = {
+export const BASE_REMINDER: IUiReminderTime = {
   daysindex: new Set<number>([]),
   hours: new Set<string>([]),
+  hourSelectorEnabled: true,
 };

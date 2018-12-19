@@ -1,9 +1,13 @@
-import { IReminder, ISetReminder, ReminderType } from './../../../../../models/reminder.model';
+import { IReminder, IDialogReminder, ReminderType } from './../../../../../models/reminder.model';
 import { REMINDERS_CONSTANTS, IReminderTime } from './../../../../../models/reminder-time.model';
 import { getNewReminder, getSetReminder, getDbReminder } from './../reminders.utils';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+
+export interface IDialogReminderTime extends IReminderTime {
+  hourSelectorEnabled: boolean;
+}
 
 @Component({
   selector: 'app-add-student.dialog',
@@ -14,19 +18,18 @@ export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
   // formControl = new FormControl('', [Validators.required]);
   dialogData = REMINDERS_CONSTANTS;
-  hourSelectorEnabled = true;
   hours = new FormControl();
-  // hourSelectorEnabled = true;
   reminderType = ReminderType;
   daySelected = true;
   dirty = false;
   hourInput = new FormControl();
+
   @Output()
   cancel = new EventEmitter<void>();
 
   options = { submitButtonLabel: 'עדכן' };
 
-  data: ISetReminder;
+  data: IDialogReminder;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,12 +50,12 @@ export class AddStudentReminderDialogComponent implements OnInit {
    * If a user select multiple reminder and only fill some of them this method clean the unnecessary fields
    * @param data
    */
-  private reminderCleanup(data?: ISetReminder) {
+  private reminderCleanup(data?: IDialogReminder) {
     const filteredScheduleContainer: any = [];
     if (data && data.schedule) {
       for (const reminder of data.schedule) {
         if (reminder.daysindex.size && reminder.hours.size) {
-          filteredScheduleContainer.push(reminder);
+          filteredScheduleContainer.push({ ...reminder, hourSelectorEnabled: true });
           console.log(reminder.daysindex.size);
         }
       }
@@ -60,7 +63,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
     }
   }
 
-  close(data?: ISetReminder): void {
+  close(data?: IDialogReminder): void {
     this.reminderCleanup(data);
     const retData: IReminder | undefined = data ? getDbReminder(data) : data;
     this._data = retData as IReminder;
@@ -73,7 +76,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
     // }
   }
 
-  toggleDay(selectedIndex: number, block: IReminderTime) {
+  toggleDay(selectedIndex: number, block: IDialogReminderTime) {
     this.dirty = true;
     type Action = 'delete' | 'add';
     const weekDaysIndexes = [0, 1, 2, 3, 4];
@@ -97,26 +100,26 @@ export class AddStudentReminderDialogComponent implements OnInit {
     block.daysindex[action](multiDayIndex);
   }
 
-  selectHour(hour: string, block: IReminderTime) {
+  selectHour(hour: string, block: IDialogReminderTime) {
     if (!hour || block.hours.has(hour)) return;
     block.hours.add(hour);
     block.hours = this.getSortedHours(block.hours);
-    this.hourSelectorEnable(false);
+    this.enableHourSelector(block, false);
   }
 
-  hourSelectorEnable(val = true) {
+  enableHourSelector(block, val = true) {
     // if(block.hours.size === 0 ){
     //   return;
     // }
-    this.hourSelectorEnabled = val;
+    block.hourSelectorEnabled = val;
   }
 
-  removeHour(hour: string, block: IReminderTime) {
+  removeHour(hour: string, block: IDialogReminderTime) {
     block.hours.delete(hour);
-    this.hourSelectorEnable(false);
+    this.enableHourSelector(false);
   }
 
-  private isDaySelected(dayIndex: number, block: IReminderTime) {
+  private isDaySelected(dayIndex: number, block: IDialogReminderTime) {
     this.daySelected = !!block.daysindex.size;
     return block.daysindex.has(dayIndex);
   }
