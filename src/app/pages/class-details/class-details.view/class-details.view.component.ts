@@ -45,6 +45,8 @@ export class ClassDetailsViewComponent {
   @Output()
   timeslotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
   @Output()
+  timeSlotDeleted: EventEmitter<TimeSlotIndexes> = new EventEmitter();
+  @Output()
   detailChanged: EventEmitter<ClassDetailsEventParams> = new EventEmitter();
 
   constructor(protected scheduleService: ScheduleService) {
