@@ -25,18 +25,5 @@ export class ScheduleComponent implements OnInit {
   @Output()
   timeSlotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
 
-  ngOnInit() {
-    this.timeSlotClicked.subscribe((val) => {
-      if (val.selectedClassData !== undefined) {
-        if (!val.selectedClassData.class) {
-          console.log('כיתה הינו שדה חובה');
-          return;
-        }
-        if (!val.selectedClassData.grade) {
-          console.log('שכבה הינו שדה חובה');
-          return;
-        }
-      }
-    });
-  }
+  ngOnInit() {}
 }
