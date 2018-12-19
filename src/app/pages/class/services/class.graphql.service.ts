@@ -1,4 +1,10 @@
-import { GET_ALL_CLASSES, MUTATE_UPDATE_CLASS, QUERY_GET_CLASS_BY_ID, QUERY_GET_CLASS_BY_NAME } from './class.graphql';
+import {
+  GET_ALL_CLASSES,
+  QUERY_GET_CLASS_BY_ID,
+  QUERY_GET_CLASS_BY_NAME,
+  MUTATE_UPDATE_CLASS,
+  DELETE_SCHEDULE_SLOT_FROM_CLASS,
+} from './class.graphql';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -128,5 +134,22 @@ export class ClassService {
         awaitRefetchQueries: true,
       })
       .toPromise();
+  }
+
+  deleteScheduleSlotFromClass(id:string, scheduleIndex: string) {
+    return this.apollo
+    .mutate({
+      mutation: DELETE_SCHEDULE_SLOT_FROM_CLASS,
+      variables: {
+        id,
+        scheduleIndex,
+      },
+    })
+      .toPromise()
+      .then((res) => {
+        if (res.data) {
+          return res.data.deleteScheduleSlotFromClass;
+        }
+      });
   }
 }

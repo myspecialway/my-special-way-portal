@@ -8,6 +8,7 @@ exports[`ClassDetailsComponent with class info should match snapshot 1`] = `
   gradesKeys={[Function Array]}
   scheduleService={[Function ScheduleService]}
   shouldShowClassInfo={[Function Boolean]}
+  timeSlotDeleted={[Function EventEmitter]}
   timeslotClicked={[Function EventEmitter]}
 >
   <div
@@ -128,6 +129,7 @@ exports[`ClassDetailsComponent without class info should match snapshot 1`] = `
   gradesKeys={[Function Array]}
   scheduleService={[Function ScheduleService]}
   shouldShowClassInfo="false"
+  timeSlotDeleted={[Function EventEmitter]}
   timeslotClicked={[Function EventEmitter]}
 >
   <div

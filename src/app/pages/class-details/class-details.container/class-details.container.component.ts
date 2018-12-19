@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSlot } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
-import { MatDialog } from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import { ScheduleDialogComponent } from '../../../components/schedule/schedule-dialog/schedule.dialog';
 import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
 import { Class } from '../../../models/class.model';
@@ -15,6 +15,7 @@ import { UserProfileStateModel } from '../../../apollo/state/resolvers/state.res
 import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile.query';
 import { UserType } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
+import {DeleteTimeSlotDialogComponent} from "../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog";
 
 @Component({
   selector: 'app-class-details-container',
@@ -26,6 +27,7 @@ import { Apollo } from 'apollo-angular';
               [grade]="_class && _class.grade ? _class.grade : null"
               [shouldShowClassInfo]="shouldShowClassInfo"
               (timeslotClicked)="onTimeSlotClick($event)"
+              (timeSlotDeleted)="onTimeSlotDelete($event)"
               (detailChanged)="onDetailChange($event)"
             >
             </app-class-details-view>
@@ -101,27 +103,51 @@ export class ClassDetailsContainerComponent implements OnInit {
       height: '375px',
       width: '320px',
     });
+
+    this.onDialogRefClose(dialogRef, async (data) => {
+      const tempClass: Class = {
+        _id: this._class._id,
+        name: this._class.name,
+        grade: this._class.grade,
+        schedule: [{index: data.index, hours: data.hour, lesson: data.lesson, location: data.location}],
+      };
+
+      return await this.classService.update(tempClass)
+    });
+  }
+
+  private onDialogRefClose<T,R = any>(dialogRef:MatDialogRef<T,R>, next: (data)=>Promise<Class>) {
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe(async (data: ScheduleDialogData) => {
+      .subscribe(async (data) => {
         if (!data) {
           return;
         }
 
-        const tempClass: Class = {
-          _id: this._class._id,
-          name: this._class.name,
-          grade: this._class.grade,
-          schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location }],
-        };
-
         try {
-          const updateClass = await this.classService.update(tempClass);
-          this._class = updateClass;
+          this._class = await next(data);
           this.initSchedule();
-        } catch (error) {}
+        } catch (error) {
+        }
       });
+  }
+
+  onTimeSlotDelete(indexes: TimeSlotIndexes) {
+    if (!this._class._id) {
+      return;
+    }
+
+    const dialogData = this.getDialogData(indexes);
+
+    const dialogRef = this.dialog.open(DeleteTimeSlotDialogComponent, {
+      data: dialogData,
+    });
+
+    this.onDialogRefClose(dialogRef, async (data) => {
+      return await this.classService.deleteScheduleSlotFromClass(this._class._id, `${indexes.hourIndex}_${indexes.dayIndex}`);
+    });
+
   }
 
   onDetailChange(classDetails: ClassDetailsEventParams) {
