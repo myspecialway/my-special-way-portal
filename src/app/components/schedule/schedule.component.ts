@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TimeSlot } from '../../models/timeslot.model';
 import { FormClassData } from '../../models/FormClassData.model';
 
@@ -27,13 +27,15 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.timeSlotClicked.subscribe((val) => {
-      if (!val.selectedClassData.class) {
-        console.log('כיתה הינו שדה חובה');
-        return;
-      }
-      if (!val.selectedClassData.grade) {
-        console.log('שכבה הינו שדה חובה');
-        return;
+      if (val.selectedClassData !== undefined) {
+        if (!val.selectedClassData.class) {
+          console.log('כיתה הינו שדה חובה');
+          return;
+        }
+        if (!val.selectedClassData.grade) {
+          console.log('שכבה הינו שדה חובה');
+          return;
+        }
       }
     });
   }
