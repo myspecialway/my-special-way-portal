@@ -8,6 +8,8 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   dialog={[Function MatDialog]}
   displayedColumns={[Function Array]}
   links={[Function Array]}
+  locationService={[Function Object]}
+  locations={[Function Array]}
   mapsService={[Function MapsService]}
   subCollector={[Function Subscription]}
 >

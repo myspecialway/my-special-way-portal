@@ -13,7 +13,7 @@ import {
   MatDialogModule,
 } from '@angular/material';
 
-describe('ClassDetailsComponent with class info', () => {
+describe('MapPointsViewComponent with class info', () => {
   let fixture: ComponentFixture<MapPointsViewComponent>;
   let component: MapPointsViewComponent;
   const beforeEachAsync = async () => {
@@ -61,10 +61,10 @@ describe('ClassDetailsComponent with class info', () => {
       },
     };
 
-    component.onUpdate(testLocation, { name: 'new location name' });
+    component.onEdit(testLocation);
     expect(component.update.emit).toHaveBeenLastCalledWith({
       _id: '3',
-      name: 'new location name',
+      name: 'כיתת קג׳בו',
       disabled: false,
       location_id: '3',
       position: {
