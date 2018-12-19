@@ -1,4 +1,5 @@
-import { IReminderTime, IDbReminderTime } from './reminder-time.model';
+import { IDialogReminderTime } from './../pages/student/dialogs/reminders/add/add-student-reminder.dialog';
+import { IDbReminderTime } from './reminder-time.model';
 
 export interface IReminder {
   enabled: boolean;
@@ -6,10 +7,10 @@ export interface IReminder {
   schedule: IDbReminderTime[];
 }
 
-export interface ISetReminder {
+export interface IDialogReminder {
   enabled: boolean;
   type: ReminderTypeKey;
-  schedule: IReminderTime[];
+  schedule: IDialogReminderTime[];
 }
 
 export enum ReminderType {

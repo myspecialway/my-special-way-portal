@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
@@ -114,6 +114,19 @@ describe('Student Details Personal Info Component', () => {
           },
         ],
       });
+    });
+
+    it('should toggle icon value (enabled/disabled) for male and female face', () => {
+      let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
+      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_enabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_disabled');
     });
 
     it('should render the component as described in snapshot', () => {

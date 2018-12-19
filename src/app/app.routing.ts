@@ -16,6 +16,7 @@ import { StudentDetailsComponent } from './pages/student/details/student-details
 import { StudentDetailsRemindersComponent } from './pages/student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { UserType } from './models/user.model';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
+import { NonActiveTimeComponent } from './pages/non-active-time/non-active-time.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
@@ -77,6 +78,12 @@ const routes: Routes = [
       {
         path: 'maps',
         component: MapsContainerComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'non-active-times',
+        component: NonActiveTimeComponent,
         canActivate: [AuthGuard],
         data: { expectedRole: [UserType.PRINCIPLE] },
       },

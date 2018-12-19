@@ -23,8 +23,10 @@ import {
   MatAutocompleteModule,
   MatTabsModule,
   MatButtonToggleModule,
+  MatRadioModule,
+  MatDatepickerModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
 import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
 import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
@@ -39,7 +41,6 @@ import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PapaParseModule } from 'ngx-papaparse';
-
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -72,9 +73,14 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/suc
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
+import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
+
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 
 @NgModule({
@@ -107,8 +113,12 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
     PapaParseModule,
   ],
   declarations: [
@@ -143,6 +153,9 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -164,6 +177,9 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -177,6 +193,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })

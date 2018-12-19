@@ -35,6 +35,14 @@ mat-dialog-actions button {
   margin-bottom: 12px;
 }
 
+.selection-block {
+  .delete-reminder {
+    color: #666666;
+    float: left;
+    cursor: pointer;
+  }
+}
+
 .selections {
   .day-box {
     width: 32px;

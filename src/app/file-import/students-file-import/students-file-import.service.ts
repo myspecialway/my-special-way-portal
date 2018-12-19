@@ -59,12 +59,12 @@ export class FileImportStudentService {
       const row = csvRowsArray[i];
       const student = new Student();
       const errors: StudentError = { index: i, fields: [] };
-      this.setFirstname(row, errors, student);
-      this.setLastname(row, errors, student);
-      this.setGender(row, errors, student);
-      this.setClass(row, errors, student);
-      await this.setUsername(row, errors, student, studentsFromFile);
-      this.setPassword(row, errors, student);
+      this.setFirstname(row, i, errors, student);
+      this.setLastname(row, i, errors, student);
+      this.setGender(row, i, errors, student);
+      this.setClass(row, i, errors, student);
+      await this.setUsername(row, i, errors, student, studentsFromFile);
+      this.setPassword(row, i, errors, student);
       //save the user in memory even if was errors.
       //needed for detecting username uniqness in file.
       studentsFromFile.push(student);
@@ -76,59 +76,99 @@ export class FileImportStudentService {
     return [error, studentsFromFile];
   }
 
-  private setPassword(row: string[], errors: StudentError, student: Student) {
+  private setPassword(row: string[], rowIndex: number, errors: StudentError, student: Student) {
     const password = row[passwordCsvColumn.index];
-    if (!password || PasswordValidator.validate(password)) {
+    const passwordError = PasswordValidator.validate(password);
+    if (!password || passwordError) {
       errors.fields.push(passwordCsvColumn.display);
+      console.error(
+        `"password" in line #${rowIndex + 1} was invalid.\nGiven value: "${password}"\nError: ${
+          passwordError ? passwordError.invalidPassword : 'password is undefind'
+        }`,
+      );
     } else {
       student.password = password;
     }
   }
 
-  private async setUsername(row: string[], errors: StudentError, student: Student, studentsFromFile: Student[]) {
+  private async setUsername(
+    row: string[],
+    rowIndex: number,
+    errors: StudentError,
+    student: Student,
+    studentsFromFile: Student[],
+  ) {
     const username = row[usernameCsvColumn.index];
     const invalidUsername = await UsernameValidator.validate(this.authenticationService, username, '').toPromise();
     const usernameAlreadyWasInFile = studentsFromFile.find((studentRecord) => studentRecord.username === username);
     if (!username || invalidUsername || usernameAlreadyWasInFile) {
       errors.fields.push(usernameCsvColumn.display);
+      console.error(
+        `"username" in line #${rowIndex + 1} was invalid.\nGiven value: "${username}"\nError: ${
+          invalidUsername
+            ? invalidUsername.invalidUsername
+            : usernameAlreadyWasInFile
+              ? 'username already was in file'
+              : 'username is undefind'
+        }`,
+      );
     } else {
       student.username = username;
     }
   }
 
-  private setClass(row: string[], errors: StudentError, student: Student) {
+  private setClass(row: string[], rowIndex: number, errors: StudentError, student: Student) {
     const classname = row[classCsvColumn.index];
     const classesMatch = this.classes.filter((classObj) => classObj.name === classname);
     if (!classname || !classesMatch[0]) {
       errors.fields.push(classCsvColumn.display);
+      console.error(
+        `"class name" in line #${rowIndex + 1} was invalid.\nGiven value: "${classname}"\nError: ${
+          !classesMatch[0] ? 'Class name is not exist' : 'class name is undefind'
+        }`,
+      );
     } else {
       student.class = classesMatch[0];
     }
   }
 
-  private setGender(row: string[], errors: StudentError, student: Student) {
+  private setGender(row: string[], rowIndex: number, errors: StudentError, student: Student) {
     const genderHebrew = row[genderCsvColumn.index];
     const gender = genderHebrew === 'בת' ? Gender.FEMALE : Gender.MALE;
-    if (!genderHebrew || ['בת', 'בן'].indexOf(genderHebrew) < 0) {
+    const invalidGender = ['בת', 'בן'].indexOf(genderHebrew) < 0;
+    if (!genderHebrew || invalidGender) {
       errors.fields.push(genderCsvColumn.display);
+      console.error(
+        `"gender" in line #${rowIndex + 1} was invalid.\nGiven value: "${gender}"\nError: ${
+          invalidGender ? 'Gender is invalid' : 'Gender is undefind'
+        }`,
+      );
     } else {
       student.gender = gender;
     }
   }
 
-  private setLastname(row: string[], errors: StudentError, student: Student) {
+  private setLastname(row: string[], rowIndex: number, errors: StudentError, student: Student) {
     const lastname = row[lastnameCsvColumn.index];
     if (!lastname) {
       errors.fields.push(lastnameCsvColumn.display);
+      console.error(
+        `"last name" in line #${rowIndex +
+          1} was invalid.\nGiven value: "${lastname}"\nError: ${'Last name is undefind'}`,
+      );
     } else {
       student.lastname = lastname;
     }
   }
 
-  private setFirstname(row: string[], errors: StudentError, student: Student) {
+  private setFirstname(row: string[], rowIndex: number, errors: StudentError, student: Student) {
     const firstname = row[firstnameCsvColumn.index];
     if (!firstname) {
       errors.fields.push(firstnameCsvColumn.display);
+      console.error(
+        `"first name" in line #${rowIndex +
+          1} was invalid.\nGiven value: "${firstname}"\nError: ${'First name is undefind'}`,
+      );
     } else {
       student.firstname = firstname;
     }
