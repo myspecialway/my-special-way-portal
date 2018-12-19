@@ -164,7 +164,7 @@ describe('ClassDetailsContainerComponent', () => {
     expect(classServiceMock.update).toHaveBeenCalled();
   });
 
-  it('should throw an error when classService.update failes', () => {
+  it('should throw an error when classService.update fails', () => {
     (classServiceMock.update as jest.Mock).mockRejectedValueOnce('some error');
     fixture.componentInstance.onTimeSlotClick({ hourIndex: 0, dayIndex: 0 });
     observableAfterClosed.next(mockedScheduleDialogData);
