@@ -201,7 +201,6 @@ describe('ClassDetailsContainerComponent', () => {
 
 //we need under describe in order to provide deleteTimeSlotDialogMock as MatDialog
 describe('ClassDetailsContainerComponent - delete time slot from class', () => {
-  let component: ClassDetailsContainerComponent;
   let classServiceMock: Partial<ClassService>;
   let deleteTimeSlotDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
@@ -251,7 +250,6 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClassDetailsContainerComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
     routeParamsMockedObservable.next({ idOrNew: '5b217b030825622c97d3757f' });
   });
