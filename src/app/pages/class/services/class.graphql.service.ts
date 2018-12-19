@@ -136,15 +136,15 @@ export class ClassService {
       .toPromise();
   }
 
-  deleteScheduleSlotFromClass(id:string, scheduleIndex: string) {
+  deleteScheduleSlotFromClass(id: string, scheduleIndex: string) {
     return this.apollo
-    .mutate({
-      mutation: DELETE_SCHEDULE_SLOT_FROM_CLASS,
-      variables: {
-        id,
-        scheduleIndex,
-      },
-    })
+      .mutate({
+        mutation: DELETE_SCHEDULE_SLOT_FROM_CLASS,
+        variables: {
+          id,
+          scheduleIndex,
+        },
+      })
       .toPromise()
       .then((res) => {
         if (res.data) {

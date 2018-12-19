@@ -69,7 +69,7 @@ import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialog
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
-import { DeleteTimeSlotDialogComponent } from "./components/schedule/delete-schedule-dialog/delete-time-slot.dialog";
+import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 
 @NgModule({
   imports: [

@@ -49,25 +49,25 @@ $hover: rgba(106, 0, 207, 0.2);
     font-size: 14px;
   }
   .mat-cell {
-    .ts-full{
+    .ts-full {
       display: flex;
       .ts-wrapper-lesson {
         width: calc(100% - 24px);
       }
-      .ts-delete{
+      .ts-delete {
         opacity: 0;
         width: 24px;
         height: 24px;
       }
-      &:hover{
-        .ts-delete{
+      &:hover {
+        .ts-delete {
           opacity: 1;
         }
       }
     }
   }
 
-    .ts-empty {
+  .ts-empty {
     text-align: center;
     color: #8249d1;
     opacity: 0.5;

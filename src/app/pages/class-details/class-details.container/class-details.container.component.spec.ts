@@ -1,4 +1,4 @@
-import {TimeSlotIndexes} from "../../../components/schedule/schedule.component";
+import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 
 jest.mock('@angular/router');
 
@@ -209,7 +209,8 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
 
   const mockedTimeSlotIndexes = {
     hourIndex: 1,
-    dayIndex: 1} as TimeSlotIndexes;
+    dayIndex: 1,
+  } as TimeSlotIndexes;
 
   let observableDeleteTimeSlotDialogComponent: Subject<TimeSlotIndexes>;
 
@@ -220,10 +221,10 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
     classServiceMock = {
       classById: jest.fn().mockReturnValue(Promise.resolve(mockedClass)),
       update: jest.fn(),
-      deleteScheduleSlotFromClass : jest.fn(),
+      deleteScheduleSlotFromClass: jest.fn(),
     };
 
-    deleteTimeSlotDialogMock  ={
+    deleteTimeSlotDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterCloseDeleteTimeSlotDialogMockFn,
       }),
@@ -237,12 +238,12 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
       declarations: [ClassDetailsContainerComponent],
       providers: [
         { provide: ClassService, useValue: classServiceMock },
-        { provide: ActivatedRoute, useValue: {params: routeParamsMockedObservable}},
+        { provide: ActivatedRoute, useValue: { params: routeParamsMockedObservable } },
         { provide: MatDialog, useValue: deleteTimeSlotDialogMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
         Router,
         ScheduleService,
-       { provide: Apollo, useClass: Apollo },
+        { provide: Apollo, useClass: Apollo },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -259,7 +260,9 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
       afterClosed: afterCloseDeleteTimeSlotDialogMockFn,
     });
     // given
-    (classServiceMock.deleteScheduleSlotFromClass as jest.Mock).mockResolvedValueOnce({ data: { updateClass: { _id: 'updateclassid' } } });
+    (classServiceMock.deleteScheduleSlotFromClass as jest.Mock).mockResolvedValueOnce({
+      data: { updateClass: { _id: 'updateclassid' } },
+    });
 
     // when
     fixture.componentInstance.onTimeSlotDelete({ hourIndex: 1, dayIndex: 1 });

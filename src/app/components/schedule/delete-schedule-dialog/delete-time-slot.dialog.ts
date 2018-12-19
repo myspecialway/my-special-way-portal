@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import {ScheduleDialogData} from "../schedule-dialog/schedule-dialog-data.model";
+import { ScheduleDialogData } from '../schedule-dialog/schedule-dialog-data.model';
 
 @Component({
   selector: 'app-delete-time-slot.dialog',

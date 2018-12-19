@@ -40,7 +40,7 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  onTimeSlotDelete(timeSlotIndex:TimeSlotIndexes, event) {
+  onTimeSlotDelete(timeSlotIndex: TimeSlotIndexes, event) {
     event.preventDefault();
     event.stopPropagation();
     this.timeSlotDeleted.emit(timeSlotIndex);
