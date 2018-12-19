@@ -74,7 +74,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
+    let route = DEFAULT_ROUTE;
+    if (this.selectedMenuItemPath) {
+      route = ROUTES.find((menuItem) => this.selectedMenuItemPath.includes(menuItem.path)) || DEFAULT_ROUTE;
+    }
     return route.title;
   }
 
@@ -105,7 +108,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe((path) => (this.selectedMenuItemPath = path));
   }
 
-  private removeLeadingSlash(s = '') {
-    return s.replace(/^\/+/g, '');
+  private removeLeadingSlash(domainString = '') {
+    return domainString.replace(/^\/+/g, '');
   }
 }
