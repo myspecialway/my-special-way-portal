@@ -21,6 +21,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app.routing';
@@ -63,6 +64,8 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
+import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
@@ -91,6 +94,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -107,6 +111,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ClassComponent,
     LessonComponent,
     StudentComponent,
+    MapsContainerComponent,
     UserComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
@@ -136,6 +141,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
+    AddUpdateBlockDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
@@ -153,6 +159,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     AuthenticationService,
     UserService,
     StudentService,
+    MapsService,
     ClassService,
     LessonService,
     ScheduleService,
