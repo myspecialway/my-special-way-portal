@@ -26,6 +26,7 @@ mat-dialog-actions button {
 }
 
 .icons-list-container {
+  display: block;
   width: 572px;
   height: 240px;
   background-color: #fafafa;
@@ -37,9 +38,9 @@ mat-dialog-actions button {
     background-color: #fafafa;
     text-align: center;
     vertical-align: middle;
-    float: left;
+    float: right;
     margin: 5px;
-    &.icon-selected {
+    &.mat-button-toggle-checked {
       border-radius: 2px;
       border: solid 2px #8249d1;
     }

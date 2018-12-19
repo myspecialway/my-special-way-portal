@@ -45,6 +45,4 @@ export class AddEditPointDialogComponent implements OnInit {
   onIconClick(selectedIcon: string): void {
     this.form.value.icon = selectedIcon;
   }
-
-  onTypeSelect(ev) {}
 }

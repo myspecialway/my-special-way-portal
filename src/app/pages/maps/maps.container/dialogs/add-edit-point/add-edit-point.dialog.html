@@ -14,15 +14,15 @@
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field color="primary">
-        <mat-select placeholder="נקודה" formControlName="type" (ngModelChange)="onTypeSelect($event)" name="type">
-            <mat-option disabled>בחר</mat-option>
-            <mat-option *ngFor="let pointType of pointTypes" [value]="pointType">{{pointType}}</mat-option>
-          </mat-select>
+        <mat-select placeholder="נקודה" formControlName="type" name="type" [(ngModel)]="data.type">
+          <mat-option disabled>בחר</mat-option>
+          <mat-option *ngFor="let pointType of pointTypes" [value]="pointType" >{{pointType}}</mat-option>
+        </mat-select>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
-    <mat-button-toggle-group formControlName="type" name="icon" class="icons-list-container" aria-label="Map Point Icon">
-      <mat-button-toggle *ngFor="let icon of icons; let idx = index;" [value]="icon" [checked]="idx===0" class="icons-container">
+    <mat-button-toggle-group formControlName="icon" name="icon" [(ngModel)]="data.icon" class="icons-list-container" aria-label="Map Point Icon">
+      <mat-button-toggle *ngFor="let icon of icons; let idx = index;" [value]="icon" class="icons-container">
         <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
       </mat-button-toggle>
     </mat-button-toggle-group>
