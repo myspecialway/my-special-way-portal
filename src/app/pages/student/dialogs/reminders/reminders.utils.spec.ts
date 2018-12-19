@@ -12,7 +12,7 @@ describe('Reminders Util', () => {
   const setReminder: IDialogReminder = {
     enabled: true,
     type: 'MEDICINE',
-    schedule: [{ daysindex: new Set([3, 4, 5]), hours: new Set(['06:00']) }],
+    schedule: [{ daysindex: new Set([3, 4, 5]), hours: new Set(['06:00']), hourSelectorEnabled: true }],
   };
   // @ts-ignore
   it('getNewReminder to work', () => {

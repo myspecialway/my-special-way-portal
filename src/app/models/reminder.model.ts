@@ -1,5 +1,5 @@
 import { IDialogReminderTime } from './../pages/student/dialogs/reminders/add/add-student-reminder.dialog';
-import { IReminderTime, IDbReminderTime } from './reminder-time.model';
+import { IDbReminderTime } from './reminder-time.model';
 
 export interface IReminder {
   enabled: boolean;
