@@ -17,6 +17,12 @@ export const ROUTES: RouteInfo[] = [
   { path: 'lesson', title: 'ניהול שיעורים', class: 'nb-lesson', roles: [UserType.PRINCIPLE] },
   { path: 'class/:id', title: 'ניהול מערכת שעות כיתתית', class: 'nb-class-schedule', roles: [UserType.TEACHER] },
   { path: 'map', title: 'ניהול מפה', class: 'nb-map', roles: [UserType.PRINCIPLE] },
+  {
+    path: 'non-active-times',
+    title: 'ניהול זמני אי פעילות',
+    class: 'nb-non-active-times',
+    roles: [UserType.PRINCIPLE],
+  },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
 
@@ -68,7 +74,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getSelectedMenuItem() {
-    const route = ROUTES.find((menuItem) => menuItem.path === this.selectedMenuItemPath) || DEFAULT_ROUTE;
+    let route = DEFAULT_ROUTE;
+    if (this.selectedMenuItemPath) {
+      route = ROUTES.find((menuItem) => this.selectedMenuItemPath.includes(menuItem.path)) || DEFAULT_ROUTE;
+    }
     return route.title;
   }
 
@@ -99,7 +108,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe((path) => (this.selectedMenuItemPath = path));
   }
 
-  private removeLeadingSlash(s = '') {
-    return s.replace(/^\/+/g, '');
+  private removeLeadingSlash(domainString = '') {
+    return domainString.replace(/^\/+/g, '');
   }
 }
