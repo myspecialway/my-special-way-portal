@@ -2,9 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { scheduleTestData } from './../../../../../../mocks/assets/schedule.mock';
 import { ScheduleDialogComponent } from './../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { ScheduleDialogData } from './../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
-jest.mock('../../../services/student.service');
-
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs-compat';
@@ -14,6 +12,9 @@ import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import { ScheduleService } from '../../../../../services/schedule/schedule.service';
 import { MatDialog } from '@angular/material';
+import { TimeSlot } from '../../../../../models/timeslot.model';
+
+jest.mock('../../../services/student.service');
 
 describe('Student Details Hours Component', () => {
   const sub = new Subscription();
@@ -181,6 +182,31 @@ describe('Student Details Hours Component', () => {
 
     // then
     expect(called).toBeTruthy();
+  });
+
+  it('shouldFilter', () => {
+    const slot1: TimeSlot = {
+      customized: true,
+      index: '1_0',
+    };
+    const slot2: TimeSlot = {
+      customized: false,
+      index: '1_0',
+    };
+    const data1: ScheduleDialogData = {
+      hour: '',
+      day: '',
+      index: '1_0',
+    };
+    const data2: ScheduleDialogData = {
+      hour: '',
+      day: '',
+      index: '2_0',
+    };
+    expect(component.isSlotRelevant(slot1, data1)).toEqual(false);
+    expect(component.isSlotRelevant(slot1, data2)).toEqual(true);
+    expect(component.isSlotRelevant(slot2, data1)).toEqual(false);
+    expect(component.isSlotRelevant(slot2, data2)).toEqual(false);
   });
 
   function setup() {
