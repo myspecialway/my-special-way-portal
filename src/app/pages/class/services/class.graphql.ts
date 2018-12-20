@@ -8,6 +8,7 @@ export const GET_ALL_CLASSES = gql`
       name
       schedule {
         lesson {
+          _id
           title
         }
       }
@@ -64,4 +65,12 @@ export const MUTATE_UPDATE_CLASS = gql`
         ${ALL_CLASS_FIELDS}
       }
     }
+  `;
+
+export const DELETE_SCHEDULE_SLOT_FROM_CLASS = gql`
+   mutation deleteScheduleSlotFromClass($id: ID!, $scheduleIndex: String!) {
+    deleteScheduleSlotFromClass(classId:$id, scheduleIndex:$scheduleIndex) {
+      ${ALL_CLASS_FIELDS}
+    }
+  }
   `;

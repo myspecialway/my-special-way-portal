@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-delete-user.dialog',
   templateUrl: './delete-user.dialog.html',
-  styleUrls: ['./delete-user.dialog.scss'],
+  styleUrls: ['../../../../../assets/scss/msw-alert-dialog.scss'],
 })
 export class DeleteUserDialogComponent {
   userRoleEnum = UserType;

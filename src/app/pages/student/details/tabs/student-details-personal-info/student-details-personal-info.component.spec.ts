@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
@@ -116,6 +116,19 @@ describe('Student Details Personal Info Component', () => {
       });
     });
 
+    it('should toggle icon value (enabled/disabled) for male and female face', () => {
+      let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
+      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_enabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_disabled');
+    });
+
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       expect(fixture).toMatchSnapshot();
@@ -174,8 +187,8 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.addStudent();
       expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
-      jest.advanceTimersByTime(1000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
+      jest.advanceTimersByTime(4000);
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
     });
 
@@ -280,7 +293,7 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
     });
 
     it('should show indication when error happened on save changes', async () => {

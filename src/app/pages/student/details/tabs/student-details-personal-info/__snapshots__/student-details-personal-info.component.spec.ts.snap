@@ -4,6 +4,8 @@ exports[`Student Details Personal Info Component with _new_ student path should 
 <app-student-details-personal-info
   changesWereSaved="false"
   classService={[Function Object]}
+  femaleFaceIcon={[Function String]}
+  maleFaceIcon={[Function String]}
   route={[Function Object]}
   saveFailed="false"
   studentService={[Function Object]}
@@ -19,7 +21,9 @@ exports[`Student Details Personal Info Component with _new_ student path should 
         class="msw-student-user-pic-ph"
       >
         <img
-          src="http://via.placeholder.com/140x100"
+          alt=""
+          class="img"
+          src="/assets/img/picking.tinti.png"
         />
       </div>
       <div

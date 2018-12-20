@@ -1,4 +1,4 @@
-@import '../../../../../app.component.scss';
+@import '~app/app.component.scss';
 
 * {
   direction: rtl;
@@ -29,10 +29,18 @@ mat-dialog-actions button {
 }
 
 .mat-divider {
-  border-bottom-color: #6a00cf;
+  border-bottom-color: #8249d1;
   border-bottom-style: solid;
   border-bottom-width: 3px;
   margin-bottom: 12px;
+}
+
+.selection-block {
+  .delete-reminder {
+    color: #666666;
+    float: left;
+    cursor: pointer;
+  }
 }
 
 .selections {
@@ -54,7 +62,7 @@ mat-dialog-actions button {
   }
   .day-box:hover,
   .selected-day {
-    background: #8b66a7;
+    background: #8249d1;
     color: #fff;
   }
 }
@@ -87,7 +95,7 @@ mat-dialog-actions button {
     }
   }
   span.hour-selection:hover {
-    border-bottom: 2px solid #8b66a7;
+    border-bottom: 2px solid #8249d1;
     i {
       display: block;
       line-height: 2;
@@ -111,7 +119,7 @@ mat-dialog-actions button {
   .add-select {
     font-size: 20px;
     color: #fff;
-    background: #8b66a7;
+    background: #8249d1;
     border-radius: 20px;
     cursor: pointer;
     position: relative;
@@ -145,7 +153,7 @@ mat-dialog-actions button {
   width: 109.7px;
   height: 36px;
   border-radius: 3px;
-  background-color: #6a00cf;
+  background-color: #8249d1;
   padding: 0px;
 
   /deep/ .mat-button-wrapper {
@@ -185,7 +193,7 @@ mat-dialog-actions button {
   float: right;
   width: 100%;
   button {
-    color: #8b66a7;
+    color: #8249d1;
     font-size: 14.1px;
   }
 }

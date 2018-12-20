@@ -44,25 +44,9 @@ test('new and existing student form error messages display correctly', async (t)
     .eql(true);
 });
 
-test('new student password less than 8 characters', async (t) => {
-  await navbar.navigateToStudentsPage();
-  await t
-
-    .click(studentPage.newStudentButton)
-    .typeText(studentPage.password, 'Aa123')
-    .pressKey('tab')
-    .expect(studentPage.passwordFormatErr.exists)
-    .eql(true)
-    .expect(studentPage.passwordFormatErr.innerText)
-    .eql('הסיסמא צריכה להכיל לפחות 8 תווים, כולל אותיות ומספרים')
-    .expect(studentPage.saveButton.hasAttribute('ng-reflect-disabled'))
-    .eql(true);
-});
-
 test('new student password not contains numbers', async (t) => {
   await navbar.navigateToStudentsPage();
   await t
-
     .click(studentPage.newStudentButton)
     .typeText(studentPage.password, 'abcdefghit')
     .pressKey('tab')
@@ -77,7 +61,6 @@ test('new student password not contains numbers', async (t) => {
 test('userName less than 5 characters', async (t) => {
   await navbar.navigateToStudentsPage();
   await t
-
     .click(studentPage.newStudentButton)
     .typeText(studentPage.username, 'abcd')
     .pressKey('tab')

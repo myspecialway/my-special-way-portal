@@ -1,13 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import {
-  MatHeaderRowDef,
-  MatRowDef,
-  MatHeaderRow,
   MatDialog,
   MatSort,
   MatPaginator,
   MatPaginatorIntl,
+  MatTableModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { StudentComponent } from './student.component';
 import { StudentService } from './services/student.service';
@@ -24,10 +25,24 @@ import { Platform } from '@angular/cdk/platform';
 import { studentsTestData } from '../../../mocks/assets/students.mock';
 import { Observable, Subject } from 'rxjs-compat';
 import { Apollo } from 'apollo-angular';
+import { CdkTableModule } from '@angular/cdk/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MSWSnackbar } from '../../services/msw-snackbar/msw-snackbar.service';
+import { ErrorDialogComponent } from '../common/error-dialog/error.dialog';
+import { FileImportStudentService } from '../../file-import/students-file-import/students-file-import.service';
+import {
+  studentsFileErrors,
+  studentsInvalidCsvErrorsExpectation,
+} from '../../../mocks/assets/students.file-import.errors.mock';
 
 describe('student component', () => {
   let studentServiceMock: Partial<StudentService>;
+  let fileImportStudentServiceMock: Partial<FileImportStudentService>;
   let studentDialogMock: Partial<MatDialog>;
+  let mswSnackbarMock: Partial<MSWSnackbar>;
   let afterClosedMockFn: jest.Mock;
   const watchQueryMockedObservable = new Subject<any>();
 
@@ -37,6 +52,15 @@ describe('student component', () => {
       delete: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+      createMany: jest.fn().mockImplementation(() => Promise.resolve()),
+    };
+
+    fileImportStudentServiceMock = {
+      getStudents: jest.fn(),
+    };
+
+    mswSnackbarMock = {
+      displayTimedMessage: jest.fn(),
     };
 
     afterClosedMockFn = jest.fn().mockReturnValue(Observable.of(true));
@@ -53,12 +77,24 @@ describe('student component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [StudentComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatPaginator],
+      imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatTableModule,
+        MatIconModule,
+        CdkTableModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+      declarations: [StudentComponent, MatSort, MatPaginator],
       providers: [
-        StudentService,
         { provide: MatDialog, useValue: studentDialogMock },
         { provide: StudentService, useValue: studentServiceMock },
+        { provide: FileImportStudentService, useValue: fileImportStudentServiceMock },
+        { provide: MSWSnackbar, useValue: mswSnackbarMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -70,7 +106,6 @@ describe('student component', () => {
         MatPaginatorIntl,
         { provide: Apollo, useValue: apolloMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -150,9 +185,6 @@ describe('student component', () => {
   });
 
   it('should sort students by firstname+lastname', async () => {
-    // (studentServiceMock.getAllStudents as jest.Mock).mockImplementationOnce(() => {
-    //   return of(studentsTestData.students);
-    // });
     const fixture = TestBed.createComponent(StudentComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -166,4 +198,212 @@ describe('student component', () => {
   });
 
   xit('should display an error to the user when deleteStudent fails', () => {});
+
+  it('should not show no records massage if there is data', fakeAsync(() => {
+    // given
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(false);
+  }));
+
+  it('should show no records massage if there is no data', fakeAsync(() => {
+    // given
+    studentServiceMock.getAllStudents = jest.fn().mockReturnValueOnce(Observable.of([]));
+    const fixture = TestBed.createComponent(StudentComponent);
+    fixture.detectChanges();
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(true);
+  }));
+
+  describe('sort table', () => {
+    it('should sort students by firstname+lastname', async () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      const data = fixture.componentInstance.dataSource.data;
+      for (let i = 0; i < data.length - 1; i++) {
+        const student1 = data[i].firstname + data[i].lastname;
+        const student2 = data[i + 1].firstname + data[i + 1].lastname;
+        const comapare = student1.localeCompare(student2);
+        expect(comapare).toEqual(-1);
+      }
+    });
+
+    it('should sort students by class name', () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'gradeId');
+      expect(result).toBe(studentsTestData.students[0].class.name);
+    });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(studentsTestData.students[0], 'username');
+      expect(result).toBe(studentsTestData.students[0].username);
+    });
+  });
+
+  describe('filter table', () => {
+    describe('filter by student name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        expect(fixture.componentInstance.showStudentNameFilter).toBe(false);
+      });
+
+      it('should show filter name input after call to to toggleStudentNameFilter', () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.componentInstance.toggleStudentNameFilter();
+        expect(fixture.componentInstance.showStudentNameFilter).toBe(true);
+      });
+
+      it('should show filter name input in any case, if there is filter applyed', () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.componentInstance.toggleStudentNameFilter();
+        fixture.componentInstance.studentNameFilter.setValue('some text');
+        fixture.componentInstance.toggleStudentNameFilter();
+        expect(fixture.componentInstance.showStudentNameFilter).toBe(true);
+        fixture.componentInstance.toggleStudentNameFilter();
+        expect(fixture.componentInstance.showStudentNameFilter).toBe(true);
+      });
+
+      it('should show no records massage if the studentName filter has no macth', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-studentName mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-studentName input'));
+        input.triggerEventHandler('input', { target: { value: 'no such student' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
+
+    describe('filter by class name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        expect(fixture.componentInstance.showGradeIdFilter).toBe(false);
+      });
+
+      it("should show filter's gradeId input after call to to toggleGradeIdFilter", () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.componentInstance.toggleGradeIdFilter();
+        expect(fixture.componentInstance.showGradeIdFilter).toBe(true);
+      });
+
+      it("should show filter's gradeId input in any case, if there is filter applyed", () => {
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.componentInstance.toggleGradeIdFilter();
+        fixture.componentInstance.gradeIdFilter.setValue('some text');
+        fixture.componentInstance.toggleGradeIdFilter();
+        expect(fixture.componentInstance.showGradeIdFilter).toBe(true);
+        fixture.componentInstance.toggleGradeIdFilter();
+        expect(fixture.componentInstance.showGradeIdFilter).toBe(true);
+      });
+
+      it('should show no records massage if the gradeId filter has no match', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(StudentComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-gradeId mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-gradeId input'));
+        input.triggerEventHandler('input', { target: { value: 'no such gradeId' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
+  });
+
+  describe('import students from file', () => {
+    it('should add all the students from csv file', async () => {
+      fileImportStudentServiceMock.getStudents = jest
+        .fn()
+        .mockImplementationOnce(async () => [null, studentsTestData.students]);
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(studentServiceMock.createMany).toHaveBeenCalledWith(studentsTestData.students);
+    });
+
+    it('should show snackbar on sucsess', async () => {
+      fileImportStudentServiceMock.getStudents = jest
+        .fn()
+        .mockImplementationOnce(async () => [null, studentsTestData.students]);
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(mswSnackbarMock.displayTimedMessage).toHaveBeenCalledWith('קובץ נטען בהצלחה');
+    });
+
+    it('should rise error dialog with all the format errors', async () => {
+      fileImportStudentServiceMock.getStudents = jest.fn().mockImplementationOnce(async () => [studentsFileErrors, []]);
+      studentServiceMock.buildErrorMessage = jest
+        .fn()
+        .mockImplementationOnce(() => studentsInvalidCsvErrorsExpectation);
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(studentDialogMock.open).toHaveBeenCalledWith(ErrorDialogComponent, {
+        data: studentsInvalidCsvErrorsExpectation,
+      });
+    });
+
+    it('should rise error dialog on connection failure', async () => {
+      studentServiceMock.createMany = jest.fn().mockImplementationOnce(() => {
+        throw new Error('Mock Error');
+      });
+
+      //given
+      const fixture = TestBed.createComponent(StudentComponent);
+      fixture.detectChanges();
+
+      //when
+      await fixture.componentInstance.onFileChange({ target: { files: ['/path/to/file.csv'] } });
+
+      //then
+      expect(studentDialogMock.open).toHaveBeenCalledWith(
+        ErrorDialogComponent,
+        expect.objectContaining({
+          data: expect.objectContaining({ title: 'שגיאה בטעינת הקובץ', bottomline: 'אנא נסה שנית.' }),
+        }),
+      );
+    });
+  });
 });

@@ -1,6 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  MatDialog,
+  MatSort,
+  MatTableModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatTooltipModule,
+} from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import {
@@ -13,13 +20,23 @@ import {
   OverlayKeyboardDispatcher,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { UserType } from '../../models/user.model';
+import { UserType, User } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
+import { CdkTableModule } from '@angular/cdk/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Class } from '../../models/class.model';
 
 describe('user component', () => {
   let userServiceMock: Partial<UserService>;
   let userDialogMock: Partial<MatDialog>;
+  let authService: Partial<AuthenticationService>;
 
   beforeEach(async () => {
     userServiceMock = {
@@ -29,6 +46,10 @@ describe('user component', () => {
       update: jest.fn(),
     };
 
+    authService = {
+      restorePassword: jest.fn(),
+    };
+
     userDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
@@ -36,8 +57,19 @@ describe('user component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [UserComponent, MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort],
+      imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatTableModule,
+        MatIconModule,
+        CdkTableModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+      declarations: [UserComponent, MatSort],
       providers: [
         { provide: MatDialog, useValue: userDialogMock },
         { provide: UserService, useValue: userServiceMock },
@@ -46,11 +78,14 @@ describe('user component', () => {
         ScrollDispatcher,
         Platform,
         ViewportRuler,
+        HttpHandler,
+        AuthenticationService,
+        HttpClient,
         OverlayContainer,
+        Apollo,
         OverlayPositionBuilder,
         OverlayKeyboardDispatcher,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     });
   });
 
@@ -71,6 +106,58 @@ describe('user component', () => {
     fixture.componentInstance.addNewUser();
     const DialogMock = TestBed.get(MatDialog);
     expect(DialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should open dialog when calling restoreUserPassword function and output error message', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(false);
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const rp = fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
+  });
+
+  it('should open dialog when calling restoreUserPassword function and output ok message', () => {
+    (authService.restorePassword as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve({
+        _id: 123,
+        username: 'uname',
+        firstname: 'sad',
+        lastname: 'asd',
+        role: UserType.PRINCIPLE,
+        password: '123',
+        email: 'asdd@sdsd.com',
+      });
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    const user = {
+      _id: 123,
+      username: 'uname',
+      firstname: 'sad',
+      lastname: 'asd',
+      role: UserType.PRINCIPLE,
+      password: '123',
+      email: 'asdd@sdsd.com',
+    };
+    const rp = fixture.componentInstance.restoreUserPassword(user);
+    const DialogMock = TestBed.get(MatDialog);
+    console.log('DialogMock:DialogMock', DialogMock);
+    expect(DialogMock.open).toBeDefined();
+    expect(rp).toBeDefined();
   });
 
   it('should open dialog when calling deleteUser function', () => {
@@ -165,25 +252,142 @@ describe('user component', () => {
     expect(fixture.componentInstance.dataSource.filter).toEqual('aa!!bb');
   });
 
-  it('should sort users by firstname+lastname', async () => {
-    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve();
-    });
-
+  it('should not show no records massage if there is data', fakeAsync(() => {
+    // given
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    const component = fixture.componentInstance;
-    const data = component.dataSource.data;
-    for (let i = 0; i < data.length - 1; i++) {
-      const user1 = data[i].firstname + data[i].lastname;
-      const user2 = data[i + 1].firstname + data[i + 1].lastname;
-      const comapare = user1.localeCompare(user2);
-      expect(comapare).toEqual(-1);
-    }
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(false);
+  }));
+
+  it('should show no records massage if there is no data', fakeAsync(() => {
+    // given
+    userServiceMock.getAllUsers = jest.fn().mockReturnValueOnce(Observable.of([]));
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+
+    // then
+    expect(fixture.componentInstance.showNoRecords).toBe(true);
+  }));
+
+  describe('sort table', () => {
+    it('should sort users by firstname+lastname', async () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      const data = fixture.componentInstance.dataSource.data;
+      for (let i = 0; i < data.length - 1; i++) {
+        const user1 = data[i].firstname + data[i].lastname;
+        const user2 = data[i + 1].firstname + data[i + 1].lastname;
+        const comapare = user1.localeCompare(user2);
+        expect(comapare).toEqual(-1);
+      }
+    });
+
+    it('should sort users by class name', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', class: { name: 'class name' } } as User & { class: Class };
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'class');
+      expect(result).toBe(user.class.name);
+    });
+
+    it('should be prepared for default sort', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', username: 'ab123', class: { name: 'class name' } } as User;
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'username');
+      expect(result).toBe(user.username);
+    });
   });
 
-  it('should sort users by firstname+lastname', async () => {
+  describe('filter table', () => {
+    describe('filter by name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        expect(fixture.componentInstance.showNameFilter).toBe(false);
+      });
+
+      it('should show filter name input after call to to toggleNameFilter', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+      });
+
+      it('should show filter name input in any case, if there is filter applyed', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleNameFilter();
+        fixture.componentInstance.nameFilter.setValue('some text');
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+        fixture.componentInstance.toggleNameFilter();
+        expect(fixture.componentInstance.showNameFilter).toBe(true);
+      });
+
+      it('should show no records massage if the name filter has no macth', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-name mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-name input'));
+        input.triggerEventHandler('input', { target: { value: 'no such user' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
+
+    describe('filter by class name', () => {
+      it('should hide filter by default', () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        expect(fixture.componentInstance.showClassFilter).toBe(false);
+      });
+
+      it("should show filter's class input after call to to toggleClassFilter", () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+      });
+
+      it("should show filter's class input in any case, if there is filter applyed", () => {
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.componentInstance.toggleClassFilter();
+        fixture.componentInstance.classFilter.setValue('some text');
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+        fixture.componentInstance.toggleClassFilter();
+        expect(fixture.componentInstance.showClassFilter).toBe(true);
+      });
+
+      it('should show no records massage if the class filter has no match', fakeAsync(() => {
+        // given
+        const fixture = TestBed.createComponent(UserComponent);
+        fixture.detectChanges();
+
+        // when
+        const component = fixture.componentInstance;
+        component.showNoRecords = false;
+        component.dataSource.filteredData = [];
+        fixture.debugElement.query(By.css('.mat-column-class mat-icon')).nativeElement.click();
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('.mat-column-class input'));
+        input.triggerEventHandler('input', { target: { value: 'no such class' } });
+        fixture.detectChanges();
+
+        // then
+        expect(fixture.componentInstance.showNoRecords).toBe(true);
+      }));
+    });
+  });
+  it('should cover class params', async () => {
     (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve();
     });
@@ -191,12 +395,33 @@ describe('user component', () => {
     const fixture = TestBed.createComponent(UserComponent);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    const data = fixture.componentInstance.dataSource.data;
-    for (let i = 0; i < data.length - 1; i++) {
-      const user1 = data[i].firstname + data[i].lastname;
-      const user2 = data[i + 1].firstname + data[i + 1].lastname;
-      const comapare = user1.localeCompare(user2);
-      expect(comapare).toEqual(-1);
-    }
+    expect(fixture.componentInstance.displayedColumns).toEqual([
+      'name',
+      'class',
+      'username',
+      'type',
+      'email',
+      'recoverpassword',
+      'deleteUser',
+    ]);
+    expect(fixture.componentInstance.resultsLength).toEqual(0);
+  });
+  it('resultsLength should be 0', () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.resultsLength).toBe(0);
+  });
+  it('should load correct number of lesson ', async () => {
+    (userServiceMock.getAllUsers as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve();
+    });
+    const fixture = TestBed.createComponent(UserComponent);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.componentInstance.dataSource.data.length).toEqual(2);
   });
 });

@@ -21,8 +21,10 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRadioModule,
+  MatDatepickerModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -31,7 +33,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { PapaParseModule } from 'ngx-papaparse';
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -58,8 +60,20 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
+import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
+import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
+import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -88,21 +102,30 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
     LessonComponent,
     StudentComponent,
     UserComponent,
+    FirstloginComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -112,11 +135,20 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SessionHeaderComponent,
+    SessionFooterComponent,
+    ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
+    RestorePasswordDialogComponent,
+    RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
@@ -126,6 +158,10 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
+    ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -138,6 +174,7 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })

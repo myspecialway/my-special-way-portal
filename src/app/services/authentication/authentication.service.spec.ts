@@ -31,8 +31,13 @@ describe('AuthenticationService', () => {
       mutate: jest.fn().mockReturnValue({
         toPromise: apolloMutateFnMock,
       }),
+      getClient: jest.fn().mockReturnValue({
+        cache: jest.mock('apollo-cache'),
+        resetStore: jest.fn(),
+      }),
     } as any; // Damn you Typescript
 
+    apolloMock.getClient().cache.reset = jest.fn();
     authService = new AuthenticationService(httpClient, apolloMock);
   });
 
@@ -49,6 +54,40 @@ describe('AuthenticationService', () => {
     await authService.login('someusername', 'somepassword', true);
     expect(localStorage.getItem('token')).toBe(expiredMockToken);
   });
+
+  it('should restorePassword return status ok', async () => {
+    const mockedResponse: any = {
+      status: 'ok',
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const res = await authService.restorePassword('someusername', 'somepassword', 'flastname');
+    expect(res).toBe(true);
+  });
+
+  it('should return true if restore password email sent', async () => {
+    const mockedResponse: LoginResponse = {
+      accessToken: expiredMockToken,
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+    const response = await authService.restorePassword('someemail@g.com', 'somefirstname', 'somelastname');
+    expect(response).toBe(true);
+  });
+
+  // it('should return true if restore password email sent',  () => {
+  //   // const mockedResponse: LoginResponse = {
+  //   //   accessToken: expiredMockToken,
+  //   // };
+  //   // toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+  //   // const response = await authService.restorePassword('1', '2', '3');
+  //   // expect(response).toThrow();
+  //   // const mockedResponse = {
+  //   //   status: 500,
+  //   // };
+  //   // (httpClient.post as jest.Mock).mockImplementation(() => {
+  //   //   throw mockedResponse;
+  //   // });
+  //   return expect(authService.restorePassword('someusername', 'somepassword', '1')).rejects.toBeFalsy();
+  // });
 
   it('should not create localstorage token key on authentication sucess with rememberme disabled', async () => {
     const mockedResponse: LoginResponse = {
@@ -95,6 +134,11 @@ describe('AuthenticationService', () => {
   //   authService.logout();
   //   expect(sessionStorage.removeItem).toHaveBeenCalledWith('token');
   // });
+
+  it('should remove apollo cache on logout', () => {
+    authService.logout();
+    expect(apolloMock.getClient().cache.reset).toHaveBeenCalled();
+  });
 
   it('should push user profile to store if local token has been found', () => {
     // given
@@ -176,6 +220,73 @@ describe('AuthenticationService', () => {
         expect(isUnique).toBe(true);
         done();
       });
+    });
+  });
+  describe('first login', () => {
+    it('should create sessionStorage token key', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      await authService.firstLogin('somefirsttoken');
+      expect(sessionStorage.getItem('token')).toBe(expiredMockToken);
+    });
+    it('should not create local Storage token key', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      await authService.firstLogin('somefirsttoken');
+      expect(localStorage.getItem('token')).toBe(null);
+    });
+
+    it('should return user profile when valid token was received', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      const user = await authService.firstLogin('somefirsttoken');
+      expect(user).toBeDefined();
+    });
+    it('should appollo mutate called when valid user profile was received', async () => {
+      const mockedResponse: LoginResponse = {
+        accessToken: expiredMockToken,
+      };
+      toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+      await authService.firstLogin('somefirsttoken');
+      expect(apolloMock.mutate).toHaveBeenCalled();
+    });
+
+    it('should return null when null returned from server', async () => {
+      toPromiseFn.mockResolvedValue(Promise.resolve(null));
+      const result = await authService.firstLogin('somefirsttoken');
+      expect(result).toBeNull();
+    });
+    it('should throw erron when different than 401 returned', async () => {
+      const mockedResponse = {
+        status: 400,
+      };
+
+      (httpClient.post as jest.Mock).mockImplementation(() => {
+        throw mockedResponse;
+      });
+      try {
+        await authService.firstLogin('somefirsttoken');
+        expect(true).toBeFalsy();
+      } catch (error) {
+        expect(error.status).toEqual(400);
+      }
+    });
+    it('should return null when 401 returned', async () => {
+      const mockedResponse = {
+        status: 401,
+      };
+
+      (httpClient.post as jest.Mock).mockImplementation(() => {
+        throw mockedResponse;
+      });
+      const result = await authService.firstLogin('somefirsttoken');
+      expect(result).toBeNull();
     });
   });
 });

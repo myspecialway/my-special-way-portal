@@ -40,6 +40,31 @@ export class AuthenticationService {
     await this.pushUserProfileToState(userProfile);
   }
 
+  async firstLogin(firstLoginToken: string): Promise<UserProfileStateModel | null> {
+    try {
+      const tokenResponse = await this.http
+        .post<LoginResponse>(environment.hotConfig.MSW_HOT_FIRSTLOGIN_ENDPOINT, { firstLoginToken })
+        .toPromise();
+
+      if (!tokenResponse) {
+        return null;
+      }
+
+      this.saveTokenInStorage(false, tokenResponse);
+      const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      await this.pushUserProfileToState(userProfile);
+
+      return userProfile;
+    } catch (error) {
+      const typedError = error as HttpErrorResponse;
+
+      if (typedError.status !== 401) {
+        throw error;
+      }
+    }
+    return null;
+  }
+
   async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http
@@ -50,11 +75,7 @@ export class AuthenticationService {
         return false;
       }
 
-      if (isRememberMeActive) {
-        localStorage.setItem('token', tokenResponse.accessToken);
-      } else {
-        sessionStorage.setItem('token', tokenResponse.accessToken);
-      }
+      this.saveTokenInStorage(isRememberMeActive, tokenResponse);
 
       const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
       await this.pushUserProfileToState(userProfile);
@@ -67,6 +88,28 @@ export class AuthenticationService {
         throw error;
       }
 
+      return false;
+    }
+  }
+
+  private saveTokenInStorage(isRememberMeActive: boolean, tokenResponse: LoginResponse) {
+    if (isRememberMeActive) {
+      localStorage.setItem('token', tokenResponse.accessToken);
+    } else {
+      sessionStorage.setItem('token', tokenResponse.accessToken);
+    }
+  }
+  async restorePassword(email: string, firstname: string, lastname: string) {
+    try {
+      await this.http
+        .post<{ email: string; firstname: string; lastname: string }>(
+          environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT,
+          { email, firstname, lastname },
+        )
+        .toPromise();
+
+      return true;
+    } catch (error) {
       return false;
     }
   }
@@ -102,6 +145,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    this.apollo.getClient().cache.reset();
   }
 
   checkUsernameUnique(username: string, id: string | number) {

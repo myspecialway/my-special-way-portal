@@ -10,7 +10,7 @@ export default class ClassesPage {
   scheduleTestClassNameCell: Selector;
   scheduleTestClassDeleteButton: Selector;
   confirmDeleteButton: Selector;
-  // newClassButton: Selector;
+  newClassButton: Selector;
   classDetailsPage: ClassDetailsPage;
 
   constructor() {
@@ -22,6 +22,6 @@ export default class ClassesPage {
     this.scheduleTestClassNameCell = Selector('.class-name').withExactText('scheduleTestClass');
     this.scheduleTestClassDeleteButton = Selector('[data-test-id$="delete-class-button-scheduleTestClass"]');
     this.confirmDeleteButton = Selector('[data-test-id$="delete-button"]');
-    // this.newClassButton = Selector('[data-test-id$="add-class-button"]');
+    this.newClassButton = Selector('.mat-button-wrapper').withExactText('הוספת כיתה חדשה');
   }
 }

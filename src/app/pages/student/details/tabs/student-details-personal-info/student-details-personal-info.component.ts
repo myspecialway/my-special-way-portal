@@ -18,6 +18,8 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   idOrNew: string;
   changesWereSaved = false;
   saveFailed = false;
+  maleFaceIcon = 'male_face_enabled';
+  femaleFaceIcon = 'female_face_disabled';
 
   @SubscriptionCleaner()
   subCollector;
@@ -110,6 +112,16 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     this.changesWereSaved = true;
     setTimeout(() => {
       this.changesWereSaved = false;
-    }, 1000);
+    }, 4000);
+  }
+
+  toggleIconFace() {
+    if (this.maleFaceIcon === 'male_face_enabled') {
+      this.maleFaceIcon = 'male_face_disabled';
+      this.femaleFaceIcon = 'female_face_enabled';
+    } else {
+      this.maleFaceIcon = 'male_face_enabled';
+      this.femaleFaceIcon = 'female_face_disabled';
+    }
   }
 }

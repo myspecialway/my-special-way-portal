@@ -1,9 +1,12 @@
 <div class="login-container">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <div class ="msw-login-header">
+        <img src="/assets/img/school-logo.png" alt="" align="right">ביה"ס יחדיו
+      </div>
+        <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
           <div class="login-card">
-            <div class="msw-login-logo-ph"></div>
-            <div class="msw-login-title">בדרכי שלי</div>
-            <div class="msw-login-subtitle">כניסה למערכת הניהול - ביה״ס יחדיו</div>
+            <div class="msw-login-logo-ph">
+              <img src="/assets/img/myway.png" alt="">
+            </div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <div class="form-row">
                 <mat-form-field
@@ -18,8 +21,9 @@
                   [hideRequiredMarker]="formFieldOptions.value.hideRequired"
                   [floatLabel]="formFieldOptions.value.floatLabel">
                   <input matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
-                  <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                  <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
+                <div class="forgot-password">שכחתי ססמא</div>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
                 <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
               </div>
@@ -34,9 +38,11 @@
               <button mat-button>כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
             </div>
-
-          </div>
-
-    </form>
+            </div>
+        </form>
+        <div class ="msw-login-footer" >
+            <img class="img" src="/assets/img/tinti.png" alt="" >
+            <div class="gray-bar"></div>
+        </div>
 </div>
 
