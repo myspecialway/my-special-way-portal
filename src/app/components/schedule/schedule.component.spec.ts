@@ -1,6 +1,6 @@
 import { scheduleTestData } from './../../../mocks/assets/schedule.mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ScheduleComponent } from './schedule.component';
+import { ScheduleComponent, TimeSlotIndexes } from './schedule.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
 describe('ScheduleComponent', () => {
@@ -28,5 +28,25 @@ describe('ScheduleComponent', () => {
 
   it('should match current snapshot', () => {
     expect(fixture).toMatchSnapshot();
+  });
+
+  it('onTimeSlotDelete should prevent default and stop propagation', () => {
+    const mockedEvent = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+    };
+
+    const timeSlotIndex: TimeSlotIndexes = {
+      hourIndex: 1,
+      dayIndex: 2,
+    };
+
+    component.timeSlotDeleted.subscribe((data) => {
+      expect(data).toEqual(timeSlotIndex);
+    });
+
+    component.onTimeSlotDelete(timeSlotIndex, mockedEvent);
+    expect(mockedEvent.preventDefault).toBeCalled();
+    expect(mockedEvent.stopPropagation).toBeCalled();
   });
 });

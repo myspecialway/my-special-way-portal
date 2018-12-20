@@ -133,6 +133,13 @@ describe('navbar component', () => {
     expect(title).toEqual('ניהול כיתות');
   });
 
+  it('should return the correct menu item when adding class', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.componentInstance.selectMenuItem({ path: 'class/_new_', title: 'ניהול כיתות', class: 'nb-class' });
+    const title = fixture.componentInstance.getSelectedMenuItem();
+    expect(title).toEqual('ניהול כיתות');
+  });
+
   it('should render username per authentication service on init - for teacher', async () => {
     // given
     const component = await shallow.render('<app-navbar></app-navbar>');
