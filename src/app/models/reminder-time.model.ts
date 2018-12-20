@@ -1,3 +1,4 @@
+import { IDialogReminderTime } from './../pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 // Describes the reminder times on the student reminder
 export interface IReminderTime {
   daysindex: Set<number>;
@@ -48,7 +49,8 @@ export const REMINDERS_CONSTANTS = {
   ]),
 };
 
-export const BASE_REMINDER: IReminderTime = {
+export const BASE_REMINDER: IDialogReminderTime = {
   daysindex: new Set<number>([]),
   hours: new Set<string>([]),
+  hourSelectorEnabled: true,
 };

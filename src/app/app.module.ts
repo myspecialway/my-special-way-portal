@@ -60,6 +60,9 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
+import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
@@ -69,6 +72,7 @@ import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialog
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 
 @NgModule({
   imports: [
@@ -115,6 +119,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     LessonComponent,
     StudentComponent,
     UserComponent,
+    FirstloginComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
@@ -130,9 +135,12 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SessionHeaderComponent,
+    SessionFooterComponent,
     ExitSystemDialogComponent,
     DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -153,6 +161,7 @@ import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
     ExitSystemDialogComponent,
     DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   providers: [
     AuthGuard,

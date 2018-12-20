@@ -66,3 +66,11 @@ export const MUTATE_UPDATE_CLASS = gql`
       }
     }
   `;
+
+export const DELETE_SCHEDULE_SLOT_FROM_CLASS = gql`
+   mutation deleteScheduleSlotFromClass($id: ID!, $scheduleIndex: String!) {
+    deleteScheduleSlotFromClass(classId:$id, scheduleIndex:$scheduleIndex) {
+      ${ALL_CLASS_FIELDS}
+    }
+  }
+  `;

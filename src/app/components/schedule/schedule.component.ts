@@ -24,6 +24,14 @@ export class ScheduleComponent implements OnInit {
   selectedClassData: FormClassData;
   @Output()
   timeSlotClicked: EventEmitter<TimeSlotIndexes> = new EventEmitter();
+  @Output()
+  timeSlotDeleted: EventEmitter<TimeSlotIndexes> = new EventEmitter();
 
   ngOnInit() {}
+
+  onTimeSlotDelete(timeSlotIndex: TimeSlotIndexes, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.timeSlotDeleted.emit(timeSlotIndex);
+  }
 }

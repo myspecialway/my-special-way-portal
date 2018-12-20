@@ -11,15 +11,22 @@
       <td class="mat-cell cdk-column-position mat-column-position" role="gridcell">{{hoursLabels[hourIndex]}}</td>
       <td 
         class="mat-cell cdk-column-position mat-column-position"
-        *ngFor="let timeslot of row; index as dayIndex" 
+        *ngFor="let timeslot of row; index as dayIndex"
         role="gridcell"
         (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex, selectedClassData:selectedClassName})"
       >
         <div *ngIf="timeslot.lesson" class="ts-full">
-          <span class="ts-lesson">{{timeslot.lesson.title}}</span>
-          <span class="ts-location" *ngIf="timeslot.location">{{timeslot.location.name}}</span>
+          <!--<div class="ts-wrapper-lesson" (click)="timeSlotClicked.emit({hourIndex: hourIndex, dayIndex: dayIndex, selectedClassData:selectedClassName})">-->
+          <div class="ts-wrapper-lesson">
+            <span class="ts-lesson">{{timeslot.lesson.title}}</span>
+            <span class="ts-location" *ngIf="timeslot.location">{{timeslot.location.name}}</span>
+          </div>
+
+          <!--<span class="ts-delete" (click)="timeSlotDeleted.emit({hourIndex: hourIndex, dayIndex: dayIndex, selectedClassData:selectedClassName})"><i class="material-icons">delete</i></span>-->
+          <span class="ts-delete" (click)="onTimeSlotDelete({hourIndex: hourIndex, dayIndex: dayIndex}, $event)"><i class="material-icons">delete</i></span>
+
         </div>
-        <div *ngIf="!timeslot.lesson" class="ts-empty">
+        <div *ngIf="!timeslot.lesson" class="ts-empty" >
           <i class="material-icons" >
             add
           </i>

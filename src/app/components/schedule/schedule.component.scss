@@ -48,6 +48,25 @@ $hover: rgba(106, 0, 207, 0.2);
   .ts-location {
     font-size: 14px;
   }
+  .mat-cell {
+    .ts-full {
+      display: flex;
+      .ts-wrapper-lesson {
+        width: calc(100% - 24px);
+      }
+      .ts-delete {
+        opacity: 0;
+        width: 24px;
+        height: 24px;
+      }
+      &:hover {
+        .ts-delete {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   .ts-empty {
     text-align: center;
     color: #8249d1;
