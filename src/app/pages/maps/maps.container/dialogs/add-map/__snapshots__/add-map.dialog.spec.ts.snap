@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddMapDialogComponent should match snapshot 1`] = `
+<app-add-map
+  authenticationService={[Function AuthenticationService]}
+  dialogRef={[Function Object]}
+  isSending="false"
+  mapName=""
+  uploader={[Function FileUploader]}
+>
+  <div
+    class="container add-map-modal"
+  >
+    <h3
+      class="mat-dialog-title"
+      id="mat-dialog-title-0"
+      mat-dialog-title=""
+    >
+      הוספת מפה
+    </h3>
+    <mat-divider />
+    <label
+      for="map-name"
+    >
+      שם מפה
+    </label>
+    <input
+      class="form-control"
+      id="map-name"
+      type="text"
+    />
+    <div
+      class="upload-btn-wrapper"
+      ng-reflect-klass="upload-btn-wrapper"
+      ng-reflect-ng-class="[object Object]"
+      ng-reflect-uploader="[object Object]"
+      ng2filedrop=""
+    >
+      <button
+        class="add-button"
+      >
+        <i
+          class="material-icons"
+        >
+          insert_photo
+        </i>
+         הוסף תמונה מקובץ 
+      </button>
+      <input
+        ng-reflect-uploader="[object Object]"
+        ng2fileselect=""
+        type="file"
+      />
+      <div
+        class="chosen-file"
+      >
+        <strong>
+          
+        </strong>
+        <span
+          class="remove"
+        >
+          x
+        </span>
+      </div>
+      <app-spinner />
+    </div>
+    <mat-dialog-actions
+      class="mat-dialog-actions"
+    >
+      <button
+        class="mat-button"
+      >
+        ביטול
+      </button>
+      <button
+        class="mat-raised-button mat-primary"
+        disabled=""
+        type="button"
+      >
+         הוסף 
+      </button>
+    </mat-dialog-actions>
+  </div>
+</app-add-map>
+`;
