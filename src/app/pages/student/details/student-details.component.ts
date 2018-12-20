@@ -15,8 +15,6 @@ export class StudentDetailsComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  voted: boolean;
-
   constructor(private route: ActivatedRoute) {
     this.links = [
       { label: 'פרטים אישיים', path: './personalInfo', dataTestId: 'personal-info-tab' },
