@@ -30,3 +30,7 @@
     justify-content: center;
   }
 }
+
+::ng-deep .mat-select-panel {
+  margin-top: 50px;
+}
