@@ -1,5 +1,5 @@
 import { MAP_POINT_TYPES } from './../../../maps-constants';
-import { Location, IDialogLocation } from './../../../../../models/location.model';
+import { IDialogLocation } from './../../../../../models/location.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
