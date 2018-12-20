@@ -1,6 +1,5 @@
 import { of } from 'rxjs/observable/of';
 import { Location } from './../../../../../../models/location.model';
-import { AddEditPointDialogComponent } from './../../../dialogs/add-edit-point/add-edit-point.dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { mockedLocations } from './../../../../../../../mocks/assets/locations.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -8,7 +7,6 @@ import { MapPointsViewComponent } from './map-points.view.component';
 import {
   MatListModule,
   MatSelectModule,
-  MatSlideToggleModule,
   MatTableModule,
   MatInputModule,
   MatButtonModule,
