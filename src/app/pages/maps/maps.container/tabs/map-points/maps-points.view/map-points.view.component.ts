@@ -1,6 +1,6 @@
 import { AddEditPointDialogComponent } from './../../../dialogs/add-edit-point/add-edit-point.dialog';
 import { first } from 'rxjs/operators';
-import { Location, InputLocation } from './../../../../../../models/location.model';
+import { Location, InputLocation, emptyMapPoint } from './../../../../../../models/location.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
@@ -23,7 +23,10 @@ export class MapPointsViewComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  onEdit(data: Location) {
+  onEdit(data?: Location) {
+    if (!data) {
+      data = { ...emptyMapPoint };
+    }
     const dialogRef = this.dialog.open(AddEditPointDialogComponent, {
       data,
     });
@@ -33,7 +36,7 @@ export class MapPointsViewComponent {
       .subscribe((update: Partial<Location>) => {
         if (!update) return;
 
-        this.update.emit({ ...data, ...update });
+        this.update.emit({ ...(data as Location), ...update });
       });
   }
 

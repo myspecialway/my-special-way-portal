@@ -21,7 +21,11 @@ export class AddEditPointDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddEditPointDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogLocation,
-  ) {}
+  ) {
+    if (!data._id) {
+      this.isNewPoint = true;
+    }
+  }
   public icons;
   public allicons = ['00026', '00036', '00040', '00047', '00067', '00135', '00319', '00336', '00468', '00524', '00545'];
 
@@ -42,9 +46,5 @@ export class AddEditPointDialogComponent implements OnInit {
   close(cancel = false): void {
     const response = cancel ? undefined : this.form.value;
     this.dialogRef.close(response);
-  }
-
-  onIconClick(selectedIcon: string): void {
-    this.form.value.icon = selectedIcon;
   }
 }
