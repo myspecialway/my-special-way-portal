@@ -7,6 +7,9 @@ export default class LoginPage {
   emptyPasswordErr: Selector;
   emptyUsernameErr: Selector;
   wrongCredentialsErr: Selector;
+  headerUserName: Selector;
+  logout: Selector;
+
   url: string;
   constructor() {
     this.useranmeField = Selector('[name$="username"]');
@@ -16,6 +19,8 @@ export default class LoginPage {
     this.emptyUsernameErr = Selector('[data-test-id$="empty-username-err"]');
     this.wrongCredentialsErr = Selector('[data-test-id$="wrong-credentials-err"]');
     this.url = '/login';
+    this.headerUserName = Selector('.msw-header-user-name');
+    this.logout = Selector('#logout');
   }
 
   async loginAsPrinciple() {
@@ -44,5 +49,9 @@ export default class LoginPage {
       .pressKey('delete')
       .selectText(this.passwordField)
       .pressKey('delete');
+  }
+
+  async assertLoginNameDisplayed(userName: string) {
+    await t.expect(this.headerUserName.innerText).contains(userName);
   }
 }

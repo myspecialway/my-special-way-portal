@@ -9,11 +9,45 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$msw-app-primary: mat-palette($mat-deep-purple, 500);
-$msw-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+$md-mswpalette: (
+  50: #f1edf4,
+  100: #dcd1e5,
+  200: #c5b3d3,
+  300: #ae94c1,
+  400: #9c7db4,
+  500: #8b66a7,
+  600: #835e9f,
+  700: #785396,
+  800: #6e498c,
+  900: #5b387c,
+  A100: #e5cbff,
+  A200: #cc98ff,
+  A400: #b365ff,
+  A700: #a74cff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff,
+  ),
+);
+
+$msw-app-primary: mat-palette($md-mswpalette, 500);
+$msw-app-accent: mat-palette($md-mswpalette, 500);
 
 // The warn palette is optional (defaults to red).
-$msw-app-warn:    mat-palette($mat-red);
+$msw-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $msw-app-theme: mat-light-theme($msw-app-primary, $msw-app-accent, $msw-app-warn);
