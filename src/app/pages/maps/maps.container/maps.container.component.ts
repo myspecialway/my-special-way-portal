@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
