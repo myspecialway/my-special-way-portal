@@ -71,15 +71,6 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
       classControl.setValidators([]);
       classControl.updateValueAndValidity();
     }
-    console.log('form validity is now: ' + this.form.valid);
-    const invalid: string[] = [];
-    const controls = this.form.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
-    console.log(controls);
   }
   getClassDisabled() {
     return this.userRoleEnum[this.currentRole] !== this.userRoleEnum.TEACHER;
