@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import Student, { Gender } from '../../../../../models/student.model';
 import { ClassService } from '../../../../class/services/class.graphql.service';
@@ -24,6 +24,9 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
+  @Output()
+  isStudentSaved = new EventEmitter<boolean>();
+
   constructor(
     private studentService: StudentService,
     private classService: ClassService,
@@ -46,6 +49,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   async populateStudent() {
     if (this.idOrNew === '_new_') {
       this.isNewStudent = true;
+      this.isStudentSaved.emit(false);
       this.student = this.createNewStudent();
     } else {
       this.isNewStudent = false;
@@ -70,6 +74,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     student.password = '';
     student.gender = Gender.MALE;
     student.class = new Class();
+    this.isStudentSaved.emit(true);
     return student;
   }
 
