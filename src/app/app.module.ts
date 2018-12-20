@@ -60,6 +60,9 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
+import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
@@ -116,6 +119,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     LessonComponent,
     StudentComponent,
     UserComponent,
+    FirstloginComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
@@ -131,6 +135,8 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SessionHeaderComponent,
+    SessionFooterComponent,
     ExitSystemDialogComponent,
     DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
