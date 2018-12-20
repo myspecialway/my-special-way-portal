@@ -1,4 +1,4 @@
-@import '../../../../../app.component.scss';
+@import '~app/app.component.scss';
 
 * {
   direction: rtl;
@@ -33,6 +33,14 @@ mat-dialog-actions button {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   margin-bottom: 12px;
+}
+
+.selection-block {
+  .delete-reminder {
+    color: #666666;
+    float: left;
+    cursor: pointer;
+  }
 }
 
 .selections {

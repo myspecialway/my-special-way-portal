@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  justify-content: center;
+
+  .session-mgmt-footer {
+    // padding: 0 10em;
+  }
+  img {
+    height: 76px;
+    padding: 0 10em;
+  }
+
+  .seperator {
+    height: 3px;
+    opacity: 0.4;
+    background-color: #d8d8d8;
+  }
+}

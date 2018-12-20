@@ -22,6 +22,7 @@ export default class NavbarPage {
     this.menuDropDownLessons = Selector('.nb-lesson');
     this.menuDropDownClassSchedule = Selector('.nb-class-schedule');
     this.menuDropDownMap = Selector('.nb-map');
+    this.menuDropDown = Selector('.nb-class-schedule');
     this.menuDropDownUsers = Selector('.nb-user');
     this.username = Selector('.msw-header-user-name');
     this.pageTitle = Selector('.msw-page-title').child('span');

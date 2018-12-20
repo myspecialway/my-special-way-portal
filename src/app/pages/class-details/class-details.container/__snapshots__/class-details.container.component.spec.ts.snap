@@ -71,6 +71,7 @@ ClassDetailsContainerComponent {
         },
       ],
     },
+    "create": [MockFunction],
     "update": [MockFunction],
   },
   "dialog": Object {

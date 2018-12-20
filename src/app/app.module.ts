@@ -22,8 +22,10 @@ import {
   MatSnackBarModule,
   MatAutocompleteModule,
   MatTabsModule,
+  MatRadioModule,
+  MatDatepickerModule,
 } from '@angular/material';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -32,7 +34,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { PapaParseModule } from 'ngx-papaparse';
 import { ClassComponent } from './pages/class/class.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -59,6 +61,9 @@ import { MSWSnackbar } from './services/msw-snackbar/msw-snackbar.service';
 import { PendingInterceptorServiceInterceptor } from './services/spinner/pending-interceptor.service';
 import { DeleteLessonDialogComponent } from './pages/lesson/dialogs/delete/delete-lesson.dialog';
 import { CantDeleteLessonDialogComponent } from './pages/lesson/dialogs/cant-delete/cant-delete-lesson.dialog';
+import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SessionHeaderComponent } from './pages/shared/session-mgmt/session-header/session-header.component';
+import { SessionFooterComponent } from './pages/shared/session-mgmt/session-footer/session-footer.component';
 import { AddStudentReminderDialogComponent } from './pages/student/dialogs/reminders/add/add-student-reminder.dialog';
 import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-lesson.dialog';
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
@@ -70,7 +75,11 @@ import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
+import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
+import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
+import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -101,11 +110,17 @@ import { FileUploadModule } from 'ng2-file-upload';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatAutocompleteModule,
     MSWApolloModule,
     PagesModule,
+    MatRadioModule,
+    PapaParseModule,
   ],
   declarations: [
     AppComponent,
+    ErrorDialogComponent,
     DashboardComponent,
     LoginComponent,
     ClassComponent,
@@ -113,6 +128,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     StudentComponent,
     MapsContainerComponent,
     UserComponent,
+    FirstloginComponent,
     UserDetailsFormComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
@@ -131,9 +147,15 @@ import { FileUploadModule } from 'ng2-file-upload';
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SessionHeaderComponent,
+    SessionFooterComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   entryComponents: [
+    ErrorDialogComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DeleteUserDialogComponent,
@@ -153,6 +175,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     CantDeleteLessonDialogComponent,
     ScheduleDialogComponent,
     ExitSystemDialogComponent,
+    DeleteNonActiveTimeDialogComponent,
+    EditNonActiveTimeDialogComponent,
+    DeleteTimeSlotDialogComponent,
   ],
   providers: [
     AuthGuard,
@@ -166,6 +191,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     LocationService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
+    NonActiveTimeService,
   ],
   bootstrap: [AppComponent],
 })

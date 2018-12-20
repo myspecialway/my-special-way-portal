@@ -22,7 +22,3 @@ export enum UserRole {
   TEACHER = 'TEACHER',
   STUDENT = 'STUDENT',
 }
-
-export interface UserQuery {
-  allUsers: User[];
-}

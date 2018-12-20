@@ -6,6 +6,7 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
   hoursLabels={[Function Array]}
   schedule={[Function Array]}
   timeSlotClicked={[Function EventEmitter]}
+  timeSlotDeleted={[Function EventEmitter]}
 >
   <table
     class="mat-table schedule-table"
@@ -89,12 +90,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -106,12 +120,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -123,12 +150,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -140,12 +180,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -157,12 +210,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -174,12 +240,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              קבלת תלמידים
+              <span
+                class="ts-lesson"
+              >
+                קבלת תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -191,12 +270,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -208,12 +300,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -225,12 +330,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -242,12 +360,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -259,12 +390,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -276,12 +420,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת בוקר
+              <span
+                class="ts-lesson"
+              >
+                ארוחת בוקר
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -293,12 +450,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -310,12 +480,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -327,12 +510,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -344,12 +540,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -361,12 +570,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -378,12 +600,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -395,12 +630,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -412,12 +660,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -429,12 +690,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -446,12 +720,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -463,12 +750,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -480,12 +780,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              ארוחת צהריים
+              <span
+                class="ts-lesson"
+              >
+                ארוחת צהריים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -497,12 +810,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -514,12 +840,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -531,12 +870,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -548,12 +900,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -565,12 +930,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -582,12 +960,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -599,12 +990,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              הפסקה
+              <span
+                class="ts-lesson"
+              >
+                הפסקה
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -616,12 +1020,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -633,12 +1050,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -650,12 +1080,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -667,12 +1110,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -684,12 +1140,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>
@@ -701,12 +1170,25 @@ exports[`ScheduleComponent should match current snapshot 1`] = `
           <div
             class="ts-full"
           >
-            <span
-              class="ts-lesson"
+            <div
+              class="ts-wrapper-lesson"
             >
-              פיזור תלמידים
+              <span
+                class="ts-lesson"
+              >
+                פיזור תלמידים
+              </span>
+              
+            </div>
+            <span
+              class="ts-delete"
+            >
+              <i
+                class="material-icons"
+              >
+                delete
+              </i>
             </span>
-            
           </div>
           
         </td>

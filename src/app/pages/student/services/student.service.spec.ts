@@ -5,6 +5,10 @@ import { throwError } from 'rxjs';
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
 import Student, { Gender } from '../../../models/student.model';
+import {
+  studentsFileErrors,
+  studentsInvalidCsvErrorsExpectation,
+} from '../../../../mocks/assets/students.file-import.errors.mock';
 
 const apollo = new Apollo();
 
@@ -30,6 +34,12 @@ describe('student service tests', () => {
     expect(await service.create(student)).toEqual({ data: { student: { id: 1 } } });
   });
 
+  it('should return created students response without changes when calling create students', async () => {
+    (apollo.mutate as jest.Mock).mockReturnValue(of({ data: { students: [{ id: 1 }, { id: 2 }] } }));
+    const students = [{ _id: 21, class: { _id: '21' } }] as Student[];
+    expect(await service.createMany(students)).toEqual({ data: { students: [{ id: 1 }, { id: 2 }] } });
+  });
+
   it('should normalize get student by id response', async () => {
     (apollo.query as jest.Mock).mockReturnValue(of({ data: { student: { id: 1 } } }));
     expect(await service.getById('21')).toEqual({ id: 1 });
@@ -53,5 +63,13 @@ describe('student service tests', () => {
   it('should normalize delete student response', async () => {
     (apollo.mutate as jest.Mock).mockReturnValue(of({ data: { deleteStudent: { _id: 1 } } }));
     expect(await service.delete(1)).toEqual({ _id: 1 });
+  });
+
+  it('should return all the format errors as error message object', async () => {
+    //when
+    const errorDetailes = service.buildErrorMessage(studentsFileErrors);
+
+    //then
+    expect(errorDetailes).toEqual(studentsInvalidCsvErrorsExpectation);
   });
 });

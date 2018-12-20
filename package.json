@@ -1,8 +1,9 @@
 {
   "name": "msw-client",
-  "version": "0.0.148",
+  "version": "0.0.168",
   "license": "MIT",
   "scripts": {
+    "local-lint": "ng lint",
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
     "ci-test": "bash ./scripts/test",
@@ -36,6 +37,7 @@
     "@angular/forms": "6.0.7",
     "@angular/http": "6.0.7",
     "@angular/material": "^6.3.2",
+    "@angular/material-moment-adapter": "^7.1.1",
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/platform-server": "6.0.7",
@@ -65,6 +67,7 @@
     "jquery": "3.2.1",
     "lodash": "^4.17.10",
     "moment": "2.19.3",
+    "ngx-papaparse": "3",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.14.3",
     "rxjs": "^6.2.1",
