@@ -8,7 +8,6 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   displayedColumns={[Function Array]}
   links={[Function Array]}
   mapsService={[Function MapsService]}
-  route={[Function Object]}
   subCollector={[Function Subscription]}
 >
   <div

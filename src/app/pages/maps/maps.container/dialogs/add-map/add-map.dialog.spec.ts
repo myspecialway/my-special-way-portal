@@ -8,12 +8,8 @@ import { Apollo } from 'apollo-angular';
 import { FileUploadModule } from 'ng2-file-upload';
 
 describe('AddMapDialogComponent', () => {
-  let authServiceMock: Partial<AuthenticationService>;
   let mockDialogRef: any;
   beforeEach(() => {
-    authServiceMock = {
-      getTokenFromLocalStore: jest.fn(),
-    };
     mockDialogRef = {
       close: jest.fn(),
     };
@@ -37,11 +33,9 @@ describe('AddMapDialogComponent', () => {
   });
 
   let fixture: ComponentFixture<AddMapDialogComponent>;
-  let component: AddMapDialogComponent;
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddMapDialogComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
