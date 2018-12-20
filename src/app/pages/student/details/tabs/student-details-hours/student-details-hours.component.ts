@@ -71,16 +71,18 @@ export class StudentDetailsHoursComponent implements OnInit {
       dialogRef
         .afterClosed()
         .pipe(first())
-        .subscribe(async (data: ScheduleDialogData) => {
-          if (!data) {
+        .subscribe(async (newData: ScheduleDialogData) => {
+          if (!newData) {
             return;
           }
-          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
+          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((oldSLot) =>
+            this.isSlotRelevant(oldSLot, newData),
+          );
           const newCustomizedSlot: TimeSlot = {
-            index: data.index,
-            hours: data.hour,
-            lesson: data.lesson,
-            location: data.location,
+            index: newData.index,
+            hours: newData.hour,
+            lesson: newData.lesson,
+            location: newData.location,
             customized: true,
           };
           const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
@@ -104,6 +106,10 @@ export class StudentDetailsHoursComponent implements OnInit {
           }
         }),
     );
+  }
+
+  isSlotRelevant(slot: TimeSlot, data: ScheduleDialogData) {
+    return slot.customized && slot.index !== data.index;
   }
 
   getDialogData(indexes: TimeSlotIndexes) {
