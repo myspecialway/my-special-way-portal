@@ -1,3 +1,5 @@
+import { of } from 'rxjs/observable/of';
+import { Subject } from 'rxjs';
 import { mockedLocations } from './../../../../mocks/assets/locations.mock';
 import { Apollo } from 'apollo-angular';
 import { MapsService } from './services/maps.container.service';
@@ -9,17 +11,31 @@ import { MatTableModule, MatDialog, MatDialogModule } from '@angular/material';
 
 const locationServiceMock = {
   getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
+  getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
 };
 
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   // let component: MapsContainerComponent;
+  let watchQueryObservable: Subject<any>;
 
   beforeEach(async () => {
+    watchQueryObservable = new Subject();
+    const apolloMock = {
+      watchQuery: () => ({
+        valueChanges: watchQueryObservable,
+      }),
+    };
+
     TestBed.configureTestingModule({
       imports: [MatTableModule, MatDialogModule],
       declarations: [MapsContainerComponent],
-      providers: [{ provide: LocationService, useValue: locationServiceMock }, MatDialog, MapsService, Apollo],
+      providers: [
+        { provide: LocationService, useValue: locationServiceMock },
+        MatDialog,
+        MapsService,
+        { provide: Apollo, useValue: apolloMock },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

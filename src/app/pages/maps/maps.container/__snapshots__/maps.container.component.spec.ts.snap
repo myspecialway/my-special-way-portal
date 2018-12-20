@@ -78,10 +78,26 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
                 mat-tab-nav-bar=""
               >
                 
+                <a
+                  class="msw-maps-tab-active"
+                  data-test-id="maps-points-tab"
+                  mat-tab-link=""
+                  ng-reflect-ng-class="msw-maps-tab-active"
+                >
+                  נקודות ניווט
+                </a>
+                <a
+                  data-test-id="blocked-maps-points-tab"
+                  mat-tab-link=""
+                  ng-reflect-ng-class=""
+                >
+                  מקטעים חסומים
+                </a>
               </nav>
             </div>
           </div>
           
+          <app-map-points />
           
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { AddEditPointDialogComponent } from './../../../dialogs/add-edit-point/add-edit-point.dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { mockedLocations } from './../../../../../../../mocks/assets/locations.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapPointsViewComponent } from './map-points.view.component';
@@ -13,7 +15,7 @@ import {
   MatDialogModule,
 } from '@angular/material';
 
-describe('MapPointsViewComponent with class info', () => {
+describe('MapPointsViewComponent', () => {
   let fixture: ComponentFixture<MapPointsViewComponent>;
   let component: MapPointsViewComponent;
   const beforeEachAsync = async () => {
@@ -28,9 +30,10 @@ describe('MapPointsViewComponent with class info', () => {
         MatGridListModule,
         MatSlideToggleModule,
         MatListModule,
+        BrowserAnimationsModule,
       ],
       // providers: [MatDialog],
-      declarations: [MapPointsViewComponent],
+      declarations: [MapPointsViewComponent, AddEditPointDialogComponent],
     }).compileComponents();
   };
   beforeEach(beforeEachAsync);
