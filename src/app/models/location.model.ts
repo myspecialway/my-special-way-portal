@@ -9,6 +9,16 @@ export interface Location {
   icon?: string;
 }
 
+export interface IDialogLocation {
+  _id: string;
+  name: string;
+  disabled: boolean;
+  location_id: string;
+  position: Point;
+  type?: string;
+  icon?: string;
+  isNewPoint?: boolean;
+}
 export interface InputLocation {
   _id: string;
   name?: string;

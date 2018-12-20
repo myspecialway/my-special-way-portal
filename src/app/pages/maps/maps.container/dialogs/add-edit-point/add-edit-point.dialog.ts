@@ -1,5 +1,5 @@
 import { MAP_POINT_TYPES } from './../../../maps-constants';
-import { Location } from './../../../../../models/location.model';
+import { Location, IDialogLocation } from './../../../../../models/location.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -15,10 +15,12 @@ export class AddEditPointDialogComponent implements OnInit {
   pointTypes = MAP_POINT_TYPES;
   form: FormGroup;
   formControl = new FormControl('', [Validators.required]);
+  isNewPoint = false;
+
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddEditPointDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Location,
+    @Inject(MAT_DIALOG_DATA) public data: IDialogLocation,
   ) {}
   public icons;
   public allicons = ['00026', '00036', '00040', '00047', '00067', '00135', '00319', '00336', '00468', '00524', '00545'];
