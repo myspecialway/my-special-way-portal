@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ExitSystemDialogComponent } from './dialogs/exit/exit-system.dialog';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 export const ROUTES: RouteInfo[] = [
   { path: 'student', title: 'ניהול תלמידים', class: 'nb-student', roles: [UserType.PRINCIPLE, UserType.TEACHER] },
@@ -42,7 +43,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private apollo: Apollo, private router: Router, public dialog: MatDialog) {
+  constructor(
+    private apollo: Apollo,
+    private router: Router,
+    public dialog: MatDialog,
+    private authenticationService: AuthenticationService,
+  ) {
     this.subscribeToRouterEvents();
   }
 
@@ -93,6 +99,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         .subscribe(async (result) => {
           if (result === true) {
             this.router.navigate(['/login']);
+            await this.authenticationService.logout();
           }
         }),
     );

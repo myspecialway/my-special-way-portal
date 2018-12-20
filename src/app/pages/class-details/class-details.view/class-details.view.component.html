@@ -31,7 +31,7 @@
           </div>
         </div>
         <h2>מערכת שעות כיתת {{name}}</h2>
-        <app-schedule [selectedClassData]="{class: name, grade: grade}" [daysLabels]="daysLabels" [hoursLabels]="hoursLabels" [schedule]="schedule" (timeSlotClicked)="timeslotClicked.emit($event)"></app-schedule>
+        <app-schedule [selectedClassData]="{class: name, grade: grade}" [daysLabels]="daysLabels" [hoursLabels]="hoursLabels" [schedule]="schedule" (timeSlotClicked)="timeslotClicked.emit($event)" (timeSlotDeleted)="timeSlotDeleted.emit($event)"></app-schedule>
       </div>
     </div>
   </div>

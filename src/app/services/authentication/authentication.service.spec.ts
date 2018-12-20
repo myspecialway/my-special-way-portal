@@ -32,10 +32,12 @@ describe('AuthenticationService', () => {
         toPromise: apolloMutateFnMock,
       }),
       getClient: jest.fn().mockReturnValue({
+        cache: jest.mock('apollo-cache'),
         resetStore: jest.fn(),
       }),
     } as any; // Damn you Typescript
 
+    apolloMock.getClient().cache.reset = jest.fn();
     authService = new AuthenticationService(httpClient, apolloMock);
   });
 
@@ -135,7 +137,7 @@ describe('AuthenticationService', () => {
 
   it('should remove apollo cache on logout', () => {
     authService.logout();
-    expect(apolloMock.getClient().resetStore).toHaveBeenCalled();
+    expect(apolloMock.getClient().cache.reset).toHaveBeenCalled();
   });
 
   it('should push user profile to store if local token has been found', () => {
