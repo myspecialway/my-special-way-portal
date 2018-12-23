@@ -21,10 +21,17 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatTabsModule,
+  MatButtonToggleModule,
   MatRadioModule,
   MatDatepickerModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
+import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
+import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
+import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
+
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -68,11 +75,16 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
 import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
+import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
+import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
+
+import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 
 @NgModule({
   imports: [
@@ -96,6 +108,8 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
+    MatButtonToggleModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -118,6 +132,10 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     ClassComponent,
     LessonComponent,
     StudentComponent,
+    MapsContainerComponent,
+    MapPointsComponent,
+    MapPointsViewComponent,
+    MapFloorListComponent,
     UserComponent,
     FirstloginComponent,
     UserDetailsFormComponent,
@@ -130,7 +148,10 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     AddStudentReminderDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteBlockDialogComponent,
+    AddUpdateBlockDialogComponent,
     DeleteLessonDialogComponent,
+    AddEditPointDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
@@ -151,8 +172,11 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
+    AddUpdateBlockDialogComponent,
+    AddEditPointDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteBlockDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,
@@ -168,6 +192,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     AuthenticationService,
     UserService,
     StudentService,
+    MapsService,
     ClassService,
     LessonService,
     ScheduleService,

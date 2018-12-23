@@ -1,0 +1,40 @@
+<div class="msw-table-container">
+  <mat-table [dataSource]="locations" class="msw-table">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>נקודה</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="onEdit(row)">{{row.location_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="label">
+      <mat-header-cell *matHeaderCellDef>שם</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="onEdit(row)">
+        {{row.name}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="icon">
+      <mat-header-cell *matHeaderCellDef>סמל</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="onEdit(row)">
+        <img src="../../../assets/MSW Symbols/{{row.icon}}.png" alt="{{row.icon}}">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef>סוג</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-point-button'"
+                (click)="onDelete(row)"><i class="material-icons"> delete </i> </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <a class="add-point" (click)="onEdit()">+ הוסף איזור</a>
+</div >
+

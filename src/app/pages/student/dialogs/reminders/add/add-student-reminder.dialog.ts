@@ -71,9 +71,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   addReminder() {
-    // if (this.data.schedule.length) {
     this.data.schedule.push(getNewReminder());
-    // }
   }
 
   toggleDay(selectedIndex: number, block: IDialogReminderTime) {
