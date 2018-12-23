@@ -1,0 +1,38 @@
+<div class="container add-update-point-modal">
+  <h3 mat-dialog-title>{{dialogTitle}}</h3>
+
+<mat-divider></mat-divider>
+ <mat-dialog-content>
+  <form class="mat-dialog-content" [formGroup]="form" #formControl="ngForm">
+    <div class="point-details">
+      <mat-form-field color="primary">
+        <input matInput #input formControlName="location_id" class="form-control" placeholder="נקודה" [(ngModel)]="data.location_id" name="location_id">
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary">
+        <input matInput #input formControlName="name" class="form-control" placeholder="שם" [(ngModel)]="data.name" name="name">
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field color="primary">
+        <mat-select placeholder="נקודה" formControlName="type" name="type" [(ngModel)]="data.type">
+          <mat-option disabled>בחר</mat-option>
+          <mat-option *ngFor="let pointType of pointTypes" [value]="pointType" >{{pointType}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-button-toggle-group formControlName="icon" name="icon" [(ngModel)]="data.icon" class="icons-list-container" aria-label="Map Point Icon">
+      <mat-button-toggle *ngFor="let icon of icons; let idx = index;" [value]="icon" class="icons-container">
+        <img src="../../../../../assets/MSW Symbols/{{icon}}.png" alt="{{icon}}">
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </form>
+ </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-button"  (click)="close(CANCEL)">ביטול</button>
+    <button class="mat-raised-button mat-primary" (click)="close()">
+      {{isNewPoint ? 'הוסף' :
+    'עדכן'}}
+      </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapPointsViewComponent should match snapshot 1`] = `
+<app-map-points-view
+  delete={[Function EventEmitter]}
+  dialog={[Function Object]}
+  displayedColumns={[Function Array]}
+  locations={[Function Array]}
+  update={[Function EventEmitter]}
+>
+  <div
+    class="msw-table-container"
+  >
+    <mat-table
+      class="msw-table mat-table"
+      ng-reflect-data-source="[object Object],[object Object"
+      role="grid"
+    >
+      
+      <mat-header-row
+        class="mat-header-row"
+        role="row"
+      >
+        
+        <mat-header-cell
+          class="mat-header-cell cdk-column-name mat-column-name"
+          role="columnheader"
+        >
+          נקודה
+        </mat-header-cell>
+        <mat-header-cell
+          class="mat-header-cell cdk-column-label mat-column-label"
+          role="columnheader"
+        >
+          שם
+        </mat-header-cell>
+        <mat-header-cell
+          class="mat-header-cell cdk-column-icon mat-column-icon"
+          role="columnheader"
+        >
+          סמל
+        </mat-header-cell>
+        <mat-header-cell
+          class="mat-header-cell cdk-column-type mat-column-type"
+          role="columnheader"
+        >
+          סוג
+        </mat-header-cell>
+        <mat-header-cell
+          class="mat-header-cell cdk-column-delete mat-column-delete"
+          role="columnheader"
+        />
+      </mat-header-row>
+      
+      <mat-row
+        class="mat-row"
+        role="row"
+      >
+        
+        <mat-cell
+          class="mat-cell cdk-column-name mat-column-name"
+          role="gridcell"
+        >
+          0
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-label mat-column-label"
+          role="gridcell"
+        >
+           פטל כיתת 
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-icon mat-column-icon"
+          role="gridcell"
+        >
+          <img
+            alt=""
+            src="../../../assets/MSW Symbols/.png"
+          />
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-type mat-column-type"
+          role="gridcell"
+        >
+          
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-delete mat-column-delete"
+          role="gridcell"
+        >
+          <button
+            class="delete-row-button mat-icon-button mat-primary"
+            color="primary"
+            data-test-id="delete-point-button"
+            mat-icon-button=""
+            ng-reflect-color="primary"
+          >
+            <span
+              class="mat-button-wrapper"
+            >
+              <i
+                class="material-icons"
+              >
+                 delete 
+              </i>
+            </span>
+            <div
+              class="mat-button-ripple mat-ripple mat-button-ripple-round"
+              matripple=""
+              ng-reflect-centered="true"
+              ng-reflect-disabled="false"
+              ng-reflect-trigger="[object HTMLButtonElement]"
+            />
+            <div
+              class="mat-button-focus-overlay"
+            />
+          </button>
+        </mat-cell>
+      </mat-row>
+      <mat-row
+        class="mat-row"
+        role="row"
+      >
+        
+        <mat-cell
+          class="mat-cell cdk-column-name mat-column-name"
+          role="gridcell"
+        >
+          1
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-label mat-column-label"
+          role="gridcell"
+        >
+           כיתת סחלב 
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-icon mat-column-icon"
+          role="gridcell"
+        >
+          <img
+            alt=""
+            src="../../../assets/MSW Symbols/.png"
+          />
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-type mat-column-type"
+          role="gridcell"
+        >
+          
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-delete mat-column-delete"
+          role="gridcell"
+        >
+          <button
+            class="delete-row-button mat-icon-button mat-primary"
+            color="primary"
+            data-test-id="delete-point-button"
+            mat-icon-button=""
+            ng-reflect-color="primary"
+          >
+            <span
+              class="mat-button-wrapper"
+            >
+              <i
+                class="material-icons"
+              >
+                 delete 
+              </i>
+            </span>
+            <div
+              class="mat-button-ripple mat-ripple mat-button-ripple-round"
+              matripple=""
+              ng-reflect-centered="true"
+              ng-reflect-disabled="false"
+              ng-reflect-trigger="[object HTMLButtonElement]"
+            />
+            <div
+              class="mat-button-focus-overlay"
+            />
+          </button>
+        </mat-cell>
+      </mat-row>
+      <mat-row
+        class="mat-row"
+        role="row"
+      >
+        
+        <mat-cell
+          class="mat-cell cdk-column-name mat-column-name"
+          role="gridcell"
+        >
+          2
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-label mat-column-label"
+          role="gridcell"
+        >
+           כיתת קג׳בובו 
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-icon mat-column-icon"
+          role="gridcell"
+        >
+          <img
+            alt=""
+            src="../../../assets/MSW Symbols/.png"
+          />
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-type mat-column-type"
+          role="gridcell"
+        >
+          
+        </mat-cell>
+        <mat-cell
+          class="mat-cell cdk-column-delete mat-column-delete"
+          role="gridcell"
+        >
+          <button
+            class="delete-row-button mat-icon-button mat-primary"
+            color="primary"
+            data-test-id="delete-point-button"
+            mat-icon-button=""
+            ng-reflect-color="primary"
+          >
+            <span
+              class="mat-button-wrapper"
+            >
+              <i
+                class="material-icons"
+              >
+                 delete 
+              </i>
+            </span>
+            <div
+              class="mat-button-ripple mat-ripple mat-button-ripple-round"
+              matripple=""
+              ng-reflect-centered="true"
+              ng-reflect-disabled="false"
+              ng-reflect-trigger="[object HTMLButtonElement]"
+            />
+            <div
+              class="mat-button-focus-overlay"
+            />
+          </button>
+        </mat-cell>
+      </mat-row>
+      
+    </mat-table>
+    <a
+      class="add-point"
+    >
+      + הוסף איזור
+    </a>
+  </div>
+</app-map-points-view>
+`;

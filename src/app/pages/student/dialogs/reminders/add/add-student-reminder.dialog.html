@@ -1,8 +1,6 @@
 <div class="container">
   <h3 mat-dialog-title>עריכת תזכורת {{reminderType[data.type]}}</h3>
   <mat-divider></mat-divider>
-  <!--<app-user-details-form [options]="formOptions" [data]="dialogData" (formSubmit)="submitForm($event)" (cancel)="close()"></app-user-details-form>-->
-
   <div class="selection-block" *ngFor="let block of data.schedule; let i = index">
     <i class="material-icons delete-reminder" (click)="deleteReminder(block, i)">delete</i>
     <div class="day">

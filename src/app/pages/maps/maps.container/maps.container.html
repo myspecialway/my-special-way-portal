@@ -1,0 +1,68 @@
+<div data-test-id="maps-page" class="main-content msw-maps-container">
+  <div class="container-fluid">
+    <div class="header-menu-container msw-table-tools-header">
+      <div class="header-table-count">
+        <div>
+          <span class="header-table-count-label">ניהול מפות</span>
+        </div>
+      </div>
+      <div class="example-header msw-table-tools-header">
+        <button data-test-id="add-map-button" mat-raised-button color="primary" routerLink="/maps/_new_">
+          <i class="material-icons">
+            add
+          </i>
+          הוסף מפה
+        </button>
+      </div>
+    </div>
+
+    <div class="maps-body">
+      <div class="maps-poi-list">
+        <app-map-floor-list [locations]="locations" (change)="onFloorChange($event)"></app-map-floor-list>
+      </div>
+      <div class="map-container"><img *ngIf="currentFloor==1" src="/assets/img/floor1.jpeg"/></div>
+      <div class="map-control">
+        <div class="msw-maps-header-nav">
+          <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">
+            <nav mat-tab-nav-bar>
+              <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.label"
+                 [attr.data-test-id]="link.dataTestId" [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-maps-tab-active' : ''}}">{{link.label}}</a>
+            </nav>
+          </div>
+          <!--<router-outlet></router-outlet>-->
+        </div>
+        <app-map-points *ngIf="activeLink === links[0].label" [floor]="currentFloor" [locations]="locations"></app-map-points>
+        <div *ngIf="activeLink === links[1].label" class="msw-table-container">
+          <mat-table [dataSource]="dataSource" class="msw-table">
+            <ng-container matColumnDef="reason">
+              <mat-header-cell *matHeaderCellDef>סיבת חסימה</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.reason}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="from">
+              <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.from}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="to">
+              <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.to}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="deleteBlock">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-block-button-' + 'A' + 'B'"
+                        (click)="deleteBlock(row)"><i class="material-icons"> delete </i> </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <a class="add-block" (click)="addOrEditBlock()">+ הוסף מקטע</a>
+        </div >
+      </div>
+    </div>
+  </div>
+</div>
