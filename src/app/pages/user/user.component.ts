@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialog, MatSort, MatTableDataSource, MatDialogRef } from '@angular/material';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MatSort, MatTableDataSource } from '@angular/material';
 import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
@@ -71,6 +71,8 @@ export class UserComponent implements OnInit {
           return item.firstname + item.lastname;
         case 'class':
           return item.class ? item.class.name : '';
+        case 'type':
+          return item.role;
         default:
           return item[property];
       }
