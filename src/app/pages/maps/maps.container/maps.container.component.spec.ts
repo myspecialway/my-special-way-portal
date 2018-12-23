@@ -21,7 +21,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
-  let component: MapsContainerComponent;
   let mapsServiceMock: Partial<MapsService>;
   let mapsDialogMock: Partial<MatDialog>;
   const mockedblockedSections = [
