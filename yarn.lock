@@ -199,6 +199,13 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-6.0.7.tgz#047dcd762be8a6c24e7309905e468ca82bcf91ec"
   integrity sha512-R96kTy9Hpy5QPHirJz+5JjnzjJZdwbGwZ6rpq79Fe15RYaYfMjFTAAhmmOgWrnTFBug0QWBWyKV7950JcJIr3Q==
 
+"@angular/material-moment-adapter@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-7.1.1.tgz#7d60d5c5e26d02d60a313bc46622fad07f6ac02d"
+  integrity sha512-Ql0yFCuaWnRSSUqkCbeD8kRJ3oPVvl8GgsV20AvOKEpZ2eKvR+kapNbUqW8PTZb/Ovp5xDIaBaFjx5R89U4uxg==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/material@^6.3.2":
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.1.tgz#f9849e19bf2e339c5fbd78b6e72287b770268423"
@@ -8132,6 +8139,14 @@ ng-mocks@^6.0.1:
   resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-6.1.0.tgz#b75b643e948cdd9c35fb500b5359df00690e8319"
   integrity sha512-vu8bzAmSg+tqQM79rcoc1oIv09Sd0mhzV15BlDh0zAiYdwnOJv+VrDxzZ00+h7pjEX/r4Scf6JwQMSx8U2FRKQ==
 
+ngx-papaparse@3:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-papaparse/-/ngx-papaparse-3.0.0.tgz#d7cf20eb33b7766e7cf2dc95b78ce912f5752028"
+  integrity sha512-+gG9OvRojWxxDhRXx0fUMVco5bxrQ6mf76xpKh+IQKa4nwvyu9/TUG7FLt4xX9bQT0QX6mBrI5hIWZ2UarU4kA==
+  dependencies:
+    papaparse "~4.4.0"
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
@@ -8909,6 +8924,11 @@ pako@~1.0.2, pako@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
   integrity sha512-lQe48YPsMJAig+yngZ87Lus+NF+3mtu7DVOBu6b/gHO1YpKwIj5AWjZ/TOS7i46HD/UixzWb1zeWDZfGZ3iYcg==
+
+papaparse@~4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.4.0.tgz#6bcdbda80873e00cfb0bdcd7a4571c72a9a40168"
+  integrity sha1-a829qAhz4Az7C9zXpFcccqmkAWg=
 
 parallel-transform@^1.1.0:
   version "1.1.0"

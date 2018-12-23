@@ -4,10 +4,21 @@
       <div class="header-table-count">
         <div>
           <span class="header-table-count-label">תלמידים</span>
-          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+          <span class="header-table-count-number">({{ dataSource.data.length }})</span>
         </div>
       </div>
       <div class="example-header msw-table-tools-header">
+        <div class="import-button" *ngIf="mayAddStudent">
+          <button mat-icon-button matTooltip="העלאת קובץ" matTooltipPosition="below" onclick="document.getElementById('fileInput').click()">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                <defs>
+                  <path id="a" d="M20 16c0-.6.4-1 1-1s1 .4 1 1v3c0 1.7-1.3 3-3 3H5c-1.7 0-3-1.3-3-3v-3c0-.6.4-1 1-1s1 .4 1 1v3c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-3zM11.3 2.3c.1-.1.2-.2.3-.2.1-.1.3-.1.4-.1.1 0 .3 0 .4.1.1.1.2.1.3.2l4 4c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0L13 5.401V17c0 .6-.4 1-1 1s-1-.4-1-1V5.401L8.7 7.7c-.4.4-1 .4-1.4 0a.968.968 0 0 1 0-1.4l4-4z" />
+                </defs>
+                <use fill="#757575" fill-rule="evenodd" xlink:href="#a" />
+              </svg>
+              <input type="file" (change)="onFileChange($event)" accept=".csv" id="fileInput" [(ngModel)]="fileInput" hidden required>
+          </button>
+        </div>
         <button data-test-id="add-new-student-button" mat-raised-button color="primary" routerLink="/student/_new_"  *ngIf="mayAddStudent">
           <i class="material-icons">
             add
@@ -18,7 +29,14 @@
     </div>
     <div class="row msw-table-container">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table [dataSource]="dataSource" class="msw-table" matSort matSortActive="studentName" matSortDirection="asc" matSortDisableClear>
+        <mat-table
+          [dataSource]="dataSource"
+          class="msw-table"
+          matSort
+          matSortActive="studentName"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="studentName">
             <mat-header-cell *matHeaderCellDef>
               <span class="pl-2" mat-sort-header>שם</span>
@@ -28,48 +46,72 @@
               <mat-form-field *ngIf="showStudentNameFilter" class="filter" floatLabel="never">
                 <mat-icon matPrefix>search</mat-icon>
                 <mat-label>חיפוש תלמיד</mat-label>
-                <input #studentNameField matInput [formControl]="studentNameFilter" (focusout)="toggleStudentNameFilter()">
-                <button mat-icon-button matSuffix *ngIf="studentNameFilter.value" (click)="studentNameFilter.setValue('')">
-                    <mat-icon>cancel</mat-icon>
+                <input
+                  #studentNameField
+                  matInput
+                  [formControl]="studentNameFilter"
+                  (focusout)="toggleStudentNameFilter()"
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  *ngIf="studentNameFilter.value"
+                  (click)="studentNameFilter.setValue('')"
+                >
+                  <mat-icon>cancel</mat-icon>
                 </button>
               </mat-form-field>
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{ row.firstname }} {{ row.lastname }}</mat-cell>
+            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]"
+              >{{ row.firstname }} {{ row.lastname }}</mat-cell
+            >
           </ng-container>
 
           <ng-container matColumnDef="gradeId">
             <mat-header-cell *matHeaderCellDef>
-                <span class="pl-2" mat-sort-header>כיתה</span>
-                <span (click)="toggleGradeIdFilter()">
-                  <mat-icon class="filter-toggle-button" *ngIf="!showGradeIdFilter" matPrefix>search</mat-icon>
-                </span>
-                <mat-form-field *ngIf="showGradeIdFilter" class="filter" floatLabel="never">
-                  <mat-icon matPrefix>search</mat-icon>
-                  <mat-label>חיפוש כיתה</mat-label>
-                  <input #gradeIdField matInput [formControl]="gradeIdFilter" (focusout)="toggleGradeIdFilter()">
-                  <button mat-icon-button matSuffix *ngIf="gradeIdFilter.value" (click)="gradeIdFilter.setValue('')">
-                      <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-form-field>
+              <span class="pl-2" mat-sort-header>כיתה</span>
+              <span (click)="toggleGradeIdFilter()">
+                <mat-icon class="filter-toggle-button" *ngIf="!showGradeIdFilter" matPrefix>search</mat-icon>
+              </span>
+              <mat-form-field *ngIf="showGradeIdFilter" class="filter" floatLabel="never">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>חיפוש כיתה</mat-label>
+                <input #gradeIdField matInput [formControl]="gradeIdFilter" (focusout)="toggleGradeIdFilter()" />
+                <button mat-icon-button matSuffix *ngIf="gradeIdFilter.value" (click)="gradeIdFilter.setValue('')">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{(row.class && row.class.name) || '' }}</mat-cell>
+            <mat-cell *matCellDef="let row" [routerLink]="['/student', row._id]">{{
+              (row.class && row.class.name) || ''
+            }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="username">
             <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{ row.username }}</mat-cell>
+            <mat-cell *matCellDef="let row" class="username" [routerLink]="['/student', row._id]">{{
+              row.username
+            }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="deleteUser">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username" [disabled]="!mayDeleteStudent"
-                      (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId, row.gender)"><i class="material-icons"> delete </i> </button>
+              <button
+                class="delete-row-button"
+                mat-icon-button
+                color="primary"
+                [attr.data-test-id]="'delete-user-button-' + row.username"
+                [disabled]="!mayDeleteStudent"
+                (click)="deleteStudent(row._id, row.firstname, row.lastname, row.gradeId, row.gender)"
+              >
+                <i class="material-icons"> delete </i>
+              </button>
             </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
         <div *ngIf="showNoRecords" class="no-records-msg">
           <i class="material-icons md-48">info_outline</i>

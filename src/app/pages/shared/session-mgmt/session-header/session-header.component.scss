@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+
+  .session-mgmt-header {
+    margin: 2em;
+    display: flex;
+    align-items: center;
+
+    .logo-title {
+      font-family: Rubik;
+      font-size: 21px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #222222;
+    }
+
+    img {
+      height: 60px;
+    }
+  }
+}

@@ -14,7 +14,9 @@
             (ngModelChange)="toggleActivity(reminder)"></mat-slide-toggle>
         </div>
       </div>
-
+      <div class="empty-dialog-message" *ngIf="!reminder.schedule.length">
+        <p>{{emptyDialogString}}</p>
+      </div>
       <div *ngFor="let slot of reminder.schedule" class="row">
         <div class="cell">
           {{getSelectedDays(slot)}}

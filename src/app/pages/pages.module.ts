@@ -2,7 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClassDetailsViewComponent } from './class-details/class-details.view/class-details.view.component';
 import { ClassDetailsContainerComponent } from './class-details/class-details.container/class-details.container.component';
-// import { LessonComponent } from './lesson/lesson.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule } from '@angular/router';
 import {
@@ -27,8 +26,11 @@ import { StudentDetailsHoursComponent } from './student/details/tabs/student-det
 import { StudentDetailsRemindersComponent } from './student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
-import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
+import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
 import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
+import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
+import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
+import { FileImportModule } from '../file-import/file-import.module';
 
 @NgModule({
   imports: [
@@ -42,13 +44,13 @@ import { MapsContainerComponent } from './maps/maps.container/maps.container.com
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    // MatDialog,
     MatTableModule,
     MatGridListModule,
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
     MatIconModule,
+    FileImportModule,
   ],
   declarations: [
     StudentDetailsComponent,
@@ -59,7 +61,9 @@ import { MapsContainerComponent } from './maps/maps.container/maps.container.com
     ClassDetailsContainerComponent,
     MapContainerComponent,
     MapViewComponent,
-    UniqueUsernameValidatorDirective,
+    NonActiveTimeComponent,
+    UsernameValidatorDirective,
+    PasswordValidatorDirective,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],
