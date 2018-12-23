@@ -5,7 +5,7 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
 import { MatHeaderRow, MatHeaderRowDef, MatInput, MatRowDef } from '@angular/material';
-import { ClassComponent } from './class.component';
+
 import {
   Overlay,
   ScrollStrategyOptions,

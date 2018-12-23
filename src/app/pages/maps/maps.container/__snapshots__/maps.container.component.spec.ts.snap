@@ -38,7 +38,6 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
             color="primary"
             data-test-id="add-map-button"
             mat-raised-button=""
-            routerlink="/maps/_new_"
           >
             <i
               class="material-icons"
