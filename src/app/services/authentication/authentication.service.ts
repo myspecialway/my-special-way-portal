@@ -20,7 +20,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
-  private getTokenFromLocalStore() {
+  public getTokenFromLocalStore() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
   }
 

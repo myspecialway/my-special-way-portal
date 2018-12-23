@@ -7,6 +7,7 @@ import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
+import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 
 @Component({
   selector: 'app-maps-container',
@@ -100,5 +101,15 @@ export class MapsContainerComponent implements OnInit {
           }
         }),
     );
+  }
+
+  addMap() {
+    const dialogRef = this.dialog.open(AddMapDialogComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (addMapConfirmed) => {
+        console.log(addMapConfirmed);
+      });
   }
 }

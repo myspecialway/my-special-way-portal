@@ -1,0 +1,37 @@
+<div class="container add-map-modal">
+  <h3 mat-dialog-title>הוספת מפה</h3>
+  <mat-divider></mat-divider>
+
+  <label for="map-name">שם מפה</label>
+  <input type="text" id="map-name" class="form-control" [(ngModel)]="mapName" />
+
+  <div ng2FileDrop class="upload-btn-wrapper"
+    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length }"
+    [uploader]="uploader" (fileOver)="fileOverBase($event)" (click)="fileInput.click()">
+
+    <button class="add-button">
+      <i class="material-icons">insert_photo</i>
+      הוסף תמונה מקובץ
+    </button>
+
+    <input type="file" #fileInput ng2FileSelect [uploader]="uploader"
+      [disabled]="uploader.getNotUploadedItems().length || isSending"
+      (change)="onChangeFile($event)"/>
+
+    <div class="chosen-file">
+      <strong>{{ uploader.queue[0]?.file?.name }}</strong>
+      <span class="remove" (click)="removeFile($event)">x</span>
+    </div>
+
+    <app-spinner [isSpinnerVisible]="isSending"></app-spinner>
+  </div>
+
+  <mat-dialog-actions>
+    <button class="mat-button" [disabled]="isSending" (click)="close()">ביטול</button>
+    <button type="button" class="mat-raised-button mat-primary"
+      [disabled]="!mapName || !uploader.getNotUploadedItems().length || isSending"
+      (click)="sendFile()">
+      הוסף
+    </button>
+  </mat-dialog-actions>
+</div>

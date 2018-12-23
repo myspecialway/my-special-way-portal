@@ -68,10 +68,13 @@ import { MapsService } from './pages/maps/maps.container/services/maps.container
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
+import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    FileUploadModule,
     BrowserModule,
     FormsModule,
     ComponentsModule,
@@ -122,6 +125,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
     AddUpdateBlockDialogComponent,
+    AddMapDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
@@ -141,6 +145,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
     AddUpdateBlockDialogComponent,
+    AddMapDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,
