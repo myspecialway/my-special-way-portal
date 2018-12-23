@@ -1,4 +1,4 @@
-<form class="mat-dialog-content" [formGroup]="form">
+
 <div class="container add-update-block-modal">
   <h3 mat-dialog-title>מקטע חסום</h3>
 
@@ -8,7 +8,7 @@
      שים לב: בהגדרת מקטע חסום חובה לציין שתי נקודות הסמוכות זו לזו
    </div>
 
-
+   <form class="mat-dialog-content" [formGroup]="form">
     <div class="form">
       <mat-form-field color="primary">
         <input matInput #input formControlName="reason" class="form-control" placeholder="סיבת חסימה" [(ngModel)]="data.reason" name="reason"  >
@@ -29,7 +29,7 @@
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
-
+   </form>
  </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-button"  (click)="close()">ביטול</button>
@@ -39,4 +39,4 @@
       </button>
   </mat-dialog-actions>
 </div>
-</form>
+
