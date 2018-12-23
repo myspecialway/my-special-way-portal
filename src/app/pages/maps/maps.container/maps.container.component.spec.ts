@@ -18,7 +18,6 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatSort, MatDialog } from '@angular/material';
 
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
