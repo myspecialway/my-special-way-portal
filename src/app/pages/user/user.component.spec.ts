@@ -1,26 +1,26 @@
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import {
   MatDialog,
-  MatSort,
-  MatTableModule,
   MatIconModule,
   MatInputModule,
   MatSelectModule,
+  MatSort,
+  MatTableModule,
   MatTooltipModule,
 } from '@angular/material';
 import { UserComponent } from './user.component';
 import { UserService } from './services/user.service';
 import {
   Overlay,
-  ScrollStrategyOptions,
-  ScrollDispatcher,
-  ViewportRuler,
   OverlayContainer,
-  OverlayPositionBuilder,
   OverlayKeyboardDispatcher,
+  OverlayPositionBuilder,
+  ScrollDispatcher,
+  ScrollStrategyOptions,
+  ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { UserType, User } from '../../models/user.model';
+import { User, UserType } from '../../models/user.model';
 import { userTestData } from '../../../mocks/assets/users.mock';
 import { Observable } from 'rxjs-compat';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -291,6 +291,14 @@ describe('user component', () => {
       const user = { firstname: 'a', lastname: 'b', class: { name: 'class name' } } as User & { class: Class };
       const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'class');
       expect(result).toBe(user.class.name);
+    });
+
+    it('should sort users by user role', () => {
+      const fixture = TestBed.createComponent(UserComponent);
+      fixture.detectChanges();
+      const user = { firstname: 'a', lastname: 'b', role: UserType.PRINCIPLE } as User & { class: Class };
+      const result = fixture.componentInstance.dataSource.sortingDataAccessor(user, 'type');
+      expect(result).toBe(user.role);
     });
 
     it('should be prepared for default sort', () => {
