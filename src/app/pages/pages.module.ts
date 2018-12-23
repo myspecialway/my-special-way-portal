@@ -27,6 +27,7 @@ import { StudentDetailsRemindersComponent } from './student/details/tabs/student
 import { MapContainerComponent } from './maps/maps.container/map.container.component';
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
+import { MapsContainerComponent } from './maps/maps.container/maps.container.component';
 import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
 import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
 import { FileImportModule } from '../file-import/file-import.module';

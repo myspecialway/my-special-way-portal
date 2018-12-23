@@ -4,7 +4,6 @@ import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
-import { MatHeaderRow, MatHeaderRowDef, MatInput, MatRowDef } from '@angular/material';
 
 import {
   Overlay,
@@ -18,6 +17,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
 
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
@@ -74,7 +74,6 @@ describe('MapsContainerComponent', () => {
 
   it('should match snapshot', () => {
     fixture = TestBed.createComponent(MapsContainerComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
     expect(fixture).toMatchSnapshot();
   });
@@ -84,7 +83,6 @@ describe('MapsContainerComponent', () => {
       return Observable.of(mockedblockedSections);
     });
     fixture = TestBed.createComponent(MapsContainerComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(1);
   });
@@ -103,7 +101,6 @@ describe('MapsContainerComponent', () => {
     };
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
-    component = fixture.componentInstance;
     fixture.componentInstance.addOrEditBlock(newBlockedSection);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -120,7 +117,6 @@ describe('MapsContainerComponent', () => {
 
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
-    component = fixture.componentInstance;
     fixture.componentInstance.addOrEditBlock();
     fixture.detectChanges();
     await fixture.whenRenderingDone();
@@ -142,7 +138,6 @@ describe('MapsContainerComponent', () => {
     };
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
-    component = fixture.componentInstance;
     fixture.componentInstance.deleteBlock(blockToDelete);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
