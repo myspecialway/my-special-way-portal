@@ -8,33 +8,6 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 
-// const mockedData: BlockedSection[] = [
-//   {
-//     _id: 1,
-//     reason: 'שיפוץ',
-//     from: 'A',
-//     to: 'B',
-//   },
-//   {
-//     _id: 2,
-//     reason: 'הצפה',
-//     from: 'A',
-//     to: 'C',
-//   },
-//   {
-//     _id: 3,
-//     reason: 'מרתון תל אביב',
-//     from: 'C',
-//     to: 'B',
-//   },
-//   {
-//     _id: 4,
-//     reason: 'גודזילה',
-//     from: 'D',
-//     to: 'B',
-//   },
-// ];
-
 @Component({
   selector: 'app-maps-container',
   templateUrl: './maps.container.html',
@@ -45,7 +18,6 @@ export class MapsContainerComponent implements OnInit {
   idOrNew: string;
   links: any;
   activeLink: string;
-  // dataSource = mockedData;
   dataSource = new MatTableDataSource<BlockedSection>();
 
   @SubscriptionCleaner()
@@ -90,20 +62,18 @@ export class MapsContainerComponent implements OnInit {
         .afterClosed()
         .pipe(first())
         .subscribe(async (result) => {
-          if (!result) {
-            return;
-          }
-
-          try {
-            if (isNewBlock) {
-              await this.mapsService.create(result);
-            } else {
-              await this.mapsService.update(result);
+          if (result) {
+            try {
+              if (isNewBlock) {
+                await this.mapsService.create(result);
+              } else {
+                await this.mapsService.update(result);
+              }
+            } catch (error) {
+              // TODO: implement error handling on UI
+              console.error('Error handling not implemented');
+              throw error;
             }
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
           }
         }),
     );
@@ -119,16 +89,14 @@ export class MapsContainerComponent implements OnInit {
         .afterClosed()
         .pipe(first())
         .subscribe(async (result) => {
-          if (!result) {
-            return;
-          }
-
-          try {
-            await this.mapsService.delete(blockedSection._id);
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
+          if (result) {
+            try {
+              await this.mapsService.delete(blockedSection._id);
+            } catch (error) {
+              // TODO: implement error handling on UI
+              console.error('Error handling not implemented');
+              throw error;
+            }
           }
         }),
     );

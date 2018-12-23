@@ -72,12 +72,12 @@ describe('MapsContainerComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-    fixture = TestBed.createComponent(MapsContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should match snapshot', () => {
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(fixture).toMatchSnapshot();
   });
 
@@ -85,15 +85,17 @@ describe('MapsContainerComponent', () => {
     (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
-
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(fixture.componentInstance.dataSource.data.length).toEqual(1);
   });
 
-  it('should call mapsServiceMock.create when calling add new blocked section ', async () => {
+  it('should call mapsServiceMock.update when calling addOrEditBlock with a blockedSection ', async () => {
     (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
-    (mapsServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.update as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
     const newBlockedSection = {
@@ -101,9 +103,51 @@ describe('MapsContainerComponent', () => {
       from: 'B',
       to: 'D',
     };
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    await fixture.componentInstance.ngOnInit();
+    component = fixture.componentInstance;
     fixture.componentInstance.addOrEditBlock(newBlockedSection);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
+    expect(mapsServiceMock.update).toHaveBeenCalled();
+  });
+
+  it('should call mapsServiceMock.create when calling addOrEditBlock without blockedSection ', async () => {
+    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(mockedblockedSections);
+    });
+    (mapsServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    await fixture.componentInstance.ngOnInit();
+    component = fixture.componentInstance;
+    fixture.componentInstance.addOrEditBlock();
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
     expect(mapsServiceMock.create).toHaveBeenCalled();
+  });
+
+  it('should call mapsServiceMock.delete when calling deleteBlock with a blockedSection ', async () => {
+    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(mockedblockedSections);
+    });
+    (mapsServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
+      return Promise.resolve(1);
+    });
+
+    const blockToDelete = {
+      reason: "מרתון תל אביב'",
+      from: 'A',
+      to: 'B',
+    };
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    await fixture.componentInstance.ngOnInit();
+    component = fixture.componentInstance;
+    fixture.componentInstance.deleteBlock(blockToDelete);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(mapsServiceMock.delete).toHaveBeenCalled();
   });
 });
