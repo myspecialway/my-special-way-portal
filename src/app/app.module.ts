@@ -137,7 +137,6 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
-    AddUpdateBlockDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,

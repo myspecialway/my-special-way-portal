@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
@@ -52,7 +51,7 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, private mapsService: MapsService) {
+  constructor(private dialog: MatDialog, private mapsService: MapsService) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
