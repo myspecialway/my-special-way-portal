@@ -47,6 +47,7 @@ exports[`AddMapDialogComponent should match snapshot 1`] = `
          הוסף תמונה מקובץ 
       </button>
       <input
+        id="add-picture"
         ng-reflect-uploader="[object Object]"
         ng2fileselect=""
         type="file"
@@ -70,12 +71,14 @@ exports[`AddMapDialogComponent should match snapshot 1`] = `
     >
       <button
         class="mat-button"
+        id="cancle"
       >
         ביטול
       </button>
       <button
         class="mat-raised-button mat-primary"
         disabled=""
+        id="send-file"
         type="button"
       >
          הוסף 
