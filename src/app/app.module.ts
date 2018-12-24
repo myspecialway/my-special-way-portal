@@ -21,8 +21,8 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
-  MatTabsModule,
   MatRadioModule,
+  MatTabsModule,
   MatDatepickerModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -163,7 +163,6 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
-    AddUpdateBlockDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,

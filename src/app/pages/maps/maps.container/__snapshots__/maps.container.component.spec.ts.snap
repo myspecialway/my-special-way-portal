@@ -4,10 +4,10 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
 <app-maps-container
   activeLink={[Function String]}
   dataSource={[Function MatTableDataSource]}
-  dialog="undefined"
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   links={[Function Array]}
-  mapsService={[Function MapsService]}
+  mapsService={[Function Object]}
   subCollector={[Function Subscription]}
 >
   <div
@@ -93,39 +93,20 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
             class="msw-table-container"
           >
             <mat-table
-              class="msw-table mat-table"
-              ng-reflect-data-source="[object Object]"
-              role="grid"
+              class="msw-table"
             >
               
-              <mat-header-row
-                class="mat-header-row"
-                role="row"
-              >
-                
-                <mat-header-cell
-                  class="mat-header-cell cdk-column-reason mat-column-reason"
-                  role="columnheader"
-                >
-                  סיבת חסימה
-                </mat-header-cell>
-                <mat-header-cell
-                  class="mat-header-cell cdk-column-from mat-column-from"
-                  role="columnheader"
-                >
-                  מנקודה
-                </mat-header-cell>
-                <mat-header-cell
-                  class="mat-header-cell cdk-column-to mat-column-to"
-                  role="columnheader"
-                >
-                  עד נקודה
-                </mat-header-cell>
-                <mat-header-cell
-                  class="mat-header-cell cdk-column-deleteBlock mat-column-deleteBlock"
-                  role="columnheader"
-                />
-              </mat-header-row>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
               
               
             </mat-table>
