@@ -369,6 +369,7 @@ describe('delete time slot from student', () => {
       imports: [RouterModule.forRoot([])],
       declarations: [StudentDetailsComponent, StudentDetailsHoursComponent],
       providers: [
+        { provide: ScheduleService, useValue: scheduleServiceMock },
         { provide: MatDialog, useValue: deleteTimeSlotDialogMock },
         {
           provide: Router,
