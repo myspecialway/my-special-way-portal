@@ -63,7 +63,7 @@ export class MapsService {
         variables: { id },
         refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
       })
-      .pipe(map((res: { data: DeleteBlockedSectionResponse }) => res.data.deleteBlockedSection))
+      .pipe(map((res: { data: DeleteBlockedSectionResponse }) => res.data.deleteBlockedSection._id))
       .toPromise();
   }
 }
