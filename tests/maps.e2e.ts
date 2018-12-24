@@ -2,7 +2,6 @@ import LoginPage from './pageobjects/login.po';
 import { testEnvironment } from './config/config';
 import { t, Selector } from 'testcafe';
 import MapsPage from './pageobjects/maps.po';
-import MapPage from './pageobjects/map-details.po';
 
 const loginPage = new LoginPage();
 const mapsPage = new MapsPage();
@@ -34,19 +33,19 @@ test('click on send file is available if all fields fill', async () => {
   await mapsPage.selectFile();
   await mapsPage.typeFileName('file name 2');
 
-  await t.expect(Selector('[id$="send-file"]').hasAttribute('disabled')).notOk();
+  await t.expect(Selector('[id$="amd-send-file"]').hasAttribute('disabled')).notOk();
 });
 
 test('click on send file is unavailable because file is missing', async () => {
   await mapsPage.openPopUpAddButton();
   await mapsPage.typeFileName('file name 3');
 
-  await t.expect(Selector('[id$="send-file"]').hasAttribute('disabled')).ok();
+  await t.expect(Selector('[id$="amd-send-file"]').hasAttribute('disabled')).ok();
 });
 
 test('click on send file is unavailable because file name is missing', async () => {
   await mapsPage.openPopUpAddButton();
   await mapsPage.selectFile();
 
-  await t.expect(Selector('[id$="send-file"]').hasAttribute('disabled')).ok();
+  await t.expect(Selector('[id$="amd-send-file"]').hasAttribute('disabled')).ok();
 });

@@ -14,7 +14,7 @@
       הוסף תמונה מקובץ
     </button>
 
-    <input id="add-picture" type="file" #fileInput ng2FileSelect [uploader]="uploader"
+    <input id="amd-add-picture" type="file" #fileInput ng2FileSelect [uploader]="uploader"
       [disabled]="uploader.getNotUploadedItems().length || isSending"
       (change)="onChangeFile($event)"/>
 
@@ -27,8 +27,8 @@
   </div>
 
   <mat-dialog-actions>
-    <button id="cancle" class="mat-button" [disabled]="isSending" (click)="close()">ביטול</button>
-    <button id="send-file" type="button" class="mat-raised-button mat-primary"
+    <button id="amd-cancel" class="mat-button" [disabled]="isSending" (click)="close()">ביטול</button>
+    <button id="amd-send-file" type="button" class="mat-raised-button mat-primary"
       [disabled]="!mapName || !uploader.getNotUploadedItems().length || isSending"
       (click)="sendFile()">
       הוסף

@@ -20,14 +20,14 @@ export default class MapsPage {
   }
 
   public async selectFile() {
-    await t.setFilesToUpload('#add-picture', ['./uploads/1.jpg']);
+    await t.setFilesToUpload('#amd-add-picture', ['./uploads/1.jpg']);
   }
   public async clickToClosePopUp() {
-    await t.click('[id$="cancle"]').wait(1000);
+    await t.click('[id$="amd-cancel"]').wait(1000);
   }
 
   public async clickToUploadFile() {
-    await t.click('[id$="send-file"]').wait(1000);
+    await t.click('[id$="amd-send-file"]').wait(1000);
   }
   public async typeFileName(fileName) {
     await t.typeText('#map-name', fileName);
