@@ -4,7 +4,8 @@ import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
-
+import { mockedLocations } from './../../../../mocks/assets/locations.mock';
+import { of } from 'rxjs/observable/of';
 import {
   Overlay,
   ScrollStrategyOptions,
@@ -18,7 +19,11 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
-
+import { LocationService } from '../../../services/location/location.graphql.service';
+const locationServiceMock = {
+  getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
+  getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
+};
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   let mapsServiceMock: Partial<MapsService>;
@@ -58,6 +63,7 @@ describe('MapsContainerComponent', () => {
       providers: [
         { provide: MatDialog, useValue: mapsDialogMock },
         { provide: MapsService, useValue: mapsServiceMock },
+        { provide: LocationService, useValue: locationServiceMock },
         { provide: APP_BASE_HREF, useValue: '/' },
         Overlay,
         ScrollStrategyOptions,

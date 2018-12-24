@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { Location } from './../../../models/location.model';
+import { LocationService } from './../../../services/location/location.graphql.service';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import BlockedSection from '../../../models/blocked-section.model';
@@ -20,11 +21,12 @@ export class MapsContainerComponent implements OnInit {
   links: any;
   activeLink: string;
   dataSource = new MatTableDataSource<BlockedSection>();
-
+  locations: Location[] = [];
+  currentFloor = 0;
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private dialog: MatDialog, private mapsService: MapsService) {
+  constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
@@ -37,6 +39,9 @@ export class MapsContainerComponent implements OnInit {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
           this.dataSource.data = [...data];
+        }),
+        this.locationService.getLocationsFeed$().subscribe((data) => {
+          this.locations = data;
         }),
       );
     } catch (error) {
@@ -111,5 +116,8 @@ export class MapsContainerComponent implements OnInit {
       .subscribe(async (addMapConfirmed) => {
         console.log(addMapConfirmed);
       });
+  }
+  onFloorChange(floor) {
+    this.currentFloor = floor;
   }
 }

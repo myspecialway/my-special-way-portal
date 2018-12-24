@@ -3,10 +3,13 @@
 exports[`MapsContainerComponent should match snapshot 1`] = `
 <app-maps-container
   activeLink={[Function String]}
+  currentFloor="0"
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
   links={[Function Array]}
+  locationService={[Function Object]}
+  locations={[Function Array]}
   mapsService={[Function Object]}
   subCollector={[Function Subscription]}
 >
