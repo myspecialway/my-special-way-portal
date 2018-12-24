@@ -126,9 +126,6 @@ export class StudentDetailsHoursComponent implements OnInit {
   }
 
   onTimeSlotDelete(indexes: TimeSlotIndexes) {
-    if (!this.student._id) {
-      return;
-    }
     const dialogData = this.getDialogData(indexes);
     const dialogRef = this.dialog.open(DeleteTimeSlotDialogComponent, {
       data: dialogData,
