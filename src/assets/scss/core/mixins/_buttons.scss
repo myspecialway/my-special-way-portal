@@ -56,8 +56,7 @@
       background-color: $background;
       border-color: $border;
     }
-    // @include hover { // background-color: $background; // border-color: $border;
-    // }
+    // @include hover { // background-color: $background; // border-color: $border; // }
   }
 }
 @mixin bmd-flat-button-variant(
@@ -93,8 +92,7 @@
       $focus-border,
       $active-border
     );
-  }
-  // reverse the above for links
+  } // reverse the above for links
   &.btn-link {
     background-color: transparent;
   }
@@ -216,7 +214,6 @@
   &.btn-danger {
     @include bmd-raised-button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border-color);
   }
-
   &.btn-rose {
     @include bmd-raised-button-variant($btn-rose-color, $btn-rose-bg, $btn-rose-border-color);
   }
@@ -297,7 +294,6 @@ $opacity-2: rgba(255, 255, 255, 0.2) !default;
   // new box shadow optimized for Tablets and Phones
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba($color, 0.4);
 }
-
 @mixin shadow-alert-color($color) {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba($color, 0.4);
 }

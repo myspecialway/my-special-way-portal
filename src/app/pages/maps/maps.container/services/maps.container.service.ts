@@ -11,6 +11,7 @@ import {
   MUTATE_DELETE_BLOCKED_SECTION,
   MUTATE_UPDATE_BLOCKED_SECTION,
 } from './maps.graphql';
+
 import { DeleteBlockedSectionResponse } from '../../../../models/responses/delete-blocked-section-response.model';
 import { UpdateBlockedSectionResponse } from '../../../../models/responses/update-blocked-section-response.model';
 
@@ -62,7 +63,7 @@ export class MapsService {
         variables: { id },
         refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
       })
-      .pipe(map((res: { data: DeleteBlockedSectionResponse }) => res.data.deleteBlockedSection))
+      .pipe(map((res: { data: DeleteBlockedSectionResponse }) => res.data.deleteBlockedSection._id))
       .toPromise();
   }
 }
