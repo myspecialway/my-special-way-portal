@@ -53,10 +53,14 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
       >
         <div
           class="maps-poi-list"
-        />
+        >
+          <app-map-floor-list />
+        </div>
         <div
           class="map-container"
-        />
+        >
+          
+        </div>
         <div
           class="map-control"
         >
@@ -88,6 +92,7 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
               </nav>
             </div>
           </div>
+          
           
           <div
             class="msw-table-container"

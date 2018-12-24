@@ -1,3 +1,6 @@
+import { of as observableOf } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators/map';
+import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -14,6 +17,8 @@ const allLocationFields = `
                 longitude
                 floor
               }
+              icon
+              type
             `;
 
 const updateLocation = gql`
@@ -41,6 +46,19 @@ export class LocationService {
       })
       .toPromise()
       .then((res) => res.data.locations);
+  }
+
+  getLocationsFeed$() {
+    return this.apollo
+      .watchQuery<LocationQuery>({
+        query: getAllLocationsQuery,
+      })
+      .valueChanges.pipe(
+        map((res) => res.data.locations),
+        catchError((err: TypeError) => {
+          return observableOf([]);
+        }),
+      );
   }
 
   update(location: InputLocation) {

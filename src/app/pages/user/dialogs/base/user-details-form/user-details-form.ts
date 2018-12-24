@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
@@ -66,8 +66,10 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
       classControl.updateValueAndValidity();
     }
 
-    if (this.userRoleEnum[userType] === this.userRoleEnum.PRINCIPLE && this.data.class) {
+    if (classControl && this.userRoleEnum[userType] === this.userRoleEnum.PRINCIPLE) {
       this.data.class = undefined;
+      classControl.setValidators([]);
+      classControl.updateValueAndValidity();
     }
   }
   getClassDisabled() {

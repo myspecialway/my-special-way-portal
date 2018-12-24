@@ -1,3 +1,4 @@
+import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,8 +16,6 @@ import { StudentDetailsPersonalInfoComponent } from './pages/student/details/tab
 import { StudentDetailsComponent } from './pages/student/details/student-details.component';
 import { StudentDetailsRemindersComponent } from './pages/student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { UserType } from './models/user.model';
-import { MapContainerComponent } from './pages/maps/maps.container/map.container.component';
-import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
 import { NonActiveTimeComponent } from './pages/non-active-time/non-active-time.component';
 
@@ -78,12 +77,6 @@ const routes: Routes = [
       {
         path: 'lesson',
         component: LessonComponent,
-        canActivate: [AuthGuard],
-        data: { expectedRole: [UserType.PRINCIPLE] },
-      },
-      {
-        path: 'map',
-        component: MapContainerComponent,
         canActivate: [AuthGuard],
         data: { expectedRole: [UserType.PRINCIPLE] },
       },

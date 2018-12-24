@@ -21,11 +21,16 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
-  MatRadioModule,
   MatTabsModule,
+  MatButtonToggleModule,
+  MatRadioModule,
   MatDatepickerModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
+import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
+import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
+import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -80,6 +85,7 @@ import { NonActiveTimeService } from './services/non-active-time/non-active-time
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -104,6 +110,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     MatSelectModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatButtonToggleModule,
     AppRoutingModule,
     CdkTableModule,
     HttpClientModule,
@@ -127,6 +134,9 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     LessonComponent,
     StudentComponent,
     MapsContainerComponent,
+    MapPointsComponent,
+    MapPointsViewComponent,
+    MapFloorListComponent,
     UserComponent,
     FirstloginComponent,
     UserDetailsFormComponent,
@@ -143,6 +153,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     AddUpdateBlockDialogComponent,
     AddMapDialogComponent,
     DeleteLessonDialogComponent,
+    AddEditPointDialogComponent,
     EditLessonDialogComponent,
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
@@ -163,6 +174,8 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     RestorePasswordErrorDialogComponent,
     AddStudentDialogComponent,
     AddStudentReminderDialogComponent,
+    AddUpdateBlockDialogComponent,
+    AddEditPointDialogComponent,
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,

@@ -8,6 +8,7 @@ export function SubscriptionCleaner(
   return (instance, propertyName: string) => {
     const originalNGonInit = verifyFunction(instance.constructor, initHook);
     const originalNGonDestroy = verifyFunction(instance.constructor, destroyHook);
+    // instance.constructor[propertyName] = new Subscription();
 
     instance.constructor.prototype[initHook] = function(...args) {
       this[propertyName] = new Subscription();
