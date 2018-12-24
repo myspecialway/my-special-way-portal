@@ -3,7 +3,6 @@
   "version": "0.0.169",
   "license": "MIT",
   "scripts": {
-    "local-lint": "ng lint",
     "build": "ng build --prod",
     "bump": "yarn version --new-version patch",
     "ci-test": "bash ./scripts/test",
