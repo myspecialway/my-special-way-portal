@@ -38,7 +38,7 @@ exports[`navbar component should render component as described in snapshot 1`] =
             aria-haspopup="true"
             class=""
             data-toggle="dropdown"
-            href="http://example.com"
+            href="/"
             id="navbarDropdownMenuLink0"
           >
             <span

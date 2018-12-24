@@ -21,7 +21,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { merge, Observable, Subscription, timer } from 'rxjs';
 import { debounce, distinctUntilChanged, partition, switchMap } from 'rxjs/operators';
 import { PendingInterceptorService } from '../../services/spinner/pending-interceptor.service';
@@ -33,7 +33,8 @@ import { SpinnerVisibilityService } from '../../services/spinner/spinner-visibil
   styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
-  public isSpinnerVisible: boolean;
+  @Input()
+  isSpinnerVisible: boolean;
   private subscriptions: Subscription;
   private visibleUntil: number = Date.now();
 

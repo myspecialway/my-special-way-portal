@@ -49,7 +49,6 @@ $msw-app-warn: mat-palette($mat-red);
 // Create the theme object (a Sass map containing all of the palettes).
 $msw-app-theme: mat-light-theme($msw-app-primary, $msw-app-accent, $msw-app-warn);
 // Include theme styles for core and each component used in your app.
-
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($msw-app-theme);

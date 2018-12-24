@@ -1,3 +1,5 @@
 export interface DeleteBlockedSectionResponse {
-  deleteBlockedSection: number;
+  deleteBlockedSection: {
+    _id: string;
+  };
 }
