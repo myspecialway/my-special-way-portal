@@ -7,10 +7,11 @@ import { TimeSlot } from '../../../../../models/timeslot.model';
 import Student, { StudentQuery } from '../../../../../models/student.model';
 import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.component';
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
+import { DeleteTimeSlotDialogComponent } from '../../../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -122,5 +123,64 @@ export class StudentDetailsHoursComponent implements OnInit {
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;
+  }
+
+  onTimeSlotDelete(indexes: TimeSlotIndexes) {
+    if (!this.student._id) {
+      return;
+    }
+    const dialogData = this.getDialogData(indexes);
+    const dialogRef = this.dialog.open(DeleteTimeSlotDialogComponent, {
+      data: dialogData,
+    });
+
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (shouldDelete: ScheduleDialogData) => {
+          if (!shouldDelete) {
+            return;
+          }
+
+          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter(
+            (timeSlot) => timeSlot.customized === true && timeSlot.index !== `${indexes.hourIndex}_${indexes.dayIndex}`,
+          );
+
+          const tempStudent: StudentQuery = {
+            _id: this.student._id,
+            username: this.student.username,
+            firstname: this.student.firstname,
+            lastname: this.student.lastname,
+            gender: this.student.gender,
+            password: this.student.password,
+            class_id: this.student.class._id,
+            schedule: onlyCustomizedSlots,
+          };
+          try {
+            await this.studentService.update(tempStudent);
+            this.student = await this.studentService.getById(this.id);
+            this.initSchedule();
+          } catch (error) {
+            console.log(error);
+          }
+        }),
+    );
+  }
+
+  private onDialogRefClose<T, R = any>(dialogRef: MatDialogRef<T, R>, next: (data) => Promise<Student>) {
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (data) => {
+        if (!data) {
+          return;
+        }
+
+        try {
+          this.student = await next(data);
+          this.initSchedule();
+        } catch (error) {}
+      });
   }
 }
