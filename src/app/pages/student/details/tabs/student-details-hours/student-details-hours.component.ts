@@ -7,7 +7,7 @@ import { TimeSlot } from '../../../../../models/timeslot.model';
 import Student, { StudentQuery } from '../../../../../models/student.model';
 import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.component';
 import { ScheduleDialogData } from '../../../../../components/schedule/schedule-dialog/schedule-dialog-data.model';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
@@ -166,21 +166,5 @@ export class StudentDetailsHoursComponent implements OnInit {
           }
         }),
     );
-  }
-
-  private onDialogRefClose<T, R = any>(dialogRef: MatDialogRef<T, R>, next: (data) => Promise<Student>) {
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (data) => {
-        if (!data) {
-          return;
-        }
-
-        try {
-          this.student = await next(data);
-          this.initSchedule();
-        } catch (error) {}
-      });
   }
 }
