@@ -33,10 +33,7 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
         }
         location {
           name
-          disabled
           position {
-            latitude
-            longitude
             floor
           }
         }

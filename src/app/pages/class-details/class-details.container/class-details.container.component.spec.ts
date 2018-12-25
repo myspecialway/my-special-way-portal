@@ -29,11 +29,8 @@ const mockedClass = {
       },
       location: {
         _id: '5b5596a7739a882933edd4fc',
-        disabled: false,
         name: 'test location',
         position: {
-          latitude: 0,
-          longitude: 0,
           floor: 1,
         },
       },
@@ -60,11 +57,8 @@ describe('ClassDetailsContainerComponent', () => {
     },
     location: {
       _id: '5b5596a7739a882933edd4fc',
-      disabled: false,
       name: 'test location',
       position: {
-        latitude: 0,
-        longitude: 0,
         floor: 1,
       },
     },
