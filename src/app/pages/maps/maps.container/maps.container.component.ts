@@ -1,3 +1,4 @@
+import { MAP_FLOOR_MAPS } from './../maps-constants';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
@@ -25,6 +26,8 @@ export class MapsContainerComponent implements OnInit {
   currentFloor = 0;
   @SubscriptionCleaner()
   subCollector;
+
+  private floorMapName = MAP_FLOOR_MAPS[this.currentFloor].filename;
 
   constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
     this.links = [
@@ -63,23 +66,23 @@ export class MapsContainerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (result) => {
-          if (result) {
-            try {
-              if (isNewBlock) {
-                await this.mapsService.create(result);
-              } else {
-                await this.mapsService.update(result);
-              }
-            } catch (error) {
-              // TODO: implement error handling on UI
-              console.error('Error handling not implemented');
-              throw error;
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result) {
+          try {
+            if (isNewBlock) {
+              await this.mapsService.create(result);
+            } else {
+              await this.mapsService.update(result);
             }
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
           }
+        }
       });
   }
 
@@ -88,19 +91,19 @@ export class MapsContainerComponent implements OnInit {
       data: blockedSection,
     });
 
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (result) => {
-          if (result) {
-            try {
-              await this.mapsService.delete(blockedSection._id);
-            } catch (error) {
-              // TODO: implement error handling on UI
-              console.error('Error handling not implemented');
-              throw error;
-            }
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result) {
+          try {
+            await this.mapsService.delete(blockedSection._id);
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
           }
+        }
       });
   }
 
@@ -113,7 +116,9 @@ export class MapsContainerComponent implements OnInit {
         console.log(addMapConfirmed);
       });
   }
-  onFloorChange(floor) {
-    this.currentFloor = floor;
+
+  onFloorChange({ index, filename }) {
+    this.currentFloor = index;
+    this.floorMapName = filename;
   }
 }
