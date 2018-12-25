@@ -79,6 +79,13 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   attachClasses() {
     this.classService.getAllClasses().subscribe((classes) => {
       this.classes = [...classes];
+      this.classes = this.classes.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
     });
   }
 
