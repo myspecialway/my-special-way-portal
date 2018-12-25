@@ -1,5 +1,14 @@
 import { IMapFloor } from './../../models/maps.model';
-export const MAP_POINT_TYPES = ['רגיל', 'שירותים', 'מדרגות', 'ארון תרופות', 'חוץ', 'כניסה/יציאה', 'ראשי '];
+export const MAP_POINT_TYPES = [
+  'כניסה/יציאה ראשי',
+  'רגיל',
+  'שירותים',
+  'מדרגות',
+  'ארון תרופות',
+  'חוץ',
+  'כניסה/יציאה',
+  'ראשי ',
+];
 
 export const MAP_FLOOR_MAPS: IMapFloor[] = [
   {
