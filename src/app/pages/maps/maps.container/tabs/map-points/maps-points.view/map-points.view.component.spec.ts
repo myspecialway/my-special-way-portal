@@ -65,11 +65,8 @@ describe('MapPointsViewComponent', () => {
     const testLocation = {
       _id: '3',
       name: 'כיתת קג׳בו',
-      disabled: false,
       location_id: '3',
       position: {
-        latitude: 31.986419691740092,
-        longitude: 34.91078563034535,
         floor: 1,
       },
     };

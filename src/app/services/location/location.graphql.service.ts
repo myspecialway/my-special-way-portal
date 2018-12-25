@@ -10,11 +10,8 @@ import * as _ from 'lodash';
 const allLocationFields = `
               _id
               name
-              disabled
               location_id
               position {
-                latitude
-                longitude
                 floor
               }
               icon
