@@ -10,6 +10,7 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
+import { IMapFloor } from '../../../models/maps.model';
 
 @Component({
   selector: 'app-maps-container',
@@ -27,7 +28,7 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  private floorMapName = MAP_FLOOR_MAPS[this.currentFloor].filename;
+  protected floorMapName: string;
 
   constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
     this.links = [
@@ -38,6 +39,8 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const initialFloor = MAP_FLOOR_MAPS.find(({ index }) => index === this.currentFloor);
+    this.onFloorChange(initialFloor as IMapFloor);
     try {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
