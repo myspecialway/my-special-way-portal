@@ -20,7 +20,7 @@
       <div class="maps-poi-list">
         <app-map-floor-list [locations]="locations" (change)="onFloorChange($event)"></app-map-floor-list>
       </div>
-      <div class="map-container"><img *ngIf="currentFloor==1" src="/assets/img/floor1.jpeg"/></div>
+      <div class="map-container"><img src="/assets/floor-maps/{{floorMapName}}.jpg"/></div>
       <div class="map-control">
         <div class="msw-maps-header-nav">
           <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">

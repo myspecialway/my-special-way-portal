@@ -12,8 +12,8 @@ import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 
 @Component({
   selector: 'app-maps-container',
-  templateUrl: './maps.container.html',
-  styleUrls: ['./maps.container.scss'],
+  templateUrl: './maps.container.component.html',
+  styleUrls: ['./maps.container.component.scss'],
 })
 export class MapsContainerComponent implements OnInit {
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
