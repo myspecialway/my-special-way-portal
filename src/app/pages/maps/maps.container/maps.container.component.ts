@@ -63,7 +63,6 @@ export class MapsContainerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-    this.subCollector.add(
       dialogRef
         .afterClosed()
         .pipe(first())
@@ -81,8 +80,7 @@ export class MapsContainerComponent implements OnInit {
               throw error;
             }
           }
-        }),
-    );
+      });
   }
 
   deleteBlock(blockedSection: BlockedSection) {
@@ -90,7 +88,6 @@ export class MapsContainerComponent implements OnInit {
       data: blockedSection,
     });
 
-    this.subCollector.add(
       dialogRef
         .afterClosed()
         .pipe(first())
@@ -104,8 +101,7 @@ export class MapsContainerComponent implements OnInit {
               throw error;
             }
           }
-        }),
-    );
+      });
   }
 
   addMap() {
