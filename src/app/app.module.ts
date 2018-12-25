@@ -31,7 +31,6 @@ import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floo
 import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
 import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
 import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
@@ -76,19 +75,21 @@ import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/suc
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
+import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
+import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
+import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
+import { AddMapDialogComponent } from './pages/maps/maps.container/dialogs/add-map/add-map.dialog';
+import { FileUploadModule } from 'ng2-file-upload';
 import { EditNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/edit/edit-non-active-time.dialog';
 import { NonActiveTimeService } from './services/non-active-time/non-active-time.graphql.service';
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
-import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
-import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
-
-import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    FileUploadModule,
     BrowserModule,
     FormsModule,
     ComponentsModule,
@@ -150,6 +151,7 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
     AddUpdateBlockDialogComponent,
+    AddMapDialogComponent,
     DeleteLessonDialogComponent,
     AddEditPointDialogComponent,
     EditLessonDialogComponent,
@@ -177,6 +179,8 @@ import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialo
     UpdateStudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteBlockDialogComponent,
+    AddUpdateBlockDialogComponent,
+    AddMapDialogComponent,
     DeleteClassDialogComponent,
     DeleteLessonDialogComponent,
     EditLessonDialogComponent,

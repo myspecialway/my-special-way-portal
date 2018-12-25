@@ -11,7 +11,5 @@ export class DeleteBlockDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  confirmDelete(): void {
-    this.dialogRef.close(true);
-  }
+  confirmDelete(): void {}
 }

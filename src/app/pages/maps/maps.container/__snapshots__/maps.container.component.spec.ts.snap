@@ -5,12 +5,12 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   activeLink={[Function String]}
   currentFloor="0"
   dataSource={[Function MatTableDataSource]}
-  dialog={[Function MatDialog]}
+  dialog={[Function Object]}
   displayedColumns={[Function Array]}
   links={[Function Array]}
   locationService={[Function Object]}
   locations={[Function Array]}
-  mapsService={[Function MapsService]}
+  mapsService={[Function Object]}
   subCollector={[Function Subscription]}
 >
   <div
@@ -41,7 +41,6 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
             color="primary"
             data-test-id="add-map-button"
             mat-raised-button=""
-            routerlink="/maps/_new_"
           >
             <i
               class="material-icons"
@@ -79,17 +78,17 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
               >
                 
                 <a
-                  class="msw-maps-tab-active"
                   data-test-id="maps-points-tab"
                   mat-tab-link=""
-                  ng-reflect-ng-class="msw-maps-tab-active"
+                  ng-reflect-ng-class=""
                 >
                   נקודות ניווט
                 </a>
                 <a
+                  class="msw-maps-tab-active"
                   data-test-id="blocked-maps-points-tab"
                   mat-tab-link=""
-                  ng-reflect-ng-class=""
+                  ng-reflect-ng-class="msw-maps-tab-active"
                 >
                   מקטעים חסומים
                 </a>
@@ -97,8 +96,34 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
             </div>
           </div>
           
-          <app-map-points />
           
+          <div
+            class="msw-table-container"
+          >
+            <mat-table
+              class="msw-table"
+            >
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            </mat-table>
+            <a
+              class="add-block"
+            >
+              + הוסף מקטע
+            </a>
+          </div>
         </div>
       </div>
     </div>

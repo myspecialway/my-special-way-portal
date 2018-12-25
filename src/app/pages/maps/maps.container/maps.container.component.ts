@@ -1,41 +1,14 @@
-import { Location } from './../../../models/location.model';
-import { LocationService } from './../../../services/location/location.graphql.service';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { Location } from './../../../models/location.model';
+import { LocationService } from './../../../services/location/location.graphql.service';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
-
-// const mockedData: BlockedSection[] = [
-//   {
-//     _id: 1,
-//     reason: 'שיפוץ',
-//     from: 'A',
-//     to: 'B',
-//   },
-//   {
-//     _id: 2,
-//     reason: 'הצפה',
-//     from: 'A',
-//     to: 'C',
-//   },
-//   {
-//     _id: 3,
-//     reason: 'מרתון תל אביב',
-//     from: 'C',
-//     to: 'B',
-//   },
-//   {
-//     _id: 4,
-//     reason: 'גודזילה',
-//     from: 'D',
-//     to: 'B',
-//   },
-// ];
+import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 
 @Component({
   selector: 'app-maps-container',
@@ -47,11 +20,9 @@ export class MapsContainerComponent implements OnInit {
   idOrNew: string;
   links: any;
   activeLink: string;
-  // dataSource = mockedData;
-  currentFloor = 0;
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
-
+  currentFloor = 0;
   @SubscriptionCleaner()
   subCollector;
 
@@ -60,7 +31,7 @@ export class MapsContainerComponent implements OnInit {
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
     ];
-    this.activeLink = this.links[0].label;
+    this.activeLink = this.links[1].label;
   }
 
   ngOnInit(): void {
@@ -92,26 +63,26 @@ export class MapsContainerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (result) => {
-        if (!result) {
-          return;
-        }
-
-        try {
-          if (isNewBlock) {
-            await this.mapsService.create(result);
-          } else {
-            await this.mapsService.update(result);
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (result) => {
+          if (result) {
+            try {
+              if (isNewBlock) {
+                await this.mapsService.create(result);
+              } else {
+                await this.mapsService.update(result);
+              }
+            } catch (error) {
+              // TODO: implement error handling on UI
+              console.error('Error handling not implemented');
+              throw error;
+            }
           }
-        } catch (error) {
-          // TODO: implement error handling on UI
-          console.error('Error handling not implemented');
-          throw error;
-        }
-      });
+        }),
+    );
   }
 
   deleteBlock(blockedSection: BlockedSection) {
@@ -119,24 +90,33 @@ export class MapsContainerComponent implements OnInit {
       data: blockedSection,
     });
 
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (result) => {
+          if (result) {
+            try {
+              await this.mapsService.delete(blockedSection._id);
+            } catch (error) {
+              // TODO: implement error handling on UI
+              console.error('Error handling not implemented');
+              throw error;
+            }
+          }
+        }),
+    );
+  }
+
+  addMap() {
+    const dialogRef = this.dialog.open(AddMapDialogComponent);
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe(async (deletionConfirmed) => {
-        if (!deletionConfirmed) {
-          return;
-        }
-
-        try {
-          await this.mapsService.delete(blockedSection._id);
-        } catch (error) {
-          // TODO: implement error handling on UI
-          console.error('Error handling not implemented');
-          throw error;
-        }
+      .subscribe(async (addMapConfirmed) => {
+        console.log(addMapConfirmed);
       });
   }
-
   onFloorChange(floor) {
     this.currentFloor = floor;
   }
