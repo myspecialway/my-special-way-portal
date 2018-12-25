@@ -7,6 +7,7 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
   displayedColumns={[Function Array]}
+  floorMapName={[Function String]}
   links={[Function Array]}
   locationService={[Function Object]}
   locations={[Function Array]}
@@ -62,7 +63,9 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
         <div
           class="map-container"
         >
-          
+          <img
+            src="/assets/floor-maps/Floor_0_TOP_SHOT_MAP_V2.jpg"
+          />
         </div>
         <div
           class="map-control"
