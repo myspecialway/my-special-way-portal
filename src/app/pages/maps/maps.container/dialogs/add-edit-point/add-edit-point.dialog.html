@@ -23,7 +23,7 @@
     </div>
     <mat-button-toggle-group formControlName="icon" name="icon" [(ngModel)]="data.icon" class="icons-list-container" aria-label="Map Point Icon">
       <mat-button-toggle *ngFor="let icon of icons; let idx = index;" [value]="icon" class="icons-container">
-        <img src="../../../../../assets/MSW_Symbols/{{icon}}.png" alt="{{icon}}">
+        <img src="../../../../../assets/MSW_Symbols/{{icon}}" alt="{{icon}}">
       </mat-button-toggle>
     </mat-button-toggle-group>
   </form>
