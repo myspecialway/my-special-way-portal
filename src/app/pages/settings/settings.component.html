@@ -8,20 +8,23 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 360px; margin: 10px auto;">
-                <mat-card class="selected-radius" style="height:75px">
+            <div class="content-container">
+                <mat-card class="selected-radius">
                     <div class="table">
                         <div class="row">
                             <div class="cell">
                                 <p>קוד מורה</p>
                             </div>
-                            <div class="cell" style="width: 100px; padding-left: 20px"> 
-                                <mat-form-field style="width: 100px; text-align: center" floatLabel="never">
-                                    <input matInput #input data-test-id="teacher-code-input"
-                                        formControlName="teachercodecontrol" name="teachercodecontrol"
+                            <div class="cell input-container"> 
+                                <mat-form-field floatLabel="never">
+                                    <input matInput #input 
+                                        data-test-id="teacher-code-input"
+                                        formControlName="teachercodecontrol" 
+                                        name="teachercodecontrol"
                                         type="text" 
                                         [(ngModel)]="teachercode"
                                         placeholder="קוד"
+                                        (change)="codeChanged($event.target.value)"
                                     >
                                     <mat-error data-test-id="teachercode-err1" *ngIf="teacherCodeFormControl.hasError('required')">קוד מורה הינו שדה חובה</mat-error>
                                     <mat-error data-test-id="teachercode-err2" *ngIf="teacherCodeFormControl.hasError('minlength') || teacherCodeFormControl.hasError('maxlength') || teacherCodeFormControl.hasError('pattern')">נא הקש 4 ספרות</mat-error>

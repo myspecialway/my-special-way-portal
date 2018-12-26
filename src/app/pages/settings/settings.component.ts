@@ -61,7 +61,9 @@ export class SettingsComponent implements OnInit {
     }
     this.subCollector.add(
       this.settingsService.update(updatedSettings).then((data) => {
-        this.teachercode = data[0].teachercode;
+        if (data !== undefined && data.data !== undefined) {
+          this.teachercode = data.data.updateSettings.teachercode;
+        }
       }),
     );
   }

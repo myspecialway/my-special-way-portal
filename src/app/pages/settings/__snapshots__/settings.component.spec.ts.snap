@@ -32,11 +32,10 @@ exports[`setting component should render component as described in snapshot 1`] 
           </div>
         </div>
         <div
-          style="width: 360px; margin: 10px auto;"
+          class="content-container"
         >
           <mat-card
             class="selected-radius"
-            style="height:75px"
           >
             <div
               class="table"
@@ -52,12 +51,10 @@ exports[`setting component should render component as described in snapshot 1`] 
                   </p>
                 </div>
                 <div
-                  class="cell"
-                  style="width: 100px; padding-left: 20px"
+                  class="cell input-container"
                 >
                   <mat-form-field
                     floatlabel="never"
-                    style="width: 100px; text-align: center"
                   >
                     <input
                       data-test-id="teacher-code-input"

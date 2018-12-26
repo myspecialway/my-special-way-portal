@@ -39,8 +39,22 @@ div.row:nth-child(3) .cell p {
     display: block;
   }
 }
+
+.cell.input-container {
+  width: 100px;
+  padding-left: 20px;
+  mat-form-field {
+    width: 100px;
+    text-align: center;
+  }
+}
 .selected-radius:hover {
   border: 1px solid #8b66a7;
   border-radius: 5px;
   opacity: 1;
+  height: 75px;
+}
+.content-container {
+  width: 360px;
+  margin: 10px auto;
 }
