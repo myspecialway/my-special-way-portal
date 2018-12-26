@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MatSort, MatTableDataSource } from '@angular/material';
 import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
@@ -71,6 +71,8 @@ export class UserComponent implements OnInit {
           return item.firstname + item.lastname;
         case 'class':
           return item.class ? item.class.name : '';
+        case 'type':
+          return item.role;
         default:
           return item[property];
       }
@@ -175,6 +177,8 @@ export class UserComponent implements OnInit {
     );
   }
   async restoreUserPassword(userData: User) {
+    let dialogRef: MatDialogRef<any, any>;
+
     const restore = await this.authenticationService.restorePassword(
       userData.email,
       userData.firstname,
@@ -182,12 +186,14 @@ export class UserComponent implements OnInit {
     );
     const config = {
       data: userData,
-      height: '275px',
-      width: '360px',
+      height: '325px',
+      width: '450px',
     };
-    let dialogRef = this.dialog.open(RestorePasswordDialogComponent, config);
+
     if (!restore) {
       dialogRef = this.dialog.open(RestorePasswordErrorDialogComponent, config);
+    } else {
+      dialogRef = this.dialog.open(RestorePasswordDialogComponent, config);
     }
 
     this.subCollector.add(

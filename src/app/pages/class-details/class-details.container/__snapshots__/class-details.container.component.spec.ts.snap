@@ -16,12 +16,9 @@ ClassDetailsContainerComponent {
         },
         "location": Object {
           "_id": "5b5596a7739a882933edd4fc",
-          "disabled": false,
           "name": "test location",
           "position": Object {
             "floor": 1,
-            "latitude": 0,
-            "longitude": 0,
           },
         },
       },
@@ -56,12 +53,9 @@ ClassDetailsContainerComponent {
                   },
                   "location": Object {
                     "_id": "5b5596a7739a882933edd4fc",
-                    "disabled": false,
                     "name": "test location",
                     "position": Object {
                       "floor": 1,
-                      "latitude": 0,
-                      "longitude": 0,
                     },
                   },
                 },
@@ -71,6 +65,7 @@ ClassDetailsContainerComponent {
         },
       ],
     },
+    "create": [MockFunction],
     "update": [MockFunction],
   },
   "dialog": Object {
@@ -186,12 +181,9 @@ ClassDetailsContainerComponent {
         },
         "location": Object {
           "_id": "5b5596a7739a882933edd4fc",
-          "disabled": false,
           "name": "test location",
           "position": Object {
             "floor": 1,
-            "latitude": 0,
-            "longitude": 0,
           },
         },
       },

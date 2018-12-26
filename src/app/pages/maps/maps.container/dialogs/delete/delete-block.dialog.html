@@ -1,0 +1,14 @@
+<div class="container">
+  <h3 mat-dialog-title color="accent">מחיקת מקטע חסום</h3>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <br>
+    האם אתה בטוח שברצונך למחוק את המקטע {{data.from}} - {{data.to}} -
+    {{data.reason}}
+    ?
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="msw-button-cancel"  (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button type="submit" mat-button class="msw-button-delete"  id="confirm-delete-block" [mat-dialog-close]=true (click)="confirmDelete()">אישור </button>    </div>
+</div>

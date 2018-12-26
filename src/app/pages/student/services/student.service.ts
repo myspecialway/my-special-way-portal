@@ -4,15 +4,19 @@ import { map } from 'rxjs/operators/map';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
 import {
+  MUTATE_ADD_STUDENT,
+  MUTATE_ADD_STUDENTS,
+  MUTATE_DELETE_STUDENT,
+  MUTATE_UPDATE_STUDENT,
   QUERY_GET_ALL_STUDENTS,
   QUERY_GET_STUDENT_BY_ID,
-  MUTATE_ADD_STUDENT,
-  MUTATE_UPDATE_STUDENT,
-  MUTATE_DELETE_STUDENT,
 } from './student.graphql';
 import Student, { StudentQuery } from '../../../models/student.model';
 import { DeleteStudentResponse } from '../../../models/responses/delete-student-response.model';
 import { UpdateStudentResponse } from '../../../models/responses/update-student-response.model';
+import { StudentError } from '../../../file-import/students-file-import/students-file-import.service';
+import { ErrorDetails } from '../../common/error-dialog/error.dialog';
+import { GET_ALL_CLASSES } from '../../class/services/class.graphql';
 
 @Injectable()
 export class StudentService {
@@ -54,12 +58,27 @@ export class StudentService {
       .toPromise();
   }
 
+  createMany(students: Student[]) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_ADD_STUDENTS,
+        variables: {
+          students: students.map((student) => ({ ...student, class: undefined, class_id: student.class._id })),
+        },
+        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
+      })
+      .toPromise();
+  }
+
   update(student: StudentQuery): Promise<string> {
     return this.apollo
       .mutate({
         mutation: MUTATE_UPDATE_STUDENT,
         variables: { id: student._id, student: { ...student, _id: undefined } },
-        refetchQueries: [{ query: QUERY_GET_STUDENT_BY_ID, variables: { id: student._id } }],
+        refetchQueries: [
+          { query: QUERY_GET_STUDENT_BY_ID, variables: { id: student._id } },
+          { query: QUERY_GET_ALL_STUDENTS },
+        ],
         awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: UpdateStudentResponse }) => res.data.updateStudent._id))
@@ -71,9 +90,23 @@ export class StudentService {
       .mutate({
         mutation: MUTATE_DELETE_STUDENT,
         variables: { id },
-        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }],
+        refetchQueries: [{ query: QUERY_GET_ALL_STUDENTS }, { query: GET_ALL_CLASSES }],
+        awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: DeleteStudentResponse }) => res.data.deleteStudent))
       .toPromise();
+  }
+
+  buildErrorMessage(studentsFileErrors: StudentError[]): ErrorDetails {
+    const details: string[] = [];
+    for (const rowError of studentsFileErrors) {
+      let detailsStr = `שורה ${rowError.index + 1} - `;
+      for (const field of rowError.fields) {
+        detailsStr += `${field}, `;
+      }
+      detailsStr = detailsStr.slice(0, -2);
+      details.push(detailsStr);
+    }
+    return { title: 'קובץ לא תקין', details, bottomline: 'אנא תקן את הקובץ ונסה שנית.' };
   }
 }

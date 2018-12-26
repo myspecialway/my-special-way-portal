@@ -1,0 +1,5 @@
+<div (click)="onClick($event)">
+  <button *ngFor="let floor of floors;" class="btn btn-large" [value]="floor" [class.active]="floor===currentFloor">
+    {{floor}} קומה
+  <i class="material-icons" data-action="delete"> delete </i> </button>
+</div>

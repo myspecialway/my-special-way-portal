@@ -25,7 +25,9 @@ export class LessonComponent implements OnInit {
 
   @SubscriptionCleaner()
   subCollector: Subscription;
+
   constructor(private lessonService: LessonService, private classService: ClassService, public dialog: MatDialog) {}
+
   async ngOnInit() {
     try {
       this.subCollector.add(
@@ -45,20 +47,18 @@ export class LessonComponent implements OnInit {
     const dialogRef = this.dialog.open(EditLessonDialogComponent, {
       data,
     });
-    this.subCollector.add(
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe((result) => {
-          if (result) {
-            if (data._id !== '') {
-              this.lessonService.update(data._id, data.title, data.icon);
-            } else {
-              this.lessonService.create(data.title, data.icon);
-            }
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe((result) => {
+        if (result) {
+          if (data._id !== '') {
+            this.lessonService.update(data._id, data.title, data.icon);
+          } else {
+            this.lessonService.create(data.title, data.icon);
           }
-        }),
-    );
+        }
+      });
   }
   public addNewLesson() {
     this.openLessonDialog({ _id: '', title: '', icon: '' });
@@ -71,28 +71,26 @@ export class LessonComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteLessonDialogComponent, {
       data: { _id: lesson._id, title: lesson.title },
     });
-    this.subCollector.add(
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (result) => {
-          if (result === true) {
-            const getAllClassesSub = this.classService
-              .getAllClasses()
-              .map((classes: Class[]) => this.filterClassesWithLesson(classes, lesson._id))
-              .subscribe((classesWithLessonTitle) => {
-                if (classesWithLessonTitle.length === 0) {
-                  this.lessonService.delete(lesson._id);
-                } else {
-                  this.dialog.open(CantDeleteLessonDialogComponent, {
-                    data: { title: lesson.title, className: classesWithLessonTitle[0].name },
-                  });
-                }
-              });
-            this.subCollector.add(getAllClassesSub);
-          }
-        }),
-    );
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result === true) {
+          const getAllClassesSub = this.classService
+            .getAllClasses()
+            .map((classes: Class[]) => this.filterClassesWithLesson(classes, lesson._id))
+            .subscribe((classesWithLessonTitle) => {
+              if (classesWithLessonTitle.length === 0) {
+                this.lessonService.delete(lesson._id);
+              } else {
+                this.dialog.open(CantDeleteLessonDialogComponent, {
+                  data: { title: lesson.title, className: classesWithLessonTitle[0].name },
+                });
+              }
+            });
+          this.subCollector.add(getAllClassesSub);
+        }
+      });
   }
   private filterClassesWithLesson(classes: Class[], lessonId: string): Class[] {
     return classes.filter(
