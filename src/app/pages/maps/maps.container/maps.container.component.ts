@@ -9,6 +9,7 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-maps-container',
@@ -26,7 +27,12 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
+  constructor(
+    private dialog: MatDialog,
+    private mapsService: MapsService,
+    private locationService: LocationService,
+    private mswSnackbar: MSWSnackbar,
+  ) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
@@ -71,7 +77,11 @@ export class MapsContainerComponent implements OnInit {
           if (result) {
             try {
               if (isNewBlock) {
-                await this.mapsService.create(result);
+                if (this.blockedSectionAlreadyExists(result)) {
+                  this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
+                } else {
+                  await this.mapsService.create(result);
+                }
               } else {
                 await this.mapsService.update(result);
               }
@@ -83,6 +93,15 @@ export class MapsContainerComponent implements OnInit {
           }
         }),
     );
+  }
+
+  blockedSectionAlreadyExists(blockedSection: BlockedSection) {
+    for (const bS of this.dataSource.data) {
+      if (bS.reason === blockedSection.reason && bS.from === blockedSection.from && bS.to === blockedSection.to) {
+        return true;
+      }
+    }
+    return false;
   }
 
   deleteBlock(blockedSection: BlockedSection) {

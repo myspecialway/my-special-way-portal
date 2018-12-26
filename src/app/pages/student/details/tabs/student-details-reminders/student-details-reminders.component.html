@@ -1,5 +1,8 @@
 
 <div *ngIf="student" class="msw-student-details-reminders">
+  <div class="msw-student-header-nav-name" *ngIf="!isNewStudent && student">
+    {{ student.firstname }} {{ student.lastname }}
+  </div>
   <mat-card *ngFor="let reminder of student.reminders" class="student-reminders selected-radius"
             (click)="showReminderDialog(reminder)">
     <div class="table">

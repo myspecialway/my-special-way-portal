@@ -21,6 +21,7 @@ import { DeleteTimeSlotDialogComponent } from '../../../../../components/schedul
 export class StudentDetailsHoursComponent implements OnInit {
   sub: any;
   id: string;
+  isNewStudent: boolean;
   schedule: TimeSlot[][];
   student: Student;
 
@@ -39,6 +40,7 @@ export class StudentDetailsHoursComponent implements OnInit {
       return;
     }
     this.id = this.route.parent.snapshot.params.idOrNew;
+
     try {
       this.student = { ...(await this.studentService.getById(this.id)) };
       if (!this.student.class) {
