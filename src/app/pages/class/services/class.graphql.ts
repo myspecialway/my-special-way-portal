@@ -36,10 +36,7 @@ schedule {
   }
   location {
     name
-    disabled
     position {
-      latitude
-      longitude
       floor
     }
   }

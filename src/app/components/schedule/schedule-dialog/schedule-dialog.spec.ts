@@ -34,20 +34,14 @@ describe('ScheduleDialogComponent', () => {
       {
         _id: '5b5596a7739a882933edd508',
         name: '0 מעלית קומה',
-        disabled: false,
         position: {
-          latitude: 31.986560512840278,
-          longitude: 34.910118203021,
           floor: 0,
         },
       },
       {
         _id: '5b5596a7739a882933edd509',
         name: '1 מעלית קומה',
-        disabled: false,
         position: {
-          latitude: 31.98645927637093,
-          longitude: 34.910666137884625,
           floor: 1,
         },
       },
