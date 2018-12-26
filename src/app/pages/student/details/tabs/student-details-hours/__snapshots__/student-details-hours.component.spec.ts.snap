@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Student Details Hours Component should render the component as described in snapshot 1`] = `
+exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 1`] = `
 <app-student-details-hours
   dialog={[Function Object]}
   route={[Function Object]}
@@ -18,7 +18,7 @@ exports[`Student Details Hours Component should render the component as describe
 </app-student-details-hours>
 `;
 
-exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 1`] = `
+exports[`Student Details Hours Component with _new_ student path should render the component as described in snapshot 2`] = `
 <app-student-details-hours
   dialog={[Function Object]}
   route={[Function Object]}

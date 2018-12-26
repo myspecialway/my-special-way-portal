@@ -1,5 +1,5 @@
 <div class="msw-student-details-hours">
-  <div class="msw-student-header-nav-name" *ngIf="!isNewStudent && student">
+  <div class="msw-student-header-nav-name" *ngIf="student">
     {{ student.firstname }} {{ student.lastname }}
   </div>
    <app-schedule [daysLabels]="scheduleService.daysLabels" [hoursLabels]="scheduleService.hoursLabels" [schedule]="schedule" (timeSlotClicked)="onTimeSlotClick($event)"></app-schedule>
