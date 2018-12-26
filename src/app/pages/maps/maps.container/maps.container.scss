@@ -23,6 +23,9 @@
     border: 1px dotted #f0f;
     flex-grow: 1;
     height: 100%;
+    .img {
+      width: 100%;
+    }
   }
   .map-control {
     height: 100%;
