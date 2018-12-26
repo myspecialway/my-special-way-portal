@@ -96,12 +96,8 @@ export class MapsContainerComponent implements OnInit {
   }
 
   blockedSectionAlreadyExists(blockedSection: BlockedSection) {
-    for (var i = 0; i < this.dataSource.data.length; i++) {
-      if (
-        this.dataSource.data[i].reason === blockedSection.reason &&
-        this.dataSource.data[i].from === blockedSection.from &&
-        this.dataSource.data[i].to === blockedSection.to
-      ) {
+    for (const bS of this.dataSource.data) {
+      if (bS.reason === blockedSection.reason && bS.from === blockedSection.from && bS.to === blockedSection.to) {
         return true;
       }
     }

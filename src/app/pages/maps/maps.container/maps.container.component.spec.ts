@@ -21,8 +21,7 @@ import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
-import BlockedSection from '../../../models/blocked-section.model';
-import { Subject } from 'rxjs-compat';
+
 const locationServiceMock = {
   getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
   getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
