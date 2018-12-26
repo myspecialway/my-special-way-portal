@@ -16,12 +16,12 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
       ng-reflect-data-source="[object Object],[object Object"
       role="grid"
     >
-
+      
       <mat-header-row
         class="mat-header-row"
         role="row"
       >
-
+        
         <mat-header-cell
           class="mat-header-cell cdk-column-name mat-column-name"
           role="columnheader"
@@ -51,12 +51,12 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
           role="columnheader"
         />
       </mat-header-row>
-
+      
       <mat-row
         class="mat-row"
         role="row"
       >
-
+        
         <mat-cell
           class="mat-cell cdk-column-name mat-column-name"
           role="gridcell"
@@ -67,7 +67,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-           פטל כיתת
+           פטל כיתת 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"
@@ -75,14 +75,14 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
         >
           <img
             alt=""
-            src="../../../assets/MSW_Symbols/.png"
+            src="../../../assets/MSW_Symbols/"
           />
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-type mat-column-type"
           role="gridcell"
         >
-
+          
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-delete mat-column-delete"
@@ -101,7 +101,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
               <i
                 class="material-icons"
               >
-                 delete
+                 delete 
               </i>
             </span>
             <div
@@ -121,7 +121,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
         class="mat-row"
         role="row"
       >
-
+        
         <mat-cell
           class="mat-cell cdk-column-name mat-column-name"
           role="gridcell"
@@ -132,7 +132,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-           כיתת סחלב
+           כיתת סחלב 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"
@@ -140,14 +140,14 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
         >
           <img
             alt=""
-            src="../../../assets/MSW_Symbols/.png"
+            src="../../../assets/MSW_Symbols/"
           />
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-type mat-column-type"
           role="gridcell"
         >
-
+          
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-delete mat-column-delete"
@@ -166,7 +166,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
               <i
                 class="material-icons"
               >
-                 delete
+                 delete 
               </i>
             </span>
             <div
@@ -186,7 +186,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
         class="mat-row"
         role="row"
       >
-
+        
         <mat-cell
           class="mat-cell cdk-column-name mat-column-name"
           role="gridcell"
@@ -197,7 +197,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
           class="mat-cell cdk-column-label mat-column-label"
           role="gridcell"
         >
-           כיתת קג׳בובו
+           כיתת קג׳בובו 
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-icon mat-column-icon"
@@ -205,14 +205,14 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
         >
           <img
             alt=""
-            src="../../../assets/MSW_Symbols/.png"
+            src="../../../assets/MSW_Symbols/"
           />
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-type mat-column-type"
           role="gridcell"
         >
-
+          
         </mat-cell>
         <mat-cell
           class="mat-cell cdk-column-delete mat-column-delete"
@@ -231,7 +231,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
               <i
                 class="material-icons"
               >
-                 delete
+                 delete 
               </i>
             </span>
             <div
@@ -247,7 +247,7 @@ exports[`MapPointsViewComponent should match snapshot 1`] = `
           </button>
         </mat-cell>
       </mat-row>
-
+      
     </mat-table>
     <a
       class="add-point"
