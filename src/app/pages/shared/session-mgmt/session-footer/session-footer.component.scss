@@ -1,18 +1,33 @@
 :host {
   display: flex;
-  justify-content: center;
 
   .session-mgmt-footer {
     // padding: 0 10em;
-  }
-  img {
-    height: 76px;
-    padding: 0 10em;
   }
 
   .seperator {
     height: 3px;
     opacity: 0.4;
     background-color: #d8d8d8;
+  }
+  .msw-login-footer {
+    margin-top: 36px;
+    vertical-align: baseline;
+    letter-spacing: 0.4px;
+    color: #222222;
+    text-align: right;
+    width: 100%;
+    position: fixed;
+    bottom: 7%;
+    .img {
+      margin-right: 18%;
+    }
+  }
+  .gray-bar {
+    width: 73%;
+    height: 3px;
+    opacity: 0.4;
+    background-color: #d8d8d8;
+    margin-right: 2%;
   }
 }
