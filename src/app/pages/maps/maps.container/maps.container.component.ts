@@ -28,7 +28,7 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  protected floorMapName: string;
+  floorMapName: string;
 
   constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
     this.links = [
