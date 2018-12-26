@@ -21,6 +21,7 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatSlideToggleModule,
   MatTabsModule,
   MatButtonToggleModule,
   MatRadioModule,
@@ -74,6 +75,8 @@ import { EditLessonDialogComponent } from './pages/lesson/dialogs/new-edit/edit-
 import { RestorePasswordDialogComponent } from './pages/user/dialogs/restore/success/restore.dialog';
 import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restore/error/restore-error.dialog';
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { SettingService } from './pages/settings/services/settings.service';
 import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
@@ -100,6 +103,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     MatTooltipModule,
     MatTableModule,
     MatAutocompleteModule,
+    MatSlideToggleModule,
     MatSortModule,
     MatPaginatorModule,
     MatPaginatorModule,
@@ -158,6 +162,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     CantDeleteLessonDialogComponent,
     DeleteClassDialogComponent,
     ScheduleDialogComponent,
+    SettingsComponent,
     SessionHeaderComponent,
     SessionFooterComponent,
     ExitSystemDialogComponent,
@@ -201,6 +206,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     LessonService,
     ScheduleService,
     LocationService,
+    SettingService,
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
     NonActiveTimeService,
