@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setting component should render component as described in snapshot 1`] = `
+<app-settings
+  formBuilder={[Function FormBuilder]}
+  settingsService={[Function Object]}
+  teachercode="0"
+>
+  <form
+    novalidate=""
+  >
+    <div
+      class="main-content"
+      data-test-id="settings-page"
+    >
+      <div
+        class="container-fluid"
+      >
+        <div
+          class="header-menu-container msw-table-tools-header"
+        >
+          <div
+            class="header-table-count"
+          >
+            <div>
+              <span
+                class="header-table-count-label"
+              >
+                הגדרות
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-container"
+        >
+          <mat-card
+            class="selected-radius"
+          >
+            <div
+              class="table"
+            >
+              <div
+                class="row"
+              >
+                <div
+                  class="cell"
+                >
+                  <p>
+                    קוד מורה
+                  </p>
+                </div>
+                <div
+                  class="cell input-container"
+                >
+                  <mat-form-field
+                    floatlabel="never"
+                  >
+                    <input
+                      data-test-id="teacher-code-input"
+                      formcontrolname="teachercodecontrol"
+                      matinput=""
+                      name="teachercodecontrol"
+                      placeholder="קוד"
+                      type="text"
+                    />
+                    
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </form>
+</app-settings>
+`;

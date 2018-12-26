@@ -66,10 +66,7 @@ export class StudentService {
             location {
               _id
               name
-              disabled
               position {
-                latitude
-                longitude
                 floor
               }
             }

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { LessonQuery, Lesson } from '../../models/lesson.model';
+import { Lesson, LessonQuery } from '../../models/lesson.model';
 import { FetchResult } from 'apollo-link';
 import { catchError, map } from 'rxjs/operators';
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+import { GET_ALL_CLASSES } from '../../pages/class/services/class.graphql';
+import { QUERY_GET_ALL_STUDENTS } from '../../pages/student/services/student.graphql';
 
 const GET_ALL_LESSONS_QUERY = gql`
   {
@@ -64,6 +66,12 @@ export class LessonService {
           {
             query: GET_ALL_LESSONS_QUERY,
           },
+          {
+            query: GET_ALL_CLASSES,
+          },
+          {
+            query: QUERY_GET_ALL_STUDENTS,
+          },
         ],
         awaitRefetchQueries: true,
       })
@@ -105,6 +113,12 @@ export class LessonService {
         refetchQueries: [
           {
             query: GET_ALL_LESSONS_QUERY,
+          },
+          {
+            query: GET_ALL_CLASSES,
+          },
+          {
+            query: QUERY_GET_ALL_STUDENTS,
           },
         ],
         awaitRefetchQueries: true,

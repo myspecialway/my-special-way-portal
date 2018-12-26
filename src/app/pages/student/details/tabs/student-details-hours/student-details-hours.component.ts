@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
+import { DeleteTimeSlotDialogComponent } from '../../../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -124,5 +125,45 @@ export class StudentDetailsHoursComponent implements OnInit {
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;
+  }
+
+  onTimeSlotDelete(indexes: TimeSlotIndexes) {
+    const dialogData = this.getDialogData(indexes);
+    const dialogRef = this.dialog.open(DeleteTimeSlotDialogComponent, {
+      data: dialogData,
+    });
+
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (shouldDelete: ScheduleDialogData) => {
+          if (!shouldDelete) {
+            return;
+          }
+
+          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter(
+            (timeSlot) => timeSlot.customized === true && timeSlot.index !== `${indexes.hourIndex}_${indexes.dayIndex}`,
+          );
+
+          const tempStudent: StudentQuery = {
+            _id: this.student._id,
+            username: this.student.username,
+            firstname: this.student.firstname,
+            lastname: this.student.lastname,
+            gender: this.student.gender,
+            password: this.student.password,
+            class_id: this.student.class._id,
+            schedule: onlyCustomizedSlots,
+          };
+          try {
+            await this.studentService.update(tempStudent);
+            this.student = await this.studentService.getById(this.id);
+            this.initSchedule();
+          } catch (error) {
+            console.log(error);
+          }
+        }),
+    );
   }
 }

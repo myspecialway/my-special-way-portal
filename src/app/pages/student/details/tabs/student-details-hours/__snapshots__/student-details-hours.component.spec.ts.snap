@@ -12,6 +12,7 @@ exports[`Student Details Hours Component should render the component as describe
   <div
     class="msw-student-details-hours"
   >
+    
     <app-schedule />
   </div>
 </app-student-details-hours>
@@ -29,6 +30,7 @@ exports[`Student Details Hours Component with _new_ student path should render t
   <div
     class="msw-student-details-hours"
   >
+    
     <app-schedule />
   </div>
 </app-student-details-hours>

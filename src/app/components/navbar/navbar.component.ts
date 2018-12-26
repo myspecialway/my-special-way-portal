@@ -25,6 +25,7 @@ export const ROUTES: RouteInfo[] = [
     roles: [UserType.PRINCIPLE],
   },
   { path: 'user', title: 'ניהול משתמשים', class: 'nb-user', roles: [UserType.PRINCIPLE] },
+  { path: 'settings', title: 'הגדרות', class: 'nb-user', roles: [UserType.PRINCIPLE] },
 ];
 
 export const DEFAULT_ROUTE = ROUTES[0];

@@ -1,0 +1,60 @@
+@import '../../../assets/scss/msw-table';
+
+.mat-card {
+  height: 60px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+}
+div.row:first-child p {
+  font-size: 18px;
+}
+div.row:nth-child(2) .cell p,
+div.row:nth-child(3) .cell p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.row {
+  line-height: 0.7;
+  display: table-row;
+  .value {
+    text-align: left;
+    font-size: 14px !important;
+  }
+}
+.table {
+  width: 100%;
+  display: table;
+  text-align: right;
+  @media screen and (max-width: 580px) {
+    display: block;
+  }
+}
+.cell {
+  padding: 0 16px;
+  display: table-cell;
+  @media screen and (max-width: 580px) {
+    padding: 2px 16px;
+    display: block;
+  }
+}
+
+.cell.input-container {
+  width: 100px;
+  padding-left: 20px;
+  mat-form-field {
+    width: 100px;
+    text-align: center;
+  }
+}
+.selected-radius:hover {
+  border: 1px solid #8b66a7;
+  border-radius: 5px;
+  opacity: 1;
+  height: 75px;
+}
+.content-container {
+  width: 360px;
+  margin: 10px auto;
+}
