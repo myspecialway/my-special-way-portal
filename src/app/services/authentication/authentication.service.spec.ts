@@ -60,8 +60,8 @@ describe('AuthenticationService', () => {
       status: 'ok',
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    const res = await authService.restorePassword('someusername', 'somepassword', 'flastname');
-    expect(res).toBe(true);
+    const res = await authService.restorePassword('username');
+    expect(apolloMock.mutate).toHaveBeenCalled();
   });
 
   it('should return true if restore password email sent', async () => {
@@ -69,8 +69,8 @@ describe('AuthenticationService', () => {
       accessToken: expiredMockToken,
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    const response = await authService.restorePassword('someemail@g.com', 'somefirstname', 'somelastname');
-    expect(response).toBe(true);
+    const response = await authService.restorePassword('username');
+    expect(apolloMock.mutate).toHaveBeenCalled();
   });
 
   // it('should return true if restore password email sent',  () => {

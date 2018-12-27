@@ -63,3 +63,11 @@ export const MUTATE_UPDATE_USER_PASSWORD = gql`
     }
   }
 `;
+
+export const MUTATE_USER_FORGET_PASSWORD = gql`
+  mutation userForgetPassword($username: String!) {
+    userForgetPassword(username: $username) {
+      _id
+    }
+  }
+`;
