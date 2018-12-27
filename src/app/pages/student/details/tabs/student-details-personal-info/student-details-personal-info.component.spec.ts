@@ -1,16 +1,16 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import { MatDialog, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import {
   Overlay,
-  ScrollStrategyOptions,
-  ScrollDispatcher,
-  ViewportRuler,
   OverlayContainer,
-  OverlayPositionBuilder,
   OverlayKeyboardDispatcher,
+  OverlayPositionBuilder,
+  ScrollDispatcher,
+  ScrollStrategyOptions,
+  ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { classTestData } from '../../../../../../mocks/assets/classes.mock';
@@ -207,6 +207,17 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.saveFailed).toBe(false);
       await fixture.componentInstance.addStudent();
       expect(fixture.componentInstance.saveFailed).toBe(true);
+    });
+
+    it('should mark isClassDropDownDisabled to be true if there is 1 class or less ', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve([]);
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.isClassDropDownDisabled).toEqual(true);
     });
   });
 
