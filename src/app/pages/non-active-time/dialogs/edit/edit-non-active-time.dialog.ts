@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriptionCleaner } from '../../../../decorators/SubscriptionCleaner.decorator';
 import { Subscription } from 'rxjs';
 import { NonActiveTime } from '../../../../models/non-active-time.model';
@@ -139,8 +139,8 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
       isAllDayEvent: data.isAllDayEvent,
       startDateTime,
       endDateTime,
-      startHour: startDateTime.format('hh:mm'),
-      endHour: endDateTime.format('hh:mm'),
+      startHour: startDateTime.format('HH:mm'),
+      endHour: endDateTime.format('HH:mm'),
       isAllClassesEvent: data.isAllClassesEvent,
       classes: data.classes,
     });
