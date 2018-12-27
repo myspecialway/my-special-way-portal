@@ -60,7 +60,7 @@ describe('AuthenticationService', () => {
       status: 'ok',
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    const res = await authService.restorePassword('username');
+    await authService.restorePassword('username');
     expect(apolloMock.mutate).toHaveBeenCalled();
   });
 
@@ -69,7 +69,7 @@ describe('AuthenticationService', () => {
       accessToken: expiredMockToken,
     };
     toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
-    const response = await authService.restorePassword('username');
+    await authService.restorePassword('username');
     expect(apolloMock.mutate).toHaveBeenCalled();
   });
 

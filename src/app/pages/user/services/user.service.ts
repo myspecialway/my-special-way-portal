@@ -8,7 +8,6 @@ import {
   MUTATE_UPDATE_USER,
   MUTATE_DELETE_USER,
   MUTATE_UPDATE_USER_PASSWORD,
-  MUTATE_USER_FORGET_PASSWORD,
 } from './user.graphql';
 import { map } from 'rxjs/operators/map';
 import { catchError } from 'rxjs/operators';
