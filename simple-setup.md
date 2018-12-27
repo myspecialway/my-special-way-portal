@@ -18,7 +18,7 @@
 
 2. Create an _.env_ file in root folder
 
-3. Copy contents of _.env-example_ and paste it to _.env_ file
+3. Copy contents of _.env-example_ and paste it to _.env_ file (_.env._ on Windows)
 
 4. Install dependencies `yarn`
 
