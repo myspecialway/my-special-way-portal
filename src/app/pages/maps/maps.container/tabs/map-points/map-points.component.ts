@@ -70,6 +70,10 @@ export class MapPointsComponent implements OnInit {
   }
 
   onUpdate(location: InputLocation) {
-    this.locationService.update(location);
+    if (location._id) {
+      this.locationService.update(location);
+    } else {
+      this.locationService.create(location);
+    }
   }
 }

@@ -41,7 +41,7 @@ const deleteLocationQuery = (locationId) => gql`
         }`;
 const createLocationQuery = ({ name, location_id, position: { floor }, icon, type }) => gql`
         mutation {
-          createLocation(lesson: {
+          createLocation(location: {
             name: "${name}"
             location_id: "${location_id}"
             icon: "${icon}"
