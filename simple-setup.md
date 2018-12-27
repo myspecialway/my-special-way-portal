@@ -18,13 +18,13 @@
 
 2. Create an _.env_ file in root folder
 
-3. Copy contents of _.env-example_ and paste it to _.env_ file
+3. Copy contents of _.env-example_ and paste it to _.env_ file (_.env._ on Windows)
 
 4. Install dependencies `yarn`
 
 5. Open a new terminal tab and start mongod daemon `mongod`
 
-6. Run the database seed: `node .\db-seed\seed.js -n msw-dev mongodb://localhost`
+6. Run the database seed: `yarn seed`
 
 7. Start the server app: `yarn start`
 
