@@ -20,6 +20,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   saveFailed = false;
   maleFaceIcon = 'male_face_enabled';
   femaleFaceIcon = 'female_face_disabled';
+  isClassDropDownDisabled = false;
 
   @SubscriptionCleaner()
   subCollector;
@@ -77,6 +78,9 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     try {
       this.classService.getAllClasses().subscribe((classes) => {
         this.classes = [...classes];
+        if (this.classes.length <= 1) {
+          this.isClassDropDownDisabled = true;
+        }
         this.classes = this.classes.sort((a, b) => {
           if (a.name < b.name) {
             return -1;
