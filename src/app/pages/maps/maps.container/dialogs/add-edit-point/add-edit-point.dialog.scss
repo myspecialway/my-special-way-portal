@@ -31,6 +31,8 @@ mat-dialog-actions button {
   height: 240px;
   background-color: #fafafa;
   padding: 9px;
+  overflow-y: auto;
+
   .icons-container {
     width: 80px;
     height: 80px;

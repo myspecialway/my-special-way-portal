@@ -1,6 +1,8 @@
+import { MAP_FLOOR_MAPS } from './../../../maps-constants';
 import { Location } from './../../../../../models/location.model';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { LocationService } from '../../../../../services/location/location.graphql.service';
+import { IMapFloor } from '../../../../../models/maps.model';
 
 @Component({
   selector: 'app-map-floor-list',
@@ -9,13 +11,10 @@ import { LocationService } from '../../../../../services/location/location.graph
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapFloorListComponent implements OnInit {
-  floors: number[];
+  floors: IMapFloor[];
 
   @Input()
   currentFloor = 0;
-
-  @Output()
-  change: EventEmitter<number> = new EventEmitter<number>();
 
   @Input()
   set locations(value: Location[]) {
@@ -23,7 +22,10 @@ export class MapFloorListComponent implements OnInit {
   }
 
   @Output()
-  delete: EventEmitter<number> = new EventEmitter<number>();
+  change: EventEmitter<IMapFloor> = new EventEmitter<IMapFloor>();
+
+  @Output()
+  delete: EventEmitter<IMapFloor> = new EventEmitter<IMapFloor>();
 
   constructor(public locationService: LocationService) {}
 
@@ -34,22 +36,34 @@ export class MapFloorListComponent implements OnInit {
 
   updateFloors(locations: Location[]) {
     const floors = locations.map((location) => location.position.floor);
-    floors.sort();
-    this.floors = Array.from(new Set(floors));
+    const distinctFloorIndexes = Array.from(new Set(floors));
+    distinctFloorIndexes.sort();
+    this.floors = this.getFloorItems(distinctFloorIndexes);
+  }
+
+  private getFloorItems(floorIndexes: number[]) {
+    return floorIndexes.reduce((items, floorindex: number) => {
+      const floorItem = MAP_FLOOR_MAPS.find(({ index }) => index === floorindex);
+      if (floorItem) {
+        return [...items, floorItem];
+      } else {
+        return items;
+      }
+    }, []);
   }
 
   onClick(ev: MouseEvent) {
     const elm = ev && (ev.target as Element);
     if (!elm) return;
-    const floor = Number(elm['value'] || (elm.parentElement && elm.parentElement['value']));
+    const floorIndex = Number(elm['value'] || (elm.parentElement && elm.parentElement['value']));
     const isDelete = elm.getAttribute('data-action') === 'delete';
-
-    if (Number.isFinite(floor) && this.floors.includes(floor)) {
-      this.currentFloor = floor;
+    const selectedFloorItem = Number.isFinite(floorIndex) && this.floors.find(({ index }) => index === floorIndex);
+    if (selectedFloorItem) {
+      this.currentFloor = floorIndex;
       if (isDelete) {
-        this.delete.emit(floor);
+        this.delete.emit(selectedFloorItem);
       } else {
-        this.change.emit(floor);
+        this.change.emit(selectedFloorItem);
       }
     }
   }

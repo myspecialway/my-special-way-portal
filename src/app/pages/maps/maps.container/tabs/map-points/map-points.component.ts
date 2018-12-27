@@ -35,7 +35,12 @@ export class MapPointsComponent implements OnInit {
   async ngOnInit() {}
 
   updateFloorLocations() {
-    this.currentFloorLocations = this.locations.filter((location) => location.position.floor === this.floor);
+    const floorLocations = this.locations.filter((location) => location.position.floor === this.floor);
+    floorLocations.sort(
+      (location1, location2) =>
+        location1.location_id > location2.location_id ? 1 : location2.location_id > location1.location_id ? -1 : 0,
+    );
+    this.currentFloorLocations = floorLocations;
   }
 
   onDelete(point: Location) {
@@ -55,7 +60,7 @@ export class MapPointsComponent implements OnInit {
         }
 
         try {
-          console.log('Need to delete the point ${point._id} from somewhere!!');
+          await this.locationService.delete(point._id);
         } catch (error) {
           // TODO: implement error handling on UI
           console.error('Error handling not implemented');
