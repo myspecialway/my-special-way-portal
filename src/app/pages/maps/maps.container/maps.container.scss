@@ -21,6 +21,9 @@
   .map-container {
     flex-grow: 1;
     height: 100%;
+    .img {
+      max-width: 100%;
+    }
   }
   .map-control {
     height: 100%;
