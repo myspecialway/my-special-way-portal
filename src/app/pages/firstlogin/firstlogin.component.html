@@ -1,8 +1,8 @@
 <app-session-header></app-session-header>
-<div class="login-container">
+<div class="login-container"> 
     <form name="form" (ngSubmit)="f.form.valid && passChange()" #f="ngForm" novalidate>
           <div id="passChangeCard" *ngIf="!tokenFetchFailed;else err_message" class="login-card">
-            <img src="assets/img/msw-login-logo.png"/>
+            <img src="assets/img/myway.png"/>
             <div class="msw-login-title">שלום {{ userToDisplay?.firstname }}</div>
             <div class="msw-login-subtitle msw-login-subtitle-small">על מנת להיכנס אל המערכת אנא הגדר סיסמא</div>
             <div class="card-form" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
