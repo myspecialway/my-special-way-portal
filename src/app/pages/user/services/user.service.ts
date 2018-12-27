@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import {
   QUERY_GET_ALL_USERS,
   QUERY_GET_USER_BY_ID,
+  QUERY_GET_USER_BY_EMAIL,
   MUTATE_CREATE_USER,
   MUTATE_UPDATE_USER,
   MUTATE_DELETE_USER,
@@ -35,6 +36,15 @@ export class UserService {
       .query<UserQuery>({
         query: QUERY_GET_USER_BY_ID,
         variables: { id },
+      })
+      .toPromise();
+  }
+
+  getByEmail(email: string) {
+    return this.apollo
+      .query<UserQuery>({
+        query: QUERY_GET_USER_BY_EMAIL,
+        variables: { email },
       })
       .toPromise();
   }

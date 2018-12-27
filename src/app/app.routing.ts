@@ -17,11 +17,13 @@ import { StudentDetailsRemindersComponent } from './pages/student/details/tabs/s
 import { UserType } from './models/user.model';
 import { MapContainerComponent } from './pages/maps/maps.container/map.container.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { SentSuccessfullyComponent } from './pages/sent-successfully/sent-successfully.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'student', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'sent-successfully', component: SentSuccessfullyComponent },
   {
     path: '',
     canActivate: [AuthGuard],

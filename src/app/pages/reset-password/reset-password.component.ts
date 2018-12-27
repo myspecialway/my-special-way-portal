@@ -12,10 +12,9 @@ export class ResetPasswordComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
-  rememberMe: boolean;
   loginFailed = false;
   formFieldOptions: FormGroup;
-  hidePassword = true;
+  sentResponse = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,15 +33,15 @@ export class ResetPasswordComponent implements OnInit {
   async resetPassword() {
     console.log('resetPassword');
     try {
-      const loginResponse = await this.authenticationService.resetPassword(this.model.email);
+      const sentResponse = await this.authenticationService.resetPassword(this.model.email);
 
-      if (!loginResponse) {
+      if (!sentResponse) {
         console.warn('reset-password.component::reset-password:: reset-password error');
         this.loginFailed = true;
         return;
       }
 
-      this.router.navigate([this.returnUrl]);
+      this.router.navigate(['/sentSuccessfully']);
     } catch (err) {
       console.error(`reset-password.component::reset-password:: error in authentication ${err}`);
       this.loginFailed = true;

@@ -29,6 +29,7 @@ import { MapContainerComponent } from './maps/maps.container/map.container.compo
 import { MapViewComponent } from './maps/maps.view/map.view.component';
 import { UniqueUsernameValidatorDirective } from '../directives/unique-username-validator.directive';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SentSuccessfullyComponent } from './sent-successfully/sent-successfully.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     MapViewComponent,
     UniqueUsernameValidatorDirective,
     ResetPasswordComponent,
+    SentSuccessfullyComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

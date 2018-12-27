@@ -1,0 +1,22 @@
+.email-sent-container {
+  background-color: #fff;
+  .msw-email-logo {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    background-color: red;
+    margin-top: 20px;
+  }
+  .email-sent-title {
+    margin-top: 20px;
+    height: 24px;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: #222222;
+  }
+  .email-sent-sub-title {
+    color: #222222;
+    font-size: 17px;
+  }
+}
