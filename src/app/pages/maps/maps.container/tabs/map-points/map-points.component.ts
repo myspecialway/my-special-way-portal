@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-map-points',
-  template: `<app-map-points-view [locations]="currentFloorLocations" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
+  template: `<app-map-points-view [locations]="currentFloorLocations" [floor]="floor" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
   styleUrls: ['./map-points.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
