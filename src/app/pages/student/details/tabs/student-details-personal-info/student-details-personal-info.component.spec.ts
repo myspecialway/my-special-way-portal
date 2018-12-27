@@ -44,7 +44,7 @@ describe('Student Details Personal Info Component', () => {
     };
 
     classServiceMock = {
-      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
+      getAllClasses: jest.fn(), //.mockReturnValueOnce(Observable.of(classTestData.classes)),
     };
 
     studentDialogMock = {
@@ -136,13 +136,31 @@ describe('Student Details Personal Info Component', () => {
 
     it('should load classes from service on page load ', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve(classTestData.classes);
+        return Observable.of(classTestData.classes);
       });
 
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       fixture.detectChanges();
       await fixture.whenRenderingDone();
       expect(fixture.componentInstance.classes.length).toEqual(23);
+    });
+
+    it('should populate isClassDropDownDisabled to be true when getAllClasses returns one class or less', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Observable.of([
+          {
+            _id: '5b10fb1ff8022f6011f30f48',
+            grade: 'א',
+            schedule: [],
+            name: 'טיטאן',
+          },
+        ]);
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.isClassDropDownDisabled).toBe(true);
     });
 
     it('should populate the isNewStudent to true when coming from path student/_new_', () => {
@@ -207,17 +225,6 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.saveFailed).toBe(false);
       await fixture.componentInstance.addStudent();
       expect(fixture.componentInstance.saveFailed).toBe(true);
-    });
-
-    it('should mark isClassDropDownDisabled to be true if there is 1 class or less ', async () => {
-      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve([]);
-      });
-
-      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-      fixture.detectChanges();
-      await fixture.whenRenderingDone();
-      expect(fixture.componentInstance.isClassDropDownDisabled).toEqual(true);
     });
   });
 
