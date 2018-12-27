@@ -1,3 +1,5 @@
+import { Location } from './../../models/location.model';
+import { FetchResult } from 'apollo-link';
 import { of as observableOf } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators/map';
 import { catchError } from 'rxjs/operators';
@@ -32,6 +34,25 @@ const getAllLocationsQuery = gql`{
           }
         }`;
 
+const deleteLocationQuery = (locationId) => gql`
+        mutation {
+          deleteLocation(
+            id: "${locationId}"
+          )
+        }`;
+const createLocationQuery = ({ name, location_id, position: { floor }, icon, type }) => gql`
+        mutation {
+          createLocation(lesson: {
+            name: "${name}"
+            location_id: "${location_id}"
+            icon: "${icon}"
+            type: "${type}"
+            position: {
+              floor: ${floor}
+            }
+          }){ _id }
+        }`;
+
 @Injectable()
 export class LocationService {
   constructor(private apollo: Apollo) {}
@@ -57,7 +78,22 @@ export class LocationService {
         }),
       );
   }
+  public create(location): any {
+    location.icon = location.icon || '';
+    location.type = location.type || '';
 
+    return this.apollo
+      .mutate({
+        mutation: createLocationQuery(location),
+        refetchQueries: [
+          {
+            query: getAllLocationsQuery,
+          },
+        ],
+        awaitRefetchQueries: true,
+      })
+      .toPromise();
+  }
   update(location: InputLocation) {
     return this.apollo
       .mutate({
@@ -79,5 +115,19 @@ export class LocationService {
           return res.data.locations;
         }
       });
+  }
+
+  public async delete(locationId: string): Promise<FetchResult<Record<string, any>>> {
+    return this.apollo
+      .mutate({
+        mutation: deleteLocationQuery(locationId),
+        refetchQueries: [
+          {
+            query: getAllLocationsQuery,
+          },
+        ],
+        awaitRefetchQueries: true,
+      })
+      .toPromise();
   }
 }

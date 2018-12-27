@@ -60,7 +60,7 @@ export class MapPointsComponent implements OnInit {
         }
 
         try {
-          console.log('Need to delete the point ${point._id} from somewhere!!');
+          await this.locationService.delete(point._id);
         } catch (error) {
           // TODO: implement error handling on UI
           console.error('Error handling not implemented');
