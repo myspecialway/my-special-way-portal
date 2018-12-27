@@ -21,8 +21,8 @@
 
 .container {
   align-items: flex-start;
-  width: 620px;
-  height: 550px;
+  width: 585px;
+  height: 510px;
   padding: 0px;
 }
 .mat-dialog-actions {
@@ -52,7 +52,7 @@
   border-bottom-color: #8249d1;
   border-bottom-style: solid;
   border-bottom-width: 3px;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
 }
 
 .mat-dialog-title {
@@ -64,19 +64,22 @@
   margin-bottom: 19px;
 }
 
-.mat-dialog-content {
+/deep/ .mat-dialog-content {
   line-height: 1.31;
   font-size: 16px;
   font-weight: normal;
   letter-spacing: 1.3px;
   height: 1005px;
+  overflow-y: hidden !important;
+  margin: 0px;
+  padding: 0px;
 }
 
-.icon-list-container {
-  width: 572px;
-  height: 240px;
+/deep/ .icon-list-container {
+  height: 360px;
   background-color: #fafafa;
   padding: 9px;
+  overflow: auto !important;
 }
 
 .lesson-icon-container {
