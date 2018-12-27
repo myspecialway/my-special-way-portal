@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { mockedLocations } from './../../../../../../mocks/assets/locations.mock';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
 import { MatDialogModule, MatTableModule, MatDialog } from '@angular/material';
@@ -7,7 +6,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapPointsComponent } from './map-points.component';
 import { Location } from '../../../../../models/location.model';
-import { of } from 'rxjs/observable/of';
 
 describe('MapPointsComponent', () => {
   let component: MapPointsComponent;
@@ -64,8 +62,8 @@ describe('MapPointsComponent', () => {
   });
 
   it.skip('should delete point when user confirms delete dialog', () => {
-    const closedResponse = true;
-    const afterClosedValue = of(closedResponse);
+    // const closedResponse = true;
+    // const afterClosedValue = of(closedResponse);
 
     const point = { ...mockedLocations[0] };
     component.onDelete(point);
@@ -75,7 +73,7 @@ describe('MapPointsComponent', () => {
   });
 
   it.skip('should NOT delete point on user cancels delete dialog ', () => {
-    const closedResponse = false;
+    // const closedResponse = false;
     const point = { ...mockedLocations[0] };
     component.onDelete(point);
 
