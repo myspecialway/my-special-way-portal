@@ -12,7 +12,6 @@
     height: 100%;
   }
   .maps-poi-list {
-    border: 1px dotted #f0f;
     background-color: #fff;
     flex-basis: 193px;
     flex-shrink: 0;
@@ -20,9 +19,11 @@
     height: 100%;
   }
   .map-container {
-    border: 1px dotted #f0f;
     flex-grow: 1;
     height: 100%;
+    .img {
+      max-width: 100%;
+    }
   }
   .map-control {
     height: 100%;
