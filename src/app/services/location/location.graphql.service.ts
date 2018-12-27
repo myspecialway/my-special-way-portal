@@ -1,4 +1,3 @@
-import { Location } from './../../models/location.model';
 import { FetchResult } from 'apollo-link';
 import { of as observableOf } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators/map';
