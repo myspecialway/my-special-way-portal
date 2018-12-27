@@ -17,8 +17,7 @@ import * as _ from 'lodash';
   styleUrls: ['./student-details-reminders.component.scss'],
 })
 export class StudentDetailsRemindersComponent implements OnInit {
-  idOrNew: string;
-
+  isNewStudent: boolean;
   student: Student;
   dayNames: string[] = Array.from(REMINDERS_CONSTANTS.days);
   protected reminderType = ReminderType;
@@ -33,7 +32,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
     if (this.route && this.route.parent) {
       this.subCollector.add(
         this.route.parent.params.subscribe(async (params) => {
-          // this.idOrNew = params.idOrNew;
+          this.isNewStudent = params.idOrNew === '_new_' ? true : false;
           await this.fetchStudent(params.idOrNew);
         }),
       );

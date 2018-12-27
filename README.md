@@ -11,10 +11,11 @@ Demo master version running at https://msw-portal.azurewebsites.net/
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+##### TL;DR: [Simple Setup Guide](https://github.com/myspecialway/my-special-way-portal/blob/master/simple-setup.md)
+
 ### Prerequisites
 
 Do we have those?
- 
 
 ```
 Nodejs
@@ -28,12 +29,12 @@ Angular
 ### Starting
 
 Getting the code
+
 ```
 git clone https://github.com/myspecialway/my-special-way-portal.git my-special-way-portal
 cd my-special-way-portal
 yarn
 ```
-
 
 ## Starting the server
 
@@ -47,9 +48,9 @@ The below will run both the Unit and the E2E tests
 
 ```
 yarn test
-
 ```
-The test will run also on CI once you do your first commit also generating 
+
+The test will run also on CI once you do your first commit also generating
 
 ### Coding style tests
 
@@ -64,9 +65,9 @@ Commit to your branch will update to docker hub with custom tag, you will need t
 
 ## Built With
 
-* Nodejs
-* Angualar
-* Graphql
+- Nodejs
+- Angualar
+- Graphql
 
 ## Contributing
 
@@ -76,10 +77,9 @@ Also this [git flow](https://guides.github.com/introduction/flow/)
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. 
+We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
-
 
 See also the list of [contributors](https://github.com/myspecialway/my-special-way-portal/graphs/contributors) who participated in this project.
 
@@ -89,6 +89,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc

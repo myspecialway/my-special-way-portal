@@ -12,6 +12,7 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   locationService={[Function Object]}
   locations={[Function Array]}
   mapsService={[Function Object]}
+  mswSnackbar={[Function Object]}
   subCollector={[Function Subscription]}
 >
   <div

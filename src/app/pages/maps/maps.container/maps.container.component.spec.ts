@@ -5,6 +5,7 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
 import { mockedLocations } from './../../../../mocks/assets/locations.mock';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { of } from 'rxjs/observable/of';
 import {
   Overlay,
@@ -20,6 +21,7 @@ import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
+
 const locationServiceMock = {
   getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
   getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
@@ -28,6 +30,7 @@ describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   let mapsServiceMock: Partial<MapsService>;
   let mapsDialogMock: Partial<MatDialog>;
+  let mswSnackbarMock: Partial<MSWSnackbar>;
   const mockedblockedSections = [
     {
       reason: "מרתון תל אביב'",
@@ -49,6 +52,10 @@ describe('MapsContainerComponent', () => {
       }),
     };
 
+    mswSnackbarMock = {
+      displayTimedMessage: jest.fn(),
+    } as Partial<MSWSnackbar>;
+
     TestBed.configureTestingModule({
       imports: [],
       declarations: [
@@ -64,6 +71,7 @@ describe('MapsContainerComponent', () => {
         { provide: MatDialog, useValue: mapsDialogMock },
         { provide: MapsService, useValue: mapsServiceMock },
         { provide: LocationService, useValue: locationServiceMock },
+        { provide: MSWSnackbar, useValue: mswSnackbarMock },
         { provide: APP_BASE_HREF, useValue: '/' },
         Overlay,
         ScrollStrategyOptions,
