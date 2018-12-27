@@ -24,7 +24,7 @@
 
 5. Open a new terminal tab and start mongod daemon `mongod`
 
-6. Run the database seed: `node .\db-seed\seed.js -n msw-dev mongodb://localhost`
+6. Run the database seed: `yarn seed`
 
 7. Start the server app: `yarn start`
 
