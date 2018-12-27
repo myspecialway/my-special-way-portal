@@ -10,22 +10,6 @@ describe('MapFloorListComponent', () => {
   let component: MapFloorListComponent;
   let fixture: ComponentFixture<MapFloorListComponent>;
   beforeEach(async(() => {
-    const mockedLocations = [
-      {
-        _id: '5b5596a7739a882933edd508',
-        name: '0 מעלית קומה',
-        position: {
-          floor: 0,
-        },
-      },
-      {
-        _id: '5b5596a7739a882933edd509',
-        name: '1 מעלית קומה',
-        position: {
-          floor: 1,
-        },
-      },
-    ];
     locationServiceMock = {
       getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
     };
