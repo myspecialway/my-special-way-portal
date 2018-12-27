@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-map-points',
-  template: `<app-map-points-view [locations]="currentFloorLocations" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
+  template: `<app-map-points-view [locations]="currentFloorLocations" [floor]="floor" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
   styleUrls: ['./map-points.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,11 +43,11 @@ export class MapPointsComponent implements OnInit {
     this.currentFloorLocations = floorLocations;
   }
 
-  onDelete(point: Location) {
+  onDelete({ _id, location_id, name }: Location) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'נקודת ניווט',
-        question: `נקודה - "${point.location_id} - ${point.name}"`,
+        question: `הנקודה - "${location_id} - ${name}"`,
       },
     });
 
@@ -60,7 +60,7 @@ export class MapPointsComponent implements OnInit {
         }
 
         try {
-          await this.locationService.delete(point._id);
+          await this.locationService.delete(_id);
         } catch (error) {
           // TODO: implement error handling on UI
           console.error('Error handling not implemented');

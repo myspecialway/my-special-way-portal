@@ -108,9 +108,12 @@ export class MapsContainerComponent implements OnInit {
     return false;
   }
 
-  deleteBlock(blockedSection: BlockedSection) {
+  deleteBlock({ _id, from, to, reason }: BlockedSection) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
-      data: blockedSection,
+      data: {
+        title: 'מקטע חסום',
+        question: `המקטע ${from} - ${to} - ${reason}`,
+      },
     });
 
     dialogRef
@@ -119,7 +122,7 @@ export class MapsContainerComponent implements OnInit {
       .subscribe(async (result) => {
         if (result) {
           try {
-            await this.mapsService.delete(blockedSection._id);
+            await this.mapsService.delete(_id);
           } catch (error) {
             // TODO: implement error handling on UI
             console.error('Error handling not implemented');
