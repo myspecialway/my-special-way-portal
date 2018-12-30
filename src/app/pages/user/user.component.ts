@@ -179,11 +179,7 @@ export class UserComponent implements OnInit {
   async restoreUserPassword(userData: User) {
     let dialogRef: MatDialogRef<any, any>;
 
-    const restore = await this.authenticationService.restorePassword(
-      userData.email,
-      userData.firstname,
-      userData.lastname,
-    );
+    const restore = await this.authenticationService.restorePassword(userData.username);
     const config = {
       data: userData,
       height: '325px',

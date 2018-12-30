@@ -20,6 +20,6 @@ export class RestorePasswordErrorDialogComponent {
     this.dialogRef.close();
   }
   submit(): void {
-    this.authenticationService.restorePassword(this.data.email, this.data.firstname, this.data.lastname);
+    this.authenticationService.restorePassword(this.data.userName);
   }
 }

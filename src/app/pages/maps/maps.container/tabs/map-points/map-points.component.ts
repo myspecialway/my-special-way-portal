@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-map-points',
-  template: `<app-map-points-view [locations]="currentFloorLocations" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
+  template: `<app-map-points-view [locations]="currentFloorLocations" [floor]="floor" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-map-points-view>`,
   styleUrls: ['./map-points.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -35,14 +35,19 @@ export class MapPointsComponent implements OnInit {
   async ngOnInit() {}
 
   updateFloorLocations() {
-    this.currentFloorLocations = this.locations.filter((location) => location.position.floor === this.floor);
+    const floorLocations = this.locations.filter((location) => location.position.floor === this.floor);
+    floorLocations.sort(
+      (location1, location2) =>
+        location1.location_id > location2.location_id ? 1 : location2.location_id > location1.location_id ? -1 : 0,
+    );
+    this.currentFloorLocations = floorLocations;
   }
 
-  onDelete(point: Location) {
+  onDelete({ _id, location_id, name }: Location) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'נקודת ניווט',
-        question: `נקודה - "${point.location_id} - ${point.name}"`,
+        question: `הנקודה - "${location_id} - ${name}"`,
       },
     });
 
@@ -55,7 +60,7 @@ export class MapPointsComponent implements OnInit {
         }
 
         try {
-          console.log('Need to delete the point ${point._id} from somewhere!!');
+          await this.locationService.delete(_id);
         } catch (error) {
           // TODO: implement error handling on UI
           console.error('Error handling not implemented');
@@ -65,6 +70,10 @@ export class MapPointsComponent implements OnInit {
   }
 
   onUpdate(location: InputLocation) {
-    this.locationService.update(location);
+    if (location._id) {
+      this.locationService.update(location);
+    } else {
+      this.locationService.create(location);
+    }
   }
 }

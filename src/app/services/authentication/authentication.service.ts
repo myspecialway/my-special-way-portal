@@ -12,6 +12,7 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
 import { UserUniqueValidationResponse } from '../../models/user-unique-validation-response.model';
 import { of } from 'rxjs';
 import { catchError, first, map } from 'rxjs/operators';
+import { MUTATE_USER_FORGET_PASSWORD } from '../../pages/user/services/user.graphql';
 
 @Injectable()
 export class AuthenticationService {
@@ -99,19 +100,15 @@ export class AuthenticationService {
       sessionStorage.setItem('token', tokenResponse.accessToken);
     }
   }
-  async restorePassword(email: string, firstname: string, lastname: string) {
-    try {
-      await this.http
-        .post<{ email: string; firstname: string; lastname: string }>(
-          environment.hotConfig.MSW_HOT_RESTORE_PASSWORD_ENDPOINT,
-          { email, firstname, lastname },
-        )
-        .toPromise();
-
-      return true;
-    } catch (error) {
-      return false;
-    }
+  async restorePassword(username: string) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_USER_FORGET_PASSWORD,
+        variables: {
+          username,
+        },
+      })
+      .toPromise();
   }
 
   private getProfileFromToken(token: string): UserProfileStateModel {
