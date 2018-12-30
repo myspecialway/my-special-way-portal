@@ -5,6 +5,7 @@ import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-details-personal-info',
@@ -28,6 +29,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     private studentService: StudentService,
     private classService: ClassService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +40,6 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
         }),
       );
     }
-
     this.populateClasses();
     this.populateStudent();
   }
@@ -95,8 +96,10 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   async addStudent() {
     try {
       this.saveFailed = false;
-      await this.studentService.create(this.student);
-      this.changesWereSavedNotification();
+      const createdStudent = await this.studentService.create(this.student);
+      if (createdStudent && createdStudent.data && createdStudent.data.createStudent) {
+        this.changesWereSavedNotification(createdStudent.data.createStudent._id);
+      }
     } catch (error) {
       this.saveFailed = true;
       console.error('Error on add student', error);
@@ -108,18 +111,21 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
     try {
       this.saveFailed = false;
       await this.studentService.update(student.form.value);
-      this.changesWereSavedNotification();
+      this.changesWereSavedNotification(null);
     } catch (error) {
       this.saveFailed = true;
       console.error('Error on update student', error);
     }
   }
 
-  changesWereSavedNotification() {
+  changesWereSavedNotification(createdId) {
     this.changesWereSaved = true;
     setTimeout(() => {
       this.changesWereSaved = false;
-    }, 4000);
+      if (createdId) {
+        this.router.navigate(['/student/', createdId]);
+      }
+    }, 1000);
   }
 
   toggleIconFace() {

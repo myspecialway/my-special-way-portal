@@ -7,6 +7,7 @@ exports[`Student Details Personal Info Component with _new_ student path should 
   femaleFaceIcon={[Function String]}
   maleFaceIcon={[Function String]}
   route={[Function Object]}
+  router={[Function Object]}
   saveFailed="false"
   studentService={[Function Object]}
 >
