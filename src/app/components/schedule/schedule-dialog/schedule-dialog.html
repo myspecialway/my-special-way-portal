@@ -1,52 +1,50 @@
 <div class="container msw-dialog schedule-dialog">
-    <h2 mat-dialog-title>עדכון מערכת שעות</h2>
-    <div class="timeslot-subtitle">
-      <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
-      <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
-    </div>
-    <mat-dialog-content data-test-id="edit-cell-dialogue">
-      
-        <mat-form-field>
-          <mat-select placeholder="שיעור"
-                      [(ngModel)]="selectedLesson"
-                      name="lesson"
-                      #lesson="ngModel"
-                      (selectionChange)="scheduleDialogData.lesson = selectedLesson"
-                      data-test-id="lessons-dropdown"
-                      required>
-            <mat-option *ngFor="let les of lessons;"
-                        class="lessons-option"
-                        [value]="les"
-                        selected="selectedLesson && selectedLesson.title === les.title">
-              {{les.title}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="lesson.invalid">חובה לבחור שיעור</mat-error>
-        </mat-form-field>
-  
-        <mat-form-field>
-          <mat-select placeholder="מיקום"
-                      [(ngModel)]="selectedLocation"
-                      name="location" #location="ngModel"
-                      (selectionChange)="scheduleDialogData.location = selectedLocation"
-                      data-test-id="locations-dropdown"
-                      required>
-            <mat-option *ngFor="let loc of locations"
-                        class="locations-option"
-                        [value]="loc"
-                        selected="selectedLocation && selectedLocation.name === loc.name">
-              {{loc.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="location.invalid">חובה לבחור מיקום</mat-error>
-        </mat-form-field>
-      
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button class="mat-raised-button" data-test-id="close-edit-lesson-dialogue" (click)="dialogRef.close()">בטל</button>
-      <button mat-button class="mat-raised-button mat-primary" data-test-id="update-edit-lesson-dialogue" (click)="dialogRef.close(scheduleDialogData)"
-      [disabled]="lesson.invalid || location.invalid" >עדכן</button>
-    </mat-dialog-actions>
-  
+  <h2 mat-dialog-title>עדכון מערכת שעות</h2>
+  <div class="timeslot-subtitle">
+    <span class="timeslot-info">יום {{scheduleDialogData.day}}</span>
+    <span class="timeslot-info">{{scheduleDialogData.hour}}</span>
   </div>
-  
+  <mat-dialog-content class="schedule-dialog-content" data-test-id="edit-cell-dialogue">
+
+    <mat-form-field>
+      <mat-select placeholder="שיעור" [(ngModel)]="selectedLesson" name="lesson" #lesson="ngModel" (selectionChange)="scheduleDialogData.lesson = selectedLesson"
+        data-test-id="lessons-dropdown" required>
+        <mat-option *ngFor="let les of lessons;" class="lessons-option" [value]="les" selected="selectedLesson && selectedLesson.title === les.title">
+          {{les.title}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="lesson.invalid">חובה לבחור שיעור</mat-error>
+    </mat-form-field>
+    <div class="schedule-dialog-space"></div>
+    <mat-form-field>
+      <mat-select placeholder="מיקום" [(ngModel)]="selectedLocation" name="location" #location="ngModel"
+        (selectionChange)="scheduleDialogData.location = selectedLocation" data-test-id="locations-dropdown" required>
+        <mat-option *ngFor="let loc of locations" class="locations-option" [value]="loc" selected="selectedLocation && selectedLocation.name === loc.name">
+          {{loc.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="location.invalid">חובה לבחור מיקום</mat-error>
+    </mat-form-field>
+    <div class="schedule-dialog-space"></div>
+    <mat-radio-group class="radio-change" (change)="radioChange($event)">
+      <div>
+        <mat-radio-button value="PermanentChange">שינוי קבוע</mat-radio-button>
+      </div>
+      <div class="radio-temporal">
+        <mat-radio-button value="TemporaryChange">שינוי חד פעמי למשך</mat-radio-button>
+        <mat-select placeholder="0" class="week-select" [(value)]="selectedWeeks" [disabled]="isDisable">
+          <mat-option *ngFor="let week of selectedList" [value]="week">
+            {{week}}
+          </mat-option>
+        </mat-select>
+        בשבועות
+      </div>
+    </mat-radio-group>
+  </mat-dialog-content>
+  <mat-dialog-actions class="schedule-dialog-button">
+    <button mat-button class="mat-raised-button" data-test-id="close-edit-lesson-dialogue" (click)="dialogRef.close()">בטל</button>
+    <button mat-button class="mat-raised-button mat-primary" data-test-id="update-edit-lesson-dialogue" (click)="dialogRef.close(scheduleDialogData)"
+      [disabled]="lesson.invalid || location.invalid">עדכן</button>
+  </mat-dialog-actions>
+
+</div>

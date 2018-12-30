@@ -5,5 +5,12 @@ export interface TimeSlot {
   hours?: string;
   lesson?: Lesson;
   location?: Location;
+  temporal?: Temporal;
+  customized?: boolean;
+}
+export interface Temporal {
+  expired: Date;
+  lesson?: Lesson;
+  location?: Location;
   customized?: boolean;
 }

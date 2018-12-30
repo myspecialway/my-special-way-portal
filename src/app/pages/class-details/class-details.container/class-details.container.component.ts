@@ -100,8 +100,8 @@ export class ClassDetailsContainerComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
       data: dialogData,
-      height: '375px',
-      width: '320px',
+      height: '500px',
+      width: '460px',
     });
 
     this.onDialogRefClose(dialogRef, async (data) => {
@@ -109,7 +109,7 @@ export class ClassDetailsContainerComponent implements OnInit {
         _id: this._class._id,
         name: this._class.name,
         grade: this._class.grade,
-        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location }],
+        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location , temporal: { expired: new Date(), lesson: data.lesson, location: data.location }}],
       };
 
       return await this.classService.update(tempClass);
