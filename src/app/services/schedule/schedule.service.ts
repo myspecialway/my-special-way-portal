@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { TimeSlot } from '../../models/timeslot.model';
+import { TimeSlot, Original } from '../../models/timeslot.model';
+import { DateUtilService } from '../date-utils/date-util.service';
 
 @Injectable()
 export class ScheduleService {
+  constructor(private dateUtilService: DateUtilService) {}
   grades = {
     a: 'א',
     b: 'ב',
@@ -42,17 +44,40 @@ export class ScheduleService {
           index: `${hourIndex}_${dayIndex}`,
         };
         if (timeslot) {
+          let location;
+          let lesson;
+          let original;
+
           if (timeslot.location) {
-            newTimeSlot.location = timeslot.location;
+            location = timeslot.location;
           }
           if (timeslot.lesson) {
-            newTimeSlot.lesson = timeslot.lesson;
+            lesson = timeslot.lesson;
           }
+          if (timeslot.original) {
+            ({ lesson, location, original } = this.buildScheduleItem(lesson, location, timeslot.original));
+          }
+
+          newTimeSlot.location = location;
+          newTimeSlot.lesson = lesson;
+          newTimeSlot.original = original;
         }
         schedule[hourIndex][dayIndex] = newTimeSlot;
       }
     }
 
     return schedule;
+  }
+
+  private buildScheduleItem(lesson: any, location: any, i_original: Original) {
+    //this function revert the state to base state if tempory state expired
+    const isExpired = this.dateUtilService.isTemporeryClassTimeExpired(i_original);
+    let original;
+    if (isExpired) {
+      (lesson = i_original.lesson), (location = i_original.location), (original = undefined);
+    } else {
+      original = i_original;
+    }
+    return { lesson, location, original };
   }
 }

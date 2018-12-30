@@ -1,7 +1,7 @@
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TimeSlot } from '../../../models/timeslot.model';
+import { TimeSlot, Original } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -16,7 +16,7 @@ import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile
 import { UserType } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { DeleteTimeSlotDialogComponent } from '../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
-
+import { DateUtilService } from '../../../services/date-utils/date-util.service';
 @Component({
   selector: 'app-class-details-container',
   template: `<app-class-details-view
@@ -48,6 +48,7 @@ export class ClassDetailsContainerComponent implements OnInit {
     private dialog: MatDialog,
     private mswSnackbar: MSWSnackbar,
     private apollo: Apollo,
+    private dateUtilService: DateUtilService,
   ) {}
 
   async ngOnInit() {
@@ -105,11 +106,12 @@ export class ClassDetailsContainerComponent implements OnInit {
     });
 
     this.onDialogRefClose(dialogRef, async (data) => {
+      const original = data.original ? data.original : null;
       const tempClass: Class = {
         _id: this._class._id,
         name: this._class.name,
         grade: this._class.grade,
-        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location , temporal: { expired: new Date(), lesson: data.lesson, location: data.location }}],
+        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location, original }],
       };
 
       return await this.classService.update(tempClass);
@@ -189,11 +191,13 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   getDialogData(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
-
+    const original = this.schedule[hourIndex][dayIndex].original;
+    const isExpired = this.dateUtilService.isTemporeryClassTimeExpired(original);
     return {
       index: `${hourIndex}_${dayIndex}`,
-      lesson: this.schedule[hourIndex][dayIndex].lesson,
-      location: this.schedule[hourIndex][dayIndex].location,
+      lesson: isExpired && original ? original.lesson : this.schedule[hourIndex][dayIndex].lesson,
+      location: isExpired && original ? original.location : this.schedule[hourIndex][dayIndex].location,
+      original,
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;

@@ -26,13 +26,13 @@
       <mat-error *ngIf="location.invalid">חובה לבחור מיקום</mat-error>
     </mat-form-field>
     <div class="schedule-dialog-space"></div>
-    <mat-radio-group class="radio-change" (change)="radioChange($event)">
+    <mat-radio-group [(ngModel)]="userChoose" class="radio-change" (change)="radioChange($event)">
       <div>
         <mat-radio-button value="PermanentChange">שינוי קבוע</mat-radio-button>
       </div>
       <div class="radio-temporal">
         <mat-radio-button value="TemporaryChange">שינוי חד פעמי למשך</mat-radio-button>
-        <mat-select placeholder="0" class="week-select" [(value)]="selectedWeeks" [disabled]="isDisable">
+        <mat-select placeholder="1" class="week-select" (selectionChange)="onTemorerySelectionChange($event)" [(value)]="selectedWeeks" [disabled]="isDisable">
           <mat-option *ngFor="let week of selectedList" [value]="week">
             {{week}}
           </mat-option>
