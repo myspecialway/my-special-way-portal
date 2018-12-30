@@ -146,10 +146,15 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
     });
   }
 
+  private sortClasses(a: NonActiveTimeClassData, b: NonActiveTimeClassData) {
+    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+  }
+
   private populateClasses() {
     try {
       this.classService.getAllClasses().subscribe((classes) => {
         this.classes = [...classes];
+        this.classes.sort(this.sortClasses);
       });
     } catch (error) {
       // TODO: implement error handling on UI
