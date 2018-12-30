@@ -24,8 +24,8 @@ export class StudentDetailsComponent implements OnInit {
     this.activeLink = this.links[0].label;
   }
 
-  setEnabledLinks() {
-    if (this.idOrNew === '_new_') {
+  setEnabledLinks(idOrNew) {
+    if (idOrNew === '_new_') {
       this.links[1].enabled = false;
       this.links[2].enabled = false;
     } else {
@@ -38,7 +38,7 @@ export class StudentDetailsComponent implements OnInit {
     this.subCollector.add(
       this.route.params.subscribe((params) => {
         this.idOrNew = params.idOrNew;
-        this.setEnabledLinks();
+        this.setEnabledLinks(this.idOrNew);
       }),
     );
   }
