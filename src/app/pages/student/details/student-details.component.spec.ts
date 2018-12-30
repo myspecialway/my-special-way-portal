@@ -72,6 +72,13 @@ describe('Student Details Component', () => {
       const fixture = TestBed.createComponent(StudentDetailsComponent);
       expect(fixture).toMatchSnapshot();
     });
+
+    it('should disable the 2 last tabs', () => {
+      const fixture = TestBed.createComponent(StudentDetailsComponent);
+      fixture.componentInstance.setEnabledLinks('_new_');
+      expect(fixture.componentInstance.links[1].enabled).toBeFalsy();
+      expect(fixture.componentInstance.links[2].enabled).toBeFalsy();
+    });
   });
 
   describe('with edit student path', () => {
@@ -91,6 +98,13 @@ describe('Student Details Component', () => {
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsComponent);
       expect(fixture).toMatchSnapshot();
+    });
+
+    it('should enable the 2 last tabs', () => {
+      const fixture = TestBed.createComponent(StudentDetailsComponent);
+      fixture.componentInstance.setEnabledLinks('66');
+      expect(fixture.componentInstance.links[1].enabled).toBeTruthy();
+      expect(fixture.componentInstance.links[2].enabled).toBeTruthy();
     });
   });
 });

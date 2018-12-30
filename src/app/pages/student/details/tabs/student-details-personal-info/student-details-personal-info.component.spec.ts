@@ -196,7 +196,13 @@ describe('Student Details Personal Info Component', () => {
       });
 
       (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve(1);
+        return Promise.resolve({
+          data: {
+            createStudent: {
+              _id: 66,
+            },
+          },
+        });
       });
 
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
@@ -204,9 +210,8 @@ describe('Student Details Personal Info Component', () => {
       await fixture.whenRenderingDone();
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.addStudent();
-      expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
-      jest.advanceTimersByTime(4000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+      jest.advanceTimersByTime(1000);
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
     });
 
@@ -311,7 +316,7 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
 
     it('should show indication when error happened on save changes', async () => {
