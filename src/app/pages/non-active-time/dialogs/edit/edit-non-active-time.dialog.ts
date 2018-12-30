@@ -146,7 +146,7 @@ export class EditNonActiveTimeDialogComponent implements OnInit {
     });
   }
 
-  private sortClasses(a: NonActiveTimeClassData, b: NonActiveTimeClassData): boolean {
+  private sortClasses(a: NonActiveTimeClassData, b: NonActiveTimeClassData) {
     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
   }
 
