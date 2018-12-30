@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../../../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { ClassService } from '../../../../class/services/class.graphql.service';
 import { Class } from '../../../../../models/class.model';
-import { UniqueUsernameValidator } from '../../../../../validators/UniqueUsernameValidator';
+import { UsernameValidator } from '../../../../../validators/username.validator';
 import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 
 export type UserTypeKey = keyof typeof UserType;
@@ -66,8 +66,10 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
       classControl.updateValueAndValidity();
     }
 
-    if (this.userRoleEnum[userType] === this.userRoleEnum.PRINCIPLE && this.data.class) {
+    if (classControl && this.userRoleEnum[userType] === this.userRoleEnum.PRINCIPLE) {
       this.data.class = undefined;
+      classControl.setValidators([]);
+      classControl.updateValueAndValidity();
     }
   }
   getClassDisabled() {
@@ -77,6 +79,13 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
   attachClasses() {
     this.classService.getAllClasses().subscribe((classes) => {
       this.classes = [...classes];
+      this.classes = this.classes.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
     });
   }
 
@@ -98,10 +107,7 @@ export class UserDetailsFormComponent implements OnInit, OnDestroy {
     this.selectUserType = new FormControl(null, Validators.required);
     this.selectClass = new FormControl({ disabled: this.getClassDisabled() });
     this.userNameFormControl = new FormControl('', {
-      validators: [Validators.required, Validators.minLength(5), Validators.pattern('^[A-Za-z]+$')],
-      asyncValidators: [
-        UniqueUsernameValidator.createValidator(this.authenticationService, this.data ? this.data._id : ''),
-      ],
+      asyncValidators: [UsernameValidator.createValidator(this.authenticationService, this.data ? this.data._id : '')],
       updateOn: 'blur',
     });
   }

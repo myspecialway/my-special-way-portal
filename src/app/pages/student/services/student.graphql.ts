@@ -33,10 +33,7 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
         }
         location {
           name
-          disabled
           position {
-            latitude
-            longitude
             floor
           }
         }
@@ -61,6 +58,14 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
 export const MUTATE_ADD_STUDENT = gql`
   mutation addStudent($student: InputStudent!) {
     createStudent(student: $student) {
+      _id
+    }
+  }
+`;
+
+export const MUTATE_ADD_STUDENTS = gql`
+  mutation addStudents($students: [InputStudent!]!) {
+    createStudents(students: $students) {
       _id
     }
   }

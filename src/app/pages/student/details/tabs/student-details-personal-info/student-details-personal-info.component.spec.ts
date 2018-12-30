@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRowDef, MatRowDef, MatHeaderRow, MatDialog, MatSort } from '@angular/material';
+import { MatDialog, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
 import { StudentService } from '../../../services/student.service';
 import {
   Overlay,
-  ScrollStrategyOptions,
-  ScrollDispatcher,
-  ViewportRuler,
   OverlayContainer,
-  OverlayPositionBuilder,
   OverlayKeyboardDispatcher,
+  OverlayPositionBuilder,
+  ScrollDispatcher,
+  ScrollStrategyOptions,
+  ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { classTestData } from '../../../../../../mocks/assets/classes.mock';
@@ -44,7 +44,7 @@ describe('Student Details Personal Info Component', () => {
     };
 
     classServiceMock = {
-      getAllClasses: jest.fn().mockReturnValueOnce(Observable.of(classTestData.classes)),
+      getAllClasses: jest.fn(), //.mockReturnValueOnce(Observable.of(classTestData.classes)),
     };
 
     studentDialogMock = {
@@ -116,6 +116,19 @@ describe('Student Details Personal Info Component', () => {
       });
     });
 
+    it('should toggle icon value (enabled/disabled) for male and female face', () => {
+      let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
+      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
+
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_enabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_disabled');
+    });
+
     it('should render the component as described in snapshot', () => {
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       expect(fixture).toMatchSnapshot();
@@ -123,13 +136,31 @@ describe('Student Details Personal Info Component', () => {
 
     it('should load classes from service on page load ', async () => {
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve(classTestData.classes);
+        return Observable.of(classTestData.classes);
       });
 
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
       fixture.detectChanges();
       await fixture.whenRenderingDone();
       expect(fixture.componentInstance.classes.length).toEqual(23);
+    });
+
+    it('should populate isClassDropDownDisabled to be true when getAllClasses returns one class or less', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Observable.of([
+          {
+            _id: '5b10fb1ff8022f6011f30f48',
+            grade: 'א',
+            schedule: [],
+            name: 'טיטאן',
+          },
+        ]);
+      });
+
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      expect(fixture.componentInstance.isClassDropDownDisabled).toBe(true);
     });
 
     it('should populate the isNewStudent to true when coming from path student/_new_', () => {
@@ -165,7 +196,13 @@ describe('Student Details Personal Info Component', () => {
       });
 
       (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
-        return Promise.resolve(1);
+        return Promise.resolve({
+          data: {
+            createStudent: {
+              _id: 66,
+            },
+          },
+        });
       });
 
       const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
@@ -173,9 +210,8 @@ describe('Student Details Personal Info Component', () => {
       await fixture.whenRenderingDone();
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.addStudent();
-      expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
-      jest.advanceTimersByTime(4000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+      jest.advanceTimersByTime(1000);
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
     });
 
@@ -280,7 +316,7 @@ describe('Student Details Personal Info Component', () => {
       expect(fixture.componentInstance.changesWereSaved).toBeFalsy();
       await fixture.componentInstance.updateStudent({ form: { value: { _id: '66' } } });
       expect(fixture.componentInstance.changesWereSaved).toBeTruthy();
-      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 4000);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
 
     it('should show indication when error happened on save changes', async () => {

@@ -1,105 +1,106 @@
 <div data-test-id="users-page" class="main-content">
-  <div class="container-fluid">
-    <div class="header-menu-container msw-table-tools-header">
-      <div class="header-table-count">
-        <div>
-          <span class="header-table-count-label">משתמשים</span>
-          <span class="header-table-count-number">({{dataSource.data.length}})</span>
+    <div class="container-fluid">
+      <div class="header-menu-container msw-table-tools-header">
+        <div class="header-table-count">
+          <div>
+            <span class="header-table-count-label">משתמשים</span>
+            <span class="header-table-count-number">({{dataSource.data.length}})</span>
+          </div>
+        </div>
+        <div class="example-header msw-table-tools-header">
+          <button data-test-id="add-new-user-button" mat-raised-button color="primary" (click)="addNewUser()">
+            <i class="material-icons">
+              add
+            </i>
+            הוסף משתמש חדש
+          </button>
         </div>
       </div>
-      <div class="example-header msw-table-tools-header">
-        <button data-test-id="add-new-user-button" mat-raised-button color="primary" (click)="addNewUser()">
-          <i class="material-icons">
-            add
-          </i>
-          הוסף משתמש חדש
-        </button>
-      </div>
-    </div>
-    <div class="row msw-table-container">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <mat-table #table [dataSource]="dataSource" class="msw-table"
-                   matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
-
-          <!-- ID Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>
-              <span class="pl-2" mat-sort-header>שם</span>
-              <span (click)="toggleNameFilter()">
-                <mat-icon class="filter-toggle-button" *ngIf="!showNameFilter" matPrefix>search</mat-icon>
-              </span>
-              <mat-form-field *ngIf="showNameFilter" class="filter" floatLabel="never">
-                <mat-icon matPrefix>search</mat-icon>
-                <mat-label>חיפוש משתמש</mat-label>
-                <input #nameField matInput [formControl]="nameFilter" (focusout)="toggleNameFilter()">
-                <button mat-icon-button matSuffix *ngIf="nameFilter.value" (click)="nameFilter.setValue('')">
-                    <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-form-field>
+      <div class="row msw-table-container">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <mat-table #table [dataSource]="dataSource" class="msw-table"
+                     matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+  
+            <!-- ID Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef>
+                <span class="pl-2" mat-sort-header>שם</span>
+                <span (click)="toggleNameFilter()">
+                  <mat-icon class="filter-toggle-button" *ngIf="!showNameFilter" matPrefix>search</mat-icon>
+                </span>
+                <mat-form-field *ngIf="showNameFilter" class="filter" floatLabel="never">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <mat-label>חיפוש משתמש</mat-label>
+                  <input #nameField matInput [formControl]="nameFilter" (focusout)="toggleNameFilter()">
+                  <button mat-icon-button matSuffix *ngIf="nameFilter.value" (click)="nameFilter.setValue('')">
+                      <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-form-field>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="updateUser(row)"> {{row.firstname}} {{ row.lastname }}</mat-cell>
+            </ng-container>
+  
+            <!-- Class Column -->
+            <ng-container matColumnDef="class">
+              <mat-header-cell *matHeaderCellDef>
+                <span class="pl-2" mat-sort-header>כיתה</span>
+                <span (click)="toggleClassFilter()">
+                  <mat-icon class="filter-toggle-button" *ngIf="!showClassFilter" matPrefix>search</mat-icon>
+                </span>
+                <mat-form-field *ngIf="showClassFilter" class="filter" floatLabel="never">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <mat-label>חיפוש כיתה</mat-label>
+                  <input #classField matInput [formControl]="classFilter" (focusout)="toggleClassFilter()">
+                  <button mat-icon-button matSuffix *ngIf="classFilter.value" (click)="classFilter.setValue('')">
+                      <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-form-field>
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="updateUser(row)"> {{row.firstname}} {{ row.lastname }}</mat-cell>
-          </ng-container>
-
-          <!-- Class Column -->
-          <ng-container matColumnDef="class">
-            <mat-header-cell *matHeaderCellDef>
-              <span class="pl-2" mat-sort-header>כיתה</span>
-              <span (click)="toggleClassFilter()">
-                <mat-icon class="filter-toggle-button" *ngIf="!showClassFilter" matPrefix>search</mat-icon>
-              </span>
-              <mat-form-field *ngIf="showClassFilter" class="filter" floatLabel="never">
-                <mat-icon matPrefix>search</mat-icon>
-                <mat-label>חיפוש כיתה</mat-label>
-                <input #classField matInput [formControl]="classFilter" (focusout)="toggleClassFilter()">
-                <button mat-icon-button matSuffix *ngIf="classFilter.value" (click)="classFilter.setValue('')">
-                    <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-form-field>
-          </mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
-          </ng-container>
-
-          <!-- Username Column -->
-          <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" class="username" (click)="updateUser(row)">{{row.username}}</mat-cell>
-          </ng-container>
-
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>סוג משתמש</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{toHebrew(row.role)}}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.email}}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="recoverpassword">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button class="recover-password-button" mat-icon-button [attr.data-test-id]="'recover-password-' + row.username" color="primary">שחזר סיסמא</button>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="deleteUser">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
-            </mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;">
-        </mat-row>
-        </mat-table>
-        <div *ngIf="showNoRecords" class="no-records-msg">
-          <i class="material-icons md-48">info_outline</i>
-          <h4>לא נמצאו תוצאות</h4>
+              <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{(row.class?.name) || '' }}</mat-cell>
+            </ng-container>
+  
+            <!-- Username Column -->
+            <ng-container matColumnDef="username">
+              <mat-header-cell *matHeaderCellDef>שם משתמש</mat-header-cell>
+              <mat-cell *matCellDef="let row" class="username" (click)="updateUser(row)">{{row.username}}</mat-cell>
+            </ng-container>
+  
+  
+            <!-- Name Column -->
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>סוג משתמש</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{toHebrew(row.role)}}</mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="email">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="updateUser(row)">{{row.email}}</mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="recoverpassword">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button class="recover-password-button" mat-icon-button [attr.data-test-id]="'recover-password-' + row.username" (click)="restoreUserPassword(row)" color="primary">שחזר סיסמא</button>
+              </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="deleteUser">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-user-button-' + row.username" (click)="deleteUser(row)"><i class="material-icons"> delete </i></button>
+              </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+          </mat-table>
+          <div *ngIf="showNoRecords" class="no-records-msg">
+            <i class="material-icons md-48">info_outline</i>
+            <h4>לא נמצאו תוצאות</h4>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  

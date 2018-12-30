@@ -1,0 +1,13 @@
+<div class="container">
+  <h3 mat-dialog-title color="accent">מחיקת {{data.title}}</h3>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <br>
+    האם אתה בטוח שברצונך למחוק את {{data.question}}  ?
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <button type="submit" mat-button class="msw-button-delete" id="confirm-delete-block" [mat-dialog-close]=true>אישור </button>
+  </div>
+</div>

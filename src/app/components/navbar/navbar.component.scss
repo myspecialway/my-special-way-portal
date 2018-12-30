@@ -1,14 +1,24 @@
-@import '../../../assets/scss/core/variables';
+@import '~assets/scss/core/variables';
 .navbar {
   .navbar-brand {
     display: flex;
     flex-direction: row;
+    padding: 0%;
     .logo-img {
-      height: 36px;
-      width: 36px;
+      height: 48px;
+      width: 48px;
+      align-content: center;
     }
     .logo-img-tlv {
       height: 36px;
+    }
+    .logo-text {
+      color: #8249d1;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      padding-top: 15px;
+      padding-right: 2px;
     }
   }
 

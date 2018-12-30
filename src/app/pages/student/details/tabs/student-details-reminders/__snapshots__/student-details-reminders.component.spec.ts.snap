@@ -4,6 +4,8 @@ exports[`Student Details Reminders Component should render the component as desc
 <app-student-details-reminders
   dayNames={[Function Array]}
   dialog={[Function Object]}
+  emptyDialogString={[Function String]}
+  isNewStudent="false"
   reminderType={[Function Object]}
   route={[Function Object]}
   studentService={[Function Object]}

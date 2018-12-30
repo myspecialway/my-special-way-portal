@@ -63,4 +63,9 @@ describe('user service tests', () => {
       }),
     ).toEqual({ _id: '12' });
   });
+
+  it('should return update user response updatePassword', async () => {
+    (apollo.mutate as jest.Mock).mockReturnValue(of({ _id: '12' }));
+    expect(await service.updateUserPassword('12', '1234567')).toEqual({ _id: '12' });
+  });
 });

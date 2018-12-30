@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, UserQuery } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import {
   QUERY_GET_ALL_USERS,
@@ -8,6 +8,7 @@ import {
   MUTATE_CREATE_USER,
   MUTATE_UPDATE_USER,
   MUTATE_DELETE_USER,
+  MUTATE_UPDATE_USER_PASSWORD,
 } from './user.graphql';
 import { map } from 'rxjs/operators/map';
 import { catchError } from 'rxjs/operators';
@@ -33,7 +34,7 @@ export class UserService {
 
   getById(id: number) {
     return this.apollo
-      .query<UserQuery>({
+      .query<{ user: User }>({
         query: QUERY_GET_USER_BY_ID,
         variables: { id },
       })
@@ -95,6 +96,19 @@ export class UserService {
       .mutate({
         mutation: MUTATE_DELETE_USER,
         variables: { id },
+        refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
+      })
+      .toPromise();
+  }
+
+  updateUserPassword(username: string, password: string) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_UPDATE_USER_PASSWORD,
+        variables: {
+          username,
+          password,
+        },
         refetchQueries: [{ query: QUERY_GET_ALL_USERS }],
       })
       .toPromise();

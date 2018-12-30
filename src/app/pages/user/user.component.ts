@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MatSort, MatTableDataSource } from '@angular/material';
 import { UserService } from './services/user.service';
 import { User, UserType } from '../../models/user.model';
 import { AddUserDialogComponent } from './dialogs/add/add-user.dialog';
@@ -8,6 +8,9 @@ import * as _ from 'lodash';
 import { UpdateUserDialogComponent } from './dialogs/update/update-user.dialog';
 import { SubscriptionCleaner } from '../../decorators/SubscriptionCleaner.decorator';
 import { first } from 'rxjs/operators';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { RestorePasswordDialogComponent } from './dialogs/restore/success/restore.dialog';
+import { RestorePasswordErrorDialogComponent } from './dialogs/restore/error/restore-error.dialog';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -41,7 +44,12 @@ export class UserComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private ref: ChangeDetectorRef, private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private ref: ChangeDetectorRef,
+    private userService: UserService,
+    public dialog: MatDialog,
+    private authenticationService: AuthenticationService,
+  ) {}
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
@@ -57,7 +65,18 @@ export class UserComponent implements OnInit {
       }),
     );
 
-    this.dataSource.sortingDataAccessor = (item) => item.firstname + item.lastname;
+    this.dataSource.sortingDataAccessor = this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'name':
+          return item.firstname + item.lastname;
+        case 'class':
+          return item.class ? item.class.name : '';
+        case 'type':
+          return item.role;
+        default:
+          return item[property];
+      }
+    };
 
     this.nameFilter.valueChanges.subscribe((name) => {
       this.filterValues.name = name.trim().toLowerCase();
@@ -155,6 +174,29 @@ export class UserComponent implements OnInit {
             this.userService.delete(userData._id);
           }
         }),
+    );
+  }
+  async restoreUserPassword(userData: User) {
+    let dialogRef: MatDialogRef<any, any>;
+
+    const restore = await this.authenticationService.restorePassword(userData.username);
+    const config = {
+      data: userData,
+      height: '325px',
+      width: '450px',
+    };
+
+    if (!restore) {
+      dialogRef = this.dialog.open(RestorePasswordErrorDialogComponent, config);
+    } else {
+      dialogRef = this.dialog.open(RestorePasswordDialogComponent, config);
+    }
+
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(() => {}),
     );
   }
   updateUser(userData: User) {

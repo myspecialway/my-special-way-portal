@@ -31,8 +31,26 @@ type ListMetadata {
 }
 
 type Mutation {
-  createUser(id: ID!, userName: String!, firstName: String!, lastName: String!, email: String!, userType: String!, class_id: ID!): User
-  updateUser(id: ID!, userName: String, firstName: String, lastName: String, email: String, userType: String, class_id: ID): User
+  createUser(
+    id: ID!
+    userName: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    userType: String!
+    class_id: ID!
+  ): User
+  updateUser(
+    id: ID!
+    userName: String
+    firstName: String
+    lastName: String
+    email: String
+    userType: String
+    class_id: ID
+  ): User
+  updateUserPassword(username: String!, password: String): User
+  userForgetPassword(username: String!): User
   removeUser(id: ID!): Boolean
   createClass(id: ID!, level: Int!, number: Int!, name: String!): Class
   updateClass(id: ID!, level: Int, number: Int, name: String): Class

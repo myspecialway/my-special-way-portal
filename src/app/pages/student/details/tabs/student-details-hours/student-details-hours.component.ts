@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { ScheduleDialogComponent } from '../../../../../components/schedule/schedule-dialog/schedule.dialog';
 import { SubscriptionCleaner } from '../../../../../decorators/SubscriptionCleaner.decorator';
 import { Class } from '../../../../../models/class.model';
+import { DeleteTimeSlotDialogComponent } from '../../../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 
 @Component({
   selector: 'app-student-details-hours',
@@ -20,6 +21,7 @@ import { Class } from '../../../../../models/class.model';
 export class StudentDetailsHoursComponent implements OnInit {
   sub: any;
   id: string;
+  isNewStudent: boolean;
   schedule: TimeSlot[][];
   student: Student;
 
@@ -38,6 +40,7 @@ export class StudentDetailsHoursComponent implements OnInit {
       return;
     }
     this.id = this.route.parent.snapshot.params.idOrNew;
+
     try {
       this.student = { ...(await this.studentService.getById(this.id)) };
       if (!this.student.class) {
@@ -71,16 +74,18 @@ export class StudentDetailsHoursComponent implements OnInit {
       dialogRef
         .afterClosed()
         .pipe(first())
-        .subscribe(async (data: ScheduleDialogData) => {
-          if (!data) {
+        .subscribe(async (newData: ScheduleDialogData) => {
+          if (!newData) {
             return;
           }
-          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((slot) => slot.customized);
+          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter((oldSLot) =>
+            this.isSlotRelevant(oldSLot, newData),
+          );
           const newCustomizedSlot: TimeSlot = {
-            index: data.index,
-            hours: data.hour,
-            lesson: data.lesson,
-            location: data.location,
+            index: newData.index,
+            hours: newData.hour,
+            lesson: newData.lesson,
+            location: newData.location,
             customized: true,
           };
           const newCustomizedSchedule = [...onlyCustomizedSlots, newCustomizedSlot];
@@ -106,6 +111,10 @@ export class StudentDetailsHoursComponent implements OnInit {
     );
   }
 
+  isSlotRelevant(slot: TimeSlot, data: ScheduleDialogData) {
+    return slot.customized && slot.index !== data.index;
+  }
+
   getDialogData(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
 
@@ -116,5 +125,45 @@ export class StudentDetailsHoursComponent implements OnInit {
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;
+  }
+
+  onTimeSlotDelete(indexes: TimeSlotIndexes) {
+    const dialogData = this.getDialogData(indexes);
+    const dialogRef = this.dialog.open(DeleteTimeSlotDialogComponent, {
+      data: dialogData,
+    });
+
+    this.subCollector.add(
+      dialogRef
+        .afterClosed()
+        .pipe(first())
+        .subscribe(async (shouldDelete: ScheduleDialogData) => {
+          if (!shouldDelete) {
+            return;
+          }
+
+          const onlyCustomizedSlots: TimeSlot[] = this.student.schedule.filter(
+            (timeSlot) => timeSlot.customized === true && timeSlot.index !== `${indexes.hourIndex}_${indexes.dayIndex}`,
+          );
+
+          const tempStudent: StudentQuery = {
+            _id: this.student._id,
+            username: this.student.username,
+            firstname: this.student.firstname,
+            lastname: this.student.lastname,
+            gender: this.student.gender,
+            password: this.student.password,
+            class_id: this.student.class._id,
+            schedule: onlyCustomizedSlots,
+          };
+          try {
+            await this.studentService.update(tempStudent);
+            this.student = await this.studentService.getById(this.id);
+            this.initSchedule();
+          } catch (error) {
+            console.log(error);
+          }
+        }),
+    );
   }
 }

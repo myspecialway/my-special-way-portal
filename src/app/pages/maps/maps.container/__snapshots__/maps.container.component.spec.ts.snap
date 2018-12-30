@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapsContainerComponent should match snapshot 1`] = `
+<app-maps-container
+  activeLink={[Function String]}
+  currentFloor="0"
+  dataSource={[Function MatTableDataSource]}
+  dialog={[Function Object]}
+  displayedColumns={[Function Array]}
+  floorMapName={[Function String]}
+  links={[Function Array]}
+  locationService={[Function Object]}
+  locations={[Function Array]}
+  mapsService={[Function Object]}
+  mswSnackbar={[Function Object]}
+  subCollector={[Function Subscription]}
+>
+  <div
+    class="main-content msw-maps-container"
+    data-test-id="maps-page"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="header-menu-container msw-table-tools-header"
+      >
+        <div
+          class="header-table-count"
+        >
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              ניהול מפות
+            </span>
+          </div>
+        </div>
+        <div
+          class="example-header msw-table-tools-header"
+        >
+          <button
+            color="primary"
+            data-test-id="add-map-button"
+            mat-raised-button=""
+          >
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף מפה 
+          </button>
+        </div>
+      </div>
+      <div
+        class="maps-body"
+      >
+        <div
+          class="maps-poi-list"
+        >
+          <app-map-floor-list />
+        </div>
+        <div
+          class="map-container"
+        >
+          <img
+            src="/assets/floor-maps/Floor_0_TOP_SHOT_MAP_V2.jpg"
+          />
+        </div>
+        <div
+          class="map-control"
+        >
+          <div
+            class="msw-maps-header-nav"
+          >
+            <div
+              class="msw-maps-header-nav-tabs"
+            >
+              <nav
+                mat-tab-nav-bar=""
+              >
+                
+                <a
+                  class="msw-maps-tab-active"
+                  data-test-id="maps-points-tab"
+                  mat-tab-link=""
+                  ng-reflect-ng-class="msw-maps-tab-active"
+                >
+                  נקודות ניווט
+                </a>
+                <a
+                  data-test-id="blocked-maps-points-tab"
+                  mat-tab-link=""
+                  ng-reflect-ng-class=""
+                >
+                  מקטעים חסומים
+                </a>
+              </nav>
+            </div>
+          </div>
+          
+          <app-map-points />
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</app-maps-container>
+`;

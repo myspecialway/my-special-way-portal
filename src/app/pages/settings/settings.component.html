@@ -1,0 +1,39 @@
+<form #formControl="ngForm" [formGroup]="form" novalidate>
+    <div data-test-id="settings-page" class="main-content">
+        <div class="container-fluid">
+            <div class="header-menu-container msw-table-tools-header">
+                <div class="header-table-count">
+                    <div>
+                        <span class="header-table-count-label">הגדרות</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-container">
+                <mat-card class="selected-radius">
+                    <div class="table">
+                        <div class="row">
+                            <div class="cell">
+                                <p>קוד מורה</p>
+                            </div>
+                            <div class="cell input-container"> 
+                                <mat-form-field floatLabel="never">
+                                    <input matInput #input 
+                                        data-test-id="teacher-code-input"
+                                        formControlName="teachercodecontrol" 
+                                        name="teachercodecontrol"
+                                        type="text" 
+                                        [(ngModel)]="teachercode"
+                                        placeholder="קוד"
+                                        (change)="codeChanged($event.target.value)"
+                                    >
+                                    <mat-error data-test-id="teachercode-err1" *ngIf="teacherCodeFormControl.hasError('required')">קוד מורה הינו שדה חובה</mat-error>
+                                    <mat-error data-test-id="teachercode-err2" *ngIf="teacherCodeFormControl.hasError('minlength') || teacherCodeFormControl.hasError('maxlength') || teacherCodeFormControl.hasError('pattern')">נא הקש 4 ספרות</mat-error>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</form>

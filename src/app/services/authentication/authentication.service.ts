@@ -12,6 +12,7 @@ import { UserProfileStateModel } from '../../apollo/state/resolvers/state.resolv
 import { UserUniqueValidationResponse } from '../../models/user-unique-validation-response.model';
 import { of } from 'rxjs';
 import { catchError, first, map } from 'rxjs/operators';
+import { MUTATE_USER_FORGET_PASSWORD } from '../../pages/user/services/user.graphql';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,7 +21,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
-  private getTokenFromLocalStore() {
+  public getTokenFromLocalStore() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
   }
 
@@ -40,6 +41,31 @@ export class AuthenticationService {
     await this.pushUserProfileToState(userProfile);
   }
 
+  async firstLogin(firstLoginToken: string): Promise<UserProfileStateModel | null> {
+    try {
+      const tokenResponse = await this.http
+        .post<LoginResponse>(environment.hotConfig.MSW_HOT_FIRSTLOGIN_ENDPOINT, { firstLoginToken })
+        .toPromise();
+
+      if (!tokenResponse) {
+        return null;
+      }
+
+      this.saveTokenInStorage(false, tokenResponse);
+      const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      await this.pushUserProfileToState(userProfile);
+
+      return userProfile;
+    } catch (error) {
+      const typedError = error as HttpErrorResponse;
+
+      if (typedError.status !== 401) {
+        throw error;
+      }
+    }
+    return null;
+  }
+
   async login(username: string, password: string, isRememberMeActive: boolean): Promise<boolean> {
     try {
       const tokenResponse = await this.http
@@ -50,11 +76,7 @@ export class AuthenticationService {
         return false;
       }
 
-      if (isRememberMeActive) {
-        localStorage.setItem('token', tokenResponse.accessToken);
-      } else {
-        sessionStorage.setItem('token', tokenResponse.accessToken);
-      }
+      this.saveTokenInStorage(isRememberMeActive, tokenResponse);
 
       const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
       await this.pushUserProfileToState(userProfile);
@@ -89,6 +111,23 @@ export class AuthenticationService {
       return false;
     }
   }
+  private saveTokenInStorage(isRememberMeActive: boolean, tokenResponse: LoginResponse) {
+    if (isRememberMeActive) {
+      localStorage.setItem('token', tokenResponse.accessToken);
+    } else {
+      sessionStorage.setItem('token', tokenResponse.accessToken);
+    }
+  }
+  async restorePassword(username: string) {
+    return this.apollo
+      .mutate({
+        mutation: MUTATE_USER_FORGET_PASSWORD,
+        variables: {
+          username,
+        },
+      })
+      .toPromise();
+  }
 
   private getProfileFromToken(token: string): UserProfileStateModel {
     const jwrParsedToken = this.parseToken(token);
@@ -121,6 +160,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    this.apollo.getClient().cache.reset();
   }
 
   checkUsernameUnique(username: string, id: string | number) {

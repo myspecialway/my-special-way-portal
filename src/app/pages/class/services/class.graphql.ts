@@ -36,10 +36,7 @@ schedule {
   }
   location {
     name
-    disabled
     position {
-      latitude
-      longitude
       floor
     }
   }
@@ -65,4 +62,12 @@ export const MUTATE_UPDATE_CLASS = gql`
         ${ALL_CLASS_FIELDS}
       }
     }
+  `;
+
+export const DELETE_SCHEDULE_SLOT_FROM_CLASS = gql`
+   mutation deleteScheduleSlotFromClass($id: ID!, $scheduleIndex: String!) {
+    deleteScheduleSlotFromClass(classId:$id, scheduleIndex:$scheduleIndex) {
+      ${ALL_CLASS_FIELDS}
+    }
+  }
   `;
