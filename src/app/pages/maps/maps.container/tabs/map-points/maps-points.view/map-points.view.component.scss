@@ -1,6 +1,9 @@
 @import '../../../../../../../assets/scss/msw-table';
 
 .msw-table-container {
+  height: calc(100% - 64px);
+  overflow-y: auto;
+
   .mat-cell,
   .mat-header-cell {
     cursor: pointer;
