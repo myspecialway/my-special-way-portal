@@ -68,6 +68,9 @@ ClassDetailsContainerComponent {
     "create": [MockFunction],
     "update": [MockFunction],
   },
+  "dateUtilService": Object {
+    "isTemporeryClassTimeExpired": [MockFunction],
+  },
   "dialog": Object {
     "open": [MockFunction],
   },
@@ -186,6 +189,7 @@ ClassDetailsContainerComponent {
             "floor": 1,
           },
         },
+        "original": undefined,
       },
       Object {
         "index": "1_1",
@@ -465,6 +469,9 @@ ClassDetailsContainerComponent {
     ],
   ],
   "scheduleService": ScheduleService {
+    "dateUtilService": Object {
+      "isTemporeryClassTimeExpired": [MockFunction],
+    },
     "daysLabels": Array [
       "ראשון",
       "שני",
