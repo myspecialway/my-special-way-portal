@@ -38,9 +38,9 @@ exports[`Student Details Component with _new_ student path should render the com
             
           </nav>
         </div>
-        <router-outlet />
       </div>
     </div>
+    <router-outlet />
   </div>
 </app-student-details>
 `;
@@ -83,9 +83,9 @@ exports[`Student Details Component with edit student path should render the comp
             
           </nav>
         </div>
-        <router-outlet />
       </div>
     </div>
+    <router-outlet />
   </div>
 </app-student-details>
 `;
