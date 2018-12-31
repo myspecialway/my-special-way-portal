@@ -7,13 +7,11 @@ import { ScheduleDialogData } from './schedule-dialog-data.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectModule } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import * as moment from 'moment';
 
 import { DateUtilService } from '../../../services/date-utils/date-util.service';
 describe('ScheduleDialogComponent', () => {
   let component: ScheduleDialogComponent;
   let lessonServiceMock: Partial<LessonService>;
-  let dateUtilServiceMock: Partial<DateUtilService>;
   let locationServiceMock: Partial<LocationService>;
   let fixture: ComponentFixture<ScheduleDialogComponent>;
   beforeEach(async () => {

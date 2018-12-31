@@ -1,7 +1,7 @@
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TimeSlot, Original } from '../../../models/timeslot.model';
+import { TimeSlot } from '../../../models/timeslot.model';
 import { ClassService } from '../../class/services/class.graphql.service';
 import { TimeSlotIndexes } from '../../../components/schedule/schedule.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
