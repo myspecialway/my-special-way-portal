@@ -27,10 +27,10 @@ export class ResetPasswordComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  async resetPassword() {
+  resetPassword() {
     console.log('resetPassword');
     try {
-      const sentResponse = await this.authenticationService.resetPassword(this.model.email);
+      const sentResponse = this.authenticationService.resetPassword(this.model.email);
 
       if (!sentResponse) {
         console.warn('reset-password.component::reset-password:: reset-password error');
