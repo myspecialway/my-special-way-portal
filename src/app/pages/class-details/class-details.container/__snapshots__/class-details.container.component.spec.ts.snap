@@ -72,7 +72,6 @@ ClassDetailsContainerComponent {
     "open": [MockFunction],
   },
   "idOrNew": "5b217b030825622c97d3757f",
-  "initBoard": [Function],
   "isNew": false,
   "mswSnackbar": Object {
     "displayTimedMessage": [MockFunction],
