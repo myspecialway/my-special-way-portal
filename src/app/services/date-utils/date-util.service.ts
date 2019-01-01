@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Original } from '../../models/timeslot.model';
 
 @Injectable()
 export class DateUtilService {
@@ -22,5 +21,4 @@ export class DateUtilService {
     console.log(date);
     return date;
   }
-
 }
