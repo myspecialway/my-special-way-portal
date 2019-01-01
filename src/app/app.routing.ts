@@ -17,6 +17,7 @@ import { StudentDetailsComponent } from './pages/student/details/student-details
 import { StudentDetailsRemindersComponent } from './pages/student/details/tabs/student-details-reminders/student-details-reminders.component';
 import { UserType } from './models/user.model';
 import { FirstloginComponent } from './pages/firstlogin/firstlogin.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { NonActiveTimeComponent } from './pages/non-active-time/non-active-time.component';
 
 const routes: Routes = [
@@ -89,6 +90,12 @@ const routes: Routes = [
       {
         path: 'non-active-times',
         component: NonActiveTimeComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: [UserType.PRINCIPLE] },
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
         canActivate: [AuthGuard],
         data: { expectedRole: [UserType.PRINCIPLE] },
       },

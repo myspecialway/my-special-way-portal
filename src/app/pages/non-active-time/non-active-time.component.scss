@@ -3,3 +3,16 @@
 .header-table-count-label {
   font-size: 21px;
 }
+
+.msw-nat-table-event {
+  overflow: hidden;
+  padding-left: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msw-non-active-time-container {
+  .header-table-count {
+    width: 600px;
+  }
+}

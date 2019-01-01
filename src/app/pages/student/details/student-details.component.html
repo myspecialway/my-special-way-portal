@@ -1,6 +1,6 @@
 <div class="msw-student">
   <div class="msw-student-header">
-      <div class="msw-student-header-back"> 
+      <div class="msw-student-header-back">
           <a class="back" [routerLink]="['/student']">
             <i class="material-icons">chevron_right</i>
             כל התלמידים
@@ -10,13 +10,11 @@
       <div class="msw-student-header-nav-tabs" class="msw-student-header-nav-tabs">
 
         <nav mat-tab-nav-bar>
-          <a mat-tab-link *ngFor="let link of links" [routerLink]="[link.path]" (click)="activeLink = link.label"
-            [attr.data-test-id]="link.dataTestId" [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-student-tab-active' : ''}}">{{link.label}}</a>
+          <a mat-tab-link *ngFor="let link of links" [routerLink]="link.enabled ? link.path : null" (click)="link.enabled ? activeLink = link.label : activeLink = activeLink"
+            [attr.data-test-id]="link.dataTestId" [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-student-tab-active' : ''}}" >{{link.label}}</a>
         </nav>
       </div>
-        <router-outlet></router-outlet>
-
-
     </div>
   </div>
+    <router-outlet></router-outlet>
 </div>

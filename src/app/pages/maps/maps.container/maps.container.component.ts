@@ -1,3 +1,4 @@
+import { MAP_FLOOR_MAPS } from './../maps-constants';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
@@ -9,11 +10,13 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
+import { IMapFloor } from '../../../models/maps.model';
+import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 
 @Component({
   selector: 'app-maps-container',
-  templateUrl: './maps.container.html',
-  styleUrls: ['./maps.container.scss'],
+  templateUrl: './maps.container.component.html',
+  styleUrls: ['./maps.container.component.scss'],
 })
 export class MapsContainerComponent implements OnInit {
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
@@ -26,15 +29,24 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  constructor(private dialog: MatDialog, private mapsService: MapsService, private locationService: LocationService) {
+  floorMapName: string;
+
+  constructor(
+    private dialog: MatDialog,
+    private mapsService: MapsService,
+    private locationService: LocationService,
+    private mswSnackbar: MSWSnackbar,
+  ) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
     ];
-    this.activeLink = this.links[1].label;
+    this.activeLink = this.links[0].label;
   }
 
   ngOnInit(): void {
+    const initialFloor = MAP_FLOOR_MAPS.find(({ index }) => index === this.currentFloor);
+    this.onFloorChange(initialFloor as IMapFloor);
     try {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
@@ -63,49 +75,61 @@ export class MapsContainerComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
-    this.subCollector.add(
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (result) => {
-          if (result) {
-            try {
-              if (isNewBlock) {
-                await this.mapsService.create(result);
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result) {
+          try {
+            if (isNewBlock) {
+              if (this.blockedSectionAlreadyExists(result)) {
+                this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
               } else {
-                await this.mapsService.update(result);
+                await this.mapsService.create(result);
               }
-            } catch (error) {
-              // TODO: implement error handling on UI
-              console.error('Error handling not implemented');
-              throw error;
+            } else {
+              await this.mapsService.update(result);
             }
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
           }
-        }),
-    );
+        }
+      });
   }
 
-  deleteBlock(blockedSection: BlockedSection) {
+  blockedSectionAlreadyExists(blockedSection: BlockedSection) {
+    for (const bS of this.dataSource.data) {
+      if (bS.reason === blockedSection.reason && bS.from === blockedSection.from && bS.to === blockedSection.to) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  deleteBlock({ _id, from, to, reason }: BlockedSection) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
-      data: blockedSection,
+      data: {
+        title: 'מקטע חסום',
+        question: `המקטע ${from} - ${to} - ${reason}`,
+      },
     });
 
-    this.subCollector.add(
-      dialogRef
-        .afterClosed()
-        .pipe(first())
-        .subscribe(async (result) => {
-          if (result) {
-            try {
-              await this.mapsService.delete(blockedSection._id);
-            } catch (error) {
-              // TODO: implement error handling on UI
-              console.error('Error handling not implemented');
-              throw error;
-            }
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result) {
+          try {
+            await this.mapsService.delete(_id);
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
           }
-        }),
-    );
+        }
+      });
   }
 
   addMap() {
@@ -117,7 +141,9 @@ export class MapsContainerComponent implements OnInit {
         console.log(addMapConfirmed);
       });
   }
-  onFloorChange(floor) {
-    this.currentFloor = floor;
+
+  onFloorChange({ index, filename }) {
+    this.currentFloor = index;
+    this.floorMapName = filename;
   }
 }

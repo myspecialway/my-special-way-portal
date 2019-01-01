@@ -1,4 +1,4 @@
-import { MAP_POINT_TYPES } from './../../../maps-constants';
+import { MAP_POINT_TYPES, MSW_SYMBOLS } from './../../../maps-constants';
 import { IDialogLocation } from './../../../../../models/location.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -27,7 +27,7 @@ export class AddEditPointDialogComponent implements OnInit {
     }
   }
   public icons;
-  public allicons = ['00026', '00036', '00040', '00047', '00067', '00135', '00319', '00336', '00468', '00524', '00545'];
+  public allicons = MSW_SYMBOLS;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
