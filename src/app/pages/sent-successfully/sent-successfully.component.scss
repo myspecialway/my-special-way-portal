@@ -1,11 +1,13 @@
 .email-sent-container {
   background-color: #fff;
-  .msw-email-logo {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    background-color: red;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .msw-email-sent {
+    width: 259px;
+    height: 104px;
   }
   .email-sent-title {
     margin-top: 20px;

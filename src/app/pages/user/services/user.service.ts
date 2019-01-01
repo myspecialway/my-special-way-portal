@@ -43,7 +43,7 @@ export class UserService {
 
   getByEmail(email: string) {
     return this.apollo
-      .query<UserQuery>({
+      .query<User>({
         query: QUERY_GET_USER_BY_EMAIL,
         variables: { email },
       })

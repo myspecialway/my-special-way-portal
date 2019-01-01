@@ -10,12 +10,9 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 })
 export class ResetPasswordComponent implements OnInit {
   model: any = {};
-  loading = false;
   returnUrl: string;
-  loginFailed = false;
   formFieldOptions: FormGroup;
   sentResponse = false;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,17 +34,13 @@ export class ResetPasswordComponent implements OnInit {
 
       if (!sentResponse) {
         console.warn('reset-password.component::reset-password:: reset-password error');
-        this.loginFailed = true;
         return;
       }
 
-      this.router.navigate(['/sentSuccessfully']);
+      this.router.navigate(['/sent-successfully']);
     } catch (err) {
       console.error(`reset-password.component::reset-password:: error in authentication ${err}`);
-      this.loginFailed = true;
       // TODO: handle error in authetication
-    } finally {
-      this.loading = false;
     }
   }
 }
