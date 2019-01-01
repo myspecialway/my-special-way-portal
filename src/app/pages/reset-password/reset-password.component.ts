@@ -28,7 +28,6 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    console.log('resetPassword');
     try {
       const sentResponse = this.authenticationService.resetPassword(this.model.email);
 
@@ -40,7 +39,7 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigate(['/sent-successfully']);
     } catch (err) {
       console.error(`reset-password.component::reset-password:: error in authentication ${err}`);
-      // TODO: handle error in authetication
+      // TODO: handle error in authentication
     }
   }
 }
