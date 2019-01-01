@@ -95,13 +95,8 @@ export class AuthenticationService {
 
   async resetPassword(email: string): Promise<boolean> {
     try {
-      const response = await this.http
-        .post<any>(environment.hotConfig.MSW_HOT_RESET_PASSWORD_ENDPOINT, { email })
-        .toPromise();
+      await this.http.post<any>(environment.hotConfig.MSW_HOT_RESET_PASSWORD_ENDPOINT, { email }).toPromise();
 
-      if (!response) {
-        return false;
-      }
       // const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
       // await this.pushUserProfileToState(userProfile);
 
