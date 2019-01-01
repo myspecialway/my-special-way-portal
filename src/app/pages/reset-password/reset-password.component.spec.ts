@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
+import { async, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './reset-password.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
