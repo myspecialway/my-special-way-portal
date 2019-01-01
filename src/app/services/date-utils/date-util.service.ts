@@ -23,16 +23,4 @@ export class DateUtilService {
     return date;
   }
 
-  public isTemporeryClassTimeExpired(original?: Original) {
-    if (original) {
-      if (
-        moment()
-          .utc()
-          .isAfter(original.expired)
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
 }

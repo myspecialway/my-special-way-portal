@@ -3,14 +3,10 @@ import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { DateUtilService } from '../../../services/date-utils/date-util.service';
-let dateUtilServiceMock: Partial<DateUtilService>;
 const beforeEachAsync = async () => {
-  dateUtilServiceMock = {
-    isTemporeryClassTimeExpired: jest.fn().mockReturnValue(false),
-  };
   TestBed.configureTestingModule({
     declarations: [ClassDetailsViewComponent],
-    providers: [{ provide: DateUtilService, useValue: dateUtilServiceMock }, ScheduleService],
+    providers: [DateUtilService, ScheduleService],
     schemas: [NO_ERRORS_SCHEMA],
   }).compileComponents();
 };

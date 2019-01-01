@@ -27,7 +27,6 @@ describe('Student Details Hours Component', () => {
   let observableAfterClosed: Subject<ScheduleDialogData>;
   let afterClosedMockFn: jest.Mock;
   let studentServiceMock: Partial<StudentService>;
-  let dateUtilServiceMock: Partial<DateUtilService>;
   let mockedScheduleDialogData;
   const mockedIndexes = { hourIndex: 0, dayIndex: 0 };
 
@@ -229,9 +228,7 @@ describe('Student Details Hours Component', () => {
       update: jest.fn(),
       getById: jest.fn(),
     };
-    dateUtilServiceMock = {
-      isTemporeryClassTimeExpired: jest.fn().mockReturnValue(false),
-    };
+
     TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([])],
       declarations: [StudentDetailsComponent, StudentDetailsHoursComponent],
@@ -245,7 +242,7 @@ describe('Student Details Hours Component', () => {
         },
         Platform,
         { provide: StudentService, useValue: studentServiceMock },
-        { provide: DateUtilService, useValue: dateUtilServiceMock },
+        DateUtilService,
         ScheduleService,
         {
           provide: ActivatedRoute,
@@ -272,7 +269,6 @@ describe('delete time slot from student', () => {
   let deleteTimeSlotDialogMock: Partial<MatDialog>;
   let fixture: ComponentFixture<StudentDetailsHoursComponent>;
   let afterCloseDeleteTimeSlotDialogMockFn: jest.Mock;
-  let dateUtilServiceMock: Partial<DateUtilService>;
   let routeParamsMockedObservable: Subject<unknown>;
   let scheduleServiceMock: Partial<ScheduleService>;
 
@@ -357,9 +353,7 @@ describe('delete time slot from student', () => {
       getById: jest.fn().mockReturnValue(Promise.resolve(mockStudent)),
       update: jest.fn(),
     };
-    dateUtilServiceMock = {
-      isTemporeryClassTimeExpired: jest.fn().mockReturnValue(false),
-    };
+
     deleteTimeSlotDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterCloseDeleteTimeSlotDialogMockFn,
@@ -383,7 +377,7 @@ describe('delete time slot from student', () => {
           },
         },
         Platform,
-        { provide: DateUtilService, useValue: dateUtilServiceMock },
+        DateUtilService,
         { provide: StudentService, useValue: studentServiceMock },
         ScheduleService,
         {

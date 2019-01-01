@@ -14,7 +14,6 @@ import { ScheduleDialogData } from '../../../components/schedule/schedule-dialog
 import { Location } from '@angular/common';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { Apollo } from 'apollo-angular';
-import { DateUtilService } from '../../../services/date-utils/date-util.service';
 
 const mockedClass = {
   _id: '5b217b030825622c97d3757f',
@@ -43,7 +42,6 @@ describe('ClassDetailsContainerComponent', () => {
   let component: ClassDetailsContainerComponent;
   let classServiceMock: Partial<ClassService>;
   let scheduleDialogMock: Partial<MatDialog>;
-  let dateUtilServiceMock: Partial<DateUtilService>;
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
   let afterClosedMockFn: jest.Mock;
   let locationMock: Partial<Location>;
@@ -76,9 +74,7 @@ describe('ClassDetailsContainerComponent', () => {
       update: jest.fn(),
       create: jest.fn(),
     };
-    dateUtilServiceMock = {
-      isTemporeryClassTimeExpired: jest.fn().mockReturnValue(false),
-    };
+
     scheduleDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterClosedMockFn,
@@ -111,7 +107,6 @@ describe('ClassDetailsContainerComponent', () => {
         { provide: MatDialog, useValue: scheduleDialogMock },
         { provide: Location, useValue: locationMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
-        { provide: DateUtilService, useValue: dateUtilServiceMock },
         Router,
         ScheduleService,
         { provide: Apollo, useValue: apolloMock },
@@ -206,7 +201,6 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
   let fixture: ComponentFixture<ClassDetailsContainerComponent>;
   let afterCloseDeleteTimeSlotDialogMockFn: jset.Mock;
   let routeParamsMockedObservable: Subject<unknown>;
-  let dateUtilServiceMock: Partial<DateUtilService>;
 
   const mockedTimeSlotIndexes = {
     hourIndex: 1,
@@ -224,9 +218,7 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
       update: jest.fn(),
       deleteScheduleSlotFromClass: jest.fn(),
     };
-    dateUtilServiceMock = {
-      isTemporeryClassTimeExpired: jest.fn().mockReturnValue(false),
-    };
+
     deleteTimeSlotDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterCloseDeleteTimeSlotDialogMockFn,
@@ -244,8 +236,6 @@ describe('ClassDetailsContainerComponent - delete time slot from class', () => {
         { provide: ActivatedRoute, useValue: { params: routeParamsMockedObservable } },
         { provide: MatDialog, useValue: deleteTimeSlotDialogMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
-        { provide: DateUtilService, useValue: dateUtilServiceMock },
-
         Router,
         ScheduleService,
         { provide: Apollo, useClass: Apollo },

@@ -76,7 +76,7 @@ export class ScheduleDialogComponent implements OnInit {
     //else save the real base state requeset
     if (!this.scheduleDialogData.original) {
       const lesson = Object.assign({}, this.selectedLesson);
-      this.baseState.lesson = lesson;
+      this.baseState.lesson = this.selectedLesson ? lesson : undefined;
     } else {
       this.baseState.lesson = this.scheduleDialogData.original.lesson;
     }
@@ -93,7 +93,7 @@ export class ScheduleDialogComponent implements OnInit {
     //else save the real base state requeset
     if (!this.scheduleDialogData.original) {
       const location = Object.assign({}, this.selectedLocation);
-      this.baseState.location = location;
+      this.baseState.location = this.selectedLesson ? location : undefined;
     } else {
       this.baseState.location = this.scheduleDialogData.original.location;
     }
