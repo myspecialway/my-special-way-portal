@@ -27,7 +27,9 @@ import { StudentDetailsRemindersComponent } from './student/details/tabs/student
 import { NonActiveTimeComponent } from './non-active-time/non-active-time.component';
 import { UsernameValidatorDirective } from '../directives/username-validator/username-validator.directive';
 import { PasswordValidatorDirective } from '../directives/password-validator/password-validator.directive';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FileImportModule } from '../file-import/file-import.module';
+import { SentSuccessfullyComponent } from './sent-successfully/sent-successfully.component';
 
 @NgModule({
   imports: [
@@ -59,6 +61,8 @@ import { FileImportModule } from '../file-import/file-import.module';
     NonActiveTimeComponent,
     UsernameValidatorDirective,
     PasswordValidatorDirective,
+    ResetPasswordComponent,
+    SentSuccessfullyComponent,
   ],
   providers: [{ provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } }],
   schemas: [NO_ERRORS_SCHEMA],

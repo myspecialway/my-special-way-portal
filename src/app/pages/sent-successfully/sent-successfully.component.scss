@@ -1,0 +1,24 @@
+.email-sent-container {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .msw-email-sent {
+    width: 259px;
+    height: 104px;
+  }
+  .email-sent-title {
+    margin-top: 20px;
+    height: 24px;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: #222222;
+  }
+  .email-sent-sub-title {
+    color: #222222;
+    font-size: 17px;
+  }
+}

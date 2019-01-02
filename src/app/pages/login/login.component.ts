@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  handleForgotPassword() {
+    this.router.navigate(['/reset-password/']);
+  }
+
   async login() {
     try {
       const loginResponse = await this.authenticationService.login(

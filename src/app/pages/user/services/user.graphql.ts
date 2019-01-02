@@ -34,6 +34,23 @@ export const QUERY_GET_USER_BY_ID = gql`
   }
 `;
 
+export const QUERY_GET_USER_BY_EMAIL = gql`
+  query getUserByEmail($email: String!) {
+    User(email: $email) {
+      id
+      userName
+      firstName
+      lastName
+      email
+      userType
+      class {
+        name
+        _id
+      }
+    }
+  }
+`;
+
 export const MUTATE_CREATE_USER = gql`
   mutation createUser($user: InputUser!) {
     createUser(user: $user) {

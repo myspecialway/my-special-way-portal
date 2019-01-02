@@ -23,7 +23,7 @@
                   <input matInput placeholder="סיסמה" name="password" [(ngModel)]="model.password" #password="ngModel" required [type]="hidePassword ? 'password' : 'text'">
                   <mat-icon class="show-password-icon" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
-                <div class="forgot-password">שכחתי ססמא</div>
+                <div class="forgot-password" (click)="handleForgotPassword()">שכחתי ססמא</div>
                 <div *ngIf="f.submitted && !password.valid" class="help-block" data-test-id="empty-password-err">נא הכנס סיסמה</div>
                 <div *ngIf="loginFailed" class="help-block" data-test-id="wrong-credentials-err">שם משתמש/סיסמה לא נכונים. אנא נסה שנית</div>
               </div>
@@ -37,7 +37,9 @@
               </div>
               <button mat-button>כניסה</button>
               <!--<button mat-button (click)="loginBtn()">הרשמה</button>-->
-            </div>
+
+
+              </div>
             </div>
         </form>
         <div class ="msw-login-footer" >
