@@ -41,15 +41,6 @@ export class UserService {
       .toPromise();
   }
 
-  getByEmail(email: string) {
-    return this.apollo
-      .query<User>({
-        query: QUERY_GET_USER_BY_EMAIL,
-        variables: { email },
-      })
-      .toPromise();
-  }
-
   create({ username, email, firstname, lastname, role, class: _class }: User) {
     const class_id = _class ? _class._id : undefined;
     return this.apollo
