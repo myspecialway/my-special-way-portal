@@ -16,6 +16,30 @@ exports[`dashboard component should render component as described in snapshot 1`
       <app-spinner />
       <app-footer />
     </div>
+    <div
+      class="no-mobile"
+    >
+      <img
+        alt=""
+        src="/assets/img/myway.png"
+      />
+      <h6>
+        מצטערים, מערכת הניהול לא נתמכת ממכשיר/ דפדפן זה. 
+        <br />
+         אנא התחבר מהמחשב באמצעות דפדפן כרום. 
+      </h6>
+      <div
+        class="msw-login-footer"
+      >
+        <img
+          class="img"
+          src="/assets/img/tinti.png"
+        />
+        <div
+          class="gray-bar"
+        />
+      </div>
+    </div>
   </div>
 </app-root>
 `;
