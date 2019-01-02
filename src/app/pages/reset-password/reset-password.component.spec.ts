@@ -26,7 +26,16 @@ describe('ResetPasswordComponent', () => {
       imports: [FormsModule, ReactiveFormsModule],
       declarations: [ResetPasswordComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteMock },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: {
+                returnUrl: 'blabla',
+              },
+            },
+          },
+        },
         { provide: AuthenticationService, useValue: authenticationServiceMock },
         { provide: Router, useValue: routerModuleMock },
       ],
@@ -43,5 +52,11 @@ describe('ResetPasswordComponent', () => {
     const fixture = TestBed.createComponent(ResetPasswordComponent);
     fixture.componentInstance.resetPassword();
     expect(authenticationServiceMock.resetPassword).toHaveBeenCalled();
+  });
+
+  it('should call logout function on init', async () => {
+    const fixture = TestBed.createComponent(ResetPasswordComponent);
+    fixture.componentInstance.ngOnInit();
+    expect(authenticationServiceMock.logout).toHaveBeenCalled();
   });
 });
