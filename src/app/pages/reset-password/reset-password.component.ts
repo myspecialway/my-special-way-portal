@@ -13,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   returnUrl: string;
   formFieldOptions: FormGroup;
   sentResponse = false;
+  errorMessage: string = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,9 +28,9 @@ export class ResetPasswordComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  resetPassword() {
+  async resetPassword() {
     try {
-      const sentResponse = this.authenticationService.resetPassword(this.model.email);
+      const sentResponse = await this.authenticationService.resetPassword(this.model.email);
 
       if (!sentResponse) {
         console.warn('reset-password.component::reset-password:: reset-password error');
@@ -39,7 +40,7 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigate(['/sent-successfully']);
     } catch (err) {
       console.error(`reset-password.component::reset-password:: error in authentication ${err}`);
-      // TODO: handle error in authentication
+      this.errorMessage = 'לא הצלחנו לשלוח אמייל לכתובת: ' + this.model.email + '. אנא נסה שוב.';
     }
   }
 }
