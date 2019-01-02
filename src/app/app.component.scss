@@ -1,56 +1,76 @@
 .msw-wrapper {
-    direction: rtl;
+  direction: rtl;
 
-    .main-panel {
-      float: left;
-      height: 100%;
-      width: 100%;
-    }
-    .sidebar {
-      left: auto;
-      right: 0;
-    }
+  .main-panel {
+    float: left;
+    height: 100%;
+    width: 100%;
+  }
+  .sidebar {
+    left: auto;
+    right: 0;
   }
 
-  .msw-div-column-left{
-    margin-right:18px;
+  .no-mobile {
+    display: none;
   }
-
-  .msw-div-column-right{
-    margin-left:18px;
-  }
-
-  .msw-button-delete.mat-button{
-    width: 109.7px;
-    height: 36px;
-    border-radius: 3px;
-    background-color: #ff213c;
-
-    /deep/ .mat-button-wrapper{
-        width: 93.7px;
-        height: 16px;
-        font-family: Rubik;
-        font-size: 14px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.14;
-        letter-spacing: 1.3px;
-        text-align: center;
-        color: #ffffff;
-    }
 }
 
-.msw-button-cancel.mat-button{
+.msw-div-column-left {
+  margin-right: 18px;
+}
+
+.msw-div-column-right {
+  margin-left: 18px;
+}
+
+.msw-button-delete.mat-button {
+  width: 109.7px;
+  height: 36px;
+  border-radius: 3px;
+  background-color: #ff213c;
+
+  /deep/ .mat-button-wrapper {
     width: 93.7px;
     height: 16px;
     font-family: Rubik;
-    font-size: 14.1px;
+    font-size: 14px;
     font-weight: 500;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1.13;
+    line-height: 1.14;
     letter-spacing: 1.3px;
     text-align: center;
-    color: #4a4a4a;
+    color: #ffffff;
+  }
+}
+
+.msw-button-cancel.mat-button {
+  width: 93.7px;
+  height: 16px;
+  font-family: Rubik;
+  font-size: 14.1px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #4a4a4a;
+}
+@media all and (max-width: 991px) {
+  .msw-wrapper .no-mobile {
+    align-items: center;
+    background-color: #fff;
+    bottom: 0;
+    display: flex;
+    direction: ltr;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+  }
 }
