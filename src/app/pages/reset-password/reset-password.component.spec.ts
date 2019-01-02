@@ -6,7 +6,6 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('ResetPasswordComponent', () => {
-  const activatedRouteMock;
   let authenticationServiceMock: Partial<AuthenticationService>;
   let routerModuleMock: Partial<RouterModule>;
 
