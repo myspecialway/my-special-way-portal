@@ -112,6 +112,31 @@ describe('AuthenticationService', () => {
     expect(loginResponse).toBe(false);
   });
 
+  it('should return true if resetPassword authentication endpoint returned status code 200', async () => {
+    const mockedResponse: any = {
+      status: 'ok',
+    };
+    toPromiseFn.mockResolvedValue(Promise.resolve(mockedResponse));
+
+    const resetPasswordResponse = await authService.resetPassword('someusername@gmail.com');
+
+    expect(resetPasswordResponse).toBe(true);
+  });
+
+  it('should return false if resetPassword authentication endpoint returned status code 401', async () => {
+    const mockedResponse = {
+      status: 401,
+    };
+
+    (httpClient.post as jest.Mock).mockImplementation(() => {
+      throw mockedResponse;
+    });
+
+    const resetPasswordResponse = await authService.resetPassword('someusername@gmail.com');
+
+    expect(resetPasswordResponse).toBe(false);
+  });
+
   it('should throw an exception if authentication endpoint returned status code 500', () => {
     const mockedResponse = {
       status: 500,
