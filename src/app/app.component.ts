@@ -15,6 +15,11 @@ export class AppComponent implements OnInit {
     this.loadIcons();
   }
 
+  isChrome() {
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    return isChrome;
+  }
+
   async loadIcons() {
     this.matIconRegistry.addSvgIcon(
       `male_face`,
