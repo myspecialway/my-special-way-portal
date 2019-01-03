@@ -26,7 +26,7 @@ exports[`dashboard component should render component as described in snapshot 1`
       <h6>
         מצטערים, מערכת הניהול לא נתמכת ממכשיר/ דפדפן זה. 
         <br />
-         אנא התחבר מהמחשב באמצעות דפדפן כרום. 
+         אנא התחבר מהמחשב באמצעות דפדפן כרום או פיירפוקס. 
       </h6>
       <div
         class="msw-login-footer"

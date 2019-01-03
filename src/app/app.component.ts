@@ -15,9 +15,11 @@ export class AppComponent implements OnInit {
     this.loadIcons();
   }
 
-  isChrome() {
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    return isChrome;
+  isSupportedBrowser() {
+    const isSupportedBrowser =
+      /Chrome/.test(navigator.userAgent) ||
+      (/Firefox/.test(navigator.userAgent) && /!Mobile/.test(navigator.userAgent));
+    return isSupportedBrowser;
   }
 
   async loadIcons() {
