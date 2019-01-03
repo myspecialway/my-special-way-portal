@@ -3,6 +3,7 @@ import { TimeSlot } from '../../models/timeslot.model';
 
 @Injectable()
 export class ScheduleService {
+  constructor() {}
   grades = {
     a: 'א',
     b: 'ב',
@@ -47,6 +48,9 @@ export class ScheduleService {
           }
           if (timeslot.lesson) {
             newTimeSlot.lesson = timeslot.lesson;
+          }
+          if (timeslot.original) {
+            newTimeSlot.original = timeslot.original;
           }
         }
         schedule[hourIndex][dayIndex] = newTimeSlot;

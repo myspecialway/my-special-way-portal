@@ -74,6 +74,7 @@ describe('ClassDetailsContainerComponent', () => {
       update: jest.fn(),
       create: jest.fn(),
     };
+
     scheduleDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: afterClosedMockFn,
