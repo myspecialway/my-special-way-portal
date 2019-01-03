@@ -37,7 +37,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-  margin-top: 45px;
+  margin-top: 80px;
   overflow: visible;
 }
 
@@ -94,24 +94,28 @@
 }
 
 .msw-login-footer {
+  height: 100px;
   margin-top: 36px;
-  vertical-align: baseline;
-  letter-spacing: 0.4px;
-  color: #222222;
   text-align: right;
   width: 100%;
   position: fixed;
   bottom: 7%;
   .img {
     margin-right: 18%;
+    position: relative;
+    z-index: 2;
   }
-}
-.gray-bar {
-  width: 73%;
-  height: 3px;
-  opacity: 0.4;
-  background-color: #d8d8d8;
-  margin-right: 2%;
+  &::after {
+    content: '';
+    display: block;
+    width: 73%;
+    height: 5px;
+    border-radius: 97% 2% 2% 97% / 47% 49% 51% 53%;
+    background-color: #d8d8d8;
+    margin-right: 2%;
+    margin-top: -12px;
+    opacity: 0.4;
+  }
 }
 
 .form-row,
@@ -131,6 +135,8 @@
     color: #666666;
     text-align: left;
     margin-top: -25px;
+    z-index: 10;
+    cursor: pointer;
   }
 }
 
@@ -176,8 +182,4 @@
       background-color: #8249d1;
     }
   }
-}
-
-.checkbox {
-  //  background-color: aqua;
 }

@@ -93,6 +93,24 @@ export class AuthenticationService {
     }
   }
 
+  async resetPassword(email: string): Promise<boolean> {
+    try {
+      await this.http.post<any>(environment.hotConfig.MSW_HOT_RESET_PASSWORD_ENDPOINT, { email }).toPromise();
+
+      // const userProfile = this.getProfileFromToken(tokenResponse.accessToken);
+      // await this.pushUserProfileToState(userProfile);
+
+      return true;
+    } catch (error) {
+      const typedError = error as HttpErrorResponse;
+
+      if (typedError.status !== 401) {
+        throw error;
+      }
+
+      return false;
+    }
+  }
   private saveTokenInStorage(isRememberMeActive: boolean, tokenResponse: LoginResponse) {
     if (isRememberMeActive) {
       localStorage.setItem('token', tokenResponse.accessToken);
