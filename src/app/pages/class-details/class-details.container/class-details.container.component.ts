@@ -16,7 +16,6 @@ import { GET_USER_PROFILE } from '../../../apollo/state/queries/get-user-profile
 import { UserType } from '../../../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { DeleteTimeSlotDialogComponent } from '../../../components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
-
 @Component({
   selector: 'app-class-details-container',
   template: `<app-class-details-view
@@ -100,16 +99,17 @@ export class ClassDetailsContainerComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
       data: dialogData,
-      height: '375px',
-      width: '320px',
+      height: '500px',
+      width: '460px',
     });
 
     this.onDialogRefClose(dialogRef, async (data) => {
+      const original = data.original ? data.original : null;
       const tempClass: Class = {
         _id: this._class._id,
         name: this._class.name,
         grade: this._class.grade,
-        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location }],
+        schedule: [{ index: data.index, hours: data.hour, lesson: data.lesson, location: data.location, original }],
       };
 
       return await this.classService.update(tempClass);
@@ -189,11 +189,12 @@ export class ClassDetailsContainerComponent implements OnInit {
 
   getDialogData(indexes: TimeSlotIndexes) {
     const { hourIndex, dayIndex } = indexes;
-
+    const original = this.schedule[hourIndex][dayIndex].original;
     return {
       index: `${hourIndex}_${dayIndex}`,
       lesson: this.schedule[hourIndex][dayIndex].lesson,
       location: this.schedule[hourIndex][dayIndex].location,
+      original,
       hour: this.scheduleService.hoursLabels[hourIndex],
       day: this.scheduleService.daysLabels[dayIndex],
     } as ScheduleDialogData;

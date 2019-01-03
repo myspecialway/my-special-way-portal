@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassDetailsViewComponent } from './class-details.view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
-
+import { DateUtilService } from '../../../services/date-utils/date-util.service';
 const beforeEachAsync = async () => {
   TestBed.configureTestingModule({
     declarations: [ClassDetailsViewComponent],
-    providers: [ScheduleService],
+    providers: [DateUtilService, ScheduleService],
     schemas: [NO_ERRORS_SCHEMA],
   }).compileComponents();
 };

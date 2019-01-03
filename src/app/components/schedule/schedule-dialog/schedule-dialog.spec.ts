@@ -7,6 +7,8 @@ import { ScheduleDialogData } from './schedule-dialog-data.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectModule } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DateUtilService } from '../../../services/date-utils/date-util.service';
 describe('ScheduleDialogComponent', () => {
   let component: ScheduleDialogComponent;
   let lessonServiceMock: Partial<LessonService>;
@@ -46,6 +48,7 @@ describe('ScheduleDialogComponent', () => {
         },
       },
     ];
+
     lessonServiceMock = {
       getLessons: jest.fn().mockReturnValue(Promise.resolve(mockedLessons)),
     };
@@ -67,6 +70,7 @@ describe('ScheduleDialogComponent', () => {
           } as ScheduleDialogData,
         },
         { provide: LocationService, useValue: locationServiceMock },
+        DateUtilService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

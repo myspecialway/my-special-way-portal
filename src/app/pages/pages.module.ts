@@ -18,6 +18,7 @@ import {
   MatIconModule,
   MatGridListModule,
   MatAutocompleteModule,
+  MatRadioModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { StudentDetailsComponent } from './student/details/student-details.component';
@@ -50,6 +51,7 @@ import { SentSuccessfullyComponent } from './sent-successfully/sent-successfully
     MatSlideToggleModule,
     MatIconModule,
     FileImportModule,
+    MatRadioModule,
   ],
   declarations: [
     StudentDetailsComponent,

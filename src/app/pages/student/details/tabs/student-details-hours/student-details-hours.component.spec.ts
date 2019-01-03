@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material';
 import { TimeSlot } from '../../../../../models/timeslot.model';
 import { TimeSlotIndexes } from '../../../../../components/schedule/schedule.component';
 import Student, { Gender } from '../../../../../models/student.model';
+import { DateUtilService } from '../../../../../services/date-utils/date-util.service';
 
 jest.mock('../../../services/student.service');
 
@@ -256,6 +257,7 @@ describe('Student Details Hours Component', () => {
         },
         Platform,
         { provide: StudentService, useValue: studentServiceMock },
+        DateUtilService,
         ScheduleService,
         {
           provide: ActivatedRoute,
@@ -390,6 +392,7 @@ describe('delete time slot from student', () => {
           },
         },
         Platform,
+        DateUtilService,
         { provide: StudentService, useValue: studentServiceMock },
         ScheduleService,
         {
