@@ -93,7 +93,7 @@ export class StudentDetailsRemindersComponent implements OnInit {
       return '';
     }
     slot.hours.sort();
-    return slot.hours.join(',');
+    return slot.hours.join(' ,');
   }
 
   toggleActivity(reminder: IReminder) {
