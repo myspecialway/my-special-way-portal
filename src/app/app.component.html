@@ -5,7 +5,7 @@
     <app-spinner></app-spinner>
     <app-footer></app-footer>
   </div>
-    <div class="no-mobile" ngClass="{{isChrome() ? 'chrome' : 'not-chrome'}}">
+    <div class="no-mobile" ngClass="{{isSupportedBrowser() ? 'good-browser' : 'bad-browser'}}">
       <img  alt="" src="/assets/img/myway.png">
       <h6>מצטערים, מערכת הניהול לא נתמכת ממכשיר/ דפדפן זה. <br />
       אנא התחבר מהמחשב באמצעות דפדפן כרום.
