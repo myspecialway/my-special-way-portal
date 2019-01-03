@@ -13,7 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   returnUrl: string;
   formFieldOptions: FormGroup;
   sentResponse = false;
-  errorMessage: string = '';
+  errorMessage = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
