@@ -58,4 +58,18 @@ describe('ResetPasswordComponent', () => {
     fixture.componentInstance.ngOnInit();
     expect(authenticationServiceMock.logout).toHaveBeenCalled();
   });
+
+  it('should fill erroMessage if an error occurs during resetPassword', () => {
+    const mockedResponse = {
+      status: 500,
+    };
+
+    (authenticationServiceMock.resetPassword as jest.Mock).mockImplementation(() => {
+      throw mockedResponse;
+    });
+    const fixture = TestBed.createComponent(ResetPasswordComponent);
+    fixture.componentInstance.model = { email: 'bbb' };
+    fixture.componentInstance.resetPassword();
+    expect(fixture.componentInstance.errorMessage).not.toEqual('');
+  });
 });
