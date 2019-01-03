@@ -97,7 +97,7 @@ describe('Student Details Reminders Component', () => {
 
     // given
     const unsortedHours = { hours: ['10:00', '07:30', '13:00'] } as IDbReminderTime;
-    const expected = [['07:30', '10:00', '13:00']].join(',');
+    const expected = '07:30 ,10:00 ,13:00';
 
     expect(component.getSelectedHours(unsortedHours)).toEqual(expected);
   });
