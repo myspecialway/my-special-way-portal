@@ -88,6 +88,7 @@ import { NonActiveTimeService } from './services/non-active-time/non-active-time
 import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dialogs/delete/delete-non-active-time-dialogue.component';
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
+import { DateUtilService } from './services/date-utils/date-util.service';
 
 @NgModule({
   imports: [
@@ -210,6 +211,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
     MSWSnackbar,
     PendingInterceptorServiceInterceptor,
     NonActiveTimeService,
+    DateUtilService,
   ],
   bootstrap: [AppComponent],
 })

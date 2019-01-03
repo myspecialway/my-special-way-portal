@@ -1,14 +1,17 @@
 @import '~assets/scss/dialogs.scss';
+
 .timeslot-subtitle {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 .timeslot-info {
   font: 600 16px Rubik;
   color: rgba(0, 0, 0, 0.87);
-  direction: initial;
+  direction: rtl;
 }
+
 .mat-dialog-actions {
   display: flex;
   justify-content: flex-end;
@@ -19,4 +22,16 @@
 .mat-dialog-actions button {
   text-align: center;
   box-shadow: none;
+}
+
+.radio-temporal {
+  font-size: 15px;
+  display: inline;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.week-select {
+  width: 40px;
+  margin-left: 5px;
+  margin-right: 15px;
 }

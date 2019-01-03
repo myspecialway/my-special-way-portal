@@ -40,6 +40,20 @@ schedule {
       floor
     }
   }
+  original {
+    expired
+    lesson {
+      _id
+      title
+      icon
+    }
+    location {
+      name
+      position {
+        floor
+      }
+    }
+  }
 }`;
 
 export const QUERY_GET_CLASS_BY_ID = gql`
