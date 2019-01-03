@@ -11,7 +11,7 @@ export interface IDbReminderTime {
 }
 
 export const REMINDERS_CONSTANTS = {
-  days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'א-ה']),
+  days: new Set<string>(['א', 'ב', 'ג', 'ד', 'ה', 'ו']),
   hours: new Set<string>([
     '06:00',
     '06:30',
