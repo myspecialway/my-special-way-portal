@@ -3,7 +3,7 @@ import { REMINDERS_CONSTANTS, IReminderTime } from './../../../../../models/remi
 import { getNewReminder, getSetReminder, getDbReminder } from './../reminders.utils';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export interface IDialogReminderTime extends IReminderTime {
   hourSelectorEnabled: boolean;
@@ -16,12 +16,12 @@ export interface IDialogReminderTime extends IReminderTime {
 })
 export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
-  // formControl = new FormControl('', [Validators.required]);
+  formControl = new FormControl('', [Validators.required]);
   dialogData = REMINDERS_CONSTANTS;
   hours = new FormControl();
+  selectedDay = new FormControl();
   reminderType = ReminderType;
-  daySelected = true;
-  dirty = false;
+
   hourInput = new FormControl();
 
   @Output()
@@ -75,7 +75,6 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   toggleDay(selectedIndex: number, block: IDialogReminderTime) {
-    this.dirty = true;
     type Action = 'delete' | 'add';
     const weekDaysIndexes = [0, 1, 2, 3, 4];
     const multiDayIndex = 6;
@@ -109,16 +108,16 @@ export class AddStudentReminderDialogComponent implements OnInit {
     // if(block.hours.size === 0 ){
     //   return;
     // }
+    this.selectedDay.setErrors(null);
     block.hourSelectorEnabled = val;
   }
 
   removeHour(hour: string, block: IDialogReminderTime) {
     block.hours.delete(hour);
-    this.enableHourSelector(false);
+    this.enableHourSelector(block, false);
   }
 
   private isDaySelected(dayIndex: number, block: IDialogReminderTime) {
-    this.daySelected = !!block.daysindex.size;
     return block.daysindex.has(dayIndex);
   }
 
@@ -127,6 +126,7 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   deleteReminder(block, i) {
-    return this.data.schedule.splice(i, 1);
+    this.selectedDay.setErrors(null);
+    this.data.schedule.splice(i, 1);
   }
 }
