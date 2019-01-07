@@ -45,11 +45,26 @@
     .dropdown-menu {
       border-radius: 0;
       width: 240px;
+      left: auto;
+      right: 0;
+      top: 52px;
+      .nav-item {
+        &.active .dropdown-item {
+          color: $puple-msw;
+          font-weight: 500;
+        }
+        .dropdown-item,
+        li > a {
+          margin: 0;
+          padding-right: 21px;
+          padding-left: 21px;
+        }
+      }
     }
 
     .dropdown-item {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 300;
       line-height: 1.25;
     }
 
