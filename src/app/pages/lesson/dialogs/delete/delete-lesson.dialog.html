@@ -2,14 +2,11 @@
     <h3 mat-dialog-title color="accent">מחיקת שיעור</h3>
     <mat-divider></mat-divider>
     <div mat-dialog-content>
-        '{{data.title}}'
-        <br>
-        האם את/ה בטוח/ה שברצונך למחוק את השיעור?
+      האם אתה בטוח שברצונך למחוק את שיעור {{data.title}}?
     </div>
-  
+
     <div mat-dialog-actions>
       <button button mat-button class="msw-button-cancel"  (click)="onNoClick()" tabindex="-1" >ביטול</button>
       <button button mat-button class="msw-button-delete" data-test-id="delete-button" [mat-dialog-close]=true (click)="confirmDelete()">מחק</button>
     </div>
   </div>
-  
