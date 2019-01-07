@@ -1,5 +1,11 @@
 @import '~assets/scss/dialogs.scss';
 
+.msw-dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .timeslot-subtitle {
   display: flex;
   justify-content: space-between;
@@ -12,11 +18,17 @@
   direction: rtl;
 }
 
+.mat-dialog-content {
+  height: 100%;
+  max-height: auto;
+}
+
 .mat-dialog-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   text-align: center;
+  margin: auto 0 -12px;
 }
 
 .mat-dialog-actions button {
