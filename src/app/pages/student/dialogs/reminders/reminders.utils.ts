@@ -9,7 +9,7 @@ export const getSetReminder = (reminder: IReminder): IDialogReminder => {
   const schedule = reminder.schedule.map((slot: IDbReminderTime) => ({
     daysindex: new Set<number>(slot.daysindex),
     hours: new Set<string>(slot.hours),
-    hourSelectorEnabled: true,
+    hourSelectorEnabled: false,
   }));
 
   return { ...reminder, schedule };
