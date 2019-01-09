@@ -35,7 +35,7 @@
         type="submit"
         mat-button
         [mat-dialog-close]="true"
-        class="mat-dialog-submit"
+        class="mat-raised-button mat-primary"
         [disabled]="!formControl.valid || !data.icon || isDuplicate"
       >
         {{data._id? updateButtonTitle : addButtonTitle}}
