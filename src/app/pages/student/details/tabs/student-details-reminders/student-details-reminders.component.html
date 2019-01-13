@@ -6,27 +6,23 @@
   <mat-card *ngFor="let reminder of student.reminders" class="student-reminders selected-radius"
             (click)="showReminderDialog(reminder)">
     <div class="table">
-      <div class="row">
-        <div class="cell">
-          <p>{{reminderType[reminder.type]}}</p>
-        </div>
+      <header class="row">
+        <div class="cell reminder-type">{{ reminderType[reminder.type] }}</div>
         <div class="cell mat-slide-toggle">
           <mat-slide-toggle
             [(ngModel)]="reminder.enabled"
+            [disabled]="!reminder.schedule.length"
             (click)="$event.stopPropagation()"
-            (ngModelChange)="toggleActivity(reminder)"></mat-slide-toggle>
+            (ngModelChange)="toggleActivity(reminder)">
+          </mat-slide-toggle>
         </div>
-      </div>
+      </header>
       <div class="empty-dialog-message" *ngIf="!reminder.schedule.length">
-        <p>{{emptyDialogString}}</p>
+        <p>{{ emptyDialogString }}</p>
       </div>
       <div *ngFor="let slot of reminder.schedule" class="row">
-        <div class="cell">
-          {{getSelectedDays(slot)}}
-        </div>
-        <div class="cell">
-          <p class="value">{{getSelectedHours(slot)}}</p>
-        </div>
+        <div class="cell days">{{ getSelectedDays(slot) }}</div>
+        <div class="cell hours">{{ getSelectedHours(slot) }}</div>
       </div>
     </div>
   </mat-card>

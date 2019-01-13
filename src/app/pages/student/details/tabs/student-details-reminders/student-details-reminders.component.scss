@@ -3,42 +3,32 @@
   align-items: center;
   flex-direction: column;
   padding: 48px;
-  & > .student-reminders {
-    margin: 0 0 30px 0;
-  }
+
   .student-reminders {
+    margin: 0 0 30px 0;
+    padding: 16px;
     width: 600px;
     min-height: 120px;
     transition: opacity 0.15s ease-in-out;
+    cursor: pointer;
   }
-  .mat-slide-toggle {
-    float: left;
-  }
-  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: #f4e4ff !important;
-  }
-  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color: #8b66a7 !important;
-  }
-  .mat-card {
-    padding: 0;
-  }
-  div.row:first-child p {
-    font-size: 24px;
-  }
-  div.row:nth-child(2) .cell p,
-  div.row:nth-child(3) .cell p {
-    font-size: 16px;
-    font-weight: 500;
-  }
-  .row {
-    line-height: 0.7;
-    display: table-row;
-    .value {
-      text-align: left;
-      font-size: 14px !important;
+
+  ::ng-deep .mat-slide-toggle {
+    &.mat-checked {
+      .mat-slide-toggle-bar {
+        background-color: #f4e4ff !important;
+      }
+
+      .mat-slide-toggle-thumb {
+        background-color: #8b66a7 !important;
+      }
+    }
+
+    &.mat-disabled .mat-slide-toggle-bar {
+      opacity: 0.3;
     }
   }
+
   .table {
     width: 100%;
     display: table;
@@ -46,21 +36,53 @@
     @media screen and (max-width: 580px) {
       display: block;
     }
-  }
-  .cell {
-    padding: 6px 12px;
-    display: table-cell;
-    @media screen and (max-width: 580px) {
-      padding: 2px 16px;
-      display: block;
+    font-family: Rubik;
+    font-weight: normal;
+    color: #222222;
+
+    header {
+      font-size: 24px;
+
+      .cell {
+        padding-bottom: 16px;
+      }
+    }
+
+    .row {
+      display: table-row;
+    }
+
+    .cell {
+      display: table-cell;
+      padding: 4px 0;
+      @media screen and (max-width: 580px) {
+        padding: 2px 16px;
+        display: block;
+      }
+
+      &.mat-slide-toggle {
+        float: left;
+        margin-left: -6px;
+      }
+
+      &.days {
+        font-size: 16px;
+      }
+
+      &.hours {
+        font-size: 14px;
+        text-align: left;
+      }
     }
   }
+
   .selected-radius:hover {
     border: 1px solid #8b66a7;
     border-radius: 5px;
     opacity: 1;
   }
 }
+
 .empty-dialog-message {
   margin: 0 15px;
 }
