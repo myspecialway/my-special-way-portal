@@ -11,8 +11,10 @@
         <div class="cell mat-slide-toggle">
           <mat-slide-toggle
             [(ngModel)]="reminder.enabled"
+            [disabled]="!reminder.schedule.length"
             (click)="$event.stopPropagation()"
-            (ngModelChange)="toggleActivity(reminder)"></mat-slide-toggle>
+            (ngModelChange)="toggleActivity(reminder)">
+          </mat-slide-toggle>
         </div>
       </header>
       <div class="empty-dialog-message" *ngIf="!reminder.schedule.length">
