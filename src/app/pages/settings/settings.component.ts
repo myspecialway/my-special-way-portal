@@ -34,13 +34,6 @@ export class SettingsComponent implements OnInit {
       }),
     );
     this.createForm();
-    this.formControlValueChanged();
-  }
-
-  formControlValueChanged() {
-    this.form.controls['teachercodecontrol'].valueChanges.subscribe((mode: string) => {
-      console.log(mode);
-    });
   }
 
   private createForm() {

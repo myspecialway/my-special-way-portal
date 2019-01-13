@@ -7,6 +7,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { settingsTestData } from '../../../mocks/assets/settings.mock';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { settings } from 'cluster';
 
 describe('setting component', () => {
   let settingsServiceMock: Partial<SettingService>;
@@ -30,6 +31,12 @@ describe('setting component', () => {
     expect(fixture).toMatchSnapshot();
   });
 
+  it('should update teachercode after get data from server', () => {
+    const fixture = TestBed.createComponent(SettingsComponent);
+    fixture.componentInstance.ngOnInit();
+    expect(fixture.componentInstance.teachercode).toBe(1234);
+  });
+
   it('should load settings from service on page load ', () => {
     (settingsServiceMock.getAll as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve();
@@ -42,7 +49,7 @@ describe('setting component', () => {
 
   it('should update settings from service on code changed ', () => {
     (settingsServiceMock.update as jest.Mock).mockImplementationOnce(() => {
-      return Promise.resolve(1);
+      return Promise.resolve({ data: { data: 1 } });
     });
 
     const fixture = TestBed.createComponent(SettingsComponent);
@@ -51,8 +58,14 @@ describe('setting component', () => {
       _id: '123',
       teachercode: 1234,
     };
+    const teachercode = fixture.componentInstance.form.controls['teachercodecontrol'];
+    teachercode.setValue(2222);
     fixture.componentInstance.codeChanged(2222);
+
+    fixture.detectChanges();
     const serviceMock = TestBed.get(SettingService);
+    expect(teachercode.valid).toBeTruthy();
     expect(serviceMock.update).toHaveBeenCalled();
+    expect(teachercode.value).toBe(2222);
   });
 });
