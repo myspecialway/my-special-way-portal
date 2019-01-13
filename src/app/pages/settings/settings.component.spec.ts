@@ -7,7 +7,6 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { settingsTestData } from '../../../mocks/assets/settings.mock';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { settings } from 'cluster';
 
 describe('setting component', () => {
   let settingsServiceMock: Partial<SettingService>;
