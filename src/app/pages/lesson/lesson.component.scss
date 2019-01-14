@@ -4,3 +4,9 @@ img {
   width: 65.1px;
   height: 59.2px;
 }
+
+.msw-lesson-table {
+  .mat-cell:first-child {
+    max-width: 32.5%;
+  }
+}
