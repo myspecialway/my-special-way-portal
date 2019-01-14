@@ -12,6 +12,8 @@ import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 import { IMapFloor } from '../../../models/maps.model';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
+import { MapProxyService } from './services/map-proxy.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maps-container',
@@ -26,6 +28,8 @@ export class MapsContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
   currentFloor = 0;
+  base64textString: any[] = [];
+  imagePath: any;
   @SubscriptionCleaner()
   subCollector;
 
@@ -36,6 +40,8 @@ export class MapsContainerComponent implements OnInit {
     private mapsService: MapsService,
     private locationService: LocationService,
     private mswSnackbar: MSWSnackbar,
+    private mapProxyService: MapProxyService,
+    private _sanitizer: DomSanitizer,
   ) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
@@ -54,6 +60,14 @@ export class MapsContainerComponent implements OnInit {
         }),
         this.locationService.getLocationsFeed$().subscribe((data) => {
           this.locations = data;
+        }),
+        this.mapProxyService.read().subscribe((ids: string[]) => {
+          ids.forEach((id) => {
+            this.mapProxyService.read<any>(id).subscribe((map) => {
+              this.base64textString.push(map);
+              this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + map.src);
+            });
+          });
         }),
       );
     } catch (error) {

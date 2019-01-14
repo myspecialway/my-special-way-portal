@@ -20,13 +20,17 @@
       <div class="maps-poi-list">
         <app-map-floor-list [locations]="locations" (change)="onFloorChange($event)"></app-map-floor-list>
       </div>
-      <div class="map-container"><img src="/assets/floor-maps/{{floorMapName}}.jpg"/></div>
+
+      <div class="map-container">
+        <img [src]="imagePath">
+      </div>
+      <!-- <div class="map-container"><img src="/assets/floor-maps/{{floorMapName}}.jpg"/></div> -->
       <div class="map-control">
         <div class="msw-maps-header-nav">
           <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">
             <nav mat-tab-nav-bar>
-              <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.label"
-                 [attr.data-test-id]="link.dataTestId" [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-maps-tab-active' : ''}}">{{link.label}}</a>
+              <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.label" [attr.data-test-id]="link.dataTestId"
+                [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-maps-tab-active' : ''}}">{{link.label}}</a>
             </nav>
           </div>
           <!--<router-outlet></router-outlet>-->
@@ -53,7 +57,7 @@
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <button class="delete-row-button" mat-icon-button color="primary" [attr.data-test-id]="'delete-block-button-' + 'A' + 'B'"
-                        (click)="deleteBlock(row)"><i class="material-icons"> delete </i> </button>
+                  (click)="deleteBlock(row)"><i class="material-icons"> delete </i> </button>
               </mat-cell>
             </ng-container>
 
@@ -61,7 +65,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
           <a class="add-block" (click)="addOrEditBlock()">+ הוסף מקטע</a>
-        </div >
+        </div>
       </div>
     </div>
   </div>

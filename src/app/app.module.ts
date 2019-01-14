@@ -89,6 +89,7 @@ import { DeleteNonActiveTimeDialogComponent } from './pages/non-active-time/dial
 import { ErrorDialogComponent } from './pages/common/error-dialog/error.dialog';
 import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-schedule-dialog/delete-time-slot.dialog';
 import { DateUtilService } from './services/date-utils/date-util.service';
+import { MapProxyService } from './pages/maps/maps.container/services/map-proxy.service';
 
 @NgModule({
   imports: [
@@ -203,6 +204,7 @@ import { DateUtilService } from './services/date-utils/date-util.service';
     UserService,
     StudentService,
     MapsService,
+    MapProxyService,
     ClassService,
     LessonService,
     ScheduleService,

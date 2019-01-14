@@ -8,7 +8,7 @@ export const environment = {
     MSW_HOT_FIRSTLOGIN_ENDPOINT: 'http://localhost:3000/api/first-login',
     MSW_HOT_RESTORE_PASSWORD_ENDPOINT: 'http://localhost:3000/api/restore-password',
     MSW_HOT_USER_UNIQUE_VALIDATION_ENDPOINT: 'http://localhost:3000/api/validateUserNameUnique',
-    MSW_HOT_UPLOAD_MAP: 'http://localhost:3000/api/map/upload',
+    MSW_HOT_UPLOAD_MAP: 'http://localhost:3000/api/map',
   },
   production: false,
 } as Environment;
