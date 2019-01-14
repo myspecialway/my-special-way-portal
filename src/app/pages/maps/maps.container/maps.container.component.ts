@@ -65,7 +65,7 @@ export class MapsContainerComponent implements OnInit {
           ids.forEach((id) => {
             this.mapProxyService.read<any>(id).subscribe((map) => {
               this.base64textString.push(map);
-              this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + map.src);
+              this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${map.mime};base64,${map.src}`);
             });
           });
         }),
