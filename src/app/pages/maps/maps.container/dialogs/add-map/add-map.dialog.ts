@@ -11,6 +11,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class AddMapDialogComponent {
   mapName = '';
+  floorNumber = null
   isSending = false;
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
@@ -58,7 +59,8 @@ export class AddMapDialogComponent {
       item.withCredentials = false;
       console.log('ImageUpload:onBeforeUploadItem:', item);
       this.uploader.options.additionalParameter = {
-        floor: this.mapName,
+        mapName: this.mapName,
+        floor: this.floorNumber,
       };
     };
 

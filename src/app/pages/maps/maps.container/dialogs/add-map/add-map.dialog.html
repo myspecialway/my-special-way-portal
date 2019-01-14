@@ -4,9 +4,9 @@
 
   <label for="map-name">שם מפה</label>
   <input type="text" id="map-name" class="form-control" [(ngModel)]="mapName" />
-
-  <div ng2FileDrop class="upload-btn-wrapper"
-    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length }"
+  <label for="map-name">מספר קומה</label>
+  <input type="number" id="floor-number" class="form-control" [(ngModel)]="floorNumber" min="-100" max="100" />
+  <div ng2FileDrop class="upload-btn-wrapper" [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length }"
     [uploader]="uploader" (fileOver)="fileOverBase($event)" (click)="fileInput.click()">
 
     <button class="add-button">
@@ -14,9 +14,9 @@
       הוסף תמונה מקובץ
     </button>
 
-    <input id="amd-add-picture" type="file" #fileInput ng2FileSelect [uploader]="uploader"
-      [disabled]="uploader.getNotUploadedItems().length || isSending"
-      (change)="onChangeFile($event)"/>
+    <input id="amd-add-picture" type="file" #fileInput ng2FileSelect [uploader]="uploader" [disabled]="uploader.getNotUploadedItems().length || isSending"
+      (change)="onChangeFile($event)" />
+
 
     <div class="chosen-file">
       <strong>{{ uploader.queue[0]?.file?.name }}</strong>
@@ -28,8 +28,7 @@
 
   <mat-dialog-actions>
     <button id="amd-cancel" class="mat-button" [disabled]="isSending" (click)="close()">ביטול</button>
-    <button id="amd-send-file" type="button" class="mat-raised-button mat-primary"
-      [disabled]="!mapName || !uploader.getNotUploadedItems().length || isSending"
+    <button id="amd-send-file" type="button" class="mat-raised-button mat-primary" [disabled]="floorNumber == 'null' || !mapName || !uploader.getNotUploadedItems().length || isSending"
       (click)="sendFile()">
       הוסף
     </button>
