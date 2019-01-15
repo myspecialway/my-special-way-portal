@@ -2,7 +2,9 @@
 
 exports[`MapsContainerComponent should match snapshot 1`] = `
 <app-maps-container
+  _sanitizer={[Function Object]}
   activeLink={[Function String]}
+  base64textString={[Function Array]}
   currentFloor="0"
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}
@@ -11,6 +13,7 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
   links={[Function Array]}
   locationService={[Function Object]}
   locations={[Function Array]}
+  mapProxyService={[Function Object]}
   mapsService={[Function Object]}
   mswSnackbar={[Function Object]}
   subCollector={[Function Subscription]}
@@ -65,7 +68,7 @@ exports[`MapsContainerComponent should match snapshot 1`] = `
           class="map-container"
         >
           <img
-            src="/assets/floor-maps/Floor_0_TOP_SHOT_MAP_V2.jpg"
+            src="safeString"
           />
         </div>
         <div

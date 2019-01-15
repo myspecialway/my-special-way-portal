@@ -1,4 +1,3 @@
-import { MAP_FLOOR_MAPS } from './../maps-constants';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
@@ -10,10 +9,14 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
-import { IMapFloor } from '../../../models/maps.model';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { MapProxyService } from './services/map-proxy.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { IMapsFile, IMapsFileBase, IFileEvent, FloorEventType } from '../../../models/maps.file.model';
+import { forkJoin } from 'rxjs';
+import * as _ from 'lodash';
+import { CommunicationService } from './services/communication.service';
 
 @Component({
   selector: 'app-maps-container',
@@ -21,6 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./maps.container.component.scss'],
 })
 export class MapsContainerComponent implements OnInit {
+  filesObjecrvers: Array<Observable<IMapsFile>> = [];
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
   idOrNew: string;
   links: any;
@@ -28,7 +32,8 @@ export class MapsContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
   currentFloor = 0;
-  base64textString: any[] = [];
+  imagesContaier: Map<string, IMapsFile> = new Map<string, IMapsFile>();
+  imagesMetaData: IMapsFileBase[] = [];
   imagePath: any;
   @SubscriptionCleaner()
   subCollector;
@@ -42,6 +47,7 @@ export class MapsContainerComponent implements OnInit {
     private mswSnackbar: MSWSnackbar,
     private mapProxyService: MapProxyService,
     private _sanitizer: DomSanitizer,
+    private communicationService: CommunicationService<IFileEvent>,
   ) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
@@ -51,8 +57,6 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const initialFloor = MAP_FLOOR_MAPS.find(({ index }) => index === this.currentFloor);
-    this.onFloorChange(initialFloor as IMapFloor);
     try {
       this.subCollector.add(
         this.mapsService.getAllBlockedSections().subscribe((data) => {
@@ -63,11 +67,9 @@ export class MapsContainerComponent implements OnInit {
         }),
         this.mapProxyService.read().subscribe((ids: string[]) => {
           ids.forEach((id) => {
-            this.mapProxyService.read<any>(id).subscribe((map) => {
-              this.base64textString.push(map);
-              this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${map.mime};base64,${map.src}`);
-            });
+            this.filesObjecrvers.push(this.mapProxyService.read<IMapsFile>(id));
           });
+          forkJoin(this.filesObjecrvers).subscribe(this.handleFiles);
         }),
       );
     } catch (error) {
@@ -75,6 +77,98 @@ export class MapsContainerComponent implements OnInit {
       console.error('Error handling not implemented');
       throw error;
     }
+  }
+  private handleFiles = (mapsFileList: IMapsFile[]) => {
+    this.imagesMetaData = [];
+    mapsFileList.forEach(this.handleNewImage);
+    this.showImage();
+  };
+
+  private handleNewImage = (mapsFile: IMapsFile) => {
+    this.imagesContaier.set(mapsFile.id, mapsFile);
+    this.emitForFloorBar(mapsFile, true);
+  };
+
+  private findMinFloorId() {
+    const item = Array.from(this.imagesContaier.values()).reduce((prev, curr) => {
+      return +prev.floor < +curr.floor ? prev : curr;
+    });
+    return item;
+  }
+
+  private showImage(firtsMap?: IMapsFile | string) {
+    if (!firtsMap) {
+      firtsMap = this.imagesContaier.get(this.findMinFloorId().id);
+    }
+    if (typeof firtsMap === 'string') {
+      firtsMap = this.imagesContaier.get(firtsMap);
+    }
+    if (firtsMap) {
+      this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firtsMap.mime};base64,${firtsMap.src}`);
+    }
+  }
+
+  private emitForFloorBar(value: IMapsFile, isInit: boolean) {
+    if (isInit) {
+      this.imagesMetaData.push({
+        fileName: value.fileName,
+        floor: value.floor,
+        id: value.id,
+      });
+    } else {
+      this.communicationService.emitEvent({
+        payload: {
+          fileName: value.fileName,
+          floor: value.floor,
+          id: value.id,
+        },
+        type: FloorEventType.UPLOAD,
+      });
+    }
+  }
+
+  onFloorChange(event: IFileEvent) {
+    if (event.type === FloorEventType.CLICK && event.payload) {
+      this.showImage(event.payload.id);
+    }
+    if (event.type === FloorEventType.DELETE && event.payload) {
+      this.mapProxyService.delete(event.payload.id).subscribe(() => {
+        this.onSuccessDeleteMap(event);
+        console.log('(((((((((((((((((((((((((((())))))))))))))))))))))))))))');
+      });
+    }
+    // this.currentFloor = index;
+  }
+
+  private onSuccessDeleteMap(event: IFileEvent) {
+    const id = event.payload.id;
+    this.imagesContaier.delete(id);
+    this.communicationService.emitEvent({
+      payload: {
+        id,
+      },
+      type: FloorEventType.DELETE,
+    });
+    this.showImage();
+  }
+
+  addMap() {
+    const dialogRef = this.dialog.open(AddMapDialogComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (fileEvent: IFileEvent) => {
+        if (fileEvent.type === FloorEventType.UPLOAD) {
+          const id = fileEvent.payload.id;
+          this.mapProxyService.read<IMapsFile>(id).subscribe((image) => {
+            this.imagesContaier.set(image.id, image);
+            this.emitForFloorBar(image, false);
+            this.showImage(image.id);
+          });
+        } else {
+          //handle error here
+        }
+      });
   }
 
   addOrEditBlock(blockedSection) {
@@ -144,20 +238,5 @@ export class MapsContainerComponent implements OnInit {
           }
         }
       });
-  }
-
-  addMap() {
-    const dialogRef = this.dialog.open(AddMapDialogComponent);
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (addMapConfirmed) => {
-        console.log(addMapConfirmed);
-      });
-  }
-
-  onFloorChange({ index, filename }) {
-    this.currentFloor = index;
-    this.floorMapName = filename;
   }
 }

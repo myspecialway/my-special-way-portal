@@ -32,4 +32,7 @@ export default class MapsPage {
   public async typeFileName(fileName) {
     await t.typeText('#map-name', fileName);
   }
+  public async typeFloor(fileName) {
+    await t.typeText('#map-floor-number', fileName);
+  }
 }

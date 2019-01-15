@@ -5,7 +5,7 @@
   <label for="map-name">שם מפה</label>
   <input type="text" id="map-name" class="form-control" [(ngModel)]="mapName" />
   <label for="map-name">מספר קומה</label>
-  <input type="number" id="floor-number" class="form-control" [(ngModel)]="floorNumber" min="-100" max="100" />
+  <input type="number" id="map-floor-number" class="form-control" [(ngModel)]="floorNumber" min="-100" max="100" />
   <div ng2FileDrop class="upload-btn-wrapper" [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver, 'file-uploaded': uploader.getNotUploadedItems().length }"
     [uploader]="uploader" (fileOver)="fileOverBase($event)" (click)="fileInput.click()">
 
