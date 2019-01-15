@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-student-details-reminders',
   templateUrl: './student-details-reminders.component.html',
-  styleUrls: ['./student-details-reminders.component.scss'],
+  styleUrls: ['./student-details-reminders.component.scss', '../student-details-tab.scss'],
 })
 export class StudentDetailsRemindersComponent implements OnInit {
   isNewStudent: boolean;

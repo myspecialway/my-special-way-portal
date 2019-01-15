@@ -16,7 +16,7 @@ import { DeleteTimeSlotDialogComponent } from '../../../../../components/schedul
 @Component({
   selector: 'app-student-details-hours',
   templateUrl: './student-details-hours.component.html',
-  styleUrls: ['./student-details-hours.component.scss'],
+  styleUrls: ['./student-details-hours.component.scss', '../student-details-tab.scss'],
 })
 export class StudentDetailsHoursComponent implements OnInit {
   sub: any;
