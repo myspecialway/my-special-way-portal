@@ -21,6 +21,8 @@ import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
+import { MapProxyService } from './services/map-proxy.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const locationServiceMock = {
   getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
@@ -31,6 +33,8 @@ describe('MapsContainerComponent', () => {
   let mapsServiceMock: Partial<MapsService>;
   let mapsDialogMock: Partial<MatDialog>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
+  let mapProxyService: Partial<MapProxyService>;
+  let sanitiazerMock: Partial<DomSanitizer>;
   const mockedblockedSections = [
     {
       reason: "מרתון תל אביב'",
@@ -40,6 +44,13 @@ describe('MapsContainerComponent', () => {
   ];
 
   beforeEach(async () => {
+    sanitiazerMock = {
+      bypassSecurityTrustResourceUrl: jest.fn().mockReturnValue('safeString'),
+    };
+    mapProxyService = {
+      delete: jest.fn(),
+      read: jest.fn(),
+    };
     mapsServiceMock = {
       getAllBlockedSections: jest.fn().mockReturnValue(Observable.of(mockedblockedSections)),
       create: jest.fn(),
@@ -68,8 +79,10 @@ describe('MapsContainerComponent', () => {
         MatInput,
       ],
       providers: [
+        { provide: DomSanitizer, useValue: sanitiazerMock },
         { provide: MatDialog, useValue: mapsDialogMock },
         { provide: MapsService, useValue: mapsServiceMock },
+        { provide: MapProxyService, useValue: mapProxyService },
         { provide: LocationService, useValue: locationServiceMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
         { provide: APP_BASE_HREF, useValue: '/' },
@@ -122,6 +135,12 @@ describe('MapsContainerComponent', () => {
   });
 
   it('should call mapsServiceMock.create when calling addOrEditBlock without blockedSection ', async () => {
+    const block = {
+      reason: 'מרתון תל אביב',
+      from: 'A',
+      to: 'B',
+      _id: 123124,
+    };
     (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
@@ -131,7 +150,7 @@ describe('MapsContainerComponent', () => {
 
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
-    fixture.componentInstance.addOrEditBlock();
+    fixture.componentInstance.addOrEditBlock(block);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(mapsServiceMock.create).toHaveBeenCalled();
@@ -146,9 +165,10 @@ describe('MapsContainerComponent', () => {
     });
 
     const blockToDelete = {
-      reason: "מרתון תל אביב'",
+      reason: 'מרתון תל אביב',
       from: 'A',
       to: 'B',
+      _id: 123124,
     };
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
