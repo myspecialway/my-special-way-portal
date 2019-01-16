@@ -4,8 +4,6 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  SimpleChanges,
-  OnChanges,
   IterableDiffers,
   DoCheck,
   ChangeDetectorRef,

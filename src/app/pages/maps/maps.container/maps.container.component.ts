@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { IMapsFile, IMapsFileBase, IFileEvent, FloorEventType } from '../../../models/maps.file.model';
 import { forkJoin } from 'rxjs';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 import { CommunicationService } from './services/communication.service';
 
 @Component({

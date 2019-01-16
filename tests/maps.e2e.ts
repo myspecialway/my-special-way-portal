@@ -2,7 +2,6 @@ import LoginPage from './pageobjects/login.po';
 import { testEnvironment } from './config/config';
 import { t, Selector } from 'testcafe';
 import MapsPage from './pageobjects/maps.po';
-import MapPage from './pageobjects/map-details.po';
 
 const loginPage = new LoginPage();
 const mapsPage = new MapsPage();
