@@ -133,8 +133,9 @@ export class MapsContainerComponent implements OnInit {
   }
 
   onFloorChange(event: IFileEvent) {
-    if (event.type === FloorEventType.CLICK && event.payload) {
+    if (event.type === FloorEventType.SELECT && event.payload) {
       this.showImage(event.payload.id);
+      this.currentFloor = (event.payload as IMapsFileBase).floor;
     }
     if (event.type === FloorEventType.DELETE && event.payload) {
       if (this.imagesContainer.size > 1) {
@@ -143,7 +144,6 @@ export class MapsContainerComponent implements OnInit {
         this.lastMapAlert();
       }
     }
-    // this.currentFloor = index;
   }
 
   private onSuccessDeleteMap(event: IFileEvent) {

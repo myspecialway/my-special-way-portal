@@ -12,7 +12,7 @@ export interface IMapsFile extends IMapsFileBase {
 
 export enum FloorEventType {
   DELETE = 1,
-  CLICK = 2,
+  SELECT = 2,
   UPLOAD = 3,
   ERROR = 4,
 }

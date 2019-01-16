@@ -89,11 +89,11 @@ export class MapFloorListComponent implements DoCheck {
       type: FloorEventType.DELETE,
     });
   }
-  onClick(event: MouseEvent, map: IMapsFileBase) {
+  onSelect(event: MouseEvent, map: IMapsFileBase) {
     this.markActiveSelectedItem(map.id);
     this.change.emit({
       payload: map,
-      type: FloorEventType.CLICK,
+      type: FloorEventType.SELECT,
     });
   }
 }
