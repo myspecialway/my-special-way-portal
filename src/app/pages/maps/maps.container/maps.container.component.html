@@ -18,7 +18,7 @@
 
     <div class="maps-body">
       <div class="maps-poi-list">
-        <app-map-floor-list [floors]="imagesMetaData" (change)="onFloorChange($event)"></app-map-floor-list>
+        <app-map-floor-list #mapFloorList [floors]="imagesMetaData" (change)="onFloorChange($event)"></app-map-floor-list>
       </div>
 
       <div class="map-container">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
 import { LocationService } from './../../../services/location/location.graphql.service';
@@ -15,8 +15,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { IMapsFile, IMapsFileBase, IFileEvent, FloorEventType } from '../../../models/maps.file.model';
 import { forkJoin } from 'rxjs';
-// import * as _ from 'lodash';
-import { CommunicationService } from './services/communication.service';
+
+import { MapFloorListComponent } from './tabs/map-floor-list/map-floor-list.component';
 
 @Component({
   selector: 'app-maps-container',
@@ -25,6 +25,9 @@ import { CommunicationService } from './services/communication.service';
 })
 export class MapsContainerComponent implements OnInit {
   filesObservers: Array<Observable<IMapsFile>> = [];
+  @ViewChild('mapFloorList')
+  mapFloorListComponent: MapFloorListComponent;
+
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
   idOrNew: string;
   links: any;
@@ -47,7 +50,6 @@ export class MapsContainerComponent implements OnInit {
     private mswSnackbar: MSWSnackbar,
     private mapProxyService: MapProxyService,
     private _sanitizer: DomSanitizer,
-    private communicationService: CommunicationService<IFileEvent>,
   ) {
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
@@ -105,6 +107,7 @@ export class MapsContainerComponent implements OnInit {
     }
     if (firstMap) {
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firstMap.mime};base64,${firstMap.src}`);
+      return firtsMap.id;
     }
   }
 
@@ -114,13 +117,15 @@ export class MapsContainerComponent implements OnInit {
         fileName: value.fileName,
         floor: value.floor,
         id: value.id,
+        isActive: false,
       });
     } else {
-      this.communicationService.emitEvent({
+      this.mapFloorListComponent.parantCommunication({
         payload: {
           fileName: value.fileName,
           floor: value.floor,
           id: value.id,
+          isActive: true,
         },
         type: FloorEventType.UPLOAD,
       });
@@ -132,10 +137,13 @@ export class MapsContainerComponent implements OnInit {
       this.showImage(event.payload.id);
     }
     if (event.type === FloorEventType.DELETE && event.payload) {
-      this.mapProxyService.delete(event.payload.id).subscribe(() => {
-        this.onSuccessDeleteMap(event);
-        console.log('(((((((((((((((((((((((((((())))))))))))))))))))))))))))');
-      });
+      if (this.imagesContaier.size > 1) {
+        this.mapProxyService.delete(event.payload.id).subscribe(() => {
+          this.onSuccessDeleteMap(event);
+        });
+      } else {
+        //popup you can not remove the last element
+      }
     }
     // this.currentFloor = index;
   }
@@ -143,13 +151,16 @@ export class MapsContainerComponent implements OnInit {
   private onSuccessDeleteMap(event: IFileEvent) {
     const id = event.payload.id;
     this.imagesContaier.delete(id);
-    this.communicationService.emitEvent({
-      payload: {
-        id,
-      },
-      type: FloorEventType.DELETE,
-    });
-    this.showImage();
+    const next_active_id = this.showImage();
+    if (next_active_id) {
+      this.mapFloorListComponent.parantCommunication({
+        payload: {
+          id,
+          next_active_id,
+        },
+        type: FloorEventType.DELETE,
+      });
+    }
   }
 
   addMap() {
@@ -158,7 +169,7 @@ export class MapsContainerComponent implements OnInit {
       .afterClosed()
       .pipe(first())
       .subscribe(async (fileEvent: IFileEvent) => {
-        if (fileEvent.type === FloorEventType.UPLOAD) {
+        if (fileEvent && fileEvent.type === FloorEventType.UPLOAD) {
           const id = fileEvent.payload.id;
           this.mapProxyService.read<IMapsFile>(id).subscribe((image) => {
             this.imagesContaier.set(image.id, image);

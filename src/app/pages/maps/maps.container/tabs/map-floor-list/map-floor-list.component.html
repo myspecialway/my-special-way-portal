@@ -1,6 +1,6 @@
 <div>
   <button (click)="onClick($event,floor)" *ngFor="let floor of floors;" class="btn btn-large floor-contaier" [value]="floor.id"
-    [class.active]="floor.id===currentFloor">
+    [class.active]="floor.isActive===true">
     <div class='floor-text'>
       {{floor.fileName}}
     </div>
