@@ -26,6 +26,8 @@ export class MapsContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
   currentFloor = 0;
+  availablePositions: Location[] = [];
+  allBlockedSections: BlockedSection[] = [];
   @SubscriptionCleaner()
   subCollector;
 
@@ -47,31 +49,67 @@ export class MapsContainerComponent implements OnInit {
   ngOnInit(): void {
     const initialFloor = MAP_FLOOR_MAPS.find(({ index }) => index === this.currentFloor);
     this.onFloorChange(initialFloor as IMapFloor);
-    try {
-      this.subCollector.add(
-        this.mapsService.getAllBlockedSections().subscribe((data) => {
-          this.dataSource.data = [...data];
-        }),
-        this.locationService.getLocationsFeed$().subscribe((data) => {
-          this.locations = data;
-        }),
-      );
-    } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
-    }
+    this.populateLocations();
+    this.populateBlockedSectionsData();
+  }
+
+  populateLocations() {
+    this.subCollector.add(
+      this.locationService.getLocationsFeed$().subscribe((data) => {
+        this.locations = data;
+      }),
+    );
+  }
+
+  populateBlockedSectionsData() {
+    this.subCollector.add(
+      this.mapsService.getAllBlockedSections().subscribe((data) => {
+        this.allBlockedSections = [...data];
+        this.populateAvailablePositions(this.locations);
+        this.populateBlockedSectionsByFloor(this.currentFloor);
+      }),
+    );
+  }
+
+  populateAvailablePositions(locations) {
+    this.availablePositions = locations.filter((data) => {
+      return data.position.floor === this.currentFloor;
+    });
+  }
+
+  populateBlockedSectionsByFloor(floor) {
+    this.dataSource.data = this.allBlockedSections.filter((data) => {
+      const position = this.getPositionByLocationId(this.availablePositions, data.from);
+      if (position) {
+        return position.position.floor === floor;
+      }
+    });
+  }
+
+  getLocationByName(locations: Location[], positionName: string) {
+    return locations.find((data) => {
+      return data.location_id === positionName;
+    });
+  }
+
+  getPositionByLocationId(positions: Location[], locationId: string) {
+    return positions.find((data) => {
+      return data._id === locationId;
+    });
   }
 
   addOrEditBlock(blockedSection) {
     let isNewBlock = true;
-    let dataObj = {};
+    let dataObj;
     if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
       dataObj = { ...blockedSection, isNewBlock };
+      dataObj.availablePositions = this.availablePositions;
+      dataObj.getPositionByLocationId = this.getPositionByLocationId;
     } else {
       dataObj = { isNewBlock };
     }
+
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
@@ -80,20 +118,24 @@ export class MapsContainerComponent implements OnInit {
       .pipe(first())
       .subscribe(async (result) => {
         if (result) {
-          try {
-            if (isNewBlock) {
-              if (this.blockedSectionAlreadyExists(result)) {
-                this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
-              } else {
-                await this.mapsService.create(result);
-              }
+          const fromLocation = this.getLocationByName(this.availablePositions, result.from);
+          const toLocation = this.getLocationByName(this.availablePositions, result.to);
+          if (fromLocation) {
+            result.from = fromLocation._id;
+          }
+          if (toLocation) {
+            result.to = toLocation._id;
+          }
+          if (isNewBlock) {
+            if (this.blockedSectionAlreadyExists(result)) {
+              this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
             } else {
-              await this.mapsService.update(result);
+              await this.mapsService.create(result);
+              this.populateBlockedSectionsData();
             }
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
+          } else {
+            await this.mapsService.update(result);
+            this.populateBlockedSectionsData();
           }
         }
       });
@@ -109,10 +151,22 @@ export class MapsContainerComponent implements OnInit {
   }
 
   deleteBlock({ _id, from, to, reason }: BlockedSection) {
+    let fromPosition;
+    let toPosition;
+    let fromPositionObj;
+    let toPositionObj;
+
+    if (this.availablePositions && this.getPositionByLocationId) {
+      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
+      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
+    }
+    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
+    toPosition = toPositionObj ? toPositionObj.location_id : '';
+
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מקטע חסום',
-        question: `המקטע ${from} - ${to} - ${reason}`,
+        question: `המקטע ${fromPosition} - ${toPosition} - ${reason}`,
       },
     });
 
@@ -121,13 +175,7 @@ export class MapsContainerComponent implements OnInit {
       .pipe(first())
       .subscribe(async (result) => {
         if (result) {
-          try {
-            await this.mapsService.delete(_id);
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
-          }
+          await this.mapsService.delete(_id);
         }
       });
   }
@@ -145,5 +193,7 @@ export class MapsContainerComponent implements OnInit {
   onFloorChange({ index, filename }) {
     this.currentFloor = index;
     this.floorMapName = filename;
+    this.populateAvailablePositions(this.locations);
+    this.populateBlockedSectionsByFloor(this.currentFloor);
   }
 }

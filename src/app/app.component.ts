@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
 
   isSupportedBrowser() {
     const isSupportedBrowser =
-      /Chrome/.test(navigator.userAgent) ||
-      (/Firefox/.test(navigator.userAgent) && /!Mobile/.test(navigator.userAgent));
+      (/Chrome/.test(navigator.userAgent) || /Firefox/.test(navigator.userAgent)) &&
+      !/Mobile/.test(navigator.userAgent);
     return isSupportedBrowser;
   }
 
