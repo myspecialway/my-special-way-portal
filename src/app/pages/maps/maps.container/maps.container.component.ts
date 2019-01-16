@@ -318,7 +318,7 @@ export class MapsContainerComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מקטע חסום',
-        question: `המקטע ${from} - ${to} - ${reason}`,
+        question: `המקטע ${fromPosition} - ${toPosition} - ${reason}`,
       },
     });
 
