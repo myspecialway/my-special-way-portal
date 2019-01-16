@@ -54,33 +54,21 @@ export class MapsContainerComponent implements OnInit {
   }
 
   populateLocations() {
-    try {
-      this.subCollector.add(
-        this.locationService.getLocationsFeed$().subscribe((data) => {
-          this.locations = data;
-        }),
-      );
-    } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
-    }
+    this.subCollector.add(
+      this.locationService.getLocationsFeed$().subscribe((data) => {
+        this.locations = data;
+      }),
+    );
   }
 
   populateBlockedSectionsData() {
-    try {
-      this.subCollector.add(
-        this.mapsService.getAllBlockedSections().subscribe((data) => {
-          this.allBlockedSections = [...data];
-          this.populateAvailablePositions(this.locations);
-          this.populateBlockedSectionsByFloor(this.currentFloor);
-        }),
-      );
-    } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
-    }
+    this.subCollector.add(
+      this.mapsService.getAllBlockedSections().subscribe((data) => {
+        this.allBlockedSections = [...data];
+        this.populateAvailablePositions(this.locations);
+        this.populateBlockedSectionsByFloor(this.currentFloor);
+      }),
+    );
   }
 
   populateAvailablePositions(locations) {
@@ -130,30 +118,24 @@ export class MapsContainerComponent implements OnInit {
       .pipe(first())
       .subscribe(async (result) => {
         if (result) {
-          try {
-            const fromLocation = this.getLocationByName(this.availablePositions, result.from);
-            const toLocation = this.getLocationByName(this.availablePositions, result.to);
-            if (fromLocation) {
-              result.from = fromLocation._id;
-            }
-            if (toLocation) {
-              result.to = toLocation._id;
-            }
-            if (isNewBlock) {
-              if (this.blockedSectionAlreadyExists(result)) {
-                this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
-              } else {
-                await this.mapsService.create(result);
-                this.populateBlockedSectionsData();
-              }
+          const fromLocation = this.getLocationByName(this.availablePositions, result.from);
+          const toLocation = this.getLocationByName(this.availablePositions, result.to);
+          if (fromLocation) {
+            result.from = fromLocation._id;
+          }
+          if (toLocation) {
+            result.to = toLocation._id;
+          }
+          if (isNewBlock) {
+            if (this.blockedSectionAlreadyExists(result)) {
+              this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
             } else {
-              await this.mapsService.update(result);
+              await this.mapsService.create(result);
               this.populateBlockedSectionsData();
             }
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
+          } else {
+            await this.mapsService.update(result);
+            this.populateBlockedSectionsData();
           }
         }
       });
@@ -193,13 +175,7 @@ export class MapsContainerComponent implements OnInit {
       .pipe(first())
       .subscribe(async (result) => {
         if (result) {
-          try {
-            await this.mapsService.delete(_id);
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
-          }
+          await this.mapsService.delete(_id);
         }
       });
   }
