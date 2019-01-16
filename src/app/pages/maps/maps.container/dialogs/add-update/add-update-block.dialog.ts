@@ -45,10 +45,6 @@ export class AddUpdateBlockDialogComponent implements OnInit {
     }
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' : '';
-  }
-
   close(): void {
     this.dialogRef.close();
   }
