@@ -6,7 +6,7 @@ import { LocationService } from './../../../services/location/location.graphql.s
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
-import { AddUpdateBlockDialogComponent, AddUpdateBlockedSection } from './dialogs/add-update/add-update-block.dialog';
+import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import BlockedSection from '../../../models/blocked-section.model';
 import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
