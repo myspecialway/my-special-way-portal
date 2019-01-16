@@ -5,6 +5,7 @@ import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-b
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   Overlay,
@@ -77,7 +78,7 @@ describe('MapsContainerComponent', () => {
     } as Partial<MSWSnackbar>;
 
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [FormsModule, ReactiveFormsModule],
       declarations: [
         MapsContainerComponent,
         AddUpdateBlockDialogComponent,
