@@ -35,7 +35,7 @@ export class MapsContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
   currentFloor = 0;
-  imagesContaier: Map<string, IMapsFile> = new Map<string, IMapsFile>();
+  imagesContainer: Map<string, IMapsFile> = new Map<string, IMapsFile>();
   imagesMetaData: IMapsFileBase[] = [];
   imagePath: any;
   @SubscriptionCleaner()
@@ -87,12 +87,12 @@ export class MapsContainerComponent implements OnInit {
   };
 
   private handleNewImage = (mapsFile: IMapsFile) => {
-    this.imagesContaier.set(mapsFile.id, mapsFile);
+    this.imagesContainer.set(mapsFile.id, mapsFile);
     this.emitForFloorBar(mapsFile, true);
   };
 
   private findMinFloorId() {
-    const item = Array.from(this.imagesContaier.values()).reduce((prev, curr) => {
+    const item = Array.from(this.imagesContainer.values()).reduce((prev, curr) => {
       return +prev.floor < +curr.floor ? prev : curr;
     });
     return item;
@@ -100,10 +100,10 @@ export class MapsContainerComponent implements OnInit {
 
   private showImage(firstMap?: IMapsFile | string) {
     if (firstMap === undefined) {
-      firstMap = this.imagesContaier.get(this.findMinFloorId().id);
+      firstMap = this.imagesContainer.get(this.findMinFloorId().id);
     }
     if (typeof firstMap === 'string') {
-      firstMap = this.imagesContaier.get(firstMap);
+      firstMap = this.imagesContainer.get(firstMap);
     }
     if (firstMap) {
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firstMap.mime};base64,${firstMap.src}`);
@@ -137,7 +137,7 @@ export class MapsContainerComponent implements OnInit {
       this.showImage(event.payload.id);
     }
     if (event.type === FloorEventType.DELETE && event.payload) {
-      if (this.imagesContaier.size > 1) {
+      if (this.imagesContainer.size > 1) {
         this.mapProxyService.delete(event.payload.id).subscribe(() => {
           this.onSuccessDeleteMap(event);
         });
@@ -150,7 +150,7 @@ export class MapsContainerComponent implements OnInit {
 
   private onSuccessDeleteMap(event: IFileEvent) {
     const id = event.payload.id;
-    this.imagesContaier.delete(id);
+    this.imagesContainer.delete(id);
     const next_active_id = this.showImage();
     if (next_active_id) {
       this.mapFloorListComponent.parantCommunication({
@@ -172,7 +172,7 @@ export class MapsContainerComponent implements OnInit {
         if (fileEvent && fileEvent.type === FloorEventType.UPLOAD) {
           const id = fileEvent.payload.id;
           this.mapProxyService.read<IMapsFile>(id).subscribe((image) => {
-            this.imagesContaier.set(image.id, image);
+            this.imagesContainer.set(image.id, image);
             this.emitForFloorBar(image, false);
             this.showImage(image.id);
           });

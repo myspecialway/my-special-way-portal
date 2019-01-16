@@ -17,7 +17,7 @@ describe('MapProxyService', () => {
       imports: [HttpClientTestingModule],
       providers: [MapProxyService, { provide: AuthenticationService, useValue: authServiceMock }],
     });
-    injector = getTestBed();
+    // injector = getTestBed();
     // service = injector.get(MapProxyService);
     // httpMock = injector.get(HttpTestingController);
   });
