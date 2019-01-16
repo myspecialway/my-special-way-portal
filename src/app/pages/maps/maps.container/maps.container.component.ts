@@ -99,7 +99,7 @@ export class MapsContainerComponent implements OnInit {
   }
 
   private showImage(firstMap?: IMapsFile | string) {
-    if (!firstMap) {
+    if (firstMap === undefined) {
       firstMap = this.imagesContaier.get(this.findMinFloorId().id);
     }
     if (typeof firstMap === 'string') {
@@ -107,7 +107,7 @@ export class MapsContainerComponent implements OnInit {
     }
     if (firstMap) {
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firstMap.mime};base64,${firstMap.src}`);
-      return firtsMap.id;
+      return firstMap.id;
     }
   }
 
