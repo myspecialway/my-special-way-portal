@@ -14,7 +14,7 @@
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field color="primary">
-        <mat-select placeholder="נקודה" formControlName="type" name="type" [(ngModel)]="data.type">
+        <mat-select placeholder="סוג" formControlName="type" name="type" [(ngModel)]="data.type">
           <mat-option disabled>בחר</mat-option>
           <mat-option *ngFor="let pointType of pointTypes" [value]="pointType" >{{pointType}}</mat-option>
         </mat-select>

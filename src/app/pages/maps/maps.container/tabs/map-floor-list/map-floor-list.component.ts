@@ -29,7 +29,7 @@ export class MapFloorListComponent implements DoCheck {
     this.differ = this.differs.find([]).create();
   }
 
-  public parantCommunication = (event: IFileEvent) => {
+  public parentCommunication = (event: IFileEvent) => {
     if (event.type === FloorEventType.DELETE) {
       this.removeItemFromMetaData(event.payload.id);
       this.markActiveSelectedItem((event.payload as DeleteEvent).next_active_id);

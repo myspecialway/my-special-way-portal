@@ -153,7 +153,7 @@ export class MapsContainerComponent implements OnInit {
         isActive: false,
       });
     } else {
-      this.mapFloorListComponent.parantCommunication({
+      this.mapFloorListComponent.parentCommunication({
         payload: {
           fileName: value.fileName,
           floor: value.floor,
@@ -186,7 +186,7 @@ export class MapsContainerComponent implements OnInit {
     this.imagesContainer.delete(id);
     const next_active_id = this.showImage();
     if (next_active_id) {
-      this.mapFloorListComponent.parantCommunication({
+      this.mapFloorListComponent.parentCommunication({
         payload: {
           id,
           next_active_id,
