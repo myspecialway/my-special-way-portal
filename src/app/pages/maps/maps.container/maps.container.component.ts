@@ -43,8 +43,6 @@ export class MapsContainerComponent implements OnInit {
   @SubscriptionCleaner()
   subCollector;
 
-  floorMapName: string;
-
   constructor(
     private dialog: MatDialog,
     private mapsService: MapsService,
@@ -170,7 +168,9 @@ export class MapsContainerComponent implements OnInit {
   onFloorChange(event: IFileEvent) {
     if (event.type === FloorEventType.SELECT && event.payload) {
       this.showImage(event.payload.id);
-      this.currentFloor = (event.payload as IMapsFileBase).floor;
+      this.currentFloor = Number((event.payload as IMapsFileBase).floor);
+      this.populateAvailablePositions(this.locations);
+      this.populateBlockedSectionsByFloor(this.currentFloor);
     }
     if (event.type === FloorEventType.DELETE && event.payload) {
       if (this.imagesContainer.size > 1) {
@@ -277,18 +277,6 @@ export class MapsContainerComponent implements OnInit {
   }
 
   deleteMap(event: IFileEvent) {
-    let fromPosition;
-    let toPosition;
-    let fromPositionObj;
-    let toPositionObj;
-
-    if (this.availablePositions && this.getPositionByLocationId) {
-      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
-      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
-    }
-    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
-    toPosition = toPositionObj ? toPositionObj.location_id : '';
-
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מחיקת מפה',
@@ -315,6 +303,18 @@ export class MapsContainerComponent implements OnInit {
   }
 
   deleteBlock({ _id, from, to, reason }: BlockedSection) {
+    let fromPosition;
+    let toPosition;
+    let fromPositionObj;
+    let toPositionObj;
+
+    if (this.availablePositions && this.getPositionByLocationId) {
+      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
+      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
+    }
+    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
+    toPosition = toPositionObj ? toPositionObj.location_id : '';
+
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מקטע חסום',
