@@ -29,13 +29,33 @@ const locationServiceMock = {
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   let mapsServiceMock: Partial<MapsService>;
+  let locationServiceMock: Partial<LocationService>;
   let mapsDialogMock: Partial<MatDialog>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
   const mockedblockedSections = [
     {
       reason: "מרתון תל אביב'",
-      from: 'A',
-      to: 'B',
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
+    },
+  ];
+
+  const mockedLocations = [
+    {
+      _id: '5c3393394287a53304b740db',
+      name: 'אולם ספורט',
+      location_id: 'A90',
+      position: {
+        floor: 0,
+      },
+    },
+    {
+      _id: '5c3393394287a53304b740d5',
+      name: 'ברזיה אולם ספורט',
+      location_id: 'A96',
+      position: {
+        floor: 0,
+      },
     },
   ];
 
@@ -46,6 +66,11 @@ describe('MapsContainerComponent', () => {
       update: jest.fn(),
       delete: jest.fn(),
     };
+
+    locationServiceMock = {
+      getLocationsFeed$: jest.fn().mockReturnValue(Observable.of(mockedLocations)),
+    };
+
     mapsDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
@@ -147,8 +172,8 @@ describe('MapsContainerComponent', () => {
 
     const blockToDelete = {
       reason: "מרתון תל אביב'",
-      from: 'A',
-      to: 'B',
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
     };
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
