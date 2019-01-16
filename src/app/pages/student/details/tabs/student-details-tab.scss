@@ -1,0 +1,23 @@
+.msw-student-header-nav-name {
+  color: #222;
+  font-size: 32px;
+  letter-spacing: 0.6px;
+  overflow: hidden;
+  position: absolute;
+  right: 38px;
+  text-align: right;
+  text-overflow: ellipsis;
+  top: 135px;
+  white-space: nowrap;
+  width: 27vw;
+
+  @media screen and (max-width: 1178px) {
+    width: 22vw;
+  }
+  @media screen and (max-width: 992px) {
+    width: 20vw;
+  }
+  @media screen and (max-width: 930px) {
+    display: none;
+  }
+}
