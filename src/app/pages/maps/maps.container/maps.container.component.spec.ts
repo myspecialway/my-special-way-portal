@@ -177,4 +177,21 @@ describe('MapsContainerComponent', () => {
     await fixture.whenRenderingDone();
     expect(mapsServiceMock.delete).toHaveBeenCalled();
   });
+
+  it('should return true if the blockedSection already exists in the dataSource', async () => {
+    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(mockedblockedSections);
+    });
+
+    const blockToCheck = {
+      reason: "מרתון תל אביב'",
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
+    };
+
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    await fixture.componentInstance.ngOnInit();
+    const res = fixture.componentInstance.blockedSectionAlreadyExists(blockToCheck);
+    expect(res).toBeTruthy();
+  });
 });
