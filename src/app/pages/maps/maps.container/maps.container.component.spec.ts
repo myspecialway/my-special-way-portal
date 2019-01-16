@@ -4,9 +4,8 @@ import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
-import { mockedLocations } from './../../../../mocks/assets/locations.mock';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
-import { of } from 'rxjs/observable/of';
+
 import {
   Overlay,
   ScrollStrategyOptions,
@@ -24,13 +23,10 @@ import { LocationService } from '../../../services/location/location.graphql.ser
 import { MapProxyService } from './services/map-proxy.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
-const locationServiceMock = {
-  getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
-  getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
-};
 describe.only('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   let mapsServiceMock: Partial<MapsService>;
+  let locationServiceMock: Partial<LocationService>;
   let mapsDialogMock: Partial<MatDialog>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
   let mapProxyService: Partial<MapProxyService>;
@@ -38,9 +34,27 @@ describe.only('MapsContainerComponent', () => {
   const mockedblockedSections = [
     {
       reason: "מרתון תל אביב'",
-      from: 'A',
-      to: 'B',
-      _id: 123124,
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
+    },
+  ];
+
+  const mockedLocations = [
+    {
+      _id: '5c3393394287a53304b740db',
+      name: 'אולם ספורט',
+      location_id: 'A90',
+      position: {
+        floor: 0,
+      },
+    },
+    {
+      _id: '5c3393394287a53304b740d5',
+      name: 'ברזיה אולם ספורט',
+      location_id: 'A96',
+      position: {
+        floor: 0,
+      },
     },
   ];
 
@@ -59,6 +73,11 @@ describe.only('MapsContainerComponent', () => {
       update: jest.fn(),
       delete: jest.fn(),
     };
+
+    locationServiceMock = {
+      getLocationsFeed$: jest.fn().mockReturnValue(Observable.of(mockedLocations)),
+    };
+
     mapsDialogMock = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
@@ -168,8 +187,8 @@ describe.only('MapsContainerComponent', () => {
 
     const blockToDelete = {
       reason: 'מרתון תל אביב',
-      from: 'A',
-      to: 'B',
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
       _id: 123124,
     };
     fixture = TestBed.createComponent(MapsContainerComponent);
@@ -178,5 +197,22 @@ describe.only('MapsContainerComponent', () => {
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(mapsServiceMock.delete).toHaveBeenCalled();
+  });
+
+  it('should return true if the blockedSection already exists in the dataSource', async () => {
+    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      return Observable.of(mockedblockedSections);
+    });
+
+    const blockToCheck = {
+      reason: "מרתון תל אביב'",
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
+    };
+
+    fixture = TestBed.createComponent(MapsContainerComponent);
+    await fixture.componentInstance.ngOnInit();
+    const res = fixture.componentInstance.blockedSectionAlreadyExists(blockToCheck);
+    expect(res).toBeTruthy();
   });
 });

@@ -35,6 +35,8 @@ export class MapsContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<BlockedSection>();
   locations: Location[] = [];
   currentFloor = 0;
+  availablePositions: Location[] = [];
+  allBlockedSections: BlockedSection[] = [];
   imagesContainer: Map<string, IMapsFile> = new Map<string, IMapsFile>();
   imagesMetaData: IMapsFileBase[] = [];
   imagePath: any;
@@ -59,26 +61,59 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    try {
-      this.subCollector.add(
-        this.mapsService.getAllBlockedSections().subscribe((data) => {
-          this.dataSource.data = [...data];
-        }),
-        this.locationService.getLocationsFeed$().subscribe((data) => {
-          this.locations = data;
-        }),
-        this.mapProxyService.read().subscribe((ids: string[]) => {
-          ids.forEach((id) => {
-            this.filesObservers.push(this.mapProxyService.read<IMapsFile>(id));
-          });
-          forkJoin(this.filesObservers).subscribe(this.handleFiles);
-        }),
-      );
-    } catch (error) {
-      // TODO: implement error handling on UI
-      console.error('Error handling not implemented');
-      throw error;
-    }
+    this.populateLocations();
+    this.populateBlockedSectionsData();
+  }
+
+  populateLocations() {
+    this.subCollector.add(
+      this.locationService.getLocationsFeed$().subscribe((data) => {
+        this.locations = data;
+      }),
+      this.mapProxyService.read().subscribe((ids: string[]) => {
+        ids.forEach((id) => {
+          this.filesObservers.push(this.mapProxyService.read<IMapsFile>(id));
+        });
+        forkJoin(this.filesObservers).subscribe(this.handleFiles);
+      }),
+    );
+  }
+
+  populateBlockedSectionsData() {
+    this.subCollector.add(
+      this.mapsService.getAllBlockedSections().subscribe((data) => {
+        this.allBlockedSections = [...data];
+        this.populateAvailablePositions(this.locations);
+        this.populateBlockedSectionsByFloor(this.currentFloor);
+      }),
+    );
+  }
+
+  populateAvailablePositions(locations) {
+    this.availablePositions = locations.filter((data) => {
+      return data.position.floor === this.currentFloor;
+    });
+  }
+
+  populateBlockedSectionsByFloor(floor) {
+    this.dataSource.data = this.allBlockedSections.filter((data) => {
+      const position = this.getPositionByLocationId(this.availablePositions, data.from);
+      if (position) {
+        return position.position.floor === floor;
+      }
+    });
+  }
+
+  getLocationByName(locations: Location[], positionName: string) {
+    return locations.find((data) => {
+      return data.location_id === positionName;
+    });
+  }
+
+  getPositionByLocationId(positions: Location[], locationId: string) {
+    return positions.find((data) => {
+      return data._id === locationId;
+    });
   }
   private handleFiles = (mapsFileList: IMapsFile[]) => {
     this.imagesMetaData = [];
@@ -182,13 +217,16 @@ export class MapsContainerComponent implements OnInit {
 
   addOrEditBlock(blockedSection) {
     let isNewBlock = true;
-    let dataObj = {};
+    let dataObj;
     if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
       dataObj = { ...blockedSection, isNewBlock };
+      dataObj.availablePositions = this.availablePositions;
+      dataObj.getPositionByLocationId = this.getPositionByLocationId;
     } else {
       dataObj = { isNewBlock };
     }
+
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
@@ -197,20 +235,24 @@ export class MapsContainerComponent implements OnInit {
       .pipe(first())
       .subscribe(async (result) => {
         if (result) {
-          try {
-            if (isNewBlock) {
-              if (this.blockedSectionAlreadyExists(result)) {
-                this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
-              } else {
-                await this.mapsService.create(result);
-              }
+          const fromLocation = this.getLocationByName(this.availablePositions, result.from);
+          const toLocation = this.getLocationByName(this.availablePositions, result.to);
+          if (fromLocation) {
+            result.from = fromLocation._id;
+          }
+          if (toLocation) {
+            result.to = toLocation._id;
+          }
+          if (isNewBlock) {
+            if (this.blockedSectionAlreadyExists(result)) {
+              this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
             } else {
-              await this.mapsService.update(result);
+              await this.mapsService.create(result);
+              this.populateBlockedSectionsData();
             }
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
+          } else {
+            await this.mapsService.update(result);
+            this.populateBlockedSectionsData();
           }
         }
       });
@@ -235,6 +277,18 @@ export class MapsContainerComponent implements OnInit {
   }
 
   deleteMap(event: IFileEvent) {
+    let fromPosition;
+    let toPosition;
+    let fromPositionObj;
+    let toPositionObj;
+
+    if (this.availablePositions && this.getPositionByLocationId) {
+      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
+      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
+    }
+    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
+    toPosition = toPositionObj ? toPositionObj.location_id : '';
+
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מחיקת מפה',

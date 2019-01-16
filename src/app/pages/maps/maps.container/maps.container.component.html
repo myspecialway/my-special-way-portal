@@ -44,12 +44,12 @@
 
             <ng-container matColumnDef="from">
               <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.from}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getPositionByLocationId(availablePositions, row.from).location_id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="to">
               <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
-              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{row.to}}</mat-cell>
+              <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getPositionByLocationId(availablePositions, row.to).location_id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deleteBlock">
