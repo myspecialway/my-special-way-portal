@@ -138,11 +138,9 @@ export class MapsContainerComponent implements OnInit {
     }
     if (event.type === FloorEventType.DELETE && event.payload) {
       if (this.imagesContainer.size > 1) {
-        this.mapProxyService.delete(event.payload.id).subscribe(() => {
-          this.onSuccessDeleteMap(event);
-        });
+        this.deleteMap(event);
       } else {
-        //popup you can not remove the last element
+        this.lastMapAlert();
       }
     }
     // this.currentFloor = index;
@@ -225,6 +223,41 @@ export class MapsContainerComponent implements OnInit {
       }
     }
     return false;
+  }
+  lastMapAlert() {
+    this.dialog.open(DeleteBlockDialogComponent, {
+      data: {
+        title: 'מחיקת מפה',
+        isOnlyAlert: true,
+        alertText: ' ללא ניתן למחוק את המפה האחרונה',
+      },
+    });
+  }
+
+  deleteMap(event: IFileEvent) {
+    const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
+      data: {
+        title: 'מחיקת מפה',
+        question: `המפה`,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(async (result) => {
+        if (result) {
+          try {
+            this.mapProxyService.delete(event.payload.id).subscribe(() => {
+              this.onSuccessDeleteMap(event);
+            });
+          } catch (error) {
+            // TODO: implement error handling on UI
+            console.error('Error handling not implemented');
+            throw error;
+          }
+        }
+      });
   }
 
   deleteBlock({ _id, from, to, reason }: BlockedSection) {

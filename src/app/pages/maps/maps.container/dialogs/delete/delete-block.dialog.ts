@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -6,8 +6,19 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   templateUrl: './delete-block.dialog.html',
   styleUrls: ['./delete-block.dialog.scss'],
 })
-export class DeleteBlockDialogComponent {
+export class DeleteBlockDialogComponent implements OnInit {
+  public text: string;
+
   constructor(public dialogRef: MatDialogRef<DeleteBlockDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit(): void {
+    if (!this.data.isOnlyAlert) {
+      this.text = `האם אתה בטוח שברצונך למחוק את ${this.data.question}?`;
+    } else {
+      this.text = this.data.alertText;
+    }
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
