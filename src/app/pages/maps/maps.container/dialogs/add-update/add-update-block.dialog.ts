@@ -32,9 +32,10 @@ export class AddUpdateBlockDialogComponent implements OnInit {
         reason: '',
       });
     } else {
-      this.data.from = this.data.getPositionByLocationId(this.data.availablePositions, this.data.from).location_id;
-      this.data.to = this.data.getPositionByLocationId(this.data.availablePositions, this.data.to).location_id;
-
+      if (this.data.availablePositions && this.data.getPositionByLocationId) {
+        this.data.from = this.data.getPositionByLocationId(this.data.availablePositions, this.data.from).location_id;
+        this.data.to = this.data.getPositionByLocationId(this.data.availablePositions, this.data.to).location_id;
+      }
       this.form = this.formBuilder.group({
         from: this.data.from,
         to: this.data.to,

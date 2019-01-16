@@ -4,7 +4,6 @@ import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import { MapsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
-import { mockedLocations } from './../../../../mocks/assets/locations.mock';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { of } from 'rxjs/observable/of';
 import {
@@ -22,10 +21,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
 
-const locationServiceMock = {
-  getLocations: jest.fn().mockReturnValue(Promise.resolve(mockedLocations)),
-  getLocationsFeed$: jest.fn().mockReturnValue(of(mockedLocations)),
-};
 describe('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
   let mapsServiceMock: Partial<MapsService>;
