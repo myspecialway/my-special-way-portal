@@ -24,7 +24,7 @@ import { CommunicationService } from './services/communication.service';
   styleUrls: ['./maps.container.component.scss'],
 })
 export class MapsContainerComponent implements OnInit {
-  filesObjecrvers: Array<Observable<IMapsFile>> = [];
+  filesObservers: Array<Observable<IMapsFile>> = [];
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
   idOrNew: string;
   links: any;
@@ -67,9 +67,9 @@ export class MapsContainerComponent implements OnInit {
         }),
         this.mapProxyService.read().subscribe((ids: string[]) => {
           ids.forEach((id) => {
-            this.filesObjecrvers.push(this.mapProxyService.read<IMapsFile>(id));
+            this.filesObservers.push(this.mapProxyService.read<IMapsFile>(id));
           });
-          forkJoin(this.filesObjecrvers).subscribe(this.handleFiles);
+          forkJoin(this.filesObservers).subscribe(this.handleFiles);
         }),
       );
     } catch (error) {
@@ -96,15 +96,15 @@ export class MapsContainerComponent implements OnInit {
     return item;
   }
 
-  private showImage(firtsMap?: IMapsFile | string) {
-    if (!firtsMap) {
-      firtsMap = this.imagesContaier.get(this.findMinFloorId().id);
+  private showImage(firstMap?: IMapsFile | string) {
+    if (!firstMap) {
+      firstMap = this.imagesContaier.get(this.findMinFloorId().id);
     }
-    if (typeof firtsMap === 'string') {
-      firtsMap = this.imagesContaier.get(firtsMap);
+    if (typeof firstMap === 'string') {
+      firstMap = this.imagesContaier.get(firstMap);
     }
-    if (firtsMap) {
-      this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firtsMap.mime};base64,${firtsMap.src}`);
+    if (firstMap) {
+      this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firstMap.mime};base64,${firstMap.src}`);
     }
   }
 
