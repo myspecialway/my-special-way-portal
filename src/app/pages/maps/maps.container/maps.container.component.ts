@@ -112,17 +112,15 @@ export class MapsContainerComponent implements OnInit {
 
   addOrEditBlock(blockedSection) {
     let isNewBlock = true;
-    let dataObj: AddUpdateBlockedSection;
-    dataObj = {};
+    let dataObj;
     if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
       dataObj = { ...blockedSection, isNewBlock };
+      dataObj.availablePositions = this.availablePositions;
+      dataObj.getPositionByLocationId = this.getPositionByLocationId;
     } else {
       dataObj = { isNewBlock };
     }
-
-    dataObj.availablePositions = this.availablePositions;
-    dataObj.getPositionByLocationId = this.getPositionByLocationId;
 
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
@@ -171,12 +169,22 @@ export class MapsContainerComponent implements OnInit {
   }
 
   deleteBlock({ _id, from, to, reason }: BlockedSection) {
+    let fromPosition;
+    let toPosition;
+    let fromPositionObj;
+    let toPositionObj;
+
+    if (this.availablePositions && this.getPositionByLocationId) {
+      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
+      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
+    }
+    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
+    toPosition = toPositionObj ? toPositionObj.location_id : '';
+
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'מקטע חסום',
-        question: `המקטע ${this.getPositionByLocationId(this.availablePositions, to).location_id} - ${
-          this.getPositionByLocationId(this.availablePositions, from).location_id
-        } - ${reason}`,
+        question: `המקטע ${fromPosition} - ${toPosition} - ${reason}`,
       },
     });
 
