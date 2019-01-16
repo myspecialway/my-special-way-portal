@@ -1,4 +1,4 @@
-import { TestBed, inject, getTestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { MapProxyService } from './map-proxy.service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
