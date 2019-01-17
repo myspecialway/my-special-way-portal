@@ -19,7 +19,15 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs-compat';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatHeaderRow, MatRowDef, MatHeaderRowDef, MatInput, MatDialog } from '@angular/material';
+import {
+  MatHeaderRow,
+  MatRowDef,
+  MatHeaderRowDef,
+  MatInput,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material';
 import { LocationService } from '../../../services/location/location.graphql.service';
 
 describe('MapsContainerComponent', () => {
@@ -35,6 +43,12 @@ describe('MapsContainerComponent', () => {
       to: '5c3393394287a53304b740d5',
     },
   ];
+
+  const dialogDataMock = {
+    from: 'A',
+    to: 'B',
+    reason: 'updating the blocked section',
+  };
 
   const mockedLocations = [
     {
@@ -53,6 +67,22 @@ describe('MapsContainerComponent', () => {
         floor: 0,
       },
     },
+    {
+      _id: 'A',
+      name: 'ברזיה אולם ספורט',
+      location_id: 'A',
+      position: {
+        floor: 0,
+      },
+    },
+    {
+      _id: 'B',
+      name: 'ברזיה אולם',
+      location_id: 'B',
+      position: {
+        floor: 0,
+      },
+    },
   ];
 
   beforeEach(async () => {
@@ -67,9 +97,14 @@ describe('MapsContainerComponent', () => {
       getLocationsFeed$: jest.fn().mockReturnValue(Observable.of(mockedLocations)),
     };
 
+    const updatedBlockedSection = {
+      reason: "מרתון תל אביב'",
+      from: 'A',
+      to: 'B',
+    };
     mapsDialogMock = {
       open: jest.fn().mockReturnValue({
-        afterClosed: jest.fn().mockReturnValue(Observable.of(true)),
+        afterClosed: jest.fn().mockReturnValue(Observable.of(updatedBlockedSection)),
       }),
     };
 
@@ -94,6 +129,13 @@ describe('MapsContainerComponent', () => {
         { provide: LocationService, useValue: locationServiceMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
         { provide: APP_BASE_HREF, useValue: '/' },
+        {
+          provide: MatDialogRef,
+          useValue: {
+            subscribe: (dialogResult: any) => {},
+          },
+        },
+        { provide: MAT_DIALOG_DATA, useValue: dialogDataMock },
         Overlay,
         ScrollStrategyOptions,
         ScrollDispatcher,
@@ -129,14 +171,16 @@ describe('MapsContainerComponent', () => {
     (mapsServiceMock.update as jest.Mock).mockImplementationOnce(() => {
       return Promise.resolve(1);
     });
-    const newBlockedSection = {
-      reason: 'New reason',
-      from: 'B',
-      to: 'D',
+
+    const existingBlockedSection = {
+      reason: "מרתון תל אביב'",
+      from: '5c3393394287a53304b740db',
+      to: '5c3393394287a53304b740d5',
     };
+
     fixture = TestBed.createComponent(MapsContainerComponent);
     await fixture.componentInstance.ngOnInit();
-    fixture.componentInstance.addOrEditBlock(newBlockedSection);
+    fixture.componentInstance.addOrEditBlock(existingBlockedSection);
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(mapsServiceMock.update).toHaveBeenCalled();
