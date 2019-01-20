@@ -6,6 +6,9 @@ img {
 }
 
 .msw-lesson-table {
+  .mat-header-cell:first-child {
+    max-width: 32.5%;
+  }
   .mat-cell:first-child {
     max-width: 32.5%;
   }

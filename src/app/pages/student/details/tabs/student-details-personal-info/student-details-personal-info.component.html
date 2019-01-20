@@ -11,12 +11,12 @@
 
         <div class="msw-student-main-details">
           <mat-form-field class="firstname">
-            <input matInput placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstName="ngModel"
+            <input matInput maxlength="15" placeholder="שם פרטי" [(ngModel)]="student.firstname" name="firstname" #firstName="ngModel"
               required>
             <mat-error data-test-id="firstname-err" *ngIf="firstName.invalid">שם פרטי הינו שדה חובה</mat-error>
           </mat-form-field>
           <mat-form-field class="lastname">
-            <input matInput placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastName="ngModel"
+            <input matInput maxlength="15" placeholder="שם משפחה" [(ngModel)]="student.lastname" name="lastname" #lastName="ngModel"
               required>
             <mat-error data-test-id="lastname-err" *ngIf="lastName.invalid">שם משפחה הינו שדה חובה</mat-error>
 

@@ -16,6 +16,7 @@
           [(ngModel)]="data.title"
           name="title"
           required
+          maxlength="30"
           title="{{isDuplicate ? 'שם שיעור קיים' : ''}}"
         />
         <mat-error *ngIf="formControl.invalid">שם שיעור הינו שדה חובה</mat-error>

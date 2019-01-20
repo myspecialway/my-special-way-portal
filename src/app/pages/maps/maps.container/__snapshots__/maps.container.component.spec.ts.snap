@@ -3,6 +3,8 @@
 exports[`MapsContainerComponent should match snapshot 1`] = `
 <app-maps-container
   activeLink={[Function String]}
+  allBlockedSections={[Function Array]}
+  availablePositions={[Function Array]}
   currentFloor="0"
   dataSource={[Function MatTableDataSource]}
   dialog={[Function Object]}

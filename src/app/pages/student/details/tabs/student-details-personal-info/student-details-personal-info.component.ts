@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-student-details-personal-info',
   templateUrl: './student-details-personal-info.component.html',
-  styleUrls: ['./student-details-personal-info.component.scss'],
+  styleUrls: ['./student-details-personal-info.component.scss', '../student-details-tab.scss'],
 })
 export class StudentDetailsPersonalInfoComponent implements OnInit {
   student: Student;

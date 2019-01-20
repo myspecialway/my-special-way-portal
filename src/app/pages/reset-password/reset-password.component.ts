@@ -40,7 +40,7 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigate(['/sent-successfully']);
     } catch (err) {
       console.error(`reset-password.component::reset-password:: error in authentication ${err}`);
-      this.errorMessage = 'לא הצלחנו לשלוח אמייל לכתובת: ' + this.model.email + '. אנא נסה שוב.';
+      this.errorMessage = 'לא הצלחנו לשלוח אימייל לכתובת: ' + this.model.email + '. אנא נסה שוב.';
     }
   }
 }
