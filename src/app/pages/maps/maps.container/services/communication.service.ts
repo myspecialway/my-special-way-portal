@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 @Injectable()
 export class CommunicationService<T> {
   handlingMsgDataChanged: EventEmitter<T> = new EventEmitter<T>();
-  subscribeApsDeviceChanged(onSuccess, onError) {
+  subscribeParantChanged(onSuccess, onError) {
     this.handlingMsgDataChanged.subscribe(onSuccess, onError);
   }
 

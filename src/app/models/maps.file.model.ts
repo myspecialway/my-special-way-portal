@@ -1,11 +1,10 @@
-export interface IMapsFileBase {
-  id: string;
+export interface IMapBasePayload  extends IDPayload  {
   fileName: string;
   floor: number;
   isActive: boolean;
 }
 
-export interface IMapsFile extends IMapsFileBase {
+export interface IMapsFile extends IMapBasePayload {
   mime: string;
   src: any;
 }
@@ -15,12 +14,15 @@ export enum FloorEventType {
   SELECT = 2,
   UPLOAD = 3,
   ERROR = 4,
+  UPDATE_LIST = 5,
 }
-export interface DeleteEvent {
-  id: string;
+export interface IDPayload {
+  id: string,
+}
+export interface DeletePayload extends IDPayload {
   next_active_id: string;
 }
 export interface IFileEvent {
-  payload: IMapsFileBase | DeleteEvent;
+  payload: IMapBasePayload | DeletePayload | IDPayload | IMapBasePayload[];
   type: FloorEventType;
 }

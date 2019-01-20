@@ -12,11 +12,7 @@ export class DeleteBlockDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DeleteBlockDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    if (!this.data.isOnlyAlert) {
-      this.text = `האם אתה בטוח שברצונך למחוק את ${this.data.question}?`;
-    } else {
-      this.text = this.data.alertText;
-    }
+    this.text = `${this.data.question}?`;
   }
 
   onNoClick(): void {
