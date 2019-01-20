@@ -8,32 +8,37 @@
      שים לב: בהגדרת מקטע חסום חובה לציין שתי נקודות הסמוכות זו לזו
    </div>
 
-   <form class="mat-dialog-content" [formGroup]="form">
+   <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="form" novalidate >
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input formControlName="reason" class="form-control" placeholder="סיבת חסימה" [(ngModel)]="data.reason" name="reason"  >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput #input formControlName="reason" placeholder="סיבת חסימה" [(ngModel)]="data.reason" name="reason" required>
+        <mat-error *ngIf="formControl.invalid && (!formControl.pristine)">סיבת חסימה הינו שדה חובה</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input formControlName="from" class="form-control" placeholder="מנקודה" [(ngModel)]="data.from" name="from"  >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput #input formControlName="from" placeholder="מנקודה" [(ngModel)]="data.from" name="from" required >
+        <mat-error *ngIf="formControl.invalid && (!formControl.pristine)">מנקודה הינו שדה חובה</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input formControlName="to" class="form-control" placeholder="עד נקודה" [(ngModel)]="data.to" name="to"  >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput #input formControlName="to" placeholder="עד נקודה" [(ngModel)]="data.to" name="to" required >
+        <mat-error *ngIf="formControl.invalid && (!formControl.pristine)">עד נקודה הינו שדה חובה</mat-error>
       </mat-form-field>
     </div>
    </form>
  </mat-dialog-content>
   <mat-dialog-actions>
-    <button class="mat-button"  (click)="close()">ביטול</button>
-    <button type="submit" class="mat-raised-button mat-primary" (click)="confirmAdd(this.form.value)">
+    <button class="mat-button" (click)="close()">ביטול</button>
+
+    <button
+      type="submit"
+      class="mat-raised-button mat-primary"
+      [disabled]="!formControl.valid"
+      (click)="confirmAdd(this.form.value)">
       {{data.isNewBlock ? 'הוסף מקטע חסום' :
     'עדכן'}}
       </button>
