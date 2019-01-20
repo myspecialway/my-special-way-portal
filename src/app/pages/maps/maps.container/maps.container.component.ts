@@ -116,34 +116,43 @@ export class MapsContainerComponent implements OnInit {
     dialogRef
       .afterClosed()
       .pipe(first())
-      .subscribe(async (result) => {
-        if (result) {
-          const fromLocation = this.getLocationByName(this.availablePositions, result.from);
-          const toLocation = this.getLocationByName(this.availablePositions, result.to);
-          if (fromLocation) {
-            result.from = fromLocation._id;
-          }
-          if (toLocation) {
-            result.to = toLocation._id;
-          }
-          if (isNewBlock) {
+      .subscribe(
+        async (result) => {
+          if (result) {
+            const fromLocation = this.getLocationByName(this.availablePositions, result.from);
+            const toLocation = this.getLocationByName(this.availablePositions, result.to);
+            if (fromLocation) {
+              result.from = fromLocation._id;
+            }
+            if (toLocation) {
+              result.to = toLocation._id;
+            }
+            if (!(fromLocation && toLocation)) {
+              this.mswSnackbar.displayTimedMessage('אחד הקטעים החסומים אינו קיים');
+              return;
+            }
+
             if (this.blockedSectionAlreadyExists(result)) {
               this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
             } else {
-              await this.mapsService.create(result);
+              if (isNewBlock) {
+                await this.mapsService.create(result);
+              } else {
+                await this.mapsService.update(result);
+              }
               this.populateBlockedSectionsData();
             }
-          } else {
-            await this.mapsService.update(result);
-            this.populateBlockedSectionsData();
           }
-        }
-      });
+        },
+        (error) => {
+          this.mswSnackbar.displayTimedMessage('שגיאה בעדכון קטע חסום');
+        },
+      );
   }
 
   blockedSectionAlreadyExists(blockedSection: BlockedSection) {
     for (const bS of this.dataSource.data) {
-      if (bS.reason === blockedSection.reason && bS.from === blockedSection.from && bS.to === blockedSection.to) {
+      if (bS.from === blockedSection.from && bS.to === blockedSection.to) {
         return true;
       }
     }
