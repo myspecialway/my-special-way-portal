@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
-import { LocationService } from './../../../services/location/location.graphql.service';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
@@ -13,7 +12,14 @@ import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service
 import { MapProxyService } from './services/map-proxy.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { IMapsFile, IMapBasePayload, IFileEvent, FloorEventType, IDPayload, DeletePayload } from '../../../models/maps.file.model';
+import {
+  IMapsFile,
+  IMapBasePayload,
+  IFileEvent,
+  MapEventType,
+  IDPayload,
+  DeletePayload,
+} from '../../../models/maps.file.model';
 import { forkJoin } from 'rxjs';
 
 import { MapFloorListComponent } from './tabs/map-floor-list/map-floor-list.component';
@@ -46,7 +52,6 @@ export class MapsContainerComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private mapsService: MapsService,
-    private locationService: LocationService,
     private mswSnackbar: MSWSnackbar,
     private mapProxyService: MapProxyService,
     private _sanitizer: DomSanitizer,
@@ -60,15 +65,12 @@ export class MapsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.populateLocations();
+    this.populateMaps();
     this.populateBlockedSectionsData();
   }
 
-  populateLocations() {
+  populateMaps() {
     this.subCollector.add(
-      this.locationService.getLocationsFeed$().subscribe((data) => {
-        this.locations = data;
-      }),
       this.mapProxyService.read().subscribe((ids: string[]) => {
         ids.forEach((id) => {
           this.filesObservers.push(this.mapProxyService.read<IMapsFile>(id));
@@ -82,17 +84,17 @@ export class MapsContainerComponent implements OnInit {
     this.subCollector.add(
       this.mapsService.getAllBlockedSections().subscribe((data) => {
         this.allBlockedSections = [...data];
-        this.populateAvailablePositions(this.locations);
-        this.populateBlockedSectionsByFloor(this.currentFloor);
+        // this.populateAvailablePositions(this.locations);
+        //this.populateBlockedSectionsByFloor(this.currentFloor);
       }),
     );
   }
 
-  populateAvailablePositions(locations) {
-    this.availablePositions = locations.filter((data) => {
-      return data.position.floor === this.currentFloor;
-    });
-  }
+  // populateAvailablePositions(locations) {
+  //   this.availablePositions = locations.filter((data) => {
+  //     return data.position.floor === this.currentFloor;
+  //   });
+  // }
 
   populateBlockedSectionsByFloor(floor) {
     this.dataSource.data = this.allBlockedSections.filter((data) => {
@@ -117,11 +119,15 @@ export class MapsContainerComponent implements OnInit {
   private handleFiles = (mapsFileList: IMapsFile[]) => {
     const list: IMapBasePayload[] = mapsFileList.map(this.handleNewImage);
     this.communicationService.emitEvent({
-      type: FloorEventType.UPDATE_LIST,
+      type: MapEventType.FLOOR_UPDATE_LIST,
       payload: list,
-    })
+    });
+
     const id = this.showImage();
-    //communicate to location 
+    this.communicationService.emitEvent({
+      payload: { id },
+      type: MapEventType.LOCATION_UPDATE,
+    });
   };
 
   private handleNewImage = (mapsFile: IMapsFile): IMapBasePayload => {
@@ -131,7 +137,7 @@ export class MapsContainerComponent implements OnInit {
       floor: mapsFile.floor,
       id: mapsFile.id,
       isActive: false,
-    }
+    };
   };
 
   private findMinFloorId() {
@@ -164,18 +170,22 @@ export class MapsContainerComponent implements OnInit {
         id: value.id,
         isActive: true,
       },
-      type: FloorEventType.UPLOAD,
+      type: MapEventType.MAP_UPLOAD,
     });
   }
 
   onFloorChange(event: IFileEvent) {
-    if (event.type === FloorEventType.SELECT && event.payload) {
-      this.showImage((event.payload as IDPayload).id);
+    if (event.type === MapEventType.MAP_SELECT && event.payload) {
+      const id = this.showImage((event.payload as IDPayload).id);
+      this.communicationService.emitEvent({
+        payload: { id },
+        type: MapEventType.LOCATION_UPDATE,
+      });
       // this.currentFloor = Number((event.payload as IMapBasePayload).floor);
       // this.populateAvailablePositions(this.locations);
       // this.populateBlockedSectionsByFloor(this.currentFloor);
     }
-    if (event.type === FloorEventType.DELETE && event.payload) {
+    if (event.type === MapEventType.MAP_DELETE && event.payload) {
       if (this.imagesContainer.size > 1) {
         this.deleteMap(event);
       } else {
@@ -193,9 +203,8 @@ export class MapsContainerComponent implements OnInit {
         id,
         next_active_id,
       },
-      type: FloorEventType.DELETE,
+      type: MapEventType.MAP_DELETE,
     });
-
   }
 
   addMap() {
@@ -204,7 +213,7 @@ export class MapsContainerComponent implements OnInit {
       .afterClosed()
       .pipe(first())
       .subscribe(async (fileEvent: IFileEvent) => {
-        if (fileEvent && fileEvent.type === FloorEventType.UPLOAD) {
+        if (fileEvent && fileEvent.type === MapEventType.MAP_UPLOAD) {
           const id = (fileEvent.payload as IDPayload).id;
           this.mapProxyService.read<IMapsFile>(id).subscribe((image) => {
             this.imagesContainer.set(image.id, image);

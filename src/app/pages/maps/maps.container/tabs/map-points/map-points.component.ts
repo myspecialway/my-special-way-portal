@@ -2,8 +2,11 @@ import { DeleteBlockDialogComponent } from './../../dialogs/delete/delete-block.
 import { first } from 'rxjs/operators';
 import { Location, InputLocation } from './../../../../../models/location.model';
 import { LocationService } from './../../../../../services/location/location.graphql.service';
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { CommunicationService } from '../../services/communication.service';
+import { IFileEvent, IDPayload, IMapBasePayload, MapEventType } from '../../../../../models/maps.file.model';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-map-points',
@@ -13,41 +16,35 @@ import { MatDialog } from '@angular/material';
 })
 export class MapPointsComponent implements OnInit {
   currentFloorLocations: Location[];
-  locations: Location[] = [];
-  floor = 0;
+  floor;
 
-  @Input('floor')
-  set _floor(value) {
-    if (!this.locations) return;
-    this.floor = Number(value);
-    this.updateFloorLocations();
+  @Output()
+  change = new EventEmitter();
+  constructor(
+    public locationService: LocationService,
+    private dialog: MatDialog,
+    private communicationService: CommunicationService<IFileEvent>,
+  ) {
+    this.communicationService.subscribeParantChanged(this.onParantChange, null);
   }
-
-  @Input('locations')
-  set _locations(value: Location[]) {
-    if (!value) return;
-    this.locations = value;
-    this.updateFloorLocations();
-  }
-
-  constructor(public locationService: LocationService, private dialog: MatDialog) {}
 
   async ngOnInit() {}
 
-  updateFloorLocations() {
-    const floorLocations = this.locations.filter((location) => location.position.floor === this.floor);
-    floorLocations.sort(
-      (location1, location2) =>
-        location1.location_id > location2.location_id ? 1 : location2.location_id > location1.location_id ? -1 : 0,
-    );
-    this.currentFloorLocations = floorLocations;
-  }
+  private onParantChange = (event: IFileEvent) => {
+    if (event.type === MapEventType.LOCATION_UPDATE) {
+      const image_id = (event.payload as IDPayload).id;
+      this.locationService.getLocationByMapId$(image_id).subscribe((location) => {
+        this.currentFloorLocations = location;
+        this.floor = (event.payload as IMapBasePayload).floor;
+      });
+    }
+  };
 
   onDelete({ _id, location_id, name }: Location) {
     const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
       data: {
         title: 'נקודת ניווט',
-        question: `הנקודה - "${location_id} - ${name}"`,
+        question: `האם אתה בטוח שברצונך למחוק את הנקודה - "${location_id} - ${name}"`,
       },
     });
 

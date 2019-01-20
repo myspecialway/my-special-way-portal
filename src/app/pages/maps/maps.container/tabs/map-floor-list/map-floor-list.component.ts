@@ -8,7 +8,7 @@ import {
   DoCheck,
   ChangeDetectorRef,
 } from '@angular/core';
-import { IMapBasePayload, IFileEvent, FloorEventType, DeletePayload } from '../../../../../models/maps.file.model';
+import { IMapBasePayload, IFileEvent, MapEventType, DeletePayload } from '../../../../../models/maps.file.model';
 import * as _ from 'lodash';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -25,23 +25,26 @@ export class MapFloorListComponent implements DoCheck {
   change: EventEmitter<IFileEvent> = new EventEmitter<IFileEvent>();
   private differ: any;
 
-  constructor(private differs: IterableDiffers, private _changeDetector: ChangeDetectorRef, private communicationService: CommunicationService<IFileEvent>,
+  constructor(
+    private differs: IterableDiffers,
+    private _changeDetector: ChangeDetectorRef,
+    private communicationService: CommunicationService<IFileEvent>,
   ) {
     this.differ = this.differs.find([]).create();
     this.communicationService.subscribeParantChanged(this.parentCommunication, null);
   }
 
   private parentCommunication = (event: IFileEvent) => {
-    if (event.type === FloorEventType.DELETE) {
+    if (event.type === MapEventType.MAP_DELETE) {
       this.removeItemFromMetaData((event.payload as DeletePayload).id);
       this.markActiveSelectedItem((event.payload as DeletePayload).next_active_id);
     }
-    if (event.type === FloorEventType.UPLOAD) {
+    if (event.type === MapEventType.MAP_UPLOAD) {
       const payload = event.payload as IMapBasePayload;
       this.floors.push(payload);
       this.markActiveSelectedItem(payload.id);
     }
-    if (event.type === FloorEventType.UPDATE_LIST) {
+    if (event.type === MapEventType.FLOOR_UPDATE_LIST) {
       const payload = event.payload as IMapBasePayload[];
       this.floors = payload;
     }
@@ -92,14 +95,14 @@ export class MapFloorListComponent implements DoCheck {
     event.stopPropagation();
     this.change.emit({
       payload: map,
-      type: FloorEventType.DELETE,
+      type: MapEventType.MAP_DELETE,
     });
   }
   onSelect(event: MouseEvent, map: IMapBasePayload) {
     this.markActiveSelectedItem(map.id);
     this.change.emit({
       payload: map,
-      type: FloorEventType.SELECT,
+      type: MapEventType.MAP_SELECT,
     });
   }
 }

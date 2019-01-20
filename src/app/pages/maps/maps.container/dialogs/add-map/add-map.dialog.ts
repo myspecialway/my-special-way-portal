@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 import { environment } from '../../../../../../environments/environment';
-import { IFileEvent, FloorEventType } from '../../../../../models/maps.file.model';
+import { IFileEvent, MapEventType } from '../../../../../models/maps.file.model';
 
 @Component({
   selector: 'app-add-map.dialog',
@@ -71,11 +71,11 @@ export class AddMapDialogComponent {
         const res = JSON.parse(response);
         this.close({
           payload: { id: res.id },
-          type: FloorEventType.UPLOAD,
+          type: MapEventType.MAP_UPLOAD,
         } as IFileEvent);
       } else {
         this.close({
-          type: FloorEventType.UPLOAD,
+          type: MapEventType.MAP_UPLOAD,
         } as IFileEvent);
       }
     };

@@ -7,6 +7,7 @@ export interface Location {
   position: Point;
   type?: string;
   icon?: string;
+  image_id: string;
 }
 
 export interface IDialogLocation {
@@ -33,6 +34,7 @@ export interface InputLocation {
   position?: Point;
   type?: string;
   icon?: string;
+  image_id: string;
 }
 
 export interface LocationQuery {

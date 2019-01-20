@@ -39,7 +39,7 @@ const deleteLocationQuery = (locationId) => gql`
             id: "${locationId}"
           )
         }`;
-const createLocationQuery = ({ name, location_id, position: { floor }, icon, type }) => gql`
+const createLocationQuery = ({ name, location_id, position: { floor }, icon, type, image_id }) => gql`
         mutation {
           createLocation(location: {
             name: "${name}"
@@ -49,9 +49,22 @@ const createLocationQuery = ({ name, location_id, position: { floor }, icon, typ
             position: {
               floor: ${floor}
             }
+            image_id:${image_id}
           }){ _id }
         }`;
 
+export const QUERY_GET_LOCATION_BY_MAP_ID = gql`
+  query getLocationsByMapId($image_id: String!) {
+    locationsByMapId(image_id: $image_id) {
+      _id
+      name
+      location_id
+      icon
+      type
+      image_id
+    }
+  }
+`;
 @Injectable()
 export class LocationService {
   constructor(private apollo: Apollo) {}
@@ -63,6 +76,19 @@ export class LocationService {
       })
       .toPromise()
       .then((res) => res.data.locations);
+  }
+  getLocationByMapId$(image_id: string) {
+    return this.apollo
+      .watchQuery<LocationQuery>({
+        query: QUERY_GET_LOCATION_BY_MAP_ID,
+        variables: { image_id },
+      })
+      .valueChanges.pipe(
+        map((res) => res.data.locations),
+        catchError((err: TypeError) => {
+          return observableOf([]);
+        }),
+      );
   }
 
   getLocationsFeed$() {

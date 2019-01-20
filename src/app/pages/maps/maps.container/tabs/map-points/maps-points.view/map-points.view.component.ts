@@ -18,6 +18,9 @@ export class MapPointsViewComponent {
   @Input()
   floor: number;
 
+  @Input()
+  imageId: string;
+
   @Output()
   update = new EventEmitter<InputLocation>();
 
@@ -28,7 +31,7 @@ export class MapPointsViewComponent {
 
   onEdit(data?: Location) {
     if (!data) {
-      data = { ...emptyMapPoint, position: { floor: this.floor } };
+      data = { ...emptyMapPoint, position: { floor: this.floor }, image_id: this.imageId };
     }
     const dialogRef = this.dialog.open(AddEditPointDialogComponent, {
       data,
