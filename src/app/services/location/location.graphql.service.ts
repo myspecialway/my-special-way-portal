@@ -84,7 +84,7 @@ export class LocationService {
         variables: { image_id },
       })
       .valueChanges.pipe(
-        map((res) => res.data.locations),
+        map((res) => (res.data as any).locationsByMapId),
         catchError((err: TypeError) => {
           return observableOf([]);
         }),
