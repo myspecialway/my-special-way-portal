@@ -1,8 +1,8 @@
-import { AddEditPointDialogComponent } from './../../../dialogs/add-edit-point/add-edit-point.dialog';
 import { first } from 'rxjs/operators';
-import { Location, InputLocation, emptyMapPoint } from './../../../../../../models/location.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { AddEditPointDialogComponent } from '../../dialogs/add-edit-point/add-edit-point.dialog';
+import { Location, InputLocation, emptyMapPoint } from '../../../../../models/location.model';
 
 @Component({
   selector: 'app-map-points-view',
@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 })
 export class MapPointsViewComponent {
   displayedColumns = ['name', 'label', 'icon', 'type', 'delete'];
-
+  //TODO: remove all location with floor that is not curent floor
   @Input()
   locations: Location[];
 

@@ -1,9 +1,8 @@
 import { of } from 'rxjs/observable/of';
-import { Location } from './../../../../../../models/location.model';
+import { Location } from '../../../../../models/location.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { mockedLocations } from './../../../../../../../mocks/assets/locations.mock';
+import { mockedLocations } from '../../../../../../mocks/assets/locations.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MapPointsViewComponent } from './map-points.view.component';
 import {
   MatListModule,
   MatSelectModule,
@@ -15,6 +14,7 @@ import {
   MatDialogModule,
   MatDialog,
 } from '@angular/material';
+import { MapPointsViewComponent } from './map-points.view.component';
 
 describe('MapPointsViewComponent', () => {
   let fixture: ComponentFixture<MapPointsViewComponent>;

@@ -4,7 +4,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 export class CommunicationService<T> {
   handlingMsgDataChanged: EventEmitter<T> = new EventEmitter<T>();
   subscribeParantChanged(onSuccess, onError) {
-    this.handlingMsgDataChanged.subscribe(onSuccess, onError);
+    return this.handlingMsgDataChanged.subscribe(onSuccess, onError);
   }
 
   emitEvent(value: T) {

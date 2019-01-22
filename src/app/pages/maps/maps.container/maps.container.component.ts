@@ -1,25 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Location } from './../../../models/location.model';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
-import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
 import BlockedSection from '../../../models/blocked-section.model';
-import { MapsService } from './services/maps.container.service';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
-import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { MapProxyService } from './services/map-proxy.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
-import {
-  IMapsFile,
-  IMapBasePayload,
-  IFileEvent,
-  MapEventType,
-  IDPayload,
-  DeletePayload,
-} from '../../../models/maps.file.model';
+import { Observable, Subscription } from 'rxjs';
+import { IMapsFile, IMapBasePayload, IFileEvent, MapEventType, IDPayload } from '../../../models/maps.file.model';
 import { forkJoin } from 'rxjs';
 
 import { CommunicationService } from './services/communication.service';
@@ -29,18 +19,9 @@ import { CommunicationService } from './services/communication.service';
   templateUrl: './maps.container.component.html',
   styleUrls: ['./maps.container.component.scss'],
 })
-export class MapsContainerComponent implements OnInit {
+export class MapsContainerComponent implements OnInit, OnDestroy {
+  private subscribtion: Subscription = new Subscription();
   filesObservers: Array<Observable<IMapsFile>> = [];
-
-  displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
-  idOrNew: string;
-  links: any;
-  activeLink: string;
-  dataSource = new MatTableDataSource<BlockedSection>();
-  locations: Location[] = [];
-  currentFloor = 0;
-  availablePositions: Location[] = [];
-  allBlockedSections: BlockedSection[] = [];
   imagesContainer: Map<string, IMapsFile> = new Map<string, IMapsFile>();
   imagePath: any;
   @SubscriptionCleaner()
@@ -48,22 +29,17 @@ export class MapsContainerComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private mapsService: MapsService,
-    private mswSnackbar: MSWSnackbar,
     private mapProxyService: MapProxyService,
     private _sanitizer: DomSanitizer,
     private communicationService: CommunicationService<IFileEvent>,
-  ) {
-    this.links = [
-      { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
-      { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
-    ];
-    this.activeLink = this.links[0].label;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.populateMaps();
-    this.populateBlockedSectionsData();
+  }
+
+  ngOnDestroy(): void {
+    this.subscribtion.unsubscribe();
   }
 
   populateMaps() {
@@ -72,47 +48,11 @@ export class MapsContainerComponent implements OnInit {
         ids.forEach((id) => {
           this.filesObservers.push(this.mapProxyService.read<IMapsFile>(id));
         });
-        forkJoin(this.filesObservers).subscribe(this.handleFiles);
+        this.subscribtion.add(forkJoin(this.filesObservers).subscribe(this.handleFiles));
       }),
     );
   }
 
-  populateBlockedSectionsData() {
-    this.subCollector.add(
-      this.mapsService.getAllBlockedSections().subscribe((data) => {
-        this.allBlockedSections = [...data];
-        // this.populateAvailablePositions(this.locations);
-        //this.populateBlockedSectionsByFloor(this.currentFloor);
-      }),
-    );
-  }
-
-  // populateAvailablePositions(locations) {
-  //   this.availablePositions = locations.filter((data) => {
-  //     return data.position.floor === this.currentFloor;
-  //   });
-  // }
-
-  populateBlockedSectionsByFloor(floor) {
-    this.dataSource.data = this.allBlockedSections.filter((data) => {
-      const position = this.getPositionByLocationId(this.availablePositions, data.from);
-      if (position) {
-        return position.position.floor === floor;
-      }
-    });
-  }
-
-  getLocationByName(locations: Location[], positionName: string) {
-    return locations.find((data) => {
-      return data.location_id === positionName;
-    });
-  }
-
-  getPositionByLocationId(positions: Location[], locationId: string) {
-    return positions.find((data) => {
-      return data._id === locationId;
-    });
-  }
   private handleFiles = (mapsFileList: IMapsFile[]) => {
     const list: IMapBasePayload[] = mapsFileList.map(this.handleNewImage);
     this.communicationService.emitEvent({
@@ -120,9 +60,9 @@ export class MapsContainerComponent implements OnInit {
       payload: list,
     });
 
-    const id = this.showImage();
+    const payload = this.showImage();
     this.communicationService.emitEvent({
-      payload: { id },
+      payload,
       type: MapEventType.LOCATION_UPDATE,
     });
   };
@@ -146,6 +86,7 @@ export class MapsContainerComponent implements OnInit {
 
   private showImage(firstMap?: IMapsFile | string) {
     let id;
+    let floor;
     if (firstMap === undefined) {
       firstMap = this.imagesContainer.get(this.findMinFloorId().id);
     }
@@ -155,8 +96,9 @@ export class MapsContainerComponent implements OnInit {
     if (firstMap) {
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(`data:${firstMap.mime};base64,${firstMap.src}`);
       id = firstMap.id;
+      floor = firstMap.floor;
     }
-    return id;
+    return { id, floor };
   }
 
   private synchronizeFloorBarOnNewMap(value: IMapsFile) {
@@ -173,14 +115,11 @@ export class MapsContainerComponent implements OnInit {
 
   onFloorChange(event: IFileEvent) {
     if (event.type === MapEventType.MAP_SELECT && event.payload) {
-      const id = this.showImage((event.payload as IDPayload).id);
+      const payload = this.showImage((event.payload as IDPayload).id);
       this.communicationService.emitEvent({
-        payload: { id },
+        payload,
         type: MapEventType.LOCATION_UPDATE,
       });
-      // this.currentFloor = Number((event.payload as IMapBasePayload).floor);
-      // this.populateAvailablePositions(this.locations);
-      // this.populateBlockedSectionsByFloor(this.currentFloor);
     }
     if (event.type === MapEventType.MAP_DELETE && event.payload) {
       if (this.imagesContainer.size > 1) {
@@ -194,11 +133,11 @@ export class MapsContainerComponent implements OnInit {
   private onSuccessDeleteMap(event: IFileEvent) {
     const id = (event.payload as IDPayload).id;
     this.imagesContainer.delete(id);
-    const next_active_id = this.showImage();
+    const res = this.showImage();
     this.communicationService.emitEvent({
       payload: {
         id,
-        next_active_id,
+        next_active_id: res.id,
       },
       type: MapEventType.MAP_DELETE,
     });
@@ -223,66 +162,6 @@ export class MapsContainerComponent implements OnInit {
       });
   }
 
-  addOrEditBlock(blockedSection) {
-    let isNewBlock = true;
-    let dataObj;
-    if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
-      isNewBlock = false;
-      dataObj = { ...blockedSection, isNewBlock };
-      dataObj.availablePositions = this.availablePositions;
-      dataObj.getPositionByLocationId = this.getPositionByLocationId;
-    } else {
-      dataObj = { isNewBlock };
-    }
-
-    const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
-      data: dataObj,
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(
-        async (result) => {
-          if (result) {
-            const fromLocation = this.getLocationByName(this.availablePositions, result.from);
-            const toLocation = this.getLocationByName(this.availablePositions, result.to);
-            if (fromLocation) {
-              result.from = fromLocation._id;
-            }
-            if (toLocation) {
-              result.to = toLocation._id;
-            }
-            if (!(fromLocation && toLocation)) {
-              this.mswSnackbar.displayTimedMessage('אחד הקטעים החסומים אינו קיים');
-              return;
-            }
-
-            if (this.blockedSectionAlreadyExists(result)) {
-              this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
-            } else {
-              if (isNewBlock) {
-                await this.mapsService.create(result);
-              } else {
-                await this.mapsService.update(result);
-              }
-              this.populateBlockedSectionsData();
-            }
-          }
-        },
-        (error) => {
-          this.mswSnackbar.displayTimedMessage('שגיאה בעדכון קטע חסום');
-        },
-      );
-  }
-
-  blockedSectionAlreadyExists(blockedSection: BlockedSection) {
-    for (const bS of this.dataSource.data) {
-      if (bS.from === blockedSection.from && bS.to === blockedSection.to) {
-        return true;
-      }
-    }
-    return false;
-  }
   lastMapAlert() {
     this.dialog.open(DeleteBlockDialogComponent, {
       data: {
@@ -310,42 +189,6 @@ export class MapsContainerComponent implements OnInit {
             this.mapProxyService.delete((event.payload as IDPayload).id).subscribe(() => {
               this.onSuccessDeleteMap(event);
             });
-          } catch (error) {
-            // TODO: implement error handling on UI
-            console.error('Error handling not implemented');
-            throw error;
-          }
-        }
-      });
-  }
-
-  deleteBlock({ _id, from, to, reason }: BlockedSection) {
-    let fromPosition;
-    let toPosition;
-    let fromPositionObj;
-    let toPositionObj;
-
-    if (this.availablePositions && this.getPositionByLocationId) {
-      fromPositionObj = this.getPositionByLocationId(this.availablePositions, from);
-      toPositionObj = this.getPositionByLocationId(this.availablePositions, to);
-    }
-    fromPosition = fromPositionObj ? fromPositionObj.location_id : '';
-    toPosition = toPositionObj ? toPositionObj.location_id : '';
-
-    const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
-      data: {
-        title: 'מקטע חסום',
-        question: `האם אתה בטוח שברצונך למחוק את המקטע  ${fromPosition} - ${toPosition} - ${reason}`,
-      },
-    });
-
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe(async (result) => {
-        if (result) {
-          try {
-            await this.mapsService.delete(_id);
           } catch (error) {
             // TODO: implement error handling on UI
             console.error('Error handling not implemented');

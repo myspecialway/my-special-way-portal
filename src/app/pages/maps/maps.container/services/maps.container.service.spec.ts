@@ -1,19 +1,19 @@
 import { of } from 'rxjs/observable/of';
 jest.mock('apollo-angular');
 import { Apollo } from 'apollo-angular';
-import { MapsService } from './maps.container.service';
+import { BlockedSectionsService } from './maps.container.service';
 
 const apollo = new Apollo();
 
 describe('Maps service ', () => {
-  let service: MapsService;
+  let service: BlockedSectionsService;
   beforeEach(() => {
-    service = new MapsService(apollo);
+    service = new BlockedSectionsService(apollo);
   });
 
   it('should normalize allblockedSections response', async () => {
     (apollo.watchQuery as jest.Mock).mockReturnValue({ valueChanges: of({ data: { blockedSections: [{ id: 1 }] } }) });
-    expect(await service.getAllBlockedSections().toPromise()).toEqual([{ id: 1 }]);
+    expect(await service.getBlockSectionsByLocations().toPromise()).toEqual([{ id: 1 }]);
   });
 
   it('should return updated blocked section response', async () => {

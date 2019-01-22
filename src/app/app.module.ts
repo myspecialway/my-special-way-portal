@@ -29,8 +29,6 @@ import {
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MapFloorListComponent } from './pages/maps/maps.container/tabs/map-floor-list/map-floor-list.component';
-import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/maps-points.view/map-points.view.component';
-import { MapPointsComponent } from './pages/maps/maps.container/tabs/map-points/map-points.component';
 import { AddEditPointDialogComponent } from './pages/maps/maps.container/dialogs/add-edit-point/add-edit-point.dialog';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -77,7 +75,7 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SettingService } from './pages/settings/services/settings.service';
-import { MapsService } from './pages/maps/maps.container/services/maps.container.service';
+import { BlockedSectionsService } from './pages/maps/maps.container/services/maps.container.service';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
@@ -92,6 +90,8 @@ import { DateUtilService } from './services/date-utils/date-util.service';
 import { MapProxyService } from './pages/maps/maps.container/services/map-proxy.service';
 import { CommunicationService } from './pages/maps/maps.container/services/communication.service';
 import { MapTabManagerComponent } from './pages/maps/maps.container/tabs/map-tab-manager/map-tab-manager.component';
+import { MapPointsViewComponent } from './pages/maps/maps.container/tabs/map-points/map-points.view.component';
+import { MapBlockSectionComponent } from './pages/maps/maps.container/tabs/map-block-section/map-block-section.component';
 
 @NgModule({
   imports: [
@@ -141,10 +141,9 @@ import { MapTabManagerComponent } from './pages/maps/maps.container/tabs/map-tab
     ClassComponent,
     LessonComponent,
     StudentComponent,
-    MapsContainerComponent,
-    MapPointsComponent,
-    MapPointsViewComponent,
     MapTabManagerComponent,
+    MapsContainerComponent,
+    MapPointsViewComponent,
     MapFloorListComponent,
     UserComponent,
     FirstloginComponent,
@@ -174,6 +173,7 @@ import { MapTabManagerComponent } from './pages/maps/maps.container/tabs/map-tab
     DeleteNonActiveTimeDialogComponent,
     EditNonActiveTimeDialogComponent,
     DeleteTimeSlotDialogComponent,
+    MapBlockSectionComponent,
   ],
   entryComponents: [
     ErrorDialogComponent,
@@ -206,7 +206,7 @@ import { MapTabManagerComponent } from './pages/maps/maps.container/tabs/map-tab
     AuthenticationService,
     UserService,
     StudentService,
-    MapsService,
+    BlockedSectionsService,
     MapProxyService,
     CommunicationService,
     ClassService,

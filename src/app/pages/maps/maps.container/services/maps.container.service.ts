@@ -10,23 +10,25 @@ import {
   MUTATE_ADD_BLOCKED_SECTION,
   MUTATE_DELETE_BLOCKED_SECTION,
   MUTATE_UPDATE_BLOCKED_SECTION,
+  QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS,
 } from './maps.graphql';
 
 import { DeleteBlockedSectionResponse } from '../../../../models/responses/delete-blocked-section-response.model';
 import { UpdateBlockedSectionResponse } from '../../../../models/responses/update-blocked-section-response.model';
 
 @Injectable()
-export class MapsService {
+export class BlockedSectionsService {
   constructor(private apollo: Apollo) {}
 
-  getAllBlockedSections() {
+  getBlockSectionsByLocations(locations: string[]) {
     return this.apollo
       .watchQuery<{ blockedSections: BlockedSection[] }>({
-        query: QUERY_GET_ALL_BLOCKED_SECTIONS,
+        query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS,
+        variables: { locations },
       })
       .valueChanges.pipe(
         map((res) => {
-          return res.data.blockedSections;
+          return (res.data as any).blockedSectionsByLocations;
         }),
         catchError((err: TypeError) => {
           return observableOf([]);

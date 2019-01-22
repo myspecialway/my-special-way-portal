@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './dialogs/add-update/add-update-block.dialog';
-import { MapsService } from './services/maps.container.service';
+import { BlockedSectionsService } from './services/maps.container.service';
 import { MapsContainerComponent } from './maps.container.component';
 import { MSWSnackbar } from '../../../services/msw-snackbar/msw-snackbar.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 describe.only('MapsContainerComponent', () => {
   let fixture: ComponentFixture<MapsContainerComponent>;
-  let mapsServiceMock: Partial<MapsService>;
+  let mapsServiceMock: Partial<BlockedSectionsService>;
   let locationServiceMock: Partial<LocationService>;
   let mapsDialogMock: Partial<MatDialog>;
   let mswSnackbarMock: Partial<MSWSnackbar>;
@@ -85,7 +85,7 @@ describe.only('MapsContainerComponent', () => {
       read: jest.fn(),
     };
     mapsServiceMock = {
-      getAllBlockedSections: jest.fn().mockReturnValue(Observable.of(mockedblockedSections)),
+      getBlockSectionsByLocations: jest.fn().mockReturnValue(Observable.of(mockedblockedSections)),
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
@@ -124,7 +124,7 @@ describe.only('MapsContainerComponent', () => {
       providers: [
         { provide: DomSanitizer, useValue: sanitiazerMock },
         { provide: MatDialog, useValue: mapsDialogMock },
-        { provide: MapsService, useValue: mapsServiceMock },
+        { provide: BlockedSectionsService, useValue: mapsServiceMock },
         { provide: MapProxyService, useValue: mapProxyService },
         { provide: LocationService, useValue: locationServiceMock },
         { provide: MSWSnackbar, useValue: mswSnackbarMock },
@@ -155,7 +155,7 @@ describe.only('MapsContainerComponent', () => {
   });
 
   it('should load correct number of blocked sections ', async () => {
-    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
     fixture = TestBed.createComponent(MapsContainerComponent);
@@ -164,7 +164,7 @@ describe.only('MapsContainerComponent', () => {
   });
 
   it('should call mapsServiceMock.update when calling addOrEditBlock with a blockedSection ', async () => {
-    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
     (mapsServiceMock.update as jest.Mock).mockImplementationOnce(() => {
@@ -192,7 +192,7 @@ describe.only('MapsContainerComponent', () => {
       to: 'B',
       _id: 123124,
     };
-    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
     (mapsServiceMock.create as jest.Mock).mockImplementationOnce(() => {
@@ -208,7 +208,7 @@ describe.only('MapsContainerComponent', () => {
   });
 
   it('should call mapsServiceMock.delete when calling deleteBlock with a blockedSection ', async () => {
-    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
     (mapsServiceMock.delete as jest.Mock).mockImplementationOnce(() => {
@@ -230,7 +230,7 @@ describe.only('MapsContainerComponent', () => {
   });
 
   it('should return true if the blockedSection already exists in the dataSource', async () => {
-    (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+    (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
       return Observable.of(mockedblockedSections);
     });
 
@@ -248,7 +248,7 @@ describe.only('MapsContainerComponent', () => {
 
   describe('Unhappy scenarios: unexisting block', () => {
     it('should open a snackbar if trying to add a blocked section with location that does not exist', async () => {
-      (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
         return Observable.of(mockedblockedSections);
       });
       (mapsServiceMock.create as jest.Mock).mockImplementationOnce(() => {
@@ -282,7 +282,7 @@ describe.only('MapsContainerComponent', () => {
 
   describe('Unhappy scenarios: duplicate block', () => {
     it('should open a snackbar if trying to add a duplicate blocked section', async () => {
-      (mapsServiceMock.getAllBlockedSections as jest.Mock).mockImplementationOnce(() => {
+      (mapsServiceMock.getBlockSectionsByLocations as jest.Mock).mockImplementationOnce(() => {
         return Observable.of(mockedblockedSections);
       });
       (mapsServiceMock.create as jest.Mock).mockImplementationOnce(() => {

@@ -1,3 +1,16 @@
-<p>
-  map-tab-manager works!
-</p>
+<div class="map-control">
+  <div class="msw-maps-header-nav">
+    <div class="msw-maps-header-nav-tabs" class="msw-maps-header-nav-tabs">
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link.label" [attr.data-test-id]="link.dataTestId"
+          [active]="activeLink === link.label" ngClass="{{activeLink === link.label ? 'msw-maps-tab-active' : ''}}">{{link.label}}</a>
+      </nav>
+    </div>
+    <!--<router-outlet></router-outlet>-->
+  </div>
+
+  <app-map-points-view *ngIf="activeLink === links[0].label" [locations]="currentLocations" [floor]="floor" (delete)="onLocationDelete($event)"
+    (update)="onLocationUpdate($event)"></app-map-points-view>
+
+  <app-map-block-section [availableLocations]="currentLocations" *ngIf="activeLink === links[1].label"></app-map-block-section>
+</div>

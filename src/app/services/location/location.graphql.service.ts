@@ -54,8 +54,8 @@ const createLocationQuery = ({ name, location_id, position: { floor }, icon, typ
         }`;
 
 export const QUERY_GET_LOCATION_BY_MAP_ID = gql`
-  query getLocationsByMapId($image_id: String!) {
-    locationsByMapId(image_id: $image_id) {
+  query getLocationsByMapId($image_id: String!, $floor: Int) {
+    locationsByMapId(image_id: $image_id, floor: $floor) {
       _id
       name
       location_id
@@ -77,11 +77,11 @@ export class LocationService {
       .toPromise()
       .then((res) => res.data.locations);
   }
-  getLocationByMapId$(image_id: string) {
+  getLocationByMapId$(image_id: string, floor: number) {
     return this.apollo
       .watchQuery<LocationQuery>({
         query: QUERY_GET_LOCATION_BY_MAP_ID,
-        variables: { image_id },
+        variables: { image_id, floor },
       })
       .valueChanges.pipe(
         map((res) => (res.data as any).locationsByMapId),

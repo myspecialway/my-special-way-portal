@@ -20,10 +20,14 @@ export enum MapEventType {
 export interface IDPayload {
   id: string;
 }
+
+export interface FloorPayload extends IDPayload {
+  floor: number;
+}
 export interface DeletePayload extends IDPayload {
   next_active_id: string;
 }
 export interface IFileEvent {
-  payload: IMapBasePayload | DeletePayload | IDPayload | IMapBasePayload[];
+  payload: IMapBasePayload | DeletePayload | IDPayload | FloorPayload | IMapBasePayload[];
   type: MapEventType;
 }

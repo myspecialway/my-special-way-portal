@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../../../../../services/location/location.graphql.service';
 import { MatDialog } from '@angular/material';
 import { CommunicationService } from '../../services/communication.service';
 import { IFileEvent, MapEventType, IDPayload, IMapBasePayload } from '../../../../../models/maps.file.model';
 import { DeleteBlockDialogComponent } from '../../dialogs/delete/delete-block.dialog';
 import { first } from 'rxjs/operators';
-import { InputLocation,Location } from '../../../../../models/location.model';
+import { InputLocation, Location } from '../../../../../models/location.model';
+import BlockedSection from '../../../../../models/blocked-section.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-map-tab-manager',
   templateUrl: './map-tab-manager.component.html',
-  styleUrls: ['./map-tab-manager.component.scss']
+  styleUrls: ['./map-tab-manager.component.scss'],
 })
-export class MapTabManagerComponent implements OnInit {
+export class MapTabManagerComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+
   links: any;
   activeLink: string;
-  currentFloorLocations: Location[];
+  currentLocations: Location[];
+  currentBlockSections: BlockedSection[] = [];
   floor;
 
   constructor(
@@ -23,8 +28,7 @@ export class MapTabManagerComponent implements OnInit {
     private dialog: MatDialog,
     private communicationService: CommunicationService<IFileEvent>,
   ) {
-    this.communicationService.subscribeParantChanged(this.onParantChange, null);
-
+    this.subscription = this.communicationService.subscribeParantChanged(this.onParantChange, null);
     this.links = [
       { label: 'נקודות ניווט', path: '/mapsPoints', dataTestId: 'maps-points-tab' },
       { label: 'מקטעים חסומים', path: './blockedMapsPoints', dataTestId: 'blocked-maps-points-tab' },
@@ -32,12 +36,16 @@ export class MapTabManagerComponent implements OnInit {
     this.activeLink = this.links[0].label;
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   private onParantChange = (event: IFileEvent) => {
     if (event.type === MapEventType.LOCATION_UPDATE) {
       const image_id = (event.payload as IDPayload).id;
-      this.locationService.getLocationByMapId$(image_id).subscribe((location) => {
-        this.currentFloorLocations = location;
-        this.floor = (event.payload as IMapBasePayload).floor;
+      this.floor = (event.payload as IMapBasePayload).floor;
+      this.locationService.getLocationByMapId$(image_id, this.floor).subscribe((location) => {
+        this.currentLocations = location;
       });
     }
   };
@@ -59,6 +67,7 @@ export class MapTabManagerComponent implements OnInit {
         }
 
         try {
+          //TODO: delete block section that belong to this location id
           await this.locationService.delete(_id);
         } catch (error) {
           // TODO: implement error handling on UI
@@ -76,10 +85,5 @@ export class MapTabManagerComponent implements OnInit {
     }
   }
 
-
-
-  
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

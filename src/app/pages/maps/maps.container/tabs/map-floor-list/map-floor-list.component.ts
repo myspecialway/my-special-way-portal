@@ -7,10 +7,12 @@ import {
   IterableDiffers,
   DoCheck,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { IMapBasePayload, IFileEvent, MapEventType, DeletePayload } from '../../../../../models/maps.file.model';
 import * as _ from 'lodash';
 import { CommunicationService } from '../../services/communication.service';
+import { Subscription } from 'apollo-client/util/Observable';
 
 @Component({
   selector: 'app-map-floor-list',
@@ -18,12 +20,13 @@ import { CommunicationService } from '../../services/communication.service';
   styleUrls: ['./map-floor-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapFloorListComponent implements DoCheck {
+export class MapFloorListComponent implements DoCheck, OnDestroy {
+  private subscription: Subscription;
+  private differ: any;
   floors: IMapBasePayload[] = [];
 
   @Output()
   change: EventEmitter<IFileEvent> = new EventEmitter<IFileEvent>();
-  private differ: any;
 
   constructor(
     private differs: IterableDiffers,
@@ -31,9 +34,12 @@ export class MapFloorListComponent implements DoCheck {
     private communicationService: CommunicationService<IFileEvent>,
   ) {
     this.differ = this.differs.find([]).create();
-    this.communicationService.subscribeParantChanged(this.parentCommunication, null);
+    this.subscription = this.communicationService.subscribeParantChanged(this.parentCommunication, null);
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   private parentCommunication = (event: IFileEvent) => {
     if (event.type === MapEventType.MAP_DELETE) {
       this.removeItemFromMetaData((event.payload as DeletePayload).id);
