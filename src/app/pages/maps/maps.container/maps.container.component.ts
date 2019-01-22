@@ -22,7 +22,6 @@ import {
 } from '../../../models/maps.file.model';
 import { forkJoin } from 'rxjs';
 
-import { MapFloorListComponent } from './tabs/map-floor-list/map-floor-list.component';
 import { CommunicationService } from './services/communication.service';
 
 @Component({
@@ -32,8 +31,6 @@ import { CommunicationService } from './services/communication.service';
 })
 export class MapsContainerComponent implements OnInit {
   filesObservers: Array<Observable<IMapsFile>> = [];
-  @ViewChild('mapFloorList')
-  mapFloorListComponent: MapFloorListComponent;
 
   displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
   idOrNew: string;

@@ -91,6 +91,7 @@ import { DeleteTimeSlotDialogComponent } from './components/schedule/delete-sche
 import { DateUtilService } from './services/date-utils/date-util.service';
 import { MapProxyService } from './pages/maps/maps.container/services/map-proxy.service';
 import { CommunicationService } from './pages/maps/maps.container/services/communication.service';
+import { MapTabManagerComponent } from './pages/maps/maps.container/tabs/map-tab-manager/map-tab-manager.component';
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import { CommunicationService } from './pages/maps/maps.container/services/commu
     MapsContainerComponent,
     MapPointsComponent,
     MapPointsViewComponent,
+    MapTabManagerComponent,
     MapFloorListComponent,
     UserComponent,
     FirstloginComponent,
