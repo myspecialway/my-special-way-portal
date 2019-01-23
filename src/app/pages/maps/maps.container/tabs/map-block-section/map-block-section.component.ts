@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import BlockedSection from '../../../../../models/blocked-section.model';
 import { BlockedSectionsService } from '../../services/maps.container.service';
 import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.service';
@@ -16,17 +16,26 @@ import { AddUpdateBlockDialogComponent } from '../../dialogs/add-update/add-upda
 })
 export class MapBlockSectionComponent implements OnInit {
   private _availableLocations: Location[];
-  private dataSource = new MatTableDataSource<BlockedSection>();
-  displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
+  private _avaiableLocationsIds: string[];
+
+  private _locationByName: Map<string, Location>;
+  private _locationById: Map<string, Location>;
+  private _blockFloor: number;
+  private dataSource;
+  private blockSections: BlockedSection[];
+  public displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
+
+  @Input('blockFloor')
+  set blockFloor(value: number) {
+    this._blockFloor = value;
+  }
 
   @Input('availableLocations')
   set availableLocations(value: Location[]) {
     this._availableLocations = value;
     if (this._availableLocations.length) {
-      const locationIds = this.getLocationIdsList(this._availableLocations);
-      this.blockedSectionsService.getBlockSectionsByLocations(locationIds).subscribe((blockSections) => {
-        this.dataSource.data = blockSections;
-      });
+      this.buildLocationDictionaries(this._availableLocations);
+      this.refreshBlockSection(true);
     }
   }
 
@@ -44,7 +53,32 @@ export class MapBlockSectionComponent implements OnInit {
     private mswSnackbar: MSWSnackbar,
     // tslint:disable-next-line:align
     private blockedSectionsService: BlockedSectionsService,
-  ) {}
+    private changeDetectorRefs: ChangeDetectorRef,
+  ) { }
+
+  private refreshBlockSection(isInit: boolean) {
+    this._avaiableLocationsIds = this.getLocationIdsList(this._availableLocations);
+    this.updateBlockByLocations(this._avaiableLocationsIds, isInit);
+  }
+
+  private updateBlockByLocations(locationIds: any[], isInit: boolean) {
+    this.blockedSectionsService.getBlockSectionsByLocations(locationIds).subscribe((blockSections) => {
+      // this.removeAllBlockThatNotBelong(blockSections)
+      this.dataSource = new MatTableDataSource<BlockedSection>(blockSections);
+      this.blockSections = blockSections;
+      console.log(`new dataSource ${JSON.stringify(this.dataSource.data)}`)
+
+    });
+  }
+
+  // removeAllBlockThatNotBelong(blockSections: BlockedSection[]): any {
+  //   _.remove(blockSections, (blockSection: BlockedSection) => {
+  //     if (!this.getItem(this._locationById, blockSection.from) || !this.getItem(this._locationById, blockSection.to)) {
+  //       return true;
+  //     }
+  //     return false;
+  //   })
+  // }
 
   private getLocationIdsList(locations) {
     return _.map(locations, (location) => {
@@ -52,21 +86,32 @@ export class MapBlockSectionComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  buildLocationNameDictionary(location: Location[]): any {
-    //todo implement
-    throw new Error('Method not implemented.');
+  getItem(locations, identify) {
+    const item = this.getLocationById(locations, identify)
+    if (item) {
+      return item.location_id
+    }
+    return null;
+  }
+  buildLocationDictionaries(locations: Location[]): any {
+    this._locationById = new Map<string, Location>();
+    this._locationByName = new Map<string, Location>();
+    locations.forEach((location) => {
+      this._locationById.set(location._id, location);
+      this._locationByName.set(location.location_id, location);
+    })
   }
 
   deleteBlock({ _id, from, to, reason }: BlockedSection) {
-    const fromPosition = this.getLocationById(this._availableLocations, from);
-    const toPosition = this.getLocationById(this._availableLocations, to);
+    const fromPosition = this.getLocationById(this._locationById, from);
+    const toPosition = this.getLocationById(this._locationById, to);
     if (toPosition && fromPosition) {
       const dialogRef = this.dialog.open(DeleteBlockDialogComponent, {
         data: {
           title: 'מקטע חסום',
-          question: `האם אתה בטוח שברצונך למחוק את המקטע  ${fromPosition._id} - ${toPosition._id} - ${reason}`,
+          question: `האם אתה בטוח שברצונך למחוק את המקטע  ${fromPosition.location_id} - ${toPosition.location_id} - ${reason}`,
         },
       });
       dialogRef
@@ -75,10 +120,12 @@ export class MapBlockSectionComponent implements OnInit {
         .subscribe(async (result) => {
           if (result) {
             try {
-              await this.mapsService.delete(_id);
+              await this.mapsService.delete(_id, this._avaiableLocationsIds)
+                .then((success) => {
+                  this.refreshBlockSection(false);
+                });
             } catch (error) {
-              // TODO: implement error handling on UI
-              console.error('Error handling not implemented');
+              this.mswSnackbar.displayTimedMessage('מחיקת מקטע חסום נכשלה');
               throw error;
             }
           }
@@ -87,48 +134,42 @@ export class MapBlockSectionComponent implements OnInit {
   }
 
   addOrEditBlock(blockedSection) {
-    let isNewBlock = true;
     let dataObj;
-    if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
-      isNewBlock = false;
-      dataObj = { ...blockedSection, isNewBlock };
-      dataObj.availablePositions = this._availableLocations;
-      dataObj.getPositionByLocationId = this.getLocationById;
-    } else {
-      dataObj = { isNewBlock };
-    }
+    let isNewBlock
 
+    ({ isNewBlock, dataObj } = this.isEditOrCreateState(blockedSection, dataObj));
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
+
     dialogRef
       .afterClosed()
       .pipe(first())
       .subscribe(
-        async (result) => {
-          if (result) {
-            const fromLocation = this.getLocationByName(this._availableLocations, result.from);
-            const toLocation = this.getLocationByName(this._availableLocations, result.to);
-            if (fromLocation) {
-              result.from = fromLocation._id;
-            }
-            if (toLocation) {
-              result.to = toLocation._id;
-            }
-            if (!(fromLocation && toLocation)) {
-              this.mswSnackbar.displayTimedMessage('אחד הקטעים החסומים אינו קיים');
-              return;
+        async (blockSection) => {
+          if (blockSection) {
+
+            if (isNewBlock) {
+              await this.mapsService.create(blockSection, this._avaiableLocationsIds)
+                .then((response) => {
+                  if (response.data) {
+                    this.refreshBlockSection(false);
+                  }
+
+                }).catch((error) => {
+                  console.error(error);
+                  this.mswSnackbar.displayTimedMessage('הוספת מקטע חסום נכשלה');
+                });
+            } else {
+              await this.mapsService.update(blockSection, this._avaiableLocationsIds)
+                .then((id) => {
+                  this.refreshBlockSection(false);
+                }).catch((error) => {
+                  console.error(error);
+                  this.mswSnackbar.displayTimedMessage('הוספת מקטע חסום נכשלה');
+                });;
             }
 
-            if (this.blockedSectionAlreadyExists(result)) {
-              this.mswSnackbar.displayTimedMessage('לא ניתן להוסיף את אותו קטע חסום');
-            } else {
-              if (isNewBlock) {
-                await this.mapsService.create(result);
-              } else {
-                await this.mapsService.update(result);
-              }
-            }
           }
         },
         (error) => {
@@ -137,51 +178,25 @@ export class MapBlockSectionComponent implements OnInit {
       );
   }
 
-  blockedSectionAlreadyExists = (blockedSection: BlockedSection) => {
-    if (this.dataSource.data) {
-      for (const bS of this.dataSource.data) {
-        if (bS.from === blockedSection.from && bS.to === blockedSection.to) {
-          return true;
-        }
-      }
-      return false;
+  private isEditOrCreateState(blockedSection: any, dataObj: any) {
+    let isNewBlock = true;
+    if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
+      isNewBlock = false;
+      dataObj = { ...blockedSection, isNewBlock };
+      dataObj.from = (this.getLocationById(this._locationById, blockedSection.from) as any).location_id;
+      dataObj.to = (this.getLocationById(this._locationById, blockedSection.to) as any).location_id;
     }
-    return false;
-  };
+    else {
+      dataObj = { isNewBlock };
+    }
 
-  // populateBlockedSectionsByFloor(floor) {
-  //   this.dataSource.data = this.allBlockedSections.filter((data) => {
-  //     const position = this.getPositionByLocationId(this.availablePositions, data.from);
-  //     if (position) {
-  //       return position.position.floor === floor;
-  //     }
-  //   });
-  // }
-
-  getLocationByName(locations: Location[], positionName: string) {
-    return locations.find((data) => {
-      return data.location_id === positionName;
-    });
+    dataObj.blockSections = this.dataSource.data || [];
+    dataObj.floor = this._blockFloor;
+    dataObj.locationByName = this._locationByName;
+    return { isNewBlock, dataObj };
   }
 
-  getLocationById(positions: Location[], locationId: string) {
-    return positions.find((data) => {
-      return data._id === locationId;
-    });
+  getLocationById(_locationById: Map<string, Location>, locationId: string) {
+    return _locationById.get(locationId);
   }
-  // populateAvailablePositions(locations) {
-  //   this.availablePositions = locations.filter((data) => {
-  //     return data.position.floor === this.currentFloor;
-  //   });
-  // }
-
-  // populateBlockedSectionsData() {
-  //   this.subCollector.add(
-  //     this.mapsService.getAllBlockedSections().subscribe((data) => {
-  //       this.allBlockedSections = [...data];
-  //       // this.populateAvailablePositions(this.locations);
-  //       //this.populateBlockedSectionsByFloor(this.currentFloor);
-  //     }),
-  //   );
-  // }
 }

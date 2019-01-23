@@ -21,7 +21,7 @@ export class MapTabManagerComponent implements OnInit, OnDestroy {
   activeLink: string;
   currentLocations: Location[];
   currentBlockSections: BlockedSection[] = [];
-  floor;
+  floor = 0;
 
   constructor(
     public locationService: LocationService,
@@ -42,6 +42,7 @@ export class MapTabManagerComponent implements OnInit, OnDestroy {
 
   private onParantChange = (event: IFileEvent) => {
     if (event.type === MapEventType.LOCATION_UPDATE) {
+      this.activeLink = this.links[0].label;
       const image_id = (event.payload as IDPayload).id;
       this.floor = (event.payload as IMapBasePayload).floor;
       this.locationService.getLocationByMapId$(image_id, this.floor).subscribe((location) => {
@@ -85,5 +86,5 @@ export class MapTabManagerComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

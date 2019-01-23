@@ -7,14 +7,12 @@
 
     <ng-container matColumnDef="from">
       <mat-header-cell *matHeaderCellDef>מנקודה</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getLocationById(_availableLocations,
-        row.from).location_id}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getItem(_locationById, row.from)}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="to">
       <mat-header-cell *matHeaderCellDef>עד נקודה</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getLocationById(_availableLocations,
-        row.to).location_id}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="addOrEditBlock(row)">{{getItem(_locationById, row.to)}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="deleteBlock">

@@ -62,12 +62,15 @@ export const QUERY_GET_LOCATION_BY_MAP_ID = gql`
       icon
       type
       image_id
+      position {
+        floor
+      }
     }
   }
 `;
 @Injectable()
 export class LocationService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
 
   getLocations() {
     return this.apollo
