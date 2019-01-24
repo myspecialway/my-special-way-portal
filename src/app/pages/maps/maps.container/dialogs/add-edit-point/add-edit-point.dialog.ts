@@ -31,16 +31,16 @@ export class AddEditPointDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      location_id: '',
-      name: '',
-      type: '',
+      location_id: ['', Validators.required],
+      name: ['', Validators.required],
+      type: ['', Validators.required],
       icon: '',
     });
     this.icons = this.allicons;
   }
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' : '';
+    return this.formControl.hasError('required') ? 'שדה חובה' : '';
   }
 
   close(cancel = false): void {

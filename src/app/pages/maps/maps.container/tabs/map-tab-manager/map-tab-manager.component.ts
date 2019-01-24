@@ -43,9 +43,13 @@ export class MapTabManagerComponent implements OnInit, OnDestroy {
   }
 
   private onParantChange = (event: IFileEvent) => {
-    if (event.type === MapEventType.LOCATION_UPDATE || event.type === MapEventType.MAP_DELETE) {
+    if (
+      event.type === MapEventType.LOCATION_UPDATE ||
+      event.type === MapEventType.MAP_DELETE ||
+      event.type === MapEventType.MAP_UPLOAD
+    ) {
       this.activeLink = this.links[0].label;
-      if (event.type === MapEventType.LOCATION_UPDATE) {
+      if (event.type === MapEventType.LOCATION_UPDATE || event.type === MapEventType.MAP_UPLOAD) {
         this.imageId = (event.payload as IDPayload).id;
       }
       if (event.type === MapEventType.MAP_DELETE) {
