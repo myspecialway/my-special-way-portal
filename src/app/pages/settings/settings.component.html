@@ -26,12 +26,13 @@
                                         placeholder="קוד"
                                         (change)="codeChanged($event.target.value)"
                                     >
-                                    <mat-error data-test-id="teachercode-err1" *ngIf="teacherCodeFormControl.hasError('required')">קוד מורה הינו שדה חובה</mat-error>
-                                    <mat-error data-test-id="teachercode-err2" *ngIf="teacherCodeFormControl.hasError('minlength') || teacherCodeFormControl.hasError('maxlength') || teacherCodeFormControl.hasError('pattern')">נא הקש 4 ספרות</mat-error>
+                                    <mat-error data-test-id="teachercode-err1" *ngIf="this.form.controls['teachercodecontrol'].hasError('required')">קוד מורה הינו שדה חובה</mat-error>
+                                    <mat-error data-test-id="teachercode-err2" *ngIf="this.form.controls['teachercodecontrol'].hasError('minlength') || this.form.controls['teachercodecontrol'].hasError('maxlength') || this.form.controls['teachercodecontrol'].hasError('pattern')">נא הקש 4 ספרות</mat-error>
                                 </mat-form-field> 
                             </div>
                         </div>
                     </div>
+                    <div>{{formattedMessage}}</div>
                 </mat-card>
             </div>
         </div>
