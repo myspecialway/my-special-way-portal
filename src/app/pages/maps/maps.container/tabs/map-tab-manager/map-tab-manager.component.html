@@ -9,8 +9,7 @@
     <!--<router-outlet></router-outlet>-->
   </div>
 
-  <app-map-points-view *ngIf="activeLink === links[0].label" [locations]="currentLocations" [pointFloor]="floor"
-    (delete)="onLocationDelete($event)" (update)="onLocationUpdate($event)"></app-map-points-view>
-
+  <app-map-points-view *ngIf="activeLink === links[0].label" [pointImageId]="imageId" [locations]="currentLocations"
+    [pointFloor]="floor"></app-map-points-view>
   <app-map-block-section [availableLocations]="currentLocations" [blockFloor]="floor" *ngIf="activeLink === links[1].label"></app-map-block-section>
 </div>

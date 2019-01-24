@@ -138,6 +138,7 @@ export class MapsContainerComponent implements OnInit, OnDestroy {
       payload: {
         id,
         next_active_id: res.id,
+        floor: res.floor,
       },
       type: MapEventType.MAP_DELETE,
     });
