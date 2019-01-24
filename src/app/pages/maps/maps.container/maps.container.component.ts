@@ -168,7 +168,7 @@ export class MapsContainerComponent implements OnInit, OnDestroy {
       data: {
         title: 'מחיקת מפה',
         isOnlyAlert: true,
-        question: ' ללא ניתן למחוק את המפה האחרונה',
+        question: ' לא ניתן למחוק את המפה האחרונה',
       },
     });
   }

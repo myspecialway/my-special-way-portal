@@ -7,7 +7,9 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+    <span *ngIf="isCancelShow">
+      <button mat-button class="msw-button-cancel" (click)="onNoClick()" tabindex="-1">ביטול</button>
+    </span>
     <button type="submit" mat-button class="msw-button-delete" id="confirm-delete-block" [mat-dialog-close]=true>אישור
     </button>
   </div>
