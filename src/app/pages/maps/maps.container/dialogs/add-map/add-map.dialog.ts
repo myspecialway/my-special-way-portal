@@ -42,7 +42,7 @@ export class AddMapDialogComponent {
     this.uploader.uploadAll();
   }
 
-  close(item: IFileEvent): void {
+  close(item?: IFileEvent): void {
     this.dialogRef.close(item);
   }
 

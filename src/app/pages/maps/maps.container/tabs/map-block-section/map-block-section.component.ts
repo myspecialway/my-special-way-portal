@@ -132,11 +132,11 @@ export class MapBlockSectionComponent implements OnInit {
     }
   }
 
-  addOrEditBlock(blockedSection) {
+  addOrEditBlock(blockedSection?: any) {
     let dataObj;
     let isNewBlock;
 
-    ({ isNewBlock, dataObj } = this.isEditOrCreateState(blockedSection, dataObj));
+    ({ isNewBlock, dataObj } = this.isEditOrCreateState(dataObj, blockedSection));
     const dialogRef = this.dialog.open(AddUpdateBlockDialogComponent, {
       data: dataObj,
     });
@@ -178,7 +178,7 @@ export class MapBlockSectionComponent implements OnInit {
       );
   }
 
-  private isEditOrCreateState(blockedSection: any, dataObj: any) {
+  private isEditOrCreateState(dataObj: any, blockedSection?: any) {
     let isNewBlock = true;
     if (blockedSection && blockedSection.reason && blockedSection.from && blockedSection.to) {
       isNewBlock = false;
