@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import BlockedSection from '../../../../../models/blocked-section.model';
-import { BlockedSectionsService } from '../../services/maps.container.service';
+import { BlockedSectionsService } from '../../services/blocked.sections.service';
 import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.service';
 import * as _ from 'lodash';
 import { Location } from '../../../../../models/location.model';
@@ -21,7 +21,7 @@ export class MapBlockSectionComponent implements OnInit {
   private _locationByName: Map<string, Location>;
   private _locationById: Map<string, Location>;
   private _blockFloor: number;
-  private dataSource;
+  private dataSource: MatTableDataSource<BlockedSection>;
   private blockSections: BlockedSection[];
   public displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
 

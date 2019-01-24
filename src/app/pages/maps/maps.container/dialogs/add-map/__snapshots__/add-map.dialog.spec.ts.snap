@@ -37,7 +37,7 @@ exports[`AddMapDialogComponent should match snapshot 1`] = `
     </label>
     <input
       class="form-control"
-      id="floor-number"
+      id="map-floor-number"
       max="100"
       min="-100"
       type="number"

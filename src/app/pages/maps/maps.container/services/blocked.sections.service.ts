@@ -6,7 +6,6 @@ import { catchError } from 'rxjs/operators/catchError';
 
 import BlockedSection from '../../../../models/blocked-section.model';
 import {
-  QUERY_GET_ALL_BLOCKED_SECTIONS,
   MUTATE_ADD_BLOCKED_SECTION,
   MUTATE_DELETE_BLOCKED_SECTION,
   MUTATE_UPDATE_BLOCKED_SECTION,

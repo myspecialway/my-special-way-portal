@@ -75,7 +75,7 @@ import { RestorePasswordErrorDialogComponent } from './pages/user/dialogs/restor
 import { ExitSystemDialogComponent } from './components/navbar/dialogs/exit/exit-system.dialog';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SettingService } from './pages/settings/services/settings.service';
-import { BlockedSectionsService } from './pages/maps/maps.container/services/maps.container.service';
+import { BlockedSectionsService } from './pages/maps/maps.container/services/blocked.sections.service';
 import { MapsContainerComponent } from './pages/maps/maps.container/maps.container.component';
 import { DeleteBlockDialogComponent } from './pages/maps/maps.container/dialogs/delete/delete-block.dialog';
 import { AddUpdateBlockDialogComponent } from './pages/maps/maps.container/dialogs/add-update/add-update-block.dialog';
