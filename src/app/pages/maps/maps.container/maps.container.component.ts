@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { Location } from './../../../models/location.model';
 import { SubscriptionCleaner } from '../../../decorators/SubscriptionCleaner.decorator';
-import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DeleteBlockDialogComponent } from './dialogs/delete/delete-block.dialog';
-import BlockedSection from '../../../models/blocked-section.model';
 import { AddMapDialogComponent } from './dialogs/add-map/add-map.dialog';
 import { MapProxyService } from './services/map-proxy.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,6 +10,7 @@ import { IMapsFile, IMapBasePayload, IFileEvent, MapEventType, IDPayload } from 
 import { forkJoin } from 'rxjs';
 
 import { CommunicationService } from './services/communication.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-maps-container',

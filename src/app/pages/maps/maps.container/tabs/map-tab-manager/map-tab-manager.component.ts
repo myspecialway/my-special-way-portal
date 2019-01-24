@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../../../../../services/location/location.graphql.service';
-import { MatDialog } from '@angular/material';
 import { CommunicationService } from '../../services/communication.service';
 import {
   IFileEvent,
@@ -9,9 +8,7 @@ import {
   IMapBasePayload,
   DeletePayload,
 } from '../../../../../models/maps.file.model';
-import { DeleteBlockDialogComponent } from '../../dialogs/delete/delete-block.dialog';
-import { first } from 'rxjs/operators';
-import { InputLocation, Location } from '../../../../../models/location.model';
+import { Location } from '../../../../../models/location.model';
 import BlockedSection from '../../../../../models/blocked-section.model';
 import { Subscription } from 'rxjs';
 

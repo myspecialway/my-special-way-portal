@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import BlockedSection from '../../../../../models/blocked-section.model';
 import { BlockedSectionsService } from '../../services/blocked.sections.service';
 import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.service';
@@ -17,12 +17,12 @@ import { AddUpdateBlockDialogComponent } from '../../dialogs/add-update/add-upda
 export class MapBlockSectionComponent implements OnInit {
   private _availableLocations: Location[];
   private _avaiableLocationsIds: string[];
-
   private _locationByName: Map<string, Location>;
   private _locationById: Map<string, Location>;
   private _blockFloor: number;
-  private dataSource: MatTableDataSource<BlockedSection>;
   private blockSections: BlockedSection[];
+
+  public dataSource: MatTableDataSource<BlockedSection>;
   public displayedColumns = ['reason', 'from', 'to', 'deleteBlock'];
 
   @Input('blockFloor')
@@ -53,7 +53,6 @@ export class MapBlockSectionComponent implements OnInit {
     private mswSnackbar: MSWSnackbar,
     // tslint:disable-next-line:align
     private blockedSectionsService: BlockedSectionsService,
-    private changeDetectorRefs: ChangeDetectorRef,
   ) {}
 
   private refreshBlockSection(isInit: boolean) {
