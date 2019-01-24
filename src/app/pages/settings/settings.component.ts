@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   form: FormGroup;
   teacherCodeFormControl: FormControl;
 
+  formattedMessage: string;
   @SubscriptionCleaner()
   subCollector;
 
@@ -32,39 +33,31 @@ export class SettingsComponent implements OnInit {
         }
       }),
     );
-    this.createFormControls();
     this.createForm();
   }
 
   private createForm() {
     this.form = this.formBuilder.group({
-      teachercodecontrol: this.teacherCodeFormControl,
-    });
-  }
-
-  private createFormControls() {
-    this.teacherCodeFormControl = new FormControl('', {
-      validators: [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(4),
-        Validators.pattern('^[1-9]+$'),
+      teachercodecontrol: [
+        null,
+        [Validators.required, Validators.pattern('^[1-9]+$'), Validators.minLength(4), Validators.maxLength(4)],
       ],
-      updateOn: 'blur',
     });
   }
 
   codeChanged(code: number): void {
-    let updatedSettings: Settings = new Settings();
-    if (this._settings !== undefined) {
-      updatedSettings = { _id: this._settings._id, teachercode: code };
+    if (this.form.controls['teachercodecontrol'].valid) {
+      let updatedSettings: Settings = new Settings();
+      if (this._settings !== undefined) {
+        updatedSettings = { _id: this._settings._id, teachercode: code };
+      }
+      this.subCollector.add(
+        this.settingsService.update(updatedSettings).then((data) => {
+          if (data !== undefined && data.data !== undefined) {
+            this.teachercode = data.data.updateSettings.teachercode;
+          }
+        }),
+      );
     }
-    this.subCollector.add(
-      this.settingsService.update(updatedSettings).then((data) => {
-        if (data !== undefined && data.data !== undefined) {
-          this.teachercode = data.data.updateSettings.teachercode;
-        }
-      }),
-    );
   }
 }
