@@ -39,7 +39,7 @@ export class MapFloorListComponent implements DoCheck, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  private parentCommunication = (event: IFileEvent) => {
+  public parentCommunication = (event: IFileEvent) => {
     if (event.type === MapEventType.MAP_DELETE) {
       this.removeItemFromMetaData((event.payload as DeletePayload).id);
       this.markActiveSelectedItem((event.payload as DeletePayload).next_active_id);

@@ -15,7 +15,6 @@ import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.s
 })
 export class MapPointsViewComponent {
   displayedColumns = ['name', 'label', 'icon', 'type', 'delete'];
-  //TODO: remove all location with floor that is not curent floor
   public _locations: Location[];
   private _pointFloor: number;
   private _imageId: string;

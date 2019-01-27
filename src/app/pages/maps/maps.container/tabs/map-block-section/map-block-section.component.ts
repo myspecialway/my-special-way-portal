@@ -14,7 +14,7 @@ import { AddUpdateBlockDialogComponent } from '../../dialogs/add-update/add-upda
   templateUrl: './map-block-section.component.html',
   styleUrls: ['./map-block-section.component.scss'],
 })
-export class MapBlockSectionComponent implements OnInit {
+export class MapBlockSectionComponent {
   private _availableLocations: Location[];
   private _avaiableLocationsIds: string[];
   private _locationByName: Map<string, Location>;
@@ -46,12 +46,8 @@ export class MapBlockSectionComponent implements OnInit {
   delete = new EventEmitter();
 
   constructor(
-    private mapsService: BlockedSectionsService,
-    // tslint:disable-next-line:align
     private dialog: MatDialog,
-    // tslint:disable-next-line:align
     private mswSnackbar: MSWSnackbar,
-    // tslint:disable-next-line:align
     private blockedSectionsService: BlockedSectionsService,
   ) {}
 
@@ -65,26 +61,23 @@ export class MapBlockSectionComponent implements OnInit {
       // const bs = this.removeAllBlockThatNotBelong(blockSections);
       this.dataSource = new MatTableDataSource<BlockedSection>(blockSections);
       this.blockSections = blockSections;
-      console.log(`new dataSource ${JSON.stringify(blockSections)}`);
     });
   }
 
-  removeAllBlockThatNotBelong(blockSections: BlockedSection[]): any {
-    return blockSections.filter((blockSection) => {
-      if (!this.getItem(this._locationById, blockSection.from) || !this.getItem(this._locationById, blockSection.to)) {
-        return true;
-      }
-      return false;
-    });
-  }
+  // removeAllBlockThatNotBelong(blockSections: BlockedSection[]): any {
+  //   return blockSections.filter((blockSection) => {
+  //     if (!this.getItem(this._locationById, blockSection.from) || !this.getItem(this._locationById, blockSection.to)) {
+  //       return true;
+  //     }
+  //     return false;
+  //   });
+  // }
 
   private getLocationIdsList(locations) {
     return _.map(locations, (location) => {
       return location._id;
     });
   }
-
-  ngOnInit() {}
 
   getItem(locations, identify) {
     const item = this.getLocationById(locations, identify);
@@ -93,6 +86,7 @@ export class MapBlockSectionComponent implements OnInit {
     }
     return null;
   }
+
   buildLocationDictionaries(locations: Location[]): any {
     this._locationById = new Map<string, Location>();
     this._locationByName = new Map<string, Location>();
@@ -120,7 +114,7 @@ export class MapBlockSectionComponent implements OnInit {
         .subscribe(async (result) => {
           if (result) {
             try {
-              await this.mapsService.delete(_id, this._avaiableLocationsIds).then((success) => {
+              await this.blockedSectionsService.delete(_id, this._avaiableLocationsIds).then((success) => {
                 this.refreshBlockSection(false);
               });
             } catch (error) {
@@ -148,7 +142,7 @@ export class MapBlockSectionComponent implements OnInit {
         async (blockSection) => {
           if (blockSection) {
             if (isNewBlock) {
-              await this.mapsService
+              await this.blockedSectionsService
                 .create(blockSection, this._avaiableLocationsIds)
                 .then((response) => {
                   if (response.data) {
@@ -160,7 +154,7 @@ export class MapBlockSectionComponent implements OnInit {
                   this.mswSnackbar.displayTimedMessage('הוספת מקטע חסום נכשלה');
                 });
             } else {
-              await this.mapsService
+              await this.blockedSectionsService
                 .update(blockSection, this._avaiableLocationsIds)
                 .then((id) => {
                   this.refreshBlockSection(false);
