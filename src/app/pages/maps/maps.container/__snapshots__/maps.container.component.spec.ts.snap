@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapsContainerComponent should match snapshot 1`] = `
+<app-maps-container
+  _sanitizer={[Function Object]}
+  communicationService={[Function CommunicationService]}
+  dialog={[Function Object]}
+  filesObservers={[Function Array]}
+  handleFiles={[Function Function]}
+  handleNewImage={[Function Function]}
+  imagePath={[Function String]}
+  imagesContainer={[Function Map]}
+  mapProxyService={[Function Object]}
+  subCollector={[Function Subscription]}
+  subscribtion={[Function Subscription]}
+>
+  <div
+    class="main-content msw-maps-container"
+    data-test-id="maps-page"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="header-menu-container msw-table-tools-header"
+      >
+        <div
+          class="header-table-count"
+        >
+          <div>
+            <span
+              class="header-table-count-label"
+            >
+              ניהול מפות
+            </span>
+          </div>
+        </div>
+        <div
+          class="example-header msw-table-tools-header"
+        >
+          <button
+            color="primary"
+            data-test-id="add-map-button"
+            mat-raised-button=""
+          >
+            <i
+              class="material-icons"
+            >
+               add 
+            </i>
+             הוסף מפה 
+          </button>
+        </div>
+      </div>
+      <div
+        class="maps-body"
+      >
+        <div
+          class="maps-poi-list"
+        >
+          <app-map-floor-list />
+        </div>
+        <div
+          class="map-container"
+        >
+          <img
+            src="safeString"
+          />
+        </div>
+        <div
+          class="map-control"
+        >
+          <app-map-tab-manager />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-maps-container>
+`;
