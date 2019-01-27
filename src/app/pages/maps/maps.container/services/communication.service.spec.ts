@@ -15,7 +15,7 @@ describe('CommunicationService', () => {
   }));
 
   it('should subscribe handlingMsgDataChanged event', () => {
-    const spy = spyOn(sharedDataService.handlingMsgDataChanged, 'subscribe');
+    spyOn(sharedDataService.handlingMsgDataChanged, 'subscribe');
     sharedDataService.subscribeParantChanged(null, null);
 
     // then
@@ -24,7 +24,7 @@ describe('CommunicationService', () => {
 
   it('should emit handlingMsgDataChanged event', () => {
     const handlingMsgData = { payload: 'blblba', type: 0 };
-    const spy = spyOn(sharedDataService.handlingMsgDataChanged, 'emit');
+    spyOn(sharedDataService.handlingMsgDataChanged, 'emit');
     sharedDataService.emitEvent(handlingMsgData);
 
     // then

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import BlockedSection from '../../../../../models/blocked-section.model';
 import { BlockedSectionsService } from '../../services/blocked.sections.service';
 import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.service';
