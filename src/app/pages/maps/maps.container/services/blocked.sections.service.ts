@@ -58,7 +58,7 @@ export class BlockedSectionsService {
       .toPromise() as Promise<string>;
   }
 
-  delete(id: number, locations: string[]) {
+  delete(id: string, locations: string[]) {
     return this.apollo
       .mutate({
         mutation: MUTATE_DELETE_BLOCKED_SECTION,
