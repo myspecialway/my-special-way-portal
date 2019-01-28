@@ -1,8 +1,17 @@
-import { MAP_FLOOR_MAPS } from './../../../maps-constants';
-import { Location } from './../../../../../models/location.model';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { LocationService } from '../../../../../services/location/location.graphql.service';
-import { IMapFloor } from '../../../../../models/maps.model';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  IterableDiffers,
+  DoCheck,
+  ChangeDetectorRef,
+  OnDestroy,
+} from '@angular/core';
+import { IMapBasePayload, IFileEvent, MapEventType, DeletePayload } from '../../../../../models/maps.file.model';
+import * as _ from 'lodash';
+import { CommunicationService } from '../../services/communication.service';
+import { Subscription } from 'apollo-client/util/Observable';
 
 @Component({
   selector: 'app-map-floor-list',
@@ -10,61 +19,95 @@ import { IMapFloor } from '../../../../../models/maps.model';
   styleUrls: ['./map-floor-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapFloorListComponent implements OnInit {
-  floors: IMapFloor[];
-
-  @Input()
-  currentFloor = 0;
-
-  @Input()
-  set locations(value: Location[]) {
-    this.updateFloors(value || []);
-  }
+export class MapFloorListComponent implements DoCheck, OnDestroy {
+  private subscription: Subscription;
+  private differ: any;
+  floors: IMapBasePayload[] = [];
 
   @Output()
-  change: EventEmitter<IMapFloor> = new EventEmitter<IMapFloor>();
+  change: EventEmitter<IFileEvent> = new EventEmitter<IFileEvent>();
 
-  @Output()
-  delete: EventEmitter<IMapFloor> = new EventEmitter<IMapFloor>();
-
-  constructor(public locationService: LocationService) {}
-
-  async ngOnInit() {
-    // const locations = await this.locationService.getLocations();
-    // this.setFloor(this.currentFloor);
+  constructor(
+    private differs: IterableDiffers,
+    private _changeDetector: ChangeDetectorRef,
+    private communicationService: CommunicationService<IFileEvent>,
+  ) {
+    this.differ = this.differs.find([]).create();
+    this.subscription = this.communicationService.subscribeParantChanged(this.parentCommunication, null);
   }
 
-  updateFloors(locations: Location[]) {
-    const floors = locations.map((location) => location.position.floor);
-    const distinctFloorIndexes = Array.from(new Set(floors));
-    distinctFloorIndexes.sort();
-    this.floors = this.getFloorItems(distinctFloorIndexes);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  public parentCommunication = (event: IFileEvent) => {
+    if (event.type === MapEventType.MAP_DELETE) {
+      this.removeItemFromMetaData((event.payload as DeletePayload).id);
+      this.markActiveSelectedItem((event.payload as DeletePayload).next_active_id);
+    }
+    if (event.type === MapEventType.MAP_UPLOAD) {
+      const payload = event.payload as IMapBasePayload;
+      this.floors.push(payload);
+      this.markActiveSelectedItem(payload.id);
+    }
+    if (event.type === MapEventType.FLOOR_UPDATE_LIST) {
+      const payload = event.payload as IMapBasePayload[];
+      this.floors = payload;
+    }
+    this.sortImageMetaDataList();
+    this._changeDetector.detectChanges();
+  };
+
+  private markActiveSelectedItem(id: string) {
+    this.markItem((item: IMapBasePayload) => {
+      return item.id !== id;
+    }, false);
+
+    this.markItem((item: IMapBasePayload) => {
+      return item.id === id;
+    }, true);
   }
 
-  private getFloorItems(floorIndexes: number[]) {
-    return floorIndexes.reduce((items, floorindex: number) => {
-      const floorItem = MAP_FLOOR_MAPS.find(({ index }) => index === floorindex);
-      if (floorItem) {
-        return [...items, floorItem];
-      } else {
-        return items;
-      }
-    }, []);
+  private markItem(condition: (item: IMapBasePayload) => boolean, isActive: boolean) {
+    _.filter(this.floors, (floor: IMapBasePayload) => {
+      return condition(floor);
+    }).forEach((item) => {
+      item.isActive = isActive;
+    });
+  }
+  private removeItemFromMetaData(id: string): any {
+    _.remove(this.floors, (metaData: IMapBasePayload) => {
+      return metaData.id === id;
+    });
+
+    // this.floors = _.cloneDeep(list);
   }
 
-  onClick(ev: MouseEvent) {
-    const elm = ev && (ev.target as Element);
-    if (!elm) return;
-    const floorIndex = Number(elm['value'] || (elm.parentElement && elm.parentElement['value']));
-    const isDelete = elm.getAttribute('data-action') === 'delete';
-    const selectedFloorItem = Number.isFinite(floorIndex) && this.floors.find(({ index }) => index === floorIndex);
-    if (selectedFloorItem) {
-      this.currentFloor = floorIndex;
-      if (isDelete) {
-        this.delete.emit(selectedFloorItem);
-      } else {
-        this.change.emit(selectedFloorItem);
+  private sortImageMetaDataList() {
+    this.floors = this.floors.sort((a: IMapBasePayload, b: IMapBasePayload) => {
+      return +a.floor - +b.floor;
+    });
+  }
+  ngDoCheck() {
+    const change = this.differ.diff(this.floors);
+    if (change) {
+      if (this.floors.length) {
+        this.sortImageMetaDataList();
       }
     }
+  }
+
+  onDelete(event: MouseEvent, map: IMapBasePayload) {
+    event.stopPropagation();
+    this.change.emit({
+      payload: map,
+      type: MapEventType.MAP_DELETE,
+    });
+  }
+  onSelect(event: MouseEvent, map: IMapBasePayload) {
+    this.markActiveSelectedItem(map.id);
+    this.change.emit({
+      payload: map,
+      type: MapEventType.MAP_SELECT,
+    });
   }
 }

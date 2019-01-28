@@ -7,6 +7,7 @@ export interface Location {
   position: Point;
   type?: string;
   icon?: string;
+  image_id: string;
 }
 
 export interface IDialogLocation {
@@ -27,12 +28,13 @@ export const emptyMapPoint: IDialogLocation = {
   },
 };
 export interface InputLocation {
-  _id: string;
+  _id?: string;
   name?: string;
   location_id?: string;
   position?: Point;
   type?: string;
   icon?: string;
+  image_id: string;
 }
 
 export interface LocationQuery {

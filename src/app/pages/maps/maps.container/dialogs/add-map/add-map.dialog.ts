@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { AuthenticationService } from '../../../../../services/authentication/authentication.service';
 import { environment } from '../../../../../../environments/environment';
+import { IFileEvent, MapEventType } from '../../../../../models/maps.file.model';
 
 @Component({
   selector: 'app-add-map.dialog',
@@ -11,6 +12,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class AddMapDialogComponent {
   mapName = '';
+  floorNumber = null;
   isSending = false;
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
@@ -40,8 +42,8 @@ export class AddMapDialogComponent {
     this.uploader.uploadAll();
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(item?: IFileEvent): void {
+    this.dialogRef.close(item);
   }
 
   private initUploader() {
@@ -58,13 +60,24 @@ export class AddMapDialogComponent {
       item.withCredentials = false;
       console.log('ImageUpload:onBeforeUploadItem:', item);
       this.uploader.options.additionalParameter = {
-        floor: this.mapName,
+        mapName: this.mapName,
+        floor: this.floorNumber,
       };
     };
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log('ImageUpload:onCompleteItem:', item, status, response);
-      this.close();
+      if (status === 201) {
+        const res = JSON.parse(response);
+        this.close({
+          payload: { id: res.id },
+          type: MapEventType.MAP_UPLOAD,
+        } as IFileEvent);
+      } else {
+        this.close({
+          type: MapEventType.MAP_UPLOAD,
+        } as IFileEvent);
+      }
     };
   }
 }

@@ -6,27 +6,29 @@ import { catchError } from 'rxjs/operators/catchError';
 
 import BlockedSection from '../../../../models/blocked-section.model';
 import {
-  QUERY_GET_ALL_BLOCKED_SECTIONS,
   MUTATE_ADD_BLOCKED_SECTION,
   MUTATE_DELETE_BLOCKED_SECTION,
   MUTATE_UPDATE_BLOCKED_SECTION,
+  QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS,
 } from './maps.graphql';
 
 import { DeleteBlockedSectionResponse } from '../../../../models/responses/delete-blocked-section-response.model';
 import { UpdateBlockedSectionResponse } from '../../../../models/responses/update-blocked-section-response.model';
 
 @Injectable()
-export class MapsService {
+export class BlockedSectionsService {
   constructor(private apollo: Apollo) {}
 
-  getAllBlockedSections() {
+  getBlockSectionsByLocations(locations: string[]) {
     return this.apollo
       .watchQuery<{ blockedSections: BlockedSection[] }>({
-        query: QUERY_GET_ALL_BLOCKED_SECTIONS,
+        query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS,
+        variables: { locations },
+        fetchPolicy: 'no-cache',
       })
       .valueChanges.pipe(
         map((res) => {
-          return res.data.blockedSections;
+          return (res.data as any).blockedSectionsByLocations;
         }),
         catchError((err: TypeError) => {
           return observableOf([]);
@@ -34,34 +36,35 @@ export class MapsService {
       );
   }
 
-  create(blockedSection: BlockedSection) {
+  create(blockedSection: BlockedSection, locations: string[]) {
     return this.apollo
       .mutate({
         mutation: MUTATE_ADD_BLOCKED_SECTION,
         variables: { blockedSection: { ...blockedSection } },
-        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
+        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS, variables: { locations } }],
+        awaitRefetchQueries: true,
       })
       .toPromise();
   }
 
-  update(blockedSection: BlockedSection): Promise<string> {
+  update(blockedSection: BlockedSection, locations: string[]): Promise<string> {
     return this.apollo
       .mutate({
         mutation: MUTATE_UPDATE_BLOCKED_SECTION,
         variables: { id: blockedSection._id, blockedSection: { ...blockedSection, _id: undefined } },
-        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS, variables: { id: blockedSection._id } }],
+        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS, variables: { locations } }],
         awaitRefetchQueries: true,
       })
       .pipe(map((res: { data: UpdateBlockedSectionResponse }) => res.data.updateBlockedSection._id))
       .toPromise() as Promise<string>;
   }
 
-  delete(id: number) {
+  delete(id: string, locations: string[]) {
     return this.apollo
       .mutate({
         mutation: MUTATE_DELETE_BLOCKED_SECTION,
         variables: { id },
-        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS }],
+        refetchQueries: [{ query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS, variables: { locations } }],
       })
       .pipe(map((res: { data: DeleteBlockedSectionResponse }) => res.data.deleteBlockedSection._id))
       .toPromise();

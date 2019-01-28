@@ -4,6 +4,7 @@ exports[`AddMapDialogComponent should match snapshot 1`] = `
 <app-add-map
   authenticationService={[Function AuthenticationService]}
   dialogRef={[Function Object]}
+  floorNumber="null"
   isSending="false"
   mapName=""
   uploader={[Function FileUploader]}
@@ -28,6 +29,18 @@ exports[`AddMapDialogComponent should match snapshot 1`] = `
       class="form-control"
       id="map-name"
       type="text"
+    />
+    <label
+      for="map-name"
+    >
+      מספר קומה
+    </label>
+    <input
+      class="form-control"
+      id="map-floor-number"
+      max="100"
+      min="-100"
+      type="number"
     />
     <div
       class="upload-btn-wrapper"

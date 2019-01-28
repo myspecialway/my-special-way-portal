@@ -11,6 +11,17 @@ export const QUERY_GET_ALL_BLOCKED_SECTIONS = gql`
   }
 `;
 
+export const QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS = gql`
+  query getblockedSectionsByLocations($locations: [String]!) {
+    blockedSectionsByLocations(locations: $locations) {
+      _id
+      from
+      to
+      reason
+    }
+  }
+`;
+
 export const MUTATE_ADD_BLOCKED_SECTION = gql`
   mutation addBlockedSection($blockedSection: InputBlockedSection!) {
     createBlockedSection(blockedSection: $blockedSection) {

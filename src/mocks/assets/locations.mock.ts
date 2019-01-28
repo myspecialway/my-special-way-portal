@@ -6,6 +6,7 @@ export const mockedLocations = [
     position: {
       floor: 0,
     },
+    image_id: '1',
   },
   {
     _id: '1',
@@ -14,6 +15,7 @@ export const mockedLocations = [
     position: {
       floor: 1,
     },
+    image_id: '2',
   },
   {
     _id: '3',
@@ -22,5 +24,6 @@ export const mockedLocations = [
     position: {
       floor: 1,
     },
+    image_id: '3',
   },
 ];
