@@ -4,6 +4,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import BlockedSection from '../../../../../models/blocked-section.model';
 import { Location } from '../../../../../models/location.model';
 import { MSWSnackbar } from '../../../../../services/msw-snackbar/msw-snackbar.service';
+import * as _ from 'lodash';
 
 export interface AddUpdateBlockedSection extends BlockedSection {
   isNewBlock: boolean;
@@ -61,6 +62,17 @@ export class AddUpdateBlockDialogComponent implements OnInit {
     }
   };
 
+  ifBlockSectionAlreayExist(from, to) {
+    return _.find(this.data.blockSections, (blocksection: BlockedSection) => {
+      if (
+        (from === blocksection.from && to === blocksection.to) ||
+        (from === blocksection.to && to === blocksection.from)
+      ) {
+        return true;
+      }
+      return false;
+    });
+  }
   confirmAdd(dialogData): void {
     const fromLocation = this.getLocationByName(this.data.locationByName, dialogData.from);
     const toLocation = this.getLocationByName(this.data.locationByName, dialogData.to);
@@ -76,7 +88,10 @@ export class AddUpdateBlockDialogComponent implements OnInit {
       this.mswSnackbar.displayTimedMessage('המקטע כבר קיים');
       return;
     }
-
+    if (this.ifBlockSectionAlreayExist(fromLocation._id, toLocation._id)) {
+      this.mswSnackbar.displayTimedMessage('המקטע כבר קיים');
+      return;
+    }
     if (!this.isPointConnectedInMap(fromLocation, toLocation)) {
       this.mswSnackbar.displayTimedMessage('לא ניתן לחסום נקודות מקומות שונות שאינם מקושרות');
       return;
