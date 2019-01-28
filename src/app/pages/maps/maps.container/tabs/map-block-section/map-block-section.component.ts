@@ -58,20 +58,20 @@ export class MapBlockSectionComponent {
 
   private updateBlockByLocations(locationIds: any[], isInit: boolean) {
     this.blockedSectionsService.getBlockSectionsByLocations(locationIds).subscribe((blockSections) => {
-      // const bs = this.removeAllBlockThatNotBelong(blockSections);
-      this.dataSource = new MatTableDataSource<BlockedSection>(blockSections);
-      this.blockSections = blockSections;
+      const bs = this.removeAllBlockThatNotBelong(blockSections);
+      this.dataSource = new MatTableDataSource<BlockedSection>(bs);
+      this.blockSections = bs;
     });
   }
 
-  // removeAllBlockThatNotBelong(blockSections: BlockedSection[]): any {
-  //   return blockSections.filter((blockSection) => {
-  //     if (!this.getItem(this._locationById, blockSection.from) || !this.getItem(this._locationById, blockSection.to)) {
-  //       return true;
-  //     }
-  //     return false;
-  //   });
-  // }
+  removeAllBlockThatNotBelong(blockSections: BlockedSection[]): any {
+    return blockSections.filter((blockSection) => {
+      if (!this.getItem(this._locationById, blockSection.from) || !this.getItem(this._locationById, blockSection.to)) {
+        return false;
+      }
+      return true;
+    });
+  }
 
   private getLocationIdsList(locations) {
     return _.map(locations, (location) => {

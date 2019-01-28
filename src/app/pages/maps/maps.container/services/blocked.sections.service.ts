@@ -24,6 +24,7 @@ export class BlockedSectionsService {
       .watchQuery<{ blockedSections: BlockedSection[] }>({
         query: QUERY_GET_ALL_BLOCKED_SECTIONS_BY_LOCATIONS,
         variables: { locations },
+        fetchPolicy: 'no-cache',
       })
       .valueChanges.pipe(
         map((res) => {

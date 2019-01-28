@@ -85,6 +85,7 @@ export class LocationService {
       .watchQuery<LocationQuery>({
         query: QUERY_GET_LOCATION_BY_MAP_ID,
         variables: { image_id, floor },
+        // fetchPolicy: 'no-cache',
       })
       .valueChanges.pipe(
         map((res) => (res.data as any).locationsByMapId),
