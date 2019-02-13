@@ -27,7 +27,7 @@ describe('ScheduleDialogComponent', () => {
         _id: '5b27f2936a1f7e2d4c77d1d2',
       },
       {
-        icon: 'breakfest-icon',
+        icon: 'breakfast-icon',
         title: 'ארוחת בוקר',
         _id: '5b41e59a7946d50fa99085e9',
       },
