@@ -113,8 +113,13 @@ export class MapPointsViewComponent {
   }
 
   private findItemByLocationName(location: InputLocation) {
-    return _.find(this._locations, (locationItem: Location) => {
+    const locationFounded = _.find(this._locations, (locationItem: Location) => {
       return locationItem.location_id === location.location_id;
     });
+
+    if (locationFounded && location._id && location._id !== locationFounded._id) {
+      return true;
+    }
+    return false;
   }
 }
