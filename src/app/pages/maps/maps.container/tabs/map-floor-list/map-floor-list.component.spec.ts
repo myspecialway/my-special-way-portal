@@ -81,13 +81,13 @@ describe('MapFloorListComponent', () => {
         id: '2',
         fileName: '2',
         floor: 2,
-        isActive: false,
+        isActive: true,
       } as IMapBasePayload,
       {
         id: '3',
         fileName: '3',
         floor: 3,
-        isActive: true,
+        isActive: false,
       } as IMapBasePayload,
     ];
 
