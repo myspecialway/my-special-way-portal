@@ -62,11 +62,11 @@ export class AddUpdateBlockDialogComponent implements OnInit {
     }
   };
 
-  ifBlockSectionAlreayExist(from, to) {
+  ifBlockSectionAlreayExist(from, to, reason) {
     return _.find(this.data.blockSections, (blocksection: BlockedSection) => {
       if (
-        (from === blocksection.from && to === blocksection.to) ||
-        (from === blocksection.to && to === blocksection.from)
+        (reason === blocksection.reason && from === blocksection.from && to === blocksection.to) ||
+        (reason === blocksection.reason && from === blocksection.to && to === blocksection.from)
       ) {
         return true;
       }
@@ -88,12 +88,12 @@ export class AddUpdateBlockDialogComponent implements OnInit {
       this.mswSnackbar.displayTimedMessage('המקטע כבר קיים');
       return;
     }
-    if (this.ifBlockSectionAlreayExist(fromLocation._id, toLocation._id)) {
+    if (this.ifBlockSectionAlreayExist(fromLocation._id, toLocation._id, dialogData.reason)) {
       this.mswSnackbar.displayTimedMessage('המקטע כבר קיים');
       return;
     }
     if (!this.isPointConnectedInMap(fromLocation, toLocation)) {
-      this.mswSnackbar.displayTimedMessage('לא ניתן לחסום נקודות מקומות שונות שאינם מקושרות');
+      this.mswSnackbar.displayTimedMessage('לא ניתן לחסום נקודות מקומות שונים שאינם מקושרים');
       return;
     }
 

@@ -138,8 +138,8 @@ describe('MapPointsViewComponent', () => {
     component.locations = mockedLocations;
     fixture.detectChanges();
     component.onLocationUpdate({
-      _id: '1',
-      name: 'כיתת סחלב',
+      _id: '2',
+      name: 'ggכיתת סחלב',
       location_id: '1',
       position: {
         floor: 1,
@@ -147,6 +147,22 @@ describe('MapPointsViewComponent', () => {
       image_id: '2',
     });
     expect(mswSnackbarMock.displayTimedMessage).toBeCalled();
+  });
+
+  it('should update location', () => {
+    component.pointFloor = 1;
+    component.locations = mockedLocations;
+    fixture.detectChanges();
+    component.onLocationUpdate({
+      _id: '1',
+      name: 'ggss333כיתת סחלב',
+      location_id: '1',
+      position: {
+        floor: 1,
+      },
+      image_id: '3',
+    });
+    expect(mswSnackbarMock.displayTimedMessage).not.toBeCalled();
   });
 
   it('should create new location', () => {
