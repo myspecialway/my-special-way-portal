@@ -40,9 +40,11 @@ export class MapFloorListComponent implements DoCheck, OnDestroy {
     this.subscription.unsubscribe();
   }
   public parentCommunication = (event: IFileEvent) => {
+    let markTheFirst = false;
     if (event.type === MapEventType.MAP_DELETE) {
       this.removeItemFromMetaData((event.payload as DeletePayload).id);
       this.markActiveSelectedItem((event.payload as DeletePayload).next_active_id);
+      markTheFirst = true;
     }
     if (event.type === MapEventType.MAP_UPLOAD) {
       const payload = event.payload as IMapBasePayload;
@@ -52,8 +54,12 @@ export class MapFloorListComponent implements DoCheck, OnDestroy {
     if (event.type === MapEventType.FLOOR_UPDATE_LIST) {
       const payload = event.payload as IMapBasePayload[];
       this.floors = payload;
+      markTheFirst = true;
     }
     this.sortImageMetaDataList();
+    if (markTheFirst) {
+      this.markActiveSelectedItem(this.floors[0].id);
+    }
     this._changeDetector.detectChanges();
   };
 
