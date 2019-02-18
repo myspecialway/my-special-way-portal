@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
@@ -20,7 +20,7 @@ import { ClassService } from '../../../../class/services/class.graphql.service';
 import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
 import { oneStudentTestData } from '../../../../../../mocks/assets/student.mock';
 import { StudentDetailsPersonalInfoComponent } from './student-details-personal-info.component';
-import Student, { Gender } from '../../../../../models/student.model';
+import { Gender } from '../../../../../models/student.model';
 
 describe('Student Details Personal Info Component', () => {
   let studentServiceMock: Partial<StudentService>;
