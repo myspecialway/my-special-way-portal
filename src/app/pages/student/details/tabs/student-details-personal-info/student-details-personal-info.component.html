@@ -25,13 +25,13 @@
             <div class="msw-student-details-gender">מין</div>
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="student.gender" name="gender"
               required selected="MALE">
-              <mat-button-toggle value="MALE" (click)="toggleIconFace()">
+              <mat-button-toggle value="MALE" (click)="toggleIconFace()">                 
                 <i><mat-icon svgIcon={{maleFaceIcon}}></mat-icon></i>                
               </mat-button-toggle>
               <mat-button-toggle value="FEMALE" (click)="toggleIconFace()">
                 <i><mat-icon svgIcon={{femaleFaceIcon}}></mat-icon></i>
               </mat-button-toggle>
-            </mat-button-toggle-group>
+            </mat-button-toggle-group>            
           </div>
         </div>
 
