@@ -118,9 +118,6 @@ describe('Student Details Personal Info Component', () => {
     });
 
     it('should toggle icon value (enabled/disabled) for male and female face', async () => {
-      // let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
-      // fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
-
       (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
         return Promise.resolve(classTestData.classes);
       });
