@@ -5,5 +5,5 @@ npx jest --coverage && npx codecov || exit 1
 # canceled e2e tests until we will have stable environments
 # yarn build --configuration=local
 # docker-compose up -d
-# mongo mongodb://localhost:27018/msw-test tests/seed/seed.js
+# mongo mongodb://localhost:27018/msw-test tests/טש/seed.js
 # yarn testcafe
