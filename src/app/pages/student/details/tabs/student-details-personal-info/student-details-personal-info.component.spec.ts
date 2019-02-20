@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatSort } from '@angular/material';
 import { StudentDetailsComponent } from '../../student-details.component';
@@ -20,6 +20,7 @@ import { ClassService } from '../../../../class/services/class.graphql.service';
 import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
 import { oneStudentTestData } from '../../../../../../mocks/assets/student.mock';
 import { StudentDetailsPersonalInfoComponent } from './student-details-personal-info.component';
+import { Gender } from '../../../../../models/student.model';
 
 describe('Student Details Personal Info Component', () => {
   let studentServiceMock: Partial<StudentService>;
@@ -116,17 +117,29 @@ describe('Student Details Personal Info Component', () => {
       });
     });
 
-    it('should toggle icon value (enabled/disabled) for male and female face', () => {
-      let fixture: ComponentFixture<StudentDetailsPersonalInfoComponent>;
-      fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+    it('should toggle icon value (enabled/disabled) for male and female face', async () => {
+      (classServiceMock.getAllClasses as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(classTestData.classes);
+      });
 
-      fixture.componentInstance.toggleIconFace();
-      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
-      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
+      (studentServiceMock.create as jest.Mock).mockImplementationOnce(() => {
+        return Promise.resolve(1);
+      });
 
+      const fixture = TestBed.createComponent(StudentDetailsPersonalInfoComponent);
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+      await fixture.componentInstance.populateStudent();
+
+      fixture.componentInstance.student.gender = Gender.MALE;
       fixture.componentInstance.toggleIconFace();
       expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_enabled');
       expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_disabled');
+
+      fixture.componentInstance.student.gender = Gender.FEMALE;
+      fixture.componentInstance.toggleIconFace();
+      expect(fixture.componentInstance.maleFaceIcon).toEqual('male_face_disabled');
+      expect(fixture.componentInstance.femaleFaceIcon).toEqual('female_face_enabled');
     });
 
     it('should render the component as described in snapshot', () => {

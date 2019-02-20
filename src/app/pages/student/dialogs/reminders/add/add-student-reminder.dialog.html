@@ -14,6 +14,7 @@
                                  (click)="toggleDay(i, block)"
                                  class="day-box" [value]="day" >{{day}}</mat-button-toggle>
             </mat-button-toggle-group>
+            <mat-error *ngIf="selectedDay.hasError('required') && (selectedDay.dirty || selectedDay.touched)" class="help-block">לא נבחר יום</mat-error>
             <!--<mat-error *ngIf="!isDaySelected(i, block)" class="help-block">לא נבחר יום</mat-error>-->
           <!--</mat-form-field>-->
 
@@ -60,7 +61,7 @@
 
     <div mat-dialog-actions>
       <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-      <button mat-raised-button color="primary" class="msw-button-add" (click)="close(data)" [disabled]=" !(hours.valid && selectedDay.valid)">{{options.submitButtonLabel}}</button>
+      <button mat-raised-button color="primary" class="msw-button-add" (click)="close(data)" [disabled]="!hours.valid || !( selectedDay.touched)">{{options.submitButtonLabel}}</button>
     </div>
   </form>
 </div>

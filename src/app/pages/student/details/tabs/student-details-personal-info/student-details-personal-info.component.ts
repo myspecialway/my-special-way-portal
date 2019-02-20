@@ -133,7 +133,7 @@ export class StudentDetailsPersonalInfoComponent implements OnInit {
   }
 
   toggleIconFace() {
-    if (this.maleFaceIcon === 'male_face_enabled') {
+    if (this.student.gender === Gender.FEMALE) {
       this.maleFaceIcon = 'male_face_disabled';
       this.femaleFaceIcon = 'female_face_enabled';
     } else {
