@@ -18,10 +18,9 @@ export class AddStudentReminderDialogComponent implements OnInit {
   form: FormGroup;
   formControl = new FormControl('', [Validators.required]);
   dialogData = REMINDERS_CONSTANTS;
-  hours = new FormControl();
-  selectedDay = new FormControl();
+  hours = new FormControl('', [Validators.required]);
+  selectedDay = new FormControl('', [Validators.required]);
   reminderType = ReminderType;
-
   hourInput = new FormControl();
 
   @Output()
