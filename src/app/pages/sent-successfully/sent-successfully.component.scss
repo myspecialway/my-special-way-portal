@@ -1,3 +1,14 @@
+:host {
+  height: 100%;
+  background-color: #fff;
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
 .email-sent-container {
   background-color: #fff;
   display: flex;
@@ -20,5 +31,13 @@
   .email-sent-sub-title {
     color: #222222;
     font-size: 17px;
+  }
+
+  .mat-divider {
+    border-bottom-color: #8249d1;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    width: 300px;
+    margin-top: 15px;
   }
 }
