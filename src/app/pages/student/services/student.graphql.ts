@@ -27,15 +27,21 @@ export const QUERY_GET_STUDENT_BY_ID = gql`
       gender
       schedule {
         index
+        hours
         lesson {
+          _id
           title
           icon
         }
         location {
+          _id
           name
+          location_id
           position {
             floor
           }
+          icon
+          type
         }
         customized
       }
