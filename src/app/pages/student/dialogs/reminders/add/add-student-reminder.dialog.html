@@ -7,23 +7,13 @@
       <div class="day">
         <label> יום</label>
         <div class="selections">
-          <!--<mat-form-field>-->
-            <mat-button-toggle-group multiple name="fontStyle" aria-label="Font Style" [formControl]="selectedDay" required>
-              <mat-button-toggle *ngFor="let day of dialogData.days; let i=index"
-                                 [class.selected-day]="isDaySelected(i, block)"
-                                 (click)="toggleDay(i, block)"
-                                 class="day-box" [value]="day" >{{day}}</mat-button-toggle>
-            </mat-button-toggle-group>
-            <mat-error *ngIf="selectedDay.hasError('required') && (selectedDay.dirty || selectedDay.touched)" class="help-block">לא נבחר יום</mat-error>
-            <!--<mat-error *ngIf="!isDaySelected(i, block)" class="help-block">לא נבחר יום</mat-error>-->
-          <!--</mat-form-field>-->
-
-          <!--<div *ngFor="let day of dialogData.days; let i=index"-->
-               <!--[class.selected-day]="isDaySelected(i, block)" class="day-box" (click)="toggleDay(i, block)">-->
-            <!--{{day}}-->
-          <!--</div>-->
-          <!--<mat-error class="error-msg" *ngIf="!block.daysindex.size">לא נבחר יום</mat-error>-->
-
+          <mat-button-toggle-group multiple name="fontStyle" aria-label="Font Style" [formControl]="selectedDay" required>
+            <mat-button-toggle *ngFor="let day of dialogData.days; let i=index"
+                                [class.selected-day]="isDaySelected(i, block)"
+                                (click)="toggleDay(i, block)"
+                                class="day-box" [value]="day" >{{day}}</mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-error *ngIf="selectedDay.hasError('required') && (selectedDay.dirty || selectedDay.touched)" class="help-block">לא נבחר יום</mat-error>
         </div>
       </div>
 
@@ -33,24 +23,15 @@
           {{selectedHour}}
           <i class="material-icons" (click)="removeHour(selectedHour, block)">close</i>
         </span>
-        <mat-form-field *ngIf="block.hourSelectorEnabled" class="hour-selection">
-          <mat-select (ngModelChange)="selectHour($event, block)" [formControl]="hours" required>
-            <mat-option disabled>בחר</mat-option>
+        <mat-form-field class="hour-selection">
+          <input type="text" matInput [formControl]="hours" [matAutocomplete]="auto" required (ngModelChange)="setSelectedHour($event)"> <!-- (ngModelChange)="selectHour($event, block)">-->
+          <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let hour of dialogData.hours" [value]="hour">{{hour}}</mat-option>
-          </mat-select>
-
-          <!--@TODO: change select box to auto complete to allow inserting an hour-->
-          <!--<input type="text" name="hourInput" matInput [formControl]="hourInput" [matAutocomplete]="auto">-->
-          <!--<mat-autocomplete #auto="matAutocomplete" (onSelectionChange)="selectHour($event, block)" [formControl]="hours">-->
-            <!--<mat-option disabled>בחר</mat-option>-->
-            <!--<mat-option *ngFor="let hour of dialogData.hours" [value]="hour">-->
-              <!--{{hour}}-->
-            <!--</mat-option>-->
-          <!--</mat-autocomplete>-->
+          </mat-autocomplete>
           <mat-error *ngIf="hours.hasError('required')" class="help-block">נא הכנס שעה</mat-error>
-        </mat-form-field>
-
-        <i *ngIf="!block.hourSelectorEnabled" class="add-select material-icons" (click)="enableHourSelector(block)"> add </i>
+      </mat-form-field>
+        <i class="add-select material-icons" (click)="selectHour(block)"> add </i>
+        <i class="hour-label">לחץ על ה-'+' להוספת השעה</i>          
       <hr>
       </div>
     </div>
@@ -61,7 +42,7 @@
 
     <div mat-dialog-actions>
       <button type="button" mat-button class="msw-button-cancel" tabindex="-1" (click)="close()">ביטול</button>
-      <button mat-raised-button color="primary" class="msw-button-add" (click)="close(data)" [disabled]="!hours.valid || !( selectedDay.touched)">{{options.submitButtonLabel}}</button>
+      <button mat-raised-button color="primary" class="msw-button-add" (click)="close(data)" [disabled]="!hasData2Submit">{{options.submitButtonLabel}}</button>
     </div>
   </form>
 </div>

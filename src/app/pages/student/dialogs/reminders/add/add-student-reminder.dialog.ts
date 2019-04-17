@@ -22,6 +22,8 @@ export class AddStudentReminderDialogComponent implements OnInit {
   selectedDay = new FormControl('', [Validators.required]);
   reminderType = ReminderType;
   hourInput = new FormControl();
+  selectedHour: string;
+  hasData2Submit: boolean;
 
   @Output()
   cancel = new EventEmitter<void>();
@@ -39,9 +41,14 @@ export class AddStudentReminderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.hasData2Submit = false;
     if (this.data.schedule.length === 0) {
       this.addReminder();
     }
+    if (this.data.schedule.length > 0) {
+      this.hasData2Submit = true;
+    }
+
     this.form = this.formBuilder.group({});
   }
 
@@ -96,17 +103,19 @@ export class AddStudentReminderDialogComponent implements OnInit {
     block.daysindex[action](multiDayIndex);
   }
 
-  selectHour(hour: string, block: IDialogReminderTime) {
-    if (!hour || block.hours.has(hour)) return;
-    block.hours.add(hour);
+  setSelectedHour(hour: string) {
+    this.selectedHour = hour;
+  }
+
+  selectHour(block: IDialogReminderTime) {
+    if (!this.selectedHour || block.hours.has(this.selectedHour)) return;
+    block.hours.add(this.selectedHour);
     block.hours = this.getSortedHours(block.hours);
     this.enableHourSelector(block, false);
+    this.hasData2Submit = true;
   }
 
   enableHourSelector(block, val = true) {
-    // if(block.hours.size === 0 ){
-    //   return;
-    // }
     this.selectedDay.setErrors(null);
     block.hourSelectorEnabled = val;
   }
