@@ -23,7 +23,9 @@
     "testcafe-live": "testcafe-live chrome tests/",
     "testcafe": "testcafe chrome tests/ -s \"tests/eyes/screenshots\"",
     "format:fix": "pretty-quick --staged",
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\""
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/app/**/*{.ts, .scss}\"",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -73,7 +75,8 @@
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "web-animations-js": "2.3.1",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
@@ -149,5 +152,6 @@
       "!src/app/apollo/state/apollo-config.factory.ts",
       "!src/app/apollo/state/resolvers/*"
     ]
-  }
+  },
+  "snyk": true
 }
