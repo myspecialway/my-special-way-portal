@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.234",
+  "version": "0.0.235",
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
@@ -74,9 +74,9 @@
     "popper.js": "1.14.3",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
+    "snyk": "^1.161.1",
     "web-animations-js": "2.3.1",
-    "zone.js": "0.8.26",
-    "snyk": "^1.161.1"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
