@@ -7,11 +7,6 @@ services:
 addons:
   firefox: latest
   chrome: stable
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable fluxbox
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
