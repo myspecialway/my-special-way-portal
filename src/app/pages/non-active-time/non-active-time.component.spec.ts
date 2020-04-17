@@ -238,14 +238,14 @@ describe('non active time component', () => {
   it('should get correct date-display string for an event startDate===endDate', async () => {
     const fixture = await createFixture();
     expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData.nonActiveTimes[3])).toEqual(
-      '2018 M12 10',
+      'December 10, 2018',
     );
   });
 
   it('should get correct date-display string for an event startDate!==endDate', async () => {
     const fixture = await createFixture();
     expect(fixture.componentInstance.getDatesDisplayData(nonActiveTimeTestData.nonActiveTimes[1])).toEqual(
-      '2018 M12 10 עד 2018 M12 11',
+      'December 10, 2018 עד December 11, 2018',
     );
   });
 
