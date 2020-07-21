@@ -90,7 +90,7 @@
     "@types/jquery": "1.10.31",
     "@types/node": "6.0.73",
     "casual": "^1.5.19",
-    "codecov": "^3.0.2",
+    "codecov": "^3.7.1",
     "codelyzer": "4.2.1",
     "eyes.images": "^0.0.52",
     "fs-readfile-promise": "^3.0.1",
