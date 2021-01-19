@@ -258,4 +258,9 @@ export const MSW_SYMBOLS = [
   'traffic.png',
   'trip.png',
   'writing.png',
+  'class-Cocus.png',
+  'class-Kiwi.png',
+  'class-Pecan.png',
+  'class-Pistook.png',
+  'supermarket.png',
 ];
