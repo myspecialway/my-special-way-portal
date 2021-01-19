@@ -182,3 +182,5 @@ describe('MapPointsViewComponent', () => {
     expect(locationServiceMock.delete).toBeCalled();
   });
 });
+
+// empty comment
