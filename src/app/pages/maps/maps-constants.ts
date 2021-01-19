@@ -281,4 +281,9 @@ export const MSW_SYMBOLS = [
   'touchIt.jpg',
   'Typing.png',
   'writing.png',
+  'class-Cocus.png',
+  'class-Kiwi.png',
+  'class-Pecan.png',
+  'class-Pistook.png',
+  'supermarket.png',
 ];
