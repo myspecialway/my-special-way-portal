@@ -14,6 +14,4 @@ kubectl config set users.clusterUser_MSWPPR_myspecialway.client-certificate-data
 kubectl config set users.clusterUser_MSWPPR_myspecialway.client-key-data "$KUBE_CLIENT_KEY"
 
 # ignore certificate validity -- BAD --
-kubectl --insecure-skip-tls-verify
-
-kubectl get nodes
+kubectl --insecure-skip-tls-verify get nodes
