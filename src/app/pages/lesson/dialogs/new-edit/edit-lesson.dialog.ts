@@ -190,11 +190,11 @@ export class EditLessonDialogComponent implements OnInit {
     'toilet floor 1',
     'toilet floor 2',
     'trip',
-    'class-Cocus.png',
-    'class-Kiwi.png',
-    'class-Pecan.png',
-    'class-Pistook.png',
-    'supermarket.png',
+    'class-Cocus',
+    'class-Kiwi',
+    'class-Pecan',
+    'class-Pistook',
+    'supermarket',
   ];
   form: FormGroup;
   public get isDuplicate(): boolean {
