@@ -10,7 +10,7 @@ addons:
     sources:
       - google-chrome
     packages:
-      - google-chrome-stable fluxbox
+      - google-chrome-beta fluxbox
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
