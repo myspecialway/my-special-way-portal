@@ -5,8 +5,8 @@ sudo: required
 services:
   - docker
 addons:
-  # firefox: latest
-  chrome: stable
+  firefox: latest
+  chrome: beta
   apt:
     sources:
       - google-chrome
