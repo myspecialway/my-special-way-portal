@@ -141,7 +141,6 @@ export class EditLessonDialogComponent implements OnInit {
     'Holidays',
     'Homeland',
     'MedicineCabinet',
-    'RoadSafety-Copy',
     'RoadSafety',
     'Snoozeland',
     'SumUpDay',

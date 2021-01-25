@@ -172,7 +172,6 @@ export const MSW_SYMBOLS = [
   'Holidays.png',
   'Homeland.png',
   'MedicineCabinet.png',
-  'RoadSafety-Copy.png',
   'RoadSafety.png',
   'Snoozeland.png',
   'SumUpDay.png',
