@@ -44,7 +44,7 @@
     "@angular/platform-server": "6.0.7",
     "@angular/router": "6.0.7",
     "@auth0/angular-jwt": "1.2.0",
-    "ajv": "6.4.0",
+    "ajv": "6.12.3",
     "apollo-angular": "^1.1.2",
     "apollo-angular-link-http": "^1.1.0",
     "apollo-cache-inmemory": "^1.2.1",
